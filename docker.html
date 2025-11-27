@@ -6,6 +6,7 @@
   <title>Document</title>
 </head>
 <body>
+<div>
   Docker
 
 * 概要
@@ -21,7 +22,8 @@
 
 * 環境
 - Ubuntu (Vagrant) <- Docker
-
+</div>
+<div>
 Dockerをインストールする仮想マシンとして、Vagrantを使ってUbuntuを用意していきます。
 Ubuntu Boxの追加
 Ubuntuの起動
@@ -42,8 +44,9 @@ vagrant init trusty64
 vi Vagrantfile
 vagrant up
 vagrant ssh
+</div>
 
-
+<div>
 公式サイトの手順にしたがってDockerをインストールしていきます。
 システムの更新
 Dockerのインストール
@@ -68,8 +71,8 @@ sudo apt-get update
 sudo apt-get install docker.io
 sudo ln -sf /usr/bin/docker.io /usr/local/bin/docker
 sudo docker --version
-
-
+</div>
+<div>
 まずはCentOSを導入し、Imageの操作方法を見ていきます。
 Imageの検索
 Imageの取得
@@ -104,7 +107,9 @@ sudo docker rm 031
 sudo docker ps -a
 
 
+</div>
 
+<div>
 実行中のContainerを操作する方法について見ていきます。
 バックグラウンドでの起動
 ログの確認
@@ -121,7 +126,7 @@ sudo docker ps
 sudo docker ps -a
 sudo docker start 765
 sudo docker ps
-
+</div>
 
 Containerに変更を加えたのちに、そのContainerからImageを作ってみます。
 Container内での作業
