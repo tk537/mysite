@@ -6,7 +6,6 @@
   <title>Document</title>
 </head>
 <body>
-<div>
   <pre>
   Docker
 
@@ -23,10 +22,8 @@
 
 * 環境
 - Ubuntu (Vagrant) <- Docker
-  </pre>
-</div>
-<div>
-Dockerをインストールする仮想マシンとして、Vagrantを使ってUbuntuを用意していきます。
+
+ Dockerをインストールする仮想マシンとして、Vagrantを使ってUbuntuを用意していきます。
 Ubuntu Boxの追加
 Ubuntuの起動
 Ubuntuへの接続
@@ -46,9 +43,9 @@ vagrant init trusty64
 vi Vagrantfile
 vagrant up
 vagrant ssh
-</div>
 
-<div>
+
+
 公式サイトの手順にしたがってDockerをインストールしていきます。
 システムの更新
 Dockerのインストール
@@ -73,8 +70,9 @@ sudo apt-get update
 sudo apt-get install docker.io
 sudo ln -sf /usr/bin/docker.io /usr/local/bin/docker
 sudo docker --version
-</div>
-<div>
+
+
+
 まずはCentOSを導入し、Imageの操作方法を見ていきます。
 Imageの検索
 Imageの取得
@@ -109,9 +107,6 @@ sudo docker rm 031
 sudo docker ps -a
 
 
-</div>
-
-<div>
 実行中のContainerを操作する方法について見ていきます。
 バックグラウンドでの起動
 ログの確認
@@ -128,7 +123,6 @@ sudo docker ps
 sudo docker ps -a
 sudo docker start 765
 sudo docker ps
-</div>
 
 Containerに変更を加えたのちに、そのContainerからImageを作ってみます。
 Container内での作業
@@ -155,7 +149,7 @@ sudo docker run taguchi/echo
 
 DockerFile
 FROM centos
-MAINTAINER Gen Taguchi <taguchi@gmail.com>
+MAINTAINER tk
 # RUN: buildするときに実行される
 RUN echo "now building..."
 # CMD: runするときに実行される
@@ -175,7 +169,7 @@ sudo docker run -p 8080:80 -d taguchi/httpd
 
 Dockerfile
 FROM centos
-MAINTAINER Gen Taguchi <taguchi@gmail.com>
+MAINTAINER tk
 # RUN: buildするときに実行される
 # RUN echo "now building..."
 # CMD: runするときに実行される
@@ -193,6 +187,6 @@ push
 確認
 sudo docker login
 sudo docker push taguchi/httpd
-
+</pre>
 </body>
 </html>
