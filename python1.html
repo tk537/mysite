@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+ <pre>
+python基本文法 
+
+Pythonの概要に触れたのち、学習する順序と基礎文法編のアウトライン、学習のコツについて説明していきます。
+
+概要
+学習の順序
+アウトライン
+学習のコツ
+補足情報 Pythonの公式サイト
+2022年1月4日
+Pythonの公式サイトは以下となります。日本語のチュートリアルも用意されています。
+
+・Welcome to Python.org
+https://www.python.org/
+
+
+
+数値の処理方法を見ながら、今回使っていくブラウザ実行環境の使い方を説明していきます。
+
+ブラウザ実行環境
+値の表示
+プログラムの実行
+コメント
+ブラウザ実行環境の機能
+バージョン確認
+補足情報 ショートカットキーについて
+2022年1月4日
+ブラウザ実行環境で使えるショートカットキーは以下にまとめてあります。参考にしてみてください。
+
+・ヘルプ「ブラウザ実行環境のエディタで使えるショートカットキーについて知りたい」
+https://dotinstall.com/help/903
+
+# 数値の表示
+print(10)
+print(-25) # マイナス値もOK
+
+
+
+
+Pythonで数値を表現する方法について更に学んでいきます。
+
+区切り文字 _
+コメントのショートカットキー
+e
+
+# print(10_000_000)
+# print(1.52)
+# print(-3.2)
+print(1.2e4) # 1.2に10の4乗をかけたもの 12000
+print(1.2e-4) # 1.2に10の-4乗をかけたもの 0.00012
+
+
+
+数値の演算をするための演算子や、演算における注意点について学んでいきます。
+
+演算子 + - * ** / // %
+実数の扱い
+優先度 ()
+補足情報 Pythonのコーディングスタイルについて
+2022年1月4日
+演算子の前後に空白を置くかどうかなどのコーディングに関するガイドは以下にまとめられています。慣れてきたら一読しておくといいでしょう。
+
+・はじめに — pep8-ja 1.0 ドキュメント
+https://pep8-ja.readthedocs.io/ja/latest/
+
+# print(10 + 3) # 13
+# print(10 - 3) # 7
+# print(10 * 3) # 30
+# print(10 ** 3) # 1000
+# print(10 / 3) # 3.3333...
+# print(10 // 3) # 3
+# print(10 % 3) # 1
+# print(10 + 2 * 3) # 16
+print((10 + 2) * 3) # 36
+
+
+
+銀行のプログラムを例に出しながら、変数の使い方について説明していきます。
+
+銀行のプログラム
+変数
+代入、代入演算子
+変数のメリット
+
+# print(10000)
+# print(10000 * 1.1)
+# print(10000 * 1.1 * 1.1)
+
+# 変数
+initial_balance = 10000
+rate = 1.1
+print(initial_balance)
+print(initial_balance * rate)
+print(initial_balance * rate * rate)
+
+
+
+変数を使うときに守るべきルールについて、具体的なコード例で確認していきます。
+
+変数名のルール
+動作確認
+リテラル表現
+
+# リテラル
+# print(10000)
+# print(10000 * 1.1)
+# print(10000 * 1.1 * 1.1)
+
+# 変数
+# a-z A-Z 0-9 _
+# 数字から始めてはいけない
+# 予約語は使ってはいけない if else or and ...
+# 大文字小文字は区別される
+initial_balance = 10000
+rate = 1.1
+print(initial_balance)
+print(initial_balance * rate)
+print(initial_balance * rate * rate)
+
+
+
+
+変数に値を再代入する方法や、定数の考え方について触れていきます。
+
+値の再代入
++=、*=
+定数の考え方
+
+initial_balance = 10000
+RATE = 1.1 # 定数
+print(initial_balance)
+print(initial_balance * RATE)
+print(initial_balance * RATE * RATE)
+
+# initial_balance = 11000
+# initial_balance = initial_balance + 1000
+# initial_balance += 1000
+initial_balance *= 1.5
+print(initial_balance)
+print(initial_balance * RATE)
+print(initial_balance * RATE * RATE)
+
+
+
+Pythonで文字列を表現するための、いくつかの方法について見ていきます。
+
+文字列のリテラル表現
+改行の表現 \a
+"""..."""、'''...'''
+
+# 文字列
+# print('It is a pen.')
+# print('It\'s a pen.')
+# print("It's a pen.")
+print("It's \na \npen.")
+print("""It's 
+a 
+pen.""")
+print("""\
+It's 
+a 
+pen.""")
+
+
+文字列の連結をしたり、繰り返したりするための演算子について見ていきます。
+
+文字列の連結 + 空白
+文字列の繰り返し *
+
+# print("*-" * 10)
+# print("Taro" " " "Yamada")
+# print("Taro" + " " + "Yamada")
+# print("*-" * 10)
+
+fname = "Taro"
+lname = "Yamada"
+separator = "=-"
+print(separator * 10)
+# print(fname " " lname)
+print(fname + " " + lname)
+print(separator * 10)
+
+
+
+文字列に値を埋め込むための命令や記法について確認していきます。
+
+値の埋め込み
+.format()
+f文字列
+
+fname = "Taro"
+lname = "Yamada"
+age = 32
+separator = "=-"
+print(separator * 10)
+# print("I am " + fname + " " + lname + ", " + str(age) + " years old!")
+# print("I am {} {}, {} years old!".format(fname, lname, age))
+print(f"I am {fname} {lname}, {age} years old!")
+print(separator * 10)
+
+
+
+
+ユーザーからの入力を受け取ることができるinput()について見ていきます。
+input()
+input()の仕様
+type()
+int()
+float()
+num = input("Number? ")
+# print(type(num))
+# print(int(num) * 2)
+print(float(num) * 2) # 浮動小数点数
+
+
+input()を使って、インタラクティブに銀行のプログラムを操作できるように書き換えていきます。
+銀行プログラムの書き換え
+f文字列のオプション
+initial_balance = int(input("Initial Balance? "))
+RATE = 1.1
+print(f"Year 0: {initial_balance:,.2f}")
+print(f"Year 1: {initial_balance * RATE:,.2f}")
+print(f"Year 2: {initial_balance * RATE * RATE:,.2f}")
+
+
+なんらかの条件に応じて場合分けをしていくことができるifの使い方について見ていきます。
+順次処理
+条件分岐
+if
+# 順次処理
+# print(100)
+# print(100)
+# print(100)
+# print(100)
+
+# 条件分岐
+# if
+score = int(input("Score? "))
+if score > 80:
+    print("OK!")
+    print("Good Job")
+print("End of program ...")
+
+
+条件が成立しなかった場合の処理を書く方法について紹介していきます。
+else:
+字下げに関する注意点
+比較演算子 > >= < <= == !=
+# 条件分岐
+# if
+score = int(input("Score? "))
+# 比較演算子
+# > >=
+# < <=
+# == !=
+if score > 80:
+    print("OK!")
+    print("Good Job")
+else:
+    print("NG!")
+    print("Nice try!")
+print("End of program ...")
+
+
+条件を組み合わせることができる論理演算子について説明していきます。
+論理演算子 and or not
+動作確認
+# 論理演算子
+# and なおかつ
+# or もしくは
+# not 〜ではない
+
+eng_score = int(input("English Score? "))
+math_score = int(input("Math Score? "))
+
+# if eng_score == 100 and math_score == 100:
+# if eng_score == 100 or math_score == 100:
+if not (eng_score == 0 or math_score == 0):
+    print("OK!")
+else:
+    print("NG!")
+
+
+複数の条件で場合分けをしていくために使えるelifについて説明していきます。
+elif
+論理演算子の復習
+signal = input("Signal color? ")
+
+if signal == "red":
+    print("Stop!")
+elif signal == "yellow":
+    print("Slow down!")
+elif signal == "blue" or signal == "green":
+    print("Go!")
+else:
+    print("Invalid signal color...")
+
+
+Python 3.10から使うことができるmatchの構文について、具体例を出しながら説明していきます。
+match
+|
+matchに関する注意点
+signal = input("Signal color? ")
+
+# if signal == "red":
+#     print("Stop!")
+# elif signal == "yellow":
+#     print("Slow down!")
+# elif signal == "blue" or signal == "green":
+#     print("Go!")
+# else:
+#     print("Invalid signal color...")
+
+# match
+# Python 3.10〜
+
+match signal:
+    case "red":
+        print("Stop!")
+    case "yellow":
+        print("Slow down!")
+    case "blue" | "green":
+        print("Go!")
+    case _:
+        print("Invalid signal color...")
+
+
+値の後ろにifをつける記法について、具体的なコードを見ながら説明していきます。
+銀行プログラムの書き換え
+if ... else ... の書き換え
+initial_balance = int(input("Initial Balance? "))
+# if initial_balance >= 100_000:
+#     RATE = 1.1
+# else:
+#     RATE = 1.01
+RATE = 1.1 if initial_balance >= 100_000 else 1.01
+print(f"Current rate: {RATE:.2f}")
+print(f"Year 0: {initial_balance:,.2f}")
+print(f"Year 1: {initial_balance * RATE:,.2f}")
+print(f"Year 2: {initial_balance * RATE * RATE:,.2f}")
+
+
+matchとifを組み合わせて、値の範囲に応じて条件分岐をしていく方法について見ていきます。
+matchによる書き換え
+matchとifの組み合わせ
+initial_balance = int(input("Initial Balance? "))
+# if initial_balance >= 100_000:
+#     RATE = 1.1
+# elif initial_balance >= 80_000:
+#     RATE = 1.08
+# elif initial_balance >= 60_000:
+#     RATE = 1.06
+# else:
+#     RATE = 1.01
+match initial_balance:
+    case n if n >= 100_000:
+        RATE = 1.1
+    case n if n >= 80_000:
+        RATE = 1.08
+    case n if n >= 60_000:
+        RATE = 1.06
+    case _:
+        RATE = 1.01
+print(f"Current rate: {RATE:.2f}")
+print(f"Year 0: {initial_balance:,.2f}")
+print(f"Year 1: {initial_balance * RATE:,.2f}")
+print(f"Year 2: {initial_balance * RATE * RATE:,.2f}")
+
+
+反復処理を実現するためのforとrange()について、その使い方を見ていきます。
+反復処理
+for
+range()
+# 反復処理
+# for
+# for i in range(10): # 0, 1, 2, ... 9
+# for i in range(3, 9): # 3, 4, 5, ... 8
+# for i in range(3, 9, 2): # 3, 5, 7
+for i in range(8, 5, -1): # 8, 7, 6
+    print(f"{i} Hello!")
+
+
+銀行のプログラムを書き換えながら、forを使うことのメリットについて説明していきます。
+銀行プログラムの書き換え
+forを使うメリット
+initial_balance = int(input("Initial Balance? "))
+RATE = 1.1
+# print(f"Year 0: {initial_balance:,.2f}")
+# print(f"Year 1: {initial_balance * RATE:,.2f}")
+# print(f"Year 2: {initial_balance * RATE * RATE:,.2f}")
+# print(f"Year 0: {initial_balance * RATE ** 0:,.2f}")
+# print(f"Year 1: {initial_balance * RATE ** 1:,.2f}")
+# print(f"Year 2: {initial_balance * RATE ** 2:,.2f}")
+# for i in range(3):
+#     print(f"Year {i}: {initial_balance * RATE ** i:,.2f}")
+for year in range(10):
+    print(f"Year {year}: {initial_balance * RATE ** year:,.2f}")
+
+
+forの処理をさらにforで囲うことで、より複雑な反復処理を実装していきます。
+銀行プログラムの書き換え
+forの追加
+initial_balance = int(input("Initial Balance? "))
+RATE = 1.1
+# for year in range(3):
+#     print(f"Year {year}: {initial_balance * RATE ** year:,.2f}")
+# initial_balance += 10_000
+# for year in range(3):
+#     print(f"Year {year}: {initial_balance * RATE ** year:,.2f}")
+# initial_balance += 10_000
+# for year in range(3):
+#     print(f"Year {year}: {initial_balance * RATE ** year:,.2f}")
+
+for i in range(3):
+    if i != 0:
+        initial_balance += 10_000
+    for year in range(3):
+        print(f"Year {year}: {initial_balance * RATE ** year:,.2f}")
+
+
+
+回数が定まっていない反復処理を行うためのwhileについて見ていきます。
+メニュープログラムの実装
+while
+
+# for 回数が決まっている
+# while 回数が決まっていない
+command = int(input("Select 1, 2, 3 (0: Exit) "))
+while command != 0:
+    match command:
+        case 1:
+            print("Menu 1")
+        case 2:
+            print("Menu 2")
+        case 3:
+            print("Menu 3")
+    command = int(input("Select 1, 2, 3 (0: Exit) "))
+
+
+常に条件が成立するwhileを使うことで、必ず1回は実行される反復処理を実装していきます。
+while 1 == 1:
+常に条件が成立するwhileのメリット
+# command = None
+# while command != 0:
+while 1 == 1:
+    command = int(input("Select 1, 2, 3 (0: Exit) "))
+    match command:
+        case 1:
+            print("Menu 1")
+        case 2:
+            print("Menu 2")
+        case 3:
+            print("Menu 3")
+        case 0:
+            pass
+
+
+
+反復処理を抜けるためのbreak、以降の処理をスキップして次の反復処理に移るためのcontinueについて見ていきます。
+break
+continue
+while 1 == 1:
+    command = int(input("Select 1, 2, 3 (0: Exit) "))
+    match command:
+        case 1:
+            print("Menu 1")
+        case 2:
+            print("Menu 2")
+        case 3:
+            print("Menu 3")
+        case 0:
+            break
+        case _:
+            print("Invalid command, try again")
+            continue
+    print("Menu processed correctly")
+
+
+比較演算子や演算の結果がTrue/Falseという真偽値で評価されることについて説明していきます。
+真偽値 True/False
+比較演算子による評価
+演算結果による評価
+# 真偽値
+# True それ以外の値
+# False 0 0.0 '' None
+
+# 10 > 5 True
+# 10 == 5 False
+
+# while True:
+# while 1 + 3:
+while '':
+    command = int(input("Select 1, 2, 3 (0: Exit) "))
+    match command:
+        case 1:
+            print("Menu 1")
+        case 2:
+            print("Menu 2")
+        case 3:
+            print("Menu 3")
+        case 0:
+            break
+        case _:
+            print("Invalid command, try again")
+            continue
+    print("Menu processed correctly")
+
+
+学習していると遭遇するであろう主なエラーについて、メッセージの読み取り方を見ていきます。
+SyntaxError
+IndentationError
+# SyntaxError : () '' "" for/if/while
+# IndentationError
+
+initial_balance = int(input("Initial Balance? "))
+RATE = 1.1
+for year in range(3):
+    print(f"Year {year}: {initial_balance * RATE ** year:,.2f}")
+
+
+実行時に検出される例外について、いくつか主なものを見ていきます。
+例外
+NameError
+TypeError
+ValueError
+# SyntaxError : () '' "" for/if/while
+# IndentationError
+
+# 例外
+# NameError
+# TypeError
+# ValueError
+
+initial_balance = int(input("Initial Balance? "))
+RATE = 1.1
+for year in range(3):
+    print(f"Year {year}: {initial_balance * RATE ** year:,.2f}")
+
+
+
+例外が発生した場合の処理を書くことができる、try ... except ... について見ていきます。
+try ... except
+動作確認
+# SyntaxError : () '' "" for/if/while
+# IndentationError
+
+# 例外
+# NameError
+# TypeError
+# ValueError
+
+try:
+    initial_balance = int(input("Initial Balance? "))
+except ValueError:
+    print("Invalid input, exiting ... ")
+    exit()
+RATE = 1.1
+for year in range(3):
+    print(f"Year {year}: {initial_balance * RATE ** year:,.2f}")
+
+
+ </pre> 
+</body>
+</html>

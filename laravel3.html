@@ -1,0 +1,2196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+CRUDについて説明したのちに、一般的なルーティングを一気に設定する方法について見ていきます。
+
+CRUDの概要
+ルーティングの確認
+Route::resource()
+
+
+
+
+学習環境を確認したのちに、CRUDに関するルーティングを設定していきます。
+
+学習環境の確認
+ルーティングの確認
+Route::resource()
+except()
+補足情報 動画内で実行したコマンドについて
+2024年7月9日
+今回の動画で使ったコマンドは以下のとおりです。
+
+php artisan route:list --name=posts
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+}
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>{{ $post->title }}</h1>
+    <p>{{ $post->body }}</p>
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>Posts</h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+.back-link {
+  text-align: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+投稿フォームへのリンクを設置し、スタイルを整えていきます。
+
+投稿フォームへのリンク設置
+リンクのスタイリング
+補足情報 動画内で実行したコマンドについて
+2024年7月9日
+今回の動画で使ったコマンドは以下のとおりです。
+
+clear
+
+補足情報 セレクターの書き方について
+2024年7月9日
+この動画で紹介したセレクターの詳細については以下の動画を復習してみましょう。
+
+・半角空白でセレクターを区切った表現（子孫結合子）について
+https://dotinstall.com/lessons/basic_css_selectors_v2/62111
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+}
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>{{ $post->title }}</h1>
+    <p>{{ $post->body }}</p>
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+createメソッドを実装したのちに、対応するビューも作成していきます。
+
+create()
+create.blade.php
+
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+}
+
+create.blade.php
+<x-layout>
+    <x-slot:title>
+        Add new post | My Laravel App
+    </x-slot>
+
+    <h1>Add new post</h1>
+    <form>
+        <label>
+            Title
+            <input type="text">
+        </label>
+        <label>
+            Body
+            <textarea></textarea>
+        </label>
+        <button>Add</button>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>{{ $post->title }}</h1>
+    <p>{{ $post->body }}</p>
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+フォームのスタイルをCSSで整えていきます。
+
+divの追加
+CSSによるスタイリング
+補足情報 セレクターの書き方について
+2024年7月9日
+この動画で紹介したセレクターの詳細については以下の動画を復習してみましょう。
+
+・+（隣接兄弟結合子）について
+https://dotinstall.com/lessons/basic_css_selectors_v2/62112
+・[]（属性セレクター）について
+https://dotinstall.com/lessons/basic_css_selectors_v2/62107
+・,（セレクターリスト）について
+https://dotinstall.com/lessons/basic_css_selectors_v2/62109
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+}
+
+create.blade.php
+<x-layout>
+    <x-slot:title>
+        Add new post | My Laravel App
+    </x-slot>
+
+    <h1>Add new post</h1>
+    <form>
+        <div>
+            <label>
+                Title
+                <input type="text">
+            </label>
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea></textarea>
+            </label>
+        </div>
+        <div>
+            <button>Add</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>{{ $post->title }}</h1>
+    <p>{{ $post->body }}</p>
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ルーティングを確認したのちに、フォームの設定を進めていきます。
+
+ルーティングの確認
+formタグの設定
+name属性の設定
+store()
+補足情報 動画内で実行したコマンドについて
+2024年7月9日
+今回の動画で使ったコマンドは以下のとおりです。
+
+php artisan route:list --name=posts
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    public function store(Request $request)
+    {
+
+    }
+}
+
+create.blade.php
+<x-layout>
+    <x-slot:title>
+        Add new post | My Laravel App
+    </x-slot>
+
+    <h1>Add new post</h1>
+    <form method="post" action="{{ route('posts.store') }}">
+        <div>
+            <label>
+                Title
+                <input type="text" name="title">
+            </label>
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body"></textarea>
+            </label>
+        </div>
+        <div>
+            <button>Add</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>{{ $post->title }}</h1>
+    <p>{{ $post->body }}</p>
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+storeメソッドを実装したのち、フォームにCSRF対策を施していきます。
+
+store()の実装
+@csrf
+補足情報 CSRFについて
+2024年7月12日
+少し古いレッスンになりますが、CSRFについて詳しく知りたい方は以下も参考にしてみてください。
+
+https://dotinstall.com/lessons/basic_php_webdev/54331
+https://dotinstall.com/lessons/basic_php_webdev/54332
+
+layout.blade.php
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostController.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    public function store(Request $request)
+    {
+        $post = new Post();
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()->route('posts.index');
+    }
+}
+
+create.blade.php
+<x-layout>
+    <x-slot:title>
+        Add new post | My Laravel App
+    </x-slot>
+
+    <h1>Add new post</h1>
+    <form method="post" action="{{ route('posts.store') }}">
+        @csrf
+        
+        <div>
+            <label>
+                Title
+                <input type="text" name="title">
+            </label>
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body"></textarea>
+            </label>
+        </div>
+        <div>
+            <button>Add</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>{{ $post->title }}</h1>
+    <p>{{ $post->body }}</p>
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+layout.blade.php
+Post.php
+PostController.php
+create.blade.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create.blade.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create.blade.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create.blade.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create.blade.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create.blade.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create.blade.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create.blade.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create.blade.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create.blade.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create.blade.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create.blade.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create.blade.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create.blade.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create.blade.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create.blade.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+create_posts_table.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+Post.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+layout.blade.php
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+PostController.php
+show.blade.php
+index.blade.php
+web.php
+style.css
+PostController.php
+index.blade.php
+web.php
+style.css
+PostController.php
+index.blade.php
+web.php
+style.css
+PostController.php
+index.blade.php
+web.php
+style.css
+PostController.php
+index.blade.php
+web.php
+style.css
+PostController.php
+index.blade.php
+web.php
+style.css
+PostController.php
+index.blade.php
+web.php
+style.css
+PostController.php
+index.blade.php
+web.php
+style.css
+PostController.php
+index.blade.php
+web.php
+style.css
+
+index.blade.php
+web.php
+style.css
+index.blade.php
+web.php
+style.css
+index.blade.php
+web.php
+style.css
+index.blade.php
+web.php
+style.css
+index.blade.php
+web.php
+style.css
+index.blade.php
+web.php
+style.css
+index.blade.php
+web.php
+style.css
+index.blade.php
+web.php
+style.css
+index.blade.php
+web.php
+style.css
+index.blade.php
+web.php
+welcome.blade.php
+web.php
+welcome.blade.php
+web.php
+welcome.blade.php
+web.php
+welcome.blade.php
+web.php
+welcome.blade.php
+web.php
+welcome.blade.php
+web.php
+welcome.blade.php
+web.php
+welcome.blade.php
+web.php
+welcome.blade.php
+web.php
+welcome.blade.php
+web.php
+    
+  </pre>
+
+</body>
+</html>

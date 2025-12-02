@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+    これまで使ってきた関数について触れたあとに、引数や返り値について説明していきます。
+
+関数の例
+組み込み関数
+引数
+返り値/戻り値
+ユーザー定義関数
+
+
+
+
+
+
+
+
+doubleというシンプルな関数を定義して使うためのコードを紹介していきます。
+
+double()
+関数名のルール
+def
+仮引数/実引数
+補足情報 ブラウザ実行環境について
+2022年2月3日
+このレッスンで使用しているブラウザ実行環境の使い方は以下のレッスンを参照してください。補足情報にはショートカットキーへのヘルプも記載されています。
+
+・#02 ブラウザ実行環境を使ってみよう | 詳解Python 基礎文法編
+https://dotinstall.com/lessons/basic_python_grammer/59502
+
+main.py
+# a-z A-Z 0-9 _
+def double(n): # 仮引数
+    return n * 2
+
+print(double(10)) # 実引数
+print(double(4) * 3) # 実引数
+
+
+
+
+
+
+
+
+
+
+関数がどのように実行されていくか、処理の順序について説明していきます。
+
+処理の順序
+
+main.py
+# a-z A-Z 0-9 _
+def double(n): # 仮引数
+    return n * 2
+
+print(double(10)) # 実引数
+print(double(4) * 3) # 実引数
+
+
+
+
+
+
+
+
+
+returnを使わない、単に値を表示するだけの関数について見ていきます。
+
+返り値のある関数
+返り値のない関数
+
+main.py
+# def get_price(a, b):
+#     return a + b
+
+# print(get_price(300, 700))
+
+def get_price(a, b):
+    print(a + b)
+
+get_price(300, 700)
+
+
+
+
+
+
+
+
+
+
+returnを使わなかったときに何が起きているかについて解説していきます。
+
+return Noneの省略
+returnを使うべき場合
+
+main.py
+def get_price(a, b):
+    return a + b
+
+# print(get_price(300, 700))
+
+# def get_price(a, b):
+#     # print(a + b)
+#     # return None
+
+# get_price(300, 700)
+# print(get_price(300, 700))
+print(get_price(300, 700) * 1.1)
+
+
+
+
+
+
+
+
+
+
+実引数が何を指しているかわかりにくい場合に使える、キーワード引数について見ていきます。
+
+キーワード引数
+位置引数
+キーワード引数指定時の注意点
+
+main.py
+def greet(name, by):
+    print(f"{by} said, hi! {name}")
+
+greet(by="John", name="Taro") # キーワード引数
+greet(by="John", "Taro")
+greet("Jiro", "Rich") # 位置引数
+
+
+
+
+
+
+
+
+
+
+
+引数を指定しなかったときに適用される、引数のデフォルト値について見ていきます。
+
+引数のデフォルト値
+デフォルト値指定時の注意点
+補足情報 f文字列のオプションについて
+2022年2月3日
+f文字列のオプションについては以下の動画でも紹介しています。あわせてご覧ください。
+
+・#12 f文字列のオプションを使ってみよう | 詳解Python 基礎文法編
+https://dotinstall.com/lessons/basic_python_grammer/59512
+
+main.py
+def show_time(h=0, m, s=0, ms=0):
+    print(f"{h:02}:{m:02}:{s:02}.{ms:03}")
+    
+show_time(11, 23, 52, 220)
+show_time(4, 54, 2, 12)
+show_time(12, 3)
+show_time(5, 25, 32)
+
+
+
+
+
+
+
+
+
+
+
+
+
+returnを使って条件に合わないものを先にふるい落とす、早期リターンというテクニックについて見ていきます。
+
+早期リターン
+
+main.py
+def print_username(name):
+    # if name != "admin" and name != "support":
+    #     print(name)
+
+    # 早期リターン
+    if name == "admin":
+        return
+    if name == "support":
+        return
+
+    print(name)
+
+print_username("taro")
+print_username("jiro")
+print_username("admin")
+print_username("saburo")
+print_username("support")
+
+
+
+
+
+
+
+
+
+
+
+
+コードの見通しを良くするために関数がどう使われるのかを見ていきます。
+
+関数による処理の構造化
+
+main.py
+# print("---------")
+# print("SALE! 50% OFF!")
+# print("---------")
+# print("BREAKING NEWS!")
+# print("Two baby pandas born")
+# print("at our Zoo!")
+# print("---------")
+# print("SALE! 50% OFF!")
+# print("---------")
+
+def show_ad():
+    print("---------")
+    print("SALE! 50% OFF!")
+    print("---------")
+
+def show_content():
+    print("BREAKING NEWS!")
+    print("Two baby pandas born")
+    print("at our Zoo!")
+
+show_ad()
+show_content()
+show_ad()
+
+
+
+
+
+
+
+
+
+
+
+ローカル変数、グローバル変数の違いに触れながら、変数のスコープについて見ていきます。
+
+ローカル変数
+グローバル変数
+変数のスコープ
+
+main.py
+def get_price(a, b):
+    # a, b, total → ローカル変数
+    total = a + b
+    return total
+
+total = 30 # グローバル変数
+print(get_price(300, 700))
+print(total)
+
+
+
+
+
+
+
+
+
+
+関数定義内で値を代入されない、値を参照するだけの変数の挙動について見ていきます。
+
+値を参照するだけの変数
+
+main.py
+def get_price(a, b):
+    # 仮引数、値が代入された変数 → ローカル変数
+    # 値が代入されていない変数 → 外のスコープを探す
+    total = (a + b) * rate
+    return total
+
+rate = 1.1
+print(get_price(300, 700))
+
+
+
+
+
+
+
+
+
+
+ローカル変数になるかどうか判断が難しいケースについて説明していきます。
+
+ローカル変数になる条件
+
+main.py
+def get_price(a, b):
+    # 仮引数、値が代入された変数 → ローカル変数
+    # 値が代入されていない変数 → 外のスコープを探す
+    if a + b >= 3000:
+        rate = 1.05
+    total = (a + b) * rate
+    return total
+
+rate = 1.1
+print(get_price(300, 700))
+
+
+
+
+
+
+
+
+関数定義内で変数をグローバル変数として扱うことができる、globalキーワードについて見ていきます。
+
+global
+globalキーワードの問題点
+
+main.py
+def get_price(a, b):
+    # 仮引数、値が代入された変数 → ローカル変数
+    # 値が代入されていない変数 → 外のスコープを探す
+    global rate
+    if a + b >= 3000:
+        rate = 1.05
+    total = (a + b) * rate
+    return total
+
+rate = 1.1
+print(get_price(300, 700))
+print(get_price(3000, 7000))
+print(rate)
+
+
+
+
+
+
+
+
+
+
+
+
+globalキーワードによる問題を、値を引数で渡すことで解決していきます。
+
+値の引数渡し
+
+
+
+main.py
+def get_price(a, b, rate):
+    # 仮引数、値が代入された変数 → ローカル変数
+    # 値が代入されていない変数 → 外のスコープを探す
+    # global rate
+    if a + b >= 3000:
+        rate = 1.05
+    total = (a + b) * rate
+    return total
+
+rate = 1.1
+print(get_price(300, 700, rate))
+print(get_price(3000, 7000, rate))
+print(rate)
+
+
+
+
+
+
+
+
+
+
+
+
+
+関数が処理している内容を表現する方法を学んだあとに、関数そのものを変数に代入してみます。
+
+()による違い
+変数への代入
+
+main.py
+# 関数名(実引数) → 処理の結果
+# 関数名 → 処理の内容 → 変数への代入、関数の引数
+
+def double(n):
+    return n * 2
+
+# print(double(10))
+twice = double
+print(twice(20))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+関数そのものを、別の関数の引数として渡す方法について見ていきます。
+
+関数の引数としての関数
+
+main.py
+# 関数名(実引数) → 処理の結果
+# 関数名 → 処理の内容 → 変数への代入、関数の引数
+
+def double(n):
+    return n * 2
+
+def triple(n):
+    return n * 3
+
+def calc(n, func):
+    # return double(10)
+    return func(n)
+
+print(calc(10, double))
+print(calc(10, triple))
+
+
+
+
+
+
+
+
+
+
+
+
+
+return一行で書けるような処理を短く書くことができるlambdaについて見ていきます。
+
+lambdaによる書き換え
+無名関数
+
+main.py
+# 関数名(実引数) → 処理の結果
+# 関数名 → 処理の内容 → 変数への代入、関数の引数
+
+# def double(n):
+#     return n * 2
+
+# def triple(n):
+#     return n * 3
+
+def calc(n, func):
+    # return double(10)
+    return func(n)
+
+print(calc(10, double))
+print(calc(10, lambda n: n * 2)) # 無名関数
+print(calc(10, lambda n: n * 3))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </pre>
+</body>
+</html>
