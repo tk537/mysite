@@ -1254,30 +1254,232 @@ textarea {
 
 
 
+入力された値を検証し、必要に応じてエラーメッセージを表示していきます。
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+validate()
+@error() ... @enderror
 
 layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
 Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
 PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required|min:5',
+        ]);
+
+        $post = new Post();
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()->route('posts.index');
+    }
+}
+
 create.blade.php
+<x-layout>
+    <x-slot:title>
+        Add new post | My Laravel App
+    </x-slot>
+
+    <h1>Add new post</h1>
+    <form method="post" action="{{ route('posts.store') }}">
+        @csrf
+
+        <div>
+            <label>
+                Title
+                <input type="text" name="title">
+            </label>
+            @error('title')
+                <p>{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body"></textarea>
+            </label>
+            @error('body')
+                <p>{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <button>Add</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
 create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
 show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>{{ $post->title }}</h1>
+    <p>{{ $post->body }}</p>
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
 index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
 web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
 style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+
+
+
+
+
 layout.blade.php
 Post.php
 PostController.php
