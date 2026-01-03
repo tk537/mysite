@@ -1,0 +1,503 @@
+// ===== video_summary =====
+概要を説明したのちに、レッスンのアウトライン、学習のコツを紹介していきます。
+
+
+    概要
+    レッスンのアウトライン
+    学習のコツ
+
+// ===== commentBox 1 =====
+補足情報
+JavaScriptとの違い？
+
+
+
+
+2023年8月16日
+
+
+
+
+
+名前はよく似ていますが、「Java」と「JavaScript」は全く違う言語なので混同しないようにしましょう（「JavaScript」のことを「Java」と略して呼んではいけません）。
+
+// ===== commentBox 2 =====
+補足情報
+制御構造編以降のレッスンについて
+
+
+
+
+2023年8月16日
+
+
+
+
+
+2023年8月現在、動画にて紹介している制御構造編以降のレッスンは準備中です。もうしばらくお待ち下さい。
+
+// ===== MyApp.java =====
+
+
+
+
+
+
+
+// ===== video_summary =====
+ブラウザ実行環境を使って、まずはシンプルに数値を表示してみます。
+
+
+    ブラウザ実行環境の紹介
+    System.out.println()
+    コードの実行
+    お手本コードとの比較
+    コードのリセット
+
+// ===== commentBox 1 =====
+補足情報
+Javaのバージョンについて
+
+
+
+
+2023年8月16日
+
+
+
+
+
+今回のレッスンで使っているJavaのバージョンは17となります。
+
+// ===== MyApp.java =====
+public class MyApp {
+  public static void main(String[] args) {
+    System.out.println(10);
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+Javaでさまざまな数値を表現する方法を見ていきます。
+
+
+    マイナスの数値
+    小数点を含む数値
+    _による区切り
+    eによる表現
+
+// ===== commentBox 1 =====
+補足情報
+1.2e3について
+
+
+
+
+2025年5月30日
+
+
+
+
+
+動画中で「1.2e3」について「1.2 に 10 の 3 乗をかけたものという意味なので、1.2 × 1000 で 12000 になります」と発話していますが、「12000」ではなくて、「1200」となります。訂正してお詫び申し上げます。
+
+// ===== MyApp.java =====
+public class MyApp {
+  public static void main(String[] args) {
+    System.out.println(10);
+    System.out.println(-8);
+    System.out.println(2.5);
+    System.out.println(1_000_000);
+    System.out.println(1.2e3);
+    System.out.println(1.2e-3);
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+コード内にコメントを記入する方法について見ていきます。
+
+
+    /* ... */
+    //
+    ショートカットキー
+
+// ===== MyApp.java =====
+public class MyApp {
+  public static void main(String[] args) {
+    /*
+      Javaにおける数値表現
+      author: taro
+    */
+    // System.out.println(10);
+    // System.out.println(-8);
+    // System.out.println(2.5);
+    // System.out.println(1_000_000);
+
+    // eを使った表現
+    System.out.println(1.2e3); // 1.2かける10の3乗
+    System.out.println(1.2e-3); // 1.2かける10の-3乗
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+数値計算をするための演算子について見ていきます。
+
+
+    + - / %
+    小数点を含む数の割り算
+    演算子の優先度
+    ()
+
+// ===== MyApp.java =====
+public class MyApp {
+  public static void main(String[] args) {
+    System.out.println(10 + 3);
+    System.out.println(10 - 3);
+    System.out.println(10 * 3);
+    System.out.println(10 / 3);
+    System.out.println(10.0 / 3);
+    System.out.println(10 % 3);
+    System.out.println(10 + 2 * 3);
+    System.out.println((10 + 2) * 3);
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+値に名前をつけることができる変数について見ていきます。
+
+
+    int
+    =
+    変数
+    代入演算子
+    変数を使う利点
+
+// ===== MyApp.java =====
+public class MyApp {
+  public static void main(String[] args) {
+    // System.out.println(150 * 120);
+    // System.out.println(150 * 130);
+    // System.out.println(150 * 140);
+
+    // int price;
+    // price = 150;
+    int price = 150;
+    System.out.println(price * 120);
+    System.out.println(price * 130);
+    System.out.println(price * 140);
+  }
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+変数に値を再代入する方法について見ていきます。
+
+
+    値の再代入
+    += -=
+    ++ --
+
+// ===== MyApp.java =====
+public class MyApp {
+  public static void main(String[] args) {
+    int price = 150;
+    System.out.println(price * 120);
+    System.out.println(price * 130);
+    System.out.println(price * 140);
+
+    // price = 151;
+    // price = price + 1;
+    // price += 1;
+    price++;
+    // price -= 1;
+    // price--;
+    System.out.println(price * 120);
+    System.out.println(price * 130);
+    System.out.println(price * 140);
+  }
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+値を再代入することができない定数の使い方について見ていきます。
+
+
+    rateの導入
+    final
+    定数
+    エラーの確認
+
+// ===== MyApp.java =====
+public class MyApp {
+  public static void main(String[] args) {
+    int price = 150;
+    final double RATE = 1.1;
+    System.out.println(price * 120 * RATE);
+    System.out.println(price * 130 * RATE);
+    System.out.println(price * 140 * RATE);
+
+    price++;
+    // RATE = 1.08;
+    System.out.println(price * 120 * RATE);
+    System.out.println(price * 130 * RATE);
+    System.out.println(price * 140 * RATE);
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+Javaで文字列を表現する方法について見ていきます。
+
+
+    文字列の表現
+    \
+    \n
+
+// ===== commentBox 1 =====
+補足情報
+バックスラッシュについて
+
+
+
+
+2023年8月16日
+
+
+
+
+
+バックスラッシュ（\）は以下のように入力してみてください。
+
+Windowsでの日本語キーボードの場合 → 半角モードでキーボードの「ろ」を押す
+macOSの日本語キーボードの場合 → Optionキーを推しながら「¥」を押す
+
+もしくは「バックスラッシュ」を変換して半角記号を出すか、\をコピー＆ペーストしてもいいでしょう。なお、一部のWindowsのフォントでバックスラッシュは「¥」になることもあります（表示が変わるだけで動作していれば問題ありません）。
+
+// ===== MyApp.java =====
+public class MyApp {
+  public static void main(String[] args) {
+    System.out.println("Taro said hi. \n\"Hi!\", he replied.");
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+変数を使った文字列を表現する方法について見ていきます。
+
+
+    String
+    +による連結
+    String.format()
+    %s
+
+// ===== MyApp.java =====
+public class MyApp {
+  public static void main(String[] args) {
+    String fname = "Taro";
+    String lname = "Yamada";
+    // System.out.println("I am Taro Yamada.");
+    // System.out.println("I am " + fname + " Yamada.");
+    System.out.println(String.format("I am %s %s.", fname, lname));
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+変数や定数に関するルールについて説明していきます。
+
+
+    リテラル表現
+    名前の付け方
+    データ型
+    データ型のルール
+
+// ===== MyApp.java =====
+public class MyApp {
+  public static void main(String[] args) {
+    String fname = "Taro";
+    String lname = "Yamada";
+    // System.out.println("I am Taro Yamada.");
+    // System.out.println("I am " + fname + " Yamada.");
+    System.out.println(String.format("I am %s %s.", fname, lname));
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+複数の値をまとめて扱うことができる配列について見ていきます。
+
+
+    配列
+    int[]
+    new int[3]
+    インデックス
+    int[] scores = {70, 90, 80};
+
+// ===== MyApp.java =====
+public class MyApp {
+  public static void main(String[] args) {
+    // int first = 70;
+    // int second = 90;
+    // int third = 80;
+
+    // int[] scores;
+    // scores = new int[3];
+    // int[] scores = new int[3];
+    // scores[0] = 70;
+    // scores[1] = 90;
+    // scores[2] = 80;
+    int[] scores = {70, 90, 80};
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+配列の各要素にアクセスするための方法について見ていきます。
+
+
+    配列の要素
+    []によるアクセス
+    .length
+
+// ===== MyApp.java =====
+public class MyApp {
+  public static void main(String[] args) {
+    int[] scores = {70, 90, 80};
+    System.out.println(scores[0]);
+    System.out.println(scores[1]);
+    System.out.println(scores[2]);
+    scores[1] = 100;
+    System.out.println(scores[1]);
+    System.out.println(scores.length);
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+配列を更に配列でまとめる方法について見ていきます。
+
+
+    配列の配列
+    int[][]
+    要素へのアクセス
+
+// ===== MyApp.java =====
+public class MyApp {
+  public static void main(String[] args) {
+    // int[] firstYearScores = {70, 90, 80};
+    // int[] secondYearScores = {30, 40, 50};
+    int[][] scores = {
+      {70, 90, 80}, // scores[0]
+      {30, 40, 50}, // scores[1]
+    };
+    System.out.println(scores[1][2]);
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+基本データ型、参照型の違いについてまとめていきます。
+
+
+    基本データ型
+    参照型
+    変数に格納されるデータの違い
+
+// ===== MyApp.java =====
+public class MyApp {
+  public static void main(String[] args) {
+    // int[] firstYearScores = {70, 90, 80};
+    // int[] secondYearScores = {30, 40, 50};
+    int[][] scores = {
+      {70, 90, 80}, // scores[0]
+      {30, 40, 50}, // scores[1]
+    };
+    System.out.println(scores[1][2]);
+  }
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+変数に変数を代入したときの挙動について確認していきます。
+
+
+    参照型変数の代入
+    挙動の確認
+    値をコピーする方法
+
+// ===== MyApp.java =====
+public class MyApp {
+  public static void main(String[] args) {
+    int[] scores = {70, 90, 80};
+    // int[] scoresBackup = scores;
+    int[] scoresBackup = {70, 90, 80};
+    scores[1] = 100;
+    System.out.println(scores[1]); // 100
+    System.out.println(scoresBackup[1]); // 90
+  }
+}
+
+
+
+
+
+
+

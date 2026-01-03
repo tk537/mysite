@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+    概要について説明したのち、学習環境について見ていきます。
+
+概要
+レッスンの構成
+作るアプリの確認
+必要な知識
+学習環境
+補足情報 GitHubアカウントをお持ちでない方
+2025年3月2日
+まだGitHubのアカウントをお持ちでない方は以下のURLから取得しておきましょう。
+
+・Join GitHub
+https://github.com/signup
+
+
+
+Codespaceのテンプレートから開発環境を起動していきます。
+
+Codespaceの起動
+Codespaceの使い方
+補足情報 GitHub Codespacesについて
+2025年3月2日
+動画の最初で紹介しているURLは以下のとおりです。
+
+https://github.com/dotinstall/codespaces-vuejs-todo
+
+またCodespacesの使い方については以下の記事にまとめておきました。
+
+・GitHub Codespacesの使い方
+https://note.com/dotinstall/n/n631bcc993a61
+
+/src/App.vue 
+<template>
+  <h1>Hello Vue.js</h1>
+</template>
+
+
+
+起動したCodespaceにVS Codeから接続していく方法について見ていきます。
+
+VS Codeからの接続
+拡張機能のインストール
+
+/src/App.vue
+<template>
+  <h1>Hello Vue.js</h1>
+</template>
+
+
+
+
+
+アプリケーションを起動していきます。
+
+ターミナルの起動
+アプリケーションの起動
+ブラウザでの確認
+補足情報 ページが表示される仕組みについて
+2025年3月2日
+Vue.jsでページが表示されるまでの流れについては以下を復習してみましょう。
+
+・#05 ページが表示される仕組みを理解しよう | Vue.js 3入門 基礎編
+https://dotinstall.com/lessons/basic_vuejs_beginner/69105
+
+補足情報 動画内で実行したコマンドについて
+2025年3月2日
+動画内で実行しているコマンドは以下のとおりです。
+
+npm run dev
+
+/src/App.vue
+<template>
+  <div class="container">
+    <h1>Todos</h1>
+  </div>
+</template>
+
+<style scoped>
+.container {
+  width: 400px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 20px;
+  border-bottom: 1px solid;
+  padding-bottom: 8px;
+}
+</style>
+
+
+
+
+
+
+App.vueにリストを配置してブラウザで確認していきます。
+
+リストの配置
+
+/src/App.vue
+<template>
+  <div class="container">
+    <h1>Todos</h1>
+    <ul>
+      <li>Item 0</li>
+      <li>Item 1</li>
+      <li>Item 2</li>
+    </ul>
+  </div>
+</template>
+
+<style scoped>
+.container {
+  width: 400px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 20px;
+  border-bottom: 1px solid;
+  padding-bottom: 8px;
+}
+</style>
+
+
+
+
+
+JavaScriptでデータを管理する方法について見ていきます。
+
+todos配列の作成
+v-for
+{{ }}
+入力フォーム設置
+補足情報 v-forディレクティブ、{{ }}について
+2025年3月2日
+動画で紹介しているv-forディレクティブ、{{ }}については以下を復習してみましょう。
+
+・#07 v-forでループ処理をしてみよう | Vue.js 3入門 応用編
+https://dotinstall.com/lessons/basic_vuejs_advanced/69207
+
+・#02 v-textで値を埋め込んでみよう | Vue.js 3入門 応用編
+https://dotinstall.com/lessons/basic_vuejs_advanced/69202
+
+/src/App.vue
+<script setup>
+const todos = [
+  'buy milk',
+  'go to gym',
+  'study JavaScript',
+];
+</script>
+
+<template>
+  <div class="container">
+    <h1>Todos</h1>
+    <ul>
+      <li v-for="todo in todos">{{ todo }}</li>
+    </ul>
+    <form>
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+</template>
+
+<style scoped>
+.container {
+  width: 400px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 20px;
+  border-bottom: 1px solid;
+  padding-bottom: 8px;
+}
+</style>
+
+
+
+
+
+
+ォームを送信してメッセージを表示する方法について見ていきます。
+
+メッセージの表示
+ページ遷移の無効化
+e.preventDefault()
+@submit.prevent
+補足情報 イベントリスナーの設定について
+2025年3月2日
+Vue.jsでイベントを設定する方法については以下を確認してみましょう。
+
+・#04 v-onでイベントを設定してみよう | Vue.js 3入門 応用編
+https://dotinstall.com/lessons/basic_vuejs_advanced/69204
+
+補足情報 preventDefault()、イベントオブジェクトについて
+2025年3月2日
+動画で紹介しているpreventDefault()とそれに関連する知識についてのレッスンは以下の通りです。
+
+・#19 submitイベントを使ってみよう | JavaScript入門 DOM編
+https://dotinstall.com/lessons/basic_javascript_dom_v3/63819
+
+/src/App.vue
+<script setup>
+const todos = [
+  'buy milk',
+  'go to gym',
+  'study JavaScript',
+];
+
+function addTodo() {
+  alert('OK!');
+}
+</script>
+
+<template>
+  <div class="container">
+    <h1>Todos</h1>
+    <ul>
+      <li v-for="todo in todos">{{ todo }}</li>
+    </ul>
+    <form @submit.prevent="addTodo">
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+</template>
+
+<style scoped>
+.container {
+  width: 400px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 20px;
+  border-bottom: 1px solid;
+  padding-bottom: 8px;
+}
+</style>
+
+
+
+
+
+フォームからデータを受け取って表示する方法について見ていきます。
+
+入力テキストの表示
+:value
+ref()
+import
+補足情報 リアクティブな値について
+2025年3月2日
+リアクティブな値について忘れてしまった人は、以下のレッスンを復習してみましょう。
+
+・#05 リアクティブな値を操作してみよう | Vue.js 3入門 応用編
+https://dotinstall.com/lessons/basic_vuejs_advanced/69205
+
+補足情報 inputに入力された値とnewTodoを紐づける方法について
+2025年3月2日
+属性値を埋め込む方法について忘れてしまった人は、以下のレッスンを復習してみましょう。
+
+・#03 v-bindで属性値を埋め込んでみよう | Vue.js 3入門 応用編
+https://dotinstall.com/lessons/basic_vuejs_advanced/69203
+
+/src/App.vue
+<script setup>
+import { ref } from 'vue';
+
+const todos = [
+  'buy milk',
+  'go to gym',
+  'study JavaScript',
+];
+
+const newTodo = ref('new todo');
+
+function addTodo() {
+  alert(newTodo);
+}
+</script>
+
+<template>
+  <div class="container">
+    <h1>Todos</h1>
+    <ul>
+      <li v-for="todo in todos">{{ todo }}</li>
+    </ul>
+    <form @submit.prevent="addTodo">
+      <input type="text" :value="newTodo">
+      <button>Add</button>
+    </form>
+  </div>
+</template>
+
+<style scoped>
+.container {
+  width: 400px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 20px;
+  border-bottom: 1px solid;
+  padding-bottom: 8px;
+}
+</style>
+
+
+
+
+
+フォームに入力された値とJavaScriptの値を紐づける方法について見ていきます。
+
+e.target.value
+v-model
+フォームバインディング
+補足情報 リアクティブな値の仕組みについて
+2025年3月2日
+リアクティブな値の仕組みについて忘れてしまった人は、以下のレッスンを復習してみましょう。
+
+・#05 リアクティブな値を操作してみよう | Vue.js 3入門 応用編
+https://dotinstall.com/lessons/basic_vuejs_advanced/69205
+
+/src/App.vue 
+<script setup>
+import { ref } from 'vue';
+
+const todos = [
+  'buy milk',
+  'go to gym',
+  'study JavaScript',
+];
+
+const newTodo = ref('new todo');
+
+function addTodo() {
+  alert(newTodo.value);
+}
+
+// function handleInput(e) {
+//   newTodo.value = e.target.value;
+// }
+</script>
+
+<template>
+  <div class="container">
+    <h1>Todos</h1>
+    <ul>
+      <li v-for="todo in todos">{{ todo }}</li>
+    </ul>
+    <form @submit.prevent="addTodo">
+      <!-- <input type="text" :value="newTodo" @input="handleInput"> -->
+      <input type="text" v-model="newTodo">
+      <button>Add</button>
+    </form>
+  </div>
+</template>
+
+<style scoped>
+.container {
+  width: 400px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 20px;
+  border-bottom: 1px solid;
+  padding-bottom: 8px;
+}
+</style>
+
+
+
+
+
+フォームから受け取ったデータをtodosに追加する方法について見ていきます。
+
+import
+reactive()
+ref()とreactive()の違い
+初期値の変更
+入力欄の初期化
+補足情報 pushについて
+2025年3月2日
+配列を操作する方法について忘れてしまった人は、以下のレッスンを復習してみましょう。
+
+・#05 先頭､末尾の要素を操作してみよう | JavaScript入門 データ構造編
+https://dotinstall.com/lessons/basic_javascript_data_structure/63605
+
+/src/App.vue 
+<script setup>
+import { ref, reactive } from 'vue';
+
+const todos = reactive([
+  'buy milk',
+  'go to gym',
+  'study JavaScript',
+]);
+
+const newTodo = ref('');
+
+function addTodo() {
+  todos.push(newTodo.value);
+  newTodo.value = '';
+}
+</script>
+
+<template>
+  <div class="container">
+    <h1>Todos</h1>
+    <ul>
+      <li v-for="todo in todos">{{ todo }}</li>
+    </ul>
+    <form @submit.prevent="addTodo">
+      <input type="text" v-model="newTodo">
+      <button>Add</button>
+    </form>
+  </div>
+</template>
+
+<style scoped>
+.container {
+  width: 400px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 20px;
+  border-bottom: 1px solid;
+  padding-bottom: 8px;
+}
+</style>
+
+
+
+
+
+todosをオブジェクト化し、key属性をつける方法について見ていきます。
+
+todosのオブジェクト化
+:key
+crypto.randomUUID()
+補足情報 randomUUID()について
+2025年3月2日
+今回使ったrandomUUID()については以下も参考にしてみてください。
+
+・Crypto: randomUUID() メソッド - Web API | MDN
+https://developer.mozilla.org/ja/docs/Web/API/Crypto/randomUUID
+
+補足情報 オブジェクトについて
+2025年3月2日
+オブジェクトについて忘れてしまった人は、以下のレッスンを復習してみましょう。
+
+・#10 オブジェクトを使ってみよう | JavaScript入門 データ構造編
+https://dotinstall.com/lessons/basic_javascript_data_structure/63610
+
+/src/App.vue 
+<script setup>
+import { ref, reactive } from 'vue';
+
+const todos = reactive([
+  {
+    id: crypto.randomUUID(),
+    title: 'Item 0',
+  },
+  {
+    id: crypto.randomUUID(),
+    title: 'Item 1',
+  },
+  {
+    id: crypto.randomUUID(),
+    title: 'Item 2',
+  },
+]);
+
+const newTodo = ref('');
+
+function addTodo() {
+  todos.push({
+    id: crypto.randomUUID(),
+    title: newTodo.value,
+  });
+  newTodo.value = '';
+}
+</script>
+
+<template>
+  <div class="container">
+    <h1>Todos</h1>
+    <ul>
+      <li v-for="todo in todos" :key="todo.id">{{ todo.title }}</li>
+    </ul>
+    <form @submit.prevent="addTodo">
+      <input type="text" v-model="newTodo">
+      <button>Add</button>
+    </form>
+  </div>
+</template>
+
+<style scoped>
+.container {
+  width: 400px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 20px;
+  border-bottom: 1px solid;
+  padding-bottom: 8px;
+}
+</style>
+
+
+
+入力欄が空、空白のみの場合に値を弾く方法について見ていきます。
+
+入力欄が空の場合値を追加しない
+空白のみの場合も追加しない
+trim()
+補足情報 早期リターンについて
+2025年3月2日
+早期リターンについて忘れてしまった人は、以下のレッスンを復習してみましょう。
+
+・#07 処理の途中でreturnしてみよう | JavaScript入門 関数編
+https://dotinstall.com/lessons/basic_javascript_functions/63507
+
+/src/App.vue 
+<script setup>
+import { ref, reactive } from 'vue';
+
+const todos = reactive([
+  {
+    id: crypto.randomUUID(),
+    title: 'Item 0',
+  },
+  {
+    id: crypto.randomUUID(),
+    title: 'Item 1',
+  },
+  {
+    id: crypto.randomUUID(),
+    title: 'Item 2',
+  },
+]);
+
+const newTodo = ref('');
+
+function addTodo() {
+  if (newTodo.value.trim() === '') {
+    return;
+  }
+
+  todos.push({
+    id: crypto.randomUUID(),
+    title: newTodo.value,
+  });
+  newTodo.value = '';
+}
+</script>
+
+<template>
+  <div class="container">
+    <h1>Todos</h1>
+    <ul>
+      <li v-for="todo in todos" :key="todo.id">{{ todo.title }}</li>
+    </ul>
+    <form @submit.prevent="addTodo">
+      <input type="text" v-model="newTodo">
+      <button>Add</button>
+    </form>
+  </div>
+</template>
+
+<style scoped>
+.container {
+  width: 400px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 20px;
+  border-bottom: 1px solid;
+  padding-bottom: 8px;
+}
+</style>
+
+
+
+
+
+
+  </pre>
+
+</body>
+</html>

@@ -1,0 +1,2972 @@
+// ===== video_summary =====
+まずは完成版を確認したのちに、Unityのプロジェクトを作成していきます。
+
+完成版の確認
+プロジェクトの作成
+レイアウトの設定
+画面サイズの設定
+
+// ===== commentBox 1 =====
+補足情報 Unityの基本操作に関して
+2018年11月12日
+
+Unityの基本操作に関しては以下のレッスンを参考にしてみてください。
+
+・Unity入門 (全26回)
+https://dotinstall.com/lessons/basic_unity_v2
+
+
+
+
+
+// ===== video_summary =====
+キャラクターの素材となる画像を読み込んでスプライトの設定をしていきます。
+
+素材画像の読み込み
+スプライトの設定
+
+
+
+
+
+// ===== video_summary =====
+前回読み込んだスプライトを使って自機を配置していきます。
+
+アニメーションの作成
+自機の配置
+
+
+
+
+
+// ===== video_summary =====
+自機にスクリプトを設定して、キー操作で動かせるようにしていきます。
+
+
+    スクリプトの設定
+    自機の操作
+    動作確認
+
+// ===== /Assets/Scripts/PlayerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float dx = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+        float dy = Input.GetAxis("Vertical") * Time.deltaTime * 8f;
+
+        transform.position = new Vector3(
+            transform.position.x + dx,
+            transform.position.y + dy,
+            0f
+        );
+    }
+}
+
+
+
+
+// ===== video_summary =====
+自機が画面外に出てしまわないように、移動できる範囲を制限していきます。
+
+
+    Mathf.Clamp()
+    動作確認
+
+// ===== /Assets/Scripts/PlayerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float dx = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+        float dy = Input.GetAxis("Vertical") * Time.deltaTime * 8f;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x + dx, -8f, 8f),
+            Mathf.Clamp(transform.position.y + dy, -4.5f, 4.5f),
+            0f
+        );
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+弾を作成したあとに、スクリプトを使って自機から撃てるようにしていきます。
+
+
+    弾の作成
+    スクリプトの設定
+    動作確認
+
+// ===== /Assets/Scripts/BulletScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BulletScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, 10f * Time.deltaTime, 0f);
+    }
+}
+
+// ===== /Assets/Scripts/PlayerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float dx = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+        float dy = Input.GetAxis("Vertical") * Time.deltaTime * 8f;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x + dx, -8f, 8f),
+            Mathf.Clamp(transform.position.y + dy, -4.5f, 4.5f),
+            0f
+        );
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+弾を連射するためのメソッドを作成していきます。
+
+
+    Shoot()メソッド
+
+// ===== /Assets/Scripts/PlayerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerScript : MonoBehaviour
+{
+    public GameObject bullet;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float dx = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+        float dy = Input.GetAxis("Vertical") * Time.deltaTime * 8f;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x + dx, -8f, 8f),
+            Mathf.Clamp(transform.position.y + dy, -4.5f, 4.5f),
+            0f
+        );
+    }
+
+    void Shoot()
+    {
+        while (true)
+        {
+            Instantiate(bullet, transform.position, transform.rotation);
+        }
+    }
+}
+
+// ===== /Assets/Scripts/BulletScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BulletScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, 10f * Time.deltaTime, 0f);
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+コルーチンを使った並列処理で連射機能を実現していきます。
+
+
+    コルーチンの設定
+    描画順の設定
+
+// ===== /Assets/Scripts/PlayerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerScript : MonoBehaviour
+{
+    public GameObject bullet;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("Shoot");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float dx = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+        float dy = Input.GetAxis("Vertical") * Time.deltaTime * 8f;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x + dx, -8f, 8f),
+            Mathf.Clamp(transform.position.y + dy, -4.5f, 4.5f),
+            0f
+        );
+    }
+
+    IEnumerator Shoot()
+    {
+        while (true)
+        {
+            Instantiate(bullet, transform.position, transform.rotation);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+}
+
+// ===== /Assets/Scripts/BulletScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BulletScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, 10f * Time.deltaTime, 0f);
+    }
+}
+
+
+
+
+// ===== video_summary =====
+弾が画面外に出たら自動的に削除されるように設定していきます。
+
+
+    Boundaryの設定
+    Bulletの設定
+
+// ===== /Assets/Scripts/BulletScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BulletScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, 10f * Time.deltaTime, 0f);
+    }
+}
+
+// ===== /Assets/Scripts/PlayerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerScript : MonoBehaviour
+{
+    public GameObject bullet;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("Shoot");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float dx = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+        float dy = Input.GetAxis("Vertical") * Time.deltaTime * 8f;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x + dx, -8f, 8f),
+            Mathf.Clamp(transform.position.y + dy, -4.5f, 4.5f),
+            0f
+        );
+    }
+
+    IEnumerator Shoot()
+    {
+        while (true)
+        {
+            Instantiate(bullet, transform.position, transform.rotation);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+}
+
+
+
+
+// ===== video_summary =====
+Boundaryの外にでたGameObjectを削除するために、OnTriggerExit2d()の実装を進めていきます。
+
+
+    OnTriggerExit2D()
+    動作確認
+
+// ===== /Assets/Scripts/BoundaryScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BoundaryScript : MonoBehaviour
+{
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Destroy(collision.gameObject);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/BulletScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BulletScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, 10f * Time.deltaTime, 0f);
+    }
+}
+
+// ===== /Assets/Scripts/PlayerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerScript : MonoBehaviour
+{
+    public GameObject bullet;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("Shoot");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float dx = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+        float dy = Input.GetAxis("Vertical") * Time.deltaTime * 8f;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x + dx, -8f, 8f),
+            Mathf.Clamp(transform.position.y + dy, -4.5f, 4.5f),
+            0f
+        );
+    }
+
+    IEnumerator Shoot()
+    {
+        while (true)
+        {
+            Instantiate(bullet, transform.position, transform.rotation);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+}
+
+
+
+
+// ===== video_summary =====
+敵機のアニメーションを設定したのちに、スクリプトを使って動かしていきます。
+
+
+    敵機の配置
+    スクリプトの設定
+
+// ===== /Assets/Scripts/EnemyScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, -2f * Time.deltaTime, 0f);
+    }
+}
+
+// ===== /Assets/Scripts/BoundaryScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BoundaryScript : MonoBehaviour
+{
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Destroy(collision.gameObject);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/BulletScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BulletScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, 10f * Time.deltaTime, 0f);
+    }
+}
+
+// ===== /Assets/Scripts/PlayerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerScript : MonoBehaviour
+{
+    public GameObject bullet;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("Shoot");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float dx = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+        float dy = Input.GetAxis("Vertical") * Time.deltaTime * 8f;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x + dx, -8f, 8f),
+            Mathf.Clamp(transform.position.y + dy, -4.5f, 4.5f),
+            0f
+        );
+    }
+
+    IEnumerator Shoot()
+    {
+        while (true)
+        {
+            Instantiate(bullet, transform.position, transform.rotation);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+敵機をプレハブ化したあとに、コルーチンを使って増やしていきます。
+
+
+    敵機のプレハブ化
+    コルーチンの設定
+
+// ===== /Assets/Scripts/GameControllerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GameControllerScript : MonoBehaviour
+{
+    public GameObject enemy;
+
+    IEnumerator SpawnEnemy()
+    {
+
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("SpawnEnemy");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/BoundaryScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BoundaryScript : MonoBehaviour
+{
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Destroy(collision.gameObject);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/BulletScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BulletScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, 10f * Time.deltaTime, 0f);
+    }
+}
+
+// ===== /Assets/Scripts/EnemyScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, -2f * Time.deltaTime, 0f);
+    }
+}
+
+// ===== /Assets/Scripts/PlayerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerScript : MonoBehaviour
+{
+    public GameObject bullet;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("Shoot");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float dx = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+        float dy = Input.GetAxis("Vertical") * Time.deltaTime * 8f;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x + dx, -8f, 8f),
+            Mathf.Clamp(transform.position.y + dy, -4.5f, 4.5f),
+            0f
+        );
+    }
+
+    IEnumerator Shoot()
+    {
+        while (true)
+        {
+            Instantiate(bullet, transform.position, transform.rotation);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+敵機を増やすためのコルーチン処理を完成させて動作確認をしていきます。
+
+
+    SpawnEnemy()の実装
+    動作確認
+
+// ===== /Assets/Scripts/GameControllerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GameControllerScript : MonoBehaviour
+{
+    public GameObject enemy;
+
+    IEnumerator SpawnEnemy()
+    {
+        while (true)
+        {
+            Instantiate(
+                enemy,
+                new Vector3(Random.Range(-8f, 8f), transform.position.y, 0f),
+                transform.rotation
+            );
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("SpawnEnemy");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/BoundaryScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BoundaryScript : MonoBehaviour
+{
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Destroy(collision.gameObject);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/BulletScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BulletScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, 10f * Time.deltaTime, 0f);
+    }
+}
+
+// ===== /Assets/Scripts/EnemyScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, -2f * Time.deltaTime, 0f);
+    }
+}
+
+// ===== /Assets/Scripts/PlayerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerScript : MonoBehaviour
+{
+    public GameObject bullet;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("Shoot");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float dx = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+        float dy = Input.GetAxis("Vertical") * Time.deltaTime * 8f;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x + dx, -8f, 8f),
+            Mathf.Clamp(transform.position.y + dy, -4.5f, 4.5f),
+            0f
+        );
+    }
+
+    IEnumerator Shoot()
+    {
+        while (true)
+        {
+            Instantiate(bullet, transform.position, transform.rotation);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+弾同様、敵機も画面外に出たら消えるように設定していきます。
+
+
+    敵機の設定
+    動作確認
+
+// ===== /Assets/Scripts/BoundaryScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BoundaryScript : MonoBehaviour
+{
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Destroy(collision.gameObject);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/BulletScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BulletScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, 10f * Time.deltaTime, 0f);
+    }
+}
+
+// ===== /Assets/Scripts/EnemyScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, -2f * Time.deltaTime, 0f);
+    }
+}
+
+// ===== /Assets/Scripts/GameControllerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GameControllerScript : MonoBehaviour
+{
+    public GameObject enemy;
+
+    IEnumerator SpawnEnemy()
+    {
+        while (true)
+        {
+            Instantiate(
+                enemy,
+                new Vector3(Random.Range(-8f, 8f), transform.position.y, 0f),
+                transform.rotation
+            );
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("SpawnEnemy");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/PlayerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerScript : MonoBehaviour
+{
+    public GameObject bullet;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("Shoot");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float dx = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+        float dy = Input.GetAxis("Vertical") * Time.deltaTime * 8f;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x + dx, -8f, 8f),
+            Mathf.Clamp(transform.position.y + dy, -4.5f, 4.5f),
+            0f
+        );
+    }
+
+    IEnumerator Shoot()
+    {
+        while (true)
+        {
+            Instantiate(bullet, transform.position, transform.rotation);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+三角関数を使って敵機が蛇行するように実装を進めていきます。
+
+
+    三角関数の利用
+    位相の変更
+
+// ===== /Assets/Scripts/EnemyScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyScript : MonoBehaviour
+{
+    private float phase;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        phase = Random.Range(0f, Mathf.PI * 2);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(
+            Mathf.Cos(Time.frameCount * 0.05f + phase) * 0.05f,
+            -2f * Time.deltaTime,
+            0f
+        );
+    }
+}
+
+// ===== /Assets/Scripts/BoundaryScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BoundaryScript : MonoBehaviour
+{
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Destroy(collision.gameObject);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/BulletScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BulletScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, 10f * Time.deltaTime, 0f);
+    }
+}
+
+// ===== /Assets/Scripts/GameControllerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GameControllerScript : MonoBehaviour
+{
+    public GameObject enemy;
+
+    IEnumerator SpawnEnemy()
+    {
+        while (true)
+        {
+            Instantiate(
+                enemy,
+                new Vector3(Random.Range(-8f, 8f), transform.position.y, 0f),
+                transform.rotation
+            );
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("SpawnEnemy");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/PlayerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerScript : MonoBehaviour
+{
+    public GameObject bullet;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("Shoot");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float dx = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+        float dy = Input.GetAxis("Vertical") * Time.deltaTime * 8f;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x + dx, -8f, 8f),
+            Mathf.Clamp(transform.position.y + dy, -4.5f, 4.5f),
+            0f
+        );
+    }
+
+    IEnumerator Shoot()
+    {
+        while (true)
+        {
+            Instantiate(bullet, transform.position, transform.rotation);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+敵機と弾が衝突したときの処理を作り込んでいきます。
+
+
+    タグの設定
+    OnTriggerEnter2D()の実装
+    動作確認
+
+// ===== /Assets/Scripts/EnemyScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyScript : MonoBehaviour
+{
+    private float phase;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        phase = Random.Range(0f, Mathf.PI * 2);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(
+            Mathf.Cos(Time.frameCount * 0.05f + phase) * 0.05f,
+            -2f * Time.deltaTime,
+            0f
+        );
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+    }
+}
+
+// ===== /Assets/Scripts/BoundaryScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BoundaryScript : MonoBehaviour
+{
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Destroy(collision.gameObject);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/BulletScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BulletScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, 10f * Time.deltaTime, 0f);
+    }
+}
+
+// ===== /Assets/Scripts/GameControllerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GameControllerScript : MonoBehaviour
+{
+    public GameObject enemy;
+
+    IEnumerator SpawnEnemy()
+    {
+        while (true)
+        {
+            Instantiate(
+                enemy,
+                new Vector3(Random.Range(-8f, 8f), transform.position.y, 0f),
+                transform.rotation
+            );
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("SpawnEnemy");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/PlayerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerScript : MonoBehaviour
+{
+    public GameObject bullet;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("Shoot");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float dx = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+        float dy = Input.GetAxis("Vertical") * Time.deltaTime * 8f;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x + dx, -8f, 8f),
+            Mathf.Clamp(transform.position.y + dy, -4.5f, 4.5f),
+            0f
+        );
+    }
+
+    IEnumerator Shoot()
+    {
+        while (true)
+        {
+            Instantiate(bullet, transform.position, transform.rotation);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+爆発のアニメーションを作って敵機と弾が衝突したときにインスタンス化していきます。
+
+
+    爆発アニメーションのインスタンス化
+    動作確認
+
+// ===== /Assets/Scripts/EnemyScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyScript : MonoBehaviour
+{
+    private float phase;
+    public GameObject explosion;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        phase = Random.Range(0f, Mathf.PI * 2);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(
+            Mathf.Cos(Time.frameCount * 0.05f + phase) * 0.05f,
+            -2f * Time.deltaTime,
+            0f
+        );
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            Instantiate(explosion, transform.position, transform.rotation);
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+    }
+}
+
+// ===== /Assets/Scripts/BoundaryScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BoundaryScript : MonoBehaviour
+{
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Destroy(collision.gameObject);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/BulletScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BulletScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, 10f * Time.deltaTime, 0f);
+    }
+}
+
+// ===== /Assets/Scripts/GameControllerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GameControllerScript : MonoBehaviour
+{
+    public GameObject enemy;
+
+    IEnumerator SpawnEnemy()
+    {
+        while (true)
+        {
+            Instantiate(
+                enemy,
+                new Vector3(Random.Range(-8f, 8f), transform.position.y, 0f),
+                transform.rotation
+            );
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("SpawnEnemy");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/PlayerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerScript : MonoBehaviour
+{
+    public GameObject bullet;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("Shoot");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float dx = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+        float dy = Input.GetAxis("Vertical") * Time.deltaTime * 8f;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x + dx, -8f, 8f),
+            Mathf.Clamp(transform.position.y + dy, -4.5f, 4.5f),
+            0f
+        );
+    }
+
+    IEnumerator Shoot()
+    {
+        while (true)
+        {
+            Instantiate(bullet, transform.position, transform.rotation);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+爆発のあとが残らないように、一定時間後に自動で削除されるようにしていきます。
+
+
+    Destroy()
+
+// ===== /Assets/Scripts/ExplosionScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ExplosionScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        Destroy(gameObject, 0.5f);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/BoundaryScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BoundaryScript : MonoBehaviour
+{
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Destroy(collision.gameObject);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/BulletScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BulletScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, 10f * Time.deltaTime, 0f);
+    }
+}
+
+// ===== /Assets/Scripts/EnemyScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyScript : MonoBehaviour
+{
+    private float phase;
+    public GameObject explosion;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        phase = Random.Range(0f, Mathf.PI * 2);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(
+            Mathf.Cos(Time.frameCount * 0.05f + phase) * 0.05f,
+            -2f * Time.deltaTime,
+            0f
+        );
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            Instantiate(explosion, transform.position, transform.rotation);
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+    }
+}
+
+// ===== /Assets/Scripts/GameControllerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GameControllerScript : MonoBehaviour
+{
+    public GameObject enemy;
+
+    IEnumerator SpawnEnemy()
+    {
+        while (true)
+        {
+            Instantiate(
+                enemy,
+                new Vector3(Random.Range(-8f, 8f), transform.position.y, 0f),
+                transform.rotation
+            );
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("SpawnEnemy");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/PlayerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerScript : MonoBehaviour
+{
+    public GameObject bullet;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("Shoot");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float dx = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+        float dy = Input.GetAxis("Vertical") * Time.deltaTime * 8f;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x + dx, -8f, 8f),
+            Mathf.Clamp(transform.position.y + dy, -4.5f, 4.5f),
+            0f
+        );
+    }
+
+    IEnumerator Shoot()
+    {
+        while (true)
+        {
+            Instantiate(bullet, transform.position, transform.rotation);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+敵機と自機が衝突したときに、両方共爆発するように実装していきます。
+
+
+    タグの設定
+    衝突処理
+    動作確認
+
+// ===== /Assets/Scripts/EnemyScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyScript : MonoBehaviour
+{
+    private float phase;
+    public GameObject explosion;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        phase = Random.Range(0f, Mathf.PI * 2);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(
+            Mathf.Cos(Time.frameCount * 0.05f + phase) * 0.05f,
+            -2f * Time.deltaTime,
+            0f
+        );
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            Instantiate(explosion, transform.position, transform.rotation);
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Instantiate(explosion, transform.position, transform.rotation);
+            Instantiate(explosion, collision.transform.position, collision.transform.rotation);
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+    }
+}
+
+// ===== /Assets/Scripts/BoundaryScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BoundaryScript : MonoBehaviour
+{
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Destroy(collision.gameObject);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/BulletScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BulletScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, 10f * Time.deltaTime, 0f);
+    }
+}
+
+// ===== /Assets/Scripts/ExplosionScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ExplosionScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        Destroy(gameObject, 0.5f);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/GameControllerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GameControllerScript : MonoBehaviour
+{
+    public GameObject enemy;
+
+    IEnumerator SpawnEnemy()
+    {
+        while (true)
+        {
+            Instantiate(
+                enemy,
+                new Vector3(Random.Range(-8f, 8f), transform.position.y, 0f),
+                transform.rotation
+            );
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("SpawnEnemy");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/PlayerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerScript : MonoBehaviour
+{
+    public GameObject bullet;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("Shoot");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float dx = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+        float dy = Input.GetAxis("Vertical") * Time.deltaTime * 8f;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x + dx, -8f, 8f),
+            Mathf.Clamp(transform.position.y + dy, -4.5f, 4.5f),
+            0f
+        );
+    }
+
+    IEnumerator Shoot()
+    {
+        while (true)
+        {
+            Instantiate(bullet, transform.position, transform.rotation);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+スコア処理を導入するために実装を進めていきます。
+
+
+    UIテキストの設定
+    スコア表示処理の実装
+
+// ===== /Assets/Scripts/GameControllerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class GameControllerScript : MonoBehaviour
+{
+    public GameObject enemy;
+    private int score;
+    public Text scoreText;
+
+    IEnumerator SpawnEnemy()
+    {
+        while (true)
+        {
+            Instantiate(
+                enemy,
+                new Vector3(Random.Range(-8f, 8f), transform.position.y, 0f),
+                transform.rotation
+            );
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("SpawnEnemy");
+        score = 0;
+        scoreText.text = "Score: " + score;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/BoundaryScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BoundaryScript : MonoBehaviour
+{
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Destroy(collision.gameObject);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/BulletScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BulletScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, 10f * Time.deltaTime, 0f);
+    }
+}
+
+// ===== /Assets/Scripts/EnemyScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyScript : MonoBehaviour
+{
+    private float phase;
+    public GameObject explosion;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        phase = Random.Range(0f, Mathf.PI * 2);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(
+            Mathf.Cos(Time.frameCount * 0.05f + phase) * 0.05f,
+            -2f * Time.deltaTime,
+            0f
+        );
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            Instantiate(explosion, transform.position, transform.rotation);
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Instantiate(explosion, transform.position, transform.rotation);
+            Instantiate(explosion, collision.transform.position, collision.transform.rotation);
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+    }
+}
+
+// ===== /Assets/Scripts/ExplosionScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ExplosionScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        Destroy(gameObject, 0.5f);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/PlayerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerScript : MonoBehaviour
+{
+    public GameObject bullet;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("Shoot");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float dx = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+        float dy = Input.GetAxis("Vertical") * Time.deltaTime * 8f;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x + dx, -8f, 8f),
+            Mathf.Clamp(transform.position.y + dy, -4.5f, 4.5f),
+            0f
+        );
+    }
+
+    IEnumerator Shoot()
+    {
+        while (true)
+        {
+            Instantiate(bullet, transform.position, transform.rotation);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+スコアを加算するためのpublicメソッドを実装していきます。
+
+
+    AddScore()の実装
+    UpdateTextScore()の実装
+
+// ===== /Assets/Scripts/GameControllerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class GameControllerScript : MonoBehaviour
+{
+    public GameObject enemy;
+    private int score;
+    public Text scoreText;
+
+    IEnumerator SpawnEnemy()
+    {
+        while (true)
+        {
+            Instantiate(
+                enemy,
+                new Vector3(Random.Range(-8f, 8f), transform.position.y, 0f),
+                transform.rotation
+            );
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("SpawnEnemy");
+        score = 0;
+        UpdateScoreText();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void AddScore(int scoreToAdd)
+    {
+        score += scoreToAdd;
+        UpdateScoreText();
+    }
+
+    void UpdateScoreText()
+    {
+        scoreText.text = "Score: " + score;
+    }
+}
+
+// ===== /Assets/Scripts/BoundaryScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BoundaryScript : MonoBehaviour
+{
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Destroy(collision.gameObject);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/BulletScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BulletScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, 10f * Time.deltaTime, 0f);
+    }
+}
+
+// ===== /Assets/Scripts/EnemyScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyScript : MonoBehaviour
+{
+    private float phase;
+    public GameObject explosion;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        phase = Random.Range(0f, Mathf.PI * 2);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(
+            Mathf.Cos(Time.frameCount * 0.05f + phase) * 0.05f,
+            -2f * Time.deltaTime,
+            0f
+        );
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            Instantiate(explosion, transform.position, transform.rotation);
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Instantiate(explosion, transform.position, transform.rotation);
+            Instantiate(explosion, collision.transform.position, collision.transform.rotation);
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+    }
+}
+
+// ===== /Assets/Scripts/ExplosionScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ExplosionScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        Destroy(gameObject, 0.5f);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/PlayerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerScript : MonoBehaviour
+{
+    public GameObject bullet;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("Shoot");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float dx = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+        float dy = Input.GetAxis("Vertical") * Time.deltaTime * 8f;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x + dx, -8f, 8f),
+            Mathf.Clamp(transform.position.y + dy, -4.5f, 4.5f),
+            0f
+        );
+    }
+
+    IEnumerator Shoot()
+    {
+        while (true)
+        {
+            Instantiate(bullet, transform.position, transform.rotation);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+前回作ったAddScore()メソッドを他クラスから呼び出す方法について見ていきます。
+
+
+    FindWithTag()
+    GetComponent<>()
+
+// ===== /Assets/Scripts/EnemyScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyScript : MonoBehaviour
+{
+    private float phase;
+    public GameObject explosion;
+    private GameControllerScript gameController;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        phase = Random.Range(0f, Mathf.PI * 2);
+        gameController = GameObject
+            .FindWithTag("GameController")
+            .GetComponent<GameControllerScript>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(
+            Mathf.Cos(Time.frameCount * 0.05f + phase) * 0.05f,
+            -2f * Time.deltaTime,
+            0f
+        );
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            gameController.AddScore(10);
+            Instantiate(explosion, transform.position, transform.rotation);
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Instantiate(explosion, transform.position, transform.rotation);
+            Instantiate(explosion, collision.transform.position, collision.transform.rotation);
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+    }
+}
+
+// ===== /Assets/Scripts/BoundaryScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BoundaryScript : MonoBehaviour
+{
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Destroy(collision.gameObject);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/BulletScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BulletScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, 10f * Time.deltaTime, 0f);
+    }
+}
+
+// ===== /Assets/Scripts/ExplosionScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ExplosionScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        Destroy(gameObject, 0.5f);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/GameControllerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class GameControllerScript : MonoBehaviour
+{
+    public GameObject enemy;
+    private int score;
+    public Text scoreText;
+
+    IEnumerator SpawnEnemy()
+    {
+        while (true)
+        {
+            Instantiate(
+                enemy,
+                new Vector3(Random.Range(-8f, 8f), transform.position.y, 0f),
+                transform.rotation
+            );
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("SpawnEnemy");
+        score = 0;
+        UpdateScoreText();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void AddScore(int scoreToAdd)
+    {
+        score += scoreToAdd;
+        UpdateScoreText();
+    }
+
+    void UpdateScoreText()
+    {
+        scoreText.text = "Score: " + score;
+    }
+}
+
+// ===== /Assets/Scripts/PlayerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerScript : MonoBehaviour
+{
+    public GameObject bullet;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("Shoot");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float dx = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+        float dy = Input.GetAxis("Vertical") * Time.deltaTime * 8f;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x + dx, -8f, 8f),
+            Mathf.Clamp(transform.position.y + dy, -4.5f, 4.5f),
+            0f
+        );
+    }
+
+    IEnumerator Shoot()
+    {
+        while (true)
+        {
+            Instantiate(bullet, transform.position, transform.rotation);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+ゲームオーバー時にテキストが表示されるようにしていきます。
+
+
+    UIテキストの追加
+    テキスト表示処理の実装
+
+// ===== /Assets/Scripts/EnemyScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyScript : MonoBehaviour
+{
+    private float phase;
+    public GameObject explosion;
+    private GameControllerScript gameController;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        phase = Random.Range(0f, Mathf.PI * 2);
+        gameController = GameObject
+            .FindWithTag("GameController")
+            .GetComponent<GameControllerScript>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(
+            Mathf.Cos(Time.frameCount * 0.05f + phase) * 0.05f,
+            -2f * Time.deltaTime,
+            0f
+        );
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            gameController.AddScore(10);
+            Instantiate(explosion, transform.position, transform.rotation);
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            gameController.GameOver();
+            Instantiate(explosion, transform.position, transform.rotation);
+            Instantiate(explosion, collision.transform.position, collision.transform.rotation);
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+    }
+}
+
+// ===== /Assets/Scripts/GameControllerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class GameControllerScript : MonoBehaviour
+{
+    public GameObject enemy;
+    private int score;
+    public Text scoreText;
+    public Text replayText;
+
+    IEnumerator SpawnEnemy()
+    {
+        while (true)
+        {
+            Instantiate(
+                enemy,
+                new Vector3(Random.Range(-8f, 8f), transform.position.y, 0f),
+                transform.rotation
+            );
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("SpawnEnemy");
+        score = 0;
+        UpdateScoreText();
+        replayText.text = "";
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void AddScore(int scoreToAdd)
+    {
+        score += scoreToAdd;
+        UpdateScoreText();
+    }
+
+    void UpdateScoreText()
+    {
+        scoreText.text = "Score: " + score;
+    }
+
+    public void GameOver()
+    {
+        replayText.text = "Hit SPACE to replay!";
+    }
+}
+
+// ===== /Assets/Scripts/BoundaryScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BoundaryScript : MonoBehaviour
+{
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Destroy(collision.gameObject);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/BulletScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BulletScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, 10f * Time.deltaTime, 0f);
+    }
+}
+
+// ===== /Assets/Scripts/ExplosionScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ExplosionScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        Destroy(gameObject, 0.5f);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/PlayerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerScript : MonoBehaviour
+{
+    public GameObject bullet;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("Shoot");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float dx = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+        float dy = Input.GetAxis("Vertical") * Time.deltaTime * 8f;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x + dx, -8f, 8f),
+            Mathf.Clamp(transform.position.y + dy, -4.5f, 4.5f),
+            0f
+        );
+    }
+
+    IEnumerator Shoot()
+    {
+        while (true)
+        {
+            Instantiate(bullet, transform.position, transform.rotation);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+スペースキーを押したらゲームをリプレイできるように実装していきます。
+
+
+    キー入力による判定
+    ゲームオーバーの判定
+    シーンの読み込み
+    動作確認
+
+// ===== /Assets/Scripts/GameControllerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+public class GameControllerScript : MonoBehaviour
+{
+    public GameObject enemy;
+    private int score;
+    public Text scoreText;
+    public Text replayText;
+    private bool isGameOver;
+
+    IEnumerator SpawnEnemy()
+    {
+        while (true)
+        {
+            Instantiate(
+                enemy,
+                new Vector3(Random.Range(-8f, 8f), transform.position.y, 0f),
+                transform.rotation
+            );
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("SpawnEnemy");
+        score = 0;
+        UpdateScoreText();
+        replayText.text = "";
+        isGameOver = false;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (!isGameOver)
+        {
+            return;
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            SceneManager.LoadScene("MainScene");
+        }
+    }
+
+    public void AddScore(int scoreToAdd)
+    {
+        score += scoreToAdd;
+        UpdateScoreText();
+    }
+
+    void UpdateScoreText()
+    {
+        scoreText.text = "Score: " + score;
+    }
+
+    public void GameOver()
+    {
+        isGameOver = true;
+        replayText.text = "Hit SPACE to replay!";
+    }
+}
+
+// ===== /Assets/Scripts/BoundaryScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BoundaryScript : MonoBehaviour
+{
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Destroy(collision.gameObject);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/BulletScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BulletScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(0f, 10f * Time.deltaTime, 0f);
+    }
+}
+
+// ===== /Assets/Scripts/EnemyScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyScript : MonoBehaviour
+{
+    private float phase;
+    public GameObject explosion;
+    private GameControllerScript gameController;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        phase = Random.Range(0f, Mathf.PI * 2);
+        gameController = GameObject
+            .FindWithTag("GameController")
+            .GetComponent<GameControllerScript>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += new Vector3(
+            Mathf.Cos(Time.frameCount * 0.05f + phase) * 0.05f,
+            -2f * Time.deltaTime,
+            0f
+        );
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            gameController.AddScore(10);
+            Instantiate(explosion, transform.position, transform.rotation);
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            gameController.GameOver();
+            Instantiate(explosion, transform.position, transform.rotation);
+            Instantiate(explosion, collision.transform.position, collision.transform.rotation);
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+    }
+}
+
+// ===== /Assets/Scripts/ExplosionScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ExplosionScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        Destroy(gameObject, 0.5f);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// ===== /Assets/Scripts/PlayerScript.cs =====
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerScript : MonoBehaviour
+{
+    public GameObject bullet;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine("Shoot");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float dx = Input.GetAxis("Horizontal") * Time.deltaTime * 8f;
+        float dy = Input.GetAxis("Vertical") * Time.deltaTime * 8f;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x + dx, -8f, 8f),
+            Mathf.Clamp(transform.position.y + dy, -4.5f, 4.5f),
+            0f
+        );
+    }
+
+    IEnumerator Shoot()
+    {
+        while (true)
+        {
+            Instantiate(bullet, transform.position, transform.rotation);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+}
+
+
+
+
+
+

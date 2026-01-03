@@ -1,0 +1,2881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+    <code>
+      実践編の概要を説明したのち、Nuxtに組み込んでいくサイトについて確認していきます。
+
+実践編の概要
+開発環境の確認
+Nuxtに組み込むサイトの確認
+補足情報 動画内で紹介しているサイトについて
+2025年4月5日
+動画で紹介しているURLは以下のとおりです。
+
+・【お手本】 DTFNTR - 目黒のアンティーク家具専門店
+https://dotinstall.github.io/setup/basic_nuxt/
+
+またこのサイトの作り方を解説しているレッスンは以下のとおりです（このレッスン用に多少改変しましたが、作り方の大筋はこのレッスンで把握できるはずです）。
+
+・実践！ECサイトを模写しよう (全16回)
+https://dotinstall.com/lessons/ecommerce_htmlcss_v2
+
+補足情報 基本機能編で行った操作について
+2025年4月5日
+Codespacesに接続したVS Codeの立ち上げについて紹介している動画は以下のとおりです。
+
+・#02 Codespaceを起動しよう | Nuxt入門 基礎編
+https://dotinstall.com/lessons/basic_nuxt_beginner/69502
+・#03 VS Codeで開発していこう | Nuxt入門 基礎編
+https://dotinstall.com/lessons/basic_nuxt_beginner/69503
+・#04 アプリケーションを起動しよう | Nuxt入門 基礎編
+https://dotinstall.com/lessons/basic_nuxt_beginner/69504
+
+
+
+
+/layouts/default.vue 
+<template>
+  <Header />
+  <slot />
+  <Footer />
+</template>
+
+app.vue
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>
+
+nuxt.config.ts
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: '2024-11-01',
+  devtools: { enabled: true },
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', href: '/favicon.png' },
+      ],
+      htmlAttrs: {
+        lang: 'ja',
+      },
+    },
+  },
+})
+
+/pages/about.vue
+<script setup>
+useHead({
+  title: 'About page',
+});
+</script>
+
+<template>
+  <p>About page</p>
+  <NuxtLink to="/">To index</NuxtLink>
+</template>
+
+/components/Footer.vue
+<template>
+  <footer>
+    <small>(c) dotinstall.com</small>
+  </footer>
+</template>
+
+/components/Header.vue
+<template>
+  <header>
+    <h1>My site</h1>
+  </header>
+</template>
+
+/pages/index.vue
+<script setup>
+useHead({
+  title: 'Index page',
+});
+</script>
+
+<template>
+  <p>Index page</p>
+  <NuxtLink to="/about">To about</NuxtLink>
+</template>
+
+
+
+サイト全体のスタイルを設定する方法について見ていきます。
+
+assets/style.cssの作成
+サイト全体のスタイル設定
+nuxt.config.tsの設定
+
+/assets/style.css
+body,
+h1,
+p {
+  margin: 0;
+}
+
+/layouts/default.vue
+<template>
+  <Header />
+  <slot />
+  <Footer />
+</template>
+
+app.vue
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>
+
+nuxt.config.ts
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: '2024-11-01',
+  devtools: { enabled: true },
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', href: '/favicon.png' },
+      ],
+      htmlAttrs: {
+        lang: 'ja',
+      },
+    },
+  },
+  css: [
+    '@/assets/style.css',
+  ],
+})
+
+/pages/about.vue
+<script setup>
+useHead({
+  title: 'About page',
+});
+</script>
+
+<template>
+  <p>About page</p>
+  <NuxtLink to="/">To index</NuxtLink>
+</template>
+
+/components/Footer.vue
+<template>
+  <footer>
+    <small>(c) dotinstall.com</small>
+  </footer>
+</template>
+
+/components/Header.vue
+<template>
+  <header>
+    <h1>My site</h1>
+  </header>
+</template>
+
+/pages/index.vue
+<script setup>
+useHead({
+  title: 'Index page',
+});
+</script>
+
+<template>
+  <p>Index page</p>
+  <NuxtLink to="/about">To about</NuxtLink>
+</template>
+
+
+
+組み込むサイトの構造を確認したのち、titleタグの内容や共通のスタイリングを移植していきます。
+
+サイトのソースコードを確認
+titleタグの移植
+共通のスタイルの移植
+
+/assets/style.css
+/* common */
+
+body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+h3 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+p {
+  margin: 0;
+}
+
+/layouts/default.vue
+<template>
+  <Header />
+  <slot />
+  <Footer />
+</template>
+
+app.vue
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>
+
+nuxt.config.ts
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: '2024-11-01',
+  devtools: { enabled: true },
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', href: '/favicon.png' },
+      ],
+      htmlAttrs: {
+        lang: 'ja',
+      },
+    },
+  },
+  css: [
+    '@/assets/style.css',
+  ],
+})
+
+/pages/about.vue
+<script setup>
+useHead({
+  title: 'About page',
+});
+</script>
+
+<template>
+  <p>About page</p>
+  <NuxtLink to="/">To index</NuxtLink>
+</template>
+
+/components/Footer.vue
+<template>
+  <footer>
+    <small>(c) dotinstall.com</small>
+  </footer>
+</template>
+
+/components/Header.vue
+<template>
+  <header>
+    <h1>My site</h1>
+  </header>
+</template>
+
+/pages/index.vue
+<script setup>
+useHead({
+  title: 'DTFNTR - 目黒のアンティーク家具専門店',
+});
+</script>
+
+<template>
+  <p>Index page</p>
+  <NuxtLink to="/about">To about</NuxtLink>
+</template>
+
+
+
+元サイトにあったcontainerをNuxtに組み込んでいきます。
+
+containerの設置
+スタイルの設定
+
+/assets/style.css
+/* common */
+
+body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+h3 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+p {
+  margin: 0;
+}
+
+/layouts/default.vue
+<template>
+  <div class="container">
+    <Header />
+    <slot />
+    <Footer />
+  </div>
+</template>
+
+<style scoped>
+.container {
+  width: calc(100% - 64px);
+  margin: 0 auto;
+  max-width: 600px;
+  box-sizing: border-box;
+  padding: 32px 0;
+}
+</style>
+
+app.vue
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>
+
+nuxt.config.ts
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: '2024-11-01',
+  devtools: { enabled: true },
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', href: '/favicon.png' },
+      ],
+      htmlAttrs: {
+        lang: 'ja',
+      },
+    },
+  },
+  css: [
+    '@/assets/style.css',
+  ],
+})
+
+/pages/about.vue
+<script setup>
+useHead({
+  title: 'About page',
+});
+</script>
+
+<template>
+  <p>About page</p>
+  <NuxtLink to="/">To index</NuxtLink>
+</template>
+
+/components/Footer.vue
+<template>
+  <footer>
+    <small>(c) dotinstall.com</small>
+  </footer>
+</template>
+
+/components/Header.vue
+<template>
+  <header>
+    <h1>My site</h1>
+  </header>
+</template>
+
+/pages/index.vue
+<script setup>
+useHead({
+  title: 'DTFNTR - 目黒のアンティーク家具専門店',
+});
+</script>
+
+<template>
+  <p>Index page</p>
+  <NuxtLink to="/about">To about</NuxtLink>
+</template>
+
+
+
+元サイトにあわせてHeaderコンポーネントを実装していきます。
+
+Header.vueの編集
+NuxtLinkの設定
+
+
+/assets/style.css
+/* common */
+
+body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+h3 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+p {
+  margin: 0;
+}
+
+/layouts/default.vue
+<template>
+  <div class="container">
+    <Header />
+    <slot />
+    <Footer />
+  </div>
+</template>
+
+<style scoped>
+.container {
+  width: calc(100% - 64px);
+  margin: 0 auto;
+  max-width: 600px;
+  box-sizing: border-box;
+  padding: 32px 0;
+}
+</style>
+
+app.vue
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>
+
+nuxt.config.ts
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: '2024-11-01',
+  devtools: { enabled: true },
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', href: '/favicon.png' },
+      ],
+      htmlAttrs: {
+        lang: 'ja',
+      },
+    },
+  },
+  css: [
+    '@/assets/style.css',
+  ],
+})
+
+/pages/about.vue
+<script setup>
+useHead({
+  title: 'About page',
+});
+</script>
+
+<template>
+  <p>About page</p>
+  <NuxtLink to="/">To index</NuxtLink>
+</template>
+
+/components/Footer.vue
+<template>
+  <footer>
+    <small>(c) dotinstall.com</small>
+  </footer>
+</template>
+
+/components/Header.vue
+<template>
+  <header>
+    <h1>
+      <NuxtLink to="/">
+        <img src="/logo.png" alt="DTFNTR" width="168" height="48">
+      </NuxtLink>
+    </h1>
+  </header>
+</template>
+
+/pages/index.vue
+<script setup>
+useHead({
+  title: 'DTFNTR - 目黒のアンティーク家具専門店',
+});
+</script>
+
+<template>
+  <p>Index page</p>
+  <NuxtLink to="/about">To about</NuxtLink>
+</template>
+
+
+
+元サイトにあわせてFooterコンポーネントを実装していきます。
+
+Footer.vueの編集
+スタイルの移植
+
+
+/assets/style.css
+/* common */
+
+body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+h3 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+p {
+  margin: 0;
+}
+
+/layouts/default.vue
+<template>
+  <div class="container">
+    <Header />
+    <slot />
+    <Footer />
+  </div>
+</template>
+
+<style scoped>
+.container {
+  width: calc(100% - 64px);
+  margin: 0 auto;
+  max-width: 600px;
+  box-sizing: border-box;
+  padding: 32px 0;
+}
+</style>
+
+app.vue
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>
+
+nuxt.config.ts
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: '2024-11-01',
+  devtools: { enabled: true },
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', href: '/favicon.png' },
+      ],
+      htmlAttrs: {
+        lang: 'ja',
+      },
+    },
+  },
+  css: [
+    '@/assets/style.css',
+  ],
+})
+
+/pages/about.vue
+<script setup>
+useHead({
+  title: 'About page',
+});
+</script>
+
+<template>
+  <p>About page</p>
+  <NuxtLink to="/">To index</NuxtLink>
+</template>
+
+/components/Footer.vue
+<template>
+  <footer>
+    <small>(c) dotinstall.com</small>
+  </footer>
+</template>
+
+<style scoped>
+/* footer */
+
+footer {
+  margin-top: 32px;
+  text-align: center;
+}
+
+small {
+  font-size: 14px;
+}
+</style>
+
+/components/Header.vue
+<template>
+  <header>
+    <h1>
+      <NuxtLink to="/">
+        <img src="/logo.png" alt="DTFNTR" width="168" height="48">
+      </NuxtLink>
+    </h1>
+  </header>
+</template>
+
+/pages/index.vue
+<script setup>
+useHead({
+  title: 'DTFNTR - 目黒のアンティーク家具専門店',
+});
+</script>
+
+<template>
+  <p>Index page</p>
+  <NuxtLink to="/about">To about</NuxtLink>
+</template>
+
+
+
+商品に関するタグをindex.vueへ移植していきます。
+
+商品関連コードの移植
+スタイルの移植
+
+
+/assets/style.css
+/* common */
+
+body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+h3 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+p {
+  margin: 0;
+}
+
+/layouts/default.vue
+<template>
+  <div class="container">
+    <Header />
+    <slot />
+    <Footer />
+  </div>
+</template>
+
+<style scoped>
+.container {
+  width: calc(100% - 64px);
+  margin: 0 auto;
+  max-width: 600px;
+  box-sizing: border-box;
+  padding: 32px 0;
+}
+</style>
+
+app.vue
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>
+nuxt.config.ts
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: '2024-11-01',
+  devtools: { enabled: true },
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', href: '/favicon.png' },
+      ],
+      htmlAttrs: {
+        lang: 'ja',
+      },
+    },
+  },
+  css: [
+    '@/assets/style.css',
+  ],
+})
+
+/pages/about.vue
+<script setup>
+useHead({
+  title: 'About page',
+});
+</script>
+
+<template>
+  <p>About page</p>
+  <NuxtLink to="/">To index</NuxtLink>
+</template>
+
+/components/Header.vue
+<template>
+  <header>
+    <h1>
+      <NuxtLink to="/">
+        <img src="/logo.png" alt="DTFNTR" width="168" height="48">
+      </NuxtLink>
+    </h1>
+  </header>
+</template>
+
+/components/Footer.vue
+<template>
+  <footer>
+    <small>(c) dotinstall.com</small>
+  </footer>
+</template>
+
+<style scoped>
+/* footer */
+
+footer {
+  margin-top: 32px;
+  text-align: center;
+}
+
+small {
+  font-size: 14px;
+}
+</style>
+
+/pages/index.vue
+<script setup>
+useHead({
+  title: 'DTFNTR - 目黒のアンティーク家具専門店',
+});
+</script>
+
+<template>
+  <section class="products">
+    <h2>Our Products</h2>
+    <ul>
+      <li>
+        <NuxtLink to="">
+          <img src="/product-0.png" alt="すごい丸椅子" width="400" height="400">
+          <h3>すごい丸椅子</h3>
+          <p>12,000円</p>
+        </NuxtLink>
+      </li>
+    </ul>
+  </section>
+</template>
+
+<style scoped>
+/* products */
+
+.products h2 {
+  margin-top: 32px;
+}
+
+.products ul {
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+}
+
+.products a {
+  display: block;
+}
+
+.products img {
+  width: 100%;
+  height: auto;
+}
+
+.products h3 {
+  margin-top: 8px;
+}
+</style>
+
+
+
+JavaScriptで複数の商品データを管理し、それをもとにページを組み上げていきます。
+
+productsの宣言
+v-forによるli要素の生成
+
+
+/assets/style.css
+/* common */
+
+body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+h3 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+p {
+  margin: 0;
+}
+
+/layouts/default.vue
+<template>
+  <div class="container">
+    <Header />
+    <slot />
+    <Footer />
+  </div>
+</template>
+
+<style scoped>
+.container {
+  width: calc(100% - 64px);
+  margin: 0 auto;
+  max-width: 600px;
+  box-sizing: border-box;
+  padding: 32px 0;
+}
+</style>
+
+app.vue
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>
+
+nuxt.config.ts
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: '2024-11-01',
+  devtools: { enabled: true },
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', href: '/favicon.png' },
+      ],
+      htmlAttrs: {
+        lang: 'ja',
+      },
+    },
+  },
+  css: [
+    '@/assets/style.css',
+  ],
+})
+
+/pages/about.vue
+<script setup>
+useHead({
+  title: 'About page',
+});
+</script>
+
+<template>
+  <p>About page</p>
+  <NuxtLink to="/">To index</NuxtLink>
+</template>
+
+/components/Header.vue
+<template>
+  <header>
+    <h1>
+      <NuxtLink to="/">
+        <img src="/logo.png" alt="DTFNTR" width="168" height="48">
+      </NuxtLink>
+    </h1>
+  </header>
+</template>
+
+/components/Footer.vue
+<template>
+  <footer>
+    <small>(c) dotinstall.com</small>
+  </footer>
+</template>
+
+<style scoped>
+/* footer */
+
+footer {
+  margin-top: 32px;
+  text-align: center;
+}
+
+small {
+  font-size: 14px;
+}
+</style>
+
+/pages/index.vue
+<script setup>
+const products = [
+  { imgUrl: '/product-0.png', name: 'すごい丸椅子', price: 12000 },
+  { imgUrl: '/product-1.png', name: 'すごい椅子', price: 15000 },
+  { imgUrl: '/product-2.png', name: 'すごいランプ', price: 30000 },
+];
+
+useHead({
+  title: 'DTFNTR - 目黒のアンティーク家具専門店',
+});
+</script>
+
+<template>
+  <section class="products">
+    <h2>Our Products</h2>
+    <ul>
+      <li v-for="product in products">
+        <NuxtLink to="">
+          <img :src="product.imgUrl" :alt="product.name" width="400" height="400">
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.price }}円</p>
+        </NuxtLink>
+      </li>
+    </ul>
+  </section>
+</template>
+
+<style scoped>
+/* products */
+
+.products h2 {
+  margin-top: 32px;
+}
+
+.products ul {
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+}
+
+.products a {
+  display: block;
+}
+
+.products img {
+  width: 100%;
+  height: auto;
+}
+
+.products h3 {
+  margin-top: 8px;
+}
+</style>
+
+
+idや数値のカンマ区切りなど、商品データをさらに整備していきます。
+
+toLocaleString()の活用
+key属性の付与
+データの整備
+補足情報 toLocaleString()について
+2025年4月5日
+動画内で紹介しているtoLocaleString()の使い方については以下を復習してみてください。
+
+・#03 数値を見やすく表示してみよう | JavaScript入門 数値操作編
+https://dotinstall.com/lessons/basic_javascript_numbers/63903
+
+/assets/style.css
+/* common */
+
+body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+h3 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+p {
+  margin: 0;
+}
+
+/layouts/default.vue
+<template>
+  <div class="container">
+    <Header />
+    <slot />
+    <Footer />
+  </div>
+</template>
+
+<style scoped>
+.container {
+  width: calc(100% - 64px);
+  margin: 0 auto;
+  max-width: 600px;
+  box-sizing: border-box;
+  padding: 32px 0;
+}
+</style>
+
+app.vue
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>
+
+nuxt.config.ts
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: '2024-11-01',
+  devtools: { enabled: true },
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', href: '/favicon.png' },
+      ],
+      htmlAttrs: {
+        lang: 'ja',
+      },
+    },
+  },
+  css: [
+    '@/assets/style.css',
+  ],
+})
+
+/pages/about.vue
+<script setup>
+useHead({
+  title: 'About page',
+});
+</script>
+
+<template>
+  <p>About page</p>
+  <NuxtLink to="/">To index</NuxtLink>
+</template>
+
+/components/Header.vue
+<template>
+  <header>
+    <h1>
+      <NuxtLink to="/">
+        <img src="/logo.png" alt="DTFNTR" width="168" height="48">
+      </NuxtLink>
+    </h1>
+  </header>
+</template>
+
+/components/Footer.vue
+<template>
+  <footer>
+    <small>(c) dotinstall.com</small>
+  </footer>
+</template>
+
+<style scoped>
+/* footer */
+
+footer {
+  margin-top: 32px;
+  text-align: center;
+}
+
+small {
+  font-size: 14px;
+}
+</style>
+
+/pages/index.vue
+<script setup>
+const products = [
+  { id: 0, name: 'すごい丸椅子', price: 12000 },
+  { id: 1, name: 'すごい椅子', price: 15000 },
+  { id: 2, name: 'すごいランプ', price: 30000 },
+];
+
+useHead({
+  title: 'DTFNTR - 目黒のアンティーク家具専門店',
+});
+</script>
+
+<template>
+  <section class="products">
+    <h2>Our Products</h2>
+    <ul>
+      <li v-for="product in products" :key="product.id">
+        <NuxtLink to="">
+          <img :src="`product-${product.id}.png`" :alt="product.name" width="400" height="400">
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.price.toLocaleString() }}円</p>
+        </NuxtLink>
+      </li>
+    </ul>
+  </section>
+</template>
+
+<style scoped>
+/* products */
+
+.products h2 {
+  margin-top: 32px;
+}
+
+.products ul {
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+}
+
+.products a {
+  display: block;
+}
+
+.products img {
+  width: 100%;
+  height: auto;
+}
+
+.products h3 {
+  margin-top: 8px;
+}
+</style>
+
+
+商品をクリックしたら詳細ページに遷移するように設定していきます。
+
+products/0.vueの作成
+商品データの埋め込み
+
+
+/pages/products/0.vue
+<script setup>
+useHead({
+  title: 'すごい丸椅子 | DTFNTR - 目黒のアンティーク家具専門店',
+});
+</script>
+
+<template>
+  <section class="product">
+    <div class="desc">
+      <h2>すごい丸椅子</h2>
+      <p>すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。</p>
+      <p>12,000円 (税込)</p>
+      <button>購入する</button>
+    </div>
+    <div class="pic">
+      <img src="/product-0.png" alt="すごい丸椅子" width="400" height="400">
+    </div>
+  </section>
+</template>
+
+<style scoped>
+/* product */
+
+.product {
+  display: flex;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+}
+
+.product div {
+  flex: 1;
+}
+
+.product p {
+  margin-top: 16px;
+}
+
+.product button {
+  margin-top: 16px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+</style>
+
+/assets/style.css
+/* common */
+
+body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+h3 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+p {
+  margin: 0;
+}
+
+/layouts/default.vue
+<template>
+  <div class="container">
+    <Header />
+    <slot />
+    <Footer />
+  </div>
+</template>
+
+<style scoped>
+.container {
+  width: calc(100% - 64px);
+  margin: 0 auto;
+  max-width: 600px;
+  box-sizing: border-box;
+  padding: 32px 0;
+}
+</style>
+
+app.vue
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>
+
+nuxt.config.ts
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: '2024-11-01',
+  devtools: { enabled: true },
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', href: '/favicon.png' },
+      ],
+      htmlAttrs: {
+        lang: 'ja',
+      },
+    },
+  },
+  css: [
+    '@/assets/style.css',
+  ],
+})
+
+/pages/about.vue
+<script setup>
+useHead({
+  title: 'About page',
+});
+</script>
+
+<template>
+  <p>About page</p>
+  <NuxtLink to="/">To index</NuxtLink>
+</template>
+
+/components/Header.vue
+<template>
+  <header>
+    <h1>
+      <NuxtLink to="/">
+        <img src="/logo.png" alt="DTFNTR" width="168" height="48">
+      </NuxtLink>
+    </h1>
+  </header>
+</template>
+
+/components/Footer.vue
+<template>
+  <footer>
+    <small>(c) dotinstall.com</small>
+  </footer>
+</template>
+
+<style scoped>
+/* footer */
+
+footer {
+  margin-top: 32px;
+  text-align: center;
+}
+
+small {
+  font-size: 14px;
+}
+</style>
+
+/pages/index.vue
+<script setup>
+const products = [
+  { id: 0, name: 'すごい丸椅子', price: 12000 },
+  { id: 1, name: 'すごい椅子', price: 15000 },
+  { id: 2, name: 'すごいランプ', price: 30000 },
+];
+
+useHead({
+  title: 'DTFNTR - 目黒のアンティーク家具専門店',
+});
+</script>
+
+<template>
+  <section class="products">
+    <h2>Our Products</h2>
+    <ul>
+      <li v-for="product in products" :key="product.id">
+        <NuxtLink to="">
+          <img :src="`product-${product.id}.png`" :alt="product.name" width="400" height="400">
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.price.toLocaleString() }}円</p>
+        </NuxtLink>
+      </li>
+    </ul>
+  </section>
+</template>
+
+<style scoped>
+/* products */
+
+.products h2 {
+  margin-top: 32px;
+}
+
+.products ul {
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+}
+
+.products a {
+  display: block;
+}
+
+.products img {
+  width: 100%;
+  height: auto;
+}
+
+.products h3 {
+  margin-top: 8px;
+}
+</style>
+
+
+
+
+
+
+
+
+ダイナミックルーティングを使って商品詳細ページへリンクを貼る方法について見ていきます。
+
+ダイナミックルーティング
+NuxtLinkの設定
+
+/pages/products/0.vue
+/pages/products/[id].vue
+<script setup>
+useHead({
+  title: 'すごい丸椅子 | DTFNTR - 目黒のアンティーク家具専門店',
+});
+</script>
+
+<template>
+  <section class="product">
+    <div class="desc">
+      <h2>すごい丸椅子</h2>
+      <p>すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。</p>
+      <p>12,000円 (税込)</p>
+      <button>購入する</button>
+    </div>
+    <div class="pic">
+      <img src="/product-0.png" alt="すごい丸椅子" width="400" height="400">
+    </div>
+  </section>
+</template>
+
+<style scoped>
+/* product */
+
+.product {
+  display: flex;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+}
+
+.product div {
+  flex: 1;
+}
+
+.product p {
+  margin-top: 16px;
+}
+
+.product button {
+  margin-top: 16px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+</style>
+
+/assets/style.css
+/* common */
+
+body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+h3 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+p {
+  margin: 0;
+}
+
+/layouts/default.vue
+<template>
+  <div class="container">
+    <Header />
+    <slot />
+    <Footer />
+  </div>
+</template>
+
+<style scoped>
+.container {
+  width: calc(100% - 64px);
+  margin: 0 auto;
+  max-width: 600px;
+  box-sizing: border-box;
+  padding: 32px 0;
+}
+</style>
+
+app.vue
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>
+
+nuxt.config.ts
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: '2024-11-01',
+  devtools: { enabled: true },
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', href: '/favicon.png' },
+      ],
+      htmlAttrs: {
+        lang: 'ja',
+      },
+    },
+  },
+  css: [
+    '@/assets/style.css',
+  ],
+})
+
+/pages/about.vue
+<script setup>
+useHead({
+  title: 'About page',
+});
+</script>
+
+<template>
+  <p>About page</p>
+  <NuxtLink to="/">To index</NuxtLink>
+</template>
+
+/components/Header.vue
+<template>
+  <header>
+    <h1>
+      <NuxtLink to="/">
+        <img src="/logo.png" alt="DTFNTR" width="168" height="48">
+      </NuxtLink>
+    </h1>
+  </header>
+</template>
+
+/components/Footer.vue
+<template>
+  <footer>
+    <small>(c) dotinstall.com</small>
+  </footer>
+</template>
+
+<style scoped>
+/* footer */
+
+footer {
+  margin-top: 32px;
+  text-align: center;
+}
+
+small {
+  font-size: 14px;
+}
+</style>
+
+/pages/index.vue
+<script setup>
+const products = [
+  { id: 0, name: 'すごい丸椅子', price: 12000 },
+  { id: 1, name: 'すごい椅子', price: 15000 },
+  { id: 2, name: 'すごいランプ', price: 30000 },
+];
+
+useHead({
+  title: 'DTFNTR - 目黒のアンティーク家具専門店',
+});
+</script>
+
+<template>
+  <section class="products">
+    <h2>Our Products</h2>
+    <ul>
+      <li v-for="product in products" :key="product.id">
+        <NuxtLink :to="`/products/${product.id}`">
+          <img :src="`product-${product.id}.png`" :alt="product.name" width="400" height="400">
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.price.toLocaleString() }}円</p>
+        </NuxtLink>
+      </li>
+    </ul>
+  </section>
+</template>
+
+<style scoped>
+/* products */
+
+.products h2 {
+  margin-top: 32px;
+}
+
+.products ul {
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+}
+
+.products a {
+  display: block;
+}
+
+.products img {
+  width: 100%;
+  height: auto;
+}
+
+.products h3 {
+  margin-top: 8px;
+}
+</style>
+
+
+
+
+
+
+
+
+useState()を使ってアプリケーション全体でデータを共有する方法について見ていきます。
+
+useState()の設定
+useState()で設定した値を使う方法
+
+/pages/products/[id].vue
+<script setup>
+useHead({
+  title: 'すごい丸椅子 | DTFNTR - 目黒のアンティーク家具専門店',
+});
+</script>
+
+<template>
+  <section class="product">
+    <div class="desc">
+      <h2>すごい丸椅子</h2>
+      <p>すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。</p>
+      <p>12,000円 (税込)</p>
+      <button>購入する</button>
+    </div>
+    <div class="pic">
+      <img src="/product-0.png" alt="すごい丸椅子" width="400" height="400">
+    </div>
+  </section>
+</template>
+
+<style scoped>
+/* product */
+
+.product {
+  display: flex;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+}
+
+.product div {
+  flex: 1;
+}
+
+.product p {
+  margin-top: 16px;
+}
+
+.product button {
+  margin-top: 16px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+</style>
+
+/assets/style.css
+/* common */
+
+body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+h3 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+p {
+  margin: 0;
+}
+
+/layouts/default.vue
+<template>
+  <div class="container">
+    <Header />
+    <slot />
+    <Footer />
+  </div>
+</template>
+
+<style scoped>
+.container {
+  width: calc(100% - 64px);
+  margin: 0 auto;
+  max-width: 600px;
+  box-sizing: border-box;
+  padding: 32px 0;
+}
+</style>
+
+app.vue
+<script setup>
+useState('products', () => [
+  { id: 0, name: 'すごい丸椅子', price: 12000 },
+  { id: 1, name: 'すごい椅子', price: 15000 },
+  { id: 2, name: 'すごいランプ', price: 30000 },
+]);
+</script>
+
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>
+
+nuxt.config.ts
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: '2024-11-01',
+  devtools: { enabled: true },
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', href: '/favicon.png' },
+      ],
+      htmlAttrs: {
+        lang: 'ja',
+      },
+    },
+  },
+  css: [
+    '@/assets/style.css',
+  ],
+})
+
+/pages/about.vue
+<script setup>
+useHead({
+  title: 'About page',
+});
+</script>
+
+<template>
+  <p>About page</p>
+  <NuxtLink to="/">To index</NuxtLink>
+</template>
+
+/components/Header.vue
+<template>
+  <header>
+    <h1>
+      <NuxtLink to="/">
+        <img src="/logo.png" alt="DTFNTR" width="168" height="48">
+      </NuxtLink>
+    </h1>
+  </header>
+</template>
+
+/components/Footer.vue
+<template>
+  <footer>
+    <small>(c) dotinstall.com</small>
+  </footer>
+</template>
+
+<style scoped>
+/* footer */
+
+footer {
+  margin-top: 32px;
+  text-align: center;
+}
+
+small {
+  font-size: 14px;
+}
+</style>
+
+/pages/index.vue
+<script setup>
+const products = useState('products');
+
+useHead({
+  title: 'DTFNTR - 目黒のアンティーク家具専門店',
+});
+</script>
+
+<template>
+  <section class="products">
+    <h2>Our Products</h2>
+    <ul>
+      <li v-for="product in products" :key="product.id">
+        <NuxtLink :to="`/products/${product.id}`">
+          <img :src="`product-${product.id}.png`" :alt="product.name" width="400" height="400">
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.price.toLocaleString() }}円</p>
+        </NuxtLink>
+      </li>
+    </ul>
+  </section>
+</template>
+
+<style scoped>
+/* products */
+
+.products h2 {
+  margin-top: 32px;
+}
+
+.products ul {
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+}
+
+.products a {
+  display: block;
+}
+
+.products img {
+  width: 100%;
+  height: auto;
+}
+
+.products h3 {
+  margin-top: 8px;
+}
+</style>
+
+商品詳細ページにて商品データを取得する方法について見ていきます。
+
+useState()による値の取得
+useRoute()によるURL情報の取得
+idの取得
+
+
+/pages/products/0.vue
+/pages/products/[id].vue
+<script setup>
+const products = useState('products');
+const route = useRoute();
+const id = route.params.id;
+
+useHead({
+  title: 'すごい丸椅子 | DTFNTR - 目黒のアンティーク家具専門店',
+});
+</script>
+
+<template>
+  <section class="product">
+    <div class="desc">
+      <h2>{{ id }}</h2>
+      <p>すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。</p>
+      <p>12,000円 (税込)</p>
+      <button>購入する</button>
+    </div>
+    <div class="pic">
+      <img src="/product-0.png" alt="すごい丸椅子" width="400" height="400">
+    </div>
+  </section>
+</template>
+
+<style scoped>
+/* product */
+
+.product {
+  display: flex;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+}
+
+.product div {
+  flex: 1;
+}
+
+.product p {
+  margin-top: 16px;
+}
+
+.product button {
+  margin-top: 16px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+</style>
+
+/assets/style.css
+/* common */
+
+body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+h3 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+p {
+  margin: 0;
+}
+
+/layouts/default.vue
+<template>
+  <div class="container">
+    <Header />
+    <slot />
+    <Footer />
+  </div>
+</template>
+
+<style scoped>
+.container {
+  width: calc(100% - 64px);
+  margin: 0 auto;
+  max-width: 600px;
+  box-sizing: border-box;
+  padding: 32px 0;
+}
+</style>
+
+app.vue
+<script setup>
+useState('products', () => [
+  { id: 0, name: 'すごい丸椅子', price: 12000 },
+  { id: 1, name: 'すごい椅子', price: 15000 },
+  { id: 2, name: 'すごいランプ', price: 30000 },
+]);
+</script>
+
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>
+
+nuxt.config.ts
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: '2024-11-01',
+  devtools: { enabled: true },
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', href: '/favicon.png' },
+      ],
+      htmlAttrs: {
+        lang: 'ja',
+      },
+    },
+  },
+  css: [
+    '@/assets/style.css',
+  ],
+})
+
+/pages/about.vue
+<script setup>
+useHead({
+  title: 'About page',
+});
+</script>
+
+<template>
+  <p>About page</p>
+  <NuxtLink to="/">To index</NuxtLink>
+</template>
+
+/components/Header.vue
+<template>
+  <header>
+    <h1>
+      <NuxtLink to="/">
+        <img src="/logo.png" alt="DTFNTR" width="168" height="48">
+      </NuxtLink>
+    </h1>
+  </header>
+</template>
+
+/components/Footer.vue
+<template>
+  <footer>
+    <small>(c) dotinstall.com</small>
+  </footer>
+</template>
+
+<style scoped>
+/* footer */
+
+footer {
+  margin-top: 32px;
+  text-align: center;
+}
+
+small {
+  font-size: 14px;
+}
+</style>
+
+/pages/index.vue
+<script setup>
+const products = useState('products');
+
+useHead({
+  title: 'DTFNTR - 目黒のアンティーク家具専門店',
+});
+</script>
+
+<template>
+  <section class="products">
+    <h2>Our Products</h2>
+    <ul>
+      <li v-for="product in products" :key="product.id">
+        <NuxtLink :to="`/products/${product.id}`">
+          <img :src="`product-${product.id}.png`" :alt="product.name" width="400" height="400">
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.price.toLocaleString() }}円</p>
+        </NuxtLink>
+      </li>
+    </ul>
+  </section>
+</template>
+
+<style scoped>
+/* products */
+
+.products h2 {
+  margin-top: 32px;
+}
+
+.products ul {
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+}
+
+.products a {
+  display: block;
+}
+
+.products img {
+  width: 100%;
+  height: auto;
+}
+
+.products h3 {
+  margin-top: 8px;
+}
+</style>
+
+
+
+
+
+前回取得したidをもとに商品データを抽出する方法について見ていきます。
+
+find()
+Number()
+.valueに関する注意点
+補足情報 refやreactiveについて
+2025年4月5日
+動画内で説明しているref()やreactive()について忘れてしまった人は以下も復習してみましょう。
+
+・#05 リアクティブな値を操作してみよう | Vue.js 3入門 応用編
+https://dotinstall.com/lessons/basic_vuejs_advanced/69205
+
+・#10 reactive()を使ってみよう | Vue.js 3でTodo管理アプリを作ろう 基本機能編
+https://dotinstall.com/lessons/todo_vuejs_beginner/69310
+
+補足情報 find()について
+2025年4月5日
+動画内で紹介しているfind()については以下も確認してみましょう。
+
+・Array.prototype.find() - JavaScript | MDN
+https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+
+/pages/products/0.vue
+/pages/products/[id].vue
+<script setup>
+const products = useState('products');
+const route = useRoute();
+const id = Number(route.params.id);
+const product = products.value.find((element) => {
+  return element.id === id;
+});
+
+useHead({
+  title: 'すごい丸椅子 | DTFNTR - 目黒のアンティーク家具専門店',
+});
+</script>
+
+<template>
+  <section class="product">
+    <div class="desc">
+      <h2>{{ id }}</h2>
+      <p>すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。</p>
+      <p>12,000円 (税込)</p>
+      <button>購入する</button>
+    </div>
+    <div class="pic">
+      <img src="/product-0.png" alt="すごい丸椅子" width="400" height="400">
+    </div>
+  </section>
+</template>
+
+<style scoped>
+/* product */
+
+.product {
+  display: flex;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+}
+
+.product div {
+  flex: 1;
+}
+
+.product p {
+  margin-top: 16px;
+}
+
+.product button {
+  margin-top: 16px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+</style>
+
+/assets/style.css
+/* common */
+
+body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+h3 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+p {
+  margin: 0;
+}
+
+/layouts/default.vue
+<template>
+  <div class="container">
+    <Header />
+    <slot />
+    <Footer />
+  </div>
+</template>
+
+<style scoped>
+.container {
+  width: calc(100% - 64px);
+  margin: 0 auto;
+  max-width: 600px;
+  box-sizing: border-box;
+  padding: 32px 0;
+}
+</style>
+
+app.vue
+<script setup>
+useState('products', () => [
+  { id: 0, name: 'すごい丸椅子', price: 12000 },
+  { id: 1, name: 'すごい椅子', price: 15000 },
+  { id: 2, name: 'すごいランプ', price: 30000 },
+]);
+</script>
+
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>
+
+nuxt.config.ts
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: '2024-11-01',
+  devtools: { enabled: true },
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', href: '/favicon.png' },
+      ],
+      htmlAttrs: {
+        lang: 'ja',
+      },
+    },
+  },
+  css: [
+    '@/assets/style.css',
+  ],
+})
+
+/pages/about.vue
+<script setup>
+useHead({
+  title: 'About page',
+});
+</script>
+
+<template>
+  <p>About page</p>
+  <NuxtLink to="/">To index</NuxtLink>
+</template>
+
+/components/Header.vue
+<template>
+  <header>
+    <h1>
+      <NuxtLink to="/">
+        <img src="/logo.png" alt="DTFNTR" width="168" height="48">
+      </NuxtLink>
+    </h1>
+  </header>
+</template>
+
+/components/Footer.vue
+<template>
+  <footer>
+    <small>(c) dotinstall.com</small>
+  </footer>
+</template>
+
+<style scoped>
+/* footer */
+
+footer {
+  margin-top: 32px;
+  text-align: center;
+}
+
+small {
+  font-size: 14px;
+}
+</style>
+
+/pages/index.vue
+<script setup>
+const products = useState('products');
+
+useHead({
+  title: 'DTFNTR - 目黒のアンティーク家具専門店',
+});
+</script>
+
+<template>
+  <section class="products">
+    <h2>Our Products</h2>
+    <ul>
+      <li v-for="product in products" :key="product.id">
+        <NuxtLink :to="`/products/${product.id}`">
+          <img :src="`product-${product.id}.png`" :alt="product.name" width="400" height="400">
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.price.toLocaleString() }}円</p>
+        </NuxtLink>
+      </li>
+    </ul>
+  </section>
+</template>
+
+<style scoped>
+/* products */
+
+.products h2 {
+  margin-top: 32px;
+}
+
+.products ul {
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+}
+
+.products a {
+  display: block;
+}
+
+.products img {
+  width: 100%;
+  height: auto;
+}
+
+.products h3 {
+  margin-top: 8px;
+}
+</style>
+
+
+
+
+商品データを整備したのちにサイトを完成させていきます。
+
+商品データの整備
+商品データの埋め込み
+
+/pages/products/0.vue
+/pages/products/[id].vue
+<script setup>
+const products = useState('products');
+const route = useRoute();
+const id = Number(route.params.id);
+const product = products.value.find((element) => {
+  return element.id === id;
+});
+
+useHead({
+  title: product.name + ' | DTFNTR - 目黒のアンティーク家具専門店',
+});
+</script>
+
+<template>
+  <section class="product">
+    <div class="desc">
+      <h2>{{ product.name }}</h2>
+      <p>{{ product.desc }}</p>
+      <p>{{ product.price.toLocaleString() }}円 (税込)</p>
+      <button>購入する</button>
+    </div>
+    <div class="pic">
+      <img :src="`/product-${product.id}.png`" :alt="product.name" width="400" height="400">
+    </div>
+  </section>
+</template>
+
+<style scoped>
+/* product */
+
+.product {
+  display: flex;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+}
+
+.product div {
+  flex: 1;
+}
+
+.product p {
+  margin-top: 16px;
+}
+
+.product button {
+  margin-top: 16px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+</style>
+
+/assets/style.css
+/* common */
+
+body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+h3 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+p {
+  margin: 0;
+}
+
+/layouts/default.vue
+<template>
+  <div class="container">
+    <Header />
+    <slot />
+    <Footer />
+  </div>
+</template>
+
+<style scoped>
+.container {
+  width: calc(100% - 64px);
+  margin: 0 auto;
+  max-width: 600px;
+  box-sizing: border-box;
+  padding: 32px 0;
+}
+</style>
+
+app.vue
+<script setup>
+useState('products', () => [
+  {
+    id: 0, 
+    name: 'すごい丸椅子', 
+    price: 12000,
+    desc: 'すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。すごい丸椅子です。'
+  },
+  {
+    id: 1, 
+    name: 'すごい椅子', 
+    price: 15000,
+    desc: 'すごい椅子です。すごい椅子です。すごい椅子です。すごい椅子です。すごい椅子です。すごい椅子です。すごい椅子です。すごい椅子です。すごい椅子です。'
+  },
+  {
+    id: 2, 
+    name: 'すごいランプ', 
+    price: 30000,
+    desc: 'すごいランプです。すごいランプです。すごいランプです。すごいランプです。すごいランプです。すごいランプです。すごいランプです。すごいランプです。すごいランプです。'
+  },
+  {
+    id: 3, 
+    name: 'すごいソファ', 
+    price: 80000,
+    desc: 'すごいソファです。すごいソファです。すごいソファです。すごいソファです。すごいソファです。すごいソファです。すごいソファです。すごいソファです。すごいソファです。'
+  },
+  {
+    id: 4, 
+    name: 'すごいデスク', 
+    price: 40000,
+    desc: 'すごいデスクです。すごいデスクです。すごいデスクです。すごいデスクです。すごいデスクです。すごいデスクです。すごいデスクです。すごいデスクです。すごいデスクです。'
+  },
+]);
+</script>
+
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>
+
+nuxt.config.ts
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: '2024-11-01',
+  devtools: { enabled: true },
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', href: '/favicon.png' },
+      ],
+      htmlAttrs: {
+        lang: 'ja',
+      },
+    },
+  },
+  css: [
+    '@/assets/style.css',
+  ],
+})
+
+/pages/about.vue
+<script setup>
+useHead({
+  title: 'About page',
+});
+</script>
+
+<template>
+  <p>About page</p>
+  <NuxtLink to="/">To index</NuxtLink>
+</template>
+
+/components/Header.vue
+<template>
+  <header>
+    <h1>
+      <NuxtLink to="/">
+        <img src="/logo.png" alt="DTFNTR" width="168" height="48">
+      </NuxtLink>
+    </h1>
+  </header>
+</template>
+
+/components/Footer.vue
+<template>
+  <footer>
+    <small>(c) dotinstall.com</small>
+  </footer>
+</template>
+
+<style scoped>
+/* footer */
+
+footer {
+  margin-top: 32px;
+  text-align: center;
+}
+
+small {
+  font-size: 14px;
+}
+</style>
+
+/pages/index.vue
+<script setup>
+const products = useState('products');
+
+useHead({
+  title: 'DTFNTR - 目黒のアンティーク家具専門店',
+});
+</script>
+
+<template>
+  <section class="products">
+    <h2>Our Products</h2>
+    <ul>
+      <li v-for="product in products" :key="product.id">
+        <NuxtLink :to="`/products/${product.id}`">
+          <img :src="`product-${product.id}.png`" :alt="product.name" width="400" height="400">
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.price.toLocaleString() }}円</p>
+        </NuxtLink>
+      </li>
+    </ul>
+  </section>
+</template>
+
+<style scoped>
+/* products */
+
+.products h2 {
+  margin-top: 32px;
+}
+
+.products ul {
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+}
+
+.products a {
+  display: block;
+}
+
+.products img {
+  width: 100%;
+  height: auto;
+}
+
+.products h3 {
+  margin-top: 8px;
+}
+</style>
+
+</code>
+    
+  </pre>
+  
+</body>
+</html>

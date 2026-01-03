@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+<code>
+
+作業用フォルダをmacOSで設定する手順について見ていきます。
+
+素材ファイルのダウンロード
+作業用フォルダの設定
+ブラウザでの確認
+補足情報 VS Codeでファイルのドラッグ＆ドロップができない場合
+2024年2月16日
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+macOS VS Code ドラッグ&ドロップ イメージ
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、commandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+補足情報 素材ファイルのダウンロードについて
+2022年11月15日
+動画中で紹介されている素材ファイルのダウンロードは以下のURLにアクセスしてください。
+
+・ドットインストールでプログラミングを始めよう: 詳解CSS フレックスボックス編
+https://dotinstall.github.io/setup/basic_flexbox_v3.html
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Flexbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="item-1">1</div>
+  <div class="item-2">2</div>
+  <div class="item-3">3</div>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+.item-1 {
+  width: 80px;
+  height: 80px;
+  background-color: pink;
+}
+
+.item-2 {
+  width: 80px;
+  height: 80px;
+  background-color: skyblue;
+}
+
+.item-3 {
+  width: 80px;
+  height: 80px;
+  background-color: orange;
+}
+
+
+
+
+
+
+
+
+作業用フォルダをWindowsで設定する手順について見ていきます。
+
+素材ファイルのダウンロード
+作業用フォルダの設定
+ブラウザでの確認
+補足情報 VS Codeでファイルのドラッグ＆ドロップができない場合
+2024年2月16日
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+macOS VS Code ドラッグ&ドロップ イメージ
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、Ctrlキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+補足情報 素材ファイルのダウンロードについて
+2022年11月15日
+動画中で紹介されている素材ファイルのダウンロードは以下のURLにアクセスしてください。
+
+・ドットインストールでプログラミングを始めよう: 詳解CSS フレックスボックス編
+https://dotinstall.github.io/setup/basic_flexbox_v3.html
+
+
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Flexbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="item-1">1</div>
+  <div class="item-2">2</div>
+  <div class="item-3">3</div>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+.item-1 {
+  width: 80px;
+  height: 80px;
+  background-color: pink;
+}
+
+.item-2 {
+  width: 80px;
+  height: 80px;
+  background-color: skyblue;
+}
+
+.item-3 {
+  width: 80px;
+  height: 80px;
+  background-color: orange;
+}
+
+
+
+
+
+
+
+
+
+
+
+フレックスボックスの概要について触れたのちに、よく使われる用語について整理していきます。
+
+概要
+フレックスコンテナ
+主軸
+交差軸
+フレックスアイテム
+
+
+
+
+
+
+
+
+要素をフレックスコンテナとして設定する方法について見ていきます。
+
+display: flex;
+display: inline-flex;
+補足情報 display: inline-flexとした場合の挙動について
+2024年3月14日
+1:54〜の説明に誤りがありました。
+
+動画中、display: inline-flexとしたあとに横並びにするため width: 280px を指定していますが、width の指定は不要でした...。
+
+これはフレックスコンテナの幅が以下のようになるためです。
+
+display: flex → ブロックボックスのデフォルトである「100%」
+display: inline-flex → インラインボックスのデフォルトである「中に入っている要素の幅」
+ユーザーの方よりご指摘いただきました。訂正してお詫び申し上げます。
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Flexbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="item-1">1</div>
+    <div class="item-2">2</div>
+    <div class="item-3">3</div>
+  </div>
+  <div class="container">
+    <div class="item-1">1</div>
+    <div class="item-2">2</div>
+    <div class="item-3">3</div>
+  </div>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+.container {
+  border: 8px solid blue;
+  /* display: flex; */
+  display: inline-flex;
+  width: 280px;
+}
+
+.item-1 {
+  width: 80px;
+  height: 80px;
+  background-color: pink;
+}
+
+.item-2 {
+  width: 80px;
+  height: 80px;
+  background-color: skyblue;
+}
+
+.item-3 {
+  width: 80px;
+  height: 80px;
+  background-color: orange;
+}
+
+
+
+
+
+
+
+
+
+主軸の方向を操作するためのflex-directionプロパティについて見ていきます。
+
+flex-direction: row;
+flex-direction: row-reverse;
+flex-direction: column;
+flex-direction: column-reverse;
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Flexbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="item-1">1</div>
+    <div class="item-2">2</div>
+    <div class="item-3">3</div>
+  </div>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+.container {
+  border: 8px solid blue;
+  display: flex;
+  /* flex-direction: row-reverse; */
+  /* flex-direction: column; */
+  flex-direction: column-reverse;
+}
+
+.item-1 {
+  width: 80px;
+  height: 80px;
+  background-color: pink;
+}
+
+.item-2 {
+  width: 80px;
+  height: 80px;
+  background-color: skyblue;
+}
+
+.item-3 {
+  width: 80px;
+  height: 80px;
+  background-color: orange;
+}
+
+
+
+
+
+
+
+
+
+主軸方向で要素を揃えるためのjustify-contentプロパティについて見ていきます。
+
+justify-content: flex-start;
+justify-content: center;
+justify-content: flex-end;
+justify-content: space-between;
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Flexbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="item-1">1</div>
+    <div class="item-2">2</div>
+    <div class="item-3">3</div>
+  </div>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+.container {
+  border: 8px solid blue;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+}
+
+.item-1 {
+  width: 80px;
+  height: 80px;
+  background-color: pink;
+}
+
+.item-2 {
+  width: 80px;
+  height: 80px;
+  background-color: skyblue;
+}
+
+.item-3 {
+  width: 80px;
+  height: 80px;
+  background-color: orange;
+}
+
+
+
+
+
+
+
+
+交差軸方向で要素を揃えるためのalign-itemsプロパティについて見ていきます。
+
+align-items: flex-start;
+align-items: flex-end;
+align-items: center;
+justify-contentとの組み合わせ
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Flexbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="item-1">1</div>
+    <div class="item-2">2</div>
+    <div class="item-3">3</div>
+  </div>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+.container {
+  border: 8px solid blue;
+  display: flex;
+  height: 240px;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-1 {
+  width: 80px;
+  height: 80px;
+  background-color: pink;
+}
+
+.item-2 {
+  width: 80px;
+  height: 80px;
+  background-color: skyblue;
+}
+
+.item-3 {
+  width: 80px;
+  height: 80px;
+  background-color: orange;
+}
+
+
+
+
+
+
+
+
+
+
+フレックスアイテムを折り返すことができるflex-wrapプロパティについて見ていきます。
+
+flex-wrap: wrap;
+Flex Line
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Flexbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="item-1">1</div>
+    <div class="item-2">2</div>
+    <div class="item-3">3</div>
+    <div class="item-4">4</div>
+    <div class="item-5">5</div>
+  </div>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+.container {
+  border: 8px solid blue;
+  display: flex;
+  width: 280px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.item-1 {
+  width: 80px;
+  height: 80px;
+  background-color: pink;
+}
+
+.item-2 {
+  width: 80px;
+  height: 80px;
+  background-color: skyblue;
+}
+
+.item-3 {
+  width: 80px;
+  height: 80px;
+  background-color: orange;
+}
+
+.item-4 {
+  width: 80px;
+  height: 80px;
+  background-color: silver;
+}
+
+.item-5 {
+  width: 80px;
+  height: 80px;
+  background-color: tomato;
+}
+
+
+
+
+
+
+
+
+
+
+要素間のすき間を定義することができるgapプロパティについて見ていきます。
+
+gapプロパティ
+calc()との組み合わせ
+補足情報 グリッドレイアウトについて
+2022年11月15日
+グリッドレイアウトの詳細について興味がある方は以下のレッスンも参考にしてみましょう。
+
+・詳解CSS グリッドレイアウト編 (全16回)
+https://dotinstall.com/lessons/basic_cssgrid_v2
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Flexbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="item-1">1</div>
+    <div class="item-2">2</div>
+    <div class="item-3">3</div>
+    <div class="item-4">4</div>
+    <div class="item-5">5</div>
+  </div>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+.container {
+  border: 8px solid blue;
+  display: flex;
+  width: 280px;
+  flex-wrap: wrap;
+  /* gap: 16px; */
+  gap: calc((280px - 80px * 3) / 2);
+}
+
+.item-1 {
+  width: 80px;
+  height: 80px;
+  background-color: pink;
+}
+
+.item-2 {
+  width: 80px;
+  height: 80px;
+  background-color: skyblue;
+}
+
+.item-3 {
+  width: 80px;
+  height: 80px;
+  background-color: orange;
+}
+
+.item-4 {
+  width: 80px;
+  height: 80px;
+  background-color: silver;
+}
+
+.item-5 {
+  width: 80px;
+  height: 80px;
+  background-color: tomato;
+}
+
+
+
+
+
+
+
+
+
+交差軸方法、主軸方向で個々の要素を揃えるためのプロパティについて見ていきます。
+
+align-self: flex-start;
+align-self: flex-end;
+align-self: center;
+marginのautoキーワード
+補足情報 marginのautoキーワードについて
+2022年11月15日
+marginのautoキーワードについて復習したい方は以下のレッスンを参考にしてみてください。
+
+・#11 marginで外側の余白を設定しよう
+https://dotinstall.com/lessons/basic_css_styles_v3/61011
+
+/MyBasicCSS/index.html
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Flexbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="item-1">1</div>
+    <div class="item-2">2</div>
+    <div class="item-3">3</div>
+  </div>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+.container {
+  border: 8px solid blue;
+  display: flex;
+  height: 240px;
+}
+
+.item-1 {
+  width: 80px;
+  height: 80px;
+  background-color: pink;
+  align-self: center;
+}
+
+.item-2 {
+  width: 80px;
+  height: 80px;
+  background-color: skyblue;
+  margin-left: auto;
+}
+
+.item-3 {
+  width: 80px;
+  height: 80px;
+  background-color: orange;
+}
+
+
+
+
+
+
+
+
+
+要素の並び順を制御できるorderプロパティについて見ていきます。
+
+orderプロパティ
+使いどころ
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Flexbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="item-1">1</div>
+    <div class="item-2">2</div>
+    <div class="item-3">3</div>
+  </div>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+.container {
+  border: 8px solid blue;
+  display: flex;
+}
+
+.item-1 {
+  width: 80px;
+  height: 80px;
+  background-color: pink;
+}
+
+.item-2 {
+  width: 80px;
+  height: 80px;
+  background-color: skyblue;
+  order: 1;
+}
+
+.item-3 {
+  width: 80px;
+  height: 80px;
+  background-color: orange;
+}
+
+
+
+
+
+
+
+フレックスアイテムをどう伸縮させるかを制御できるflexプロパティについて学びます。
+
+flexプロパティ
+autoと1以上の整数値の違い
+開発者ツールによる確認
+補足情報 開発者ツールの使い方について
+2022年11月15日
+Chromeの開発者ツールの使い方については以下のレッスンを参考にしてください。配置や表示が違う場合の対処法や、日本語化の方法についても紹介しています。
+
+・#25 Chromeの開発者ツールを使おう
+https://dotinstall.com/lessons/basic_css_styles_v3/61025
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Flexbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="item-1">1</div>
+    <div class="item-2">2</div>
+    <div class="item-3">3</div>
+  </div>
+</body>
+</html>
+
+/MyBasicCSS/style.css 
+@charset "utf-8";
+
+.container {
+  border: 8px solid blue;
+  display: flex;
+}
+
+.item-1 {
+  width: 80px;
+  height: 80px;
+  background-color: pink;
+  flex: 1;
+}
+
+.item-2 {
+  width: 80px;
+  height: 80px;
+  background-color: skyblue;
+  flex: 2;
+}
+
+.item-3 {
+  width: 80px;
+  height: 80px;
+  background-color: orange;
+  flex: 1;
+}
+
+
+
+
+
+
+
+Webサイトでよく見かける2カラムのレイアウトを実装していきます。
+
+実践的なレイアウト
+要素の配置
+動作確認
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Flexbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>Header</header>
+  <div class="container">
+    <main>Main</main>
+    <aside>Aside</aside>
+  </div>
+  <footer>Footer</footer>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+header {
+  background: pink;
+}
+
+main {
+  background: skyblue;
+}
+
+aside {
+  background: orange;
+}
+
+footer {
+  background: silver;
+}
+
+
+
+
+
+
+
+フレックスボックスを使ってmainとasideを横並びにする方法について見ていきます。
+
+フレックスコンテナの設定
+flexプロパティの活用例
+
+
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Flexbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>Header</header>
+  <div class="container">
+    <main>Main</main>
+    <aside>Aside</aside>
+  </div>
+  <footer>Footer</footer>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+header {
+  background: pink;
+}
+
+.container {
+  display: flex;
+}
+
+main {
+  background: skyblue;
+  flex: 1;
+}
+
+nav {
+  background: tomato;
+  width: 240px;
+}
+
+aside {
+  background: orange;
+  width: 160px;
+}
+
+footer {
+  background: silver;
+}
+
+
+
+
+
+nav要素を追加して3カラムのレイアウトを作る方法を見ていきます。
+
+nav要素の追加
+orderプロパティの活用例
+
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Flexbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>Header</header>
+  <div class="container">
+    <main>Main</main>
+    <nav>Nav</nav>
+    <aside>Aside</aside>
+  </div>
+  <footer>Footer</footer>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+header {
+  background: pink;
+}
+
+.container {
+  display: flex;
+}
+
+main {
+  background: skyblue;
+  flex: 1;
+}
+
+nav {
+  background: tomato;
+  width: 160px;
+  order: -1;
+}
+
+aside {
+  background: orange;
+  width: 160px;
+}
+
+footer {
+  background: silver;
+}
+
+
+
+
+
+
+
+bodyの高さを100%に設定するためのテクニックについて見ていきます。
+
+3カラムレイアウトの問題点
+body, htmlの高さ
+フレックスボックスの活用
+
+
+
+
+
+
+
+前回説明した手順で実装し、footerが画面下部に配置されるようにしていきます。
+
+body, htmlの設定
+フレックスボックスの設定
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Flexbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>Header</header>
+  <div class="container">
+    <main>Main</main>
+    <nav>Nav</nav>
+    <aside>Aside</aside>
+  </div>
+  <footer>Footer</footer>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  /* border: 8px solid blue; */
+  /* box-sizing: border-box; */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background: pink;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+}
+
+main {
+  background: skyblue;
+  flex: 1;
+}
+
+nav {
+  background: tomato;
+  width: 160px;
+  order: -1;
+}
+
+aside {
+  background: orange;
+  width: 160px;
+}
+
+footer {
+  background: silver;
+}
+
+
+
+
+
+
+フレックスボックスを使って画像付きの記事一覧を実装していきます。
+
+要素の配置
+display: flex;
+flexプロパティ
+gapプロパティ
+
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Flexbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <article>
+    <img src="forest.png" width="240" height="160">
+    <div class="text">
+      <h1>タイトル</h1>
+      <p>こんにちは。こんにちは。</p>
+    </div>
+  </article>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+article {
+  display: flex;
+  gap: 16px;
+}
+
+.text {
+  background: pink;
+  flex: 1;
+}
+
+
+
+
+
+
+隣接兄弟結合子や疑似クラスを活用して、さらにスタイルを整えていきます。
+
+隣接兄弟結合子
+:nth-child(even)
+flex-direction: row-reverse;
+align-items: center;
+補足情報 隣接兄弟結合子について
+2022年11月15日
+隣接兄弟結合子について復習したい方は以下のレッスンを参考にしてみてください。
+
+・#12 隣接兄弟結合子を使ってみよう
+https://dotinstall.com/lessons/basic_css_selectors_v2/62112
+
+補足情報 :nth-child()疑似クラスについて
+2022年11月18日
+:nth-child()疑似クラスについて復習したい方は以下のレッスンを参考にしてみてください。
+
+・#14 :nth-child()を使いこなそう
+https://dotinstall.com/lessons/basic_css_selectors_v2/62114
+
+
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Flexbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <article>
+    <img src="forest.png" width="240" height="160">
+    <div class="text">
+      <h1>タイトル</h1>
+      <p>こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。</p>
+    </div>
+  </article>
+  <article>
+    <img src="forest.png" width="240" height="160">
+    <div class="text">
+      <h1>タイトル</h1>
+      <p>こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。</p>
+    </div>
+  </article>
+  <article>
+    <img src="forest.png" width="240" height="160">
+    <div class="text">
+      <h1>タイトル</h1>
+      <p>こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。</p>
+    </div>
+  </article>
+  <article>
+    <img src="forest.png" width="240" height="160">
+    <div class="text">
+      <h1>タイトル</h1>
+      <p>こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。</p>
+    </div>
+  </article>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+article {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+article + article {
+  margin-top: 32px;
+}
+
+article:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.text {
+  flex: 1;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+
+
+
+
+
+
+
+
+フレックスボックスを使ってロゴ画像付きのヘッダーメニューを実装していきます。
+
+要素の配置
+display: flex;
+justify-content: space-between;
+marginのautoキーワード
+
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Flexbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <img src="logo.png" width="64" height="64">
+    <nav>
+      <ul>
+        <li><a href="">Menu</a></li>
+        <li><a href="">Menu</a></li>
+        <li><a href="">Menu</a></li>
+      </ul>
+    </nav>
+  </header>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+header {
+  display: flex;
+  /* justify-content: space-between; */
+}
+
+nav {
+  margin-left: auto;
+}
+
+
+
+
+
+
+
+
+メニュー内のa要素がクリックしやすくなるように仕上げていきます。
+
+リストのスタイリング
+a要素のスタイリング
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Flexbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <img src="logo.png" width="64" height="64">
+    <nav>
+      <ul>
+        <li><a href="">Menu</a></li>
+        <li><a href="">Menu</a></li>
+        <li><a href="">Menu</a></li>
+      </ul>
+    </nav>
+  </header>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+header {
+  display: flex;
+  /* justify-content: space-between; */
+}
+
+nav {
+  margin-left: auto;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+a {
+  /* background: pink; */
+  display: block;
+  width: 100px;
+  line-height: 64px;
+  text-align: center;
+}
+
+a:hover {
+  background: #eee;
+}
+
+
+
+
+
+
+
+
+
+ここまでの学習を踏まえて、次のステップとして何をすべきかについて説明していきます。
+
+ここまでのまとめ
+次のステップ
+256timesの紹介
+補足情報 256timesについて
+2023年8月31日
+動画中で紹介している『256times』の詳細については以下を参照してください。
+
+・256times - 書いて、読んで、ともに学ぶ、参加型プログラミング勉強会
+https://256times.com/
+</code>
+
+  </pre>
+  
+</body>
+</html>

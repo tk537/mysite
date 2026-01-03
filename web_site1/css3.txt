@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+<code>
+
+
+CSSで使えるセレクターの種類について確認していきます。
+
+セレクターの概要
+セレクターの種類
+学習のための準備
+補足情報 「Web制作の準備をしよう」のレッスンについて
+2022年11月1日
+動画中で紹介されている「Web制作の準備をしよう」のレッスンについては以下を参照してください。
+
+・Web制作の準備をしよう Windows編 (全10回)
+https://dotinstall.com/lessons/basic_pcsetup_win_v4
+・Web制作の準備をしよう macOS編 (全10回)
+https://dotinstall.com/lessons/basic_pcsetup_mac_v4
+
+
+
+
+
+
+作業用のフォルダを設定し、必要なファイルを作成していきます。
+
+作業用フォルダの設定
+index.htmlの作成
+style.cssの作成
+動作確認
+補足情報 VS Codeでファイルのドラッグ＆ドロップができない場合
+2024年2月16日
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+macOS VS Code ドラッグ&ドロップ イメージ
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、WindowsならCtrlキー、macOSならcommandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+補足情報 VS Codeで生成されるHTMLの雛形について
+2023年7月13日
+VS Codeで生成されるHTMLの雛形に変更があったようです。具体的には<meta http-equiv="X-UA-Compatible" content="IE=edge">が含まれなくなりました。こちらは古いブラウザに対応するための命令でしたが、現在不要になっているので気にせずにそのまま学習を進めていただいてかまいません。
+
+補足情報 VS Codeエディタの設定について
+2022年11月1日
+「lang属性の値がjaになっていない」場合は「Emmet Variablesの設定」が、「タブの横にx印ではなくて丸がついている」場合は「自動保存の設定」がうまくいっていません。設定方法については以下を参照してみてください。
+
+・Windowsの方 → VS Codeエディタの設定をしていこう
+https://dotinstall.com/lessons/basic_pcsetup_win_v4/60308
+・macOSの方 → VS Codeエディタの設定をしていこう
+https://dotinstall.com/lessons/basic_pcsetup_mac_v4/60408
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Selectors</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+body {
+  background: pink;
+}
+
+
+
+これまで見てきた要素セレクターに加え、全称セレクターについても説明していきます。
+
+要素セレクター
+全称セレクター
+補足情報 box-sizingについて
+2022年11月1日
+box-sizingプロパティについては以下のレッスンを復習してみてください。
+
+・#13 box-sizingを使ってみよう
+https://dotinstall.com/lessons/basic_css_styles_v3/61013
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Selectors</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>ドットインストール</h1>
+  <p>こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。</p>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+h1 {
+  background: pink;
+}
+
+p {
+  background: skyblue;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+
+
+
+
+
+
+
+
+class属性とクラスセレクターについて詳しく解説していきます。
+
+クラスセレクターの概要
+class属性の値の命名規則
+Google社のスタイルガイド
+補足情報 Google社のHTML/CSSスタイルガイドについて
+2022年11月1日
+Google社が提唱しているHTML/CSSのスタイルガイドについては以下を参照してください。
+
+・Google HTML/CSS Style Guide
+https://google.github.io/styleguide/htmlcssguide.html
+
+補足情報 クラスセレクターについて
+2022年11月1日
+応用スタイリング編で見たクラスセレクターについては以下のレッスンを確認してみてください。
+
+・#08 クラスセレクターを使ってみよう
+https://dotinstall.com/lessons/basic_css_advanced/61108
+
+
+
+
+
+
+どういった場合にクラスセレクターを使うか、その具体例を見ていきます。
+
+クラスセレクターの使用例
+class属性の特徴
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Selectors</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="box box-1">Box 1</div>
+  <div class="box box-2">Box 2</div>
+  <div class="box box-3">Box 3</div>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+.box {
+  width: 160px;
+  height: 80px;
+}
+
+.box-1 {
+  background: pink;
+}
+
+.box-2 {
+  background: skyblue;
+}
+
+.box-3 {
+  background: orange;
+}
+
+
+
+
+
+
+
+
+id属性とidセレクターについて詳しく説明していきます。
+
+idセレクター
+id属性の特徴
+idセレクターの使用例
+
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Selectors</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="circle">Circle</div>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+#circle {
+  width: 80px;
+  height: 80px;
+  background: skyblue;
+  border-radius: 50%;
+}
+
+
+
+
+
+
+属性で選択する要素を絞り込める、属性セレクターについて見ていきます。
+
+属性セレクターの概要
+属性セレクターの使用例
+補足情報 target属性について
+2023年9月26日
+この動画で紹介されているtarget属性については以下の動画を復習してみてください。
+
+・#13 aタグでリンクを表現しよう | HTML入門 基本タグ編
+https://dotinstall.com/lessons/basic_html_tags_v3/60513
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Selectors</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="">リンク</a>
+  <a href="" target="_blank">リンク</a>
+  <a href="">リンク</a>
+
+  <input type="text">
+  <input type="password">
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+[target] {
+  font-weight: bold;
+}
+
+[type="password"] {
+  border: 8px solid blue;
+}
+
+
+
+
+
+
+
+
+セレクターを「なおかつ」でつないでいくことができる複合セレクターについて見ていきます。
+
+複合セレクターの概要
+複合セレクターの使用例
+
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Selectors</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="box">Box</div>
+  <div class="box">Box</div>
+  <div>Box</div>
+  <section class="box">Box</section>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+div.box {
+  color: red;
+}
+
+
+
+
+
+種類の異なる複数の要素を同時に選択することができるセレクターリストについて見ていきます。
+
+セレクターリストの概要
+セレクターリストの使用例
+補足情報 Google社のHTML/CSSスタイルガイドについて
+2022年11月1日
+Google社が提唱しているHTML/CSSのスタイルガイドについては以下を参照してください。
+
+・Google HTML/CSS Style Guide
+https://google.github.io/styleguide/htmlcssguide.html
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Selectors</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="box">Box</div>
+  <div class="box">Box</div>
+  <div>Box</div>
+  <section class="box">Box</section>
+  <h1>Box</h1>
+  <p>Box</p>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+div.box {
+  color: red;
+}
+
+h1, 
+p {
+  background: pink;
+}
+
+
+
+セレクターの結合子を説明する前に、要素間の関係を表す用語について紹介していきます。
+
+階層構造
+親要素
+子要素
+孫要素
+子孫要素
+兄弟要素
+
+
+
+
+
+
+子要素のみ選択する子結合子、孫要素以下も選択する子孫結合子について見ていきます。
+
+子結合子
+子孫結合子
+
+
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Selectors</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>こんにちは</h1>
+  <p>こんにちは。こんにちは。こんにちは。</p>
+  <section>
+    <h2>こんにちは</h2>
+    <p>こんにちは。こんにちは。こんにちは。</p>
+    <div>
+      <p>こんにちは。こんにちは。こんにちは。</p>
+    </div>
+  </section>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+section > p {
+  color: red;
+}
+
+section p {
+  background: skyblue;
+}
+
+
+
+
+
+
+
+
+
+
+兄弟要素のあいだにスタイルを設定することができる隣接兄弟結合子について見ていきます。
+
+兄弟要素間のスタイル
+隣接兄弟結合子
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Selectors</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <ul>
+    <li>項目</li>
+    <li>項目</li>
+    <li>項目</li>
+    <li>項目</li>
+  </ul>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+li + li {
+  /* border-bottom: 1px solid red; */
+  border-top: 1px solid red;
+}
+
+
+
+
+
+
+
+
+
+要素の状態によってスタイルをつけることができる疑似クラスについて見ていきます。
+
+疑似クラスの概要
+:nth-child()
+
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Selectors</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <ul>
+    <li>項目</li>
+    <li>項目</li>
+    <li>項目</li>
+    <li>項目</li>
+    <li>項目</li>
+    <li>項目</li>
+    <li>項目</li>
+  </ul>
+  <p>こんにちは。</p>
+  <p>こんにちは。</p>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+li:nth-child(3) {
+  color: red;
+}
+
+
+
+
+
+:nth-child()疑似クラスで奇数番目、偶数番目などの要素を選択する方法について見ていきます。
+
+:nth-child(odd)
+:nth-child(even)
+:nth-chil(3n)
+:first-child
+:last-child
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Selectors</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <ul>
+    <li>項目</li>
+    <li>項目</li>
+    <li>項目</li>
+    <li>項目</li>
+    <li>項目</li>
+    <li>項目</li>
+    <li>項目</li>
+  </ul>
+  <p>こんにちは。</p>
+  <p>こんにちは。</p>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+/* li:nth-child(odd) { */
+/* li:nth-child(even) { */
+
+li:nth-child(3n) {
+  color: red;
+}
+
+li:first-child {
+  background: pink;
+}
+
+li:last-child {
+  background: skyblue;
+}
+
+
+
+
+
+マウスホバーしたとき、フォーカスしたとき、などを表す疑似クラスについて見ていきます。
+
+:hover
+:focus
+:active
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Selectors</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <input type="text">
+  <button>OK</button>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+button:hover {
+  font-weight: bold;
+}
+
+input:focus {
+  border: 8px solid blue;
+}
+
+button:active {
+  border: 8px solid red;
+}
+
+
+
+
+
+
+他のセレクターと組み合わせて、否定を意味する:not()疑似クラスについて見ていきます。
+
+:not()
+使用上の注意点
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Selectors</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="box">Box</div>
+  <div class="box">Box</div>
+  <div>Box</div>
+  <div class="box">Box</div>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+div:not(.box) {
+  border: 1px solid red;
+}
+
+
+
+
+
+HTMLに記述されていない要素をCSSだけで追加できる疑似要素について見ていきます。
+
+::before、::afterの概要
+使用例
+開発者ツールでの確認
+疑似要素を使うメリット
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Selectors</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p>こんにちは。</p>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+p::before {
+  content: '- ';
+}
+
+p::after {
+  content: ' -';
+}
+
+
+
+
+
+
+
+セレクターの優先度を決定する詳細度の仕組みについて解説していきます。
+
+詳細度
+詳細度の計算方法
+
+
+
+
+
+
+Chromeブラウザの開発者ツールを使って優先されるセレクターを確認する方法について見ていきます。
+
+開発者ツールでの確認方法
+詳細度の修正
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Selectors</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="" class="link" target="_blank">リンク</a>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+a {
+  color: red;
+}
+
+.link {
+  color: green;
+}
+
+.link[target] {
+  color: pink;
+}
+
+a.link[target] {
+  color: yellow;
+}
+
+
+
+
+
+
+
+優先度をさらに高めるために使える、いくつかの方法について確認していきます。
+
+詳細度が同じだった場合
+style属性の利用
+!important
+補足情報 Google社のHTML/CSSスタイルガイドについて
+2022年11月1日
+Google社が提唱しているHTML/CSSのスタイルガイドについては以下を参照してください。
+
+・Google HTML/CSS Style Guide
+https://google.github.io/styleguide/htmlcssguide.html
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Selectors</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="" class="link" target="_blank" style="color: orange;">リンク</a>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+a {
+  color: red !important;
+}
+
+.link {
+  color: green;
+}
+
+.link[target] {
+  color: pink;
+}
+
+a.link[target] {
+  color: yellow;
+}
+
+a.link[href] {
+  color: blue;
+}
+
+
+
+
+
+
+ここまでの学習を踏まえて、次のステップとして何をすべきかについて説明していきます。
+
+これまでのまとめ
+次のステップ
+256timesの紹介
+補足情報 256timesについて
+2023年8月31日
+動画中で紹介している『256times』の詳細については以下を参照してください。
+
+・256times - 書いて、読んで、ともに学ぶ、参加型プログラミング勉強会
+https://256times.com/
+
+
+
+
+</code>
+
+  </pre>
+  
+</body>
+</html>

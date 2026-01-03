@@ -1,0 +1,639 @@
+// ===== video_summary =====
+完成版を確認したあとに、必要となるファイルを作成して、学習を進める準備を整えていきます。
+
+
+    完成版の確認
+    index.htmlの作成
+
+// ===== commentBox 1 =====
+補足情報
+VS Codeでファイルのドラッグ＆ドロップができない場合
+
+
+
+
+2024年2月16日
+
+
+
+
+
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、WindowsならCtrlキー、macOSならcommandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+// ===== /MyCSSBubble/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>CSS Chat</title>
+</head>
+<body>
+
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+チャット風のUIに必要な要素をマークアップしていきます。
+
+
+    要素の配置
+
+// ===== /MyCSSBubble/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>CSS Chat</title>
+</head>
+<body>
+  <div class="container">
+    <ul class="messages">
+      <li>
+        <div class="pic">
+          <img src="img/cat.png">
+        </div>
+        <div class="text">
+          こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。
+        </div>
+      </li>
+      <li>
+        <div class="pic">
+          <img src="img/dog.png">
+        </div>
+        <div class="text">
+          お久しぶりです！
+        </div>
+      </li>
+      <li>
+        <div class="pic">
+          <img src="img/cat.png">
+        </div>
+        <div class="text">
+          こんにちは。こんにちは。
+        </div>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+styles.cssを作成したあとに、画像とテキストを横並びにしていきます。
+
+
+    styles.cssの作成
+    フレックスボックスの設定
+
+// ===== /MyCSSBubble/css/styles.css =====
+body {
+  margin: 0;
+  background: skyblue;
+}
+
+.container {
+  padding: 32px;
+}
+
+.messages {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.messages li {
+  display: flex;
+}
+
+// ===== /MyCSSBubble/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>CSS Chat</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <ul class="messages">
+      <li>
+        <div class="pic">
+          <img src="img/cat.png">
+        </div>
+        <div class="text">
+          こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。
+        </div>
+      </li>
+      <li>
+        <div class="pic">
+          <img src="img/dog.png">
+        </div>
+        <div class="text">
+          お久しぶりです！
+        </div>
+      </li>
+      <li>
+        <div class="pic">
+          <img src="img/cat.png">
+        </div>
+        <div class="text">
+          こんにちは。こんにちは。
+        </div>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+画像のサイズを整えて丸くしたあとに、テキストのスタイルを設定していきます。
+
+
+    画像のスタイリング
+    テキストのスタイリング
+
+// ===== commentBox 1 =====
+補足情報
+隣接兄弟結合子(+)について
+
+
+
+
+2020年6月10日
+
+
+
+
+
+以下のレッスンで隣接兄弟結合子について解説しているので、参考にしてみてください。
+・詳解CSS セレクター編 » #05 セレクターを組み合わせてみよう
+https://dotinstall.com/lessons/basic_css_selectors/52705
+
+// ===== /MyCSSBubble/css/styles.css =====
+body {
+  margin: 0;
+  background: skyblue;
+}
+
+.container {
+  padding: 32px;
+}
+
+.messages {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.messages li {
+  display: flex;
+}
+
+.messages li + li {
+  margin-top: 32px;
+}
+
+.pic img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.text {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px 24px;
+  max-width: 60%;
+  line-height: 1.8;
+}
+
+// ===== /MyCSSBubble/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>CSS Chat</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <ul class="messages">
+      <li>
+        <div class="pic">
+          <img src="img/cat.png">
+        </div>
+        <div class="text">
+          こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。
+        </div>
+      </li>
+      <li>
+        <div class="pic">
+          <img src="img/dog.png">
+        </div>
+        <div class="text">
+          お久しぶりです！
+        </div>
+      </li>
+      <li>
+        <div class="pic">
+          <img src="img/cat.png">
+        </div>
+        <div class="text">
+          こんにちは。こんにちは。
+        </div>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+メッセージにクラスを付けて左右に振り分けていきます。
+
+
+    メッセージの左右配置
+
+// ===== commentBox 1 =====
+補足情報
+flex-directionで要素を左右に振り分ける方法について
+
+
+
+
+2020年6月10日
+
+
+
+
+
+以下のレッスンでも同様のテクニックを使って要素を振り分けているので、合わせて参考にしてみてください。
+・詳解CSS フレックスボックス編 » #16 画像を左右に振り分けてみよう
+https://dotinstall.com/lessons/basic_flexbox_v2/52816
+
+// ===== /MyCSSBubble/css/styles.css =====
+body {
+  margin: 0;
+  background: skyblue;
+}
+
+.container {
+  padding: 32px;
+}
+
+.messages {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.messages li {
+  display: flex;
+}
+
+.messages li + li {
+  margin-top: 32px;
+}
+
+li.right-side {
+  flex-direction: row-reverse;
+}
+
+.pic {
+  /* background: pink; */
+  width: 80px;
+  text-align: center;
+}
+
+.pic img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.text {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px 24px;
+  max-width: 60%;
+  line-height: 1.8;
+}
+
+// ===== /MyCSSBubble/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>CSS Chat</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <ul class="messages">
+      <li class="left-side">
+        <div class="pic">
+          <img src="img/cat.png">
+        </div>
+        <div class="text">
+          こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。
+        </div>
+      </li>
+      <li class="right-side">
+        <div class="pic">
+          <img src="img/dog.png">
+        </div>
+        <div class="text">
+          お久しぶりです！
+        </div>
+      </li>
+      <li class="left-side">
+        <div class="pic">
+          <img src="img/cat.png">
+        </div>
+        <div class="text">
+          こんにちは。こんにちは。
+        </div>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+ボーダーを使って三角形を表現する方法について図で解説していきます。
+
+
+    三角形の実装方法
+
+// ===== /MyCSSBubble/css/styles.css =====
+body {
+  margin: 0;
+  background: skyblue;
+}
+
+.container {
+  padding: 32px;
+}
+
+.messages {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.messages li {
+  display: flex;
+}
+
+.messages li + li {
+  margin-top: 32px;
+}
+
+li.right-side {
+  flex-direction: row-reverse;
+}
+
+.pic {
+  /* background: pink; */
+  width: 80px;
+  text-align: center;
+}
+
+.pic img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.text {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px 24px;
+  max-width: 60%;
+  line-height: 1.8;
+}
+
+// ===== /MyCSSBubble/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>CSS Chat</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <ul class="messages">
+      <li class="left-side">
+        <div class="pic">
+          <img src="img/cat.png">
+        </div>
+        <div class="text">
+          こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。
+        </div>
+      </li>
+      <li class="right-side">
+        <div class="pic">
+          <img src="img/dog.png">
+        </div>
+        <div class="text">
+          お久しぶりです！
+        </div>
+      </li>
+      <li class="left-side">
+        <div class="pic">
+          <img src="img/cat.png">
+        </div>
+        <div class="text">
+          こんにちは。こんにちは。
+        </div>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+左右のメッセージに三角形を付けて吹き出しを表現していきます。
+
+
+    吹き出しの表現
+    動作確認
+
+// ===== commentBox 1 =====
+補足情報
+before疑似要素について
+
+
+
+
+2022年11月18日
+
+
+
+
+
+以下のレッスンで解説しているので参考にしてみてください。
+・詳解CSS セレクター編 » #06 ::before､::after疑似要素を使おう
+https://dotinstall.com/lessons/basic_css_selectors/52706
+
+// ===== commentBox 2 =====
+補足情報
+要素の位置指定について
+
+
+
+
+2020年6月10日
+
+
+
+
+
+以下のレッスンで解説しているので参考にしてみてください。
+・詳解CSS 基礎文法編 » #26 positionで要素の位置を変えよう
+https://dotinstall.com/lessons/basic_css_styles_v2/51226
+
+// ===== /MyCSSBubble/css/styles.css =====
+body {
+  margin: 0;
+  background: skyblue;
+}
+
+.container {
+  padding: 32px;
+}
+
+.messages {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.messages li {
+  display: flex;
+}
+
+.messages li + li {
+  margin-top: 32px;
+}
+
+li.right-side {
+  flex-direction: row-reverse;
+}
+
+.pic {
+  /* background: pink; */
+  width: 80px;
+  text-align: center;
+}
+
+.pic img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.text {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px 24px;
+  max-width: 60%;
+  line-height: 1.8;
+  position: relative;
+}
+
+.text::before {
+  content: '';
+  width: 0;
+  height: 0;
+  /* border: 8px solid #fff; */
+  border: 8px solid transparent;
+  position: absolute;
+}
+
+.left-side .text::before {
+  top: 12px;
+  left: -16px;
+  border-right-color: #fff;
+}
+
+.right-side .text::before {
+  top: 12px;
+  right: -16px;
+  border-left-color: #fff;
+}
+
+// ===== /MyCSSBubble/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>CSS Chat</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <ul class="messages">
+      <li class="left-side">
+        <div class="pic">
+          <img src="img/cat.png">
+        </div>
+        <div class="text">
+          こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。
+        </div>
+      </li>
+      <li class="right-side">
+        <div class="pic">
+          <img src="img/dog.png">
+        </div>
+        <div class="text">
+          お久しぶりです！
+        </div>
+      </li>
+      <li class="left-side">
+        <div class="pic">
+          <img src="img/cat.png">
+        </div>
+        <div class="text">
+          こんにちは。こんにちは。
+        </div>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>
+
+
+
+
+
+

@@ -1,126 +1,609 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+.flex-container {
+  display: flex; /* フレックスボックスを有効化 */
+  flex-wrap: wrap; /* 子要素が入り切らない場合に折り返す設定 */
+}
+
+.flex-item {
+  width: 50%; /* 2列にするために50%を指定 */
+  box-sizing: border-box; /* パディングを含めて幅を計算 */
+}  </style>
 </head>
 <body>
-  list
+
+
+<div class="flex-container">
+<div class="flex-item">
+  <h1>Webサイトを作れるようになろう</h1>
+  <ul>
+ <li><a href="web_site1/firstWeb.txt">はじめてのWeb制作</a></li>
+  </ul>
+  <ul>
+ <li><a href="web_site1/prepareWebWindows.txt">Web制作の準備をしよう Windows編</a></li>
+ <li><a href="web_site1/prepareMacOS.txt">Web制作の準備をしよう macOS編</a></li>
+  </ul>
 <ul>
-  <li><a href="docker.html">docker</a></li>
-  <li><a href="vagrant.html">vagrant</a></li>
-  <li><a href="react1.html">react</a></li>
-  <li><a href="react2.html">react応用</a></li>
-  <li><a href="aws.html">aws</a></li>
-  <li><a href="github_site.html">githubサイト制作</a></li>
-  <li><a href="go1.html">GO</a></li>
-  <li><a href="go2.html">GO制御構造</a></li>
-  <li><a href="go3.html">GO関数</a></li>
-  <li><a href="go4.html">GOデータ構造</a></li>
-  <li><a href="go5.html">GOポインタ</a></li>
-  <li><a href="go6.html">GOデータ型</a></li>
-  <li><a href="go7.html">GO並行処理</a></li>
-  <li><a href="python1.html">python基本文法</a></li>
-  <li><a href="python2.html">python 関数</a></li>
-  <li><a href="python3.html">python データ構造</a></li>
-  <li><a href="python4.html">python 標準ライブラリ</a></li>
-  <li><a href="python5.html">python クラス</a></li>
-  <li><a href="github1.html">GitHub 基本操作</a></li>
-  <li><a href="github2.html">GitHub ブランチ</a></li>
-  <li><a href="github3.html">GitHub リモート</a></li>
-
-
-
-  <li><a href="figma1.html">Figma基本操作</a></li>
-  <li><a href="figma2.html">Figma基本操作</a></li>
-  <li><a href="figma3.html">Figma基本操作</a></li>
-  <li><a href="figma4.html">Figma基本操作</a></li>
-  <li><a href="laravel1.html">laravel</a></li>
-  <li><a href="laravel2.html">laravel データベース</a></li>
-  <li><a href="laravel3.html">laravel CRUD</a></li>
-  <li><a href="laravel4.html">laravel リレーション</a></li>
-  <li><a href="next.html">Next.js</a></li>
-  <li><a href="Typescript1.html">Typescript</a></li>
-  <li><a href="vsc.html">Visual Studio Code</a></li>
-  <li><a href="cs.html">C#</a></li>
-
-  <li><a href="laravel3.html">GitHubPageでWebサイト</a></li>
-
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>
-  <li><a href="zip/CorrelationValidationSample.zip">CorrelationValidationSample.zip</a></li>
-  <li><a href="zip/DISample.zip">DISample.zip</a></li>
-  <li><a href="zip/InjectionSample.zip">InjectionSample.zip</a></li>
-
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>  
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>  
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>  
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>  
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>  
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>  
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>  
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>  
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>  
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>  
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>  
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>  
-  <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>
+ <li><a href="web_site1/html1.txt">HTML入門 基本タグ</a></li>
+  <li><a href="web_site1/html2.txt">HTML入門 フォームタグ</a></li>
+  <li><a href="web_site1/css1.txt">CSS入門 基本スタイリング</a></li>
+  <li><a href="web_site1/css2.txt">CSS入門 応用スタイリング</a></li>
+  <li><a href="web_site1/css3.txt">CSS入門 セレクター</a></li>
+  <li><a href="web_site1/css4.txt">CSS入門 フレックスボックス</a></li>
+  <li><a href="web_site1/css5.txt">CSS入門 メディアクエリー</a></li>
+  <li><a href="web_site1/css6.txt">CSS入門 メディアクエリー</a></li>
+  <li><a href="web_site1/css7.txt">CSS入門 アニメーション</a></li>
+  <li><a href="web_site1/css8.txt">CSS入門 グリッドレイアウト</a></li>
 </ul>
+<ul>
+  <li><a href="web_site1/htmlLandingPage.txt">HTMLランディングページ作成</a></li>
+<li><a href="web_site1/htmlECSite.txt">HTMLECサイト作成</a></li>
+ <li><a href="web_site1/htmlPortforioSite.txt">HTMLポートフォリオサイト作成</a></li>
+</ul>
+</div>
+
+ <div class="flex-item">
+  <h1>Web制作をさらに極めていこう</h1>
+ <ul>
+  <li><a href="web_site2/githubWeb.txt">githubサイト制作</a></li>
+ </ul>
+ 
+ <ul>
+  <li><a href="web_site2/EmmetCording.txt">Emmetコーディング</a></li>
+  <li><a href="web_site2/GoogleFonts.txt">GoogleFonts</a></li>
+  <li><a href="web_site2/Boostrap5.txt">Boostrap5</a></li>
+  <li><a href="web_site2/BoostrapIcons.txt">Boostrap Icoms</a></li>
+</ul>
+
+<ul>
+  <li><a href="web_site2/AOS.txt">AOSでスクロールアニメーション</a></li>
+  <li><a href="web_site2/GLightbox.txt">GLightboxでポップアップする画像ギャラリーを実装</a></li>
+  <li><a href="web_site2/Swiper1.txt">Swiperでカルーセルを実装</a></li>
+  <li><a href="web_site2/Swiper2.txt">ASwiperでカルーセルを実装　実践</a></li>
+</ul>
+<ul>
+  <li><a href="web_site2/GSAP1.txt">GSAP Tween</a></li>
+  <li><a href="web_site2/GSAP2.txt">GSAP Timeline</a></li>
+  <li><a href="web_site2/GSAP3.txt">GSAP ScrollTrigger</a></li>
+</ul>
+</div>
+
+ <div class="flex-item">
+  <h1>JavaScript</h1>
+  <div class="box">
+    <h2>JavaScriptを体験</h2>
+    <ul>
+      <li><a href="javascript_1/javascript01_01.txt">はじめてのJavaScript</a></li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h2>JavaScriptの基礎</h2>
+    <ul>
+      <li><a href="javascript_1/javascript02_01.txt">基礎文法</a></li>
+      <li><a href="javascript_1/javascript02_02.txt">関数</a></li>
+      <li><a href="javascript_1/javascript02_03.txt">データ構造</a></li>
+      <li><a href="javascript_1/javascript02_04.txt">DOM</a></li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h2>もっと詳しくJavaScript</h2>
+    <ul>
+      <li><a href="javascript_1/javascript03_01.txt">数値操作</a></li>
+      <li><a href="javascript_1/javascript03_02.txt">文字列操作</a></li>
+      <li><a href="javascript_1/javascript03_03.txt">日時操作</a></li>
+      <li><a href="javascript_1/javascript03_04.txt">タイマー</a></li>
+      <li><a href="javascript_1/javascript03_05.txt">データ型</a></li>
+      <li><a href="javascript_1/javascript03_06.txt">クラス</a></li>
+      <li><a href="javascript_1/javascript03_07.txt">fetch API</a></li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h2>よく見るUI</h2>
+    <ul>
+      <li><a href="javascript_1/javascript04_01.txt">モーダルウィンドウ</a></li>
+      <li><a href="javascript_1/javascript04_02.txt">ハンバーガーメニュー</a></li>
+      <li><a href="javascript_1/javascript04_03.txt">アコーディオンUI</a></li>
+      <li><a href="javascript_1/javascript04_04.txt">タブメニュー</a></li>
+      <li><a href="javascript_1/javascript04_05.txt">カルーセル</a></li>
+    </ul>
+  </div>
+</div>
+
+
+
+ <div class="flex-item">
+  <h1>JavaScriptでミニアプリ</h1>
+  <div class="box">
+    <h2>シンプルなアプリ</h2>
+    <ul>
+      <li><a href="javascript_2/javascript01_01.txt">おみくじ</a></li>
+      <li><a href="javascript_2/javascript01_02.txt">パスワードジェネレーター</a></li>
+      <li><a href="javascript_2/javascript01_03.txt">カウントダウンタイマー</a></li>
+      <li><a href="javascript_2/javascript01_04.txt">三択クイズ</a></li>
+      <li><a href="javascript_2/javascript01_05.txt">スライドショー</a></li>
+      <li><a href="javascript_2/javascript01_06.txt">メモ帳</a></li>
+    </ul>
+  </div>
+  <div class="box">
+    <h2>より高度なアプリ</h2>
+    <ul>
+      <li><a href="javascript_2/javascript02_01.txt">ビンゴシート</a></li>
+      <li><a href="javascript_2/javascript02_02.txt">カレンダー</a></li>
+      <li><a href="javascript_2/javascript02_03.txt">ストップウォッチ</a></li>
+      <li><a href="javascript_2/javascript02_04.txt">タイピングゲーム</a></li>
+      <li><a href="javascript_2/javascript02_05.txt">スロットマシン</a></li>
+      <li><a href="javascript_2/javascript02_06.txt">数字タッチゲーム</a></li>
+      <li><a href="javascript_2/javascript02_07.txt">Todo管理アプリ</a></li>
+    </ul>
+  </div>
+</div>
+
+ <div class="flex-item">
+  <h1>React/Next.jsを学んでみよう</h1>
+  <ul>
+    <li><a href="react_nextjs/react1.txt">react</a></li>
+    <li><a href="react_nextjs/react2.txt">reactTodoアプリ</a></li>
+    <li><a href="react_nextjs/react_generate_skelton.txt">react スケルトン生成</a></li>
+    <li><a href="react_nextjs/react_ui_module_install.txt">react uiモジュール導入</a></li>
+    <li><a href="react_nextjs/react_webpack.txt">react react_webpack</a></li>
+    <li><a href="react_nextjs/react_unmatch_version.txt">react react_unmatch_version</a></li>
+    <li><a href="react_nextjs/typescript.txt">Typescript</a></li>
+    <li><a href="react_nextjs/tailwind_css.txt">Tailwind CSS入門</a></li>
+    <li><a href="react_nextjs/next.txt">Next.js</a></li>
+  </ul>
+</div>
+
+ <div class="flex-item">
+<h1>Vue.js/Nuxtを学んでみよう</h1>
+<ul>
+<li><a href="Vuejs_Nuxt/vuejs3_01_01.txt">Vue.js 3入門 基礎編</a></li>
+  <li><a href="Vuejs_Nuxt/vuejs3_01_02.txt">Vue.js 3入門 応用編</a></li>
+  <li><a href="Vuejs_Nuxt/vuejs3_01_03.txt">Vue.js 3でTodo管理アプリを作ろう 基本機能編</a></li>
+  <li><a href="Vuejs_Nuxt/vuejs3_01_04.txt">Vue.js 3でTodo管理アプリを作ろう 応用機能編</a></li>
+  <li><a href="Vuejs_Nuxt/nuxt1.txt">nuxt入門 基礎編</a></li>
+  <li><a href="Vuejs_Nuxt/nuxt2.txt">nuxt入門 実践編</a></li>
+</ul>
+</div>
+
+ <div class="flex-item">
+<h1>コマンドライン</h1>
+<ul>
+<li><a href="UNIX_Command.txt">UNIXコマンド</a></li>
+</ul>
+</div>
+
+ <div class="flex-item">
+<h1>MySQL</h1>
+<ul>
+<li><a href="MySQL1.txt">基礎</a></li>
+<li><a href="MySQL2.txt">応用</a></li>
+</ul>
+</div>
+
+ <div class="flex-item">
+<h1>PHP</h1>
+<div class="box">
+  <h1>PHP基本</h1>
+  <ul>
+    <li><a href="php/php1.txt">基本文法</a></li>
+    <li><a href="php/php2.txt">制御構造</a></li>
+    <li><a href="php/php3.txt">関数</a></li>
+    <li><a href="php/php4.txt">データ構造</a></li>
+    <li><a href="php/php5.txt">クラス</a></li>
+  </ul>
+</div>
+ <div class="flex-item">
+  <h1>フレームワーク</h1>
+  <ul>
+    <li><a href="php/laravel1.txt">Laravel入門 基本機能</a></li>
+    <li><a href="php/laravel2.txt">laravel データベース</a></li>
+    <li><a href="php/laravel3.txt">laravel CRUD</a></li>
+    <li><a href="php/laravel4.txt">laravel リレーション</a></li>
+  </ul>
+</div>
+</div>
+
+
+ <div class="flex-item">
+  <h1>Python</h1>
+  <ul>
+    <li><a href="python/python1.txt">python基本文法</a></li>
+    <li><a href="python/python2.txt">python 関数</a></li>
+    <li><a href="python/python3.txt">python データ構造</a></li>
+    <li><a href="python/python4.txt">python 標準ライブラリ</a></li>
+    <li><a href="python/python5.txt">python クラス</a></li>
+  <ul>
+</div>
+
+ <div class="flex-item">
+  <h1>Java</h1>
+  <ul>
+    <li><a href="java/java1.txt">基本文法</a></li>
+    <li><a href="java/java2.txt">制御構造</a></li>
+    <li><a href="java/java3.txt">メソッド</a></li>
+    <li><a href="java/java4.txt">クラス</a></li>
+  <ul>
+</div>
+
+
+
+ <div class="flex-item">
+<h1>Go言語を学んでみよう</h1>
+<ul> 
+  <li><a href="go/go1.txt">GO基本文法</a></li>
+  <li><a href="go/go2.txt">GO制御構造</a></li>
+  <li><a href="go/go3.txt">GO関数</a></li>
+  <li><a href="go/go4.txt">GOデータ構造</a></li>
+  <li><a href="go/go5.txt">GOポインタ</a></li>
+  <li><a href="go/go6.txt">GOデータ型</a></li>
+  <li><a href="go/go7.txt">GO並行処理</a></li>
+</ul>
+</div>
+
+
+ <div class="flex-item">
+<h1>Ruby</h1>
+<div class="box">
+<h1>Ruby基本</h1>
+<ul> 
+  <li><a href="ruby/ruby1.txt">基本文法</a></li>
+  <li><a href="ruby/ruby2.txt">制御構造</a></li>
+  <li><a href="ruby/ruby3.txt">メソッド</a></li>
+  <li><a href="ruby/ruby4.txt">データ構造</a></li>
+  <li><a href="ruby/ruby5.txt">クラス</a></li>
+</ul>
+</div>
+  <div class="box">
+  <h1>Ruby on Rails</h1>
+  <ul> 
+  <li><a href="ruby/rubyOnRails1.txt">基本機能</a></li>
+  <li><a href="ruby/rubyOnRails2.txt">データベース</a></li>
+  <li><a href="ruby/rubyOnRails3.txt">CRUD</a></li>
+  <li><a href="ruby/rubyOnRails4.txt">アソシエーション</a></li>
+  </ul>
+  </div>
+</div>
+
+
+
+ <div class="flex-item">
+  <h1>Gitを学んでみよう</h1>
+<div class="box">
+<ul>
+  <li><a href="git/github1.txt">GitHub 基本操作</a></li>
+  <li><a href="git/github2.txt">GitHub ブランチ</a></li>
+  <li><a href="git/github3.txt">GitHub リモート</a></li>
+</ul>
+</div>
+<div class="box">
+<ul>
+  <li><a href=https://zenn.dev/kiwichan101kg/articles/2d6850ff72bc98">git action</a></li>
+<ul>
+</div>
+</div>
+
+
+
+
+
+ <div class="flex-item">
+  <h1>Figma</h1>
+  <ul>
+    <li><a href="figma1.txt">Figma基本操作</a></li>
+    <li><a href="figma2.txt">Figmaレイアウト</a></li>
+    <li><a href="figma3.txt">Figmaコンポーネント</a></li>
+    <li><a href="figma4.txt">Figma実践</a></li>
+  </ul>  
+</div>
+
+ <div class="flex-item">
+  <h1>Scratch</h1>
+  <ul>
+    <li><a href="scratch/scratch1.txt">入門</a></li>
+    <li><a href="scratch/scratch2.txt">潜水艦ゲーム</a></li>
+    <li><a href="scratch/scratch3.txt">ペンギンゲーム</a></li>
+  </ul>  
+</div>
+
+
+ <div class="flex-item">
+  <h1>Unity</h1>
+  <ul>
+    <li><a href="unity/Unity.txt">Unity</a></li>
+    <li><a href="unity/Unity2D.txt">2D</a></li>
+    <li><a href="unity/Unity3D.txt">3D</a></li>
+    <li><a href="unity/CSharp.txt">C#</a></li>
+  </ul>  
+</div>
+
+ <div class="flex-item">
+  <h1>Unixシェル、コマンド</h1>
+  <ul>
+    <li><a href="unix2/ShellScript.txt">シェルスクリプト</a></li>
+    <li><a href="unix2/sed.txt">sed</a></li>
+    <li><a href="unix2/AWK.txt">AWK</a></li>
+  </ul>  
+</div>
+
+
+ <div class="flex-item">
+  <h1>iPhoneアプリ</h1>
+  <ul>
+    <li><a href="iphone/iPhone.txt">iPhoneアプリ開発</a>C#</li>
+    <li><a href="iphone/iOSLayout.txt">iOSレイアウト</a>C#</li>
+    <li><a href="iphone/Swift.txt">Swift 3</a>C#</li>
+    <li><a href="iphone/iOSPractice1.txt">iOSでおみくじ/a>C#</li>
+    <li><a href="iphone/iOSPractice2.txt">iOSで姓名診断アプリ</a>C#</li>
+    <li><a href="iphone/iOSPractice3.txt">iOSでストップウォッチ</a>C#</li>
+    <li><a href="iphone/iOSPractice4.txt">iOSでブラウザ</a>C#</li>
+    <li><a href="iphone/iOSPractice5.txt">iOSで一行メモアプリ</a>C#</li>
+  </ul>  
+</div>
+
+ <div class="flex-item">
+  <h1>Android</h1>
+  <ul>
+    <li><a href="android/android.txt">Android</a></li>
+    <li><a href="android/androidPractice.txt">実践</a></li>
+    <li><a href="android/kotlin.txt">Kotlin</a></li>
+  </ul>  
+</div>
+
+
+ <div class="flex-item">
+  <h1>google tools</h1>
+  <ul>
+    <li><a href="google/googleCharts.txt">Google Charts</a></li>
+    <li><a href="google/googleMaps.txt">Google Maps API</a></li>
+    <li><a href="google/javascriptFireBase.txt">JavaScriptで学ぶFirebase</a></li>
+    <li><a href="google/googleChromeExtention.txt">Google Chrome拡張機能</a></li>
+    <li><a href="google/googleChromeDeveloperTool.txt">Chrome Developer Tools</a></li>
+    <li><a href="google/googleAppScript.txt">Google Apps Script</a></li>
+  </ul>  
+</div>
+
+ <div class="flex-item">
+  <h1>デザイン、アート</h1>
+  <ul>
+    <li><a href="design_art/processing.txt">Processing</a></li>
+    <li><a href="design_art/p5js.txt">p5.js</a></li>
+    <li><a href="design_art/p5jsPractice.txt">p5.js coding</a></li>
+    <li><a href="design_art/tweakPane.txt">Tweakpane</a></li>
+    <li><a href="design_art/three.js">Three.js</a></li>
+    <li><a href="design_art/D3js.txt">D3.js</a></li>
+    <li><a href="design_art/processingPractice.txt">Processing practice</a></li>
+    <li><a href="design_art/cssChat.txt">ChatUI</a></li>
+    <li><a href="design_art/cssHartIcon.txt">HeartIcon</a></li>
+  </ul>  
+</div>
+
+
+ <div class="flex-item">
+  <h1>Canvas</h1>
+  <ul>
+    <li><a href="javascriptCanvas/JavaScriptCanvas.txt">詳解</a></li>
+    <li><a href="javascriptCanvas/javaScriptLoadingIcon.txt">JavaScriptでローディングアイコン</a></li>
+    <li><a href="javascriptCanvas/javaScriptAnalogWatch.txt">JavaScriptでアナログ時計</a></li>
+    <li><a href="javascriptCanvas/javaScriptMaze.txt">JavaScriptで迷路</a></li>
+    <li><a href="javascriptCanvas/javascript15Pazzle.txt">JavaScriptで15パズル</a></li>
+    <li><a href="javascriptCanvas/javascriptPinponGame.txt">JavaScriptでピンポンゲーム</a></li>
+  </ul>  
+</div>
+
+
+ <div class="flex-item">
+  <h1>いろいろな言語</h1>
+  <ul>
+    <li><a href="lang/Brainfck.txt">Brainf*ck</a></li>
+    <li><a href="lang/sonicPI.txt">Sonic Pi</a></li>
+    <li><a href="lang/PICO-8.txt">PICO-8</a></li>
+    <li><a href="lang/OpenSCAD.txt">OpenSCAD</a></li>
+    <li><a href="lang/Scala.txt">Scala</a></li>
+    <li><a href="lang/Electron.txt">Electron</a></li>
+    <li><a href="lang/perl.txt">Perl</a></li>
+    <li><a href="lang/C.txt">C言語</a></li>
+    <li><a href="lang/lua.txt">Lua</a></li>
+    <li><a href="lang/Smalltalk.txt">Smalltalk</a></li>
+    <li><a href="lang/BASIC.txt">BASIC</a></li>
+    <li><a href="lang/COBOL.txt">COBOL</a></li>
+    <li><a href="lang/pascal.txt">Pascal</a></li>
+    <li><a href="lang/ada.txt">Ada</a></li>
+  </ul>  
+</div>
+
+
+ <div class="flex-item">
+<h1>その他</h1>
+    <ul>
+  <li><a href="other/markDown.txt">マークダウン記法</a></li>
+  <li><a href="other/microCMS.txt">microCMS</a></li>
+  <li><a href="other/vsc.txt">Visual Studio Code</a></li>
+  <li><a href="other/RegularExpression.txt">エディタで学ぶ正規表現</a></li>
+  <li><a href="other/jquery.txt">jQuery</a></li>
+  <li><a href="other/chartjs.txt">Chart.js</a></li>
+  <li><a href="other/nodejs.txt">node.js</a></li>
+  <li><a href="other/expressjs.txt">express</a></li>
+  <li><a href="other/jq.txt">jq</a></li>
+  <li><a href="other/SVG.txt">SVG</a></li>
+  <li><a href="other/yaml.txt">YAML</a></li>
+  <li><a href="other/firebaseWeb.txt">Firebaseでウェブサイトを公開</a></li>
+  <li><a href="other/aws.txt">aws</a></li>
+  <li><a href="other/docker.txt">docker</a></li>
+  <li><a href="other/WordPress.txt">WordPress</a></li>
+  <li><a href="other/ExcelVBA.txt">Excel VBA</a></li>
+  <li><a href="other/SQLite.txt">SQLite</a></li>
+  <li><a href="other/PostgreSQL.txt">PostgreSQL</a></li>
+  <li><a href="other/MongoDB.txt">MongoDB</a></li>
+  <li><a href="other/Redis.txt">Redis</a></li>
+</ul>
+</div>
+
+<div class="flex-item">
+  <h1>old</h1>
+  <ul>
+    <li><a href="old/AWSCloud9.txt">AWSCloud9</a></li>
+    <li><a href="old/heroku.txt">heroku</a></li>
+    <li><a href="old/atom.txt">Atom</a></li>
+    <li><a href="old/datGUI.txt">datGUI</a></li>
+    <li><a href="old/momentjs.txt">Moment.js</a></li>
+    <li><a href="old/soket.io.txt">socket.io</a></li>
+    <li><a href="https://www.sejuku.net/blog/82316">socket.io</a></li>
+    <li><a href="old/AngularToDoApp.txt">AngularJSで作るToDoアプリ</a></li>
+    <li><a href="old/WebStorage.txt">Web Storage</a></li>
+    <li><a href="old/vagrant.txt">vagrant</a></li>
+    <li><a href="old/FontAwesome.txt">FontAwesome</a></li>
+    <li><a href="old/Grunt.txt">Grunt</a></li>
+    <li><a href="old/vim.txt">vim</a></li>
+    <li><a href="old/MaterialIcon.txt">マテリアルアイコン</a></li>
+    <li><a href="old/haml.txt">Haml</a></li>
+    <li><a href="old/tmux.txt">tmux</a></li>
+    <li><a href="old/ActiveRecord.txt">ActiveRecord</a></li>
+  </ul>
+  <ul>
+    <li><a href="old/SassSCSS.txt">Sass/SCSS</a></li>
+    <li><a href="old/textlint.txt">textlint</a></li>
+    <li><a href="old/sublimetext.txt">Sublime Text</a></li>
+    <li><a href="old/enginerSketch.html"></a></li>
+    <li><a href="old/Underscorejs.txt">Underscorejs</a></li>
+    <li><a href="old/Angularjs.txt">Angularjs</a></li>
+    <li><a href="old/Backbonejs.txt">Backbone.js</a></li>
+    <li><a href="old/R.txt">R</a></li>
+    <li><a href="old/ansible.txt">ansible</a></li>
+    <li><a href="old/mustache.txt">mustache</a></li>
+    <li><a href="old/Arduino.txt">Arduino</a></li>
+    <li><a href="old/Emacs.txt">Emacs</a></li>
+    <li><a href="old/RSpec.txt">RSpec</a></li>
+    <li><a href="old/LESS.txt">LESS</a></li>
+    <li><a href="old/Jekyll.txt">Jekyll</a></li>
+    <li><a href="old/sinatra.txt">Sinatra</a></li>
+  </ul>
+</div>
+
+
+
+
+
+
+
+<div class="flex-item">
+<h1>AI</h1>
+  <ul>
+    <li><a href="https://gemini.google.com/share/b736ec80312a">OpenAI開発学習ロードマップの5段階</a></li>
+    <li><a href="https://gemini.google.com/share/e6d2bc4a7d61">プロンプトエンジニアリング入門：基本スキル</a></li>
+    <li><a href="https://gemini.google.com/share/1c2b27572641">API実装：安全・効率的なAI連携</a></li>
+    <li><a href="https://gemini.google.com/share/e54524b53629">RAGとEmbeddings学習プログラム</a></li>
+    <li><a href="https://gemini.google.com/share/92b3b042d9b8">第４段階</a></li>
+    <li><a href="https://gemini.google.com/share/c9c9332729a8">プロダクションレベルAI運用スキル</a></li>
+    <li><a href="https://zenn.dev/nttdata_tech/articles/2b80f968856c36">AI</a></li>
+    <li><a href="llm.txt">LLM</a></li>
+  </ul>
+</div>
+
+
+
+<div class="flex-item">
+  <ul>
+    <li><a href="mvn_windows.txt">windows mvn導入</a></li>
+    <li><a href="coverage_report.txt">カバレッジレポート作成</a></li>
+    <li><a href="https://udemy.benesse.co.jp/development/playwright.html">Playwright</a></li>
+    <li><a href="https://chigusa-web.com/blog/owasp-zap-install/">OWASP ZAP</a></li>
+    <li><a href="https://www.ejworks.com/solution/detail.html?article_id=70">OWASP ZAP</a></li>
+    https://www.ejworks.com/solution/detail.html?article_id=70
+  </ul>
+</div>
+<div class="box">
+  <h1>sact</h1>
+  <ul>
+    <li><a href="https://qiita.com/omix222/items/42479f14ba50f9f6f69b">sonarQube</a></li>
+    <li><a href="sonarCube.html">sonarQube</a></li>
+    <li><a href="https://marketplace.eclipse.org/content/sonarqube-ide">SonarQube eclipse plugin</a></li>
+    <li><a href="https://qiita.com/YoshijiGates/items/e1055e14c9960228726b">導入</a></li>
+  </ul>
+</div>
+
+  <div class="box">
+    <h1>snyk</h1>
+    <ul><li><a href="https://marketplace.eclipse.org/content/snyk-security">snyk</a></li>
+    </ul>
+  </div>
+
+<div class="flex-item">
+  <h1>swagger</h1>
+  <ul>
+    <li><a href="https://app.swaggerhub.com/hub/none-049"></a>swagger</li>
+    https://tech.nri-net.com/entry/simple_explanation_of_swagger
+    <li><a href="https://app.swaggerhub.com/apis/none-049/myAPI/1.0.0#/pet/findPetsByStatus"></a></li>
+  </ul>
+  </div>
+
+<div class="flex-item">
+    <h1>JMeter</h1>
+    <ul>
+    <li>
+      <a href="https://qiita.com/masatomix/items/8637e2908dc0a554284f">JMeter全般</a></li>
+      <li>リクエスト記録 JMeter全般内で説明</li>
+      <li>HTTPS設定 chatgpt:「JMeter プロキシ設定」HTTPプロキシの画面のみで設定「HTTP(S) Test Script Recorderという画面はHTTPプロキシ画面に統合されている」HTTPリクエスト記録.jmx</li>
+      <li>記録したリクエストをテスト計画に組み込み chatgpt:「JMeter リクエスト テスト化」</li>
+      <li>コマンドテスト実行 chatgpt:「JMeter コマンドラインパラメーター」./jmeter -n -t HTTPリクエスト記録.jmx -l result.jtl -e -o report</li>
+    </ul>
+  </div>
+
+<div class="flex-item">
+    <h1>AWS</h1>
+    <ul>
+      https://gemini.google.com/share/33dbd1484478　AWSマスターへのロードマップ
+    構成例
+    https://kurojica.com/server/blog/2699/
+    https://qiita.com/g_ayushi/items/0e0f34d19813b8fdc2b8
+    https://pages.awscloud.com/rs/112-TZM-766/images/AWS_30%E3%81%AE%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E6%A7%8B%E6%88%90%E3%81%A8%E6%96%99%E9%87%91%E8%A9%A6%E7%AE%97%E4%BE%8B.pdf
+    </ul>
+  </div>
+  <div class="flex-item">
+    <h1>Kubernetes</h1>
+    <ul>
+      <li>
+<a href="https://gemini.google.com/share/8e84f1b36b5a">Kubernetes入門：基本と学習ステップ</a>
+</li>
+https://gemini.google.com/share/c1df9ff76656
+Kubernetes 中級ロードマップ解説
+    </ul>
+  </div>
+
+<div class="flex-item">
+    <h1>zip</h1>
+    <ul>
+      <li><a href="zip/AOPSample.zip">AOPSample.zip</a></li>
+      <li><a href="zip/AWSCLIV2.msi">AWSCLIV2.msi</a></li>
+      <li><a href="zip/code3-main.zip">code3-main.zip</a></li>
+      <li><a href="zip/CorrelationValidationSample.zip">CorrelationValidationSample.zip</a></li>
+      <li><a href="zip/DISample.zip">DISample.zip</a></li>
+      <li><a href="zip/InjectionSample.zip">InjectionSample.zip</a></li>
+      <li><a href="zip/InterfaceSample.zip">InterfaceSample.zip</a></li>
+      <li><a href="zip/JavaConfigSample.zip">JavaConfigSample.zip</a></li>
+      <li><a href="zip/LombokSample.zip">LombokSample.zip</a></li>
+      <li><a href="zip/MyBatisSample.zip">MyBatisSample.zip</a></li>
+      <li><a href="zip/PathValiableSample.zip">PathValiableSample.zip</a></li>  
+      <li><a href="zip/RequestParamSample.zip">RequestParamSample.zip</a></li>  
+      <li><a href="zip/spring-book-src-master.zip">spring-book-src-master.zip</a></li>
+      <li><a href="zip/SpringMVCViewSample.zip">SpringMVCViewSample.zip</a></li>
+      <li><a href="zip/ThymeleafSample.zip">ThymeleafSample.zip</a></li>
+      <li><a href="zip/ValidationSample.zip">ValidationSample.zip</a></li>
+      <li><a href="zip/webapp.zip">webapp.zip</a></li>
+    </ul>
+  </div>
+
+</div>
+
+
+
+
 </body>
 </html>
-
-index.html
-style.css
-index.html
-style.css
-index.html
-style.css
-index.html
-style.css
-index.html
-style.css
-index.html
-style.css
-index.html
-style.css
-index.html
-style.css
-index.html
-style.css
-index.html
-style.css
-index.html
-style.css
-index.html
-style.css
-index.html
-style.css
-index.html
-style.css
-index.html
-style.css
-index.html
-style.css
-index.html
-style.css
-index.html
-style.css

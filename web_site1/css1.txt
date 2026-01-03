@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+<code>
+CSSの概要を確認したのちに、基本的な文法について見ていきます。
+
+HTMLとCSSの違い
+レッスンの構成
+CSSの文法
+必要となる準備
+補足情報 「Web制作の準備をしよう」のレッスンについて
+2022年10月5日
+動画中で紹介されている「Web制作の準備をしよう」のレッスンについては以下を参照してください。
+
+・Web制作の準備をしよう Windows編 (全10回)
+https://dotinstall.com/lessons/basic_pcsetup_win_v4
+・Web制作の準備をしよう macOS編 (全10回)
+https://dotinstall.com/lessons/basic_pcsetup_mac_v4
+
+
+作業用のフォルダをVS Codeエディタに設定し、index.htmlを作成してブラウザで確認していきます。
+
+作業用フォルダの設定
+index.htmlの作成
+ブラウザでの確認
+補足情報 VS Codeでファイルのドラッグ＆ドロップができない場合
+2024年2月16日
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+macOS VS Code ドラッグ&ドロップ イメージ
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、WindowsならCtrlキー、macOSならcommandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+補足情報 VS Codeで生成されるHTMLの雛形について
+2023年7月13日
+VS Codeで生成されるHTMLの雛形に変更があったようです。具体的には<meta http-equiv="X-UA-Compatible" content="IE=edge">が含まれなくなりました。こちらは古いブラウザに対応するための命令でしたが、現在不要になっているので気にせずにそのまま学習を進めていただいてかまいません。
+
+補足情報 VS Codeエディタの設定について
+2022年10月5日
+「lang属性の値がjaになっていない」場合は「Emmet Variablesの設定」が、「タブの横にx印ではなくて丸がついている」場合は「自動保存の設定」がうまくいっていません。設定方法については以下を参照してみてください。
+
+・Windowsの方 → VS Codeエディタの設定をしていこう
+https://dotinstall.com/lessons/basic_pcsetup_win_v4/60308
+・macOSの方 → VS Codeエディタの設定をしていこう
+https://dotinstall.com/lessons/basic_pcsetup_mac_v4/60408
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+</head>
+<body>
+  <p>こんにちは！</p>
+  <p>こんにちは！</p>
+</body>
+</html>
+
+
+
+styleタグ内にCSSを記述する方法について見ていきます。
+
+styleタグの設置
+スタイルの優先度
+コメントの書き方
+補足情報 「/」の入力について
+2022年10月5日
+テンキーがついているキーボードの場合、テンキーの「/」を使うとうまくコメントになりません。キーボード右下の「/」（日本語キーボードだと?が印字されているキー）をご利用ください。
+
+補足情報 ソースコードの比較機能について
+2022年10月5日
+動画中で紹介されているソースコードの比較機能については以下のヘルプを参照してください。
+
+・ヘルプ「ソースコードの比較機能について」
+https://dotinstall.com/help/417
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+  <style>
+    /* 段落のスタイル */
+    p {
+      background-color: pink;
+      /* background-color: skyblue; */
+    }
+  </style>
+</head>
+<body>
+  <p>こんにちは！</p>
+  <p>こんにちは！</p>
+</body>
+</html>
+
+
+
+
+
+CSSを別ファイルに記述していく手順について解説していきます。
+
+linkタグの設置
+style.cssの作成
+文字コードの設定
+ブラウザでの確認
+補足情報 「@charset "utf-8";」について
+2022年10月5日
+動画中で紹介している「@charset "utf-8";」ですが、ドットインストールで過去に制作したレッスンではこの設定がない場合もあります。この設定がなくても問題がない場合がほとんどですが、今後はすべてのレッスンにつけていく予定です。
+
+補足情報 ソースコードの比較機能について
+2022年10月5日
+動画中で紹介されているソースコードの比較機能については以下のヘルプを参照してください。
+
+・ヘルプ「ソースコードの比較機能について」
+https://dotinstall.com/help/417
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p>こんにちは！</p>
+  <p>こんにちは！</p>
+</body>
+</html>
+
+/MyBasicCSS/style.css 
+@charset "utf-8";
+
+p {
+  background-color: pink;
+}
+
+
+
+ボックスモデルとそれに関連するプロパティについて図で説明していきます。
+
+content box
+border box
+padding box
+margin box
+width / height
+
+
+
+
+
+要素にデフォルトでついているスタイルをリセットしたのち、widthやheightを設定してみます。
+
+スタイルのリセット
+width, heightの設定
+16pxをベースにしたデザイン
+補足情報 女性ボイスでの1:58〜の説明について
+2024年2月1日
+女性ボイスの1:58〜の説明において「p タグで表示される文字の高さが 160px なので、」と発話していますが、正確には文字起こしどおり「p タグで表示される文字の高さが 16px なので、」となります。訂正してお詫び申し上げます。
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p>こんにちは！</p>
+  <!-- <p>こんにちは！</p> -->
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+p {
+  background-color: pink;
+  margin: 0;
+  width: 160px;
+  height: 160px;
+}
+
+
+
+
+
+widthを%で指定したり、最大/最小幅を設定する方法について見ていきます。
+
+%による幅指定
+max-width
+min-width
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p>こんにちは！</p>
+  <!-- <p>こんにちは！</p> -->
+</body>
+</html>
+
+/MyBasicCSS/style.css 
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+p {
+  background-color: pink;
+  margin: 0;
+  width: 50%;
+  /* max-width: 400px; */
+  min-width: 400px;
+  height: 160px;
+}
+
+
+
+
+
+領域の外側に境界線をつけることができるプロパティについて見ていきます。
+
+border-width
+border-style
+border-color
+方向の指定
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p>こんにちは！</p>
+  <!-- <p>こんにちは！</p> -->
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+p {
+  background-color: pink;
+  margin: 0;
+  width: 160px;
+  height: 160px;
+  /* border-width: 8px; */
+  /* border-style: solid; */
+  /* border-color: blue; */
+  border-top-width: 8px;
+  border-top-style: dashed;
+  border-top-color: blue;
+  border-bottom-width: 8px;
+  border-bottom-style: double;
+  border-bottom-color: blue;
+}
+
+
+
+
+複数のプロパティをまとめて指定することができる、一括指定プロパティについて解説していきます。
+
+border
+border-top / border-bottom
+一括指定プロパティに関する注意点
+プロパティの初期値
+補足情報 「background-color」について
+2022年10月5日
+「background-color」は「background」と書いても動作します。このあたりの仕組みについては、詳解CSS 応用スタイリング編の「一括指定プロパティ」で扱っていきます。
+
+・#17 背景関連のプロパティを設定しよう | 詳解CSS 応用スタイリング編
+https://dotinstall.com/lessons/basic_css_advanced/61117
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p>こんにちは！</p>
+  <!-- <p>こんにちは！</p> -->
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+p {
+  background-color: pink;
+  margin: 0;
+  width: 160px;
+  height: 160px;
+  /* border-width: 8px; */
+  /* border-style: solid; */
+  /* border-color: blue; */
+  /* border: 8px solid blue; */
+  /* border-top: 8px dashed blue; */
+  /* border-bottom: 8px double blue; */
+  border-style: solid;
+  border: 8px none blue;
+}
+
+
+
+
+
+
+paddingプロパティを使って境界線の内側に余白を設定する方法を学びます。
+
+padding
+一括指定プロパティの挙動
+
+/MyBasicCSS/index.html
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+p {
+  background-color: pink;
+  margin: 0;
+  width: 160px;
+  height: 160px;
+  border: 8px solid blue;
+  /* padding-top: 16px; */
+  /* padding-right: 16px; */
+  /* padding-bottom: 16px; */
+  /* padding-left: 16px; */
+  padding: 16px;
+}
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+p {
+  background-color: pink;
+  margin: 0;
+  width: 160px;
+  height: 160px;
+  border: 8px solid blue;
+  /* padding-top: 16px; */
+  /* padding-right: 16px; */
+  /* padding-bottom: 16px; */
+  /* padding-left: 16px; */
+  padding: 16px;
+}
+
+
+
+
+
+marginプロパティを使って境界線の外側に余白を設定する方法を学びます。
+
+margin
+autoキーワード
+
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p>こんにちは！</p>
+  <!-- <p>こんにちは！</p> -->
+</body>
+</html>
+
+/MyBasicCSS/style.css 
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+p {
+  background-color: pink;
+  /* margin: 0 0 0 16px; */
+  /* margin: 0; */
+  /* margin: 0 0 0 auto; */
+  margin: 0 auto;
+  width: 160px;
+  height: 160px;
+  border: 8px solid blue;
+  padding: 16px;
+}
+
+
+
+垂直方向で隣接するmarginで発生する挙動について解説していきます。
+
+marginの相殺
+動作確認
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p>こんにちは！</p>
+  <p>こんにちは！</p>
+  <p>こんにちは！</p>
+</body>
+</html>
+
+/MyBasicCSS/style.css 
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+p {
+  background-color: pink;
+  /* margin: 16px 0 0; */
+  margin: 16px 0;
+}
+
+
+
+borderやpaddingまでの長さをwidthやheightに含めるための方法について見ていきます。
+
+box-sizing: border-box;
+動作確認
+補足情報 「border-box」について
+2022年10月5日
+動画中で紹介している「border-box」については以下のレッスンで説明しています。
+
+・#05 ボックスモデルを理解しよう | 詳解CSS 基本スタイリング編
+https://dotinstall.com/lessons/basic_css_styles_v3/61005
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p>こんにちは！</p>
+  <p>こんにちは！</p>
+  <p>こんにちは！</p>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+p {
+  background-color: pink;
+  margin: 16px 0 0;
+  width: 400px;
+  height: 80px;
+  border: 8px solid blue;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+
+
+コンテンツが領域からあふれたときの挙動を制御する方法について見ていきます。
+
+overflow: hidden;
+overflow: scroll;
+
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p>こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！</p>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+p {
+  background-color: pink;
+  margin: 0;
+  width: 160px;
+  height: 80px;
+  /* overflow: hidden; */
+  overflow: scroll;
+}
+
+
+
+領域の角を丸めるためのborder-radiusプロパティについて詳しく見ていきます。
+
+border-radius
+方向の指定
+境界線への影響
+正円の作りかた
+補足情報 テキストを中央に寄せる方法
+2022年10月5日
+動画中で触れている、領域のなかでテキストを上下左右中央揃えにする方法については応用スタイリング編にて触れていきます。
+
+・#16 背景画像を設定しよう | 詳解CSS 応用スタイリング編
+https://dotinstall.com/lessons/basic_css_advanced/61116
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p>こんにちは！</p>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+p {
+  background-color: pink;
+  margin: 0;
+  width: 160px;
+  height: 160px;
+  /* border-radius: 16px; */
+  /* border-radius: 16px 0 16px 32px; */
+  border-radius: 50%;
+  border: 8px solid blue;
+}
+
+
+
+領域に影をつけるためのbox-shadowプロパティについて解説していきます。
+
+box-shadow
+全体にうっすらと影を付ける方法
+
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p>こんにちは！</p>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+p {
+  background-color: pink;
+  margin: 16px;
+  width: 160px;
+  height: 160px;
+  /* box-shadow: 8px 8px gray; */
+  /* box-shadow: 8px 8px 8px gray; */
+  box-shadow: 0 0 8px gray;
+}
+
+
+テキスト周りのスタイリングで使えるプロパティについて見ていきます。
+
+font-size
+font-weight
+text-align
+
+
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>ドットインストール</h1>
+  <p>こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！</p>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+h1 {
+  background-color: skyblue;
+  margin: 0;
+  font-size: 16px;
+  font-weight: normal;
+  text-align: center;
+}
+
+p {
+  background-color: pink;
+  margin: 0;
+  font-weight: bold;
+  text-align: right;
+}
+
+
+
+
+テキストを配置すると生成される行ボックスについて解説したのち、line-heightプロパティの使い方について見ていきます。
+
+行ボックス
+line-height
+単位なしによるline-heightの指定
+
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>ドットインストール</h1>
+  <p>こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！</p>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+h1 {
+  background-color: skyblue;
+  margin: 0;
+}
+
+p {
+  background-color: pink;
+  margin: 0;
+  line-height: 1.6;
+}
+
+
+
+
+スタイルが継承されていく仕組みについて説明していきます。
+
+スタイルの継承
+inherit
+
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>ドットインストール</h1>
+  <p>こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！</p>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+  color: blue;
+  border: 8px solid blue;
+}
+
+h1 {
+  background-color: skyblue;
+  margin: 0;
+  /* color: blue; */
+  border: inherit;
+}
+
+p {
+  background-color: pink;
+  margin: 0;
+  line-height: 1.6;
+}
+
+
+テキストのフォントを指定することができるfont-familyプロパティについて見ていきます。
+
+font-family
+フォント指定に関する注意点
+総称フォントファミリー
+補足情報 font-familyの指定について
+2022年10月5日
+動画中で紹介されているfont-familyの指定については以下をご利用ください。
+
+font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>ドットインストール</h1>
+  <p>こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！</p>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+}
+
+h1 {
+  background-color: skyblue;
+  margin: 0;
+}
+
+p {
+  background-color: pink;
+  margin: 0;
+  line-height: 1.6;
+}
+
+
+
+
+これまで紹介したプロパティを使ってsectionをスタイリングしていきます。
+
+sectionの設置
+border
+width
+margin
+border-radius
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section>
+    <h1>ドットインストール</h1>
+    <p>こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！</p>
+  </section>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+}
+
+section {
+  border: 1px solid lightgray;
+  width: 400px;
+  margin: 32px auto 0;
+  border-radius: 8px;
+}
+
+h1 {
+  background-color: skyblue;
+  margin: 0;
+}
+
+p {
+  background-color: pink;
+  margin: 0;
+  line-height: 1.6;
+}
+
+
+
+余白をpaddingで指定した場合と、marginで指定した場合でどのような違いがあるか説明していきます。
+
+text-align
+marginのリセット
+marginによる設定
+paddingによる設定
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section>
+    <h1>ドットインストール</h1>
+    <p>こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！</p>
+  </section>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+}
+
+section {
+  border: 1px solid lightgray;
+  width: 400px;
+  margin: 32px auto 0;
+  border-radius: 8px;
+}
+
+h1 {
+  background-color: skyblue;
+  /* margin: 0 auto; */
+  margin: 0;
+  /* margin: 8px; */
+  padding: 8px;
+  text-align: center;
+}
+
+p {
+  background-color: pink;
+  /* margin: 8px; */
+  margin: 0;
+  padding: 8px;
+  line-height: 1.6;
+}
+
+
+
+
+section全体をシンプルなカードのように仕上げていきます。
+
+border-bottom
+font-size
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section>
+    <h1>ドットインストール</h1>
+    <p>こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！</p>
+  </section>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+}
+
+section {
+  border: 1px solid lightgray;
+  width: 400px;
+  margin: 32px auto 0;
+  border-radius: 8px;
+}
+
+h1 {
+  margin: 0;
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid lightgray;
+  font-size: 20px;
+}
+
+p {
+  margin: 0;
+  padding: 8px;
+  line-height: 1.6;
+}
+
+
+
+
+
+MDNというサイトを活用してCSSの仕様を調べる方法について見ていきます。
+
+MDN
+プロパティの調べ方
+補足情報 border-styleの挙動について
+2023年8月21日
+動画中、0:46〜から言及しているborder-styleの挙動については以下の動画の1:20〜を参照してください。
+
+・#09 一括指定プロパティを使おう | CSS入門 基本スタイリング編
+https://dotinstall.com/lessons/basic_css_styles_v3/61009
+
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section>
+    <h1>ドットインストール</h1>
+    <p>こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！</p>
+  </section>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+}
+
+section {
+  border: 1px solid lightgray;
+  width: 400px;
+  margin: 32px auto 0;
+  border-radius: 8px;
+}
+
+h1 {
+  margin: 0;
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid lightgray;
+  font-size: 20px;
+}
+
+p {
+  margin: 0;
+  padding: 8px;
+  line-height: 1.6;
+}
+
+
+
+
+Chromeブラウザに搭載されている開発者ツールの使い方について見ていきます。
+
+開発者ツールの起動
+日本語化の方法
+画面の見方
+アイコンの使い方
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section>
+    <h1>ドットインストール</h1>
+    <p>こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！</p>
+  </section>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+}
+
+section {
+  border: 1px solid lightgray;
+  width: 400px;
+  margin: 32px auto 0;
+  border-radius: 8px;
+}
+
+h1 {
+  margin: 0;
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid lightgray;
+  font-size: 20px;
+}
+
+p {
+  margin: 0;
+  padding: 8px;
+  line-height: 1.6;
+}
+
+
+
+開発者ツールを使って、要素につけられたスタイルを確認する方法について見ていきます。
+
+スタイルの確認
+ユーザーエージェントスタイルシート
+
+/MyBasicCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Basic CSS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section>
+    <h1>ドットインストール</h1>
+    <p>こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！</p>
+  </section>
+</body>
+</html>
+
+/MyBasicCSS/style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+}
+
+section {
+  border: 1px solid lightgray;
+  width: 400px;
+  margin: 32px auto 0;
+  border-radius: 8px;
+}
+
+h1 {
+  margin: 0;
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid lightgray;
+  font-size: 20px;
+}
+
+p {
+  margin: 0;
+  padding: 8px;
+  line-height: 1.6;
+}
+
+
+
+ここまでの学習を踏まえて、次のステップとして何をすべきかについて説明していきます。
+
+これまでのまとめ
+次のステップ
+256timesの紹介
+補足情報 256timesについて
+2023年8月31日
+動画中で紹介している『256times』の詳細については以下を参照してください。
+
+・256times - 書いて、読んで、ともに学ぶ、参加型プログラミング勉強会
+https://256times.com/
+
+
+
+
+
+</code>
+
+  </pre>
+  
+</body>
+</html>

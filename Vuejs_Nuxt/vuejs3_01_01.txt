@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+    <code>
+Vue.jsの概要について説明したのち、レッスンの構成、学習環境について見ていきます。
+
+概要
+レッスンの構成
+学習環境
+補足情報 GitHubアカウントをお持ちでない方
+2025年2月3日
+まだGitHubのアカウントをお持ちでない方は以下のURLから取得しておきましょう。
+
+・Join GitHub
+https://github.com/signup
+
+
+
+
+
+
+Codespaceのテンプレートから開発環境を起動していきます。
+
+Codespaceの起動
+Codespaceの使い方
+補足情報 GitHub Codespacesについて
+2025年2月3日
+動画の最初で紹介しているURLは以下のとおりです。
+
+https://github.com/dotinstall/codespaces-vuejs
+
+またCodespacesの使い方については以下の記事にまとめておきました。ご利用の前にご確認ください。
+
+・GitHub Codespacesの使い方
+https://note.com/dotinstall/n/n631bcc993a61
+
+/src/App.vue 
+<template>
+  <h1>Hello from Vue.js</h1>
+</template>
+
+/src/main.js 
+import { createApp } from 'vue';
+import './style.css';
+import App from './App.vue';
+
+createApp(App).mount('#app');
+
+/src/style.css 
+body {
+  background: skyblue;
+}
+
+index.html 
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Vue.js</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
+
+
+
+
+起動したCodespaceにVS Codeから接続していく方法について見ていきます。
+
+VS Codeからの接続
+拡張機能のインストール
+
+/src/App.vue 
+<template>
+  <h1>Hello from Vue.js</h1>
+</template>
+
+/src/main.js 
+import { createApp } from 'vue';
+import './style.css';
+import App from './App.vue';
+
+createApp(App).mount('#app');
+
+/src/style.css 
+body {
+  background: skyblue;
+}
+
+index.html 
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Vue.js</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
+
+
+Vue.jsのファイル構成を確認し、アプリケーションを起動していきます。
+
+ファイル構成
+ターミナルの起動
+アプリケーションの起動
+ブラウザでの確認
+補足情報 動画内で実行したコマンドについて
+2025年2月3日
+動画内で実行しているコマンドは以下のとおりです。
+
+npm run dev
+
+/src/App.vue 
+<template>
+  <h1>Hello from Vue.js</h1>
+</template>
+
+/src/main.js 
+import { createApp } from 'vue';
+import './style.css';
+import App from './App.vue';
+
+createApp(App).mount('#app');
+
+/src/style.css 
+body {
+  background: skyblue;
+}
+
+index.html 
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Vue.js</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
+
+
+
+Vue.jsでページが表示されるまでの流れを説明していきます。
+
+ページが表示される仕組み
+index.html
+
+
+/src/App.vue 
+<template>
+  <h1>Hello from Vue.js</h1>
+</template>
+
+/src/main.js 
+import { createApp } from 'vue';
+import './style.css';
+import App from './App.vue';
+
+createApp(App).mount('#app');
+
+/src/style.css 
+body {
+  background: skyblue;
+}
+
+index.html 
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Vue.js!!</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
+
+
+前回に引き続き、Vue.jsでページが表示されるまでの流れを説明していきます。
+
+main.js
+style.css
+App.vue
+
+/src/App.vue 
+<template>
+  <h1>Hello from Vue.js!!</h1>
+</template>
+
+/src/main.js 
+import { createApp } from 'vue';
+import './style.css';
+import App from './App.vue';
+
+createApp(App).mount('#app');
+
+/src/style.css 
+body {
+  background: orange;
+}
+
+index.html 
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Vue.js!!</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
+
+コンポーネントベースの開発について見ていきます。
+
+HTML/CSSによるWeb制作
+コンポーネントベースの開発
+
+/src/App.vue 
+<template>
+  <h1>Hello from Vue.js!!</h1>
+</template>
+
+/src/main.js 
+import { createApp } from 'vue';
+import './style.css';
+import App from './App.vue';
+
+createApp(App).mount('#app');
+
+/src/style.css 
+body {
+  background: orange;
+}
+
+index.html 
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Vue.js!!</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
+
+シンプルなポートフォリオサイトをVue.jsで組み直していきます。
+
+ポートフォリオサイトの確認
+titleタグの組み込み
+linkタグの組み込み
+補足情報 動画内で紹介したサイトについて
+2025年2月3日
+動画の最初で紹介しているURLは以下のとおりです。
+
+・山田太郎のポートフォリオサイト
+https://dotinstall.github.io/setup/basic_vuejs_beginner/
+
+またこのサイトの作り方を解説しているレッスンは以下のとおりです（このレッスン用に多少改変しましたが、作り方の大筋はこのレッスンで把握できるはずです）。
+
+・実践！ポートフォリオサイトを模写しよう
+https://dotinstall.com/lessons/portfolio_htmlcss_v2
+
+/src/App.vue 
+<template>
+  <h1>Hello from Vue.js!!</h1>
+</template>
+
+/src/main.js 
+import { createApp } from 'vue';
+import './style.css';
+import App from './App.vue';
+
+createApp(App).mount('#app');
+
+/src/style.css 
+body {
+  background: orange;
+}
+
+index.html 
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>山田太郎のポートフォリオサイト</title>
+    <link rel="icon" href="/favicon.png">
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
+
+
+前回に引き続き、シンプルなポートフォリオサイトをVue.jsで組み直していきます。
+
+コードの移動
+画像パスの変更
+
+
+/src/App.vue 
+<template>
+  <header>
+    <img src="/yamada.png" alt="太郎のアイコン" width="128" height="128">
+    <h1>山田太郎</h1>
+    <p>Webデザイナー見習いです</p>
+  </header>
+
+  <main>
+    <h2>WORKS</h2>
+    <section>
+      <img src="/work-1.png" alt="すごい勇者ゲーム" width="400" height="240">
+      <h3>すごい勇者ゲーム</h3>
+      <p>すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。</p>
+    </section>
+    <section>
+      <img src="/work-2.png" alt="すごい宝物ゲーム" width="400" height="240">
+      <h3>すごい宝物ゲーム</h3>
+      <p>すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。</p>
+    </section>
+    <section>
+      <img src="/work-3.png" alt="すごいカードゲーム" width="400" height="240">
+      <h3>すごいカードゲーム</h3>
+      <p>すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。</p>
+    </section>
+  </main>
+
+  <footer>
+    <small>(c) dotinstall.com</small>
+  </footer>
+</template>
+
+/src/main.js 
+import { createApp } from 'vue';
+import './style.css';
+import App from './App.vue';
+
+createApp(App).mount('#app');
+
+/src/style.css 
+@charset "utf-8";
+
+/* 共通のスタイル */
+
+body {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+/* headerのスタイル */
+
+header {
+  background: #eee;
+  text-align: center;
+  padding: 32px 0;
+}
+
+header img {
+  border-radius: 50%;
+}
+
+h1 {
+  margin: 16px 0 0;
+  font-weight: normal;
+  font-size: 24px;
+}
+
+/* mainのスタイル */
+
+main {
+  padding: 64px 0;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 24px;
+  text-align: center;
+}
+
+h3 {
+  margin: 16px 0 0;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+section {
+  width: 400px;
+  margin: 64px auto 0;
+}
+
+section p {
+  margin-top: 16px;
+  line-height: 1.8;
+}
+
+/* footerのスタイル */
+
+footer {
+  border-top: 1px solid #ccc;
+  text-align: center;
+  padding: 64px 0;
+}
+
+small {
+  font-size: 14px;
+  color: #aaa;
+}
+
+index.html 
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>山田太郎のポートフォリオサイト</title>
+    <link rel="icon" href="/favicon.png">
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
+
+コンポーネントファイルの作成方法について見ていきます。
+
+componentsフォルダの作成
+Header.vueファイルの作成
+
+/src/components/Header.vue
+<template>
+  <header>
+    <img src="/yamada.png" alt="太郎のアイコン" width="128" height="128">
+    <h1>山田太郎</h1>
+    <p>Webデザイナー見習いです</p>
+  </header>
+
+  <main>
+    <h2>WORKS</h2>
+    <section>
+      <img src="/work-1.png" alt="すごい勇者ゲーム" width="400" height="240">
+      <h3>すごい勇者ゲーム</h3>
+      <p>すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。</p>
+    </section>
+    <section>
+      <img src="/work-2.png" alt="すごい宝物ゲーム" width="400" height="240">
+      <h3>すごい宝物ゲーム</h3>
+      <p>すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。</p>
+    </section>
+    <section>
+      <img src="/work-3.png" alt="すごいカードゲーム" width="400" height="240">
+      <h3>すごいカードゲーム</h3>
+      <p>すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。</p>
+    </section>
+  </main>
+
+  <footer>
+    <small>(c) dotinstall.com</small>
+  </footer>
+</template>
+
+/src/App.vue 
+/src/main.js 
+import { createApp } from 'vue';
+import './style.css';
+import App from './App.vue';
+
+createApp(App).mount('#app');
+
+/src/style.css 
+@charset "utf-8";
+
+/* 共通のスタイル */
+
+body {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+/* headerのスタイル */
+
+header {
+  background: #eee;
+  text-align: center;
+  padding: 32px 0;
+}
+
+header img {
+  border-radius: 50%;
+}
+
+h1 {
+  margin: 16px 0 0;
+  font-weight: normal;
+  font-size: 24px;
+}
+
+/* mainのスタイル */
+
+main {
+  padding: 64px 0;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 24px;
+  text-align: center;
+}
+
+h3 {
+  margin: 16px 0 0;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+section {
+  width: 400px;
+  margin: 64px auto 0;
+}
+
+section p {
+  margin-top: 16px;
+  line-height: 1.8;
+}
+
+/* footerのスタイル */
+
+footer {
+  border-top: 1px solid #ccc;
+  text-align: center;
+  padding: 64px 0;
+}
+
+small {
+  font-size: 14px;
+  color: #aaa;
+}
+
+index.html 
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>山田太郎のポートフォリオサイト</title>
+    <link rel="icon" href="/favicon.png">
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
+
+
+
+headerを分離して、コンポーネント化する方法について見ていきます。
+
+headerの分離
+templateタグの設置
+styleタグの設置
+
+/src/components/Header.vue
+<template>
+  <header>
+    <img src="/yamada.png" alt="太郎のアイコン" width="128" height="128">
+    <h1>山田太郎</h1>
+    <p>Webデザイナー見習いです</p>
+  </header>
+</template>
+
+<style scoped>
+/* headerのスタイル */
+
+header {
+  background: #eee;
+  text-align: center;
+  padding: 32px 0;
+}
+
+header img {
+  border-radius: 50%;
+}
+
+h1 {
+  margin: 16px 0 0;
+  font-weight: normal;
+  font-size: 24px;
+}
+</style>
+
+/src/App.vue 
+<template>
+  <main>
+    <h2>WORKS</h2>
+    <section>
+      <img src="/work-1.png" alt="すごい勇者ゲーム" width="400" height="240">
+      <h3>すごい勇者ゲーム</h3>
+      <p>すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。</p>
+    </section>
+    <section>
+      <img src="/work-2.png" alt="すごい宝物ゲーム" width="400" height="240">
+      <h3>すごい宝物ゲーム</h3>
+      <p>すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。</p>
+    </section>
+    <section>
+      <img src="/work-3.png" alt="すごいカードゲーム" width="400" height="240">
+      <h3>すごいカードゲーム</h3>
+      <p>すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。</p>
+    </section>
+  </main>
+
+  <footer>
+    <small>(c) dotinstall.com</small>
+  </footer>
+</template>
+
+/src/main.js 
+import { createApp } from 'vue';
+import './style.css';
+import App from './App.vue';
+
+createApp(App).mount('#app');
+
+/src/style.css 
+@charset "utf-8";
+
+/* 共通のスタイル */
+
+body {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+/* mainのスタイル */
+
+main {
+  padding: 64px 0;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 24px;
+  text-align: center;
+}
+
+h3 {
+  margin: 16px 0 0;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+section {
+  width: 400px;
+  margin: 64px auto 0;
+}
+
+section p {
+  margin-top: 16px;
+  line-height: 1.8;
+}
+
+/* footerのスタイル */
+
+footer {
+  border-top: 1px solid #ccc;
+  text-align: center;
+  padding: 64px 0;
+}
+
+small {
+  font-size: 14px;
+  color: #aaa;
+}
+
+index.html 
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>山田太郎のポートフォリオサイト</title>
+    <link rel="icon" href="/favicon.png">
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
+
+
+
+コンポーネント化したheaderを埋め込む方法について見ていきます。
+
+scriptタグの設置
+Headerコンポーネントの読み込み
+
+/src/components/Header.vue
+<template>
+  <header>
+    <img src="/yamada.png" alt="太郎のアイコン" width="128" height="128">
+    <h1>山田太郎</h1>
+    <p>Webデザイナー見習いです</p>
+  </header>
+</template>
+
+<style scoped>
+/* headerのスタイル */
+
+header {
+  background: #eee;
+  text-align: center;
+  padding: 32px 0;
+}
+
+header img {
+  border-radius: 50%;
+}
+
+h1 {
+  margin: 16px 0 0;
+  font-weight: normal;
+  font-size: 24px;
+}
+</style>
+
+/src/App.vue 
+<script setup>
+import Header from './components/Header.vue';
+</script>
+
+<template>
+  <Header></Header>
+  <main>
+    <h2>WORKS</h2>
+    <section>
+      <img src="/work-1.png" alt="すごい勇者ゲーム" width="400" height="240">
+      <h3>すごい勇者ゲーム</h3>
+      <p>すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。</p>
+    </section>
+    <section>
+      <img src="/work-2.png" alt="すごい宝物ゲーム" width="400" height="240">
+      <h3>すごい宝物ゲーム</h3>
+      <p>すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。</p>
+    </section>
+    <section>
+      <img src="/work-3.png" alt="すごいカードゲーム" width="400" height="240">
+      <h3>すごいカードゲーム</h3>
+      <p>すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。</p>
+    </section>
+  </main>
+
+  <footer>
+    <small>(c) dotinstall.com</small>
+  </footer>
+</template>
+
+/src/main.js 
+import { createApp } from 'vue';
+import './style.css';
+import App from './App.vue';
+
+createApp(App).mount('#app');
+
+/src/style.css 
+@charset "utf-8";
+
+/* 共通のスタイル */
+
+body {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+/* mainのスタイル */
+
+main {
+  padding: 64px 0;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 24px;
+  text-align: center;
+}
+
+h3 {
+  margin: 16px 0 0;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+section {
+  width: 400px;
+  margin: 64px auto 0;
+}
+
+section p {
+  margin-top: 16px;
+  line-height: 1.8;
+}
+
+/* footerのスタイル */
+
+footer {
+  border-top: 1px solid #ccc;
+  text-align: center;
+  padding: 64px 0;
+}
+
+small {
+  font-size: 14px;
+  color: #aaa;
+}
+
+index.html 
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>山田太郎のポートフォリオサイト</title>
+    <link rel="icon" href="/favicon.png">
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
+
+
+mainを分離してコンポーネント化し、埋め込む方法について見ていきます。
+
+Main.vueの作成
+Mainコンポーネントの読み込み
+コンポーネントタグの記述方法
+
+/src/components/Header.vue
+<template>
+  <header>
+    <img src="/yamada.png" alt="太郎のアイコン" width="128" height="128">
+    <h1>山田太郎</h1>
+    <p>Webデザイナー見習いです</p>
+  </header>
+</template>
+
+<style scoped>
+/* headerのスタイル */
+
+header {
+  background: #eee;
+  text-align: center;
+  padding: 32px 0;
+}
+
+header img {
+  border-radius: 50%;
+}
+
+h1 {
+  margin: 16px 0 0;
+  font-weight: normal;
+  font-size: 24px;
+}
+</style>
+
+/src/App.vue 
+<script setup>
+import Header from './components/Header.vue';
+import Main from './components/Main.vue';
+</script>
+
+<template>
+  <Header />
+  <Main />
+  <footer>
+    <small>(c) dotinstall.com</small>
+  </footer>
+</template>
+
+/src/components/Main.vue
+<template>
+  <main>
+    <h2>WORKS</h2>
+    <section>
+      <img src="/work-1.png" alt="すごい勇者ゲーム" width="400" height="240">
+      <h3>すごい勇者ゲーム</h3>
+      <p>すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。</p>
+    </section>
+    <section>
+      <img src="/work-2.png" alt="すごい宝物ゲーム" width="400" height="240">
+      <h3>すごい宝物ゲーム</h3>
+      <p>すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。</p>
+    </section>
+    <section>
+      <img src="/work-3.png" alt="すごいカードゲーム" width="400" height="240">
+      <h3>すごいカードゲーム</h3>
+      <p>すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。</p>
+    </section>
+  </main>
+</template>
+
+<style scoped>
+/* mainのスタイル */
+
+main {
+  padding: 64px 0;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 24px;
+  text-align: center;
+}
+
+h3 {
+  margin: 16px 0 0;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+section {
+  width: 400px;
+  margin: 64px auto 0;
+}
+
+section p {
+  margin-top: 16px;
+  line-height: 1.8;
+}
+</style>
+
+/src/main.js 
+import { createApp } from 'vue';
+import './style.css';
+import App from './App.vue';
+
+createApp(App).mount('#app');
+
+/src/style.css 
+@charset "utf-8";
+
+/* 共通のスタイル */
+
+body {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+/* footerのスタイル */
+
+footer {
+  border-top: 1px solid #ccc;
+  text-align: center;
+  padding: 64px 0;
+}
+
+small {
+  font-size: 14px;
+  color: #aaa;
+}
+
+index.html 
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>山田太郎のポートフォリオサイト</title>
+    <link rel="icon" href="/favicon.png">
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
+
+
+
+
+footerを分離してコンポーネント化し、埋め込む方法について見ていきます。
+
+Footer.vueの作成
+Footerコンポーネントの読み込み
+
+/src/components/Header.vue
+<template>
+  <header>
+    <img src="/yamada.png" alt="太郎のアイコン" width="128" height="128">
+    <h1>山田太郎</h1>
+    <p>Webデザイナー見習いです</p>
+  </header>
+</template>
+
+<style scoped>
+/* headerのスタイル */
+
+header {
+  background: #eee;
+  text-align: center;
+  padding: 32px 0;
+}
+
+header img {
+  border-radius: 50%;
+}
+
+h1 {
+  margin: 16px 0 0;
+  font-weight: normal;
+  font-size: 24px;
+}
+</style>
+
+/src/App.vue 
+<script setup>
+import Header from './components/Header.vue';
+import Main from './components/Main.vue';
+import Footer from './components/Footer.vue';
+</script>
+
+<template>
+  <Header />
+  <Main />
+  <Footer />
+</template>
+
+/src/components/Footer.vue
+<template>
+  <footer>
+    <small>(c) dotinstall.com</small>
+  </footer>
+</template>
+
+<style scoped>
+/* footerのスタイル */
+
+footer {
+  border-top: 1px solid #ccc;
+  text-align: center;
+  padding: 64px 0;
+}
+
+small {
+  font-size: 14px;
+  color: #aaa;
+}
+</style>
+
+/src/components/Main.vue
+import { createApp } from 'vue';
+import './style.css';
+import App from './App.vue';
+
+createApp(App).mount('#app');
+
+/src/main.js 
+<template>
+  <main>
+    <h2>WORKS</h2>
+    <section>
+      <img src="/work-1.png" alt="すごい勇者ゲーム" width="400" height="240">
+      <h3>すごい勇者ゲーム</h3>
+      <p>すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。</p>
+    </section>
+    <section>
+      <img src="/work-2.png" alt="すごい宝物ゲーム" width="400" height="240">
+      <h3>すごい宝物ゲーム</h3>
+      <p>すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。</p>
+    </section>
+    <section>
+      <img src="/work-3.png" alt="すごいカードゲーム" width="400" height="240">
+      <h3>すごいカードゲーム</h3>
+      <p>すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。</p>
+    </section>
+  </main>
+</template>
+
+<style scoped>
+/* mainのスタイル */
+
+main {
+  padding: 64px 0;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 24px;
+  text-align: center;
+}
+
+h3 {
+  margin: 16px 0 0;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+section {
+  width: 400px;
+  margin: 64px auto 0;
+}
+
+section p {
+  margin-top: 16px;
+  line-height: 1.8;
+}
+</style>
+
+/src/style.css 
+@charset "utf-8";
+
+/* 共通のスタイル */
+
+body {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+index.html 
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>山田太郎のポートフォリオサイト</title>
+    <link rel="icon" href="/favicon.png">
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
+
+styleタグにつけていたscoped属性について説明していきます。
+
+scoped属性
+サイト共通のスタイル
+
+/src/components/Header.vue
+<template>
+  <header>
+    <img src="/yamada.png" alt="太郎のアイコン" width="128" height="128">
+    <h1>山田太郎</h1>
+    <p>Webデザイナー見習いです</p>
+  </header>
+</template>
+
+<style scoped>
+/* headerのスタイル */
+
+header {
+  background: #eee;
+  text-align: center;
+  padding: 32px 0;
+}
+
+header img {
+  border-radius: 50%;
+}
+
+h1 {
+  margin: 16px 0 0;
+  font-weight: normal;
+  font-size: 24px;
+}
+</style>
+
+/src/App.vue 
+<script setup>
+import Header from './components/Header.vue';
+import Main from './components/Main.vue';
+import Footer from './components/Footer.vue';
+</script>
+
+<template>
+  <Header />
+  <Main />
+  <Footer />
+</template>
+
+/src/components/Footer.vue
+<template>
+  <footer>
+    <small>(c) dotinstall.com</small>
+  </footer>
+</template>
+
+<style scoped>
+/* footerのスタイル */
+
+footer {
+  border-top: 1px solid #ccc;
+  text-align: center;
+  padding: 64px 0;
+}
+
+small {
+  font-size: 14px;
+  color: #aaa;
+}
+</style>
+
+/src/components/Main.vue
+<template>
+  <main>
+    <h2>WORKS</h2>
+    <section>
+      <img src="/work-1.png" alt="すごい勇者ゲーム" width="400" height="240">
+      <h3>すごい勇者ゲーム</h3>
+      <p>すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。すごい勇者ゲームです。</p>
+    </section>
+    <section>
+      <img src="/work-2.png" alt="すごい宝物ゲーム" width="400" height="240">
+      <h3>すごい宝物ゲーム</h3>
+      <p>すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。すごい宝物ゲームです。</p>
+    </section>
+    <section>
+      <img src="/work-3.png" alt="すごいカードゲーム" width="400" height="240">
+      <h3>すごいカードゲーム</h3>
+      <p>すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。すごいカードゲームです。</p>
+    </section>
+  </main>
+</template>
+
+<style scoped>
+/* mainのスタイル */
+
+main {
+  padding: 64px 0;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 24px;
+  text-align: center;
+}
+
+h3 {
+  margin: 16px 0 0;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+section {
+  width: 400px;
+  margin: 64px auto 0;
+}
+
+section p {
+  margin-top: 16px;
+  line-height: 1.8;
+}
+</style>
+/src/main.js 
+import { createApp } from 'vue';
+import './style.css';
+import App from './App.vue';
+
+createApp(App).mount('#app');
+
+/src/style.css 
+@charset "utf-8";
+
+/* 共通のスタイル */
+
+body {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+index.html 
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>山田太郎のポートフォリオサイト</title>
+    <link rel="icon" href="/favicon.png">
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
+
+
+
+
+</code>
+</pre>
+
+</body>
+</html>
