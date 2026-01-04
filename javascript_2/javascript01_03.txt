@@ -1,0 +1,1397 @@
+// ===== video_summary =====
+完成版を確認したあとに、ひな形となるHTMLファイルを作っていきます。
+
+
+    完成版の確認
+    作業用フォルダの設定
+    index.htmlの作成
+
+// ===== commentBox 1 =====
+補足情報
+VS Codeでファイルのドラッグ＆ドロップができない場合
+
+
+
+
+2024年2月16日
+
+
+
+
+
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、WindowsならCtrlキー、macOSならcommandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+// ===== commentBox 2 =====
+補足情報
+VS Codeで生成されるHTMLの雛形について
+
+
+
+
+2024年7月11日
+
+
+
+
+
+VS Codeで生成されるHTMLの雛形に変更があったようです。具体的には <meta http-equiv="X-UA-Compatible" content="IE=edge"> が含まれなくなりました。こちらは古いブラウザに対応するための命令でしたが、現在不要になっているので気にせずにそのまま学習を進めてみてください。
+
+// ===== /MyCountdownApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カウントダウンタイマー</title>
+</head>
+<body>
+  
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+必要な部品をHTMLでマークアップをしたあと、JavaScriptファイルを作っていきます。
+
+
+    index.htmlのマークアップ
+    main.jsの作成
+
+// ===== /MyCountdownApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カウントダウンタイマー</title>
+</head>
+<body>
+  <main>
+    <p id="timer">00:03</p>
+    <button id="btn">Start</button>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyCountdownApp/main.js =====
+'use strict';
+
+{
+  const timer = document.getElementById('timer');
+  const btn = document.getElementById('btn');
+}
+
+
+
+
+
+// ===== video_summary =====
+タイマー機能を実装する流れについて、図を使って説明していきます。
+
+
+    タイマー機能の実装方針
+    日時オブジェクト
+
+// ===== /MyCountdownApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カウントダウンタイマー</title>
+</head>
+<body>
+  <main>
+    <p id="timer">00:03</p>
+    <button id="btn">Start</button>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyCountdownApp/main.js =====
+'use strict';
+
+{
+  const timer = document.getElementById('timer');
+  const btn = document.getElementById('btn');
+}
+
+
+
+
+
+
+// ===== video_summary =====
+スタートボタンをクリックしたときに終了時刻を求めていきます。
+
+
+    終了時刻の計算
+    new Date()
+    getTime()
+
+// ===== commentBox 1 =====
+補足情報
+new Date() や getTime() について
+
+
+
+
+2022年11月28日
+
+
+
+
+
+new Date() や getTime() の使い方については、以下のレッスンを復習しましょう。
+https://dotinstall.com/lessons/basic_javascript_objects_v2/52321
+
+// ===== commentBox 2 =====
+補足情報
+Google Style Guides について
+
+
+
+
+2022年11月28日
+
+
+
+
+
+Google が定めているスタイルガイドについては、以下のリンクを参考にしてください。
+
+
+Google Style Guides
+https://google.github.io/styleguide/
+
+
+Google HTML/CSS Style Guide
+https://google.github.io/styleguide/htmlcssguide.html
+
+// ===== /MyCountdownApp/main.js =====
+'use strict';
+
+{
+  const timer = document.getElementById('timer');
+  const btn = document.getElementById('btn');
+
+  // (1) 終了時刻を求める
+  btn.addEventListener('click', () => {
+    const endTime = new Date().getTime() + 3 * 1000;
+  });
+
+  // (2) 残り時間を求める
+  // (3) タイマーの終了
+}
+
+// ===== /MyCountdownApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カウントダウンタイマー</title>
+</head>
+<body>
+  <main>
+    <p id="timer">00:03</p>
+    <button id="btn">Start</button>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+setInterval()を使って、一定時間ごとに関数を呼び出す処理を追加します。
+
+
+    setInterval()
+
+// ===== commentBox 1 =====
+補足情報
+setInterval() について
+
+
+
+
+2022年11月28日
+
+
+
+
+
+setInterval() についてわからない場合は、以下のレッスンを復習しましょう。
+
+#24 setInterval()を使ってみよう
+
+// ===== /MyCountdownApp/main.js =====
+'use strict';
+
+{
+  function check() {
+
+  }
+
+  const timer = document.getElementById('timer');
+  const btn = document.getElementById('btn');
+
+  // (1) 終了時刻を求める
+  btn.addEventListener('click', () => {
+    const endTime = new Date().getTime() + 3 * 1000;
+
+    // (2) 残り時間を求める
+    setInterval(check, 100);
+  });
+
+  // (3) タイマーの終了
+}
+
+// ===== /MyCountdownApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カウントダウンタイマー</title>
+</head>
+<body>
+  <main>
+    <p id="timer">00:03</p>
+    <button id="btn">Start</button>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+一定時間ごとに現在時刻を取得し、残り時間を求めていきます。
+
+
+    残り時間の計算
+    textContent
+
+// ===== /MyCountdownApp/main.js =====
+'use strict';
+
+{
+  function check() {
+    // 残り時間 = 終了時刻 - 現在時刻
+    const countdown = endTime - new Date().getTime();
+
+    timer.textContent = countdown;
+  }
+
+  const timer = document.getElementById('timer');
+  const btn = document.getElementById('btn');
+  let endTime;
+
+  // (1) 終了時刻を求める
+  btn.addEventListener('click', () => {
+    endTime = new Date().getTime() + 3 * 1000;
+
+    // (2) 残り時間を求める
+    setInterval(check, 100);
+  });
+
+  // (3) タイマーの終了
+}
+
+// ===== /MyCountdownApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カウントダウンタイマー</title>
+</head>
+<body>
+  <main>
+    <p id="timer">00:03</p>
+    <button id="btn">Start</button>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+残り時間が0より小さくなったら、タイマーを終了させるようにします。
+
+
+    タイマーの終了
+    clearInterval
+
+// ===== /MyCountdownApp/main.js =====
+'use strict';
+
+{
+  function check() {
+    // 残り時間 = 終了時刻 - 現在時刻
+    let countdown = endTime - new Date().getTime();
+
+    // (3) タイマーの終了
+    if (countdown < 0) {
+      clearInterval(intervalId);
+      countdown = 3 * 1000;
+    }
+
+    timer.textContent = countdown;
+  }
+
+  const timer = document.getElementById('timer');
+  const btn = document.getElementById('btn');
+  let endTime;
+  let intervalId;
+
+  // (1) 終了時刻を求める
+  btn.addEventListener('click', () => {
+    endTime = new Date().getTime() + 3 * 1000;
+
+    // (2) 残り時間を求める
+    intervalId = setInterval(check, 100);
+  });
+}
+
+// ===== /MyCountdownApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カウントダウンタイマー</title>
+</head>
+<body>
+  <main>
+    <p id="timer">00:03</p>
+    <button id="btn">Start</button>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+求めたミリ秒を、分と秒で表現されるようにしていきます。
+
+
+    Math.floor()
+    ミリ秒を分と秒に分解する方法
+    テンプレートリテラル
+
+// ===== commentBox 1 =====
+補足情報
+分と秒に分解する方法について
+
+
+
+
+2025年1月14日
+
+
+
+
+
+レッスンで使用しているコメントは、以下をコピーして使用してください。
+// 80秒 → 1分20秒
+// 80 ÷ 60 = 1 余り 20
+// 80 / 60 = 1.33333.... → 1
+// 80 % 60 = 20
+
+// ===== commentBox 2 =====
+補足情報
+% や / を使った計算について
+
+
+
+
+2022年11月28日
+
+
+
+
+
+% や / を使った数値の計算についてわからない場合は以下のレッスンを復習しましょう。
+
+#06 数値の計算をしてみよう
+
+// ===== /MyCountdownApp/main.js =====
+'use strict';
+
+{
+  function check() {
+    // 残り時間 = 終了時刻 - 現在時刻
+    let countdown = endTime - new Date().getTime();
+
+    // (3) タイマーの終了
+    if (countdown < 0) {
+      clearInterval(intervalId);
+      countdown = 3 * 1000;
+    }
+
+    const totalSeconds = Math.floor(countdown / 1000);
+    // 80秒 → 1分20秒
+    // 80 ÷ 60 = 1 余り 20
+    // 80 / 60 = 1.33333.... → 1
+    // 80 % 60 = 20
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    timer.textContent = `${minutes}:${seconds}`;
+  }
+
+  const timer = document.getElementById('timer');
+  const btn = document.getElementById('btn');
+  let endTime;
+  let intervalId;
+
+  // (1) 終了時刻を求める
+  btn.addEventListener('click', () => {
+    endTime = new Date().getTime() + 3 * 1000;
+
+    // (2) 残り時間を求める
+    intervalId = setInterval(check, 100);
+  });
+}
+
+// ===== /MyCountdownApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カウントダウンタイマー</title>
+</head>
+<body>
+  <main>
+    <p id="timer">00:03</p>
+    <button id="btn">Start</button>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+分と秒を2桁ずつで表示されるようにしたあと、ボタンをクリックしたらボタンを押せないようにします。
+
+
+    padStart()
+    String()
+    .disabled
+
+// ===== commentBox 1 =====
+補足情報
+padStart() について
+
+
+
+
+2022年11月28日
+
+
+
+
+
+padStart() の仕様について詳しく知りたい方は、以下のリンクを参考にしてみてください。
+
+String.prototype.padStart() - JavaScript | MDN
+
+// ===== commentBox 2 =====
+補足情報
+Math.floor() について
+
+
+
+
+2022年11月28日
+
+
+
+
+
+Math.floor() についてわからない場合は以下のレッスンを復習しましょう。
+
+#19 数値を操作してみよう
+
+// ===== /MyCountdownApp/main.js =====
+'use strict';
+
+{
+  function check() {
+    // 残り時間 = 終了時刻 - 現在時刻
+    let countdown = endTime - new Date().getTime();
+
+    // (3) タイマーの終了
+    if (countdown < 0) {
+      clearInterval(intervalId);
+      countdown = 3 * 1000;
+      btn.disabled = false;
+    }
+
+    const totalSeconds = Math.floor(countdown / 1000);
+    // 80秒 → 1分20秒
+    // 80 ÷ 60 = 1 余り 20
+    // 80 / 60 = 1.33333.... → 1
+    // 80 % 60 = 20
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    const minutesFormatted = String(minutes).padStart(2, '0');
+    const secondsFormatted = String(seconds).padStart(2, '0');
+
+    timer.textContent = `${minutesFormatted}:${secondsFormatted}`;
+  }
+
+  const timer = document.getElementById('timer');
+  const btn = document.getElementById('btn');
+  let endTime;
+  let intervalId;
+
+  // (1) 終了時刻を求める
+  btn.addEventListener('click', () => {
+    endTime = new Date().getTime() + 3 * 1000;
+
+    btn.disabled = true;
+
+    // (2) 残り時間を求める
+    intervalId = setInterval(check, 100);
+  });
+}
+
+// ===== /MyCountdownApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カウントダウンタイマー</title>
+</head>
+<body>
+  <main>
+    <p id="timer">00:03</p>
+    <button id="btn">Start</button>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+CSSファイルを作ったあとに、main要素のスタイルを整えていきます。
+
+
+    文字コードの指定
+    style.cssの作成
+    mainのスタイリング
+
+// ===== /MyCountdownApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カウントダウンタイマー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p id="timer">00:03</p>
+    <button id="btn">Start</button>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyCountdownApp/style.css =====
+@charset "utf-8";
+
+body {
+  background: #e6f6ff;
+}
+
+// ===== /MyCountdownApp/main.js =====
+'use strict';
+
+{
+  function check() {
+    // 残り時間 = 終了時刻 - 現在時刻
+    let countdown = endTime - new Date().getTime();
+
+    // (3) タイマーの終了
+    if (countdown < 0) {
+      clearInterval(intervalId);
+      countdown = 3 * 1000;
+      btn.disabled = false;
+    }
+
+    const totalSeconds = Math.floor(countdown / 1000);
+    // 80秒 → 1分20秒
+    // 80 ÷ 60 = 1 余り 20
+    // 80 / 60 = 1.33333.... → 1
+    // 80 % 60 = 20
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    const minutesFormatted = String(minutes).padStart(2, '0');
+    const secondsFormatted = String(seconds).padStart(2, '0');
+
+    timer.textContent = `${minutesFormatted}:${secondsFormatted}`;
+  }
+
+  const timer = document.getElementById('timer');
+  const btn = document.getElementById('btn');
+  let endTime;
+  let intervalId;
+
+  // (1) 終了時刻を求める
+  btn.addEventListener('click', () => {
+    endTime = new Date().getTime() + 3 * 1000;
+
+    btn.disabled = true;
+
+    // (2) 残り時間を求める
+    intervalId = setInterval(check, 100);
+  });
+}
+
+
+
+
+
+
+// ===== video_summary =====
+main要素のスタイルをさらに追加し、全体を大まかにスタイリングしていきます。
+
+
+    背景色
+    余白の設定
+    中央配置
+
+// ===== /MyCountdownApp/style.css =====
+@charset "utf-8";
+
+body {
+  background: #e6f6ff;
+}
+
+main {
+  background: #fff;
+  width: 320px;
+  margin: 16px auto 0;
+  text-align: center;
+  padding: 16px;
+}
+
+// ===== /MyCountdownApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カウントダウンタイマー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p id="timer">00:03</p>
+    <button id="btn">Start</button>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyCountdownApp/main.js =====
+'use strict';
+
+{
+  function check() {
+    // 残り時間 = 終了時刻 - 現在時刻
+    let countdown = endTime - new Date().getTime();
+
+    // (3) タイマーの終了
+    if (countdown < 0) {
+      clearInterval(intervalId);
+      countdown = 3 * 1000;
+      btn.disabled = false;
+    }
+
+    const totalSeconds = Math.floor(countdown / 1000);
+    // 80秒 → 1分20秒
+    // 80 ÷ 60 = 1 余り 20
+    // 80 / 60 = 1.33333.... → 1
+    // 80 % 60 = 20
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    const minutesFormatted = String(minutes).padStart(2, '0');
+    const secondsFormatted = String(seconds).padStart(2, '0');
+
+    timer.textContent = `${minutesFormatted}:${secondsFormatted}`;
+  }
+
+  const timer = document.getElementById('timer');
+  const btn = document.getElementById('btn');
+  let endTime;
+  let intervalId;
+
+  // (1) 終了時刻を求める
+  btn.addEventListener('click', () => {
+    endTime = new Date().getTime() + 3 * 1000;
+
+    btn.disabled = true;
+
+    // (2) 残り時間を求める
+    intervalId = setInterval(check, 100);
+  });
+}
+
+
+
+
+
+
+// ===== video_summary =====
+p要素にデフォルトで設定されている余白をリセットしたあと、タイマーを表示する部分をスタイリングしていきます。
+
+
+    スタイルのリセット
+    テキストのスタイリング
+
+// ===== /MyCountdownApp/style.css =====
+@charset "utf-8";
+
+body {
+  background: #e6f6ff;
+}
+
+main {
+  background: #fff;
+  width: 320px;
+  margin: 16px auto 0;
+  text-align: center;
+  padding: 16px;
+}
+
+p {
+  margin: 0;
+  background: #ddd;
+  padding: 32px 0;
+  font-size: 40px;
+  font-family: "Courier New";
+}
+
+// ===== /MyCountdownApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カウントダウンタイマー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p id="timer">00:03</p>
+    <button id="btn">Start</button>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyCountdownApp/main.js =====
+'use strict';
+
+{
+  function check() {
+    // 残り時間 = 終了時刻 - 現在時刻
+    let countdown = endTime - new Date().getTime();
+
+    // (3) タイマーの終了
+    if (countdown < 0) {
+      clearInterval(intervalId);
+      countdown = 3 * 1000;
+      btn.disabled = false;
+    }
+
+    const totalSeconds = Math.floor(countdown / 1000);
+    // 80秒 → 1分20秒
+    // 80 ÷ 60 = 1 余り 20
+    // 80 / 60 = 1.33333.... → 1
+    // 80 % 60 = 20
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    const minutesFormatted = String(minutes).padStart(2, '0');
+    const secondsFormatted = String(seconds).padStart(2, '0');
+
+    timer.textContent = `${minutesFormatted}:${secondsFormatted}`;
+  }
+
+  const timer = document.getElementById('timer');
+  const btn = document.getElementById('btn');
+  let endTime;
+  let intervalId;
+
+  // (1) 終了時刻を求める
+  btn.addEventListener('click', () => {
+    endTime = new Date().getTime() + 3 * 1000;
+
+    btn.disabled = true;
+
+    // (2) 残り時間を求める
+    intervalId = setInterval(check, 100);
+  });
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+ボタンにデフォルトで設定されているスタイルをリセットしたあとに、スタイルを整えていきます。
+
+
+    スタイルのリセット
+    ボタンのスタイリング
+
+// ===== /MyCountdownApp/style.css =====
+@charset "utf-8";
+
+body {
+  background: #e6f6ff;
+}
+
+main {
+  background: #fff;
+  width: 320px;
+  margin: 16px auto 0;
+  text-align: center;
+  padding: 16px;
+}
+
+p {
+  margin: 0;
+  background: #ddd;
+  padding: 32px 0;
+  font-size: 40px;
+  font-family: "Courier New";
+}
+
+button {
+  all: unset;
+  width: 100%;
+  background: #08c;
+  color: #fff;
+  font-weight: bold;
+  padding: 16px 0;
+  margin-top: 16px;
+}
+
+// ===== /MyCountdownApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カウントダウンタイマー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p id="timer">00:03</p>
+    <button id="btn">Start</button>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyCountdownApp/main.js =====
+'use strict';
+
+{
+  function check() {
+    // 残り時間 = 終了時刻 - 現在時刻
+    let countdown = endTime - new Date().getTime();
+
+    // (3) タイマーの終了
+    if (countdown < 0) {
+      clearInterval(intervalId);
+      countdown = 3 * 1000;
+      btn.disabled = false;
+    }
+
+    const totalSeconds = Math.floor(countdown / 1000);
+    // 80秒 → 1分20秒
+    // 80 ÷ 60 = 1 余り 20
+    // 80 / 60 = 1.33333.... → 1
+    // 80 % 60 = 20
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    const minutesFormatted = String(minutes).padStart(2, '0');
+    const secondsFormatted = String(seconds).padStart(2, '0');
+
+    timer.textContent = `${minutesFormatted}:${secondsFormatted}`;
+  }
+
+  const timer = document.getElementById('timer');
+  const btn = document.getElementById('btn');
+  let endTime;
+  let intervalId;
+
+  // (1) 終了時刻を求める
+  btn.addEventListener('click', () => {
+    endTime = new Date().getTime() + 3 * 1000;
+
+    btn.disabled = true;
+
+    // (2) 残り時間を求める
+    intervalId = setInterval(check, 100);
+  });
+}
+
+
+
+
+
+
+// ===== video_summary =====
+ボタンの見た目を変化させて、クリックできることがわかりやすくしていきます。
+
+
+    cursor
+    :hover
+    :active
+    opacity
+
+// ===== /MyCountdownApp/style.css =====
+@charset "utf-8";
+
+body {
+  background: #e6f6ff;
+}
+
+main {
+  background: #fff;
+  width: 320px;
+  margin: 16px auto 0;
+  text-align: center;
+  padding: 16px;
+}
+
+p {
+  margin: 0;
+  background: #ddd;
+  padding: 32px 0;
+  font-size: 40px;
+  font-family: "Courier New";
+}
+
+button {
+  all: unset;
+  width: 100%;
+  background: #08c;
+  color: #fff;
+  font-weight: bold;
+  padding: 16px 0;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: .6;
+}
+
+button:active {
+  opacity: .4;
+}
+
+// ===== /MyCountdownApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カウントダウンタイマー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p id="timer">00:03</p>
+    <button id="btn">Start</button>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyCountdownApp/main.js =====
+'use strict';
+
+{
+  function check() {
+    // 残り時間 = 終了時刻 - 現在時刻
+    let countdown = endTime - new Date().getTime();
+
+    // (3) タイマーの終了
+    if (countdown < 0) {
+      clearInterval(intervalId);
+      countdown = 3 * 1000;
+      btn.disabled = false;
+    }
+
+    const totalSeconds = Math.floor(countdown / 1000);
+    // 80秒 → 1分20秒
+    // 80 ÷ 60 = 1 余り 20
+    // 80 / 60 = 1.33333.... → 1
+    // 80 % 60 = 20
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    const minutesFormatted = String(minutes).padStart(2, '0');
+    const secondsFormatted = String(seconds).padStart(2, '0');
+
+    timer.textContent = `${minutesFormatted}:${secondsFormatted}`;
+  }
+
+  const timer = document.getElementById('timer');
+  const btn = document.getElementById('btn');
+  let endTime;
+  let intervalId;
+
+  // (1) 終了時刻を求める
+  btn.addEventListener('click', () => {
+    endTime = new Date().getTime() + 3 * 1000;
+
+    btn.disabled = true;
+
+    // (2) 残り時間を求める
+    intervalId = setInterval(check, 100);
+  });
+}
+
+
+
+
+
+// ===== video_summary =====
+タイマーが終了するまで、ボタン操作ができないことがわかりやすくなるようにします。
+
+
+    classList.add()
+    classList.remove()
+    :hover
+
+// ===== /MyCountdownApp/main.js =====
+'use strict';
+
+{
+  function check() {
+    // 残り時間 = 終了時刻 - 現在時刻
+    let countdown = endTime - new Date().getTime();
+
+    // (3) タイマーの終了
+    if (countdown < 0) {
+      clearInterval(intervalId);
+      countdown = 3 * 1000;
+      btn.disabled = false;
+      btn.classList.remove('inactive');
+    }
+
+    const totalSeconds = Math.floor(countdown / 1000);
+    // 80秒 → 1分20秒
+    // 80 ÷ 60 = 1 余り 20
+    // 80 / 60 = 1.33333.... → 1
+    // 80 % 60 = 20
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    const minutesFormatted = String(minutes).padStart(2, '0');
+    const secondsFormatted = String(seconds).padStart(2, '0');
+
+    timer.textContent = `${minutesFormatted}:${secondsFormatted}`;
+  }
+
+  const timer = document.getElementById('timer');
+  const btn = document.getElementById('btn');
+  let endTime;
+  let intervalId;
+
+  // (1) 終了時刻を求める
+  btn.addEventListener('click', () => {
+    endTime = new Date().getTime() + 3 * 1000;
+
+    btn.disabled = true;
+    btn.classList.add('inactive');
+
+    // (2) 残り時間を求める
+    intervalId = setInterval(check, 100);
+  });
+}
+
+// ===== /MyCountdownApp/style.css =====
+@charset "utf-8";
+
+body {
+  background: #e6f6ff;
+}
+
+main {
+  background: #fff;
+  width: 320px;
+  margin: 16px auto 0;
+  text-align: center;
+  padding: 16px;
+}
+
+p {
+  margin: 0;
+  background: #ddd;
+  padding: 32px 0;
+  font-size: 40px;
+  font-family: "Courier New";
+}
+
+button {
+  all: unset;
+  width: 100%;
+  background: #08c;
+  color: #fff;
+  font-weight: bold;
+  padding: 16px 0;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: .6;
+}
+
+button:active {
+  opacity: .4;
+}
+
+.inactive {
+  background: #ddd;
+  color: #444;
+  cursor: default;
+}
+
+.inactive:hover {
+  opacity: 1;
+}
+
+// ===== /MyCountdownApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カウントダウンタイマー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p id="timer">00:03</p>
+    <button id="btn">Start</button>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+タイマーが終了するまで、ボタン操作ができないことがわかりやすくなるようにします。
+
+
+    classList.add()
+    classList.remove()
+    :hover
+
+// ===== /MyCountdownApp/main.js =====
+'use strict';
+
+{
+  function check() {
+    // 残り時間 = 終了時刻 - 現在時刻
+    let countdown = endTime - new Date().getTime();
+
+    // (3) タイマーの終了
+    if (countdown < 0) {
+      clearInterval(intervalId);
+      countdown = 3 * 1000;
+      btn.disabled = false;
+      btn.classList.remove('inactive');
+    }
+
+    const totalSeconds = Math.floor(countdown / 1000);
+    // 80秒 → 1分20秒
+    // 80 ÷ 60 = 1 余り 20
+    // 80 / 60 = 1.33333.... → 1
+    // 80 % 60 = 20
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    const minutesFormatted = String(minutes).padStart(2, '0');
+    const secondsFormatted = String(seconds).padStart(2, '0');
+
+    timer.textContent = `${minutesFormatted}:${secondsFormatted}`;
+  }
+
+  const timer = document.getElementById('timer');
+  const btn = document.getElementById('btn');
+  let endTime;
+  let intervalId;
+
+  // (1) 終了時刻を求める
+  btn.addEventListener('click', () => {
+    endTime = new Date().getTime() + 3 * 1000;
+
+    btn.disabled = true;
+    btn.classList.add('inactive');
+
+    // (2) 残り時間を求める
+    intervalId = setInterval(check, 100);
+  });
+}
+
+// ===== /MyCountdownApp/style.css =====
+@charset "utf-8";
+
+body {
+  background: #e6f6ff;
+}
+
+main {
+  background: #fff;
+  width: 320px;
+  margin: 16px auto 0;
+  text-align: center;
+  padding: 16px;
+}
+
+p {
+  margin: 0;
+  background: #ddd;
+  padding: 32px 0;
+  font-size: 40px;
+  font-family: "Courier New";
+}
+
+button {
+  all: unset;
+  width: 100%;
+  background: #08c;
+  color: #fff;
+  font-weight: bold;
+  padding: 16px 0;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: .6;
+}
+
+button:active {
+  opacity: .4;
+}
+
+.inactive {
+  background: #ddd;
+  color: #444;
+  cursor: default;
+}
+
+.inactive:hover {
+  opacity: 1;
+}
+
+// ===== /MyCountdownApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カウントダウンタイマー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p id="timer">00:03</p>
+    <button id="btn">Start</button>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+

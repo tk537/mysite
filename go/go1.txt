@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+    概要
+レッスンの構成
+学習のコツ
+
+
+
+
+Go言語で数値を表示するコードを試しながら、ブラウザ実行環境の使い方について学んでいきます。
+
+ブラウザ実行環境の使い方
+fmt.Println()
+セミコロンの扱い
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println(10)
+}
+
+
+
+
+
+数値のさまざまな表現方法について、例を出しながら学んでいきます。
+
+マイナスの数値
+小数点を含む数値
+プログラムの実行順
+_による区切り
+eを使った表現
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println(10)
+    fmt.Println(-8)
+    fmt.Println(2.5)
+    fmt.Println(1_000_000)
+    fmt.Println(1.2e3)
+    fmt.Println(1.2e-3)
+}
+
+
+
+
+コード内にメモ書きとしてコメントを入れる方法、コメントを使って命令を無効化する方法について学びます。
+
+コメントの記法
+空行の扱い
+命令の無効化
+コメントのショートカットキー
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    /*
+        Goにおける数値表現
+        author: taro
+    */
+    // fmt.Println(10)
+    // fmt.Println(-8)
+    // fmt.Println(2.5)
+    // fmt.Println(1_000_000)
+
+    // eを使った表現
+    fmt.Println(1.2e3) // 1.2かける10の3乗
+    fmt.Println(1.2e-3) // 1.2かける10の-3乗
+}
+
+
+
+
+数値に対して使える、さまざまな演算子について見ていきます。
+
++ - * ** / %
+演算子の優先度、()
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println(10 + 3)
+    fmt.Println(10 - 3)
+    fmt.Println(10 * 3)
+    fmt.Println(10 / 3)
+    fmt.Println(10.0 / 3)
+    fmt.Println(10 % 3)
+    fmt.Println(10 + 2 * 3)
+    fmt.Println((10 + 2) * 3)
+}
+
+
+
+
+変数を使って値にわかりやすい名前をつける方法について見ていきます。
+
+変数の利用
+代入演算子
+データ型の指定
+変数を使うメリット
+
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    // fmt.Println(150 * 120)
+    // fmt.Println(150 * 130)
+    // fmt.Println(150 * 140)
+
+    var price int
+    price = 150
+    fmt.Println(price * 120)
+    fmt.Println(price * 130)
+    fmt.Println(price * 140)
+}
+
+
+
+
+
+変数を宣言したときの初期値や、変数宣言と代入を同時に行う方法について見ていきます。
+
+ゼロ値
+変数宣言と同時に値を代入
+変数宣言後に代入しない場合の挙動
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    // var price int // ゼロ値
+    // fmt.Println(price)
+    // price = 150
+    // var price = 150
+    price := 150
+    fmt.Println(price * 120)
+    fmt.Println(price * 130)
+    fmt.Println(price * 140)
+    var money int
+}
+
+
+
+
+値を更新して再代入する際の表現について学びます。
+
+値の再代入
++= -=
+++ --
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    price := 150
+    fmt.Println(price * 120)
+    fmt.Println(price * 130)
+    fmt.Println(price * 140)
+
+    // price = 151
+    // price = price + 1
+    // price += 1
+    price++
+    // price -= 1
+    // price--
+    fmt.Println(price * 120)
+    fmt.Println(price * 130)
+    fmt.Println(price * 140)
+}
+
+
+
+
+小数点を扱う際の書き方や、データ型が異なる場合の対処法について見ていきます。
+
+小数点のデータ型、float64
+データ型を変更する、float64()
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    price := 150
+    // var rate float64
+    // rate = 1.1
+    rate := 1.1
+    fmt.Println(float64(price) * float64(120) * rate)
+    fmt.Println(float64(price) * float64(130) * rate)
+    fmt.Println(float64(price) * float64(140) * rate)
+
+    price++
+    fmt.Println(float64(price) * float64(120) * rate)
+    fmt.Println(float64(price) * float64(130) * rate)
+    fmt.Println(float64(price) * float64(140) * rate)
+}
+
+
+
+
+
+値を再代入してほしくない場合に使える、定数の表現について見ていきます。
+
+定数の表現
+動作確認
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    price := 150
+    // rate := 1.1
+    const rate = 1.1
+    fmt.Println(float64(price) * float64(120) * rate)
+    fmt.Println(float64(price) * float64(130) * rate)
+    fmt.Println(float64(price) * float64(140) * rate)
+
+    price++
+    // rate = 1.08
+    fmt.Println(float64(price) * float64(120) * rate)
+    fmt.Println(float64(price) * float64(130) * rate)
+    fmt.Println(float64(price) * float64(140) * rate)
+}
+
+
+
+
+文字列を表現するためのいくつかの方法について見ていきます。
+
+文字列の表現
+文字列の中で"を使う、\（バックスラッシュ）
+改行、\n
+値の埋め込み
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    // fmt.Println("Taro said hi.")
+    // fmt.Println("Taro said hi. \"Hi!\", he replied.")
+    fmt.Println("Taro said hi. \n\"Hi!\", he replied.")
+}
+
+
+
+
+変数と文字列を連結して表示する方法について見ていきます。
+
+文字列のデータ型、srting
+文字列の初期値、空文字
++で文字列をつなげる
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    // var fname string
+    // fname = "Taro"
+    fname := "Taro"
+    lname := "Yamada"
+    // fmt.Println("I am Taro Yamada")
+    fmt.Println("I am " + fname + " " + lname)
+}
+
+
+
+
+
+
+文字列に変数を埋め込んでスッキリ表示する方法について見ていきます。
+
+fmt.Printf("I am %s %s\n, fname, lname)
+fmtPrintln()とfmt.Printf()の違い
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    // var fname string
+    // fname = "Taro"
+    fname := "Taro"
+    lname := "Yamada"
+    // fmt.Println("I am Taro Yamada")
+    // fmt.Println("I am " + fname + " " + lname)
+    fmt.Printf("I am %s %s\n", fname, lname)
+}
+
+
+
+
+
+変数や定数に名前をつける際に気をつけるべきルールについて見ていきます。
+
+リテラル表現
+使える文字
+小文字大文字の区別
+予約語
+データ型、ルール
+静的型付け言語
+補足情報 大文字からはじまる名前について
+2024年11月6日
+Go言語では変数や定数、そしてあとから見ていく関数やメソッド、構造体などの名前は、 他のファイル（正確にいうと他のpackage）からも使えるようにしたい場合、最初を大文字にする、というルールがあります。
+
+たとえばPrintln()は大文字から始まっていますが、これはfmtのpackageで定義されていて、fmt以外でも使えるようにしたいため、先頭が大文字になっている、と理解しておきましょう。
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    // var fname string
+    // fname = "Taro"
+    fname := "Taro"
+    lname := "Yamada"
+    // fmt.Println("I am Taro Yamada")
+    // fmt.Println("I am " + fname + " " + lname)
+    fmt.Printf("I am %s %s\n", fname, lname)
+}
+
+
+
+
+
+
+
+ユーザーに文字列を入力してもらう方法について見ていきます。
+
+fmt.Scanf("%s", &name)
+受け取った値を表示
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    var name string
+    fmt.Println("Your name?")
+    fmt.Scanf("%s", &name)
+    fmt.Printf("Hi, %s\n", name)
+}
+
+
+
+
+
+
+
+ユーザーに数値を入力してもらう方法について見ていきます。
+
+fmt,Scanf("%d", &price)
+fmt,Scanf("%f", &rate)
+データ型の変換
+受け取った値を使って計算し、結果を表示
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    var price int
+    fmt.Println("Price?")
+    fmt.Scanf("%d", &price)
+    var rate float64
+    fmt.Println("Rate?")
+    fmt.Scanf("%f", &rate)
+    fmt.Printf("Total: %f\n", float64(price) * rate)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+  </pre>
+  
+</body>
+</html>

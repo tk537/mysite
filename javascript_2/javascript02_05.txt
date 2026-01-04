@@ -1,0 +1,1627 @@
+// ===== video_summary =====
+完成版を確認したあとで、必要なファイルを作っていきます。
+
+
+    完成版の確認
+    index.htmlの作成
+    styles.cssの作成
+    main.jsの作成
+
+// ===== commentBox 1 =====
+補足情報
+VS Codeでファイルのドラッグ＆ドロップができない場合
+
+
+
+
+2024年2月16日
+
+
+
+
+
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、WindowsならCtrlキー、macOSならcommandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+// ===== commentBox 2 =====
+補足情報
+必要となる知識について
+
+
+
+
+2020年3月5日
+
+
+
+
+
+このレッスンでは、以下のレッスンで紹介した内容をベースにしています。分からない点があった場合は、こちらも参考にしてみてください。
+
+HTML基礎文法入門 (全22回)
+https://dotinstall.com/lessons/basic_html_tags_v2
+CSS基礎文法入門 (全33回)
+https://dotinstall.com/lessons/basic_css_styles_v2
+詳解JavaScript 基礎文法編 (全26回)
+https://dotinstall.com/lessons/basic_javascript_grammer_v2
+詳解JavaScript オブジェクト編 (全35回)
+https://dotinstall.com/lessons/basic_javascript_objects_v2
+詳解JavaScript DOM編 (全21回)
+https://dotinstall.com/lessons/basic_javascript_dom_v2
+
+// ===== /MySlotMachine/css/styles.css =====
+
+
+// ===== /MySlotMachine/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Slot Machine</title>
+</head>
+<body>
+</body>
+</html>
+
+// ===== /MySlotMachine/js/main.js =====
+
+
+
+
+
+
+// ===== video_summary =====
+HTMLでマークアップをして、画面の大まかな見た目を作っていきます。
+
+
+    mainのマークアップ
+    .spinのマークアップ
+
+// ===== /MySlotMachine/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Slot Machine</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main>
+    <section class="panel">
+      <img src="img/seven.png">
+      <div class="stop">STOP</div>
+    </section>
+    <section class="panel">
+      <img src="img/seven.png">
+      <div class="stop">STOP</div>
+    </section>
+    <section class="panel">
+      <img src="img/seven.png">
+      <div class="stop">STOP</div>
+    </section>
+  </main>
+
+  <div id="spin">SPIN</div>
+</body>
+</html>
+
+// ===== /MySlotMachine/css/styles.css =====
+
+
+// ===== /MySlotMachine/js/main.js =====
+
+
+
+
+
+
+// ===== video_summary =====
+CSSで、imgのサイズのほか、画面全体とmainのスタイルを調整していきます。
+
+
+    bodyのスタイリング
+    mainのスタイリング
+    .panelのスタイリング
+
+// ===== /MySlotMachine/css/styles.css =====
+body {
+  background: #bdc3c7;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  width: 300px;
+  background: #ecf0f1;
+  padding: 20px;
+  border: 4px solid #fff;
+  border-radius: 12px;
+  margin: 16px auto;
+}
+
+.panel img {
+  width: 90px;
+  height: 110px;
+}
+
+// ===== /MySlotMachine/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Slot Machine</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main>
+    <section class="panel">
+      <img src="img/seven.png">
+      <div class="stop">STOP</div>
+    </section>
+    <section class="panel">
+      <img src="img/seven.png">
+      <div class="stop">STOP</div>
+    </section>
+    <section class="panel">
+      <img src="img/seven.png">
+      <div class="stop">STOP</div>
+    </section>
+  </main>
+
+  <div id="spin">SPIN</div>
+</body>
+</html>
+
+// ===== /MySlotMachine/js/main.js =====
+
+
+
+
+
+
+
+// ===== video_summary =====
+画像とSTOPボタンのスタイルを調整していきます。
+
+
+    .panelのスタイリング
+    .stopのスタイリング
+    Flexbox
+
+// ===== /MySlotMachine/css/styles.css =====
+body {
+  background: #bdc3c7;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  width: 300px;
+  background: #ecf0f1;
+  padding: 20px;
+  border: 4px solid #fff;
+  border-radius: 12px;
+  margin: 16px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.panel img {
+  width: 90px;
+  height: 110px;
+  margin-bottom: 4px;
+}
+
+.stop {
+  cursor: pointer;
+  width: 90px;
+  height: 32px;
+  background: #ef454a;
+  box-shadow: 0 4px 0 #d1483e;
+  border-radius: 16px;
+  line-height: 32px;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  user-select: none;
+}
+
+// ===== /MySlotMachine/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Slot Machine</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main>
+    <section class="panel">
+      <img src="img/seven.png">
+      <div class="stop">STOP</div>
+    </section>
+    <section class="panel">
+      <img src="img/seven.png">
+      <div class="stop">STOP</div>
+    </section>
+    <section class="panel">
+      <img src="img/seven.png">
+      <div class="stop">STOP</div>
+    </section>
+  </main>
+
+  <div id="spin">SPIN</div>
+</body>
+</html>
+
+// ===== /MySlotMachine/js/main.js =====
+
+
+
+
+
+
+
+// ===== video_summary =====
+SPINボタンのスタイルを調整したうえで、JavaScriptを読み込む設定をしておきます。
+
+
+    #spinのスタイリング
+
+// ===== /MySlotMachine/css/styles.css =====
+body {
+  background: #bdc3c7;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  width: 300px;
+  background: #ecf0f1;
+  padding: 20px;
+  border: 4px solid #fff;
+  border-radius: 12px;
+  margin: 16px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.panel img {
+  width: 90px;
+  height: 110px;
+  margin-bottom: 4px;
+}
+
+.stop {
+  cursor: pointer;
+  width: 90px;
+  height: 32px;
+  background: #ef454a;
+  box-shadow: 0 4px 0 #d1483e;
+  border-radius: 16px;
+  line-height: 32px;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  user-select: none;
+}
+
+#spin {
+  cursor: pointer;
+  width: 280px;
+  height: 36px;
+  background: #3498db;
+  box-shadow: 0 4px 0 #2880b9;
+  border-radius: 18px;
+  line-height: 36px;
+  text-align: center;
+  color: #fff;
+  user-select: none;
+  margin: 0 auto;
+}
+
+// ===== /MySlotMachine/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Slot Machine</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main>
+    <section class="panel">
+      <img src="img/seven.png">
+      <div class="stop">STOP</div>
+    </section>
+    <section class="panel">
+      <img src="img/seven.png">
+      <div class="stop">STOP</div>
+    </section>
+    <section class="panel">
+      <img src="img/seven.png">
+      <div class="stop">STOP</div>
+    </section>
+  </main>
+
+  <div id="spin">SPIN</div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MySlotMachine/js/main.js =====
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+Panelクラスを定義して、コンストラクタの中で要素を生成するコードを書いていきます。
+
+
+    Panelクラスの定義
+    コンストラクタ
+    this
+
+// ===== commentBox 1 =====
+補足情報
+JavaScriptのクラスについて
+
+
+
+
+2020年3月5日
+
+
+
+
+
+JavaScriptのクラスについては、以下の動画で詳しく解説しています。あわせて参考にしてみてください。
+
+#31 クラスを作ってみよう | 詳解JavaScript オブジェクト編
+https://dotinstall.com/lessons/basic_javascript_objects_v2/52331
+
+// ===== /MySlotMachine/js/main.js =====
+'use strict';
+
+{
+  class Panel {
+    constructor() {
+      const section = document.createElement('section');
+      section.classList.add('panel');
+
+      this.img = document.createElement('img');
+      this.img.src = 'img/seven.png';
+
+      this.stop = document.createElement('div');
+      this.stop.textContent = 'STOP';
+      this.stop.classList.add('stop');
+    }
+  }
+}
+
+// ===== /MySlotMachine/css/styles.css =====
+body {
+  background: #bdc3c7;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  width: 300px;
+  background: #ecf0f1;
+  padding: 20px;
+  border: 4px solid #fff;
+  border-radius: 12px;
+  margin: 16px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.panel img {
+  width: 90px;
+  height: 110px;
+  margin-bottom: 4px;
+}
+
+.stop {
+  cursor: pointer;
+  width: 90px;
+  height: 32px;
+  background: #ef454a;
+  box-shadow: 0 4px 0 #d1483e;
+  border-radius: 16px;
+  line-height: 32px;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  user-select: none;
+}
+
+#spin {
+  cursor: pointer;
+  width: 280px;
+  height: 36px;
+  background: #3498db;
+  box-shadow: 0 4px 0 #2880b9;
+  border-radius: 18px;
+  line-height: 36px;
+  text-align: center;
+  color: #fff;
+  user-select: none;
+  margin: 0 auto;
+}
+
+// ===== /MySlotMachine/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Slot Machine</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main>
+    <section class="panel">
+      <img src="img/seven.png">
+      <div class="stop">STOP</div>
+    </section>
+    <section class="panel">
+      <img src="img/seven.png">
+      <div class="stop">STOP</div>
+    </section>
+    <section class="panel">
+      <img src="img/seven.png">
+      <div class="stop">STOP</div>
+    </section>
+  </main>
+
+  <div id="spin">SPIN</div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+Panelクラスを完成させたあと、実際にインスタンスを作って画面に要素を追加します。
+
+
+    panelインスタンスの生成
+
+// ===== /MySlotMachine/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Slot Machine</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main></main>
+
+  <div id="spin">SPIN</div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MySlotMachine/js/main.js =====
+'use strict';
+
+{
+  class Panel {
+    constructor() {
+      const section = document.createElement('section');
+      section.classList.add('panel');
+
+      this.img = document.createElement('img');
+      this.img.src = 'img/seven.png';
+
+      this.stop = document.createElement('div');
+      this.stop.textContent = 'STOP';
+      this.stop.classList.add('stop');
+
+      section.appendChild(this.img);
+      section.appendChild(this.stop);
+
+      const main = document.querySelector('main');
+      main.appendChild(section);
+    }
+  }
+
+  const panels = [
+    new Panel(),
+    new Panel(),
+    new Panel(),
+  ];
+}
+
+// ===== /MySlotMachine/css/styles.css =====
+body {
+  background: #bdc3c7;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  width: 300px;
+  background: #ecf0f1;
+  padding: 20px;
+  border: 4px solid #fff;
+  border-radius: 12px;
+  margin: 16px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.panel img {
+  width: 90px;
+  height: 110px;
+  margin-bottom: 4px;
+}
+
+.stop {
+  cursor: pointer;
+  width: 90px;
+  height: 32px;
+  background: #ef454a;
+  box-shadow: 0 4px 0 #d1483e;
+  border-radius: 16px;
+  line-height: 32px;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  user-select: none;
+}
+
+#spin {
+  cursor: pointer;
+  width: 280px;
+  height: 36px;
+  background: #3498db;
+  box-shadow: 0 4px 0 #2880b9;
+  border-radius: 18px;
+  line-height: 36px;
+  text-align: center;
+  color: #fff;
+  user-select: none;
+  margin: 0 auto;
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+Panelクラスの中でspinメソッドを定義して、画像を切り替えられるようにします。
+
+
+    spin()メソッド
+    getRandomImage()メソッド
+    画像の差し替え
+    forEach()
+
+// ===== commentBox 1 =====
+補足情報
+ランダムな要素の選択について
+
+
+
+
+2020年3月5日
+
+
+
+
+
+配列の中からランダムに要素を選ぶ処理の中では、ランダムな整数値の生成が使われていますが、これについては以下の動画で詳しく解説しています。あわせて参考にしてみてください。
+
+#6 ランダムな整数値を生成しよう | JavaScriptでおみくじを作ろう
+https://dotinstall.com/lessons/omikuji_js_v5/50706
+
+// ===== /MySlotMachine/js/main.js =====
+'use strict';
+
+{
+  class Panel {
+    constructor() {
+      const section = document.createElement('section');
+      section.classList.add('panel');
+
+      this.img = document.createElement('img');
+      this.img.src = 'img/seven.png';
+
+      this.stop = document.createElement('div');
+      this.stop.textContent = 'STOP';
+      this.stop.classList.add('stop');
+
+      section.appendChild(this.img);
+      section.appendChild(this.stop);
+
+      const main = document.querySelector('main');
+      main.appendChild(section);
+    }
+
+    getRandomImage() {
+      const images = [
+        'img/seven.png',
+        'img/bell.png',
+        'img/cherry.png',
+      ];
+      return images[Math.floor(Math.random() * images.length)];
+    }
+
+    spin() {
+      this.img.src = this.getRandomImage();
+    }
+  }
+
+  const panels = [
+    new Panel(),
+    new Panel(),
+    new Panel(),
+  ];
+
+  const spin = document.getElementById('spin');
+  spin.addEventListener('click', () => {
+    panels.forEach(panel => {
+      panel.spin();
+    });
+  });
+}
+
+// ===== /MySlotMachine/css/styles.css =====
+body {
+  background: #bdc3c7;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  width: 300px;
+  background: #ecf0f1;
+  padding: 20px;
+  border: 4px solid #fff;
+  border-radius: 12px;
+  margin: 16px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.panel img {
+  width: 90px;
+  height: 110px;
+  margin-bottom: 4px;
+}
+
+.stop {
+  cursor: pointer;
+  width: 90px;
+  height: 32px;
+  background: #ef454a;
+  box-shadow: 0 4px 0 #d1483e;
+  border-radius: 16px;
+  line-height: 32px;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  user-select: none;
+}
+
+#spin {
+  cursor: pointer;
+  width: 280px;
+  height: 36px;
+  background: #3498db;
+  box-shadow: 0 4px 0 #2880b9;
+  border-radius: 18px;
+  line-height: 36px;
+  text-align: center;
+  color: #fff;
+  user-select: none;
+  margin: 0 auto;
+}
+
+// ===== /MySlotMachine/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Slot Machine</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main></main>
+
+  <div id="spin">SPIN</div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+SPINボタンとSTOPボタンが見本のように動作するよう、clickイベントを設定していきます。
+
+
+    setTimeout()
+    clearTimeout()
+
+// ===== /MySlotMachine/js/main.js =====
+'use strict';
+
+{
+  class Panel {
+    constructor() {
+      const section = document.createElement('section');
+      section.classList.add('panel');
+
+      this.img = document.createElement('img');
+      this.img.src = this.getRandomImage();
+
+      this.timeoutId = undefined;
+
+      this.stop = document.createElement('div');
+      this.stop.textContent = 'STOP';
+      this.stop.classList.add('stop');
+      this.stop.addEventListener('click', () => {
+        clearTimeout(this.timeoutId);
+      });
+
+      section.appendChild(this.img);
+      section.appendChild(this.stop);
+
+      const main = document.querySelector('main');
+      main.appendChild(section);
+    }
+
+    getRandomImage() {
+      const images = [
+        'img/seven.png',
+        'img/bell.png',
+        'img/cherry.png',
+      ];
+      return images[Math.floor(Math.random() * images.length)];
+    }
+
+    spin() {
+      this.img.src = this.getRandomImage();
+      this.timeoutId = setTimeout(() => {
+        this.spin();
+      }, 50);
+    }
+  }
+
+  const panels = [
+    new Panel(),
+    new Panel(),
+    new Panel(),
+  ];
+
+  const spin = document.getElementById('spin');
+  spin.addEventListener('click', () => {
+    panels.forEach(panel => {
+      panel.spin();
+    });
+  });
+}
+
+// ===== /MySlotMachine/css/styles.css =====
+body {
+  background: #bdc3c7;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  width: 300px;
+  background: #ecf0f1;
+  padding: 20px;
+  border: 4px solid #fff;
+  border-radius: 12px;
+  margin: 16px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.panel img {
+  width: 90px;
+  height: 110px;
+  margin-bottom: 4px;
+}
+
+.stop {
+  cursor: pointer;
+  width: 90px;
+  height: 32px;
+  background: #ef454a;
+  box-shadow: 0 4px 0 #d1483e;
+  border-radius: 16px;
+  line-height: 32px;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  user-select: none;
+}
+
+#spin {
+  cursor: pointer;
+  width: 280px;
+  height: 36px;
+  background: #3498db;
+  box-shadow: 0 4px 0 #2880b9;
+  border-radius: 18px;
+  line-height: 36px;
+  text-align: center;
+  color: #fff;
+  user-select: none;
+  margin: 0 auto;
+}
+
+// ===== /MySlotMachine/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Slot Machine</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main></main>
+
+  <div id="spin">SPIN</div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+STOPを押されたパネルの画像が他の画像と一致しているかどうか判定するための関数を定義していきます。
+
+
+    isUnmatched()メソッド
+    checkResult()関数
+
+// ===== /MySlotMachine/js/main.js =====
+'use strict';
+
+{
+  class Panel {
+    constructor() {
+      const section = document.createElement('section');
+      section.classList.add('panel');
+
+      this.img = document.createElement('img');
+      this.img.src = this.getRandomImage();
+
+      this.timeoutId = undefined;
+
+      this.stop = document.createElement('div');
+      this.stop.textContent = 'STOP';
+      this.stop.classList.add('stop');
+      this.stop.addEventListener('click', () => {
+        clearTimeout(this.timeoutId);
+
+        panelsLeft--;
+
+        if (panelsLeft === 0) {
+          checkResult();
+        }
+      });
+
+      section.appendChild(this.img);
+      section.appendChild(this.stop);
+
+      const main = document.querySelector('main');
+      main.appendChild(section);
+    }
+
+    getRandomImage() {
+      const images = [
+        'img/seven.png',
+        'img/bell.png',
+        'img/cherry.png',
+      ];
+      return images[Math.floor(Math.random() * images.length)];
+    }
+
+    spin() {
+      this.img.src = this.getRandomImage();
+      this.timeoutId = setTimeout(() => {
+        this.spin();
+      }, 50);
+    }
+  }
+
+  function checkResult() {
+    if (panels[0].isUnmatched(panels[1], panels[2])) {
+      panels[0].unmatch();
+    }
+    if (panels[1].isUnmatched(panels[0], panels[2])) {
+      panels[1].unmatch();
+    }
+    if (panels[2].isUnmatched(panels[0], panels[1])) {
+      panels[2].unmatch();
+    }
+  }
+
+  const panels = [
+    new Panel(),
+    new Panel(),
+    new Panel(),
+  ];
+
+  let panelsLeft = 3;
+
+  const spin = document.getElementById('spin');
+  spin.addEventListener('click', () => {
+    panels.forEach(panel => {
+      panel.spin();
+    });
+  });
+}
+
+// ===== /MySlotMachine/css/styles.css =====
+body {
+  background: #bdc3c7;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  width: 300px;
+  background: #ecf0f1;
+  padding: 20px;
+  border: 4px solid #fff;
+  border-radius: 12px;
+  margin: 16px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.panel img {
+  width: 90px;
+  height: 110px;
+  margin-bottom: 4px;
+}
+
+.stop {
+  cursor: pointer;
+  width: 90px;
+  height: 32px;
+  background: #ef454a;
+  box-shadow: 0 4px 0 #d1483e;
+  border-radius: 16px;
+  line-height: 32px;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  user-select: none;
+}
+
+#spin {
+  cursor: pointer;
+  width: 280px;
+  height: 36px;
+  background: #3498db;
+  box-shadow: 0 4px 0 #2880b9;
+  border-radius: 18px;
+  line-height: 36px;
+  text-align: center;
+  color: #fff;
+  user-select: none;
+  margin: 0 auto;
+}
+
+// ===== /MySlotMachine/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Slot Machine</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main></main>
+
+  <div id="spin">SPIN</div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+結果によってunmatchedクラスを付け外しすることで、画像の見た目が変わるように設定します。
+
+
+    unmatchedクラスの付け外し
+    unmatch()メソッド
+
+// ===== /MySlotMachine/css/styles.css =====
+body {
+  background: #bdc3c7;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  width: 300px;
+  background: #ecf0f1;
+  padding: 20px;
+  border: 4px solid #fff;
+  border-radius: 12px;
+  margin: 16px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.panel img {
+  width: 90px;
+  height: 110px;
+  margin-bottom: 4px;
+}
+
+.stop {
+  cursor: pointer;
+  width: 90px;
+  height: 32px;
+  background: #ef454a;
+  box-shadow: 0 4px 0 #d1483e;
+  border-radius: 16px;
+  line-height: 32px;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  user-select: none;
+}
+
+#spin {
+  cursor: pointer;
+  width: 280px;
+  height: 36px;
+  background: #3498db;
+  box-shadow: 0 4px 0 #2880b9;
+  border-radius: 18px;
+  line-height: 36px;
+  text-align: center;
+  color: #fff;
+  user-select: none;
+  margin: 0 auto;
+}
+
+.unmatched {
+  opacity: 0.5;
+}
+
+// ===== /MySlotMachine/js/main.js =====
+'use strict';
+
+{
+  class Panel {
+    constructor() {
+      const section = document.createElement('section');
+      section.classList.add('panel');
+
+      this.img = document.createElement('img');
+      this.img.src = this.getRandomImage();
+
+      this.timeoutId = undefined;
+
+      this.stop = document.createElement('div');
+      this.stop.textContent = 'STOP';
+      this.stop.classList.add('stop');
+      this.stop.addEventListener('click', () => {
+        clearTimeout(this.timeoutId);
+
+        panelsLeft--;
+
+        if (panelsLeft === 0) {
+          checkResult();
+        }
+      });
+
+      section.appendChild(this.img);
+      section.appendChild(this.stop);
+
+      const main = document.querySelector('main');
+      main.appendChild(section);
+    }
+
+    getRandomImage() {
+      const images = [
+        'img/seven.png',
+        'img/bell.png',
+        'img/cherry.png',
+      ];
+      return images[Math.floor(Math.random() * images.length)];
+    }
+
+    spin() {
+      this.img.src = this.getRandomImage();
+      this.timeoutId = setTimeout(() => {
+        this.spin();
+      }, 50);
+    }
+
+    isUnmatched(p1, p2) {
+      // if (this.img.src !== p1.img.src && this.img.src !== p2.img.src) {
+      //   return true;
+      // } else {
+      //   return false;
+      // }
+      return this.img.src !== p1.img.src && this.img.src !== p2.img.src;
+    }
+
+    unmatch() {
+      this.img.classList.add('unmatched');
+    }
+  }
+
+  function checkResult() {
+    if (panels[0].isUnmatched(panels[1], panels[2])) {
+      panels[0].unmatch();
+    }
+    if (panels[1].isUnmatched(panels[0], panels[2])) {
+      panels[1].unmatch();
+    }
+    if (panels[2].isUnmatched(panels[0], panels[1])) {
+      panels[2].unmatch();
+    }
+  }
+
+  const panels = [
+    new Panel(),
+    new Panel(),
+    new Panel(),
+  ];
+
+  let panelsLeft = 3;
+
+  const spin = document.getElementById('spin');
+  spin.addEventListener('click', () => {
+    panels.forEach(panel => {
+      panel.spin();
+    });
+  });
+}
+
+// ===== /MySlotMachine/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Slot Machine</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main></main>
+
+  <div id="spin">SPIN</div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+inactiveクラスを付け外しすることで、SPINボタンとSTOPボタンが想定どおりに動作するようにします。
+
+
+    inactiveクラスの付け外し
+
+// ===== /MySlotMachine/css/styles.css =====
+body {
+  background: #bdc3c7;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  width: 300px;
+  background: #ecf0f1;
+  padding: 20px;
+  border: 4px solid #fff;
+  border-radius: 12px;
+  margin: 16px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.panel img {
+  width: 90px;
+  height: 110px;
+  margin-bottom: 4px;
+}
+
+.stop {
+  cursor: pointer;
+  width: 90px;
+  height: 32px;
+  background: #ef454a;
+  box-shadow: 0 4px 0 #d1483e;
+  border-radius: 16px;
+  line-height: 32px;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  user-select: none;
+}
+
+#spin {
+  cursor: pointer;
+  width: 280px;
+  height: 36px;
+  background: #3498db;
+  box-shadow: 0 4px 0 #2880b9;
+  border-radius: 18px;
+  line-height: 36px;
+  text-align: center;
+  color: #fff;
+  user-select: none;
+  margin: 0 auto;
+}
+
+.unmatched {
+  opacity: 0.5;
+}
+
+.inactive {
+  opacity: 0.5;
+}
+
+// ===== /MySlotMachine/js/main.js =====
+'use strict';
+
+{
+  class Panel {
+    constructor() {
+      const section = document.createElement('section');
+      section.classList.add('panel');
+
+      this.img = document.createElement('img');
+      this.img.src = this.getRandomImage();
+
+      this.timeoutId = undefined;
+
+      this.stop = document.createElement('div');
+      this.stop.textContent = 'STOP';
+      this.stop.classList.add('stop');
+      this.stop.addEventListener('click', () => {
+        if (this.stop.classList.contains('inactive')) {
+          return;
+        }
+        this.stop.classList.add('inactive');
+
+        clearTimeout(this.timeoutId);
+
+        panelsLeft--;
+
+        if (panelsLeft === 0) {
+          checkResult();
+        }
+      });
+
+      section.appendChild(this.img);
+      section.appendChild(this.stop);
+
+      const main = document.querySelector('main');
+      main.appendChild(section);
+    }
+
+    getRandomImage() {
+      const images = [
+        'img/seven.png',
+        'img/bell.png',
+        'img/cherry.png',
+      ];
+      return images[Math.floor(Math.random() * images.length)];
+    }
+
+    spin() {
+      this.img.src = this.getRandomImage();
+      this.timeoutId = setTimeout(() => {
+        this.spin();
+      }, 50);
+    }
+
+    isUnmatched(p1, p2) {
+      return this.img.src !== p1.img.src && this.img.src !== p2.img.src;
+    }
+
+    unmatch() {
+      this.img.classList.add('unmatched');
+    }
+  }
+
+  function checkResult() {
+    if (panels[0].isUnmatched(panels[1], panels[2])) {
+      panels[0].unmatch();
+    }
+    if (panels[1].isUnmatched(panels[0], panels[2])) {
+      panels[1].unmatch();
+    }
+    if (panels[2].isUnmatched(panels[0], panels[1])) {
+      panels[2].unmatch();
+    }
+  }
+
+  const panels = [
+    new Panel(),
+    new Panel(),
+    new Panel(),
+  ];
+
+  let panelsLeft = 3;
+
+  const spin = document.getElementById('spin');
+  spin.addEventListener('click', () => {
+    if (spin.classList.contains('inactive')) {
+      return;
+    }
+    spin.classList.add('inactive');
+
+    panels.forEach(panel => {
+      panel.spin();
+    });
+  });
+}
+
+// ===== /MySlotMachine/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Slot Machine</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main></main>
+
+  <div id="spin">SPIN</div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+activateメソッドを導入して、ゲームが終わるごとに設定をリセットして繰り返し遊べるようにします。
+
+
+    activate()メソッド
+
+// ===== /MySlotMachine/js/main.js =====
+'use strict';
+
+{
+  class Panel {
+    constructor() {
+      const section = document.createElement('section');
+      section.classList.add('panel');
+
+      this.img = document.createElement('img');
+      this.img.src = this.getRandomImage();
+
+      this.timeoutId = undefined;
+
+      this.stop = document.createElement('div');
+      this.stop.textContent = 'STOP';
+      this.stop.classList.add('stop', 'inactive');
+      this.stop.addEventListener('click', () => {
+        if (this.stop.classList.contains('inactive')) {
+          return;
+        }
+        this.stop.classList.add('inactive');
+
+        clearTimeout(this.timeoutId);
+
+        panelsLeft--;
+
+        if (panelsLeft === 0) {
+          checkResult();
+          spin.classList.remove('inactive');
+          panelsLeft = 3;
+        }
+      });
+
+      section.appendChild(this.img);
+      section.appendChild(this.stop);
+
+      const main = document.querySelector('main');
+      main.appendChild(section);
+    }
+
+    getRandomImage() {
+      const images = [
+        'img/seven.png',
+        'img/bell.png',
+        'img/cherry.png',
+      ];
+      return images[Math.floor(Math.random() * images.length)];
+    }
+
+    spin() {
+      this.img.src = this.getRandomImage();
+      this.timeoutId = setTimeout(() => {
+        this.spin();
+      }, 50);
+    }
+
+    isUnmatched(p1, p2) {
+      return this.img.src !== p1.img.src && this.img.src !== p2.img.src;
+    }
+
+    unmatch() {
+      this.img.classList.add('unmatched');
+    }
+
+    activate() {
+      this.img.classList.remove('unmatched');
+      this.stop.classList.remove('inactive');
+    }
+  }
+
+  function checkResult() {
+    if (panels[0].isUnmatched(panels[1], panels[2])) {
+      panels[0].unmatch();
+    }
+    if (panels[1].isUnmatched(panels[0], panels[2])) {
+      panels[1].unmatch();
+    }
+    if (panels[2].isUnmatched(panels[0], panels[1])) {
+      panels[2].unmatch();
+    }
+  }
+
+  const panels = [
+    new Panel(),
+    new Panel(),
+    new Panel(),
+  ];
+
+  let panelsLeft = 3;
+
+  const spin = document.getElementById('spin');
+  spin.addEventListener('click', () => {
+    if (spin.classList.contains('inactive')) {
+      return;
+    }
+    spin.classList.add('inactive');
+
+    panels.forEach(panel => {
+      panel.activate();
+      panel.spin();
+    });
+  });
+}
+
+// ===== /MySlotMachine/css/styles.css =====
+body {
+  background: #bdc3c7;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  width: 300px;
+  background: #ecf0f1;
+  padding: 20px;
+  border: 4px solid #fff;
+  border-radius: 12px;
+  margin: 16px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.panel img {
+  width: 90px;
+  height: 110px;
+  margin-bottom: 4px;
+}
+
+.stop {
+  cursor: pointer;
+  width: 90px;
+  height: 32px;
+  background: #ef454a;
+  box-shadow: 0 4px 0 #d1483e;
+  border-radius: 16px;
+  line-height: 32px;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  user-select: none;
+}
+
+#spin {
+  cursor: pointer;
+  width: 280px;
+  height: 36px;
+  background: #3498db;
+  box-shadow: 0 4px 0 #2880b9;
+  border-radius: 18px;
+  line-height: 36px;
+  text-align: center;
+  color: #fff;
+  user-select: none;
+  margin: 0 auto;
+}
+
+.unmatched {
+  opacity: 0.5;
+}
+
+.inactive {
+  opacity: 0.5;
+}
+
+// ===== /MySlotMachine/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Slot Machine</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main></main>
+
+  <div id="spin">SPIN</div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+

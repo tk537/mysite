@@ -1,0 +1,434 @@
+// ===== video_summary =====
+まずは概要を説明したのちに、公式サイト、必要となるツール、レッスンにおける環境について説明していきます。
+
+
+    概要
+    公式サイト
+    必要となるツール
+    レッスンにおける環境
+
+// ===== read.me =====
+iOS開発
+
+* 概要
+- iPhone, iPad
+- Xcode
+- Swift
+
+* 公式サイト
+
+* ツール
+- macOS / Mac
+- 最新OS
+- Apple Developer Program
+
+* 環境
+- Xcode 8.1
+- Swift 3
+
+
+
+
+
+// ===== video_summary =====
+まずはプロジェクトを作成し、Xcodeの設定を行っていきます。
+
+プロジェクトの作成
+Xcodeの設定
+
+// ===== commentBox 1 =====
+補足情報 プロジェクト作成時のUser Interfaceについて
+2020年1月17日
+
+最新版のXcodeではプロジェクト作成時にUser Interfaceを選べるようになっておりますが、レッスンと同じようにすすめるには「SwiftUI」ではなくて、「Storyboard」を選ぶようにしてください。
+
+// ===== commentBox 2 =====
+補足情報 最新版 Xcode におけるプロジェクト作成時の Devices 項目
+2017年12月27日
+
+最新版の Xcode (Xcode 9.2 で確認) ではプロジェクト作成時の Devices 項目がありませんが、そのまま進んで大丈夫です。
+
+
+
+
+
+// ===== video_summary =====
+Xcodeの画面の見方を説明していきます。
+
+Xcodeの主要エリア
+
+
+
+
+// ===== video_summary =====
+iOSシミュレータの使い方について説明していきます。
+
+起動方法
+ハードウェアメニュー
+
+
+
+
+
+// ===== video_summary =====
+ナビゲータエリアでよく使う機能について説明していきます。
+
+ファイル一覧の説明
+ショートカットキー
+
+
+
+
+
+// ===== video_summary =====
+実際に部品を配置していくストーリーボードの使い方について説明していきます。
+
+ストーリーボードの説明
+
+
+
+
+
+// ===== video_summary =====
+制約ベースで部品を配置していくためのAuto Layoutについて説明していきます。
+
+Auto Layout
+
+
+
+
+
+// ===== video_summary =====
+異なる画面サイズでAuto Layoutの結果がどう見えるか、プレビュー画面で確認していきます。
+
+
+    部品の配置
+    プレビュー画面
+    Auto Layoutの設定
+
+// ===== commentBox 1 =====
+補足情報
+プレビューでズームを変更するには？
+
+
+
+
+2017年7月26日
+
+
+
+
+
+動画のようにスムーズなズーム変更をおこなうには、トラックパッドでピンチ操作をおこなってください。
+
+トラックパッドがない場合は、何もない場所をダブルクリックすれば 2 段階でズーム変更が可能です。
+
+// ===== /MyFirstApp/MyFirstApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyFirstApp
+//
+//  Created by Gen Taguchi on 2016/11/18.
+//  Copyright © 2016年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+
+
+
+
+// ===== video_summary =====
+セグエを使った画面遷移について説明していきます。
+
+
+    ViewControllerの追加
+    セグエの設定
+    動作確認
+
+// ===== /MyFirstApp/MyFirstApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyFirstApp
+//
+//  Created by Gen Taguchi on 2016/11/24.
+//  Copyright © 2016年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+
+
+
+
+
+// ===== video_summary =====
+セグエで画面遷移したのちに、もとの画面に戻る方法について見ていきます。
+
+
+    unwindToTopの実装
+    動作確認
+
+// ===== commentBox 1 =====
+補足情報
+Go Backをドラッグする操作について
+
+
+
+
+2019年2月16日
+
+
+
+
+
+動画中の1:47あたりで「Go Back」をアイコンにドラッグする、と説明していますが、正確には「Controlキーを押しながらドラッグする」となります。
+
+// ===== /MyFirstApp/MyFirstApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyFirstApp
+//
+//  Created by Gen Taguchi on 2016/11/24.
+//  Copyright © 2016年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+    
+    @IBAction func unwindToTop(segue: UIStoryboardSegue) {
+        
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+
+
+
+
+
+// ===== video_summary =====
+セグエで画面遷移したのちに、もとの画面に戻る方法について見ていきます。
+
+
+    unwindToTopの実装
+    動作確認
+
+// ===== commentBox 1 =====
+補足情報
+Go Backをドラッグする操作について
+
+
+
+
+2019年2月16日
+
+
+
+
+
+動画中の1:47あたりで「Go Back」をアイコンにドラッグする、と説明していますが、正確には「Controlキーを押しながらドラッグする」となります。
+
+// ===== /MyFirstApp/MyFirstApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyFirstApp
+//
+//  Created by Gen Taguchi on 2016/11/24.
+//  Copyright © 2016年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+    
+    @IBAction func unwindToTop(segue: UIStoryboardSegue) {
+        
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+
+
+
+
+
+// ===== video_summary =====
+階層的な画面遷移をするために使えるNavigationControllerについて説明していきます。
+
+
+    ViewContollerの追加
+    NavigationControllerの追加
+    セグエの設定
+    動作確認
+
+// ===== /MyFirstApp/MyFirstApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyFirstApp
+//
+//  Created by Gen Taguchi on 2016/11/24.
+//  Copyright © 2016年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+    
+    @IBAction func unwindToTop(segue: UIStoryboardSegue) {
+        
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+
+
+
+
+
+// ===== video_summary =====
+画面上にラベルとボタンを配置し、各種設定をしていきます。
+
+
+    ラベルとボタンの配置
+
+// ===== /MyFirstApp/MyFirstApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyFirstApp
+//
+//  Created by Gen Taguchi on 2016/11/24.
+//  Copyright © 2016年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+    
+    @IBAction func unwindToTop(segue: UIStoryboardSegue) {
+        
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+
+
+
+
+
+// ===== video_summary =====
+ボタンをタップするとラベルのテキストが変わるように実装していきます。
+
+
+    ラベルとボタンの登録
+    ViewController.swiftの実装
+    動作確認
+
+// ===== /MyFirstApp/MyFirstApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyFirstApp
+//
+//  Created by Gen Taguchi on 2016/11/24.
+//  Copyright © 2016年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+    
+    @IBOutlet weak var myLabel: UILabel!
+    @IBAction func changeLabel(_ sender: Any) {
+        myLabel.text = "You changed me!"
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+
+
+
+
+
+
+
+
+

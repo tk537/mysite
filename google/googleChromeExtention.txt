@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre><code>
+    // ===== video_summary =====
+公式ドキュメントを確認したのちに、開発の準備をしていきます。
+
+
+    公式ドキュメントの確認
+    01_Helloの作成
+
+// ===== commentBox 1 =====
+補足情報
+必要となる知識について
+
+
+
+
+2018年1月11日
+
+
+
+
+
+今回のレッスンについては以下も参考にしてみてください。
+
+・JavaScript入門 (全24回)
+https://dotinstall.com/lessons/basic_javascript_v2
+
+// ===== /MyExtensions/01_Hello/manifest.json =====
+
+
+// ===== video_summary =====
+拡張機能の概要を記すためのmanifest.jsonファイルを記述していきます。
+
+
+    manifest.jsonの記述
+    popup.htmlの作成
+
+// ===== /MyExtensions/01_Hello/manifest.json =====
+{
+  "manifest_version": 2,
+  "name": "Hello!",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": {
+      "16": "icon.png"
+    },
+    "default_popup": "popup.html"
+  }
+}
+
+// ===== /MyExtensions/01_Hello/popup.html =====
+
+
+// ===== video_summary =====
+作成したBrowser Actionを設定画面から追加していく方法について見ていきます。
+
+
+    拡張機能の追加、更新、削除
+
+// ===== /MyExtensions/01_Hello/popup.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Extension</title>
+</head>
+<body>
+  <!-- Hello! -->
+  Hello again!
+</body>
+</html>
+
+// ===== /MyExtensions/01_Hello/manifest.json =====
+{
+  "manifest_version": 2,
+  "name": "Hello!",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": {
+      "16": "icon.png"
+    },
+    "default_popup": "popup.html"
+  }
+}
+
+// ===== video_summary =====
+開いているタブのタイトルを取得するようなBrowser Actionを作っていきます。
+
+
+    02_ShowTabsInfoの作成
+    popup.jsの作成
+
+// ===== /MyExtensions/02_ShowTabsInfo/manifest.json =====
+{
+  "manifest_version": 2,
+  "name": "Show tabs info",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": {
+      "16": "icon.png"
+    },
+    "default_popup": "popup.html"
+  },
+
+  "permissions": [
+    "tabs"
+  ]
+}
+
+// ===== /MyExtensions/02_ShowTabsInfo/popup.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Extension</title>
+</head>
+<body>
+  <!-- Hello! -->
+  Hello again!
+  <script src="popup.js"></script>
+</body>
+</html>
+
+// ===== /MyExtensions/02_ShowTabsInfo/popup.js =====
+'use strict';
+
+chrome.tabs.query({}, function(tabs) {
+
+});
+
+// ===== video_summary =====
+popup.jsのコンソールを確認する方法について見ていきます。
+
+
+    ポップアップを検証
+
+// ===== /MyExtensions/02_ShowTabsInfo/popup.js =====
+'use strict';
+
+chrome.tabs.query({}, function(tabs) {
+  var i;
+  for (i = 0; i < tabs.length; i++) {
+    console.log(tabs[i].title);
+  }
+});
+
+// ===== /MyExtensions/02_ShowTabsInfo/manifest.json =====
+{
+  "manifest_version": 2,
+  "name": "Show tabs info",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": {
+      "16": "icon.png"
+    },
+    "default_popup": "popup.html"
+  },
+
+  "permissions": [
+    "tabs"
+  ]
+}
+
+// ===== /MyExtensions/02_ShowTabsInfo/popup.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Extension</title>
+</head>
+<body>
+  <!-- Hello! -->
+  Hello again!
+  <script src="popup.js"></script>
+</body>
+</html>
+
+// ===== video_summary =====
+取得したタブのタイトルをポップアップに表示させていきます。
+
+
+    ポップアップにタブのタイトルを表示
+
+// ===== /MyExtensions/02_ShowTabsInfo/popup.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Extension</title>
+</head>
+<body>
+  <textarea id="results" rows="5" cols="40"></textarea>
+  <script src="popup.js"></script>
+</body>
+</html>
+
+// ===== /MyExtensions/02_ShowTabsInfo/popup.js =====
+'use strict';
+
+chrome.tabs.query({}, function(tabs) {
+  var i;
+  var results = document.getElementById('results');
+  var titles = [];
+  for (i = 0; i < tabs.length; i++) {
+    titles.push(tabs[i].title);
+    // console.log(tabs[i].title);
+  }
+  results.value = titles.join("\n");
+  results.select();
+});
+
+// ===== /MyExtensions/02_ShowTabsInfo/manifest.json =====
+{
+  "manifest_version": 2,
+  "name": "Show tabs info",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": {
+      "16": "icon.png"
+    },
+    "default_popup": "popup.html"
+  },
+
+  "permissions": [
+    "tabs"
+  ]
+}
+
+// ===== video_summary =====
+条件を指定してタブを抽出する方法について見ていきます。
+
+
+    抽出条件の指定
+
+// ===== /MyExtensions/02_ShowTabsInfo/popup.js =====
+'use strict';
+
+// chrome.tabs.query({}, function(tabs) {
+// chrome.tabs.query({lastFocusedWindow: true}, function(tabs) {
+chrome.tabs.query({active: true, lastFocusedWindow: true}, function(tabs) {
+  var i;
+  var results = document.getElementById('results');
+  var titles = [];
+  for (i = 0; i < tabs.length; i++) {
+    titles.push(tabs[i].title);
+    // console.log(tabs[i].title);
+  }
+  results.value = titles.join("\n");
+  results.select();
+});
+
+// ===== /MyExtensions/02_ShowTabsInfo/manifest.json =====
+{
+  "manifest_version": 2,
+  "name": "Show tabs info",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": {
+      "16": "icon.png"
+    },
+    "default_popup": "popup.html"
+  },
+
+  "permissions": [
+    "tabs"
+  ]
+}
+
+// ===== /MyExtensions/02_ShowTabsInfo/popup.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Extension</title>
+</head>
+<body>
+  <textarea id="results" rows="5" cols="40"></textarea>
+  <script src="popup.js"></script>
+</body>
+</html>
+
+// ===== video_summary =====
+Browser Actionでブラウザの背景色を変えられるような拡張機能を作っていきます。
+
+
+    03_ChangeBgColorの作成
+    permissionの指定方法について
+
+// ===== /MyExtensions/03_ChangeBgColor/manifest.json =====
+{
+  "manifest_version": 2,
+  "name": "Change background color",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": {
+      "16": "icon.png"
+    },
+    "default_popup": "popup.html"
+  },
+
+  "permissions": [
+    "activeTab"
+  ]
+}
+
+// ===== /MyExtensions/03_ChangeBgColor/popup.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Extension</title>
+</head>
+<body>
+  <select id="colors">
+    <option value="red">Red</option>
+    <option value="blue">Blue</option>
+    <option value="green">Green</option>
+  </select>
+  <script src="popup.js"></script>
+</body>
+</html>
+
+// ===== /MyExtensions/03_ChangeBgColor/popup.js =====
+'use strict';
+
+// chrome.tabs.query({}, function(tabs) {
+// chrome.tabs.query({lastFocusedWindow: true}, function(tabs) {
+chrome.tabs.query({active: true, lastFocusedWindow: true}, function(tabs) {
+  var i;
+  var results = document.getElementById('results');
+  var titles = [];
+  for (i = 0; i < tabs.length; i++) {
+    titles.push(tabs[i].title);
+    // console.log(tabs[i].title);
+  }
+  results.value = titles.join("\n");
+  results.select();
+});
+
+// ===== video_summary =====
+executeScriptを使って、ページ内で特定のコードを実行する方法について見ていきます。
+
+
+    executeScript()
+
+// ===== /MyExtensions/03_ChangeBgColor/popup.js =====
+'use strict';
+
+document.getElementById('colors').addEventListener('change', function() {
+  chrome.tabs.executeScript({
+    code: 'document.body.style.backgroundColor = "' + this.value + '"'
+  });
+});
+
+// ===== /MyExtensions/03_ChangeBgColor/manifest.json =====
+{
+  "manifest_version": 2,
+  "name": "Change background color",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": {
+      "16": "icon.png"
+    },
+    "default_popup": "popup.html"
+  },
+
+  "permissions": [
+    "activeTab"
+  ]
+}
+
+// ===== /MyExtensions/03_ChangeBgColor/popup.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Extension</title>
+</head>
+<body>
+  <select id="colors">
+    <option value="red">Red</option>
+    <option value="blue">Blue</option>
+    <option value="green">Green</option>
+  </select>
+  <script src="popup.js"></script>
+</body>
+</html>
+
+// ===== video_summary =====
+アイコンをクリックするとオプションページで設定した背景色に変わるような拡張機能を作っていきます。
+
+
+    04_optionsUIの作成
+    options.htmlの作成
+
+// ===== /MyExtensions/04_OptionsUI/manifest.json =====
+{
+  "manifest_version": 2,
+  "name": "Change background color with options UI",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": {
+      "16": "icon.png"
+    }
+  },
+
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
+
+  "permissions": [
+    "activeTab",
+    "storage"
+  ]
+}
+
+// ===== /MyExtensions/04_OptionsUI/options.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Options</title>
+</head>
+<body>
+  <select id="colors">
+    <option value="red">Red</option>
+    <option value="blue">Blue</option>
+    <option value="green">Green</option>
+  </select>
+  <button id="save">Save</button>
+  <script src="options.js"></script>
+</body>
+</html>
+
+// ===== /MyExtensions/04_OptionsUI/options.js =====
+'use strict';
+
+document.getElementById('colors').addEventListener('change', function() {
+  chrome.tabs.executeScript({
+    code: 'document.body.style.backgroundColor = "' + this.value + '"'
+  });
+});
+
+// ===== video_summary =====
+Chromeのstorage機能を使って、オプションページで選択した値を保存できるようにしていきます。
+
+
+    options.jsの編集
+    動作確認
+
+// ===== /MyExtensions/04_OptionsUI/options.js =====
+'use strict';
+
+document.getElementById('save').addEventListener('click', function() {
+  var color = document.getElementById('colors').value;
+  chrome.storage.sync.set({
+    color: color
+  }, function() {
+    console.log('saved: ' + color);
+  });
+});
+
+// document.getElementById('colors').addEventListener('change', function() {
+//   chrome.tabs.executeScript({
+//     code: 'document.body.style.backgroundColor = "' + this.value + '"'
+//   });
+// });
+
+// ===== /MyExtensions/04_OptionsUI/manifest.json =====
+{
+  "manifest_version": 2,
+  "name": "Change background color with options UI",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": {
+      "16": "icon.png"
+    }
+  },
+
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
+
+  "permissions": [
+    "activeTab",
+    "storage"
+  ]
+}
+
+// ===== /MyExtensions/04_OptionsUI/options.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Options</title>
+</head>
+<body>
+  <select id="colors">
+    <option value="red">Red</option>
+    <option value="blue">Blue</option>
+    <option value="green">Green</option>
+  </select>
+  <button id="save">Save</button>
+  <script src="options.js"></script>
+</body>
+</html>
+
+// ===== video_summary =====
+オプションページを開いたときに表示される値がstorageに保存した値と一致するようにしていきます。
+
+
+    chrome.storage.sync
+    動作確認
+
+// ===== /MyExtensions/04_OptionsUI/options.js =====
+'use strict';
+
+document.addEventListener('DOMContentLoaded', function() {
+  chrome.storage.sync.get({
+    color: 'red'
+  }, function(item) {
+    document.getElementById('colors').value = item.color;
+  });
+});
+
+document.getElementById('save').addEventListener('click', function() {
+  var color = document.getElementById('colors').value;
+  chrome.storage.sync.set({
+    color: color
+  }, function() {
+    console.log('saved: ' + color);
+  });
+});
+
+// document.getElementById('colors').addEventListener('change', function() {
+//   chrome.tabs.executeScript({
+//     code: 'document.body.style.backgroundColor = "' + this.value + '"'
+//   });
+// });
+
+// ===== /MyExtensions/04_OptionsUI/manifest.json =====
+{
+  "manifest_version": 2,
+  "name": "Change background color with options UI",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": {
+      "16": "icon.png"
+    }
+  },
+
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
+
+  "permissions": [
+    "activeTab",
+    "storage"
+  ]
+}
+
+// ===== /MyExtensions/04_OptionsUI/options.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Options</title>
+</head>
+<body>
+  <select id="colors">
+    <option value="red">Red</option>
+    <option value="blue">Blue</option>
+    <option value="green">Green</option>
+  </select>
+  <button id="save">Save</button>
+  <script src="options.js"></script>
+</body>
+</html>
+
+// ===== video_summary =====
+イベントページを使って、Browser Actionをクリックしたときの処理を実装していきます。
+
+
+    event.jsの作成
+    動作確認
+
+// ===== /MyExtensions/04_OptionsUI/event.js =====
+'use strict';
+
+chrome.browserAction.onClicked.addListener(function() {
+  chrome.storage.sync.get({
+    color: 'red'
+  }, function(item) {
+    chrome.tabs.executeScript({
+      code: 'document.body.style.backgroundColor = "' + item.color + '"'
+    });
+  });
+});
+
+// ===== /MyExtensions/04_OptionsUI/manifest.json =====
+{
+  "manifest_version": 2,
+  "name": "Change background color with options UI",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": {
+      "16": "icon.png"
+    }
+  },
+
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
+
+  "background": {
+    "scripts": ["event.js"],
+    "persistent": false
+  },
+
+  "permissions": [
+    "activeTab",
+    "storage"
+  ]
+}
+
+// ===== /MyExtensions/04_OptionsUI/options.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Options</title>
+</head>
+<body>
+  <select id="colors">
+    <option value="red">Red</option>
+    <option value="blue">Blue</option>
+    <option value="green">Green</option>
+  </select>
+  <button id="save">Save</button>
+  <script src="options.js"></script>
+</body>
+</html>
+
+// ===== /MyExtensions/04_OptionsUI/options.js =====
+'use strict';
+
+document.addEventListener('DOMContentLoaded', function() {
+  chrome.storage.sync.get({
+    color: 'red'
+  }, function(item) {
+    document.getElementById('colors').value = item.color;
+  });
+});
+
+document.getElementById('save').addEventListener('click', function() {
+  var color = document.getElementById('colors').value;
+  chrome.storage.sync.set({
+    color: color
+  }, function() {
+    console.log('saved: ' + color);
+  });
+});
+
+// document.getElementById('colors').addEventListener('change', function() {
+//   chrome.tabs.executeScript({
+//     code: 'document.body.style.backgroundColor = "' + this.value + '"'
+//   });
+// });
+
+// ===== video_summary =====
+右クリックメニューから背景色を変えられるような拡張機能を作っていきます。
+
+
+    05_ContextMenusの作成
+    階層的な右クリックメニューの作成
+
+// ===== /MyExtensions/05_ContextMenus/event.js =====
+'use strict';
+
+chrome.runtime.onInstalled.addListener(function() {
+  var parent = chrome.contextMenus.create({
+    id: 'parent',
+    title: 'Choose Background Color'
+  });
+  chrome.contextMenus.create({
+    id: 'red',
+    parentId: parent,
+    title: 'Red'
+  });
+  chrome.contextMenus.create({
+    id: 'blue',
+    parentId: parent,
+    title: 'Blue'
+  });
+  chrome.contextMenus.create({
+    id: 'green',
+    parentId: parent,
+    title: 'Green'
+  });
+});
+
+// ===== /MyExtensions/05_ContextMenus/manifest.json =====
+{
+  "manifest_version": 2,
+  "name": "Change background color with context menus",
+  "version": "1.0",
+
+  "background": {
+    "scripts": ["event.js"],
+    "persistent": false
+  },
+
+  "permissions": [
+    "activeTab",
+    "contextMenus"
+  ]
+}
+
+// ===== video_summary =====
+右クリックメニューにイベントを設定して、拡張機能を使えるようにしていきます。
+
+
+    右クリックメニューのイベント設定
+    動作確認
+    event.jsのデバック
+
+// ===== /MyExtensions/05_ContextMenus/event.js =====
+'use strict';
+
+chrome.runtime.onInstalled.addListener(function() {
+  var parent = chrome.contextMenus.create({
+    id: 'parent',
+    title: 'Choose Background Color'
+  });
+  chrome.contextMenus.create({
+    id: 'red',
+    parentId: parent,
+    title: 'Red'
+  });
+  chrome.contextMenus.create({
+    id: 'blue',
+    parentId: parent,
+    title: 'Blue'
+  });
+  chrome.contextMenus.create({
+    id: 'green',
+    parentId: parent,
+    title: 'Green'
+  });
+});
+
+chrome.contextMenus.onClicked.addListener(function(item) {
+  chrome.tabs.executeScript({
+    code: 'document.body.style.backgroundColor = "' + item.menuItemId + '"'
+  });
+});
+
+// ===== /MyExtensions/05_ContextMenus/manifest.json =====
+{
+  "manifest_version": 2,
+  "name": "Change background color with context menus",
+  "version": "1.0",
+
+  "background": {
+    "scripts": ["event.js"],
+    "persistent": false
+  },
+
+  "permissions": [
+    "activeTab",
+    "contextMenus"
+  ]
+}
+
+// ===== video_summary =====
+Content Scriptという仕組みを使って、ブラウザのリンク数を検出する拡張機能を作っていきます。
+
+
+    manifest.jsonの編集
+    example.comでの動作確認
+
+// ===== /MyExtensions/06_ContentScript/content.js =====
+(function() {
+  'use strict';
+
+  var links = document.getElementsByTagName('a');
+  alert(links.length);
+})();
+
+// ===== /MyExtensions/06_ContentScript/manifest.json =====
+{
+  "manifest_version": 2,
+  "name": "Count links",
+  "version": "1.0",
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
+
+// ===== video_summary =====
+Content Scriptを使用する際の制約について図を使って解説していきます。
+
+
+    Message Passingについて
+
+// ===== /MyExtensions/06_ContentScript/content.js =====
+(function() {
+  'use strict';
+
+  var links = document.getElementsByTagName('a');
+  alert(links.length);
+})();
+
+// ===== /MyExtensions/06_ContentScript/manifest.json =====
+{
+  "manifest_version": 2,
+  "name": "Count links",
+  "version": "1.0",
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
+
+// ===== video_summary =====
+検出したリンク数をBrowser Actionのアイコンに表示する拡張機能を作っていきます。
+
+
+    07_MessagePassingの作成
+    manifest.jsonの編集
+
+// ===== /MyExtensions/07_MessagePassing/content.js =====
+(function() {
+  'use strict';
+
+  var links = document.getElementsByTagName('a');
+  // alert(links.length);
+  chrome.runtime.sendMessage({count: links.length}, function() {
+    console.log('message sent!');
+  });
+})();
+
+// ===== /MyExtensions/07_MessagePassing/event.js =====
+
+
+// ===== /MyExtensions/07_MessagePassing/manifest.json =====
+{
+  "manifest_version": 2,
+  "name": "Link Count -> Browser Action",
+  "version": "1.0",
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+
+  "background": {
+    "scripts": ["event.js"],
+    "persistent": false
+  },
+
+  "browser_action": {
+    "default_icon": {
+      "16": "icon.png"
+    }
+  }
+}
+
+// ===== video_summary =====
+Message Passingを使って、検出したリンク数をBrowser Actionのバッジに表示させていきます。
+
+
+    sendMessage
+    onMessage
+    動作確認
+
+// ===== /MyExtensions/07_MessagePassing/event.js =====
+'use strict';
+
+chrome.runtime.onMessage.addListener(
+  function(message, sender, callback) {
+    chrome.browserAction.setBadgeText({text: message.count + ''});
+  }
+);
+
+// ===== /MyExtensions/07_MessagePassing/content.js =====
+(function() {
+  'use strict';
+
+  var links = document.getElementsByTagName('a');
+  // alert(links.length);
+  chrome.runtime.sendMessage({count: links.length}, function() {
+    console.log('message sent!');
+  });
+})();
+
+// ===== /MyExtensions/07_MessagePassing/manifest.json =====
+{
+  "manifest_version": 2,
+  "name": "Link Count -> Browser Action",
+  "version": "1.0",
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+
+  "background": {
+    "scripts": ["event.js"],
+    "persistent": false
+  },
+
+  "browser_action": {
+    "default_icon": {
+      "16": "icon.png"
+    }
+  }
+}
+
+// ===== video_summary =====
+新しいタブを表示させたときに、メッセージを表示させる拡張機能を作っていきます。
+
+
+    08_NewTabの作成
+    new.htmlの作成
+    動作確認
+
+// ===== /MyExtensions/08_NewTab/manifest.json =====
+{
+  "manifest_version": 2,
+  "name": "Customized new tab",
+  "version": "1.0",
+
+  "chrome_url_overrides": {
+    "newtab": "new.html"
+  }
+
+}
+
+// ===== /MyExtensions/08_NewTab/new.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>New Tab</title>
+</head>
+<body>
+  You can do it!!!
+</body>
+</html>
+
+
+  </code></pre>
+</body>
+</html>

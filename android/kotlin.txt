@@ -1,0 +1,991 @@
+// ===== video_summary =====
+まずは概要を説明したのちに公式サイト、必要となる知識、レッスンにおける環境について説明していきます。
+
+
+    概要
+    公式サイト
+    必要となる知識
+    レッスンにおける環境
+    Javaの確認
+    Atomの設定
+
+// ===== commentBox 1 =====
+補足情報
+必要となる知識について
+
+
+
+
+2016年11月21日
+
+
+
+
+
+今回のレッスンについては以下も参考にしてみてください。
+
+・ローカル開発環境の構築 [macOS編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_mac_v2
+・ローカル開発環境の構築 [Windows編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_win_v2
+・UNIXコマンド入門 (一般ユーザー編) (全16回)
+http://dotinstall.com/lessons/basic_unix
+・Java 8入門 (全43回) 
+http://dotinstall.com/lessons/basic_java_v2
+
+// ===== read.me =====
+Kotlin
+
+* 概要
+- JetBrains
+- JVM
+- Android
+
+* 公式サイト
+
+* 知識
+
+* 環境
+- ローカル開発環境
+- Atom
+
+
+
+
+
+// ===== video_summary =====
+ローカル開発環境にKotlinをインストールする手順を説明していきます。
+
+
+    Kotlinのインストール
+    REPLの使い方
+
+// ===== commentBox 1 =====
+補足情報
+「java: コマンドが見つかりません」と表示される場合
+
+
+
+
+2017年2月5日
+
+
+
+
+
+Kotlinが動作するにはJavaが必要になります。kotlin -versionにて
+
+/home/vagrant/.sdkman/candidates/kotlin/current/bin/kotlinc: line 73: java: コマンドが見つかりません
+
+
+といったメッセージが表示される場合は
+
+sudo yum -y install java-1.8.0-openjdk-devel
+
+
+としてJavaのインストールを行ってください。
+
+// ===== commentBox 2 =====
+補足情報
+SDKMAN! のインストールに失敗する場合
+
+
+
+
+2017年7月4日
+
+
+
+
+
+ローカル開発環境に zip/unzip パッケージがインストールされていない場合、SDKMAN! のインストールに失敗してしまいます。
+
+sudo yum -y install zip unzip
+
+
+のコマンドでインストールした後、もう一度 SDKMAN! のインストールを試してみてください。
+
+// ===== read.me =====
+pwd
+curl -s https://get.sdkman.io | bash
+source "/home/vagrant/.sdkman/bin/sdkman-init.sh"
+sdk install kotlin
+kotlin -version
+kotlinc
+:quit
+
+
+
+
+
+// ===== video_summary =====
+Hello Worldと表示するプログラムを書いて実行してみます。
+
+
+    myapp.ktの作成
+    コメントの書き方
+    実行方法
+
+// ===== myapp.kt =====
+// comment
+/*
+comment
+comment
+comment
+*/
+
+fun main(args: Array<String>) {
+  println("Hello World")
+}
+
+
+
+
+
+// ===== video_summary =====
+変数の使い方、型推論について見ていきます。
+
+
+    2種類の変数
+    型推論
+
+// ===== myapp.kt =====
+// 変数
+// - val
+// - var
+
+fun main(args: Array<String>) {
+  /*val msg: String = "Hello World"*/
+  /*val msg = "Hello World" // 型推論*/
+  var msg = "Hello World"
+  println(msg)
+  msg = "Hello World 2"
+  println(msg)
+}
+
+
+
+
+
+// ===== video_summary =====
+Kotlinで扱える基本的なデータ型について例を出していきます。
+
+
+    基本的なデータ型
+
+// ===== myapp.kt =====
+fun main(args: Array<String>) {
+  // String, Char
+  val msg: String = "hello World"
+  val c: Char = 'a'
+
+  // Byte, Short, Int, Long
+  val i: Int = 100
+  val l: Long = 55555555555L
+
+  // Float, Double
+  val d: Double = 234.523
+  val f: Float = 12.344F
+
+  // Boolean (true / false)
+  val flag: Boolean = true 
+}
+
+
+
+
+
+// ===== video_summary =====
+基本的なデータ型の演算について見ていきます。
+
+
+    データの演算
+
+// ===== myapp.kt =====
+fun main(args: Array<String>) {
+  // + - * / %
+  val x = 10
+  println(x / 3) // 3
+  println(x / 3.0) // 3.333....
+  println(x % 3) // 1
+
+  // ++ --
+  var y = 5
+  y++
+  println(y) // 6
+  y--
+  println(y) // 5
+
+  var z = 4
+  /*z = z + 12*/
+  z += 12
+
+  // AND OR NOT
+  // && || !
+  val flag = true
+  println(!flag) // false
+}
+
+
+
+
+
+
+// ===== video_summary =====
+文字列の連結や、変数を展開する方法について見ていきます。
+
+
+    文字列の連結
+    変数の展開
+    式の評価
+    特殊文字
+
+// ===== myapp.kt =====
+fun main(args: Array<String>) {
+  // 文字列
+  println("hello " + "world")
+
+  val name = "taguchi"
+  println("my name is $name")
+
+  println("my score is ${12 + 32}")
+
+  // \n: 改行
+  // \t: タブ
+  println("hello\n wor\tld")
+
+
+}
+
+
+
+
+
+// ===== video_summary =====
+ifを使って条件分岐をする方法について解説していきます。
+
+
+    条件分岐
+    比較演算子
+
+// ===== myapp.kt =====
+fun main(args: Array<String>) {
+  // if
+  val score = 45
+  // > >= < <= == !=
+  /*if (score > 80) {
+    println("Great!")
+  } else if (score > 60) {
+    println("Good!")
+  } else {
+    println("so so ...")
+  }*/
+  val result = if (score > 80) "Great" else "so so ..."
+  println(result)
+}
+
+
+
+
+
+// ===== video_summary =====
+whenを使って条件分岐をする方法について見ていきます。
+
+
+    when
+
+// ===== myapp.kt =====
+fun main(args: Array<String>) {
+  // when
+  /*val num = 3*/
+  val num = 5
+
+  /*when (num) {
+    0 -> println("Zero")
+    1 -> println("One")
+    2, 3 -> println("Two or Three")
+    in 4..10 -> println("Many")
+    else -> println("other")
+  }*/
+
+  val result = when (num) {
+    0 -> "Zero"
+    1 -> "One"
+    2, 3 -> "Two or Three"
+    in 4..10 -> "Many"
+    else -> "other"
+  }
+  println(result)
+
+}
+
+
+
+
+
+
+// ===== video_summary =====
+条件を満たしているあいだ、特定の処理を繰り返して実行する方法について見ていきます。
+
+
+    while
+    do ... while
+
+// ===== myapp.kt =====
+fun main(args: Array<String>) {
+  // while
+  // 0 .. 9
+
+  /*var i = 0*/
+  var i = 100
+
+  while (i < 10) {
+    println("loop: $i")
+    i++
+  }
+
+  do {
+    println("loop2: $i")
+    i++
+  } while (i < 10)
+
+}
+
+
+
+
+
+// ===== video_summary =====
+forを使って繰り返し処理を行う方法について解説していきます。
+
+
+    for
+    break
+    continue
+
+// ===== myapp.kt =====
+fun main(args: Array<String>) {
+  // for (変数 in データの集合) 処理
+
+  // break
+  // continue
+
+  for (i in 0..9) {
+    /*if (i == 5) break*/
+    if (i == 5) continue
+    println(i)
+  }
+
+}
+
+
+
+
+
+// ===== video_summary =====
+処理をまとめるための関数の作り方について見ていきます。
+
+
+    関数の作り方
+    引数の使い方
+
+// ===== myapp.kt =====
+// 関数
+
+fun sayHi(name: String = "taguchi", age: Int = 23) {
+  println("hi! $name ($age)")
+}
+
+fun main(args: Array<String>) {
+  /*sayHi()*/
+  sayHi("tom", 22) // 引数
+  sayHi("bob", 20)
+  sayHi() // taguchi, 23
+  sayHi(age = 19, name = "steve")
+}
+
+
+
+
+
+// ===== video_summary =====
+関数の返り値について解説していきます。
+
+
+    返り値
+
+// ===== myapp.kt =====
+// 関数
+
+/*fun sayHi(): Unit {
+  println("hi!")
+}*/
+
+/*fun sayHi(): String {
+  return "hi!"
+}*/
+
+/*fun sayHi(): String = "hi!"*/
+fun sayHi() = "hi!"
+
+fun main(args: Array<String>) {
+  val msg = sayHi()
+  println(msg)
+}
+
+
+
+
+
+// ===== video_summary =====
+自分で作るデータ型であるクラスについて見ていきます。
+
+
+    クラスの作り方
+    メンバ（プロパティ、メソッド）
+
+// ===== myapp.kt =====
+// Class
+// - data: property
+// - fun: method
+
+class User {
+  var name = "Me!"
+  fun sayHi() {
+    /*println("hi ${this.name}")*/
+    println("hi $name")
+  }
+}
+
+fun main(args: Array<String>) {
+  /*val user: User = User()*/
+  val user = User() // インスタンス
+  println(user.name)
+  user.sayHi()
+  user.name = "Me Me!"
+  println(user.name)
+  user.sayHi()
+}
+
+
+
+
+
+// ===== video_summary =====
+クラスに渡すことができるコンストラクタ引数について解説していきます。
+
+
+    コンストラクタ引数
+    初期化ブロック
+
+// ===== myapp.kt =====
+class User(var name: String) { // コンストラクタ引数
+  /*var name = name*/
+  var team = "red"
+  init {
+    println("instance created, name: $name, team: $team")
+  }
+  fun sayHi() {
+    println("hi $name")
+  }
+}
+
+fun main(args: Array<String>) {
+  val tom = User("tom")
+  println(tom.name)
+  tom.sayHi()
+  val bob = User("bob")
+  println(bob.name)
+  bob.sayHi()
+}
+
+
+
+
+
+// ===== video_summary =====
+プロパティのgetter、setterを自分で設定する方法について見ていきます。
+
+
+    getter
+    setter
+
+// ===== myapp.kt =====
+class User(var name: String) {
+  var team = "red"
+    // getter
+    /*get() {
+      return field.toUpperCase()
+    }*/
+    get() = field.toUpperCase()
+    // setter
+    set(value) {
+      if (value != "") {
+        field = value
+      }
+    }
+  fun sayHi() {
+    println("hi $name")
+  }
+}
+
+fun main(args: Array<String>) {
+  val tom = User("tom")
+  println(tom.team) // RED
+  tom.team = "blue"
+  println(tom.team) // BLUE
+  tom.team = ""
+  println(tom.team) // BLUE
+}
+
+
+
+
+
+// ===== video_summary =====
+既存のクラスを継承して新しいクラスをつくる方法について見ていきます。
+
+
+    クラスの継承
+    override
+
+// ===== myapp.kt =====
+// 継承
+// User -> AdminUser
+
+class AdminUser(name: String): User(name) {
+  fun sayHello() {
+    println("hello $name")
+  }
+  override fun sayHi() {
+    println("[admin] hi $name")
+  }
+}
+
+open class User(var name: String) {
+  open fun sayHi() {
+    println("hi $name")
+  }
+}
+
+fun main(args: Array<String>) {
+  val bob = AdminUser("bob")
+  println(bob.name)
+  bob.sayHello() // hello
+  bob.sayHi() // [admin] hi bob
+}
+
+
+
+
+
+// ===== video_summary =====
+アクセス修飾子の種類とその使い方について見ていきます。
+
+
+    アクセス修飾子
+
+// ===== myapp.kt =====
+// アクセス修飾子
+// - public どこからでも
+// - protected そのクラス＋サブクラス
+// - private そのクラス
+
+class AdminUser(name: String): User(name) {
+  fun sayHello() {
+    println("hello $name")
+  }
+  override fun sayHi() {
+    println("[admin] hi $name")
+  }
+}
+
+/*open class User(public var name: String) {*/
+/*open class User(protected var name: String) {*/
+open class User(private var name: String) {
+  open fun sayHi() {
+    println("hi $name")
+  }
+}
+
+fun main(args: Array<String>) {
+  val bob = AdminUser("bob")
+  println(bob.name)
+  bob.sayHello()
+  bob.sayHi()
+}
+
+
+
+
+
+// ===== video_summary =====
+既存のクラスにプロパティやメソッドを追加していく方法について見ていきます。
+
+
+    メソッドの追加
+    プロパティの追加
+
+// ===== myapp.kt =====
+// 拡張
+
+fun User.sayHello() {
+  println("hello $name")
+}
+
+fun User.sayHi() {
+  println("[ext] hi $name")
+}
+
+val User.myName: String
+  get() = "I am $name"
+
+class User(var name: String) {
+  fun sayHi() {
+    println("hi $name")
+  }
+}
+
+fun main(args: Array<String>) {
+  val tom = User("tom")
+  tom.sayHello() // hello tom
+  tom.sayHi() // hi tom
+  println(tom.myName) // i am tom
+}
+
+
+
+
+
+// ===== video_summary =====
+継承することが前提となる抽象クラスについて見ていきます。
+
+
+    抽象クラス
+    抽象メンバ
+
+// ===== myapp.kt =====
+// 抽象クラス -> 具象クラス
+// User -> Japanese, American
+
+abstract class User {
+  abstract fun sayHi()
+}
+
+class Japanese: User() {
+  override fun sayHi() {
+    println("こんにちは！")
+  }
+}
+
+class American: User() {
+  override fun sayHi() {
+    println("Hi!")
+  }
+}
+
+fun main(args: Array<String>) {
+  val tom = American()
+  val aki = Japanese()
+  tom.sayHi()
+  aki.sayHi()
+}
+
+
+
+
+
+// ===== video_summary =====
+クラスに機能を追加することができるインターフェースについて見ていきます。
+
+
+    インターフェース
+
+// ===== myapp.kt =====
+// Interface
+
+interface Sharable {
+  // 抽象プロパティ
+  val version: Double
+  // 抽象メソッド
+  fun share()
+  // メソッド
+  fun getInfo() {
+    println("Share I/F ($version)")
+  }
+}
+
+class User: Sharable {
+  override val version = 1.1
+  override fun share() {
+    println("Sharing...")
+  }
+}
+
+fun main(args: Array<String>) {
+  val user = User()
+  user.share()
+  user.getInfo()
+}
+
+
+
+
+
+// ===== video_summary =====
+型を汎用化して使う方法について見ていきます。
+
+
+    型の汎用化
+
+// ===== myapp.kt =====
+// generics
+
+/*class MyInteger {
+  fun getThree(x: Int) {
+    println(x)
+    println(x)
+    println(x)
+  }
+}*/
+
+class MyData<T> {
+  fun getThree(x: T) {
+    println(x)
+    println(x)
+    println(x)
+  }
+}
+
+fun main(args: Array<String>) {
+  /*val mi = MyInteger()
+  mi.getThree(55)*/
+  val i = MyData<Int>()
+  i.getThree(32)
+  val s = MyData<String>()
+  s.getThree("hello")
+}
+
+
+
+
+
+// ===== video_summary =====
+値を保持して取り回すことを目的としたデータクラスについて見ていきます。
+
+
+    データクラス
+
+// ===== myapp.kt =====
+// data class
+
+data class Point(val x: Int, val y: Int)
+
+fun main(args: Array<String>) {
+  val p1 = Point(3, 5)
+  val p2 = p1.copy()
+  /*val p2 = Point(3, 5)*/
+
+  println(p1)
+  println(if (p1 == p2) "same" else "not same")
+
+  val (x, y) = p1
+  println("$x:$y")
+}
+
+
+
+
+
+// ===== video_summary =====
+コレクションの一種であるListについて見ていきます。
+
+
+    Listの作り方
+    Listで使えるメソッド
+    Mutableなリスト
+
+// ===== myapp.kt =====
+// Collection
+/*
+- List (Immutable/Mutable)
+- Set (Immutable/Mutable)
+- Map (Immutable/Mutable)
+*/
+
+fun main(args: Array<String>) {
+  /*val sales: List<Int> = listOf(20, 30, 40)*/
+  /*val sales = listOf(20, 30, 40)*/
+  val sales = mutableListOf(20, 30, 40)
+  println(sales[1]) // 30
+  sales[1] = 50
+  println(sales.size) // 3
+  for (sale in sales) {
+    println(sale)
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+重複を許さないコレクションであるSetについて解説していきます。
+
+
+    Setの作り方
+    集合演算
+    Mutableなセット
+
+// ===== myapp.kt =====
+// Collection
+/*
+- List (Immutable/Mutable)
+- Set (Immutable/Mutable)
+- Map (Immutable/Mutable)
+*/
+
+fun main(args: Array<String>) {
+  /*val answers: Set<Int> = setOf(5, 3, 8, 5)*/
+  /*val answers = setOf(5, 3, 8, 5)*/
+  val answers = mutableSetOf(5, 3, 8, 5)
+  answers.add(15)
+  answers.remove(3)
+  println(answers)
+  /*println(answers.contains(3)) // true*/
+
+  /*val set1 = setOf(1, 3, 5, 8)
+  val set2 = setOf(3, 5, 8, 9)
+  println(set1.intersect(set2))
+  println(set1.union(set2))
+  println(set1.subtract(set2))*/
+}
+
+
+
+
+
+// ===== video_summary =====
+キーと値でデータを管理するMapについて見ていきます。
+
+
+    Mapの作り方
+    Mapで使えるメソッド
+    Mutableなマップ
+
+// ===== myapp.kt =====
+// Collection
+/*
+- List (Immutable/Mutable)
+- Set (Immutable/Mutable)
+- Map (Immutable/Mutable)
+*/
+
+fun main(args: Array<String>) {
+  /*val users: Map<String, Int> = mapOf("taguchi" to 40, "fkoji" to 80, "dotinstall" to 60)*/
+  /*val users = mapOf("taguchi" to 40, "fkoji" to 80, "dotinstall" to 60)*/
+  val users = mutableMapOf("taguchi" to 40, "fkoji" to 80, "dotinstall" to 60)
+  /*println(users["taguchi"]) // 40*/
+  users["taguchi"] = 55
+  /*println(users.size) // 3
+  println(users.keys)
+  println(users.values)*/
+  println(users.entries)
+}
+
+
+
+
+
+// ===== video_summary =====
+リストに関数を適用する方法について解説していきます。
+
+
+    map
+    ラムダ式
+    暗黙の引数
+    filter
+    foreach
+
+// ===== myapp.kt =====
+fun main(args: Array<String>) {
+  val prices = listOf(53.2, 48.2, 32.8)
+  prices
+    /*.map { n -> n * 1.08 } // 引数 -> 処理*/
+    .map { it * 1.08 }
+    /*.filter { n -> n > 50 } */
+    .filter { it > 50 }
+    .forEach { println(it) }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+try ... catch ... finallyを使って例外処理をする方法について見ていきます。
+
+
+    例外処理
+    独自の例外クラス
+
+// ===== myapp.kt =====
+// 例外処理
+
+class MyException(message: String): Throwable(message)
+
+fun div(a: Int, b: Int) {
+  try {
+    if (b < 0) {
+      throw MyException("not minus!")
+    }
+    println(a / b)
+  } catch (e: ArithmeticException) {
+    println(e.message)
+  } catch (e: MyException) {
+    println(e.message)
+  } finally {
+    println(" -- end -- ")
+  }
+}
+
+fun main(args: Array<String>) {
+  div(3, 0)
+  div(3, -3)
+}
+
+
+
+
+
+
+// ===== video_summary =====
+NullにすることができるNullable型の扱いについて説明していきます。
+
+
+    Nullable型
+    Nullチェックの方法
+
+// ===== myapp.kt =====
+// null
+
+fun main(args: Array<String>) {
+  /*val s: String = null*/
+  val s: String? = null // nullable
+  /*println(s)*/
+
+  /*if (s != null) {
+    println(s.length)
+  } else {
+    println(null)
+  }*/
+  /*println(s?.length)*/
+  /*println(s?.length ?: -1)*/
+  println(s!!.length)
+}
+
+
+
+
+

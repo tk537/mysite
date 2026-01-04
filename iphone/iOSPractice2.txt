@@ -1,0 +1,1134 @@
+// ===== video_summary =====
+まずは完成版について説明したのちに、必要となる知識、レッスンにおける環境について説明していきます。
+
+
+    完成版の確認
+    必要となる知識
+    レッスンのおける環境
+    プロジェクトの作成
+
+// ===== commentBox 1 =====
+補足情報
+プロジェクト作成時のUser Interfaceについて
+
+
+
+
+2020年1月17日
+
+
+
+
+
+最新版のXcodeではプロジェクト作成時にUser Interfaceを選べるようになっておりますが、レッスンと同じようにすすめるには「SwiftUI」ではなくて、「Storyboard」を選ぶようにしてください。
+
+// ===== commentBox 2 =====
+補足情報
+必要となる知識について
+
+
+
+
+2017年2月28日
+
+
+
+
+
+今回のレッスンについては以下も参考にしてみてください。
+
+・iPhoneアプリ開発入門 (全13回)
+http://dotinstall.com/lessons/basic_iphoneapp_v3
+・iOSレイアウト入門 (全14回)
+http://dotinstall.com/lessons/basic_ios_layout_v2
+・Swift 3入門 (全36回) - プログラミングならドットインストール
+http://dotinstall.com/lessons/basic_swift_v2
+
+// ===== read.me =====
+iOS 姓名診断
+
+# 完成版
+
+# 知識
+
+# 環境
+- Xcode 8.1 / Swift 3
+
+// ===== /NameScoreApp/NameScoreApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  NameScoreApp
+//
+//  Created by Gen Taguchi on 2017/01/18.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+
+
+
+
+
+
+// ===== video_summary =====
+Navigation Controllerを設置したのちに、診断画面に必要な部品を配置していきます。
+
+
+    Navigation Controllerの設置
+    部品の配置
+    制約の設定
+
+// ===== commentBox 1 =====
+補足情報
+Xcode 9でのナビゲーションバーのタイトル
+
+
+
+
+2018年1月14日
+
+
+
+
+
+Xcode 9 ではダブルクリックでナビゲーションバーのタイトルを入力することができません。
+
+シングルクリックすると右側の Attribute inspector にタイトル入力欄が表示されますので、そちらで入力するようにしてください。
+
+// ===== /NameScoreApp/NameScoreApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  NameScoreApp
+//
+//  Created by Gen Taguchi on 2017/02/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+診断結果を表示する画面を作り込んでいきます。
+
+
+    ViewControllerの設置
+    部品の設置
+
+// ===== /NameScoreApp/NameScoreApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  NameScoreApp
+//
+//  Created by Gen Taguchi on 2017/02/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+診断結果に紐付けるためのResultViewControllerクラスを作っていきます。
+
+
+    クラスの作成
+    ViewControllerへの紐付け
+
+// ===== /NameScoreApp/NameScoreApp/ResultViewController.swift =====
+//
+//  ResultViewController.swift
+//  NameScoreApp
+//
+//  Created by Gen Taguchi on 2017/02/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ResultViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+// ===== /NameScoreApp/NameScoreApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  NameScoreApp
+//
+//  Created by Gen Taguchi on 2017/02/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+
+
+
+
+
+
+// ===== video_summary =====
+セグエを使って次の画面に値を渡す方法について見ていきます。
+
+
+    セグエの設定
+    変数の設定
+    prepareメソッド
+
+// ===== /NameScoreApp/NameScoreApp/ResultViewController.swift =====
+//
+//  ResultViewController.swift
+//  NameScoreApp
+//
+//  Created by Gen Taguchi on 2017/02/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ResultViewController: UIViewController {
+
+    var myName: String = ""
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+// ===== /NameScoreApp/NameScoreApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  NameScoreApp
+//
+//  Created by Gen Taguchi on 2017/02/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+    
+    @IBOutlet weak var nameText: UITextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let resultVC = segue.destination as! ResultViewController
+        resultVC.myName = self.nameText.text!
+    }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+画面間で値の受け渡しをする方法について見ていきます。
+
+
+    セグエの確認
+    動作確認
+
+// ===== /NameScoreApp/NameScoreApp/ResultViewController.swift =====
+//
+//  ResultViewController.swift
+//  NameScoreApp
+//
+//  Created by Gen Taguchi on 2017/02/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ResultViewController: UIViewController {
+
+    var myName: String = ""
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+//        print(myName)
+        
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+// ===== /NameScoreApp/NameScoreApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  NameScoreApp
+//
+//  Created by Gen Taguchi on 2017/02/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+    
+    @IBOutlet weak var nameText: UITextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let identifier = segue.identifier else {
+            return
+        }
+        if identifier == "showResult" {
+            let resultVC = segue.destination as! ResultViewController
+            resultVC.myName = self.nameText.text!            
+        }
+    }
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+診断結果に名前や点数を表示してみます。
+
+
+    名前の表示
+    乱数の生成
+    点数の表示
+
+// ===== /NameScoreApp/NameScoreApp/ResultViewController.swift =====
+//
+//  ResultViewController.swift
+//  NameScoreApp
+//
+//  Created by Gen Taguchi on 2017/02/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ResultViewController: UIViewController {
+
+    var myName: String = ""
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+//        print(myName)
+        
+        self.nameLabel.text = "\(self.myName)'s score is ..."
+        
+        // 0 - n
+        // arc4random_uniform(n + 1)
+        self.scoreLabel.text = String(arc4random_uniform(101))
+
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+// ===== /NameScoreApp/NameScoreApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  NameScoreApp
+//
+//  Created by Gen Taguchi on 2017/02/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+    
+    @IBOutlet weak var nameText: UITextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let identifier = segue.identifier else {
+            return
+        }
+        if identifier == "showResult" {
+            let resultVC = segue.destination as! ResultViewController
+            resultVC.myName = self.nameText.text!            
+        }
+    }
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+名前が空だったときにセグエで画面が遷移しないようにしてみます。
+
+
+    shouldPerformSegue
+    エラー処理
+
+// ===== /NameScoreApp/NameScoreApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  NameScoreApp
+//
+//  Created by Gen Taguchi on 2017/02/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+    
+    @IBOutlet weak var nameText: UITextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "showResult" {
+            guard self.nameText.text != "" else {
+                print("no name!")
+                return false
+            }
+            return true
+        }
+        return true
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let identifier = segue.identifier else {
+            return
+        }
+        if identifier == "showResult" {
+            let resultVC = segue.destination as! ResultViewController
+            resultVC.myName = self.nameText.text!            
+        }
+    }
+}
+
+// ===== /NameScoreApp/NameScoreApp/ResultViewController.swift =====
+//
+//  ResultViewController.swift
+//  NameScoreApp
+//
+//  Created by Gen Taguchi on 2017/02/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ResultViewController: UIViewController {
+
+    var myName: String = ""
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+//        print(myName)
+        
+        self.nameLabel.text = "\(self.myName)'s score is ..."
+        
+        // 0 - n
+        // arc4random_uniform(n + 1)
+        self.scoreLabel.text = String(arc4random_uniform(101))
+
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+
+
+
+
+
+// ===== video_summary =====
+エラー発生時にアラート画面を出す方法について解説していきます。
+
+
+    アラート画面の設定
+    動作確認
+
+// ===== /NameScoreApp/NameScoreApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  NameScoreApp
+//
+//  Created by Gen Taguchi on 2017/02/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+    
+    @IBOutlet weak var nameText: UITextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "showResult" {
+            guard self.nameText.text != "" else {
+//                print("no name!")
+                let alertController = UIAlertController(title: "Error", message: "Please enter your name", preferredStyle: .alert)
+                let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(defaultAction)
+                self.present(alertController, animated: true, completion: nil)
+                return false
+            }
+            return true
+        }
+        return true
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let identifier = segue.identifier else {
+            return
+        }
+        if identifier == "showResult" {
+            let resultVC = segue.destination as! ResultViewController
+            resultVC.myName = self.nameText.text!            
+        }
+    }
+}
+
+// ===== /NameScoreApp/NameScoreApp/ResultViewController.swift =====
+//
+//  ResultViewController.swift
+//  NameScoreApp
+//
+//  Created by Gen Taguchi on 2017/02/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ResultViewController: UIViewController {
+
+    var myName: String = ""
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+//        print(myName)
+        
+        self.nameLabel.text = "\(self.myName)'s score is ..."
+        
+        // 0 - n
+        // arc4random_uniform(n + 1)
+        self.scoreLabel.text = String(arc4random_uniform(101))
+
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+
+
+
+
+// ===== video_summary =====
+診断画面に戻ってきたときにTextFieldをクリアする方法を見ていきます。
+
+
+    viewWillAppear()
+
+// ===== commentBox 1 =====
+補足情報
+【訂正】動画 0:39 からの override の説明について
+
+
+
+
+2017年9月7日
+
+
+
+
+
+動画中で「戻り値のないメソッドを override する時は、必ず親クラスのメソッドを呼ばないといけないので」と説明されていますが、この説明は誤りでした。
+
+正しくは「viewWillAppear を override する際には super.viewWillAppear を呼ぶ決まりになっているので」となります。
+
+// ===== /NameScoreApp/NameScoreApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  NameScoreApp
+//
+//  Created by Gen Taguchi on 2017/02/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+    
+    @IBOutlet weak var nameText: UITextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.nameText.text = ""
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "showResult" {
+            guard self.nameText.text != "" else {
+//                print("no name!")
+                let alertController = UIAlertController(title: "Error", message: "Please enter your name", preferredStyle: .alert)
+                let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(defaultAction)
+                self.present(alertController, animated: true, completion: nil)
+                return false
+            }
+            return true
+        }
+        return true
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let identifier = segue.identifier else {
+            return
+        }
+        if identifier == "showResult" {
+            let resultVC = segue.destination as! ResultViewController
+            resultVC.myName = self.nameText.text!            
+        }
+    }
+}
+
+// ===== /NameScoreApp/NameScoreApp/ResultViewController.swift =====
+//
+//  ResultViewController.swift
+//  NameScoreApp
+//
+//  Created by Gen Taguchi on 2017/02/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ResultViewController: UIViewController {
+
+    var myName: String = ""
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+//        print(myName)
+        
+        self.nameLabel.text = "\(self.myName)'s score is ..."
+        
+        // 0 - n
+        // arc4random_uniform(n + 1)
+        self.scoreLabel.text = String(arc4random_uniform(101))
+
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+
+
+
+
+
+// ===== video_summary =====
+resignFirstResponderメソッドを使い、診断画面に戻ってきたときにキーボードが消えるように設定していきます。
+
+
+    resignFirstResponderメソッド
+    動作確認
+
+// ===== /NameScoreApp/NameScoreApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  NameScoreApp
+//
+//  Created by Gen Taguchi on 2017/02/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+    
+    @IBOutlet weak var nameText: UITextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.nameText.text = ""
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "showResult" {
+            guard self.nameText.text != "" else {
+//                print("no name!")
+                let alertController = UIAlertController(title: "Error", message: "Please enter your name", preferredStyle: .alert)
+                let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(defaultAction)
+                self.present(alertController, animated: true, completion: nil)
+                return false
+            }
+            return true
+        }
+        return true
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let identifier = segue.identifier else {
+            return
+        }
+        if identifier == "showResult" {
+            let resultVC = segue.destination as! ResultViewController
+            resultVC.myName = self.nameText.text!
+            self.nameText.resignFirstResponder()
+        }
+    }
+}
+
+// ===== /NameScoreApp/NameScoreApp/ResultViewController.swift =====
+//
+//  ResultViewController.swift
+//  NameScoreApp
+//
+//  Created by Gen Taguchi on 2017/02/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ResultViewController: UIViewController {
+
+    var myName: String = ""
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+//        print(myName)
+        
+        self.nameLabel.text = "\(self.myName)'s score is ..."
+        
+        // 0 - n
+        // arc4random_uniform(n + 1)
+        self.scoreLabel.text = String(arc4random_uniform(101))
+
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+
+
+
+
+// ===== video_summary =====
+キーボードのSendボタンを押しても診断が行われるように設定していきます。
+
+
+    delegateの設定
+    動作確認
+
+// ===== /NameScoreApp/NameScoreApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  NameScoreApp
+//
+//  Created by Gen Taguchi on 2017/02/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController, UITextFieldDelegate {
+    
+    @IBOutlet weak var nameText: UITextField!
+    @IBOutlet weak var sendButton: UIButton!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        nameText.delegate = self
+    }
+    
+    // delegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.sendButton.sendActions(for: .touchUpInside)
+        return true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.nameText.text = ""
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "showResult" {
+            guard self.nameText.text != "" else {
+//                print("no name!")
+                let alertController = UIAlertController(title: "Error", message: "Please enter your name", preferredStyle: .alert)
+                let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(defaultAction)
+                self.present(alertController, animated: true, completion: nil)
+                return false
+            }
+            return true
+        }
+        return true
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let identifier = segue.identifier else {
+            return
+        }
+        if identifier == "showResult" {
+            let resultVC = segue.destination as! ResultViewController
+            resultVC.myName = self.nameText.text!
+            self.nameText.resignFirstResponder()
+        }
+    }
+}
+
+// ===== /NameScoreApp/NameScoreApp/ResultViewController.swift =====
+//
+//  ResultViewController.swift
+//  NameScoreApp
+//
+//  Created by Gen Taguchi on 2017/02/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ResultViewController: UIViewController {
+
+    var myName: String = ""
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+//        print(myName)
+        
+        self.nameLabel.text = "\(self.myName)'s score is ..."
+        
+        // 0 - n
+        // arc4random_uniform(n + 1)
+        self.scoreLabel.text = String(arc4random_uniform(101))
+
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+
+
+
+

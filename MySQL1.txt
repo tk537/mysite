@@ -1,0 +1,1243 @@
+// ===== video_summary =====
+公式サイトを確認したあとに、データベースの概要について説明していきます。
+
+
+    公式サイトの確認
+    データベースの概要
+
+// ===== commentBox 1 =====
+補足情報
+公式サイトについて
+
+
+
+
+2020年9月10日
+
+
+
+
+
+レッスン内で紹介したMySQL, MariaDBの公式サイトは以下になります。
+
+MySQL
+https://mysql.com
+MariaDB
+https://mariadb.com/
+
+// ===== commentBox 2 =====
+補足情報
+応用編について
+
+
+
+
+2020年9月10日
+
+
+
+
+
+現在制作中となります。近日中に公開します。
+
+// ===== main.sql =====
+
+
+// ===== unknown =====
+¶
+
+
+
+
+
+// ===== video_summary =====
+ブラウザ実行環境の使い方について説明していきます。
+
+
+    コードの実行
+    ターミナルをクリアする方法
+
+// ===== main.sql =====
+SELECT VERSION();
+SELECT 5 + 5;
+
+// ===== unknown =====
+SELECT·VERSION();¬
+SELECT·5·+·3;¶
+
+
+
+
+// ===== video_summary =====
+データベースの用語を図を使いながら確認していきます。
+
+
+    TABLE
+    RECORD
+    COLUMN
+    SQL
+
+// ===== main.sql =====
+
+
+// ===== unknown =====
+¶
+
+
+
+
+
+// ===== video_summary =====
+CREATE TABLEでテーブルを作ったあとに、テーブルの構造を確認していきます。
+
+
+    CREATE TABLE
+    DESC
+    SHOW TABLES
+
+// ===== main.sql =====
+CREATE TABLE posts (
+  message VARCHAR(140),
+  likes INT
+);
+
+DESC posts;
+
+SHOW TABLES;
+
+// ===== unknown =====
+¶
+
+
+
+
+// ===== video_summary =====
+テーブルの削除およびレコードの挿入方法についてみていきます。
+
+
+    DROP TABLE
+    INSERT INTO
+    SELECT
+
+// ===== main.sql =====
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  message VARCHAR(140),
+  likes INT
+);
+
+DESC posts;
+SHOW TABLES;
+
+INSERT INTO posts (message, likes) VALUES
+  ('Thanks', 12),
+  ('Arigato', 4);
+
+SELECT * FROM posts;
+
+// ===== unknown =====
+CREATE·TABLE·posts·(¬
+··message·VARCHAR(140),¬
+··likes·INT¬
+);¬
+¬
+DESC·posts;¬
+SHOW·TABLES;¶
+
+
+
+
+// ===== video_summary =====
+エラーメッセージについて確認した後にコメントの書き方を見ていきます。
+
+
+    エラーメッセージの読み解き方
+    コメントの書き方
+
+// ===== main.sql =====
+-- comment
+# comment
+/*
+comment
+comment
+*/
+
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  message VARCHAR(140),
+  likes INT
+);
+
+INSERT INTO posts (message, likes) VALUES
+  ('Thanks', 12),
+  ('Arigato', 4);
+
+SELECT * FROM posts;
+
+// ===== unknown =====
+DROP·TABLE·IF·EXISTS·posts;¬
+CREATE·TABLE·posts·(¬
+··message·VARCHAR(140),¬
+··likes·INT¬
+);¬
+¬
+INSERT·INTO·posts·(message,·likes)·VALUES¬
+··('Thanks',·12),¬
+··('Arigato',·4);¬
+¬
+SELECT·*·FROM·posts;¶
+
+
+
+
+
+// ===== video_summary =====
+MySQLで扱える主なデータ型について例を出しながら見ていきます。
+
+
+    データ型の説明
+
+// ===== main.sql =====
+
+
+// ===== unknown =====
+¶
+
+
+
+
+// ===== video_summary =====
+数値型や文字列型のカラムを作ったあとにデータを挿入していきます。
+
+
+    INT
+    UNSIGNED
+    DECIMAL
+    CHAR
+
+// ===== main.sql =====
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  message VARCHAR(140),
+  likes INT UNSIGNED,
+  mood DECIMAL(4, 2) UNSIGNED,
+  lang CHAR(2)
+);
+
+INSERT INTO posts (message, likes, mood, lang) VALUES
+  ('Thanks', 12, 7.825, 'EN'),
+  ('Arigato', 4, 4.2138, 'JA');
+
+SELECT * FROM posts;
+
+// ===== unknown =====
+DROP·TABLE·IF·EXISTS·posts;¬
+CREATE·TABLE·posts·(¬
+··message·VARCHAR(140),¬
+··likes·INT¬
+);¬
+¬
+INSERT·INTO·posts·(message,·likes)·VALUES¬
+··('Thanks',·12),¬
+··('Arigato',·4);¬
+¬
+SELECT·*·FROM·posts;¶
+
+
+
+
+
+// ===== video_summary =====
+特定の文字列の中から1つだけ格納できるENUM型について見ていきます。
+
+
+    ENUM型
+    インデックスによる表現
+
+// ===== main.sql =====
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  message VARCHAR(140),
+  likes INT,
+  category ENUM('Gadget', 'Game', 'Business')
+);
+
+-- INSERT INTO posts (message, likes, category) VALUES
+--   ('Thanks', 12, 'Gadget'),
+--   ('Arigato', 4, 'Game'),
+--   -- ('Merci', 4, 'Fashion');
+--   ('Merci', 4, 'Business');
+
+INSERT INTO posts (message, likes, category) VALUES
+  ('Thanks', 12, 1),
+  ('Arigato', 4, 2),
+  ('Merci', 4, 3);
+
+SELECT * FROM posts;
+
+// ===== unknown =====
+DROP·TABLE·IF·EXISTS·posts;¬
+CREATE·TABLE·posts·(¬
+··message·VARCHAR(140),¬
+··likes·INT¬
+);¬
+¬
+INSERT·INTO·posts·(message,·likes)·VALUES¬
+··('Thanks',·12),¬
+··('Arigato',·4);¬
+¬
+SELECT·*·FROM·posts;¶
+
+
+
+
+// ===== video_summary =====
+特定の文字列の中から複数を格納できるSET型について見ていきます。
+
+
+    SET型
+    数値による表現
+
+// ===== main.sql =====
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  message VARCHAR(140),
+  likes INT,
+  categories SET('Gadget', 'Game', 'Business') -- 2^0, 2^1, 2^2, ...
+);
+
+-- INSERT INTO posts (message, likes, categories) VALUES
+--   ('Thanks', 12, 'Gadget,Game'),
+--   ('Arigato', 4, 'Business'),
+--   -- ('Arigato', 4, 'Personal'),
+--   ('Merci', 4, 'Business,Gadget');
+
+INSERT INTO posts (message, likes, categories) VALUES
+  ('Thanks', 12, 3),
+  ('Arigato', 4, 4),
+  ('Merci', 4, 5);
+
+SELECT * FROM posts;
+
+// ===== unknown =====
+DROP·TABLE·IF·EXISTS·posts;¬
+CREATE·TABLE·posts·(¬
+··message·VARCHAR(140),¬
+··likes·INT,¬
+··category·ENUM('Gadget',·'Game',·'Business')¬
+);¬
+¬
+INSERT·INTO·posts·(message,·likes,·category)·VALUES¬
+··('Thanks',·12,·1),¬
+··('Arigato',·4,·2),¬
+··('Merci',·4,·3);¬
+¬
+SELECT·*·FROM·posts;¶
+
+
+
+
+// ===== video_summary =====
+真偽値型や日付型の扱い方について見ていきます。
+
+
+    BOOL
+    DATETIME
+    NOW()
+
+// ===== main.sql =====
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  message VARCHAR(140),
+  likes INT,
+  is_draft BOOL,
+  created DATETIME
+);
+
+INSERT INTO posts (message, likes, is_draft, created) VALUES
+  ('Thanks', 12, TRUE, '2020-10-11 15:32:05'),
+  ('Arigato', 4, FALSE, '2020-10-12'),
+  ('Merci', 4, 0, NOW());
+
+SELECT * FROM posts;
+
+// ===== unknown =====
+DROP·TABLE·IF·EXISTS·posts;¬
+CREATE·TABLE·posts·(¬
+··message·VARCHAR(140),¬
+··likes·INT¬
+);¬
+¬
+INSERT·INTO·posts·(message,·likes)·VALUES¬
+··('Thanks',·12),¬
+··('Arigato',·4),¬
+··('Merci',·4);¬
+¬
+SELECT·*·FROM·posts;¶
+
+
+
+
+
+// ===== video_summary =====
+MySQLにおけるNULLの扱いについて見ていきます。
+
+
+    NULL
+    NOT NULL
+    DEFAULT
+
+// ===== main.sql =====
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  message VARCHAR(140),
+  -- likes INT
+  -- likes INT NOT NULL
+  likes INT DEFAULT 0
+);
+
+INSERT INTO posts (message, likes) VALUES
+  ('Thanks', 12),
+  ('Arigato', 4),
+  ('Merci', 4);
+INSERT INTO posts (message) VALUES ('Gracias');
+
+SELECT * FROM posts;
+
+// ===== unknown =====
+DROP·TABLE·IF·EXISTS·posts;¬
+CREATE·TABLE·posts·(¬
+··message·VARCHAR(140),¬
+··likes·INT¬
+);¬
+¬
+INSERT·INTO·posts·(message,·likes)·VALUES¬
+··('Thanks',·12),¬
+··('Arigato',·4),¬
+··('Merci',·4);¬
+¬
+SELECT·*·FROM·posts;¶
+
+
+
+
+
+// ===== video_summary =====
+値の範囲に制限をつけたり重複する値を弾く方法について見ていきます。
+
+
+    CHECK
+    UNIQUE
+
+// ===== main.sql =====
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  message VARCHAR(140) UNIQUE,
+  likes INT CHECK (likes >= 0 AND likes <= 200)
+);
+
+INSERT INTO posts (message, likes) VALUES
+  ('Thanks', 12),
+  ('Arigato', 4),
+  ('Merci', 154),
+  ('Arigato', 10);
+
+SELECT * FROM posts;
+
+// ===== unknown =====
+DROP·TABLE·IF·EXISTS·posts;¬
+CREATE·TABLE·posts·(¬
+··message·VARCHAR(140),¬
+··likes·INT¬
+);¬
+¬
+INSERT·INTO·posts·(message,·likes)·VALUES¬
+··('Thanks',·12),¬
+··('Arigato',·4),¬
+··('Merci',·4);¬
+¬
+SELECT·*·FROM·posts;¶
+
+
+
+
+
+// ===== video_summary =====
+レコードを一意に識別するための主キーについて見ていきます。
+
+
+    PRIMARY KEY
+    AUTO_INCREMENT
+
+// ===== main.sql =====
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  id INT NOT NULL AUTO_INCREMENT,
+  message VARCHAR(140),
+  likes INT,
+  PRIMARY KEY (id)
+);
+
+-- INSERT INTO posts (id, message, likes) VALUES
+--   (1, 'Thanks', 12),
+--   (2, 'Arigato', 4),
+--   (2, 'Merci', 4);
+
+INSERT INTO posts (message, likes) VALUES
+  ('Thanks', 12),
+  ('Arigato', 4),
+  ('Merci', 4);
+
+SELECT * FROM posts;
+
+// ===== unknown =====
+DROP·TABLE·IF·EXISTS·posts;¬
+CREATE·TABLE·posts·(¬
+··message·VARCHAR(140),¬
+··likes·INT¬
+);¬
+¬
+INSERT·INTO·posts·(message,·likes)·VALUES¬
+··('Thanks',·12),¬
+··('Arigato',·4),¬
+··('Merci',·4);¬
+¬
+SELECT·*·FROM·posts;¶
+
+
+
+
+
+// ===== video_summary =====
+SELECTを使ってデータを抽出する方法を見ていきます。
+
+
+    SELECT
+    WHERE
+
+// ===== main.sql =====
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  id INT NOT NULL AUTO_INCREMENT,
+  message VARCHAR(140),
+  likes INT,
+  PRIMARY KEY (id)
+);
+
+INSERT INTO posts (message, likes) VALUES
+  ('Thanks', 12),
+  ('Arigato', 4),
+  ('Merci', 4),
+  ('Gracias', 15),
+  ('Danke', 23);
+
+-- SELECT * FROM posts;
+-- SELECT id, message FROM posts;
+
+-- > >= < <=
+-- SELECT * FROM posts WHERE likes >= 10;
+
+-- = != <>
+SELECT * FROM posts WHERE message = 'Danke';
+SELECT * FROM posts WHERE message != 'Danke';
+SELECT * FROM posts WHERE message <> 'Danke';
+
+// ===== unknown =====
+DROP·TABLE·IF·EXISTS·posts;¬
+CREATE·TABLE·posts·(¬
+··id·INT·NOT·NULL·AUTO_INCREMENT,¬
+··message·VARCHAR(140),¬
+··likes·INT,¬
+··PRIMARY·KEY·(id)¬
+);¬
+¬
+INSERT·INTO·posts·(message,·likes)·VALUES¬
+··('Thanks',·12),¬
+··('Arigato',·4),¬
+··('Merci',·4),¬
+··('Gracias',·15),¬
+··('Danke',·23);¬
+¬
+SELECT·*·FROM·posts;¶
+
+
+
+
+
+// ===== video_summary =====
+複数の条件を組み合わせるためのAND、ORの使い方について見ていきます。
+
+
+    AND
+    BETWEEN
+    OR
+    IN
+
+// ===== main.sql =====
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  id INT NOT NULL AUTO_INCREMENT,
+  message VARCHAR(140),
+  likes INT,
+  PRIMARY KEY (id)
+);
+
+INSERT INTO posts (message, likes) VALUES
+  ('Thanks', 12),
+  ('Arigato', 4),
+  ('Merci', 4),
+  ('Gracias', 15),
+  ('Danke', 23);
+
+-- AND なおかつ
+-- OR  もしくは
+-- SELECT * FROM posts WHERE likes >= 10 AND likes <= 20;
+-- SELECT * FROM posts WHERE likes BETWEEN 10 AND 20;
+-- SELECT * FROM posts WHERE likes NOT BETWEEN 10 AND 20;
+SELECT * FROM posts WHERE likes = 4 OR likes = 12;
+SELECT * FROM posts WHERE likes IN (4, 12);
+SELECT * FROM posts WHERE likes NOT IN (4, 12);
+
+// ===== unknown =====
+DROP·TABLE·IF·EXISTS·posts;¬
+CREATE·TABLE·posts·(¬
+··id·INT·NOT·NULL·AUTO_INCREMENT,¬
+··message·VARCHAR(140),¬
+··likes·INT,¬
+··PRIMARY·KEY·(id)¬
+);¬
+¬
+INSERT·INTO·posts·(message,·likes)·VALUES¬
+··('Thanks',·12),¬
+··('Arigato',·4),¬
+··('Merci',·4),¬
+··('Gracias',·15),¬
+··('Danke',·23);¶
+
+
+
+
+
+// ===== video_summary =====
+%を使った条件で文字列を抽出する方法について見ていきます。
+
+
+    %
+    LIKE
+    BINARY
+
+// ===== main.sql =====
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  id INT NOT NULL AUTO_INCREMENT,
+  message VARCHAR(140),
+  likes INT,
+  PRIMARY KEY (id)
+);
+
+INSERT INTO posts (message, likes) VALUES
+  ('Thank you!', 12),
+  ('thanks 100%', 4),
+  ('Gracias', 4),
+  ('Arigato_gozaimasu', 15),
+  ('Arigato! desu', 23);
+
+-- SELECT * FROM posts WHERE message = 'Gracias';
+
+-- %: 0文字以上の任意の文字
+-- _: 任意の1文字
+
+-- SELECT * FROM posts WHERE message LIKE 't%';
+-- SELECT * FROM posts WHERE message LIKE BINARY 't%';
+
+SELECT * FROM posts WHERE message LIKE '%su';
+SELECT * FROM posts WHERE message LIKE '%i%';
+
+// ===== unknown =====
+DROP·TABLE·IF·EXISTS·posts;¬
+CREATE·TABLE·posts·(¬
+··id·INT·NOT·NULL·AUTO_INCREMENT,¬
+··message·VARCHAR(140),¬
+··likes·INT,¬
+··PRIMARY·KEY·(id)¬
+);¬
+¬
+INSERT·INTO·posts·(message,·likes)·VALUES¬
+··('Thank·you!',·12),¬
+··('thanks·100%',·4),¬
+··('Gracias',·4),¬
+··('Arigato_gozaimasu',·15),¬
+··('Arigato!·desu',·23);¶
+
+
+
+
+
+// ===== video_summary =====
+_を使った条件で文字列を抽出する方法について見ていきます。
+
+
+    _
+    \%
+    \_
+
+// ===== main.sql =====
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  id INT NOT NULL AUTO_INCREMENT,
+  message VARCHAR(140),
+  likes INT,
+  PRIMARY KEY (id)
+);
+
+INSERT INTO posts (message, likes) VALUES
+  ('Thank you!', 12),
+  ('thanks 100%', 4),
+  ('Gracias', 4),
+  ('Arigato_gozaimasu', 15),
+  ('Arigato! desu', 23);
+
+-- %: 0文字以上の任意の文字
+-- _: 任意の1文字
+
+-- SELECT * FROM posts WHERE message LIKE '__a%';
+-- SELECT * FROM posts WHERE message NOT LIKE '__a%';
+
+-- SELECT * FROM posts WHERE message LIKE '%\%%';
+SELECT * FROM posts WHERE message LIKE '%\_%';
+
+// ===== unknown =====
+DROP·TABLE·IF·EXISTS·posts;¬
+CREATE·TABLE·posts·(¬
+··id·INT·NOT·NULL·AUTO_INCREMENT,¬
+··message·VARCHAR(140),¬
+··likes·INT,¬
+··PRIMARY·KEY·(id)¬
+);¬
+¬
+INSERT·INTO·posts·(message,·likes)·VALUES¬
+··('Thank·you!',·12),¬
+··('thanks·100%',·4),¬
+··('Gracias',·4),¬
+··('Arigato_gozaimasu',·15),¬
+··('Arigato!·desu',·23);¬
+¬
+--·%:·0文字以上の任意の文字¬
+--·_:·任意の1文字¬
+¶
+
+
+
+
+
+
+// ===== video_summary =====
+NULLを抽出条件に含める方法を見ていきます。
+
+
+    IS NULL
+    IS NOT NULL
+
+// ===== main.sql =====
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  id INT NOT NULL AUTO_INCREMENT,
+  message VARCHAR(140),
+  likes INT,
+  PRIMARY KEY (id)
+);
+
+INSERT INTO posts (message, likes) VALUES
+  ('Thanks', 12),
+  ('Arigato', 4),
+  ('Merci', NULL),
+  ('Gracias', 15),
+  ('Danke', NULL);
+
+-- SELECT * FROM posts;
+-- SELECT * FROM posts WHERE likes != 12;
+-- SELECT * FROM posts WHERE likes != 12 OR likes IS NULL;
+SELECT * FROM posts WHERE likes IS NOT NULL;
+
+// ===== unknown =====
+DROP·TABLE·IF·EXISTS·posts;¬
+CREATE·TABLE·posts·(¬
+··id·INT·NOT·NULL·AUTO_INCREMENT,¬
+··message·VARCHAR(140),¬
+··likes·INT,¬
+··PRIMARY·KEY·(id)¬
+);¬
+¬
+INSERT·INTO·posts·(message,·likes)·VALUES¬
+··('Thanks',·12),¬
+··('Arigato',·4),¬
+··('Merci',·NULL),¬
+··('Gracias',·15),¬
+··('Danke',·NULL);¶
+
+
+
+
+// ===== video_summary =====
+ORDER BYを使って抽出結果を並び替える方法を見ていきます。
+
+
+    ORDER BY
+    DESC
+    LIMIT
+    OFFSET
+
+// ===== main.sql =====
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  id INT NOT NULL AUTO_INCREMENT,
+  message VARCHAR(140),
+  likes INT,
+  PRIMARY KEY (id)
+);
+
+INSERT INTO posts (message, likes) VALUES
+  ('Thanks', 12),
+  ('Merci', 4),
+  ('Arigato', 4),
+  ('Gracias', 15),
+  ('Danke', 8);
+
+-- SELECT * FROM posts ORDER BY likes;
+-- SELECT * FROM posts ORDER BY likes DESC;
+SELECT * FROM posts ORDER BY likes DESC, message;
+-- SELECT * FROM posts ORDER BY likes DESC, message LIMIT 3;
+SELECT * FROM posts ORDER BY likes DESC, message LIMIT 3 OFFSET 2;
+SELECT * FROM posts ORDER BY likes DESC, message LIMIT 2, 3;
+
+// ===== unknown =====
+DROP·TABLE·IF·EXISTS·posts;¬
+CREATE·TABLE·posts·(¬
+··id·INT·NOT·NULL·AUTO_INCREMENT,¬
+··message·VARCHAR(140),¬
+··likes·INT,¬
+··PRIMARY·KEY·(id)¬
+);¬
+¬
+INSERT·INTO·posts·(message,·likes)·VALUES¬
+··('Thanks',·12),¬
+··('Merci',·4),¬
+··('Arigato',·4),¬
+··('Gracias',·15),¬
+··('Danke',·8);¶
+
+
+
+
+// ===== video_summary =====
+数値関連の関数を使ってデータを抽出していきます。
+
+
+    四則演算
+    ASによる別名
+    FLOOR()
+    CEIL()
+    ROUND()
+
+// ===== main.sql =====
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  id INT NOT NULL AUTO_INCREMENT,
+  message VARCHAR(140),
+  likes INT,
+  PRIMARY KEY (id)
+);
+
+INSERT INTO posts (message, likes) VALUES
+  ('Thanks', 12),
+  ('Merci', 4),
+  ('Arigato', 4),
+  ('Gracias', 15),
+  ('Danke', 8);
+
+-- + - * / %
+
+SELECT
+  likes * 500 / 3 AS bonus,
+  FLOOR(likes * 500 / 3) AS floor,
+  CEIL(likes * 500 / 3) AS ceil,
+  -- ROUND(likes * 500 / 3) AS round
+  ROUND(likes * 500 / 3, 2) AS round
+FROM
+  posts;
+
+// ===== unknown =====
+DROP·TABLE·IF·EXISTS·posts;¬
+CREATE·TABLE·posts·(¬
+··id·INT·NOT·NULL·AUTO_INCREMENT,¬
+··message·VARCHAR(140),¬
+··likes·INT,¬
+··PRIMARY·KEY·(id)¬
+);¬
+¬
+INSERT·INTO·posts·(message,·likes)·VALUES¬
+··('Thanks',·12),¬
+··('Merci',·4),¬
+··('Arigato',·4),¬
+··('Gracias',·15),¬
+··('Danke',·8);¶
+
+
+
+
+// ===== video_summary =====
+文字列関連の関数を使ってデータを抽出していきます。
+
+
+    SUBSTRING()
+    CONCAT()
+    LENGTH()
+    CHAR_LENGTH()
+
+// ===== main.sql =====
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  id INT NOT NULL AUTO_INCREMENT,
+  message VARCHAR(140),
+  likes INT,
+  PRIMARY KEY (id)
+);
+
+INSERT INTO posts (message, likes) VALUES
+  ('Thanks', 12),
+  ('Merci', 4),
+  -- ('Arigato', 4),
+  ('ありがとう', 4),
+  ('Gracias', 15),
+  ('Danke', 8);
+
+SELECT message, SUBSTRING(message, 3) FROM posts;
+SELECT message, SUBSTRING(message, 3, 2) FROM posts;
+SELECT message, SUBSTRING(message, -2) FROM posts;
+
+-- SELECT CONCAT(message, ' - ', likes) FROM posts;
+-- SELECT message, LENGTH(message) AS len FROM posts;
+-- SELECT message, CHAR_LENGTH(message) AS len FROM posts;
+
+// ===== unknown =====
+DROP·TABLE·IF·EXISTS·posts;¬
+CREATE·TABLE·posts·(¬
+··id·INT·NOT·NULL·AUTO_INCREMENT,¬
+··message·VARCHAR(140),¬
+··likes·INT,¬
+··PRIMARY·KEY·(id)¬
+);¬
+¬
+INSERT·INTO·posts·(message,·likes)·VALUES¬
+··('Thanks',·12),¬
+··('Merci',·4),¬
+··('Arigato',·4),¬
+··('Gracias',·15),¬
+··('Danke',·8);¶
+
+
+
+
+// ===== video_summary =====
+日時関連の関数を使ってデータを抽出していきます。
+
+
+    YEAR()
+    MONTH()
+    DAY()
+    DATE_FORMAT()
+    DATE_ADD()
+    DATEDIFF()
+
+// ===== commentBox 1 =====
+補足情報
+DATE_FORMATの指定子について
+
+
+
+
+2020年9月10日
+
+
+
+
+
+DATE_FORMATを使って好きなフォーマットで日時を抽出したい場合は以下のマニュアルをご覧ください。
+
+MySQL 5.6 リファレンスマニュアル :: 12.7 日付および時間関数
+https://dev.mysql.com/doc/refman/5.6/ja/date-and-time-functions.html#function_date-format
+
+// ===== main.sql =====
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  id INT NOT NULL AUTO_INCREMENT,
+  message VARCHAR(140),
+  likes INT,
+  created DATETIME,
+  PRIMARY KEY (id)
+);
+
+INSERT INTO posts (message, likes, created) VALUES
+  ('Thanks', 12, '2020-05-01'),
+  ('Merci', 4, '2020-05-03'),
+  ('Arigato', 4, '2020-06-14'),
+  ('Gracias', 15, '2020-07-04'),
+  ('Danke', 8, '2020-08-22');
+
+-- SELECT created, YEAR(created) FROM posts;
+-- SELECT created, MONTH(created) FROM posts;
+-- SELECT created, DAY(created) FROM posts;
+
+SELECT
+  created,
+  DATE_FORMAT(created, '%M %D %Y, %W') AS date
+FROM
+  posts;
+
+SELECT
+  created,
+  DATE_ADD(created, INTERVAL 7 DAY) AS next
+FROM
+  posts;
+
+SELECT
+  created,
+  NOW(),
+  DATEDIFF(created, NOW()) AS diff
+FROM
+  posts;
+
+// ===== unknown =====
+DROP·TABLE·IF·EXISTS·posts;¬
+CREATE·TABLE·posts·(¬
+··id·INT·NOT·NULL·AUTO_INCREMENT,¬
+··message·VARCHAR(140),¬
+··likes·INT,¬
+··created·DATETIME,¬
+··PRIMARY·KEY·(id)¬
+);¬
+¬
+INSERT·INTO·posts·(message,·likes,·created)·VALUES¬
+··('Thanks',·12,·'2020-05-01'),¬
+··('Merci',·4,·'2020-05-03'),¬
+··('Arigato',·4,·'2020-06-14'),¬
+··('Gracias',·15,·'2020-07-04'),¬
+··('Danke',·8,·'2020-08-22');¶
+
+
+
+
+// ===== video_summary =====
+UPDATEを使ってレコードを更新する方法を見ていきます。
+
+
+    UPDATE
+    UPPER
+
+// ===== main.sql =====
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  id INT NOT NULL AUTO_INCREMENT,
+  message VARCHAR(140),
+  likes INT,
+  PRIMARY KEY (id)
+);
+
+INSERT INTO posts (message, likes) VALUES
+  ('Thanks', 12),
+  ('Merci', 4),
+  ('Arigato', 4),
+  ('Gracias', 15),
+  ('Danke', 8);
+
+-- SELECT likes + 10 FROM posts;
+-- UPDATE posts SET likes = likes + 5 WHERE likes >= 10;
+UPDATE
+  posts
+SET
+  likes = likes + 5,
+  message = UPPER(message)
+WHERE
+  likes >= 10;
+SELECT * FROM posts;
+
+// ===== unknown =====
+DROP·TABLE·IF·EXISTS·posts;¬
+CREATE·TABLE·posts·(¬
+··id·INT·NOT·NULL·AUTO_INCREMENT,¬
+··message·VARCHAR(140),¬
+··likes·INT,¬
+··PRIMARY·KEY·(id)¬
+);¬
+¬
+INSERT·INTO·posts·(message,·likes)·VALUES¬
+··('Thanks',·12),¬
+··('Merci',·4),¬
+··('Arigato',·4),¬
+··('Gracias',·15),¬
+··('Danke',·8);¶
+
+
+
+
+
+// ===== video_summary =====
+DELETEやTRUNCATEを使ってレコードを削除する方法について見ていきます。
+
+
+    DELETE
+    AUTO_INCREMENTの挙動
+    TRUNCATE TABLE
+
+// ===== main.sql =====
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  id INT NOT NULL AUTO_INCREMENT,
+  message VARCHAR(140),
+  likes INT,
+  PRIMARY KEY (id)
+);
+
+INSERT INTO posts (message, likes) VALUES
+  ('Thanks', 12),
+  ('Merci', 4),
+  ('Arigato', 4),
+  ('Gracias', 15),
+  ('Danke', 8);
+
+-- DELETE FROM posts WHERE likes < 10;
+-- DELETE FROM posts;
+TRUNCATE TABLE posts;
+
+INSERT INTO posts (message, likes) VALUES ('Xie Xie', 10);
+
+SELECT * FROM posts;
+
+// ===== unknown =====
+DROP·TABLE·IF·EXISTS·posts;¬
+CREATE·TABLE·posts·(¬
+··id·INT·NOT·NULL·AUTO_INCREMENT,¬
+··message·VARCHAR(140),¬
+··likes·INT,¬
+··PRIMARY·KEY·(id)¬
+);¬
+¬
+INSERT·INTO·posts·(message,·likes)·VALUES¬
+··('Thanks',·12),¬
+··('Merci',·4),¬
+··('Arigato',·4),¬
+··('Gracias',·15),¬
+··('Danke',·8);¬
+¬
+SELECT·*·FROM·posts;¶
+
+
+
+
+
+// ===== video_summary =====
+DEFAULTやON UPDATEを使って　カラムを自動更新する方法を見ていきます。
+
+
+    DEFAULT NOW()
+    DEFAULT NOW() ON UPDATE NOW()
+
+// ===== main.sql =====
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  id INT NOT NULL AUTO_INCREMENT,
+  message VARCHAR(140),
+  likes INT,
+  created DATETIME DEFAULT NOW(),
+  updated DATETIME DEFAULT NOW() ON UPDATE NOW(),
+  PRIMARY KEY (id)
+);
+
+INSERT INTO posts (message, likes) VALUES
+  ('Thanks', 12),
+  ('Merci', 4),
+  ('Arigato', 4),
+  ('Gracias', 15),
+  ('Danke', 8);
+
+SELECT id, created, updated FROM posts;
+SELECT SLEEP(3);
+UPDATE posts SET likes = 100 WHERE id = 1;
+SELECT id, created, updated FROM posts;
+
+// ===== unknown =====
+DROP·TABLE·IF·EXISTS·posts;¬
+CREATE·TABLE·posts·(¬
+··id·INT·NOT·NULL·AUTO_INCREMENT,¬
+··message·VARCHAR(140),¬
+··likes·INT,¬
+··PRIMARY·KEY·(id)¬
+);¬
+¬
+INSERT·INTO·posts·(message,·likes)·VALUES¬
+··('Thanks',·12),¬
+··('Merci',·4),¬
+··('Arigato',·4),¬
+··('Gracias',·15),¬
+··('Danke',·8);¶
+
+
+
+
+
+// ===== video_summary =====
+ALTER TABLEを使って後からテーブルの設計を変更する方法について見ていきます。
+
+
+    ALTER TABLE ... ADD ...
+    ALTER TABLE ... DROP ...
+    ALTER TABLE ... CHANGE ...
+    ALTER TABLE ... RENAME ...
+
+// ===== main.sql =====
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+  id INT NOT NULL AUTO_INCREMENT,
+  message VARCHAR(140),
+  likes INT,
+  PRIMARY KEY (id)
+);
+
+INSERT INTO posts (message, likes) VALUES
+  ('Thanks', 12),
+  ('Merci', 4),
+  ('Arigato', 4),
+  ('Gracias', 15),
+  ('Danke', 8);
+
+-- ALTER TABLE posts ADD author VARCHAR(255);
+-- ALTER TABLE posts ADD author VARCHAR(255) AFTER id;
+-- ALTER TABLE posts ADD author VARCHAR(255) FIRST;
+-- ALTER TABLE posts DROP message;
+-- ALTER TABLE posts CHANGE likes points INT;
+DROP TABLE IF EXISTS messages;
+ALTER TABLE posts RENAME messages;
+SHOW TABLES;
+
+-- DESC posts;
+
+// ===== unknown =====
+DROP·TABLE·IF·EXISTS·posts;¬
+CREATE·TABLE·posts·(¬
+··id·INT·NOT·NULL·AUTO_INCREMENT,¬
+··message·VARCHAR(140),¬
+··likes·INT,¬
+··PRIMARY·KEY·(id)¬
+);¬
+¬
+INSERT·INTO·posts·(message,·likes)·VALUES¬
+··('Thanks',·12),¬
+··('Merci',·4),¬
+··('Arigato',·4),¬
+··('Gracias',·15),¬
+··('Danke',·8);¶
+
+
+
+
+

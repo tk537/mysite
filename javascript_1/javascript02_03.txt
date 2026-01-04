@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre><code>
+
+    今回のレッスンのアウトラインに触れたあとに、配列のリテラル表現について学びます。
+
+複雑なデータの例
+レッスンのアウトライン
+配列のリテラル表現
+補足情報 動画中で紹介しているコードについて
+2023年5月19日
+動画中で紹介しているコードについては以下のレッスンを参考にしてみてください。
+
+・#05 データから表を生成してみよう | はじめてのJavaScript
+https://dotinstall.com/lessons/basic_javascript_v6/63305
+・#06 より複雑な計算をしてみよう | はじめてのJavaScript
+https://dotinstall.com/lessons/basic_javascript_v6/63306
+
+
+
+
+
+
+
+
+
+配列を作成したのちに、コンソールで表示してみます。
+
+配列の作成
+改行を使った表現
+コンソールでの表示
+要素、インデックス
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  const scores = [
+    70, 
+    90, 
+    80, 
+    85,
+  ];
+
+  console.log(scores);
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+配列のインデックス、lengthキーワードを使ってみます。
+
+インデックスによるアクセス
+lengthによる要素数の表現
+値の変更
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  const scores = [
+    70, 
+    90, 
+    80, 
+    85,
+  ];
+
+  console.log(scores[2]); // 80
+  console.log(scores.length); // 4
+  scores[1] = 95;
+  console.log(scores); // [70, 95, 80, 85]
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+constがどのように動作しているのか、図で説明していきます。
+
+constの挙動
+配列における注意点
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  const scores = [
+    70, 
+    90, 
+    80, 
+    85,
+  ];
+
+  console.log(scores[2]); // 80
+  console.log(scores.length); // 4
+  scores[1] = 95;
+  console.log(scores); // [70, 95, 80, 85]
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+配列の先頭や末尾の要素を操作するための命令について見ていきます。
+
+push()
+pop()
+unshift()
+shift()
+
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  const scores = [
+    70, 
+    90, 
+    80, 
+    85,
+  ];
+
+  scores.push(65, 72);
+  console.log(scores);
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+配列とforを組み合わせて使う方法について見ていきます。
+
+for
+lengthの活用
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  const scores = [
+    70, 
+    90, 
+    80, 
+    85,
+  ];
+
+  // console.log(scores[0]);
+  // console.log(scores[1]);
+  // console.log(scores[2]);
+  // console.log(scores[3]);
+
+  scores.push(77, 88);
+
+  for (let i = 0; i < scores.length; i++) {
+    console.log(scores[i]);
+  }
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+配列に特化した反復処理を行うことができるforEach()の動作について図で説明していきます。
+
+forEach()
+forとの違い
+
+
+
+
+
+
+
+
+
+
+前回解説したforEach()の挙動をコードの方でも確認していきます。
+
+forEach()
+インデックスの取得
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  const scores = [
+    70, 
+    90, 
+    80, 
+    85,
+  ];
+
+  scores.forEach((score, index) => {
+    // console.log(score);
+    console.log(`${index}: ${score}`);
+  });
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+より実践的な例として、配列の値を集計するための方法を見ていきます。
+
+合計の計算
+平均の計算
+
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  const scores = [
+    70, 
+    90, 
+    80, 
+    85,
+  ];
+  let sum = 0;
+
+  scores.forEach((score, index) => {
+    // sum = sum + score;
+    sum += score;
+    console.log(`${index}: ${score}`);
+  });
+
+  console.log(`Sum: ${sum}`);
+  console.log(`Average: ${sum / scores.length}`);
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+値に名前をつけて管理することができるオブジェクトについて説明していきます。
+
+オブジェクトのリテラル表現
+プロパティ、キー、値
+値へのアクセス方法
+補足情報 定数名、変数名のルールについて
+2023年5月19日
+動画中で紹介している定数名、変数名のルールについては以下のレッスンも参考にしてみてください。
+
+・#09 定数と変数の違いを理解しよう | JavaScript入門 基礎文法編
+https://dotinstall.com/lessons/basic_javascript_grammar_v3/63409
+
+
+
+
+
+
+
+
+オブジェクトを作成してコンソールで表示してみます。
+
+オブジェクトの作成
+コンソールでの表示
+プロパティの順序
+値の表示
+補足情報 constで宣言しても良い理由
+2023年5月19日
+動画中で説明している、配列をconstで宣言しても良い理由については以下の動画を復習してみてください。
+
+・#04 constの挙動を確認しよう | JavaScript入門 データ構造編
+https://dotinstall.com/lessons/basic_javascript_data_structure/63604
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  const scores = {
+    math: 80,
+    english: 90,
+  };
+
+  // console.log(scores['english']);
+  console.log(scores.english);
+  // scores['math'] = 88;
+  scores.math = 88;
+  console.log(scores);
+}
+
+
+
+
+
+オブジェクトにプロパティを追加したり、プロパティを削除する方法について見ていきます。
+
+プロパティの追加
+delete
+
+/MyJavaScript/index.html
+/MyJavaScript/main.js
+'use strict';
+
+{
+  const scores = {
+    math: 80,
+    english: 90,
+  };
+
+  scores.physics = 70;
+  delete scores.english;
+  console.log(scores);
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+オブジェクトと反復処理を組み合わせるときに使える、Object.entries()について見ていきます。
+
+Object.entries()
+プロパティの表示
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  const scores = {
+    math: 80,
+    english: 90,
+  };
+
+  const entries = Object.entries(scores);
+  // console.log(entries);
+  entries.forEach((prop) => {
+    // console.log(prop);
+    console.log(`${prop[0]}: ${prop[1]}`);
+  });
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+前回見たObject.entries()を使ってプロパティの値を集計する方法について見ていきます。
+
+合計の算出
+平均の算出
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  const scores = {
+    math: 80,
+    english: 90,
+  };
+  let sum = 0;
+
+  scores.physics = 70;
+
+  const entries = Object.entries(scores);
+  // console.log(entries);
+  entries.forEach((prop) => {
+    // console.log(prop);
+    sum += prop[1];
+    console.log(`${prop[0]}: ${prop[1]}`);
+  });
+  console.log(`Sum: ${sum}`);
+  console.log(`Average: ${sum / entries.length}`);
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+配列の途中にある要素を操作することができるsplice()について図で説明していきます。
+
+splice()
+splice()の返り値
+補足情報 表記の訂正について
+2025年9月15日
+0:35〜から表示されているスライド中にある「省略化」ですが、正しくは「省略可」でした。訂正してお詫び申し上げます（ユーザーの方よりご指摘いただきました。ありがとうございました...！）。
+
+
+
+
+
+
+
+
+
+前回みたsplice()の挙動についてクイズ形式で学んでいきます。
+
+splice()の挙動
+答え合わせ
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  const scores = [70, 90, 80, 85];
+
+  scores.splice(2, 0, 77, 88);
+  // [70, 90, 77, 88, 80, 85]
+
+  const deleted = scores.splice(3, 1);
+  // [70, 90, 77, 80, 85]
+  // [88]
+
+  scores.splice(2, 2, 30);
+  // [70, 90, 30, 85]
+
+  console.log(scores);
+  console.log(deleted);
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+配列と文字列を相互に変換するためのjoin()、split()について見ていきます。
+
+join()
+split()
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  // const names = ['Taro', 'Jiro', 'Saburo'];
+
+  // // Taro|Jiro|Saburo
+  // console.log(names.join('|'));
+  // console.log(names.join());
+  // console.log(names.join(''));
+
+  const names = 'Taro|Jiro|Saburo';
+  console.log(names.split('|'));
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+配列の要素を処理して新しい配列を作るためのmap()について見ていきます。
+
+forEach()による配列の作成
+map()による書き換え
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  const prices = [100, 150, 200];
+
+  // const pricesWithTax = [];
+  // prices.forEach((price) => {
+  //   pricesWithTax.push(price * 1.1);
+  // });
+
+  const pricesWithTax = prices.map((price) => {
+    return price * 1.1;
+  });
+
+  console.log(pricesWithTax);
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+配列から条件に合致した要素だけを取り出して新しい配列を作ることができるfilter()について見ていきます。
+
+forEach()による配列の作成
+filter()による書き換え
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  const prices = [100, 150, 200];
+
+  // const pricesOver150 = [];
+  // prices.forEach((price) => {
+  //   if (price >= 150) {
+  //     pricesOver150.push(price);
+  //   }
+  // });
+
+  const pricesOver150 = prices.filter((price) => {
+    return price >= 150;
+  });
+
+  console.log(pricesOver150);
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+配列の要素を複数の定数に一気に代入するための方法について見ていきます。
+
+定数への代入
+分割代入による書き換え
+記法に関する注意点
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  const scores = [70, 90, 80, 85];
+  // const first = scores[0];
+  // const second = scores[1];
+  // const third = scores[2];
+  // const fourth = scores[3];
+  const [first, second, third, fourth] = scores;
+
+  console.log(first);
+  console.log(second);
+  console.log(third);
+  console.log(fourth);
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+分割代入を値の入替えに使うための方法について見ていきます。
+
+値の入替え
+分割代入による書き換え
+
+
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  let start = 'Tokyo';
+  let goal = 'Osaka';
+
+  // start = goal; // start = Osaka
+  // goal = start; // goal = Osaka
+
+  // let temp = '';
+  // temp = start;
+  // start = goal;
+  // goal = temp;
+
+  [goal, start] = [start, goal];
+
+  console.log(start);
+  console.log(goal);
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+余った要素をまとめて受け取ることができるレスト構文について見ていきます。
+
+レスト構文
+レスト構文に関する注意点
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  const scores = [70, 90, 80, 85];
+  const [first, ...others] = scores;
+
+  console.log(first);
+  console.log(others);
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+配列から要素を取り出すことができるスプレッド構文について見ていきます。
+
+スプレッド構文
+レスト構文との違い
+
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  const moreScores = [77, 88];
+  const scores = [70, 90, 80, 85, ...moreScores];
+  const [first, ...others] = scores;
+
+  console.log(first);
+  console.log(others);
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+オブジェクトに対して分割代入、レスト構文、スプレッド構文を使ってみます。
+
+オブジェクトでの分割代入
+オブジェクトでのレスト構文
+オブジェクトでのスプレッド構文
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  const moreScores = {
+    shiro: 77,
+    goro: 88,
+  };
+  const scores = {
+    taro: 80,
+    jiro: 70,
+    saburo: 90,
+    ...moreScores,
+  };
+  // const {taro, jiro, saburo} = scores;
+  const {taro, ...others} = scores;
+
+  console.log(taro);
+  // console.log(jiro);
+  // console.log(saburo);
+  console.log(others);
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+値をバックアップしておいて、元の値を書き換えるためのコードについて見ていきます。
+
+数値の場合
+配列の場合
+
+/MyJavaScript/main.js
+
+'use strict';
+
+{
+  // let num = 10;
+  // const numBackup = num;
+  // num = 99;
+  // console.log(num); // 99
+  // console.log(numBackup); // 10
+
+  const nums = [10, 20, 30];
+  const numsBackup = nums;
+  nums[0] = 99;
+  console.log(nums);// [99, 20. 30]
+  console.log(numsBackup); // [10, 20, 30]
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+配列やオブジェクトにおいて、定数や変数を代入したときにどうなるか説明していきます。
+
+数値や文字列の場合の挙動
+配列やオブジェクトの場合の挙動
+
+
+
+
+
+
+スプレッド構文を使って配列のコピーを作る方法について見ていきます。
+
+スプレッド構文による配列のコピー
+次のステップ
+
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  // let num = 10;
+  // const numBackup = num;
+  // num = 99;
+  // console.log(num); // 99
+  // console.log(numBackup); // 10
+
+  const nums = [10, 20, 30];
+  // const numsBackup = nums;
+  // const numsBackup = [10, 20, 30];
+  const numsBackup = [...nums];
+  nums[0] = 99;
+  console.log(nums);// [99, 20. 30]
+  console.log(numsBackup); // [10, 20, 30]
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+  </code></pre>
+</body>
+</html>

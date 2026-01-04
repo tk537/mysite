@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+    Go言語で扱うことができるデータ構造の概要について説明したのち、配列の記法について確認していきます。
+
+複数の値をまとめるための仕組み
+配列、スライス、マップ、構造体
+配列のデータ型の指定、var scores [3]int
+インデックス、0から始まる
+
+
+
+
+
+
+配列を作って、要素にアクセスする方法について見ていきます。
+
+配列の宣言、var scores [3]int
+配列の要素への代入、scores[0] = 70
+配列の要素の確認方法、fmt.Println(scores[0])、fmt.Println(scores)
+ターミナルでの配列の表示、[70, 90, 80]
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    var scores [3]int
+    scores[0] = 70
+    scores[1] = 90
+    scores[2] = 80
+
+    fmt.Println(scores[0])
+    fmt.Println(scores[1])
+    fmt.Println(scores[2])
+    fmt.Println(scores)
+}
+
+
+
+
+
+
+
+配列の宣言と値の代入を一括で書く方法について見ていきます。
+
+配列宣言の簡略化
+scores := [3]int{70, 90, 80)
+scores := [...]int{70, 90, 80}
+配列の要素数を調べる、len(scores)
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    // var scores = [3]int{70, 90, 80}
+    // scores := [3]int{70, 90, 80}
+    scores := [...]int{70, 90, 80}
+
+    // fmt.Println(scores[0])
+    // fmt.Println(scores[1])
+    // fmt.Println(scores[2])
+    // fmt.Println(scores)
+    fmt.Println(len(scores))
+}
+
+
+
+
+
+
+
+配列の要素を書き換える方法や、配列のルールについて見ていきます。
+
+配列の要素の書き換え方、scores[1] = 95
+配列が確保した領域外にはアクセスできない
+新しい要素を追加したい場合のデータ構造の紹介、スライス
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    scores := [...]int{70, 90, 80}
+    scores[1] = 95
+    scores[3] = 100
+
+    fmt.Println(scores)
+}
+
+
+
+
+
+
+
+
+配列とスライスの違いを確認しながら、スライスの作り方、要素を追加する方法について見ていきます。
+
+スライスと配列の宣言、要素追加方法の違い
+スライスの宣言、scores := []int{70, 90, 80}
+要素の追加、scores = append(scores, 100, 60)
+スライスの要素数を調べる、len(scores)
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    scores := []int{70, 90, 80}
+    scores[1] = 95
+    scores = append(scores, 100, 60)
+
+    fmt.Println(scores)
+    fmt.Println(len(scores))
+}
+
+
+
+
+
+
+
+スライスにスライスを追加する方法について見ていきます。
+
+スライスにスライスを追加した場合の挙動確認
+エラー、scores = append(scores, moreScores)
+値をカンマ区切りで展開、scores = append(scores, moreScores...)
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    scores := []int{70, 90, 80}
+    moreScores := []int{60, 75, 82, 40, 55}
+    scores = append(scores, moreScores...)
+
+    fmt.Println(scores)
+}
+
+
+
+
+
+
+
+
+スライスの一部を切り出すスライス式について見ていきます。
+
+スライスの一部を切り出す方法、スライス式
+moreScores[0:3]、moreScores[:2]、moreScores[3:0]、moreScores[:]
+切り出した要素でスライスを作成、scoresToAdd := moreScores[0:3]
+スライスに追加、scores = append(scores, scoresToAdd...)
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    scores := []int{70, 90, 80}
+    moreScores := []int{60, 75, 82, 40, 55}
+    // fmt.Println(moreScores[0:3])
+    // fmt.Println(moreScores[:2])
+    // fmt.Println(moreScores[3:])
+    // fmt.Println(moreScores[:])
+    scoresToAdd := moreScores[0:3]
+    scores = append(scores, scoresToAdd...)
+
+    fmt.Println(scores)
+}
+
+
+
+
+
+
+
+
+
+サブスライスの注意点について見ていきます。
+
+スライスから切り出したスライス、サブスライス
+サブスライスの値を変更する際の注意点
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    scores := []int{70, 90, 80}
+    moreScores := []int{60, 75, 82, 40, 55}
+    scoresToAdd := moreScores[0:3]
+    moreScores[1] = 100
+    scores = append(scores, scoresToAdd...)
+
+    fmt.Println(moreScores)
+    fmt.Println(scoresToAdd)
+    fmt.Println(scores)
+}
+
+
+
+
+
+
+
+
+
+
+スライスの挙動について図で説明していきます。
+
+moreScoresの値を変更し、scoresとscoresToAddも値が変わる理由、参照元の配列を共有しているため
+配列、データが格納された領域に名前をつける
+スライス、配列がどこにあり、何個分までを参照するかという情報を保持
+サブスライス、元のスライスと同じ場所を参照し、個数だけを変える
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    scores := []int{70, 90, 80}
+    moreScores := []int{60, 75, 82, 40, 55}
+    scoresToAdd := moreScores[0:3]
+    moreScores[1] = 100
+    scores = append(scores, scoresToAdd...)
+
+    fmt.Println(moreScores)
+    fmt.Println(scoresToAdd)
+    fmt.Println(scores)
+}
+
+
+
+
+
+
+
+
+
+
+スライスをforやrangeと組み合わせる方法について見ていきます。
+
+反復処理で要素を表示する
+for i := 0; i < 3; i++ {}
+for i, score := range scores {}
+rangeでiを使わない場合の表記、_
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    scores := []int{70, 90, 80}
+
+    // for i := 0; i < 3; i++ {
+    //     fmt.Println(i, scores[i])
+    // }
+
+    for _, score := range scores {
+        fmt.Println(score)
+    }
+}
+
+
+
+
+
+
+
+
+値に名前をつけて管理することができるマップについて図で説明していきます。
+
+順序が重要でないデータの管理、map
+キーと値をペアにしてデータを管理
+変数をデータ型を指定して宣言、使用前にmakeで領域を確保
+要素の追加、scores["english"] = 80、append()は使わない
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    scores := []int{70, 90, 80}
+
+    // for i := 0; i < 3; i++ {
+    //     fmt.Println(i, scores[i])
+    // }
+
+    for _, score := range scores {
+        fmt.Println(score)
+    }
+}
+
+
+
+
+
+
+
+
+
+マップを宣言するための記法、要素の追加について見ていきます。
+
+基本、var scores map[string]int、scores = make(map[string]int)
+簡略化、var scores = make(map[string]int)
+要素の追加、scores["math"] = 70
+ターミナルでの表示、map[english:80, math:70]
+宣言と代入をまとめる、 scores := map[string]int{...}
+半角空白の入れ方
+長さの確認、len(scores)
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    // var scores map[string]int
+    // scores = make(map[string]int)
+    // var scores = make(map[string]int)
+    // scores["english"] = 80
+    // scores["math"] = 70
+    scores := map[string]int{
+        "english": 80,
+        "math":    70,
+    }
+
+    fmt.Println(scores)
+    fmt.Println(len(scores))
+}
+
+
+
+
+
+
+
+
+マップの新しい要素の追加、要素の削除方法について見ていきます。
+
+新しい要素の追加、scores["physics"] = 90
+要素の削除、delete(scores, "math")
+キーに対応する値の表示、fmt.Println(scores["english"])
+存在しないキーを取得した場合の挙動、エラーにならず、ゼロ値になる
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    scores := map[string]int{
+        "english": 80,
+        "math":    70,
+    }
+    scores["physics"] = 90
+    delete(scores, "math")
+
+    fmt.Println(scores)
+    fmt.Println(scores["english"])
+    fmt.Println(scores["history"])
+    fmt.Println(len(scores))
+}
+
+
+
+
+
+
+
+
+
+存在しないキーにアクセスした際の挙動を確認し、カンマOKイディオムについて見ていきます。
+
+カンマOKイディオム（カンマOK慣用句）、v, ok := scores["history"]
+v、値
+ok、キーが存在するかしないかtrue、falseで返す
+okの結果で条件分岐、存在しないキーを取得した場合の挙動を確認
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    scores := map[string]int{
+        "english": 80,
+        "math":    70,
+    }
+    v, ok := scores["history"]
+
+    if ok {
+        fmt.Println(v)
+    } else {
+        fmt.Println("No history score!")
+    }
+    // fmt.Println(v, ok)
+}
+
+
+
+
+
+
+
+
+存在しないキーにアクセスした際の挙動を確認し、カンマOKイディオムについて見ていきます。
+
+カンマOKイディオム（カンマOK慣用句）、v, ok := scores["history"]
+v、値
+ok、キーが存在するかしないかtrue、falseで返す
+okの結果で条件分岐、存在しないキーを取得した場合の挙動を確認
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    scores := map[string]int{
+        "english": 80,
+        "math":    70,
+    }
+    v, ok := scores["history"]
+
+    if ok {
+        fmt.Println(v)
+    } else {
+        fmt.Println("No history score!")
+    }
+    // fmt.Println(v, ok)
+}
+
+
+
+
+
+
+
+forやrangeを使ったマップの表示方法について見ていきます。
+
+for subject, score := range scores {}
+subjectを使わない場合の書き方、for _. score := range scores {}
+scoreを使わない場合の書き方、for subject := range scores {}
+注意点、いつも同じ順序で表示されるとは限らない
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    scores := map[string]int{
+        "english": 80,
+        "math":    70,
+    }
+
+    // for subject, score := range scores {
+    //     fmt.Println(subject, score)
+    // }
+    // for _, score := range scores {
+    //     fmt.Println(score)
+    // }
+    for subject := range scores {
+        fmt.Println(subject)
+    }
+}
+
+
+
+
+
+
+
+マップとスライスを組み合わせて、少し複雑なデータについて見ていきます。
+
+マップとスライスの組み合わせ
+scores := map[string][]int{ "english": []int{80, 40}, ...}
+for rangeを使用して、要素を出力
+for subject, scoresSlice := range scores {for _, score := range scoresSlice {...}}
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    scores := map[string][]int{
+        "english": []int{80, 40},
+        "math":    []int{40, 50, 60},
+    }
+
+    for subject, scoresSlice := range scores {
+        fmt.Println(subject)
+        for _, score := range scoresSlice {
+            fmt.Println(score)
+        }
+    }
+}
+
+
+
+
+
+
+
+構造体について図で説明していきます。
+
+より複雑な情報も管理、構造体
+データ型を定義 type student struct {name string...}
+構造体の記述注意点、カンマ不要
+データ型studentを使用して変数を宣言、var taro student
+値の代入、taro.name = "Taro"
+
+main.go
+package main
+
+import "fmt"
+
+func main() {
+    scores := map[string][]int{
+        "english": []int{80, 40},
+        "math":    []int{40, 50, 60},
+    }
+
+    for subject, scoresSlice := range scores {
+        fmt.Println(subject)
+        for _, score := range scoresSlice {
+            fmt.Println(score)
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+構造体のデータを表示する方法、シンプルな書き方、値がない場合の挙動について見ていきます。
+
+データの表示、fmt.Println(taro,name)、fmt.Println(taro)
+構造体の宣言と代入の簡略化、taro := student{name: "Taro", ...}
+フィールドの値を書かない場合、ゼロ値が設定される
+
+main.go
+package main
+
+import "fmt"
+
+type student struct {
+    name string
+    subject string
+    score int
+}
+
+func main() {
+    // var taro student
+    // taro.name = "Taro"
+    // taro.subject = "Math"
+    // taro.score = 40
+    taro := student{
+        name: "Taro",
+        subject: "Math",
+        // score: 40,
+    }
+
+    fmt.Println(taro.name)
+    fmt.Println(taro)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </pre>
+  
+</body>
+</html>

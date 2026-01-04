@@ -1,0 +1,650 @@
+// ===== video_summary =====
+クリエイティブコーディングの概要について説明したのちに、完成版のコードをいじって遊んでみます。
+
+
+    概要
+    完成版の確認
+    p5.jsの紹介
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Creative Coding</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+  <script src="sketch.js"></script>
+</body>
+</html>
+
+// ===== sketch.js =====
+function setup() {
+  createCanvas(600, 200);
+  noStroke();
+  fill(255);
+  colorMode(HSB, 360, 100, 100, 255);
+}
+
+function draw() {
+  background(0);
+
+  const step = 30;
+
+  for (let y = 0; y <= height; y += step) {
+    for (let x = 0; x <= width; x += step) {
+      const d = dist(x, y, mouseX, mouseY);
+      const size = map(sin(d * 0.05), -1, 1, 0, 45);
+      fill(map(sin(d * 0.05), -1, 1, 60, 320), 100, 100);
+      rect(x, y, size, size);
+    }
+  }
+}
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>Creative·Coding</title>¬
+</head>¬
+<body>¬
+··<script·src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"
+></script>¬
+··<script·src="sketch.js"></script>¬
+</body>¬
+</html>¬
+¶
+
+// ===== unknown =====
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+実行環境について説明しつつ、描画領域の設定をしていきます。
+
+
+    実行環境の使い方
+    setup()
+
+// ===== commentBox 1 =====
+補足情報
+p5.jsのレッスンについて
+
+
+
+
+2018年10月25日
+
+
+
+
+
+この動画で使われているp5.jsについては以下のレッスンを参照してください。
+
+・p5.js入門 (全14回)
+https://dotinstall.com/lessons/basic_p5js
+
+// ===== sketch.js =====
+function setup() {
+  // 描画領域のセットアップ
+  createCanvas(200, 200);
+  background(0);
+  noStroke();
+  fill(255);
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Creative Coding</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+  <script src="sketch.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>Creative·Coding</title>¬
+</head>¬
+<body>¬
+··<script·src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"
+></script>¬
+··<script·src="sketch.js"></script>¬
+</body>¬
+</html>¬
+¶
+
+// ===== unknown =====
+
+
+
+
+
+
+// ===== video_summary =====
+まずは3列3行のグリッドを作って円を描画してみます。
+
+
+    グリッドの描画
+
+// ===== sketch.js =====
+function setup() {
+  createCanvas(200, 200);
+  background(0);
+  noStroke();
+  fill(255);
+
+  const size = 5;
+
+  ellipse(50, 50, size, size);
+  ellipse(100, 50, size, size);
+  ellipse(150, 50, size, size);
+
+  ellipse(50, 100, size, size);
+  ellipse(100, 100, size, size);
+  ellipse(150, 100, size, size);
+
+  ellipse(50, 150, size, size);
+  ellipse(100, 150, size, size);
+  ellipse(150, 150, size, size);
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Creative Coding</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+  <script src="sketch.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>Creative·Coding</title>¬
+</head>¬
+<body>¬
+··<script·src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"
+></script>¬
+··<script·src="sketch.js"></script>¬
+</body>¬
+</html>¬
+¶
+
+// ===== unknown =====
+
+
+
+
+
+
+// ===== video_summary =====
+前回書いたコードを二重ループを使って書き直していきます。
+
+
+    forループ
+    二重ループ
+
+// ===== sketch.js =====
+function setup() {
+  createCanvas(200, 200);
+  background(0);
+  noStroke();
+  fill(255);
+
+  const size = 5;
+
+  for (let y = 0; y <= height; y += 50) {
+    for (let x = 0; x <= width; x += 50) {
+      ellipse(x, y, size, size);
+    }
+  }
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Creative Coding</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+  <script src="sketch.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>Creative·Coding</title>¬
+</head>¬
+<body>¬
+··<script·src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"
+></script>¬
+··<script·src="sketch.js"></script>¬
+</body>¬
+</html>¬
+¶
+
+// ===== unknown =====
+
+
+
+
+
+
+// ===== video_summary =====
+グリッドの幅や描画領域の大きさを変数で管理しつつ、描画する円の数を増やしていきます。
+
+
+    変数の導入
+
+// ===== sketch.js =====
+function setup() {
+  createCanvas(600, 200);
+  background(0);
+  noStroke();
+  fill(255);
+
+  const size = 5;
+  const step = 20;
+
+  for (let y = 0; y <= height; y += step) {
+    for (let x = 0; x <= width; x += step) {
+      ellipse(x, y, size, size);
+    }
+  }
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Creative Coding</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+  <script src="sketch.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>Creative·Coding</title>¬
+</head>¬
+<body>¬
+··<script·src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"
+></script>¬
+··<script·src="sketch.js"></script>¬
+</body>¬
+</html>¬
+¶
+
+// ===== unknown =====
+
+
+
+
+
+
+
+// ===== video_summary =====
+乱数を使って作品の表情に変化をつける方法について見ていきます。
+
+
+    random()
+    メリハリの付け方
+
+// ===== sketch.js =====
+function setup() {
+  createCanvas(600, 200);
+  background(0);
+  noStroke();
+  fill(255);
+
+  const step = 20;
+
+  for (let y = 0; y <= height; y += step) {
+    for (let x = 0; x <= width; x += step) {
+      // const size = random(0, 15);
+      let size;
+      if (random() < 0.95) {
+        size = random(0, 10);
+      } else {
+        size = step; 
+      }
+      ellipse(x, y, size, size);
+    }
+  }
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Creative Coding</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+  <script src="sketch.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>Creative·Coding</title>¬
+</head>¬
+<body>¬
+··<script·src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"
+></script>¬
+··<script·src="sketch.js"></script>¬
+</body>¬
+</html>¬
+¶
+
+// ===== unknown =====
+
+
+
+
+
+
+
+// ===== video_summary =====
+色に乱数を応用して作品をカラフルに仕上げていきます。
+
+
+    色への応用
+    配色アルゴリズム
+
+// ===== sketch.js =====
+function setup() {
+  createCanvas(600, 200);
+  background(0);
+  noStroke();
+  fill(255);
+
+  const step = 20;
+
+  for (let y = 0; y <= height; y += step) {
+    for (let x = 0; x <= width; x += step) {
+      const size = random(0, 15);
+      // fill(random(255));
+      // fill(random(255), random(255), random(255));
+      // fill(random(200), random(255), random(100));
+      const r = random(255);
+      const g = random(r);
+      const b = random(g);
+      fill(r, g, b);
+      ellipse(x, y, size, size);
+    }
+  }
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Creative Coding</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+  <script src="sketch.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>Creative·Coding</title>¬
+</head>¬
+<body>¬
+··<script·src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"
+></script>¬
+··<script·src="sketch.js"></script>¬
+</body>¬
+</html>¬
+¶
+
+// ===== unknown =====
+
+
+
+
+
+
+// ===== video_summary =====
+RGBだけでなくHSBの色空間についても説明していきます。
+
+
+    HSB色空間
+    HSBでの配色
+
+// ===== sketch.js =====
+function setup() {
+  createCanvas(600, 200);
+  background(0);
+  noStroke();
+  fill(255);
+
+  const step = 20;
+
+  colorMode(HSB, 360, 100, 100);
+
+  for (let y = 0; y <= height; y += step) {
+    for (let x = 0; x <= width; x += step) {
+      const size = random(0, 15);
+      const h = random(200, 320);
+      const s = 100;
+      // const b = 100;
+      const b = size * 5;
+      fill(h, s, b);
+      ellipse(x, y, size, size);
+    }
+  }
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Creative Coding</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+  <script src="sketch.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>Creative·Coding</title>¬
+</head>¬
+<body>¬
+··<script·src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"
+></script>¬
+··<script·src="sketch.js"></script>¬
+</body>¬
+</html>¬
+¶
+
+// ===== unknown =====
+
+
+
+
+
+
+
+// ===== video_summary =====
+マウスの動きに応じて作品に表情が出るように仕上げていきます。
+
+
+    draw()
+    mouseX, mouseY
+    軌跡の作り方
+
+// ===== sketch.js =====
+function setup() {
+  createCanvas(600, 200);
+  noStroke();
+  fill(255);
+  colorMode(HSB, 360, 100, 100, 255);
+}
+
+function draw() {
+  background(0, 20);
+
+  const step = 20;
+  const size = 5;
+
+  for (let y = 0; y <= height; y += step) {
+    for (let x = 0; x <= width; x += step) {
+      ellipse(x, y, size, size);
+    }
+  }
+
+  ellipse(mouseX, mouseY, 20, 20);
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Creative Coding</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+  <script src="sketch.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>Creative·Coding</title>¬
+</head>¬
+<body>¬
+··<script·src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"
+></script>¬
+··<script·src="sketch.js"></script>¬
+</body>¬
+</html>¬
+¶
+
+// ===== unknown =====
+
+
+
+
+
+
+
+// ===== video_summary =====
+マウスとの距離を算出して、作品の描画に応用していきます。
+
+
+    dist()
+    三角関数の利用
+
+// ===== sketch.js =====
+function setup() {
+  createCanvas(600, 200);
+  noStroke();
+  fill(255);
+  colorMode(HSB, 360, 100, 100, 255);
+}
+
+function draw() {
+  background(0);
+
+  const step = 20;
+
+  for (let y = 0; y <= height; y += step) {
+    for (let x = 0; x <= width; x += step) {
+      const d = dist(x, y, mouseX, mouseY);
+      // const size = d / 10;
+      const size = map(sin(d * 0.05), -1, 1, 0, 10);
+      fill(map(sin(d * 0.05), -1, 1, 60, 320), 100, 100);
+      ellipse(x, y, size, size);
+    }
+  }
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Creative Coding</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+  <script src="sketch.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>Creative·Coding</title>¬
+</head>¬
+<body>¬
+··<script·src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"
+></script>¬
+··<script·src="sketch.js"></script>¬
+</body>¬
+</html>¬
+¶
+
+// ===== unknown =====
+
+
+
+
+
+
+

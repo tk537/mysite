@@ -1,0 +1,991 @@
+// ===== video_summary =====
+完成版を確認したあとに、index.htmlを作っていきます。
+
+
+    完成版の確認
+    index.htmlの作成
+
+// ===== commentBox 1 =====
+補足情報
+VS Codeでファイルのドラッグ＆ドロップができない場合
+
+
+
+
+2024年2月16日
+
+
+
+
+
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、WindowsならCtrlキー、macOSならcommandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+// ===== commentBox 2 =====
+補足情報
+VS Code の設定について
+
+
+
+
+2020年9月2日
+
+
+
+
+
+このレッスンでは、デフォルトの設定を一部変えています。基本的な設定の仕方については、以下のレッスンを参照してください。
+
+#04 プログラミング用フォントを導入しよう | HTML/CSSの学習環境を整えよう [macOS編]
+https://dotinstall.com/lessons/basic_pcsetup_mac_v2/50404
+#04 プログラミング用フォントを導入しよう | HTML/CSSの学習環境を整えよう [Windows編]
+https://dotinstall.com/lessons/basic_pcsetup_win_v2/50504˜
+#08 設定を変更してみよう | Visual Studio Code入門
+https://dotinstall.com/lessons/basic_vscode/50208
+
+// ===== /MyTypingGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Typing Game</title>
+</head>
+<body>
+
+</body>
+</html>
+
+// ===== video_summary =====
+必要な要素をマークアップしたあとに、スタイルを整えていきます。
+
+
+    マークアップ
+    styles.cssの作成
+    スタイリング
+
+// ===== /MyTypingGame/css/styles.css =====
+body {
+  padding-top: 40px;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+}
+
+#target {
+  font-size: 48px;
+  letter-spacing: .1em;
+}
+
+// ===== /MyTypingGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Typing Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <p id="target">word</p>
+  <p id="result">Finished! 10 seconds!</p>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+keydownイベントを使って、打ち込んだキーを画面に表示させます。
+
+
+    main.jsの作成
+    keydownイベントの設定
+    キーの取得
+
+// ===== commentBox 1 =====
+補足情報
+イベントオブジェクトについて
+
+
+
+
+2020年9月2日
+
+
+
+
+
+イベントオブジェクトの基礎的な内容については、以下のレッスンをご参照ください。
+
+#18 イベントオブジェクトを扱ってみよう | 詳解JavaScript DOM編
+https://dotinstall.com/lessons/basic_javascript_dom_v2/52918
+
+// ===== /MyTypingGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Typing Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <p id="target"></p>
+  <p id="result">Finished! 10 seconds!</p>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyTypingGame/js/main.js =====
+'use strict';
+
+{
+  document.addEventListener('keydown', e => {
+    const target = document.getElementById('target');
+    target.textContent = e.key;
+  });
+}
+
+// ===== /MyTypingGame/css/styles.css =====
+body {
+  padding-top: 40px;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+}
+
+#target {
+  font-size: 48px;
+  letter-spacing: .1em;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+ゲーム用の単語を用意したあとに、タイプしたキーが正解かどうかを判定します。
+
+
+    文字列へのアクセス
+    正誤判定の条件分岐
+
+// ===== commentBox 1 =====
+補足情報
+文字へのアクセスについて
+
+
+
+
+2020年9月2日
+
+
+
+
+
+文字列内にある個々の文字へのアクセスの仕方は、以下のレッスンをご参考ください。
+
+#17 文字列を操作してみよう | 詳解JavaScript オブジェクト編
+https://dotinstall.com/lessons/basic_javascript_objects_v2/52317
+
+// ===== /MyTypingGame/js/main.js =====
+'use strict';
+
+{
+  const word = 'red';
+  let loc = 0;
+
+  const target = document.getElementById('target');
+  target.textContent = word;
+
+  document.addEventListener('keydown', e => {
+    if (e.key === word[loc]) {
+      loc++;
+
+      // 1: _ed
+      // 2: __d
+      // 3: ___
+    }
+  });
+}
+
+// ===== /MyTypingGame/css/styles.css =====
+body {
+  padding-top: 40px;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+}
+
+#target {
+  font-size: 48px;
+  letter-spacing: .1em;
+}
+
+// ===== /MyTypingGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Typing Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <p id="target"></p>
+  <p id="result">Finished! 10 seconds!</p>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+ゲーム用の単語を用意したあとに、タイプしたキーが正解かどうかを判定します。
+
+
+    文字列へのアクセス
+    正誤判定の条件分岐
+
+// ===== commentBox 1 =====
+補足情報
+文字へのアクセスについて
+
+
+
+
+2020年9月2日
+
+
+
+
+
+文字列内にある個々の文字へのアクセスの仕方は、以下のレッスンをご参考ください。
+
+#17 文字列を操作してみよう | 詳解JavaScript オブジェクト編
+https://dotinstall.com/lessons/basic_javascript_objects_v2/52317
+
+// ===== /MyTypingGame/js/main.js =====
+'use strict';
+
+{
+  const word = 'red';
+  let loc = 0;
+
+  const target = document.getElementById('target');
+  target.textContent = word;
+
+  document.addEventListener('keydown', e => {
+    if (e.key === word[loc]) {
+      loc++;
+
+      // 1: _ed
+      // 2: __d
+      // 3: ___
+    }
+  });
+}
+
+// ===== /MyTypingGame/css/styles.css =====
+body {
+  padding-top: 40px;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+}
+
+#target {
+  font-size: 48px;
+  letter-spacing: .1em;
+}
+
+// ===== /MyTypingGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Typing Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <p id="target"></p>
+  <p id="result">Finished! 10 seconds!</p>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+早期リターンと呼ばれるテクニックを使ってコードを読みやすくしていきます。
+
+
+    早期リターン
+
+// ===== /MyTypingGame/js/main.js =====
+'use strict';
+
+{
+  const word = 'red';
+  let loc = 0;
+
+  const target = document.getElementById('target');
+  target.textContent = word;
+
+  document.addEventListener('keydown', e => {
+    if (e.key !== word[loc]) {
+      return;
+    }
+
+    loc++;
+
+    // 1: _ed
+    // 2: __d
+    // 3: ___
+    target.textContent = '_'.repeat(loc) + word.substring(loc);
+  });
+}
+
+// ===== /MyTypingGame/css/styles.css =====
+body {
+  padding-top: 40px;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+}
+
+#target {
+  font-size: 48px;
+  letter-spacing: .1em;
+}
+
+// ===== /MyTypingGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Typing Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <p id="target"></p>
+  <p id="result">Finished! 10 seconds!</p>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+ゲームを複数の単語に対応させて、ランダムに表示させていきます。
+
+
+    複数の単語を定義
+    ランダムな要素の選択
+
+// ===== /MyTypingGame/js/main.js =====
+'use strict';
+
+{
+  const words = [
+    'red',
+    'blue',
+    'pink',
+  ];
+  let word;
+  let loc = 0;
+
+  const target = document.getElementById('target');
+  word = words[Math.floor(Math.random() * words.length)];
+  target.textContent = word;
+
+  document.addEventListener('keydown', e => {
+    if (e.key !== word[loc]) {
+      return;
+    }
+
+    loc++;
+
+    // 1: _ed
+    // 2: __d
+    // 3: ___
+    target.textContent = '_'.repeat(loc) + word.substring(loc);
+  });
+}
+
+// ===== /MyTypingGame/css/styles.css =====
+body {
+  padding-top: 40px;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+}
+
+#target {
+  font-size: 48px;
+  letter-spacing: .1em;
+}
+
+// ===== /MyTypingGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Typing Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <p id="target"></p>
+  <p id="result">Finished! 10 seconds!</p>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+一つ目の単語を打ち終えたら、次の単語がランダムにセットされるようにします。
+
+
+    setWord()
+
+// ===== commentBox 1 =====
+補足情報
+ランダムな整数値の生成について
+
+
+
+
+2020年9月2日
+
+
+
+
+
+ランダムな整数値を作る方法についてては、以下のレッスンをご参考ください。
+
+#20 ランダムな整数値を作ってみよう | 詳解JavaScript オブジェクト編
+https://dotinstall.com/lessons/basic_javascript_objects_v2/52320
+
+// ===== /MyTypingGame/js/main.js =====
+'use strict';
+
+{
+  function setWord() {
+    word = words[Math.floor(Math.random() * words.length)];
+    target.textContent = word;
+    loc = 0;
+  }
+
+  const words = [
+    'red',
+    'blue',
+    'pink',
+  ];
+  let word;
+  let loc = 0;
+  const target = document.getElementById('target');
+
+  setWord();
+
+  document.addEventListener('keydown', e => {
+    if (e.key !== word[loc]) {
+      return;
+    }
+
+    loc++;
+
+    // 1: _ed
+    // 2: __d
+    // 3: ___
+    target.textContent = '_'.repeat(loc) + word.substring(loc);
+
+    if (loc === word.length) {
+      setWord();
+    }
+  });
+}
+
+// ===== /MyTypingGame/css/styles.css =====
+body {
+  padding-top: 40px;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+}
+
+#target {
+  font-size: 48px;
+  letter-spacing: .1em;
+}
+
+// ===== /MyTypingGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Typing Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <p id="target"></p>
+  <p id="result">Finished! 10 seconds!</p>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+splice()を使って単語が重複されないようにしたのち、ゲーム終了時の表示を作っていきます。
+
+
+    splice()
+    結果表示
+
+// ===== commentBox 1 =====
+補足情報
+splice()の使い方について
+
+
+
+
+2020年9月2日
+
+
+
+
+
+splice()の使い方と、重複せずに取り出す方法については以下のレッスンも参考にしてみてください。
+
+
+#05 splice()で配列を変更してみよう | 詳解JavaScript オブジェクト編
+https://dotinstall.com/lessons/basic_javascript_objects_v2/52305
+
+
+#02 実装方針を確認しよう | JavaScriptでビンゴシートを作ろう
+https://dotinstall.com/lessons/bingo_js/55002
+
+
+#04 配列を確認してみよう | JavaScriptでビンゴシートを作ろう
+https://dotinstall.com/lessons/bingo_js/55004
+
+// ===== /MyTypingGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Typing Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <p id="target"></p>
+  <p id="result"></p>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyTypingGame/js/main.js =====
+'use strict';
+
+{
+  function setWord() {
+    word = words.splice(Math.floor(Math.random() * words.length), 1)[0];
+    target.textContent = word;
+    loc = 0;
+  }
+
+  const words = [
+    'red',
+    'blue',
+    'pink',
+  ];
+  let word;
+  let loc = 0;
+  const target = document.getElementById('target');
+
+  setWord();
+
+  document.addEventListener('keydown', e => {
+    if (e.key !== word[loc]) {
+      return;
+    }
+
+    loc++;
+
+    // 1: _ed
+    // 2: __d
+    // 3: ___
+    target.textContent = '_'.repeat(loc) + word.substring(loc);
+
+    if (loc === word.length) {
+      if (words.length === 0) {
+        const result = document.getElementById('result');
+        result.textContent = 'Finished!';
+        return;
+      }
+
+      setWord();
+    }
+  });
+}
+
+// ===== /MyTypingGame/css/styles.css =====
+body {
+  padding-top: 40px;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+}
+
+#target {
+  font-size: 48px;
+  letter-spacing: .1em;
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+splice()を使って単語が重複されないようにしたのち、ゲーム終了時の表示を作っていきます。
+
+
+    splice()
+    結果表示
+
+// ===== commentBox 1 =====
+補足情報
+splice()の使い方について
+
+
+
+
+2020年9月2日
+
+
+
+
+
+splice()の使い方と、重複せずに取り出す方法については以下のレッスンも参考にしてみてください。
+
+
+#05 splice()で配列を変更してみよう | 詳解JavaScript オブジェクト編
+https://dotinstall.com/lessons/basic_javascript_objects_v2/52305
+
+
+#02 実装方針を確認しよう | JavaScriptでビンゴシートを作ろう
+https://dotinstall.com/lessons/bingo_js/55002
+
+
+#04 配列を確認してみよう | JavaScriptでビンゴシートを作ろう
+https://dotinstall.com/lessons/bingo_js/55004
+
+// ===== /MyTypingGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Typing Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <p id="target"></p>
+  <p id="result"></p>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyTypingGame/js/main.js =====
+'use strict';
+
+{
+  function setWord() {
+    word = words.splice(Math.floor(Math.random() * words.length), 1)[0];
+    target.textContent = word;
+    loc = 0;
+  }
+
+  const words = [
+    'red',
+    'blue',
+    'pink',
+  ];
+  let word;
+  let loc = 0;
+  const target = document.getElementById('target');
+
+  setWord();
+
+  document.addEventListener('keydown', e => {
+    if (e.key !== word[loc]) {
+      return;
+    }
+
+    loc++;
+
+    // 1: _ed
+    // 2: __d
+    // 3: ___
+    target.textContent = '_'.repeat(loc) + word.substring(loc);
+
+    if (loc === word.length) {
+      if (words.length === 0) {
+        const result = document.getElementById('result');
+        result.textContent = 'Finished!';
+        return;
+      }
+
+      setWord();
+    }
+  });
+}
+
+// ===== /MyTypingGame/css/styles.css =====
+body {
+  padding-top: 40px;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+}
+
+#target {
+  font-size: 48px;
+  letter-spacing: .1em;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+画面クリックでゲームがスタートするようにしたのち、クリアタイムを表示させます。
+
+
+    clickイベントの設定
+    クリアタイムの表示
+
+// ===== commentBox 1 =====
+補足情報
+toFixed()の使い方について
+
+
+
+
+2020年9月2日
+
+
+
+
+
+toFixed()の使い方については、基礎文法編にある以下のレッスンをご参考ください。
+
+#19 数値を操作してみよう | 詳解JavaScript オブジェクト編
+https://dotinstall.com/lessons/basic_javascript_objects_v2/52319
+
+// ===== /MyTypingGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Typing Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <p id="target">Click to start!</p>
+  <p id="result"></p>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyTypingGame/js/main.js =====
+'use strict';
+
+{
+  function setWord() {
+    word = words.splice(Math.floor(Math.random() * words.length), 1)[0];
+    target.textContent = word;
+    loc = 0;
+  }
+
+  const words = [
+    'red',
+    'blue',
+    'pink',
+  ];
+  let word;
+  let loc = 0;
+  let startTime;
+  const target = document.getElementById('target');
+
+  document.addEventListener('click', () => {
+    startTime = Date.now();
+    setWord();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key !== word[loc]) {
+      return;
+    }
+
+    loc++;
+
+    // 1: _ed
+    // 2: __d
+    // 3: ___
+    target.textContent = '_'.repeat(loc) + word.substring(loc);
+
+    if (loc === word.length) {
+      if (words.length === 0) {
+        const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2);
+        const result = document.getElementById('result');
+        result.textContent = `Finished! ${elapsedTime} seconds!`;
+        return;
+      }
+
+      setWord();
+    }
+  });
+}
+
+// ===== /MyTypingGame/css/styles.css =====
+body {
+  padding-top: 40px;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+}
+
+#target {
+  font-size: 48px;
+  letter-spacing: .1em;
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+ゲームの途中でクリックできてしまう不具合を修正していきます。
+
+
+    ゲームの状態を管理
+    不具合の修正
+
+// ===== /MyTypingGame/js/main.js =====
+'use strict';
+
+{
+  function setWord() {
+    word = words.splice(Math.floor(Math.random() * words.length), 1)[0];
+    target.textContent = word;
+    loc = 0;
+  }
+
+  const words = [
+    'red',
+    'blue',
+    'pink',
+  ];
+  let word;
+  let loc = 0;
+  let startTime;
+  let isPlaying = false;
+  const target = document.getElementById('target');
+
+  document.addEventListener('click', () => {
+    if (isPlaying === true) {
+      return;
+    }
+
+    isPlaying = true;
+    startTime = Date.now();
+    setWord();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key !== word[loc]) {
+      return;
+    }
+
+    loc++;
+
+    // 1: _ed
+    // 2: __d
+    // 3: ___
+    target.textContent = '_'.repeat(loc) + word.substring(loc);
+
+    if (loc === word.length) {
+      if (words.length === 0) {
+        const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2);
+        const result = document.getElementById('result');
+        result.textContent = `Finished! ${elapsedTime} seconds!`;
+        return;
+      }
+
+      setWord();
+    }
+  });
+}
+
+// ===== /MyTypingGame/css/styles.css =====
+body {
+  padding-top: 40px;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+}
+
+#target {
+  font-size: 48px;
+  letter-spacing: .1em;
+}
+
+// ===== /MyTypingGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Typing Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <p id="target">Click to start!</p>
+  <p id="result"></p>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+

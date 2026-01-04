@@ -1,0 +1,735 @@
+// ===== video_summary =====
+まずは概要を説明したのちに、実装系の紹介、必要となる知識、レッスンにおける環境について説明していきます。
+
+
+    概要
+    実装系
+    必要となる知識
+    レッスンにおける環境
+    fpcのインストール
+
+// ===== commentBox 1 =====
+補足情報
+yum コマンドでインストールできない場合
+
+
+
+
+2017年7月27日
+
+
+
+
+
+yum コマンドで fpc のインストールができない場合は、以下の手順でインストールを実施してみてください。
+
+tar ファイルのダウンロード
+
+
+https://sourceforge.net/projects/freepascal/files/Linux/ にアクセスして、ダウンロードしたいバージョンを選択します。
+ファイルがたくさんありますが、「fpc-3.0.2.x86_64-linux.tar」のように「fpc-バージョン番号.x86_64-linux.tar」のファイルを選択してください。しばくら待つとファイルのダウンロードが始まります。
+
+
+以下、「fpc-3.0.2.x86_64-linux.tar」として説明します。
+
+fpc-3.0.2.x86_64-linux.tar をローカル開発環境に転送
+
+ダウンロードが完了したらローカル開発環境の /home/vagrant に、ダウンロードしたファイル fpc-3.0.2.x86_64-linux.tar を Cyberduck で転送してください。
+
+ローカル開発環境にインストール
+
+ローカル開発環境にログインしたら、
+
+cd
+tar xvf fpc-3.0.2.x86_64-linux.tar
+cd fpc-3.0.2.x86_64-linux
+sudo ./install.sh
+
+
+のコマンドを実行してください。sudo ./install.sh を実行すると何度か質問事項が出てきますが、何も入力せずにリターンキーを押していけば OK です。
+
+最後に、
+
+cd
+fpc -iV
+
+
+としてバージョンを確認してみてください。無事にバージョンが出力されればインストールは完了です。
+
+// ===== commentBox 2 =====
+補足情報
+必要となる知識について
+
+
+
+
+2016年11月21日
+
+
+
+
+
+このレッスンではローカル開発環境を利用しているので以下を参考にしてみてください。
+
+・ローカル開発環境の構築 [macOS編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_mac_v2
+・ローカル開発環境の構築 [Windows編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_win_v2
+・UNIXコマンド入門 (一般ユーザー編) (全16回)
+http://dotinstall.com/lessons/basic_unix
+
+// ===== read.me =====
+Pascal
+
+* 概要
+- 1970
+- 教育用途
+
+* 実装系
+- FreePascal
+
+* 知識
+
+* 環境
+
+
+
+
+
+// ===== video_summary =====
+まずはHello Worldと表示するためのPascalプログラムを書いてみます。
+
+
+    program
+    begin ... end.
+    writeln
+    コメント
+    実行方法
+
+// ===== hello.pas =====
+program HelloWorld;
+
+(* comment *)
+{ comment }
+// comment
+
+begin
+  writeln('hello world');
+end.
+
+
+
+
+
+// ===== video_summary =====
+変数や定数の宣言方法、値の代入方法などを見ていきます。
+
+
+    変数の宣言、値の代入
+    定数の宣言、値の代入
+
+// ===== hello.pas =====
+program HelloWorld;
+
+{
+変数: データにつけるラベル
+定数: 値が変更されない変数
+}
+
+const
+  author = 'taguchi';
+
+var
+  // message: string;
+  message: string = 'hello 2';
+
+begin
+  // message := 'hello 2';
+  // author := 'fkoji';
+  writeln(message);
+  writeln(author);
+end.
+
+
+
+
+
+// ===== video_summary =====
+Pascalで扱える基本的なデータ型について見ていきます。
+
+
+    string
+    integer
+    real
+    char
+    boolean
+
+// ===== hello.pas =====
+program HelloWorld;
+
+var
+  s: string;
+  x, y: integer;
+  z: real;
+  a: char;
+  flag: boolean; // true false
+
+begin
+  s := 'hello';
+  writeln(s);
+  x := 10;
+  writeln(x);
+  y := -20;
+  writeln(y);
+  z := 53.24;
+  writeln(z);
+  a := 'c';
+  writeln(a);
+  flag := true;
+  writeln(flag);
+end.
+
+
+
+
+
+
+// ===== video_summary =====
+数値や文字列の演算を行う方法について見ていきます。
+
+
+    integer: + - * div mode
+    real: + - * /
+    string: +
+    便利な命令: sqrt/cos/sin/round...
+
+// ===== hello.pas =====
+program HelloWorld;
+
+{
+integer:
+  + - * div mod
+real:
+  + - * /
+string:
+  +
+便利な命令:
+  sqrt/cos/sin/round ...
+}
+
+begin
+  writeln(10 * 3); // 30
+  writeln(10 div 3); // 3
+  writeln(10 mod 3); // 1
+  writeln(10.0 / 3.0); // 3.3333...
+  writeln(sqrt(2)); // 1.41...
+  writeln('hello ' + 'world'); // hello world
+end.
+
+
+
+
+
+// ===== video_summary =====
+データを出力するためのwriteln、writeについて見ていきます。
+
+
+    write
+    writeln
+    桁数指定
+
+// ===== hello.pas =====
+program HelloWorld;
+
+{
+writeln
+write
+}
+
+var
+  s: string;
+  x: integer;
+  z: real;
+
+begin
+  s := 'taguchi';
+  x := 10;
+  z := 32.536;
+
+  write(s);
+  writeln(s);
+  writeln;
+  writeln(s, x);
+  writeln(s:10, x:10, z:10:2);
+
+end.
+
+
+
+
+
+// ===== video_summary =====
+ある条件に応じて処理を振り分けることができるif文について見ていきます。
+
+
+    if
+    比較演算子、論理演算子
+    if ... else ...
+    複数の文をまとめる方法
+
+// ===== hello.pas =====
+program HelloWorld;
+
+{
+if
+  =
+  <>
+  >
+  <
+  >=
+  <=
+  and or not ()
+}
+
+var
+  score: integer;
+
+begin
+  score := 42;
+
+{
+  if score > 80 then
+    writeln('great!');
+}
+{
+  if score > 80 then
+    writeln('great!')
+  else
+    writeln('soso...');
+}
+  if score > 80 then
+    begin
+      writeln('great!');
+      writeln('great!');
+    end
+  else
+    begin
+      writeln('soso...');
+      writeln('soso...');
+    end;
+
+end.
+
+
+
+
+
+// ===== video_summary =====
+変数が取りうる値がいずれかの定数になる場合に使えるcase文について見ていきます。
+
+
+    case
+    else
+
+// ===== hello.pas =====
+program HelloWorld;
+
+{
+case
+}
+
+var
+  rank: integer;
+
+begin
+  rank := 10;
+
+  case rank of
+    1:
+      writeln('gold');
+    2:
+      writeln('silver');
+    3, 4, 5:
+      writeln('bronze');
+  else
+    writeln('no medal');
+  end;
+
+end.
+
+
+
+
+// ===== video_summary =====
+while、repeat...untilによるループ処理について見ていきます。
+
+
+    while
+    repeat...until
+    両者の違い
+
+// ===== hello.pas =====
+program HelloWorld;
+
+{
+while
+repeat ... until
+}
+
+var
+  i: integer;
+
+begin
+  i := 20;
+
+  while i < 10 do
+  begin
+    writeln(i);
+    i := i + 1;
+  end;
+
+{
+  repeat
+    writeln(i);
+    i := i + 1;
+  until i >= 10;
+}
+
+end.
+
+
+
+
+
+// ===== video_summary =====
+for文による繰り返し処理と、ループを抜ける方法について見ていきます。
+
+
+    for
+    break
+    continue
+
+// ===== hello.pas =====
+program HelloWorld;
+
+{
+for
+break / continue
+}
+
+var
+  i: integer;
+
+begin
+
+{
+  for i := 0 to 9 do
+    writeln(i);
+}
+
+  for i := 0 to 9 do
+    begin
+      // if i = 7 then break;
+      if i = 7 then continue;
+      writeln(i);
+    end;
+
+end.
+
+
+
+
+
+// ===== video_summary =====
+複数の処理をまとめて登録することができるprocedureについて見ていきます。
+
+
+    procedureの定義
+    呼び出し方法
+    引数
+    procedure内での定数、変数
+
+// ===== hello.pas =====
+program HelloWorld;
+
+{
+procedure
+}
+
+procedure sayHi(name: string);
+const
+  myname = 'taguchi';
+begin
+  writeln('hi! ' + name + ' from ' + myname);
+end;
+
+begin
+  // sayHi;
+  writeln(myname);
+  sayHi('Tom');
+  sayHi('Bob');
+end.
+
+
+
+
+
+// ===== video_summary =====
+procedureで使える値渡し、参照渡しについて違いを説明していきます。
+
+
+    値渡し
+    参照渡し
+
+// ===== hello.pas =====
+program HelloWorld;
+
+{
+procedure
+値渡し
+参照渡し
+}
+
+var
+  x, y: integer;
+
+procedure swap(var x, y: integer);
+var
+  tmp: integer;
+begin
+  tmp := x; x := y; y := tmp;
+end;
+
+begin
+  x := 10; y := 3;
+  swap(x, y);
+  writeln(x:5, y:5); // 3 10
+end.
+
+
+
+
+
+
+// ===== video_summary =====
+複数の処理を実行し、値を返してくれるfunctionについて見ていきます。
+
+
+    functionの定義
+    返り値の設定
+    引数
+    function内での定数、変数
+
+// ===== hello.pas =====
+program HelloWorld;
+
+{
+function
+}
+
+var
+  result: integer;
+
+function getNumber(a, b:integer): integer;
+const
+  factor = 2;
+begin
+  // getNumber := 10;
+  getNumber := (a + b) * factor;
+end;
+
+begin
+  writeln(factor);
+  // result := getNumber;
+  result := getNumber(3, 5);
+  writeln(result);
+end.
+
+
+
+
+
+
+// ===== video_summary =====
+functionやprocedureの定義を前方で宣言するための方法について見ていきます。
+
+
+    forward
+
+// ===== hello.pas =====
+program HelloWorld;
+
+{
+前方宣言
+}
+
+procedure p2; forward;
+
+procedure p1;
+begin
+  writeln('p1');
+  p2;
+end;
+
+procedure p2;
+begin
+  writeln('p2');
+end;
+
+begin
+end.
+
+
+
+
+
+
+// ===== video_summary =====
+定数のリストを管理することができる列挙型について見ていきます。
+
+
+    列挙型の定義
+    succ()
+    pred()
+    ord()
+
+// ===== hello.pas =====
+program HelloWorld;
+
+{
+列挙型: 定数のリスト
+}
+
+type
+  colors = (red, green, blue);
+
+var
+  mycolor: colors;
+
+begin
+  // mycolor := green;
+  // mycolor := yellow;
+  // writeln(mycolor);
+
+  writeln(succ(green)); // blue
+  writeln(pred(green)); // red
+  writeln(ord(green)); // 1
+
+  writeln(succ('b')); // 'c'
+end.
+
+
+
+
+
+
+// ===== video_summary =====
+順番を持つデータの一部を型として定義することができる部分範囲型について見ていきます。
+
+
+    部分範囲型の定義
+    列挙型との併用
+
+// ===== hello.pas =====
+program HelloWorld;
+
+{
+部分範囲型
+}
+
+type
+  colors = (red, green, blue, yellow, pink);
+
+var
+  teamNumber: 1..5;
+  teamSymbol: 'a'..'e';
+  teamColor: red..blue;
+
+begin
+  teamNumber := 100;
+  writeln(teamNumber);
+end.
+
+
+
+
+
+// ===== video_summary =====
+複数のデータをまとめて扱うことができる配列について見ていきます。
+
+
+    配列の定義
+    アクセス方法
+    列挙型との併用
+    複数次元の配列
+
+// ===== hello.pas =====
+program HelloWorld;
+
+{
+配列
+}
+
+type
+  sales = array[2010..2015] of integer;
+  colors = (red, green, blue);
+  colorsarray = array[colors] of boolean;
+  dim = array[0..2, 0..2] of integer;
+var
+  mysales: sales;
+  mycolor: colorsarray; // mycolor[blue] := true;
+  mydim: dim; // mydim[0, 1] := 23;
+
+begin
+  mysales[2011] := 200;
+  writeln(mysales[2011]);
+end.
+
+
+
+
+
+
+// ===== video_summary =====
+異なる種類のデータをまとめて扱うことができるレコードについて見ていきます。
+
+
+    レコードの定義
+    フィールド
+    アクセス方法
+    with
+
+// ===== hello.pas =====
+program HelloWorld;
+
+{
+record
+}
+
+type
+  user = record
+    name: string;
+    score: integer;
+  end;
+var
+  taguchi, fkoji: user;
+
+begin
+  taguchi.name := 'taguchi';
+  taguchi.score := 30;
+
+  with fkoji do
+  begin
+    name := 'fkoji';
+    score := 80;
+  end;
+
+  writeln(taguchi.name);
+  writeln(fkoji.score);
+  
+end.
+
+
+
+
+

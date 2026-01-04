@@ -1,0 +1,502 @@
+// ===== video_summary =====
+Google Chartsの概要を説明したのちに、雛形ファイルを作っていきます。
+
+
+    Google Chartsの概要
+    index.htmlの作成
+
+// ===== commentBox 1 =====
+補足情報
+必要となる知識について
+
+
+
+
+2017年11月22日
+
+
+
+
+
+今回のレッスンについては以下も参考にしてみてください。
+
+・JavaScript入門 (全24回)
+https://dotinstall.com/lessons/basic_javascript_v2
+
+// ===== /GoogleCharts/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chart Tools</title>
+</head>
+<body>
+  <div id="target"></div>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+グラフ描画の流れを確認していきます。
+
+
+    ライブラリの読み込み
+    処理の流れ
+
+// ===== /GoogleCharts/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chart Tools</title>
+</head>
+<body>
+  <div id="target"></div>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      function drawChart() {
+        var target = document.getElementById('target');
+        var data;
+        var options = {
+          title: 'My Chart',
+          width: 500,
+          height: 300
+        };
+        var chart = new google.visualization.PieChart(target);
+        chart.draw(data, options);
+      }
+
+      google.charts.load('current', {packages: ['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+    })();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+グラフを描画する際に必要なデータの追加方法について見ていきます。
+
+
+    データの準備
+    DataTable()によるデータの追加
+
+// ===== /GoogleCharts/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chart Tools</title>
+</head>
+<body>
+  <div id="target"></div>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      function drawChart() {
+        var target = document.getElementById('target');
+        var data;
+        var options = {
+          title: 'My Chart',
+          width: 500,
+          height: 300
+        };
+        var chart = new google.visualization.PieChart(target);
+        data = new google.visualization.DataTable();
+        data.addColumn('string', 'Language');
+        data.addColumn('number', 'Votes');
+        data.addRow(['PHP', 30]);
+        data.addRow(['Ruby', 20]);
+        data.addRow(['Python', 10]);
+        chart.draw(data, options);
+      }
+
+      google.charts.load('current', {packages: ['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+    })();
+  </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+データを配列で一気に追加する方法を見ていきます。
+
+
+    arrayToDataTable()によるデータの追加
+
+// ===== /GoogleCharts/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chart Tools</title>
+</head>
+<body>
+  <div id="target"></div>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      function drawChart() {
+        var target = document.getElementById('target');
+        var data;
+        var options = {
+          title: 'My Chart',
+          width: 500,
+          height: 300
+        };
+        var chart = new google.visualization.PieChart(target);
+        // data = new google.visualization.DataTable();
+        // data.addColumn('string', 'Language');
+        // data.addColumn('number', 'Votes');
+        // data.addRow(['PHP', 30]);
+        // data.addRow(['Ruby', 20]);
+        // data.addRow(['Python', 10]);
+        data = new google.visualization.arrayToDataTable([
+          ['Language', 'Votes'],
+          ['PHP', 100],
+          ['Ruby', 20],
+          ['Python', 10]
+        ]);
+        chart.draw(data, options);
+      }
+
+      google.charts.load('current', {packages: ['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+    })();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+グラフ描画に使えるオプションをいくつか試していきます。
+
+
+    optionsの指定
+
+// ===== /GoogleCharts/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chart Tools</title>
+</head>
+<body>
+  <div id="target"></div>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      function drawChart() {
+        var target = document.getElementById('target');
+        var data;
+        var options = {
+          title: 'My Chart',
+          width: 500,
+          height: 300,
+          backgroundColor: '#f8f8f8',
+          colors: ['#aaa', '#bbb', '#ccc'],
+          slices: [1, {offset: 0.2}],
+          // pieHole: 0.4,
+          is3D: true
+        };
+        var chart = new google.visualization.PieChart(target);
+        // data = new google.visualization.DataTable();
+        // data.addColumn('string', 'Language');
+        // data.addColumn('number', 'Votes');
+        // data.addRow(['PHP', 30]);
+        // data.addRow(['Ruby', 20]);
+        // data.addRow(['Python', 10]);
+        data = new google.visualization.arrayToDataTable([
+          ['Language', 'Votes'],
+          ['PHP', 100],
+          ['Ruby', 20],
+          ['Python', 10]
+        ]);
+        chart.draw(data, options);
+      }
+
+      google.charts.load('current', {packages: ['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+    })();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+棒グラフをつくって、様々なオプションを指定してみます。
+
+
+    棒グラフの作成
+    optionsの指定
+
+// ===== /GoogleCharts/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chart Tools</title>
+</head>
+<body>
+  <div id="target"></div>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      function drawChart() {
+        var target = document.getElementById('target');
+        var data;
+        var options = {
+          title: 'My Chart',
+          width: 500,
+          height: 300,
+          animation: {
+            startup: true,
+            duration: 800,
+            easing: 'inAndOut'
+          },
+          // isStacked: true
+          isStacked: 'percent'
+        };
+        // var chart = new google.visualization.BarChart(target);
+        var chart = new google.visualization.ColumnChart(target);
+        data = new google.visualization.arrayToDataTable([
+          ['Team', 'Item-1', 'Item-2'],
+          ['Team A', 12, 38],
+          ['Team B', 42, 18],
+          ['Team C', 11, 58]
+        ]);
+        chart.draw(data, options);
+      }
+
+      google.charts.load('current', {packages: ['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+    })();
+  </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+折れ線グラフを作ったのちに、オプションを指定していきます。
+
+
+    折れ線グラフの作成
+    optionsの指定
+
+// ===== /GoogleCharts/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chart Tools</title>
+</head>
+<body>
+  <div id="target"></div>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      function drawChart() {
+        var target = document.getElementById('target');
+        var data;
+        var options = {
+          title: 'My Chart',
+          width: 500,
+          height: 300,
+          hAxis: {title: 'Year'},
+          vAxis: {title: 'Sales'},
+          curveType: 'function',
+          pointSize: 10,
+          pointShape: 'square'
+        };
+        var chart = new google.visualization.LineChart(target);
+        data = new google.visualization.arrayToDataTable([
+          ['Year', '@taguchi', '@fkoji'],
+          ['2014', 52, 89],
+          ['2015', 38, 78],
+          ['2016', 44, 88],
+          ['2017', 62, 91]
+        ]);
+        chart.draw(data, options);
+      }
+
+      google.charts.load('current', {packages: ['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+    })();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+グラフに説明を加えられるRoleという仕組みについて見ていきます。
+
+
+    Roleの使用
+
+// ===== /GoogleCharts/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chart Tools</title>
+</head>
+<body>
+  <div id="target"></div>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      function drawChart() {
+        var target = document.getElementById('target');
+        var data;
+        var options = {
+          title: 'My Chart',
+          width: 500,
+          height: 300,
+          hAxis: {title: 'Year'},
+          vAxis: {title: 'Sales'},
+          curveType: 'function',
+          pointSize: 10,
+          pointShape: 'square'
+        };
+        var chart = new google.visualization.LineChart(target);
+        data = new google.visualization.arrayToDataTable([
+          ['Year', '@taguchi', {role: 'annotation'}, {role: 'certainty'}, '@fkoji', {role: 'certainty'}],
+          ['2014', 52, 'Campaign A', true, 89, true],
+          ['2015', 38, null, true, 78, true],
+          ['2016', 44, null, true, 88, true],
+          ['2017', 62, null, false, 91, false]
+        ]);
+        chart.draw(data, options);
+      }
+
+      google.charts.load('current', {packages: ['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+    })();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+スプレッドシートのデータを使ってグラフを描画していきます。
+
+
+    スプレッドシートの読み込み
+    スプレッドシートの公開設定
+    動作確認
+
+// ===== commentBox 1 =====
+補足情報
+スプレッドシートとの連携について
+
+
+
+
+2022年4月27日
+
+
+
+
+
+Google Chartsに仕様変更により、レッスンどおりに操作してもうまくいかなくなったようです（2022年4月現在）。
+以下のやり方でスプレッドシートと連動することができますので、参考にしてみてください。
+
+Google スプレッドシートを開き、『共有』ボタンから『リンクを取得』の『リンクをコピー』し、google.visualization.Query() の中にペーストする
+google.charts.load('current', {packages: ['corechart']}); の 'current' を '48' にする
+
+// ===== /GoogleCharts/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chart Tools</title>
+</head>
+<body>
+  <div id="target"></div>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      function drawChart() {
+        var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d
+/1e8lczjO4RCCIQrEAoDGmylsRLGjZ4MB67IKrPm1oZFc/edit?usp=sharing');
+        query.send(handleQueryResponse);
+      }
+
+      function handleQueryResponse(response) {
+        var target = document.getElementById('target');
+        var data;
+        var options = {
+          title: 'My Chart',
+          width: 500,
+          height: 300
+        };
+        var chart = new google.visualization.PieChart(target);
+        data = response.getDataTable();
+        chart.draw(data, options);
+      }
+
+      google.charts.load('current', {packages: ['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+    })();
+  </script>
+</body>
+</html>
+
+
+
+
+
+

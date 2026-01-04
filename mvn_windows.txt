@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre><code>
+    
+  </code></pre>
+</body>
+</html>
+
+① JDK が入っているか確認
+コマンドプロンプト or PowerShell で：
+
+java -version
+表示例：
+
+java version "17.0.x"
+❌ エラーになる場合
+→ JDK（8 / 11 / 17 / 21 など）を先にインストールしてください
+※ 現在は Java 17 / 21（LTS）推奨
+
+2. Maven をインストールする方法（3通り）
+方法①：公式ZIP（定番・確実）
+① Maven をダウンロード
+https://maven.apache.org/download.cgi
+
+Binary zip archive を選択
+例：apache-maven-3.9.x-bin.zip
+
+② 展開
+例：
+
+3. 環境変数の設定（重要）
+① JAVA_HOME の設定
+例（JDK 17）：
+
+JAVA_HOME = C:\Program Files\Java\jdk-17
+② MAVEN_HOME（任意だが推奨）
+MAVEN_HOME = C:\tools\apache-maven-3.9.x
+③ Path に追加
+以下を Path に追加：
+
+%JAVA_HOME%\bin
+%MAVEN_HOME%\bin
+💡 PC 再起動 or 新しいターミナルを開く
+
+4. mvn コマンドの動作確認
+mvn -v
+成功例：
+
+Apache Maven 3.9.x
+Java version: 17
+OS name: "windows"
+5. 基本的な mvn コマンド
+プロジェクト作成
+mvn archetype:generate
+ビルド
+mvn clean compile
+テスト実行
+mvn test
+jar 作成
+mvn package
+依存関係ダウンロード（初回によく使う）
+mvn dependency:resolve
+6. よくあるエラーと対処
+❌ 'mvn' は内部コマンドまたは外部コマンド…
+原因：
+
+Path が通っていない
+
+再起動していない
+
+✔ 対処：
+
+MAVEN_HOME\bin が Path にあるか確認
+
+新しいターミナルを開く
+
+❌ JAVA_HOME is not defined correctly
+原因：
+
+JDK ではなく JRE を指定
+
+パスが間違っている
+
+✔ 対処：
+
+javac -version が通るか確認
+
+JAVA_HOME は jdk フォルダ直下
+
+7. Eclipse / IntelliJ を使っている場合（補足）
+Eclipse
+M2E（Maven統合）標準搭載
+
+外部 mvn を使う場合：
+
+Window > Preferences > Maven > Installations
+IntelliJ IDEA
+内蔵 Maven あり
+
+Settings > Build Tools > Maven
+
+8. PowerShell / cmd / Git Bash どれでも使える？
+環境	mvn
+コマンドプロンプト	✅
+PowerShell	✅
+Git Bash	✅（Path 設定必須）
+必要であれば次も説明できます：
+
+Eclipse で mvn を使う方法
+
+プロキシ環境での mvn 設定（settings.xml）
+
+会社環境でのリポジトリ設定
+
+Gradle との違い
+

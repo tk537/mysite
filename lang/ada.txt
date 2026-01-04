@@ -1,0 +1,966 @@
+// ===== video_summary =====
+まずは概要を説明したのちにリファレンスの参照方法、必要となる知識、レッスンにおける環境について見ていきます。
+
+
+    概要
+    リファレンスの参照方法
+    必要となる知識
+    レッスンにおける環境
+
+// ===== commentBox 1 =====
+補足情報
+必要となる知識について
+
+
+
+
+2016年11月21日
+
+
+
+
+
+今回のレッスンについては以下も参考にしてみてください。
+
+・ローカル開発環境の構築 [macOS編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_mac_v2
+・ローカル開発環境の構築 [Windows編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_win_v2
+・UNIXコマンド入門 (一般ユーザー編) (全16回)
+http://dotinstall.com/lessons/basic_unix
+
+// ===== read.me =====
+Ada
+
+* 概要
+- 1980年代
+- 米国の国防総省
+
+* リファレンス
+
+* 知識
+
+* 環境
+- ローカル開発環境
+- GNAT
+- sudo yum install -y fedora-gnat-project-common
+
+
+
+
+
+
+// ===== video_summary =====
+hello world!と表示するプログラムを作ってコンパイルし、実行してみます。
+
+
+    myapp.adb
+    コンパイル
+    実行
+
+// ===== myapp.adb =====
+-- comment
+
+with Ada.Text_IO;
+use Ada.Text_IO;
+
+procedure MyApp is
+begin
+   put_line("hello world!");
+end MyApp;
+
+
+
+
+
+
+// ===== video_summary =====
+変数と定数の使い方について見ていきます。
+
+
+    変数
+    定数
+    put()
+    new_line
+    Integer'Image
+
+// ===== myapp.adb =====
+-- 変数
+-- 定数
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Integer_Text_IO;
+use Ada.Integer_Text_IO;
+
+procedure MyApp is
+   x: Integer;
+   y: constant Integer := 3;
+begin
+   x := 5;
+   put(x);
+   new_line;
+   x := 10;
+   -- put(x, 5);
+   -- new_line;
+   put_line(Integer'Image(x));
+   put(y);
+   new_line;
+end MyApp;
+
+
+
+
+
+
+
+// ===== video_summary =====
+ユーザーから入力を受け取って整数の演算をしてみます。
+
+
+    get()
+    整数値の演算
+
+// ===== myapp.adb =====
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Integer_Text_IO;
+use Ada.Integer_Text_IO;
+
+procedure MyApp is
+   x: Integer;
+begin
+   put("your number ? ");
+   get(x);
+
+   put(x + 3);
+   new_line;
+   put(x - 3);
+   new_line;
+   put(x / 3);
+   new_line;
+   put(x rem 3);
+   new_line;
+   put(x * 3);
+   new_line;
+   put(x ** 3);
+   new_line;
+
+end MyApp;
+
+
+
+
+
+
+// ===== video_summary =====
+浮動小数点数を扱うためのFloat型を使ってみます。
+
+
+    Float型
+    表示桁数の変更
+    整数との演算
+
+// ===== myapp.adb =====
+-- Float
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Integer_Text_IO;
+use Ada.Integer_Text_IO;
+with Ada.Float_Text_IO;
+use Ada.Float_Text_IO;
+
+procedure MyApp is
+   x: integer;
+   y: float;
+begin
+   get(x);
+   get(y);
+   -- put(x);
+   put(item => x, width => 5);
+   new_line;
+   -- put(y);
+   -- put(y, 5, 2, 0);
+   put(item => y, fore => 5, aft => 2, exp => 0);
+   new_line;
+   put(Float(x) + y, 5, 2, 0);
+   new_line;
+end MyApp;
+
+
+
+
+
+
+
+// ===== video_summary =====
+自分でデータ型を作るためのtypeを使ってみます。
+
+
+    type
+    range
+    subtype
+
+// ===== myapp.adb =====
+--type
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Integer_Text_IO;
+use Ada.Integer_Text_IO;
+
+procedure MyApp is
+   type Score is range 1..100;
+   x: Score;
+
+   type Youbi is (Mon, Tue, Wed, Thu, Fri, Sat, Sun);
+   subtype Weekday is Youbi range Mon..Fri;
+   subtype Weekend is Youbi range Sat..Sun;
+   d: Weekday;
+begin
+   x := 80;
+   -- x := 150;
+
+   -- d := Mon;
+   d := Sun;
+end MyApp;
+
+
+
+
+
+
+// ===== video_summary =====
+複雑なデータ型をつくるためのrecordについて見ていきます。
+
+
+    record
+    動作確認
+
+// ===== myapp.adb =====
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Integer_Text_IO;
+use Ada.Integer_Text_IO;
+
+procedure MyApp is
+   type Point is
+   record
+      x: integer range 1..100;
+      y: integer range 1..100;
+   end record;
+   p: Point;
+begin
+   p.x := 40;
+   p.y := 20;
+   -- p := (x => 40, y => 20);
+   -- p := (40, 20);
+   put(p.x);
+   new_line;
+   put(p.y);
+   new_line;
+end MyApp;
+
+
+
+
+
+
+// ===== video_summary =====
+if文を使って条件分岐をしてみます。
+
+
+    if
+    elsif
+    else
+    end if
+    比較演算子
+
+// ===== myapp.adb =====
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Integer_Text_IO;
+use Ada.Integer_Text_IO;
+
+procedure MyApp is
+   -- if
+   score: integer;
+begin
+   get(score);
+   -- > < >= <= = /=
+   if score > 80 then
+      put_line("great!");
+   elsif score > 60 then
+      put_line("good!");
+   else
+      put_line("...");
+   end if;
+end MyApp;
+
+
+
+
+
+// ===== video_summary =====
+caseを使って条件分岐をしてみます。
+
+
+    case
+
+// ===== myapp.adb =====
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Integer_Text_IO;
+use Ada.Integer_Text_IO;
+
+procedure MyApp is
+   -- case
+   count: integer range 1..5;
+begin
+   get(count);
+   case count is
+      when 1 =>
+         put_line("one!");
+      when 2 =>
+         put_line("two!");
+      when 3 =>
+         put_line("three!");
+      when others =>
+         put_line("other!");
+   end case;
+end MyApp;
+
+
+
+
+
+// ===== video_summary =====
+forを使って繰り返し処理をする方法についてみていきます。
+
+
+    for
+    reverse
+
+// ===== myapp.adb =====
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Integer_Text_IO;
+use Ada.Integer_Text_IO;
+
+procedure MyApp is
+   -- for
+   count: integer;
+begin
+   get(count);
+   -- for i in 1..count loop
+   for i in reverse 1..count loop
+      put(i);
+      new_line;
+   end loop;
+end MyApp;
+
+
+
+
+
+// ===== video_summary =====
+whileを使って繰り返し処理をする方法についてみていきます。
+
+
+    while
+
+// ===== myapp.adb =====
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Integer_Text_IO;
+use Ada.Integer_Text_IO;
+
+procedure MyApp is
+   -- while
+   count: integer;
+   i: integer := 1;
+begin
+   get(count);
+   while i <= count loop
+      put(i);
+      new_line;
+      i := i + 1;
+   end loop;
+end MyApp;
+
+
+
+
+
+
+// ===== video_summary =====
+loop, exitを使って繰り返し処理をする方法についてみていきます。
+
+
+    loop
+    exit
+
+// ===== myapp.adb =====
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Integer_Text_IO;
+use Ada.Integer_Text_IO;
+
+procedure MyApp is
+   -- loop, exit
+   count: integer;
+   i: integer := 1;
+begin
+   get(count);
+   loop
+      put(i);
+      new_line;
+      i := i + 1;
+      exit when i > count;
+   end loop;
+end MyApp;
+
+
+
+
+
+
+// ===== video_summary =====
+配列の使い方およびAttributeについて見ていきます。
+
+
+    配列の作成方法
+    Array'Range
+    Array'First
+    Array'Last
+    Array'Length
+
+// ===== myapp.adb =====
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Integer_Text_IO;
+use Ada.Integer_Text_IO;
+
+procedure MyApp is
+   -- 配列
+   type Sales is array(1..3) of Integer;
+   s: Sales;
+begin
+   s(1) := 200;
+   s(2) := 150;
+   s(3) := 40;
+   -- s := (200, 150, 40);
+
+   -- put(s(1));
+   -- for i in 1..3 loop
+   for i in s'Range loop
+      put(s(i));
+      new_line;
+   end loop;
+
+   put(s'First);
+   new_line;
+   put(s'Last);
+   new_line;
+   put(s'Length);
+   new_line;
+end MyApp;
+
+
+
+
+
+
+// ===== video_summary =====
+Character型とString型の使い方について見ていきます。
+
+
+    Character
+    String
+    Stringの連結
+    Stringの操作
+
+// ===== myapp.adb =====
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Integer_Text_IO;
+use Ada.Integer_Text_IO;
+
+procedure MyApp is
+   c: Character;
+   s: String(1..12);
+begin
+   c := 'a';
+   s := "hello world!";
+
+   put(c);
+   new_line;
+
+   put_line(s);
+   put_line(s & " again!");
+
+   s(1) := 'H';
+   put_line(s);
+   put_line(s(3..8));
+end MyApp;
+
+
+
+
+
+
+// ===== video_summary =====
+処理をまとめることができるprocedureの使い方について見ていきます。
+
+
+    procedure
+    呼び出し方法
+    引数
+
+// ===== myapp.adb =====
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Integer_Text_IO;
+use Ada.Integer_Text_IO;
+
+procedure MyApp is
+   procedure SayHi(name: in String) is
+   begin
+      put_line("Hi! " & name);
+   end SayHi;
+begin
+   SayHi("tom");
+   SayHi("bob");
+end MyApp;
+
+
+
+
+
+// ===== video_summary =====
+返り値があるprocedureであるfunctionについて見ていきます。
+
+
+    function
+    動作確認
+
+// ===== myapp.adb =====
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Integer_Text_IO;
+use Ada.Integer_Text_IO;
+
+procedure MyApp is
+   -- function
+   function Double(a: in Integer) return Integer is
+   begin
+      return a * 2;
+   end Double;
+   x: integer;
+begin
+   get(x);
+   put(Double(x));
+   new_line;
+end MyApp;
+
+
+
+
+
+
+// ===== video_summary =====
+メモリ上の位置を格納できるaccess型について見ていきます。
+
+
+    access型
+    動作確認
+
+// ===== myapp.adb =====
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Integer_Text_IO;
+use Ada.Integer_Text_IO;
+
+procedure MyApp is
+   -- access
+   x, y: access Integer;
+   i: aliased Integer;
+begin
+   x := new Integer;
+   x.all := 13;
+   put(x.all); -- 13
+   new_line;
+
+   i := 5;
+   y := i'Access;
+   put(y.all); -- 5
+   new_line;
+
+   i := 15;
+   put(y.all); -- 15
+   new_line;
+
+end MyApp;
+
+
+
+
+
+
+// ===== video_summary =====
+例外を発生させてキャッチする方法についてみていきます。
+
+
+    exception
+    動作確認
+
+// ===== myapp.adb =====
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Integer_Text_IO;
+use Ada.Integer_Text_IO;
+
+procedure MyApp is
+   -- exception
+   i: integer range 1..20;
+   three_not_good: exception;
+begin
+   get(i);
+   if i = 3 then
+      raise three_not_good;
+   end if;
+   put(i);
+   new_line;
+exception
+   when CONSTRAINT_ERROR =>
+      put_line("not in range!");
+   when three_not_good =>
+      put_line("not 3!");
+end MyApp;
+
+
+
+
+
+
+// ===== video_summary =====
+データと処理をまとめることができるオブジェクト指向について見ていきます。
+
+
+    処理の概要
+    Packageの宣言
+
+// ===== myapp.adb =====
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Integer_Text_IO;
+use Ada.Integer_Text_IO;
+
+procedure MyApp is
+   -- オブジェクト指向
+   -- User
+   --    score
+   --    setScore, getScore, getName
+   -- AdminUser
+   --   level
+   --   setLevel, getName
+   package User_Package is
+      type User is tagged private;
+      procedure setScore(u: in out User; s: Integer);
+      function getScore(u: in User) return Integer;
+      function getName(u: in User) return String;
+   private
+      type User is tagged
+      record
+         score: Integer;
+      end record;
+   end User_Package;
+begin
+
+end MyApp;
+
+
+
+
+
+
+// ===== video_summary =====
+User型とAdmin_User型の実装を進めていきます。
+
+
+    User
+    Admin_User
+
+// ===== myapp.adb =====
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Integer_Text_IO;
+use Ada.Integer_Text_IO;
+
+procedure MyApp is
+   -- オブジェクト指向
+   -- User
+   --    score
+   --    setScore, getScore, getName
+   -- AdminUser
+   --   level
+   --   setLevel, getName
+   package User_Package is
+      type User is tagged private;
+      procedure setScore(u: in out User; s: Integer);
+      function getScore(u: in User) return Integer;
+      function getName(u: in User) return String;
+   private
+      type User is tagged
+      record
+         score: Integer;
+      end record;
+   end User_Package;
+   package body User_Package is
+      procedure setScore(u: in out User; s: Integer) is
+      begin
+         u.score := s;
+      end setScore;
+      function getScore(u: in User) return Integer is
+      begin
+         return u.score;
+      end getScore;
+      function getName(u: in User) return String is
+      begin
+         return "i am user!";
+      end getName;
+   end User_Package;
+
+   use User_Package;
+
+   package Admin_User_Package is
+      type Admin_User is new User with private;
+      procedure setLevel(a: in out Admin_User; l: Integer);
+      function getName(a: in Admin_User) return String;
+   private
+      type Admin_User is new User with
+      record
+         level: Integer;
+      end record;
+   end Admin_User_Package;
+   package body Admin_User_Package is
+      procedure setLevel(a: in out Admin_User; l: Integer);
+      function getName(a: in Admin_User) return String;
+   end Admin_User_Package;
+begin
+
+end MyApp;
+
+
+
+
+
+
+// ===== video_summary =====
+作った型で変数を作り、データや処理にアクセスしてみます。
+
+
+    User型
+    Admin_User型
+    動作確認
+
+// ===== myapp.adb =====
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Integer_Text_IO;
+use Ada.Integer_Text_IO;
+
+procedure MyApp is
+   -- オブジェクト指向
+   -- User
+   --    score
+   --    setScore, getScore, getName
+   -- AdminUser
+   --   level
+   --   setLevel, getName
+   package User_Package is
+      type User is tagged private;
+      procedure setScore(u: in out User; s: Integer);
+      function getScore(u: in User) return Integer;
+      function getName(u: in User) return String;
+   private
+      type User is tagged
+      record
+         score: Integer;
+      end record;
+   end User_Package;
+   package body User_Package is
+      procedure setScore(u: in out User; s: Integer) is
+      begin
+         u.score := s;
+      end setScore;
+      function getScore(u: in User) return Integer is
+      begin
+         return u.score;
+      end getScore;
+      function getName(u: in User) return String is
+      begin
+         return "i am user!";
+      end getName;
+   end User_Package;
+
+   use User_Package;
+
+   package Admin_User_Package is
+      type Admin_User is new User with private;
+      procedure setLevel(a: in out Admin_User; l: Integer);
+      function getName(a: in Admin_User) return String;
+   private
+      type Admin_User is new User with
+      record
+         level: Integer;
+      end record;
+   end Admin_User_Package;
+   package body Admin_User_Package is
+      procedure setLevel(a: in out Admin_User; l: Integer) is
+      begin
+         a.level := l;
+      end setLevel;
+      function getName(a: in Admin_User) return String is
+      begin
+         return "i am admin user, level: " & Integer'Image(a.level);
+      end getName;
+   end Admin_User_Package;
+
+   use Admin_User_Package;
+
+   tom: User;
+   bob: Admin_User;
+begin
+   setScore(tom, 20);
+   setScore(bob, 55);
+   setLevel(bob, 3);
+
+   put(getScore(tom));
+   new_line;
+   put(getScore(bob));
+   new_line;
+   put(getName(tom));
+   new_line;
+   put(getName(bob));
+   new_line;
+
+end MyApp;
+
+
+
+
+
+
+
+// ===== video_summary =====
+型を抽象化してコードの再利用をするためのGenericsについて見ていきます。
+
+
+    genericsの宣言
+
+// ===== myapp.adb =====
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Integer_Text_IO;
+use Ada.Integer_Text_IO;
+
+procedure MyApp is
+   -- generics
+   -- procedure SwapInt(a, b: in out Integer);
+   -- procedure SwapFloat(a, b: in out Float);
+
+   generic
+      type element is private;
+   procedure Swap(a, b: in out element);
+
+   procedure Swap(a, b: in out element) is
+      tmp: element
+   begin
+      tmp := a;
+      a := b;
+      b := tmp;
+   end Swap;
+
+   procedure SwapInt is new Swap(Integer);
+   procedure SwapChar is new Swap(Character);
+
+   i1: Integer := 3;
+   i2: Integer := 5;
+   c1: Character := 'a';
+   c2: Character := 'd';
+
+begin
+
+end MyApp;
+
+
+
+
+
+
+
+// ===== video_summary =====
+実際にGenericsを使ってさまざまな型で共通のコードを実行してみます。
+
+
+    SwapInt()
+    SwapChar()
+    動作確認
+
+// ===== myapp.adb =====
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Ada.Integer_Text_IO;
+use Ada.Integer_Text_IO;
+
+procedure MyApp is
+   -- generics
+   -- procedure SwapInt(a, b: in out Integer);
+   -- procedure SwapFloat(a, b: in out Float);
+
+   generic
+      type element is private;
+   procedure Swap(a, b: in out element);
+
+   procedure Swap(a, b: in out element) is
+      tmp: element;
+   begin
+      tmp := a;
+      a := b;
+      b := tmp;
+   end Swap;
+
+   procedure SwapInt is new Swap(Integer);
+   procedure SwapChar is new Swap(Character);
+
+   i1: Integer := 3;
+   i2: Integer := 5;
+   c1: Character := 'a';
+   c2: Character := 'd';
+
+begin
+   put(i1);
+   new_line;
+   put(i2);
+   new_line;
+   put(c1);
+   new_line;
+   put(c2);
+   new_line;
+   SwapInt(i1, i2);
+   SwapChar(c1, c2);
+   put(i1);
+   new_line;
+   put(i2);
+   new_line;
+   put(c1);
+   new_line;
+   put(c2);
+   new_line;
+end MyApp;
+
+
+
+
+
+
+

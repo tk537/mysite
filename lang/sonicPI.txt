@@ -1,0 +1,528 @@
+// ===== video_summary =====
+公式サイトを確認したのちに、Sonic Piを起動していきます。
+
+
+    公式サイトの確認
+    画面構成の説明
+
+// ===== commentBox 1 =====
+補足情報
+Bluetooth のスピーカー等に接続していると起動エラーになる場合があります
+
+
+
+
+2018年4月20日
+
+
+
+
+
+ユーザーの方よりご報告いただきましたが、Bluetooth のスピーカーやヘッドホンに接続したまま Sonic PI を起動するとエラーになる場合があります。
+
+その場合は接続を解除してから起動してください。
+
+また、起動後にスピーカーやヘッドホンに接続し直しても、音はパソコンのほうから出力される可能性があります。
+
+// ===== commentBox 2 =====
+補足情報
+「開発元が未確認のため開けません」と出る場合
+
+
+
+
+2018年4月19日
+
+
+
+
+
+macOSでインストールする際に「開発元が未確認のため開けません」と出る場合、アプリケーションフォルダ内の「Sonic Pi」のアイコンで右クリックしてから「開く」を選択してください。
+
+// ===== commentBox 3 =====
+補足情報
+必要となる知識について
+
+
+
+
+2018年4月19日
+
+
+
+
+
+Sonic PiではRubyでコードを書いていきます。以下のレッスンも参考にしてみてください。
+
+・Ruby入門 (全26回)
+https://dotinstall.com/lessons/basic_ruby_v3
+
+// ===== music.rb =====
+##| play 60
+##| play 64
+##| play 67
+
+##| play 60
+##| sleep 1
+##| play 64
+##| sleep 1
+##| play 67
+##| sleep 1
+
+##| use_bpm 60
+use_bpm 120
+
+play 60
+sleep 1
+play 64
+sleep 1
+play 67
+sleep 1
+
+play :c4
+sleep 1
+play :e4
+sleep 1
+play :g4
+sleep 1
+
+
+
+
+
+
+// ===== video_summary =====
+音を同時に再生したり、順番に再生していく方法をみていきます。
+
+
+    音の再生
+    sleepの指定方法
+    use_bpm
+
+// ===== music.rb =====
+##| play 60
+##| play 64
+##| play 67
+
+##| use_bpm 60
+use_bpm 120
+
+##| play 60
+##| sleep 1
+##| play 64
+##| sleep 1
+##| play 67
+##| sleep 1
+
+play :c4
+sleep 1
+play :e4
+sleep 1
+play :g4
+sleep 1
+
+
+
+
+
+
+// ===== video_summary =====
+音量を調整したり、音をフェードイン・フェードアウトさせる方法について解説していきます。
+
+
+    amp
+    release
+    attack
+
+// ===== music.rb =====
+play :c4, amp: 0.1
+sleep 2
+play :e4, release: 2 # fade-out
+sleep 2
+play :g4, attack: 2 # fade-in
+sleep 2
+
+
+
+
+
+
+// ===== video_summary =====
+和音や音階の表現方法についてみていきます。
+
+
+    chord
+    play_pattern
+    play_pattern_timed
+    scale
+
+// ===== music.rb =====
+##| play :c4
+##| play :e4
+##| play :g4
+
+##| play chord(:c4, :major)
+
+##| play_pattern chord(:c4, :major)
+
+##| play_pattern_timed chord(:c4, :major), 0.5
+
+play_pattern_timed scale(:c4, :major), 0.5
+
+
+
+
+
+
+// ===== video_summary =====
+shuffleを使って音をランダムに再生したり、use_random_seedでパターンを変える方法について説明していきます。
+
+
+    shuffle
+    擬似乱数とseed値の関係
+
+// ===== music.rb =====
+##| use_random_seed 10
+use_random_seed 20
+
+play_pattern_timed scale(:c4, :major).shuffle, 0.5
+
+
+
+
+
+
+// ===== video_summary =====
+乱数を生成するための命令をいくつか確認したのちに、その乱数を使って音を再生してみます。
+
+
+    rand
+    rand_i
+    rrand
+    rrand_i
+    choose
+
+// ===== music.rb =====
+use_random_seed 20
+
+##| puts rand(10)
+##| puts rand_i(10)
+##| puts rrand(3, 6)
+##| puts rrand_i(3, 6)
+##| puts [60, 64, 67].choose
+
+10.times do
+  play rrand_i(60, 70), amp: rrand(0.6, 0.9)
+  sleep [0.5, 0.25].choose
+end
+
+
+
+
+
+
+// ===== video_summary =====
+each構文を使って音を再生したあとに、ringとtickの使い方をみていきます。
+
+
+    リストとループ
+    ring
+    tick
+
+// ===== music.rb =====
+##| play 60
+##| sleep 0.5
+##| play 64
+##| sleep 0.5
+##| play 67
+##| sleep 0.5
+
+##| notes = [60, 64, 67, 69, 71]
+##| notes.each do |note|
+##|   play note
+##|   sleep 0.5
+##| end
+
+notes = (ring 60, 64, 67)
+loop do
+  play notes.tick
+  sleep 0.5
+end
+
+
+
+
+
+
+// ===== video_summary =====
+use_synthを使って、音色を変える方法について解説していきます。
+
+
+    use_synth
+
+// ===== music.rb =====
+##| synth :piano
+##| use_synth :tb303
+##| play 60
+##| play 64
+##| play 67
+
+synth_names.each do |s|
+  puts s
+  synth s
+  play 60
+  sleep 0.5
+end
+
+
+
+
+
+
+// ===== video_summary =====
+実際の音を収録したサンプル音源の扱い方についてみていきます。
+
+
+    sample
+    beat_stretch
+    use_sample_bpm
+
+// ===== music.rb =====
+##| loop do
+##|   sample :loop_amen
+##|   sleep 1
+##| end
+
+##| loop do
+##|   sample :loop_amen, beat_stretch: 2
+##|   sleep 2
+##| end
+
+use_sample_bpm :loop_amen
+
+loop do
+  sample :loop_amen
+  sleep 1
+end
+
+
+
+
+
+// ===== video_summary =====
+同時に複数のループを再生することができるlive_loopについて解説していきます。
+
+
+    live_loop
+    ライブコーディング
+
+// ===== music.rb =====
+use_sample_bpm :loop_amen
+
+##| loop do
+##|   sample :loop_amen
+##|   sleep 1
+##| end
+
+##| loop do
+##|   sample :ambi_piano
+##|   sleep 1
+##| end
+
+live_loop :amen do
+  sample :loop_amen, amp: 0.5
+  sleep 1
+end
+
+live_loop :piano do
+  sample :ambi_piano
+  sample :ambi_choir
+  sleep 1
+end
+
+
+
+
+
+// ===== video_summary =====
+音にエフェクトをかけることができるwith_fxの使い方をみていきます。
+
+
+    with_fx
+    mix
+
+// ===== music.rb =====
+use_sample_bpm :loop_amen
+
+live_loop :amen do
+  with_fx :wobble, phase: 4 do
+    sample :loop_amen, amp: 0
+  end
+  sleep 1
+end
+
+live_loop :piano do
+  with_fx :echo, mix: 0.1 do
+    sample :ambi_piano
+  end
+  sample :ambi_choir, amp: 0
+  sleep 1
+end
+
+
+
+
+
+
+// ===== video_summary =====
+ハウスミュージックのようなドラムループを作る方法についてみていきます。
+
+
+    ドラムループ
+    nil
+
+// ===== music.rb =====
+# Ball Drum
+# Snare Drum
+# Hi-hat
+
+use_bpm 128
+
+live_loop :drum do
+  sample :bd_sone
+  sleep 1
+  sample :bd_sone
+  sample :sn_dolf
+  sleep 1
+end
+
+live_loop :hh do
+  nil
+  sleep 0.5
+  sample :drum_cymbal_closed
+  sleep 0.5
+end
+
+
+
+
+
+
+// ===== video_summary =====
+ドラムループの上にメロディを重ねて楽曲を完成させていきます。
+
+
+    メロディの作成
+    動作確認
+
+// ===== house.rb =====
+use_bpm 128
+
+live_loop :kick do
+  with_fx :compressor do
+    sample :bd_sone, amp: 3 if (ring 1, 0, 1, 0, 1, 0, 1, 0).tick == 1
+    sleep 0.5
+  end
+end
+
+live_loop :sd do
+  sleep 1
+  sample :sn_dolf, amp: 1
+  sleep 1
+end
+
+live_loop :hh do
+  with_fx :echo, mix: 0.2, decay: 5 do
+    sleep 0.5
+    sample :drum_cymbal_closed, amp: 0.7
+    sleep 0.5
+  end
+end
+
+live_loop :piano do
+  with_fx :lpf, cutoff: 120 do
+    with_synth :piano do
+      play chord(:d4, 'm7+9'), decay: 2, sustain: 2, relese: 2, amp: 3
+      sleep 4
+      play chord(:g3, '7-9'), decay: 2, sustain: 2, relese: 4, amp: 3
+      sleep 4
+      play chord(:c4, :maj9), decay: 2, sustain: 2, relese: 4, amp: 3
+      sleep 4
+      play chord(:f4, :maj9), decay: 2, sustain: 2, relese: 4, amp: 3
+      sleep 4
+      play chord(:b3, 'm7-5'), decay: 2, sustain: 2, relese: 4, amp: 3
+      sleep 4
+      play chord(:e3, '7+5-9'), decay: 2, sustain: 2, relese: 4, amp: 3
+      sleep 4
+      play chord(:a3, :m9), decay: 2, sustain: 2, relese: 4, amp: 3
+      sleep 4
+      play chord(:a3, '7+5-9'), decay: 2, sustain: 2, relese: 4, amp: 3
+      play :Db3
+      sleep 4
+    end
+  end
+end
+
+live_loop :pianom do
+  use_random_seed 10
+  with_fx :lpf, cutoff: 100 do
+    with_fx :reverb, mix: 0.6 do
+      with_synth :piano do
+        play_pattern_timed chord(:d4, 'm7+9').shuffle, 0.5
+        sleep 2
+        play_pattern_timed chord(:g3, '7-9').shuffle, 0.5
+        sleep 2
+        play_pattern_timed chord(:c4, :maj9).shuffle, 0.5
+        sleep 1.5
+        play_pattern_timed chord(:f4, :maj9).shuffle, 0.5
+        sleep 2
+        play_pattern_timed chord(:b3, 'm7-5').shuffle, 0.5
+        sleep 1.5
+        play_pattern_timed chord(:e3, '7+5-9').shuffle, 0.5
+        sleep 1
+        play_pattern_timed chord(:a3, :m9).shuffle, 0.5
+        sleep 0.5
+        play_pattern_timed chord(:a3, '7+5-9').shuffle, 0.5
+        play :Db3
+        sleep 2
+      end
+    end
+  end
+end
+
+live_loop :bass do
+  with_fx :tremolo, amp: 3 do
+    with_synth :piano do
+      play_pattern_timed [:d2, :g1, :c2, :f2, :b1, :e1, :a1, :Db2], 4
+    end
+  end
+end
+
+// ===== music.rb =====
+use_bpm 128
+
+live_loop :drum do
+  sample :bd_sone
+  sleep 1
+  sample :bd_sone
+  sample :sn_dolf
+  sleep 1
+end
+
+live_loop :hh do
+  nil
+  sleep 0.5
+  sample :drum_cymbal_closed
+  sleep 0.5
+end
+
+live_loop :melody do
+  notes = scale(:c4, :minor).shuffle
+  play_pattern_timed notes, 0.25, release: 0.5
+end
+
+
+
+
+
+

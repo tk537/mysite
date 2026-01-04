@@ -1,0 +1,892 @@
+// ===== video_summary =====
+完成版を確認したのち、必要なファイルを作っていきます。
+
+
+    index.htmlの作成
+    main.jsの作成
+
+// ===== commentBox 1 =====
+補足情報
+VS Codeでファイルのドラッグ＆ドロップができない場合
+
+
+
+
+2024年2月16日
+
+
+
+
+
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、WindowsならCtrlキー、macOSならcommandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+// ===== commentBox 2 =====
+補足情報
+必要となる知識について
+
+
+
+
+2019年10月4日
+
+
+
+
+
+今回のレッスンについては以下も参考にしてみてください。
+・詳解JavaScript Canvas編 (全21回)
+https://dotinstall.com/lessons/basic_canvas_v3
+
+// ===== /MyClock/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Clock</title>
+</head>
+<body>
+  <canvas width="300" height="260">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyClock/js/main.js =====
+
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+時計のためのクラスを作成して、描画の準備を整えていきます。
+
+
+    Clockクラスの作成
+    描画コンテクストを取得
+
+// ===== /MyClock/js/main.js =====
+'use strict';
+
+{
+  class Clock {
+    drawFace() {
+      const canvas = document.querySelector('canvas');
+      if (typeof canvas.getContext === 'undefined') {
+        return;
+      }
+      const ctx = canvas.getContext('2d');
+
+      const width = canvas.width;
+      const height = canvas.height;
+    }
+
+    run() {
+      this.drawFace();
+    }
+  }
+
+  const clock = new Clock();
+  clock.run();
+}
+
+// ===== /MyClock/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Clock</title>
+</head>
+<body>
+  <canvas width="300" height="260">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+6度毎に目盛りを描画するために、座標空間の移動・回転を行います。
+
+
+    ループ処理
+    移動、回転
+
+// ===== /MyClock/js/main.js =====
+'use strict';
+
+{
+  class Clock {
+    drawFace() {
+      const canvas = document.querySelector('canvas');
+      if (typeof canvas.getContext === 'undefined') {
+        return;
+      }
+      const ctx = canvas.getContext('2d');
+
+      const width = canvas.width;
+      const height = canvas.height;
+
+      for (let angle = 0; angle < 360; angle += 6) {
+        ctx.save();
+
+        ctx.translate(width / 2, height / 2);
+        // ctx.rotate(2 * Math.PI / 360 * angle);
+        ctx.rotate(Math.PI / 180 * angle);
+
+        ctx.restore();
+      }
+    }
+
+    run() {
+      this.drawFace();
+    }
+  }
+
+  const clock = new Clock();
+  clock.run();
+}
+
+// ===== /MyClock/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Clock</title>
+</head>
+<body>
+  <canvas width="300" height="260">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+時計の盤面に短い目盛りを描画していきます。
+
+
+    短い目盛りの描画
+
+// ===== /MyClock/js/main.js =====
+'use strict';
+
+{
+  class Clock {
+    constructor() {
+      this.r = 100;
+    }
+
+    drawFace() {
+      const canvas = document.querySelector('canvas');
+      if (typeof canvas.getContext === 'undefined') {
+        return;
+      }
+      const ctx = canvas.getContext('2d');
+
+      const width = canvas.width;
+      const height = canvas.height;
+
+      for (let angle = 0; angle < 360; angle += 6) {
+        ctx.save();
+
+        ctx.translate(width / 2, height / 2);
+        ctx.rotate(Math.PI / 180 * angle);
+
+        ctx.beginPath();
+        ctx.moveTo(0, -this.r);
+        ctx.lineTo(0, -this.r + 5);
+        ctx.stroke();
+ 
+        ctx.restore();
+      }
+    }
+
+    run() {
+      this.drawFace();
+    }
+  }
+
+  const clock = new Clock();
+  clock.run();
+}
+
+// ===== /MyClock/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Clock</title>
+</head>
+<body>
+  <canvas width="300" height="260">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+長い目盛りを描画したのちに、1から12までの数字を描画して盤面を完成させます。
+
+
+    長い目盛りの描画
+    数字の描画
+
+// ===== /MyClock/js/main.js =====
+'use strict';
+
+{
+  class Clock {
+    constructor() {
+      this.r = 100;
+    }
+
+    drawFace() {
+      const canvas = document.querySelector('canvas');
+      if (typeof canvas.getContext === 'undefined') {
+        return;
+      }
+      const ctx = canvas.getContext('2d');
+
+      const width = canvas.width;
+      const height = canvas.height;
+
+      for (let angle = 0; angle < 360; angle += 6) {
+        ctx.save();
+
+        ctx.translate(width / 2, height / 2);
+        ctx.rotate(Math.PI / 180 * angle);
+
+        ctx.beginPath();
+        ctx.moveTo(0, -this.r);
+        if (angle % 30 === 0) {
+          ctx.lineWidth = 2;
+          ctx.lineTo(0, -this.r + 10);
+          ctx.font = '13px Arial';
+          ctx.textAlign = 'center';
+          ctx.fillText(angle / 30 || 12, 0, -this.r + 25);
+        } else {
+          ctx.lineTo(0, -this.r + 5);
+        }
+        ctx.stroke();
+
+        ctx.restore();
+      }
+    }
+
+    run() {
+      this.drawFace();
+    }
+  }
+
+  const clock = new Clock();
+  clock.run();
+}
+
+// ===== /MyClock/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Clock</title>
+</head>
+<body>
+  <canvas width="300" height="260">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+描画関連の処理を別のクラスにまとめていきます。
+
+
+    クラスの整理
+    即時関数
+
+// ===== /MyClock/js/main.js =====
+'use strict';
+
+(() => {
+  class ClockDrawer {
+    constructor(canvas) {
+      this.ctx = canvas.getContext('2d');
+      this.width = canvas.width;
+      this.height = canvas.height;
+    }
+  }
+
+  class Clock {
+    constructor(drawer) {
+      this.r = 100;
+      this.drawer = drawer;
+    }
+
+    drawFace() {
+      for (let angle = 0; angle < 360; angle += 6) {
+        ctx.save();
+
+        ctx.translate(width / 2, height / 2);
+        ctx.rotate(Math.PI / 180 * angle);
+
+        ctx.beginPath();
+        ctx.moveTo(0, -this.r);
+        if (angle % 30 === 0) {
+          ctx.lineWidth = 2;
+          ctx.lineTo(0, -this.r + 10);
+          ctx.font = '13px Arial';
+          ctx.textAlign = 'center';
+          ctx.fillText(angle / 30 || 12, 0, -this.r + 25);
+        } else {
+          ctx.lineTo(0, -this.r + 5);
+        }
+        ctx.stroke();
+
+        ctx.restore();
+      }
+    }
+
+    run() {
+      this.drawFace();
+    }
+  }
+  
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+
+  const clock = new Clock(new ClockDrawer(canvas));
+  clock.run();
+})();
+
+// ===== /MyClock/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Clock</title>
+</head>
+<body>
+  <canvas width="300" height="260">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+drawFaceメソッドを整理して、汎用的な処理を切り出していきます。
+
+
+    drawFaceメソッドの整理
+    drawメソッドの実装
+
+// ===== /MyClock/js/main.js =====
+'use strict';
+
+(() => {
+  class ClockDrawer {
+    constructor(canvas) {
+      this.ctx = canvas.getContext('2d');
+      this.width = canvas.width;
+      this.height = canvas.height;
+    }
+
+    draw(angle, func) {
+      this.ctx.save();
+
+      this.ctx.translate(this.width / 2, this.height / 2);
+      this.ctx.rotate(Math.PI / 180 * angle);
+
+      this.ctx.beginPath();
+      func(this.ctx);
+      this.ctx.stroke();
+
+      this.ctx.restore();
+    }
+  }
+
+  class Clock {
+    constructor(drawer) {
+      this.r = 100;
+      this.drawer = drawer;
+    }
+
+    drawFace() {
+      for (let angle = 0; angle < 360; angle += 6) {
+        this.drawer.draw(angle, ctx => {
+          ctx.moveTo(0, -this.r);
+          if (angle % 30 === 0) {
+            ctx.lineWidth = 2;
+            ctx.lineTo(0, -this.r + 10);
+            ctx.font = '13px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(angle / 30 || 12, 0, -this.r + 25);
+          } else {
+            ctx.lineTo(0, -this.r + 5);
+          }
+        });
+      }
+    }
+
+    run() {
+      this.drawFace();
+    }
+  }
+  
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+
+  const clock = new Clock(new ClockDrawer(canvas));
+  clock.run();
+})();
+
+// ===== /MyClock/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Clock</title>
+</head>
+<body>
+  <canvas width="300" height="260">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+現在時刻を取得して、時針を描画していきます。
+
+
+    getHours()
+    getMinutes()
+    getSeconds()
+    時針の描画
+
+// ===== /MyClock/js/main.js =====
+'use strict';
+
+(() => {
+  class ClockDrawer {
+    constructor(canvas) {
+      this.ctx = canvas.getContext('2d');
+      this.width = canvas.width;
+      this.height = canvas.height;
+    }
+
+    draw(angle, func) {
+      this.ctx.save();
+
+      this.ctx.translate(this.width / 2, this.height / 2);
+      this.ctx.rotate(Math.PI / 180 * angle);
+
+      this.ctx.beginPath();
+      func(this.ctx);
+      this.ctx.stroke();
+
+      this.ctx.restore();
+    }
+  }
+
+  class Clock {
+    constructor(drawer) {
+      this.r = 100;
+      this.drawer = drawer;
+
+      this.h = (new Date()).getHours();
+      this.m = (new Date()).getMinutes();
+      this.s = (new Date()).getSeconds();
+    }
+
+    drawFace() {
+      for (let angle = 0; angle < 360; angle += 6) {
+        this.drawer.draw(angle, ctx => {
+          ctx.moveTo(0, -this.r);
+          if (angle % 30 === 0) {
+            ctx.lineWidth = 2;
+            ctx.lineTo(0, -this.r + 10);
+            ctx.font = '13px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(angle / 30 || 12, 0, -this.r + 25);
+          } else {
+            ctx.lineTo(0, -this.r + 5);
+          }
+        });
+      }
+    }
+
+    drawHands() {
+      // hour
+      this.drawer.draw(this.h * 30 + this.m * 0.5, ctx => {
+        ctx.lineWidth = 6;
+        ctx.moveTo(0, 10);
+        ctx.lineTo(0, -this.r + 50);
+      });
+    }
+
+    run() {
+      this.drawFace();
+      this.drawHands();
+    }
+  }
+  
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+
+  const clock = new Clock(new ClockDrawer(canvas));
+  clock.run();
+})();
+
+// ===== /MyClock/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Clock</title>
+</head>
+<body>
+  <canvas width="300" height="260">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+現在時刻を取得して、分針と秒針を描画していきます。
+
+
+    分針の描画
+    秒針の描画
+
+// ===== /MyClock/js/main.js =====
+'use strict';
+
+(() => {
+  class ClockDrawer {
+    constructor(canvas) {
+      this.ctx = canvas.getContext('2d');
+      this.width = canvas.width;
+      this.height = canvas.height;
+    }
+
+    draw(angle, func) {
+      this.ctx.save();
+
+      this.ctx.translate(this.width / 2, this.height / 2);
+      this.ctx.rotate(Math.PI / 180 * angle);
+
+      this.ctx.beginPath();
+      func(this.ctx);
+      this.ctx.stroke();
+
+      this.ctx.restore();
+    }
+  }
+
+  class Clock {
+    constructor(drawer) {
+      this.r = 100;
+      this.drawer = drawer;
+
+      this.h = (new Date()).getHours();
+      this.m = (new Date()).getMinutes();
+      this.s = (new Date()).getSeconds();
+    }
+
+    drawFace() {
+      for (let angle = 0; angle < 360; angle += 6) {
+        this.drawer.draw(angle, ctx => {
+          ctx.moveTo(0, -this.r);
+          if (angle % 30 === 0) {
+            ctx.lineWidth = 2;
+            ctx.lineTo(0, -this.r + 10);
+            ctx.font = '13px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(angle / 30 || 12, 0, -this.r + 25);
+          } else {
+            ctx.lineTo(0, -this.r + 5);
+          }
+        });
+      }
+    }
+
+    drawHands() {
+      // hour
+      this.drawer.draw(this.h * 30 + this.m * 0.5, ctx => {
+        ctx.lineWidth = 6;
+        ctx.moveTo(0, 10);
+        ctx.lineTo(0, -this.r + 50);
+      });
+
+      // minute
+      this.drawer.draw(this.m * 6, ctx => {
+        ctx.lineWidth = 4;
+        ctx.moveTo(0, 10);
+        ctx.lineTo(0, -this.r + 30);
+      });
+
+      // second
+      this.drawer.draw(this.s * 6, ctx => {
+        ctx.strokeStyle = 'red';
+        ctx.moveTo(0, 20);
+        ctx.lineTo(0, -this.r + 20);
+      });
+    }
+
+    run() {
+      this.drawFace();
+      this.drawHands();
+    }
+  }
+  
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+
+  const clock = new Clock(new ClockDrawer(canvas));
+  clock.run();
+})();
+
+// ===== /MyClock/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Clock</title>
+</head>
+<body>
+  <canvas width="300" height="260">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+setTimeout()を使って、リアルタイムに時計が描画されるように実装していきます。
+
+
+    setTimeout()
+    clearRect()
+
+// ===== commentBox 1 =====
+補足情報
+時刻の取得について
+
+
+
+
+2020年8月7日
+
+
+
+
+
+ユーザーの方よりご指摘いただきましたが、
+update() {
+  this.h = (new Date()).getHours();
+  this.m = (new Date()).getMinutes();
+  this.s = (new Date()).getSeconds();
+}
+の処理ですが、
+update() {
+  const d = new Date();
+  this.h = d.getHours();
+  this.m = d.getMinutes();
+  this.s = d.getSeconds();
+}
+とした方が、単一のインスタンスから時分秒を取得するため、より正確な処理となります。ご指摘ありがとうございました！
+
+// ===== /MyClock/js/main.js =====
+'use strict';
+
+(() => {
+  class ClockDrawer {
+    constructor(canvas) {
+      this.ctx = canvas.getContext('2d');
+      this.width = canvas.width;
+      this.height = canvas.height;
+    }
+
+    draw(angle, func) {
+      this.ctx.save();
+
+      this.ctx.translate(this.width / 2, this.height / 2);
+      this.ctx.rotate(Math.PI / 180 * angle);
+
+      this.ctx.beginPath();
+      func(this.ctx);
+      this.ctx.stroke();
+
+      this.ctx.restore();
+    }
+
+    clear() {
+      this.ctx.clearRect(0, 0, this.width, this.height);
+    }
+  }
+
+  class Clock {
+    constructor(drawer) {
+      this.r = 100;
+      this.drawer = drawer;
+    }
+
+    drawFace() {
+      for (let angle = 0; angle < 360; angle += 6) {
+        this.drawer.draw(angle, ctx => {
+          ctx.moveTo(0, -this.r);
+          if (angle % 30 === 0) {
+            ctx.lineWidth = 2;
+            ctx.lineTo(0, -this.r + 10);
+            ctx.font = '13px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(angle / 30 || 12, 0, -this.r + 25);
+          } else {
+            ctx.lineTo(0, -this.r + 5);
+          }
+        });
+      }
+    }
+    
+    drawHands() {
+      // hour
+      this.drawer.draw(this.h * 30 + this.m * 0.5, ctx => {
+        ctx.lineWidth = 6;
+        ctx.moveTo(0, 10);
+        ctx.lineTo(0, -this.r + 50);
+      });
+
+      // minute
+      this.drawer.draw(this.m * 6, ctx => {
+        ctx.lineWidth = 4;
+        ctx.moveTo(0, 10);
+        ctx.lineTo(0, -this.r + 30);
+      });
+
+      // second
+      this.drawer.draw(this.s * 6, ctx => {
+        ctx.strokeStyle = 'red';
+        ctx.moveTo(0, 20);
+        ctx.lineTo(0, -this.r + 20);
+      });
+    }
+
+    update() {
+      this.h = (new Date()).getHours();
+      this.m = (new Date()).getMinutes();
+      this.s = (new Date()).getSeconds();
+    }
+
+    run() {
+      this.update();
+
+      this.drawer.clear();
+      this.drawFace();
+      this.drawHands();
+
+      setTimeout(() => {
+        this.run();
+      }, 100);
+    }
+  }
+  
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+
+  const clock = new Clock(new ClockDrawer(canvas));
+  clock.run();
+})();
+
+// ===== /MyClock/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Clock</title>
+</head>
+<body>
+  <canvas width="300" height="260">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+

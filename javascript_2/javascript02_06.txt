@@ -1,0 +1,2652 @@
+// ===== video_summary =====
+完成版を確認したあとで、必要なファイルを作っていきます。
+
+
+    完成版の確認
+    index.htmlの作成
+    styles.cssの作成
+    main.jsの作成
+
+// ===== commentBox 1 =====
+補足情報
+VS Codeでファイルのドラッグ＆ドロップができない場合
+
+
+
+
+2024年2月16日
+
+
+
+
+
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、WindowsならCtrlキー、macOSならcommandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+// ===== commentBox 2 =====
+補足情報
+必要となる知識について
+
+
+
+
+2020年3月12日
+
+
+
+
+
+このレッスンでは、以下のレッスンで紹介した内容をベースにしています。分からない点があった場合は、こちらも参考にしてみてください。
+・詳解HTML 基礎文法編 (全22回)
+https://dotinstall.com/lessons/basic_html_tags_v2
+・詳解CSS 基礎文法編 (全33回)
+https://dotinstall.com/lessons/basic_css_styles_v2
+・詳解JavaScript 基礎文法編 (全26回)
+https://dotinstall.com/lessons/basic_javascript_grammer_v2
+・詳解JavaScript オブジェクト編 (全35回)
+https://dotinstall.com/lessons/basic_javascript_objects_v2
+・詳解JavaScript DOM編 (全21回)
+https://dotinstall.com/lessons/basic_javascript_dom_v2
+
+// ===== /MyNumbersGame/css/styles.css =====
+
+
+// ===== /MyNumbersGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Numbers Game</title>
+</head>
+<body>
+</body>
+</html>
+
+// ===== /MyNumbersGame/js/main.js =====
+
+
+
+
+
+
+
+// ===== video_summary =====
+HTMLでマークアップをして、画面の大まかな見た目を作っていきます。
+
+
+    HTMLのマークアップ
+
+// ===== /MyNumbersGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Numbers Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="container">
+    <div id="timer">0.0</div>
+    <ul id="board">
+      <li>0</li>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+    <div id="btn">START</div>
+  </div>
+</body>
+</html>
+
+// ===== /MyNumbersGame/css/styles.css =====
+
+
+// ===== /MyNumbersGame/js/main.js =====
+
+
+
+
+
+
+
+// ===== video_summary =====
+背景や数字のパネルを設置するボードの領域をスタイリングしていきます。
+
+
+    bodyのスタイリング
+    boardのスタイリング
+
+// ===== /MyNumbersGame/css/styles.css =====
+body {
+  background: #ccc;
+  color: #fff;
+  font-family: 'Courier New', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#container {
+  /* 50px * 2 + 10px * 2 */
+  width: 120px;
+  margin: 16px auto;
+  background: pink;
+}
+
+#board {
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+// ===== /MyNumbersGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Numbers Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="container">
+    <div id="timer">0.0</div>
+    <ul id="board">
+      <li>0</li>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+    <div id="btn">START</div>
+  </div>
+</body>
+</html>
+
+// ===== /MyNumbersGame/js/main.js =====
+
+
+
+
+
+
+// ===== video_summary =====
+数字を配置するパネルのスタイルを整えていきます。
+
+
+    余白の設定
+    パネルのスタイリング
+
+// ===== /MyNumbersGame/css/styles.css =====
+body {
+  background: #ccc;
+  color: #fff;
+  font-family: 'Courier New', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#container {
+  /* 50px * 2 + 10px * 2 */
+  width: 120px;
+  margin: 16px auto;
+}
+
+#board {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+#board li {
+  background: #00aaff;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 40px;
+  text-align: center;
+  box-shadow: 0 4px 0 #0088cc;
+}
+
+#timer {
+  margin-bottom: 8px;
+  font-size: 20px;
+  text-align: right;
+}
+
+// ===== /MyNumbersGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Numbers Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="container">
+    <div id="timer">0.0</div>
+    <ul id="board">
+      <li>0</li>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+    <div id="btn">START</div>
+  </div>
+</body>
+</html>
+
+// ===== /MyNumbersGame/js/main.js =====
+
+
+
+
+
+
+
+// ===== video_summary =====
+Flexboxを使ってパネルを整列させていきます。
+
+
+    Flexboxの設定
+    pressedクラスのスタイリング
+
+// ===== commentBox 1 =====
+補足情報
+Flexboxについて
+
+
+
+
+2020年3月12日
+
+
+
+
+
+Flexboxについては別のレッスンで詳しく解説しています。あわせて参考にしてみてください。
+・詳解CSS フレックスボックス編 (全16回)
+https://dotinstall.com/lessons/basic_flexbox_v2
+
+// ===== /MyNumbersGame/css/styles.css =====
+body {
+  background: #ccc;
+  color: #fff;
+  font-family: 'Courier New', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#container {
+  /* 50px * 2 + 10px * 2 */
+  width: 120px;
+  margin: 16px auto;
+}
+
+#board {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+#board li {
+  background: #00aaff;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 40px;
+  text-align: center;
+  box-shadow: 0 4px 0 #0088cc;
+}
+
+#board li.pressed {
+  background: #ccc;
+  box-shadow: none;
+  margin-top: 9px;
+  margin-bottom: 1px;
+}
+
+#timer {
+  margin-bottom: 8px;
+  font-size: 20px;
+  text-align: right;
+}
+
+// ===== /MyNumbersGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Numbers Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="container">
+    <div id="timer">0.0</div>
+    <ul id="board">
+      <li class="pressed">0</li>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+    <div id="btn">START</div>
+  </div>
+</body>
+</html>
+
+// ===== /MyNumbersGame/js/main.js =====
+
+
+
+
+
+
+// ===== video_summary =====
+STARTボタンのスタイリングを進めていきます。
+
+
+    STARTボタンのスタイリング
+
+// ===== /MyNumbersGame/css/styles.css =====
+body {
+  background: #ccc;
+  color: #fff;
+  font-family: 'Courier New', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#container {
+  /* 50px * 2 + 10px * 2 */
+  width: 120px;
+  margin: 16px auto;
+}
+
+#board {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+#board li {
+  background: #00aaff;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 40px;
+  text-align: center;
+  box-shadow: 0 4px 0 #0088cc;
+}
+
+#board li.pressed {
+  background: #ccc;
+  box-shadow: none;
+  margin-top: 9px;
+  margin-bottom: 1px;
+}
+
+#timer {
+  margin-bottom: 8px;
+  font-size: 20px;
+  text-align: right;
+}
+
+#btn {
+  cursor: pointer;
+  user-select: none;
+  background: #f44336;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 4px 0 #d1483e;
+}
+
+#btn:active {
+  margin-top: 12px;
+  box-shadow: none;
+}
+
+// ===== /MyNumbersGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Numbers Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="container">
+    <div id="timer">0.0</div>
+    <ul id="board">
+      <li class="pressed">0</li>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+    <div id="btn">START</div>
+  </div>
+</body>
+</html>
+
+// ===== /MyNumbersGame/js/main.js =====
+
+
+
+
+
+
+
+// ===== video_summary =====
+JavaScriptのクラス構文を使って実装を進めていきます。
+
+
+    Boardクラス
+    Panelクラス
+
+// ===== commentBox 1 =====
+補足情報
+pushメソッドについて
+
+
+
+
+2020年3月12日
+
+
+
+
+
+配列の末尾に要素を追加することができるpushメソッドについては以下のレッスンで解説しています。あわせて参考にしてみてください。
+・#04 配列の要素を変更してみよう | 詳解JavaScript オブジェクト編
+https://dotinstall.com/lessons/basic_javascript_objects_v2/52304
+
+// ===== /MyNumbersGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Numbers Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="container">
+    <div id="timer">0.0</div>
+    <ul id="board">
+    </ul>
+    <div id="btn">START</div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyNumbersGame/js/main.js =====
+'use strict';
+
+{
+  class Panel {
+    constructor() {
+      this.el = document.createElement('li');
+      this.el.classList.add('pressed');
+    }
+  }
+
+  class Board {
+    constructor() {
+      this.panels = [];
+      for (let i = 0; i < 4; i++) {
+        this.panels.push(new Panel());
+      }
+    }
+  }
+
+  const board = new Board();
+}
+
+// ===== /MyNumbersGame/css/styles.css =====
+body {
+  background: #ccc;
+  color: #fff;
+  font-family: 'Courier New', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#container {
+  /* 50px * 2 + 10px * 2 */
+  width: 120px;
+  margin: 16px auto;
+}
+
+#board {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+#board li {
+  background: #00aaff;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 40px;
+  text-align: center;
+  box-shadow: 0 4px 0 #0088cc;
+}
+
+#board li.pressed {
+  background: #ccc;
+  box-shadow: none;
+  margin-top: 9px;
+  margin-bottom: 1px;
+}
+
+#timer {
+  margin-bottom: 8px;
+  font-size: 20px;
+  text-align: right;
+}
+
+#btn {
+  cursor: pointer;
+  user-select: none;
+  background: #f44336;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 4px 0 #d1483e;
+}
+
+#btn:active {
+  margin-top: 12px;
+  box-shadow: none;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+Panelクラスで生成したパネルをページに追加していきます。
+
+
+    パネルの追加
+    カプセル化
+
+// ===== /MyNumbersGame/js/main.js =====
+'use strict';
+
+{
+  class Panel {
+    constructor() {
+      this.el = document.createElement('li');
+      this.el.classList.add('pressed');
+    }
+
+    getEl() {
+      return this.el;
+    }
+  }
+
+  class Board {
+    constructor() {
+      this.panels = [];
+      for (let i = 0; i < 4; i++) {
+        this.panels.push(new Panel());
+      }
+      this.setup();
+    }
+
+    setup() {
+      const board = document.getElementById('board');
+      this.panels.forEach(panel => {
+        // board.appendChild(panel.el);
+        board.appendChild(panel.getEl()); // カプセル化
+      });
+    }
+  }
+
+  const board = new Board();
+}
+
+// ===== /MyNumbersGame/css/styles.css =====
+body {
+  background: #ccc;
+  color: #fff;
+  font-family: 'Courier New', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#container {
+  /* 50px * 2 + 10px * 2 */
+  width: 120px;
+  margin: 16px auto;
+}
+
+#board {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+#board li {
+  background: #00aaff;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 40px;
+  text-align: center;
+  box-shadow: 0 4px 0 #0088cc;
+}
+
+#board li.pressed {
+  background: #ccc;
+  box-shadow: none;
+  margin-top: 9px;
+  margin-bottom: 1px;
+}
+
+#timer {
+  margin-bottom: 8px;
+  font-size: 20px;
+  text-align: right;
+}
+
+#btn {
+  cursor: pointer;
+  user-select: none;
+  background: #f44336;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 4px 0 #d1483e;
+}
+
+#btn:active {
+  margin-top: 12px;
+  box-shadow: none;
+}
+
+// ===== /MyNumbersGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Numbers Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="container">
+    <div id="timer">0.0</div>
+    <ul id="board">
+    </ul>
+    <div id="btn">START</div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+ボタンをクリックしたらゲームが始まるように実装を進めていきます。
+
+
+    クリックイベントの設定
+    activate()メソッドの実装
+
+// ===== /MyNumbersGame/js/main.js =====
+'use strict';
+
+{
+  class Panel {
+    constructor() {
+      this.el = document.createElement('li');
+      this.el.classList.add('pressed');
+    }
+
+    getEl() {
+      return this.el;
+    }
+
+    activate(num) {
+      this.el.classList.remove('pressed');
+      this.el.textContent = num;
+    }
+  }
+
+  class Board {
+    constructor() {
+      this.panels = [];
+      for (let i = 0; i < 4; i++) {
+        this.panels.push(new Panel());
+      }
+      this.setup();
+    }
+
+    setup() {
+      const board = document.getElementById('board');
+      this.panels.forEach(panel => {
+        board.appendChild(panel.getEl());
+      });
+    }
+
+    activate() {
+      this.panels.forEach(panel => {
+        panel.activate(0);
+      });
+    }
+  }
+
+  const board = new Board();
+
+  const btn = document.getElementById('btn');
+  btn.addEventListener('click', () => {
+    board.activate();
+  });
+}
+
+// ===== /MyNumbersGame/css/styles.css =====
+body {
+  background: #ccc;
+  color: #fff;
+  font-family: 'Courier New', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#container {
+  /* 50px * 2 + 10px * 2 */
+  width: 120px;
+  margin: 16px auto;
+}
+
+#board {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+#board li {
+  background: #00aaff;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 40px;
+  text-align: center;
+  box-shadow: 0 4px 0 #0088cc;
+}
+
+#board li.pressed {
+  background: #ccc;
+  box-shadow: none;
+  margin-top: 9px;
+  margin-bottom: 1px;
+}
+
+#timer {
+  margin-bottom: 8px;
+  font-size: 20px;
+  text-align: right;
+}
+
+#btn {
+  cursor: pointer;
+  user-select: none;
+  background: #f44336;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 4px 0 #d1483e;
+}
+
+#btn:active {
+  margin-top: 12px;
+  box-shadow: none;
+}
+
+// ===== /MyNumbersGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Numbers Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="container">
+    <div id="timer">0.0</div>
+    <ul id="board">
+    </ul>
+    <div id="btn">START</div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+spliceと乱数を使ってランダムな数値をパネルに配置していきます。
+
+
+    splice
+    乱数
+
+// ===== commentBox 1 =====
+補足情報
+配列の中でランダムに位置を取得する方法について
+
+
+
+
+2020年3月12日
+
+
+
+
+
+配列の中で要素の位置をランダムに取得する処理は以下のレッスンで解説しています。あわせて参考にしてみてください。
+・#20 ランダムな整数値を作ってみよう | 詳解JavaScript オブジェクト編
+https://dotinstall.com/lessons/basic_javascript_objects_v2/52320
+
+// ===== commentBox 2 =====
+補足情報
+spliceメソッドについて
+
+
+
+
+2020年3月12日
+
+
+
+
+
+配列の中から要素を削除する処理は以下のレッスンで解説しています。あわせて参考にしてみてください。
+・#05 splice()で配列を変更してみよう | 詳解JavaScript オブジェクト編
+https://dotinstall.com/lessons/basic_javascript_objects_v2/52305
+
+// ===== /MyNumbersGame/js/main.js =====
+'use strict';
+
+{
+  class Panel {
+    constructor() {
+      this.el = document.createElement('li');
+      this.el.classList.add('pressed');
+    }
+
+    getEl() {
+      return this.el;
+    }
+
+    activate(num) {
+      this.el.classList.remove('pressed');
+      this.el.textContent = num;
+    }
+  }
+
+  class Board {
+    constructor() {
+      this.panels = [];
+      for (let i = 0; i < 4; i++) {
+        this.panels.push(new Panel());
+      }
+      this.setup();
+    }
+
+    setup() {
+      const board = document.getElementById('board');
+      this.panels.forEach(panel => {
+        board.appendChild(panel.getEl());
+      });
+    }
+
+    activate() {
+      const nums = [0, 1, 2, 3];
+
+      this.panels.forEach(panel => {
+        const num = nums.splice(Math.floor(Math.random() * nums.length), 1)[0];
+        panel.activate(num);
+      });
+    }
+  }
+
+  const board = new Board();
+
+  const btn = document.getElementById('btn');
+  btn.addEventListener('click', () => {
+    board.activate();
+  });
+}
+
+// ===== /MyNumbersGame/css/styles.css =====
+body {
+  background: #ccc;
+  color: #fff;
+  font-family: 'Courier New', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#container {
+  /* 50px * 2 + 10px * 2 */
+  width: 120px;
+  margin: 16px auto;
+}
+
+#board {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+#board li {
+  background: #00aaff;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 40px;
+  text-align: center;
+  box-shadow: 0 4px 0 #0088cc;
+}
+
+#board li.pressed {
+  background: #ccc;
+  box-shadow: none;
+  margin-top: 9px;
+  margin-bottom: 1px;
+}
+
+#timer {
+  margin-bottom: 8px;
+  font-size: 20px;
+  text-align: right;
+}
+
+#btn {
+  cursor: pointer;
+  user-select: none;
+  background: #f44336;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 4px 0 #d1483e;
+}
+
+#btn:active {
+  margin-top: 12px;
+  box-shadow: none;
+}
+
+// ===== /MyNumbersGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Numbers Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="container">
+    <div id="timer">0.0</div>
+    <ul id="board">
+    </ul>
+    <div id="btn">START</div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+0から順番にパネルを押していけるように設定していきます。
+
+
+    currentNumの設定
+    数値チェック
+
+// ===== commentBox 1 =====
+補足情報
+parseIntメソッドについて
+
+
+
+
+2020年3月12日
+
+
+
+
+
+文字列を整数値に変換することができるparseIntメソッドの使い方はMDNを参考にしてみてください。
+・Number.parseInt() - JavaScript | MDN
+https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/parseInt
+
+// ===== /MyNumbersGame/js/main.js =====
+'use strict';
+
+{
+  class Panel {
+    constructor() {
+      this.el = document.createElement('li');
+      this.el.classList.add('pressed');
+      this.el.addEventListener('click', () => {
+        this.check();
+      });
+    }
+
+    getEl() {
+      return this.el;
+    }
+
+    activate(num) {
+      this.el.classList.remove('pressed');
+      this.el.textContent = num;
+    }
+
+    check() {
+      if (currentNum === parseInt(this.el.textContent, 10)) {
+        this.el.classList.add('pressed');
+        currentNum++;
+      }
+    }
+  }
+
+  class Board {
+    constructor() {
+      this.panels = [];
+      for (let i = 0; i < 4; i++) {
+        this.panels.push(new Panel());
+      }
+      this.setup();
+    }
+
+    setup() {
+      const board = document.getElementById('board');
+      this.panels.forEach(panel => {
+        board.appendChild(panel.getEl());
+      });
+    }
+
+    activate() {
+      const nums = [0, 1, 2, 3];
+
+      this.panels.forEach(panel => {
+        const num = nums.splice(Math.floor(Math.random() * nums.length), 1)[0];
+        panel.activate(num);
+      });
+    }
+  }
+
+  const board = new Board();
+
+  let currentNum = 0;
+
+  const btn = document.getElementById('btn');
+  btn.addEventListener('click', () => {
+    board.activate();
+  });
+}
+
+// ===== /MyNumbersGame/css/styles.css =====
+body {
+  background: #ccc;
+  color: #fff;
+  font-family: 'Courier New', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#container {
+  /* 50px * 2 + 10px * 2 */
+  width: 120px;
+  margin: 16px auto;
+}
+
+#board {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+#board li {
+  background: #00aaff;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 40px;
+  text-align: center;
+  box-shadow: 0 4px 0 #0088cc;
+}
+
+#board li.pressed {
+  background: #ccc;
+  box-shadow: none;
+  margin-top: 9px;
+  margin-bottom: 1px;
+}
+
+#timer {
+  margin-bottom: 8px;
+  font-size: 20px;
+  text-align: right;
+}
+
+#btn {
+  cursor: pointer;
+  user-select: none;
+  background: #f44336;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 4px 0 #d1483e;
+}
+
+#btn:active {
+  margin-top: 12px;
+  box-shadow: none;
+}
+
+// ===== /MyNumbersGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Numbers Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="container">
+    <div id="timer">0.0</div>
+    <ul id="board">
+    </ul>
+    <div id="btn">START</div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+STARTボタンをクリックしたらタイマーが動作するようにしていきます。
+
+
+    タイマーの実装
+    タイマーの停止
+
+// ===== /MyNumbersGame/js/main.js =====
+'use strict';
+
+{
+  class Panel {
+    constructor() {
+      this.el = document.createElement('li');
+      this.el.classList.add('pressed');
+      this.el.addEventListener('click', () => {
+        this.check();
+      });
+    }
+
+    getEl() {
+      return this.el;
+    }
+
+    activate(num) {
+      this.el.classList.remove('pressed');
+      this.el.textContent = num;
+    }
+
+    check() {
+      if (currentNum === parseInt(this.el.textContent, 10)) {
+        this.el.classList.add('pressed');
+        currentNum++;
+
+        if (currentNum === 4) {
+          clearTimeout(timeoutId);
+        }
+      }
+    }
+  }
+
+  class Board {
+    constructor() {
+      this.panels = [];
+      for (let i = 0; i < 4; i++) {
+        this.panels.push(new Panel());
+      }
+      this.setup();
+    }
+
+    setup() {
+      const board = document.getElementById('board');
+      this.panels.forEach(panel => {
+        board.appendChild(panel.getEl());
+      });
+    }
+
+    activate() {
+      const nums = [0, 1, 2, 3];
+
+      this.panels.forEach(panel => {
+        const num = nums.splice(Math.floor(Math.random() * nums.length), 1)[0];
+        panel.activate(num);
+      });
+    }
+  }
+
+  function runTimer() {
+    const timer = document.getElementById('timer');
+    timer.textContent = ((Date.now() - startTime) / 1000).toFixed(2);
+
+    timeoutId = setTimeout(() => {
+      runTimer();
+    }, 10);
+  }
+
+  const board = new Board();
+
+  let currentNum = 0;
+  let startTime;
+  let timeoutId;
+
+  const btn = document.getElementById('btn');
+  btn.addEventListener('click', () => {
+    board.activate();
+
+    startTime = Date.now();
+    runTimer();
+  });
+}
+
+// ===== /MyNumbersGame/css/styles.css =====
+body {
+  background: #ccc;
+  color: #fff;
+  font-family: 'Courier New', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#container {
+  /* 50px * 2 + 10px * 2 */
+  width: 120px;
+  margin: 16px auto;
+}
+
+#board {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+#board li {
+  background: #00aaff;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 40px;
+  text-align: center;
+  box-shadow: 0 4px 0 #0088cc;
+}
+
+#board li.pressed {
+  background: #ccc;
+  box-shadow: none;
+  margin-top: 9px;
+  margin-bottom: 1px;
+}
+
+#timer {
+  margin-bottom: 8px;
+  font-size: 20px;
+  text-align: right;
+}
+
+#btn {
+  cursor: pointer;
+  user-select: none;
+  background: #f44336;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 4px 0 #d1483e;
+}
+
+#btn:active {
+  margin-top: 12px;
+  box-shadow: none;
+}
+
+// ===== /MyNumbersGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Numbers Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="container">
+    <div id="timer">0.0</div>
+    <ul id="board">
+    </ul>
+    <div id="btn">START</div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+STARTボタンを複数回押したときなどに発生する、いくつかの不具合を修正していきます。
+
+
+    不具合の修正
+    動作確認
+
+// ===== /MyNumbersGame/js/main.js =====
+'use strict';
+
+{
+  class Panel {
+    constructor() {
+      this.el = document.createElement('li');
+      this.el.classList.add('pressed');
+      this.el.addEventListener('click', () => {
+        this.check();
+      });
+    }
+
+    getEl() {
+      return this.el;
+    }
+
+    activate(num) {
+      this.el.classList.remove('pressed');
+      this.el.textContent = num;
+    }
+
+    check() {
+      if (currentNum === parseInt(this.el.textContent, 10)) {
+        this.el.classList.add('pressed');
+        currentNum++;
+
+        if (currentNum === 4) {
+          clearTimeout(timeoutId);
+        }
+      }
+    }
+  }
+
+  class Board {
+    constructor() {
+      this.panels = [];
+      for (let i = 0; i < 4; i++) {
+        this.panels.push(new Panel());
+      }
+      this.setup();
+    }
+
+    setup() {
+      const board = document.getElementById('board');
+      this.panels.forEach(panel => {
+        board.appendChild(panel.getEl());
+      });
+    }
+
+    activate() {
+      const nums = [0, 1, 2, 3];
+
+      this.panels.forEach(panel => {
+        const num = nums.splice(Math.floor(Math.random() * nums.length), 1)[0];
+        panel.activate(num);
+      });
+    }
+  }
+
+  function runTimer() {
+    const timer = document.getElementById('timer');
+    timer.textContent = ((Date.now() - startTime) / 1000).toFixed(2);
+
+    timeoutId = setTimeout(() => {
+      runTimer();
+    }, 10);
+  }
+
+  const board = new Board();
+
+  let currentNum;
+  let startTime;
+  let timeoutId;
+
+  const btn = document.getElementById('btn');
+  btn.addEventListener('click', () => {
+    if (typeof timeoutId !== 'undefined') {
+      clearTimeout(timeoutId);
+    }
+
+    currentNum = 0;
+    board.activate();
+
+    startTime = Date.now();
+    runTimer();
+  });
+}
+
+// ===== /MyNumbersGame/css/styles.css =====
+body {
+  background: #ccc;
+  color: #fff;
+  font-family: 'Courier New', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#container {
+  /* 50px * 2 + 10px * 2 */
+  width: 120px;
+  margin: 16px auto;
+}
+
+#board {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+#board li {
+  background: #00aaff;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 40px;
+  text-align: center;
+  box-shadow: 0 4px 0 #0088cc;
+}
+
+#board li.pressed {
+  background: #ccc;
+  box-shadow: none;
+  margin-top: 9px;
+  margin-bottom: 1px;
+}
+
+#timer {
+  margin-bottom: 8px;
+  font-size: 20px;
+  text-align: right;
+}
+
+#btn {
+  cursor: pointer;
+  user-select: none;
+  background: #f44336;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 4px 0 #d1483e;
+}
+
+#btn:active {
+  margin-top: 12px;
+  box-shadow: none;
+}
+
+// ===== /MyNumbersGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Numbers Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="container">
+    <div id="timer">0.0</div>
+    <ul id="board">
+    </ul>
+    <div id="btn">START</div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+ゲーム全体の処理を管理するためのGameクラスを作っていきます。
+
+
+    Gameクラス
+    プロパティ、メソッドの設定
+
+// ===== commentBox 1 =====
+補足情報
+この時点では正常に動作しません
+
+
+
+
+2020年12月22日
+
+
+
+
+
+この動画が終わった時点ではまだGameクラスへの書き換えが完了していないので、ボタン等を押しても正常に動作いたしません。#16までレッスンを進めてから動作確認してみてください。
+
+// ===== /MyNumbersGame/js/main.js =====
+'use strict';
+
+{
+  class Panel {
+    constructor() {
+      this.el = document.createElement('li');
+      this.el.classList.add('pressed');
+      this.el.addEventListener('click', () => {
+        this.check();
+      });
+    }
+
+    getEl() {
+      return this.el;
+    }
+
+    activate(num) {
+      this.el.classList.remove('pressed');
+      this.el.textContent = num;
+    }
+
+    check() {
+      if (currentNum === parseInt(this.el.textContent, 10)) {
+        this.el.classList.add('pressed');
+        currentNum++;
+
+        if (currentNum === 4) {
+          clearTimeout(timeoutId);
+        }
+      }
+    }
+  }
+
+  class Board {
+    constructor() {
+      this.panels = [];
+      for (let i = 0; i < 4; i++) {
+        this.panels.push(new Panel());
+      }
+      this.setup();
+    }
+
+    setup() {
+      const board = document.getElementById('board');
+      this.panels.forEach(panel => {
+        board.appendChild(panel.getEl());
+      });
+    }
+
+    activate() {
+      const nums = [0, 1, 2, 3];
+
+      this.panels.forEach(panel => {
+        const num = nums.splice(Math.floor(Math.random() * nums.length), 1)[0];
+        panel.activate(num);
+      });
+    }
+  }
+
+  class Game {
+    constructor() {
+      this.board = new Board();
+
+      this.currentNum = undefined;
+      this.startTime = undefined;
+      this.timeoutId = undefined;
+
+      const btn = document.getElementById('btn');
+      btn.addEventListener('click', () => {
+        this.start();
+      });
+    }
+
+    start() {
+      if (typeof this.timeoutId !== 'undefined') {
+        clearTimeout(this.timeoutId);
+      }
+
+      this.currentNum = 0;
+      this.board.activate();
+
+      this.startTime = Date.now();
+      this.runTimer();
+    }
+
+    runTimer() {
+      const timer = document.getElementById('timer');
+      timer.textContent = ((Date.now() - this.startTime) / 1000).toFixed(2);
+
+      this.timeoutId = setTimeout(() => {
+        this.runTimer();
+      }, 10);
+    }
+  }
+
+  new Game();
+}
+
+// ===== /MyNumbersGame/css/styles.css =====
+body {
+  background: #ccc;
+  color: #fff;
+  font-family: 'Courier New', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#container {
+  /* 50px * 2 + 10px * 2 */
+  width: 120px;
+  margin: 16px auto;
+}
+
+#board {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+#board li {
+  background: #00aaff;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 40px;
+  text-align: center;
+  box-shadow: 0 4px 0 #0088cc;
+}
+
+#board li.pressed {
+  background: #ccc;
+  box-shadow: none;
+  margin-top: 9px;
+  margin-bottom: 1px;
+}
+
+#timer {
+  margin-bottom: 8px;
+  font-size: 20px;
+  text-align: right;
+}
+
+#btn {
+  cursor: pointer;
+  user-select: none;
+  background: #f44336;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 4px 0 #d1483e;
+}
+
+#btn:active {
+  margin-top: 12px;
+  box-shadow: none;
+}
+
+// ===== /MyNumbersGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Numbers Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="container">
+    <div id="timer">0.0</div>
+    <ul id="board">
+    </ul>
+    <div id="btn">START</div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+Gameクラスのインスタンスを他のクラスでも使えるように実装を進めていきます。
+
+
+    インスタンスの受け渡し
+    Boardクラスの設定
+    Panelクラスの設定
+
+// ===== /MyNumbersGame/js/main.js =====
+'use strict';
+
+{
+  class Panel {
+    constructor(game) {
+      this.game = game;
+      this.el = document.createElement('li');
+      this.el.classList.add('pressed');
+      this.el.addEventListener('click', () => {
+        this.check();
+      });
+    }
+
+    getEl() {
+      return this.el;
+    }
+
+    activate(num) {
+      this.el.classList.remove('pressed');
+      this.el.textContent = num;
+    }
+
+    check() {
+      if (currentNum === parseInt(this.el.textContent, 10)) {
+        this.el.classList.add('pressed');
+        currentNum++;
+
+        if (currentNum === 4) {
+          clearTimeout(timeoutId);
+        }
+      }
+    }
+  }
+
+  class Board {
+    constructor(game) {
+      this.game = game;
+      this.panels = [];
+      for (let i = 0; i < 4; i++) {
+        this.panels.push(new Panel(this.game));
+      }
+      this.setup();
+    }
+
+    setup() {
+      const board = document.getElementById('board');
+      this.panels.forEach(panel => {
+        board.appendChild(panel.getEl());
+      });
+    }
+
+    activate() {
+      const nums = [0, 1, 2, 3];
+
+      this.panels.forEach(panel => {
+        const num = nums.splice(Math.floor(Math.random() * nums.length), 1)[0];
+        panel.activate(num);
+      });
+    }
+  }
+
+  class Game {
+    constructor() {
+      this.board = new Board(this);
+
+      this.currentNum = undefined;
+      this.startTime = undefined;
+      this.timeoutId = undefined;
+
+      const btn = document.getElementById('btn');
+      btn.addEventListener('click', () => {
+        this.start();
+      });
+    }
+
+    start() {
+      if (typeof this.timeoutId !== 'undefined') {
+        clearTimeout(this.timeoutId);
+      }
+
+      this.currentNum = 0;
+      this.board.activate();
+
+      this.startTime = Date.now();
+      this.runTimer();
+    }
+
+    runTimer() {
+      const timer = document.getElementById('timer');
+      timer.textContent = ((Date.now() - this.startTime) / 1000).toFixed(2);
+
+      this.timeoutId = setTimeout(() => {
+        this.runTimer();
+      }, 10);
+    }
+  }
+
+  new Game();
+}
+
+// ===== /MyNumbersGame/css/styles.css =====
+body {
+  background: #ccc;
+  color: #fff;
+  font-family: 'Courier New', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#container {
+  /* 50px * 2 + 10px * 2 */
+  width: 120px;
+  margin: 16px auto;
+}
+
+#board {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+#board li {
+  background: #00aaff;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 40px;
+  text-align: center;
+  box-shadow: 0 4px 0 #0088cc;
+}
+
+#board li.pressed {
+  background: #ccc;
+  box-shadow: none;
+  margin-top: 9px;
+  margin-bottom: 1px;
+}
+
+#timer {
+  margin-bottom: 8px;
+  font-size: 20px;
+  text-align: right;
+}
+
+#btn {
+  cursor: pointer;
+  user-select: none;
+  background: #f44336;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 4px 0 #d1483e;
+}
+
+#btn:active {
+  margin-top: 12px;
+  box-shadow: none;
+}
+
+// ===== /MyNumbersGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Numbers Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="container">
+    <div id="timer">0.0</div>
+    <ul id="board">
+    </ul>
+    <div id="btn">START</div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+Gameクラスのメソッドを使えるようにPanelクラスを修正していきます。
+
+
+    Panelクラスの修正
+    メソッドの実装
+
+// ===== /MyNumbersGame/js/main.js =====
+'use strict';
+
+{
+  class Panel {
+    constructor(game) {
+      this.game = game;
+      this.el = document.createElement('li');
+      this.el.classList.add('pressed');
+      this.el.addEventListener('click', () => {
+        this.check();
+      });
+    }
+
+    getEl() {
+      return this.el;
+    }
+
+    activate(num) {
+      this.el.classList.remove('pressed');
+      this.el.textContent = num;
+    }
+
+    check() {
+      if (this.game.getCurrentNum() === parseInt(this.el.textContent, 10)) {
+        this.el.classList.add('pressed');
+        this.game.addCurrentNum();
+
+        if (this.game.getCurrentNum() === 4) {
+          clearTimeout(this.game.getTimeoutId());
+        }
+      }
+    }
+  }
+
+  class Board {
+    constructor(game) {
+      this.game = game;
+      this.panels = [];
+      for (let i = 0; i < 4; i++) {
+        this.panels.push(new Panel(this.game));
+      }
+      this.setup();
+    }
+
+    setup() {
+      const board = document.getElementById('board');
+      this.panels.forEach(panel => {
+        board.appendChild(panel.getEl());
+      });
+    }
+
+    activate() {
+      const nums = [0, 1, 2, 3];
+
+      this.panels.forEach(panel => {
+        const num = nums.splice(Math.floor(Math.random() * nums.length), 1)[0];
+        panel.activate(num);
+      });
+    }
+  }
+
+  class Game {
+    constructor() {
+      this.board = new Board(this);
+
+      this.currentNum = undefined;
+      this.startTime = undefined;
+      this.timeoutId = undefined;
+
+      const btn = document.getElementById('btn');
+      btn.addEventListener('click', () => {
+        this.start();
+      });
+    }
+
+    start() {
+      if (typeof this.timeoutId !== 'undefined') {
+        clearTimeout(this.timeoutId);
+      }
+
+      this.currentNum = 0;
+      this.board.activate();
+
+      this.startTime = Date.now();
+      this.runTimer();
+    }
+
+    runTimer() {
+      const timer = document.getElementById('timer');
+      timer.textContent = ((Date.now() - this.startTime) / 1000).toFixed(2);
+
+      this.timeoutId = setTimeout(() => {
+        this.runTimer();
+      }, 10);
+    }
+
+    addCurrentNum() {
+      this.currentNum++;
+    }
+
+    getCurrentNum() {
+      return this.currentNum;
+    }
+
+    getTimeoutId() {
+      return this.timeoutId;
+    }
+  }
+
+  new Game();
+}
+
+// ===== /MyNumbersGame/css/styles.css =====
+body {
+  background: #ccc;
+  color: #fff;
+  font-family: 'Courier New', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#container {
+  /* 50px * 2 + 10px * 2 */
+  width: 120px;
+  margin: 16px auto;
+}
+
+#board {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+#board li {
+  background: #00aaff;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 40px;
+  text-align: center;
+  box-shadow: 0 4px 0 #0088cc;
+}
+
+#board li.pressed {
+  background: #ccc;
+  box-shadow: none;
+  margin-top: 9px;
+  margin-bottom: 1px;
+}
+
+#timer {
+  margin-bottom: 8px;
+  font-size: 20px;
+  text-align: right;
+}
+
+#btn {
+  cursor: pointer;
+  user-select: none;
+  background: #f44336;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 4px 0 #d1483e;
+}
+
+#btn:active {
+  margin-top: 12px;
+  box-shadow: none;
+}
+
+// ===== /MyNumbersGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Numbers Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="container">
+    <div id="timer">0.0</div>
+    <ul id="board">
+    </ul>
+    <div id="btn">START</div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+パネルの数を変更することでゲームの難易度を設定できるようにしていきます。
+
+
+    levelの導入
+    パネル数の変更
+
+// ===== /MyNumbersGame/js/main.js =====
+'use strict';
+
+{
+  class Panel {
+    constructor(game) {
+      this.game = game;
+      this.el = document.createElement('li');
+      this.el.classList.add('pressed');
+      this.el.addEventListener('click', () => {
+        this.check();
+      });
+    }
+
+    getEl() {
+      return this.el;
+    }
+
+    activate(num) {
+      this.el.classList.remove('pressed');
+      this.el.textContent = num;
+    }
+
+    check() {
+      if (this.game.getCurrentNum() === parseInt(this.el.textContent, 10)) {
+        this.el.classList.add('pressed');
+        this.game.addCurrentNum();
+
+        if (this.game.getCurrentNum() === this.game.getLevel() ** 2) {
+          clearTimeout(this.game.getTimeoutId());
+        }
+      }
+    }
+  }
+
+  class Board {
+    constructor(game) {
+      this.game = game;
+      this.panels = [];
+      for (let i = 0; i < this.game.getLevel() ** 2; i++) {
+        this.panels.push(new Panel(this.game));
+      }
+      this.setup();
+    }
+
+    setup() {
+      const board = document.getElementById('board');
+      this.panels.forEach(panel => {
+        board.appendChild(panel.getEl());
+      });
+    }
+
+    activate() {
+      const nums = [];
+      for (let i = 0; i < this.game.getLevel() ** 2; i++) {
+        nums.push(i);
+      }
+
+      this.panels.forEach(panel => {
+        const num = nums.splice(Math.floor(Math.random() * nums.length), 1)[0];
+        panel.activate(num);
+      });
+    }
+  }
+
+  class Game {
+    constructor(level) {
+      this.level = level;
+      this.board = new Board(this);
+
+      this.currentNum = undefined;
+      this.startTime = undefined;
+      this.timeoutId = undefined;
+
+      const btn = document.getElementById('btn');
+      btn.addEventListener('click', () => {
+        this.start();
+      });
+    }
+
+    start() {
+      if (typeof this.timeoutId !== 'undefined') {
+        clearTimeout(this.timeoutId);
+      }
+
+      this.currentNum = 0;
+      this.board.activate();
+
+      this.startTime = Date.now();
+      this.runTimer();
+    }
+
+    runTimer() {
+      const timer = document.getElementById('timer');
+      timer.textContent = ((Date.now() - this.startTime) / 1000).toFixed(2);
+
+      this.timeoutId = setTimeout(() => {
+        this.runTimer();
+      }, 10);
+    }
+
+    addCurrentNum() {
+      this.currentNum++;
+    }
+
+    getCurrentNum() {
+      return this.currentNum;
+    }
+
+    getTimeoutId() {
+      return this.timeoutId;
+    }
+
+    getLevel() {
+      return this.level;
+    }
+  }
+
+  new Game(2);
+}
+
+// ===== /MyNumbersGame/css/styles.css =====
+body {
+  background: #ccc;
+  color: #fff;
+  font-family: 'Courier New', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#container {
+  /* 50px * 2 + 10px * 2 */
+  width: 120px;
+  margin: 16px auto;
+}
+
+#board {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+#board li {
+  background: #00aaff;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 40px;
+  text-align: center;
+  box-shadow: 0 4px 0 #0088cc;
+}
+
+#board li.pressed {
+  background: #ccc;
+  box-shadow: none;
+  margin-top: 9px;
+  margin-bottom: 1px;
+}
+
+#timer {
+  margin-bottom: 8px;
+  font-size: 20px;
+  text-align: right;
+}
+
+#btn {
+  cursor: pointer;
+  user-select: none;
+  background: #f44336;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 4px 0 #d1483e;
+}
+
+#btn:active {
+  margin-top: 12px;
+  box-shadow: none;
+}
+
+// ===== /MyNumbersGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Numbers Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="container">
+    <div id="timer">0.0</div>
+    <ul id="board">
+    </ul>
+    <div id="btn">START</div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+パネルの数に応じてBoardの幅を変更できるように実装を進めていきます。
+
+
+    幅の変更
+    定数の導入
+    動作確認
+
+// ===== /MyNumbersGame/css/styles.css =====
+body {
+  background: #ccc;
+  color: #fff;
+  font-family: 'Courier New', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#container {
+  /* 50px * 2 + 10px * 2 */
+  margin: 16px auto;
+}
+
+#board {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+#board li {
+  background: #00aaff;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 40px;
+  text-align: center;
+  box-shadow: 0 4px 0 #0088cc;
+}
+
+#board li.pressed {
+  background: #ccc;
+  box-shadow: none;
+  margin-top: 9px;
+  margin-bottom: 1px;
+}
+
+#timer {
+  margin-bottom: 8px;
+  font-size: 20px;
+  text-align: right;
+}
+
+#btn {
+  cursor: pointer;
+  user-select: none;
+  background: #f44336;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 4px 0 #d1483e;
+}
+
+#btn:active {
+  margin-top: 12px;
+  box-shadow: none;
+}
+
+// ===== /MyNumbersGame/js/main.js =====
+'use strict';
+
+{
+  class Panel {
+    constructor(game) {
+      this.game = game;
+      this.el = document.createElement('li');
+      this.el.classList.add('pressed');
+      this.el.addEventListener('click', () => {
+        this.check();
+      });
+    }
+
+    getEl() {
+      return this.el;
+    }
+
+    activate(num) {
+      this.el.classList.remove('pressed');
+      this.el.textContent = num;
+    }
+
+    check() {
+      if (this.game.getCurrentNum() === parseInt(this.el.textContent, 10)) {
+        this.el.classList.add('pressed');
+        this.game.addCurrentNum();
+
+        if (this.game.getCurrentNum() === this.game.getLevel() ** 2) {
+          clearTimeout(this.game.getTimeoutId());
+        }
+      }
+    }
+  }
+
+  class Board {
+    constructor(game) {
+      this.game = game;
+      this.panels = [];
+      for (let i = 0; i < this.game.getLevel() ** 2; i++) {
+        this.panels.push(new Panel(this.game));
+      }
+      this.setup();
+    }
+
+    setup() {
+      const board = document.getElementById('board');
+      this.panels.forEach(panel => {
+        board.appendChild(panel.getEl());
+      });
+    }
+
+    activate() {
+      const nums = [];
+      for (let i = 0; i < this.game.getLevel() ** 2; i++) {
+        nums.push(i);
+      }
+
+      this.panels.forEach(panel => {
+        const num = nums.splice(Math.floor(Math.random() * nums.length), 1)[0];
+        panel.activate(num);
+      });
+    }
+  }
+
+  class Game {
+    constructor(level) {
+      this.level = level;
+      this.board = new Board(this);
+
+      this.currentNum = undefined;
+      this.startTime = undefined;
+      this.timeoutId = undefined;
+
+      const btn = document.getElementById('btn');
+      btn.addEventListener('click', () => {
+        this.start();
+      });
+      this.setup();
+    }
+
+    setup() {
+      const container = document.getElementById('container');
+      const PANEL_WIDTH = 50;
+      const BOARD_PADDING = 10;
+      /* 50px * 2 + 10px * 2 */
+      container.style.width = PANEL_WIDTH * this.level + BOARD_PADDING * 2 + 'px';
+    }
+
+    start() {
+      if (typeof this.timeoutId !== 'undefined') {
+        clearTimeout(this.timeoutId);
+      }
+
+      this.currentNum = 0;
+      this.board.activate();
+
+      this.startTime = Date.now();
+      this.runTimer();
+    }
+
+    runTimer() {
+      const timer = document.getElementById('timer');
+      timer.textContent = ((Date.now() - this.startTime) / 1000).toFixed(2);
+
+      this.timeoutId = setTimeout(() => {
+        this.runTimer();
+      }, 10);
+    }
+
+    addCurrentNum() {
+      this.currentNum++;
+    }
+
+    getCurrentNum() {
+      return this.currentNum;
+    }
+
+    getTimeoutId() {
+      return this.timeoutId;
+    }
+
+    getLevel() {
+      return this.level;
+    }
+  }
+
+  new Game(5);
+}
+
+// ===== /MyNumbersGame/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Numbers Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="container">
+    <div id="timer">0.0</div>
+    <ul id="board">
+    </ul>
+    <div id="btn">START</div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+

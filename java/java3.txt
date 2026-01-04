@@ -1,0 +1,402 @@
+// ===== video_summary =====
+メソッドの構造を説明したのちに、引数や返り値といった用語を紹介していきます。
+
+
+    メソッドの構造
+    引数
+    返り値/戻り値
+
+// ===== MyApp.java =====
+
+
+
+
+
+
+// ===== video_summary =====
+渡した整数値を3倍にして返してくれるメソッドを実装していきます。
+
+
+    triple()
+    メソッドの定義
+    仮引数/実引数
+
+// ===== commentBox 1 =====
+補足情報
+変数名のルールについて
+
+
+
+
+2023年9月1日
+
+
+
+
+
+動画中で紹介している変数名のルールについては以下の動画を復習してみてください。
+・#11 変数と定数のルールを理解しよう | Java入門 基礎文法編
+https://dotinstall.com/lessons/basic_java_grammar/64711
+
+// ===== commentBox 2 =====
+補足情報
+データ型の種類について
+
+
+
+
+2023年9月1日
+
+
+
+
+
+動画中で紹介しているデータ型の種類については以下の動画を復習してみてください。
+・#15 データ型の違いを理解しよう | Java入門 基礎文法編
+https://dotinstall.com/lessons/basic_java_grammar/64715
+
+// ===== MyApp.java =====
+public class MyApp {
+  private static int triple(int num) { // 仮引数
+    return num * 3;
+  }
+
+  public static void main(String[] args) {
+    System.out.println(triple(10)); // 実引数
+    System.out.println(triple(4) * 3); // 実引数
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+前回の実装がどのような順序で実行されていくか、図を使って説明していきます。
+
+
+    処理の順序
+    メソッドの呼び出し
+    返り値が戻る箇所
+
+// ===== MyApp.java =====
+public class MyApp {
+  private static int triple(int num) { // 仮引数
+    return num * 3;
+  }
+
+  public static void main(String[] args) {
+    System.out.println(triple(10)); // 実引数
+    System.out.println(triple(4) * 3); // 実引数
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+返り値のないメソッドを定義する方法について見ていきます。
+
+
+    sum()
+    返り値のないメソッド
+    void
+    返り値の有無による機能の違い
+
+// ===== MyApp.java =====
+public class MyApp {
+  private static int sum(int a, int b) {
+    return a + b;
+  }
+
+  private static void showSum(int a, int b) {
+    System.out.println(a + b);
+  }
+
+  public static void main(String[] args) {
+    // System.out.println(sum(3, 7));
+    // showSum(3, 7);
+    System.out.println(sum(3, 7) * 3);
+    showSum(3, 7) * 3;
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+コードを見通しをよくするためにメソッドを活用する方法について見ていきます。
+
+
+    構成の把握
+    showAd()
+    showContent()
+
+// ===== MyApp.java =====
+public class MyApp {
+  private static void showAd() {
+    System.out.println("---------");
+    System.out.println("SALE! 50% OFF!");
+    System.out.println("---------");
+  }
+
+  private static void showContent() {
+    System.out.println("BREAKING NEWS!");
+    System.out.println("Two baby pandas born at our Zoo!");
+  }
+
+  public static void main(String[] args) {
+    showAd();
+    showContent();
+    showAd();
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+ある整数値が整数値で割り切れるかどうかを真偽値で返してくれるメソッドを実装していきます。
+
+
+    isDividable()
+    boolean
+    returnの挙動
+    0による割り算
+
+// ===== commentBox 1 =====
+補足情報
+真偽値について
+
+
+
+
+2023年9月1日
+
+
+
+
+
+真偽値を含むデータ型の種類については以下の動画を復習してみてください。
+・#15 データ型の違いを理解しよう | Java入門 基礎文法編
+https://dotinstall.com/lessons/basic_java_grammar/64715
+
+// ===== MyApp.java =====
+public class MyApp {
+  private static boolean isDividable(int a, int b) {
+    if (a % b == 0) {
+      return true;
+    } else {
+      return false;
+    }
+    // System.out.println("--- end ---");
+  }
+
+  public static void main(String[] args) {
+    System.out.println(isDividable(10, 2)); // true
+    System.out.println(isDividable(10, 3)); // false
+    System.out.println(isDividable(10, 0));
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+前回のコードを修正して、0で割り算をした場合にも対処できるようにしていきます。
+
+
+    ifによる条件分岐
+    論理演算子の活用
+    早期リターン
+    比較演算子を使った表現
+
+// ===== commentBox 1 =====
+補足情報
+2:06〜の説明について
+
+
+
+
+2024年2月15日
+
+
+
+
+
+2:06〜の説明にて、
+
+それから、こちらの条件演算子を使った表現は、
+
+とありますが、
+
+それから、こちらの比較演算子を使った表現は、
+
+の誤りでした。訂正してお詫び申し上げます。
+
+// ===== commentBox 2 =====
+補足情報
+論理演算子について
+
+
+
+
+2023年9月1日
+
+
+
+
+
+動画中で紹介している論理演算子については以下の動画を復習してみてください。
+・#15 論理演算子を使ってみよう | Java入門 制御構造編
+https://dotinstall.com/lessons/basic_java_controls/64815
+
+// ===== MyApp.java =====
+public class MyApp {
+  private static boolean isDividable(int a, int b) {
+    // if (b != 0) {
+    //   if (a % b == 0) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // } else {
+    //   return false;
+    // }
+
+    // if (b != 0 && a % b == 0) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
+
+    if (b == 0) {
+      return false;
+    }
+
+    // if (a % b == 0) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
+    return a % b == 0;
+  }
+
+  public static void main(String[] args) {
+    System.out.println(isDividable(10, 2)); // true
+    System.out.println(isDividable(10, 3)); // false
+    System.out.println(isDividable(10, 0)); // false
+  }
+}
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+仮引数のスコープがどこかを説明していきます。
+
+
+    仮引数のスコープ
+    同名の変数を活用する方法
+
+// ===== commentBox 1 =====
+補足情報
+変数のスコープについて
+
+
+
+
+2023年9月1日
+
+
+
+
+
+動画中で紹介している変数のスコープについては以下の動画を復習してみてください。
+・#16 スコープについて理解しよう | Java入門 制御構造編
+https://dotinstall.com/lessons/basic_java_controls/64816
+
+// ===== MyApp.java =====
+public class MyApp {
+  private static int triple(int num) {
+    return num * 3;
+  }
+
+  public static void main(String[] args) {
+    int num = 100;
+    System.out.println(triple(10));
+    System.out.println(num); // 100
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+シグネチャについて説明したのちに、メソッドをオーバーロードする方法について見ていきます。
+
+
+    シグネチャ
+    showThreeTimes()
+    メソッドのオーバーロード
+
+// ===== MyApp.java =====
+public class MyApp {
+  private static void showThreeTimes(int n) {
+    System.out.println(n);  
+    System.out.println(n);  
+    System.out.println(n);  
+  }
+
+  private static void showThreeTimes(double n) {
+    System.out.println(n);  
+    System.out.println(n);  
+    System.out.println(n);  
+  }
+
+  public static void main(String[] args) {
+    showThreeTimes(3);
+    showThreeTimes(5.2);
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+データ型をパラメータ化することができるジェネリクスについて見ていきます。
+
+
+    ジェネリクス
+    <T>
+
+// ===== MyApp.java =====
+public class MyApp {
+  private static <T> void showThreeTimes(T n) {
+    System.out.println(n);
+    System.out.println(n);
+    System.out.println(n);
+  }
+
+  public static void main(String[] args) {
+    showThreeTimes(3);
+    showThreeTimes(5.2);
+  }
+}
+
+
+
+
+
+

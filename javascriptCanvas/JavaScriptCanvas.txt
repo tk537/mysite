@@ -1,0 +1,1939 @@
+// ===== video_summary =====
+概要を説明したのちに、ブラウザ実行環境の使い方について解説していきます。
+
+
+    概要
+    ブラウザ実行環境の説明
+
+// ===== commentBox 1 =====
+補足情報
+必要となる知識について
+
+
+
+
+2019年7月4日
+
+
+
+
+
+このレッスンでは、以下のレッスンで紹介した内容を前提に構成されています。分からない点があった場合は、こちらも参考にしてみてください。
+
+
+HTML基礎文法入門 (全30回)
+https://dotinstall.com/lessons/basic_html_tags
+CSS基礎文法入門 (全37回)
+https://dotinstall.com/lessons/basic_css_styles
+詳解JavaScript 基礎文法編 (全24回)
+https://dotinstall.com/lessons/basic_javascript_grammer
+詳解JavaScript オブジェクト編 (全23回)
+https://dotinstall.com/lessons/basic_javascript_objects
+詳解JavaScript DOM編 (全15回)
+https://dotinstall.com/lessons/basic_javascript_dom
+
+// ===== /css/styles.css =====
+body {
+  background: #222;
+}
+canvas {
+  background: #fff;
+}
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  let t = 0;
+  
+  function draw() {
+    const canvas = document.querySelector('canvas');
+    if (typeof canvas.getContext === 'undefined') {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    ctx.beginPath();
+    ctx.ellipse(100, 100, 40, 80, 0, 0, 2 * Math.PI);
+    ctx.fillStyle = 'black';
+    ctx.fill();
+    
+    ctx.beginPath();
+    ctx.ellipse( 80 + Math.sin(t / 30), 100, 8, 8, 0, 0, 2 * Math.PI);
+    ctx.ellipse(120 + Math.sin(t / 30), 100, 8, 8, 0, 0, 2 * Math.PI);
+    ctx.fillStyle = 'skyblue';
+    ctx.fill();
+    
+    t++;
+    setTimeout(draw, 10);
+ }
+
+  draw();
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Canvas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <canvas width="600" height="240">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>My·Canvas</title>¬
+··<link·rel="stylesheet"·href="css/styles.css">¬
+</head>¬
+<body>¬
+··<canvas·width="600"·height="240">¬
+····Canvas·not·supported.¬
+··</canvas>¬
+¬
+··<script·src="js/main.js"></script>¬
+</body>¬
+</html>¶
+
+// ===== unknown =====
+
+
+// ===== unknown =====
+
+
+
+
+
+
+// ===== video_summary =====
+Canvas要素をHTMLに配置したあとに、開発のための準備を進めていきます。
+
+
+    canvas要素の配置
+    CSSの設定
+    draw()
+
+// ===== /css/styles.css =====
+body {
+  background: #222;
+}
+
+canvas {
+  background: #fff;
+}
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  function draw() {
+
+  }
+
+  draw();
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Canvas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <canvas width="600" height="240">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>My·Canvas</title>¬
+··<link·rel="stylesheet"·href="css/styles.css">¬
+</head>¬
+<body>¬
+¬
+··<script·src="js/main.js"></script>¬
+</body>¬
+</html>¶
+
+// ===== unknown =====
+
+
+// ===== unknown =====
+
+
+
+
+
+// ===== video_summary =====
+contextオブジェクトを取得した後に、fillRect()、strokeRect()メソッドを使って四角を描画してみます。
+
+
+    contextオブジェクトの取得
+    fillRect()
+    strokeRect()
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  function draw() {
+    const canvas = document.querySelector('canvas');
+    if (typeof canvas.getContext === 'undefined') {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+
+    // ctx.fillRect(50, 50, 50, 50);
+    ctx.strokeRect(50, 50, 50, 50);
+  }
+
+  draw();
+}
+
+// ===== /css/styles.css =====
+body {
+  background: #222;
+}
+
+canvas {
+  background: #fff;
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Canvas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <canvas width="600" height="240">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>My·Canvas</title>¬
+··<link·rel="stylesheet"·href="css/styles.css">¬
+</head>¬
+<body>¬
+··<canvas·width="600"·height="240">¬
+····Canvas·not·supported.¬
+··</canvas>¬
+¬
+··<script·src="js/main.js"></script>¬
+</body>¬
+</html>¶
+
+// ===== unknown =====
+
+
+// ===== unknown =====
+
+
+
+
+
+
+// ===== video_summary =====
+塗りの色や線のスタイルを設定する方法について見ていきます。
+
+
+    fillStyle
+    strokeStyle
+    lineWidth
+    lineJoin
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  function draw() {
+    const canvas = document.querySelector('canvas');
+    if (typeof canvas.getContext === 'undefined') {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = 'pink';
+    ctx.strokeStyle = '#f00';
+    ctx.lineWidth = 8;
+    // ctx.lineJoin = 'round';
+    ctx.lineJoin = 'bevel';
+    
+    ctx.fillRect(50, 50, 50, 50);
+    ctx.strokeRect(50, 50, 50, 50);
+  }
+
+  draw();
+}
+
+// ===== /css/styles.css =====
+body {
+  background: #222;
+}
+
+canvas {
+  background: #fff;
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Canvas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <canvas width="600" height="240">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>My·Canvas</title>¬
+··<link·rel="stylesheet"·href="css/styles.css">¬
+</head>¬
+<body>¬
+··<canvas·width="600"·height="240">¬
+····Canvas·not·supported.¬
+··</canvas>¬
+¬
+··<script·src="js/main.js"></script>¬
+</body>¬
+</html>¶
+
+// ===== unknown =====
+
+
+// ===== unknown =====
+
+
+
+
+
+
+// ===== video_summary =====
+複数の図形を描画する際の注意点について触れていきます。
+
+
+    スタイルの再設定
+    描画順に関する注意
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  function draw() {
+    const canvas = document.querySelector('canvas');
+    if (typeof canvas.getContext === 'undefined') {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = 'pink';
+    ctx.strokeStyle = '#f00';
+    
+    ctx.fillRect(50, 50, 50, 50);
+    ctx.strokeRect(50, 50, 50, 50);
+
+    ctx.fillStyle = 'skyblue';
+    ctx.strokeStyle = '#00b';
+
+    ctx.fillRect(70, 70, 50, 50);
+    ctx.strokeRect(70, 70, 50, 50);
+  }
+
+  draw();
+}
+
+// ===== /css/styles.css =====
+body {
+  background: #222;
+}
+
+canvas {
+  background: #fff;
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Canvas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <canvas width="600" height="240">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>My·Canvas</title>¬
+··<link·rel="stylesheet"·href="css/styles.css">¬
+</head>¬
+<body>¬
+··<canvas·width="600"·height="240">¬
+····Canvas·not·supported.¬
+··</canvas>¬
+¬
+··<script·src="js/main.js"></script>¬
+</body>¬
+</html>¶
+
+// ===== unknown =====
+
+
+// ===== unknown =====
+
+
+
+
+
+
+// ===== video_summary =====
+線形のグラデーションを塗りに設定する方法について見ていきます。
+
+
+    createLinearGradient()
+    addColorStop()
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  function draw() {
+    const canvas = document.querySelector('canvas');
+    if (typeof canvas.getContext === 'undefined') {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+
+    // ctx.createLinearGradient(x0, y0, x1, y1);
+    const g = ctx.createLinearGradient(0, 0, canvas.width, 0);
+
+    g.addColorStop(0, '#f00');
+    g.addColorStop(0.3, '#0f0');
+    g.addColorStop(1, '#00f');
+    
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
+
+  draw();
+}
+
+// ===== /css/styles.css =====
+body {
+  background: #222;
+}
+
+canvas {
+  background: #fff;
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Canvas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <canvas width="600" height="240">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>My·Canvas</title>¬
+··<link·rel="stylesheet"·href="css/styles.css">¬
+</head>¬
+<body>¬
+··<canvas·width="600"·height="240">¬
+····Canvas·not·supported.¬
+··</canvas>¬
+¬
+··<script·src="js/main.js"></script>¬
+</body>¬
+</html>¶
+
+// ===== unknown =====
+
+
+// ===== unknown =====
+
+
+
+
+
+// ===== video_summary =====
+円形のグラデーションを塗りに設定する方法についても見ていきます。
+
+
+    createRadialGradient()
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  function draw() {
+    const canvas = document.querySelector('canvas');
+    if (typeof canvas.getContext === 'undefined') {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+
+    // const g = ctx.createLinearGradient(0, 0, canvas.width, 0);
+    // const g = ctx.createRadialGradient(
+    //   x0, y0, r0,
+    //   x1, y1, r1
+    // );
+    const g = ctx.createRadialGradient(
+      canvas.width / 2, canvas.height / 2, 50,
+      canvas.width / 2 + 100, canvas.height / 2 + 200, 500
+    );
+
+    g.addColorStop(0, '#f00');
+    // g.addColorStop(0.3, '#0f0');
+    g.addColorStop(0.1, '#0f0');
+    g.addColorStop(1, '#00f');
+    
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
+
+  draw();
+}
+
+// ===== /css/styles.css =====
+body {
+  background: #222;
+}
+
+canvas {
+  background: #fff;
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Canvas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <canvas width="600" height="240">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>My·Canvas</title>¬
+··<link·rel="stylesheet"·href="css/styles.css">¬
+</head>¬
+<body>¬
+··<canvas·width="600"·height="240">¬
+····Canvas·not·supported.¬
+··</canvas>¬
+¬
+··<script·src="js/main.js"></script>¬
+</body>¬
+</html>¶
+
+// ===== unknown =====
+
+
+// ===== unknown =====
+
+
+
+
+
+// ===== video_summary =====
+図形に影をつける方法について説明していきます。
+
+
+    shadowOffsetX
+    shadowOffsetY
+    shadowBlur
+    shadowColor
+
+// ===== commentBox 1 =====
+補足情報
+shadowBlurの単位について
+
+
+
+
+2021年7月31日
+
+
+
+
+
+0:55〜からshadowBlurを4「px」と表現しておりますが、単位はありません。shadowBlurはぼかし具合を示す正の値を指定します。より詳しくは以下もご確認ください。
+・CanvasRenderingContext2D.shadowBlur - Web APIs | MDN
+https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/shadowBlur
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  function draw() {
+    const canvas = document.querySelector('canvas');
+    if (typeof canvas.getContext === 'undefined') {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+
+    ctx.shadowOffsetX = 4;
+    ctx.shadowOffsetY = 4;
+    ctx.shadowBlur = 4;
+    ctx.shadowColor = 'rgba(0, 0 ,0, 0.3)';
+
+    ctx.fillRect(50, 50, 50, 50);
+  }
+
+  draw();
+}
+
+// ===== /css/styles.css =====
+body {
+  background: #222;
+}
+
+canvas {
+  background: #fff;
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Canvas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <canvas width="600" height="240">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>My·Canvas</title>¬
+··<link·rel="stylesheet"·href="css/styles.css">¬
+</head>¬
+<body>¬
+··<canvas·width="600"·height="240">¬
+····Canvas·not·supported.¬
+··</canvas>¬
+¬
+··<script·src="js/main.js"></script>¬
+</body>¬
+</html>¶
+
+// ===== unknown =====
+
+
+// ===== unknown =====
+
+
+
+
+
+// ===== video_summary =====
+Pathを使って線を描画していく方法について見ていきます。
+
+
+    beginPath()
+    moveTo()
+    lineTo()
+    closePath()
+    stroke()
+    fill()
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  function draw() {
+    const canvas = document.querySelector('canvas');
+    if (typeof canvas.getContext === 'undefined') {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+
+    ctx.beginPath();
+    ctx.moveTo(50, 50);
+    ctx.lineTo(100, 50);
+    ctx.lineTo(100, 100);
+    ctx.closePath();
+    
+    // ctx.stroke();
+    ctx.fill();
+  }
+
+  draw();
+}
+
+// ===== /css/styles.css =====
+body {
+  background: #222;
+}
+
+canvas {
+  background: #fff;
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Canvas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <canvas width="600" height="240">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>My·Canvas</title>¬
+··<link·rel="stylesheet"·href="css/styles.css">¬
+</head>¬
+<body>¬
+··<canvas·width="600"·height="240">¬
+····Canvas·not·supported.¬
+··</canvas>¬
+¬
+··<script·src="js/main.js"></script>¬
+</body>¬
+</html>¶
+
+// ===== unknown =====
+
+
+// ===== unknown =====
+
+
+
+
+
+// ===== video_summary =====
+点線の作り方や、線の終端のスタイルを変える方法について見ていきます。
+
+
+    setLineDash()
+    lineCap
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  function draw() {
+    const canvas = document.querySelector('canvas');
+    if (typeof canvas.getContext === 'undefined') {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+
+    ctx.beginPath();
+    ctx.moveTo(100, 50,);
+    ctx.lineTo(200, 50);
+    ctx.setLineDash([5, 10]);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(100, 100,);
+    ctx.lineTo(200, 100);
+    ctx.setLineDash([]);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(100, 150,);
+    ctx.lineTo(200, 150);
+    ctx.lineWidth = 16;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+  }
+
+  draw();
+}
+
+// ===== /css/styles.css =====
+body {
+  background: #222;
+}
+
+canvas {
+  background: #fff;
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Canvas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <canvas width="600" height="240">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>My·Canvas</title>¬
+··<link·rel="stylesheet"·href="css/styles.css">¬
+</head>¬
+<body>¬
+··<canvas·width="600"·height="240">¬
+····Canvas·not·supported.¬
+··</canvas>¬
+¬
+··<script·src="js/main.js"></script>¬
+</body>¬
+</html>¶
+
+// ===== unknown =====
+
+
+// ===== unknown =====
+
+
+
+
+
+
+// ===== video_summary =====
+arc()メソッドを使ってさまざまな円弧を書く方法について説明していきます。
+
+
+    arc()
+    ラジアンの表現
+    扇形の表現
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  function draw() {
+    const canvas = document.querySelector('canvas');
+    if (typeof canvas.getContext === 'undefined') {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+
+    // ctx.arc(x, y, r, start, end);
+    // ctx.arc(100, 100, 50, 0, 2 * Math.PI);
+    // ctx.arc(100, 100, 50, 0, 300 / 360 * 2 * Math.PI);
+    // ctx.arc(100, 100, 50, 0, 300 / 180 * Math.PI);
+    ctx.moveTo(100, 100);
+    ctx.arc(100, 100, 50, 0, 300 / 180 * Math.PI, true);
+    
+    // ctx.stroke();
+    ctx.fill();
+  }
+
+  draw();
+}
+
+// ===== /css/styles.css =====
+body {
+  background: #222;
+}
+
+canvas {
+  background: #fff;
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Canvas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <canvas width="600" height="240">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>My·Canvas</title>¬
+··<link·rel="stylesheet"·href="css/styles.css">¬
+</head>¬
+<body>¬
+··<canvas·width="600"·height="240">¬
+····Canvas·not·supported.¬
+··</canvas>¬
+¬
+··<script·src="js/main.js"></script>¬
+</body>¬
+</html>¶
+
+// ===== unknown =====
+
+
+// ===== unknown =====
+
+
+
+
+
+
+// ===== video_summary =====
+ellipse()メソッドを使って楕円を描画してみます。またrect()を使って四角を描画する方法についても触れていきます。
+
+
+    ellipse()
+    rect()
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  function draw() {
+    const canvas = document.querySelector('canvas');
+    if (typeof canvas.getContext === 'undefined') {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+
+    // ctx.ellipse(x, y, rx, ry, rotation, start, end);
+    // ctx.ellipse(100, 100, 50, 30, 0, 0, 2 * Math.PI);
+    ctx.rect(50, 50, 50, 50);
+    
+    ctx.stroke();
+  }
+
+  draw();
+}
+
+// ===== /css/styles.css =====
+body {
+  background: #222;
+}
+
+canvas {
+  background: #fff;
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Canvas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <canvas width="600" height="240">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>My·Canvas</title>¬
+··<link·rel="stylesheet"·href="css/styles.css">¬
+</head>¬
+<body>¬
+··<canvas·width="600"·height="240">¬
+····Canvas·not·supported.¬
+··</canvas>¬
+¬
+··<script·src="js/main.js"></script>¬
+</body>¬
+</html>¶
+
+// ===== unknown =====
+
+
+// ===== unknown =====
+
+
+
+
+
+
+// ===== video_summary =====
+テキストを描画する方法と、位置をあわせるための命令について見ていきます。
+
+
+    fillText()
+    font
+    textAlign
+    textBaseline
+    strokeText()
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  function draw() {
+    const canvas = document.querySelector('canvas');
+    if (typeof canvas.getContext === 'undefined') {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+
+    ctx.beginPath();
+    ctx.moveTo(0, 100);
+    ctx.lineTo(canvas.width, 100);
+    ctx.moveTo(100, 0);
+    ctx.lineTo(100, canvas.height);
+    ctx.stroke();
+
+    ctx.font = 'bold 64px Verdana';
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'top';
+
+    // ctx.fillText('Tokyo', 100, 100);
+    // ctx.fillText('Tokyo', 100, 100, 100);
+    ctx.strokeText('Tokyo', 100, 100, 100);
+  }
+
+  draw();
+}
+
+// ===== /css/styles.css =====
+body {
+  background: #222;
+}
+
+canvas {
+  background: #fff;
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Canvas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <canvas width="600" height="240">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>My·Canvas</title>¬
+··<link·rel="stylesheet"·href="css/styles.css">¬
+</head>¬
+<body>¬
+··<canvas·width="600"·height="240">¬
+····Canvas·not·supported.¬
+··</canvas>¬
+¬
+··<script·src="js/main.js"></script>¬
+</body>¬
+</html>¶
+
+// ===== unknown =====
+
+
+// ===== unknown =====
+
+
+
+
+
+
+// ===== video_summary =====
+画像を読み込んでから描画する方法や、パターンとして登録する方法について説明していきます。
+
+
+    drawImage()
+    createPattern
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  function draw() {
+    const canvas = document.querySelector('canvas');
+    if (typeof canvas.getContext === 'undefined') {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+
+    const img = document.createElement('img');
+    img.src = 'img/logo.png';
+
+    img.addEventListener('load', () => {
+      // ctx.drawImage(img, 0, 0);
+      // ctx.drawImage(img, 0, 0, 40, 40);
+
+      // const pattern = ctx.createPattern(img, 'repeat');
+      // repeat-x, repeat-y, no-repeat
+      const pattern = ctx.createPattern(img, 'repeat-x');
+      
+      ctx.fillStyle = pattern;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    });
+  }
+
+  draw();
+}
+
+// ===== /css/styles.css =====
+body {
+  background: #222;
+}
+
+canvas {
+  background: #fff;
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Canvas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <canvas width="600" height="240">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>My·Canvas</title>¬
+··<link·rel="stylesheet"·href="css/styles.css">¬
+</head>¬
+<body>¬
+··<canvas·width="600"·height="240">¬
+····Canvas·not·supported.¬
+··</canvas>¬
+¬
+··<script·src="js/main.js"></script>¬
+</body>¬
+</html>¶
+
+// ===== unknown =====
+
+
+// ===== unknown =====
+
+
+
+
+
+
+
+// ===== video_summary =====
+画像の一部を切り出して描画する方法について見ていきます。
+
+
+    drawImage()
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  function draw() {
+    const canvas = document.querySelector('canvas');
+    if (typeof canvas.getContext === 'undefined') {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+
+    const img = document.createElement('img');
+    img.src = 'img/sprite.png';
+
+    img.addEventListener('load', () => {
+      // ctx.drawImage(img, 0, 0);
+      ctx.drawImage(
+        img,
+        // sx, sy, sw, sh,
+        70 * 2, 70, 70, 70,
+        // dx, dy, dw, dh
+        0, 0, 35, 35
+      );
+    });
+  }
+
+  draw();
+}
+
+// ===== /css/styles.css =====
+body {
+  background: #222;
+}
+
+canvas {
+  background: #fff;
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Canvas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <canvas width="600" height="240">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>My·Canvas</title>¬
+··<link·rel="stylesheet"·href="css/styles.css">¬
+</head>¬
+<body>¬
+··<canvas·width="600"·height="240">¬
+····Canvas·not·supported.¬
+··</canvas>¬
+¬
+··<script·src="js/main.js"></script>¬
+</body>¬
+</html>¶
+
+// ===== unknown =====
+
+
+// ===== unknown =====
+
+
+
+
+
+
+// ===== video_summary =====
+今までの復習を兼ねて、シンプルなキャラクターを描画してみます。
+
+
+    キャラクターの描画
+    サイズを変更しての描画
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  function draw() {
+    const canvas = document.querySelector('canvas');
+    if (typeof canvas.getContext === 'undefined') {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+
+    ctx.beginPath();
+    ctx.ellipse(100, 100, 40, 30, 0, 0, 2 * Math.PI);
+    ctx.fillStyle = 'black';
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.ellipse(80, 100, 8, 8, 0, 0, 2 * Math.PI);
+    ctx.ellipse(120, 100, 8, 8, 0, 0, 2 * Math.PI);
+    ctx.fillStyle = 'skyblue';
+    ctx.fill();
+
+    ctx.scale(0.5, 0.5);
+  
+    ctx.beginPath();
+    ctx.ellipse(100, 100, 40, 30, 0, 0, 2 * Math.PI);
+    ctx.fillStyle = 'black';
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.ellipse(80, 100, 8, 8, 0, 0, 2 * Math.PI);
+    ctx.ellipse(120, 100, 8, 8, 0, 0, 2 * Math.PI);
+    ctx.fillStyle = 'skyblue';
+    ctx.fill();
+  }
+
+  draw();
+}
+
+// ===== /css/styles.css =====
+body {
+  background: #222;
+}
+
+canvas {
+  background: #fff;
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Canvas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <canvas width="600" height="240">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>My·Canvas</title>¬
+··<link·rel="stylesheet"·href="css/styles.css">¬
+</head>¬
+<body>¬
+··<canvas·width="600"·height="240">¬
+····Canvas·not·supported.¬
+··</canvas>¬
+¬
+··<script·src="js/main.js"></script>¬
+</body>¬
+</html>¶
+
+// ===== unknown =====
+
+
+// ===== unknown =====
+
+
+
+
+
+
+// ===== video_summary =====
+図形が描画されている座標空間を変形させるための命令について見ていきます。
+
+
+    scale()
+    translate()
+    rotate()
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  function draw() {
+    const canvas = document.querySelector('canvas');
+    if (typeof canvas.getContext === 'undefined') {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = 'pink';
+    ctx.fillRect(0, 0, 200, 200);
+
+    ctx.beginPath();
+    ctx.ellipse(100, 100, 40, 30, 0, 0, 2 * Math.PI);
+    ctx.fillStyle = 'black';
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.ellipse(80, 100, 8, 8, 0, 0, 2 * Math.PI);
+    ctx.ellipse(120, 100, 8, 8, 0, 0, 2 * Math.PI);
+    ctx.fillStyle = 'skyblue';
+    ctx.fill();
+
+    ctx.scale(0.5, 0.5);
+    ctx.translate(400, 0);
+    ctx.rotate(45 / 180 * Math.PI);
+
+    ctx.fillStyle = 'olive';
+    ctx.fillRect(0, 0, 200, 200);
+  
+    ctx.beginPath();
+    ctx.ellipse(100, 100, 40, 30, 0, 0, 2 * Math.PI);
+    ctx.fillStyle = 'black';
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.ellipse(80, 100, 8, 8, 0, 0, 2 * Math.PI);
+    ctx.ellipse(120, 100, 8, 8, 0, 0, 2 * Math.PI);
+    ctx.fillStyle = 'skyblue';
+    ctx.fill();
+  }
+
+  draw();
+}
+
+// ===== /css/styles.css =====
+body {
+  background: #222;
+}
+
+canvas {
+  background: #fff;
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Canvas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <canvas width="600" height="240">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>My·Canvas</title>¬
+··<link·rel="stylesheet"·href="css/styles.css">¬
+</head>¬
+<body>¬
+··<canvas·width="600"·height="240">¬
+····Canvas·not·supported.¬
+··</canvas>¬
+¬
+··<script·src="js/main.js"></script>¬
+</body>¬
+</html>¶
+
+// ===== unknown =====
+
+
+// ===== unknown =====
+
+
+
+
+
+// ===== video_summary =====
+座標空間やスタイルの設定を保存、復元する方法について説明していきます。
+
+
+    save()
+    restore()
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  function draw() {
+    const canvas = document.querySelector('canvas');
+    if (typeof canvas.getContext === 'undefined') {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = 'pink';
+    ctx.fillRect(0, 0, 200, 200);
+
+    ctx.beginPath();
+    ctx.ellipse(100, 100, 40, 30, 0, 0, 2 * Math.PI);
+    ctx.fillStyle = 'black';
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.ellipse(80, 100, 8, 8, 0, 0, 2 * Math.PI);
+    ctx.ellipse(120, 100, 8, 8, 0, 0, 2 * Math.PI);
+    ctx.fillStyle = 'skyblue';
+    ctx.fill();
+
+    ctx.save();
+
+    ctx.scale(0.5, 0.5);
+    ctx.translate(400, 0);
+    ctx.rotate(45 / 180 * Math.PI);
+
+    ctx.fillStyle = 'olive';
+    ctx.fillRect(0, 0, 200, 200);
+  
+    ctx.beginPath();
+    ctx.ellipse(100, 100, 40, 30, 0, 0, 2 * Math.PI);
+    ctx.fillStyle = 'black';
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.ellipse(80, 100, 8, 8, 0, 0, 2 * Math.PI);
+    ctx.ellipse(120, 100, 8, 8, 0, 0, 2 * Math.PI);
+    ctx.fillStyle = 'skyblue';
+    ctx.fill();
+
+    ctx.restore();
+
+    ctx.fillStyle = 'black';
+    ctx.fillRect(80, 120, 40, 40);
+  }
+
+  draw();
+}
+
+// ===== /css/styles.css =====
+body {
+  background: #222;
+}
+
+canvas {
+  background: #fff;
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Canvas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <canvas width="600" height="240">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>My·Canvas</title>¬
+··<link·rel="stylesheet"·href="css/styles.css">¬
+</head>¬
+<body>¬
+··<canvas·width="600"·height="240">¬
+····Canvas·not·supported.¬
+··</canvas>¬
+¬
+··<script·src="js/main.js"></script>¬
+</body>¬
+</html>¶
+
+// ===== unknown =====
+
+
+// ===== unknown =====
+
+
+
+
+
+
+// ===== video_summary =====
+キャラクターの目を三角関数を使ってアニメーションさせてみます。
+
+
+    三角関数
+    アニメーションの描画
+    clearRect()
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  let t = 0;
+
+  function draw() {
+    const canvas = document.querySelector('canvas');
+    if (typeof canvas.getContext === 'undefined') {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.beginPath();
+    ctx.ellipse(100, 100, 40, 30, 0, 0, 2 * Math.PI);
+    ctx.fillStyle = 'black';
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.ellipse(80 + Math.sin(t / 30), 100, 8, 8, 0, 0, 2 * Math.PI);
+    ctx.ellipse(120 + Math.sin(t / 30), 100, 8, 8, 0, 0, 2 * Math.PI);
+    ctx.fillStyle = 'skyblue';
+    ctx.fill();
+
+    t++;
+    setTimeout(draw, 10);
+  }
+
+  draw();
+}
+
+// ===== /css/styles.css =====
+body {
+  background: #222;
+}
+
+canvas {
+  background: #fff;
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Canvas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <canvas width="600" height="240">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>My·Canvas</title>¬
+··<link·rel="stylesheet"·href="css/styles.css">¬
+</head>¬
+<body>¬
+··<canvas·width="600"·height="240">¬
+····Canvas·not·supported.¬
+··</canvas>¬
+¬
+··<script·src="js/main.js"></script>¬
+</body>¬
+</html>¶
+
+// ===== unknown =====
+
+
+// ===== unknown =====
+
+
+
+
+
+
+// ===== video_summary =====
+高解像度ディスプレイに対応させるためのテクニックについて学びます。
+
+
+    devicePixelRatio
+    描画領域の拡大
+    表示領域の縮小
+
+// ===== commentBox 1 =====
+補足情報
+高解像度ディスプレイか調べる方法
+
+
+
+
+2019年9月3日
+
+
+
+
+
+今回の内容は、高解像度ディスプレイをお使いの場合にだけ有効です。使っているディスプレイが高解像度かどうかを確認するには、
+const dpr = window.devicePixelRatio || 1;
+のあとで、
+console.log(dpr);
+としてみてください。こちらで「1」と表示された場合は高解像度ディスプレイに対応していない、ということになります。
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  let t = 0;
+
+  function draw() {
+    const canvas = document.querySelector('canvas');
+    if (typeof canvas.getContext === 'undefined') {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+
+    const CANVAS_WIDTH = 600;
+    const CANVAS_HEIGHT = 240;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = CANVAS_WIDTH * dpr;
+    canvas.height = CANVAS_HEIGHT * dpr;
+    ctx.scale(dpr, dpr);
+    canvas.style.width = CANVAS_WIDTH + 'px';
+    canvas.style.height = CANVAS_HEIGHT + 'px';
+
+    ctx.font = 'bold 48px Verdana';
+    ctx.strokeText('Tokyo', 100, 100);
+  }
+
+  draw();
+}
+
+// ===== /css/styles.css =====
+body {
+  background: #222;
+}
+
+canvas {
+  background: #fff;
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Canvas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <canvas width="600" height="240">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>My·Canvas</title>¬
+··<link·rel="stylesheet"·href="css/styles.css">¬
+</head>¬
+<body>¬
+··<canvas·width="600"·height="240">¬
+····Canvas·not·supported.¬
+··</canvas>¬
+¬
+··<script·src="js/main.js"></script>¬
+</body>¬
+</html>¶
+
+// ===== unknown =====
+
+
+// ===== unknown =====
+
+
+
+
+
+// ===== video_summary =====
+ブラウザ実行環境ではなくて、手元でファイルを作って動作確認する方法について見ていきます。
+
+
+    ファイルの作成
+    動作確認
+
+// ===== /css/styles.css =====
+body {
+  background: #222;
+}
+
+canvas {
+  background: #fff;
+}
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  let t = 0;
+
+  function draw() {
+    const canvas = document.querySelector('canvas');
+    if (typeof canvas.getContext === 'undefined') {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+
+    const CANVAS_WIDTH = 600;
+    const CANVAS_HEIGHT = 240;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = CANVAS_WIDTH * dpr;
+    canvas.height = CANVAS_HEIGHT * dpr;
+    ctx.scale(dpr, dpr);
+    canvas.style.width = CANVAS_WIDTH + 'px';
+    canvas.style.height = CANVAS_HEIGHT + 'px';
+
+    ctx.font = 'bold 48px Verdana';
+    ctx.strokeText('Tokyo', 100, 100);
+  }
+
+  draw();
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Canvas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <canvas width="600" height="240">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== unknown =====
+<!DOCTYPE·html>¬
+<html·lang="ja">¬
+<head>¬
+··<meta·charset="utf-8">¬
+··<title>My·Canvas</title>¬
+··<link·rel="stylesheet"·href="css/styles.css">¬
+</head>¬
+<body>¬
+··<canvas·width="600"·height="240">¬
+····Canvas·not·supported.¬
+··</canvas>¬
+¬
+··<script·src="js/main.js"></script>¬
+</body>¬
+</html>¶
+
+// ===== unknown =====
+
+
+// ===== unknown =====

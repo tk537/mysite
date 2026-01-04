@@ -1,0 +1,1432 @@
+// ===== video_summary =====
+完成版を確認したあとに、ひな形となるHTMLファイルを作っていきます。
+
+
+    完成版の確認
+    作業用フォルダの設定
+    index.htmlの作成
+
+// ===== commentBox 1 =====
+補足情報
+VS Codeでファイルのドラッグ＆ドロップができない場合
+
+
+
+
+2024年2月16日
+
+
+
+
+
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、WindowsならCtrlキー、macOSならcommandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+// ===== commentBox 2 =====
+補足情報
+VS Codeで生成されるHTMLの雛形について
+
+
+
+
+2024年7月11日
+
+
+
+
+
+VS Codeで生成されるHTMLの雛形に変更があったようです。具体的には <meta http-equiv="X-UA-Compatible" content="IE=edge"> が含まれなくなりました。こちらは古いブラウザに対応するための命令でしたが、現在不要になっているので気にせずにそのまま学習を進めてみてください。
+
+// ===== /MyQuizApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三択クイズ</title>
+</head>
+<body>
+  
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+必要な部品を揃えるためHTMLでマークアップをし、CSSファイルを作っていきます。
+
+
+    index.htmlのマークアップ
+    要素の確認
+    style.cssの作成
+    文字コードの指定
+
+// ===== /MyQuizApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三択クイズ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>三択クイズ</h1>
+    <section>
+      <h2>1の正解は？</h2>
+      <ul>
+        <li>選択肢 A</li>
+        <li>選択肢 B</li>
+        <li>選択肢 C</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
+
+// ===== /MyQuizApp/style.css =====
+@charset "utf-8";
+
+
+
+
+
+
+// ===== video_summary =====
+main要素とh1要素のスタイルを整えていきます。
+
+
+    mainのスタイリング
+    h1のスタイリング
+
+// ===== /MyQuizApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 320px;
+  margin: 32px auto 0;
+}
+
+h1 {
+  font-size: 20px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
+}
+
+// ===== /MyQuizApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三択クイズ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>三択クイズ</h1>
+    <section>
+      <h2>1の正解は？</h2>
+      <ul>
+        <li>選択肢 A</li>
+        <li>選択肢 B</li>
+        <li>選択肢 C</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+h2要素、li要素のスタイルを追加したあとに、正解・不正解のときのスタイルを追加します。
+
+
+    cursor
+    .correctクラス
+    .wrongクラス
+    ::after疑似要素
+
+// ===== commentBox 1 =====
+補足情報
+疑似要素について
+
+
+
+
+2022年12月13日
+
+
+
+
+
+疑似要素については、以下のレッスンを参考にしてください。
+https://dotinstall.com/lessons/basic_css_selectors_v2/62117
+
+// ===== /MyQuizApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三択クイズ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>三択クイズ</h1>
+    <section>
+      <h2>1の正解は？</h2>
+      <ul>
+        <li class="correct">選択肢 A</li>
+        <li class="wrong">選択肢 B</li>
+        <li class="wrong">選択肢 C</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
+
+// ===== /MyQuizApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 320px;
+  margin: 32px auto 0;
+}
+
+h1 {
+  font-size: 20px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+li {
+  cursor: pointer;
+}
+
+.correct {
+  color: green;
+}
+
+.correct::after {
+  content: ' - 正解！';
+}
+
+.wrong {
+  color: red;
+}
+
+.wrong::after {
+  content: ' - 不正解...';
+}
+
+
+
+
+
+// ===== video_summary =====
+JavaScriptのファイルを作ったあとに、配列でデータを用意していきます。
+
+
+    main.jsの作成
+    クイズデータの用意
+
+// ===== commentBox 1 =====
+補足情報
+配列へアクセスする方法について
+
+
+
+
+2022年12月13日
+
+
+
+
+
+配列へアクセスする方法については、以下のレッスンを参考にしてください。
+
+#02 配列の要素にアクセスしてみよう | 詳解JavaScript オブジェクト編
+
+// ===== commentBox 2 =====
+補足情報
+動画で使用している配列について
+
+
+
+
+2022年12月13日
+
+
+
+
+
+動画で使用している配列については、以下のコードをコピーしてください。
+// 問題文, 選択肢, 選択肢, 選択肢, 正解(0, 1, 2)
+const quiz = ['1の正解は？', '選択肢 A', '選択肢 B', '選択肢 C', 0];
+
+// ===== /MyQuizApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三択クイズ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>三択クイズ</h1>
+    <section>
+      <h2>1の正解は？</h2>
+      <ul>
+        <li class="correct">選択肢 A</li>
+        <li class="wrong">選択肢 B</li>
+        <li class="wrong">選択肢 C</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyQuizApp/main.js =====
+'use strict';
+
+{
+  // 問題文, 選択肢, 選択肢, 選択肢, 正解(0, 1, 2)
+  const quiz = ['1の正解は？', '選択肢 A', '選択肢 B', '選択肢 C', 0];
+}
+
+// ===== /MyQuizApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 320px;
+  margin: 32px auto 0;
+}
+
+h1 {
+  font-size: 20px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+li {
+  cursor: pointer;
+}
+
+.correct {
+  color: green;
+}
+
+.correct::after {
+  content: ' - 正解！';
+}
+
+.wrong {
+  color: red;
+}
+
+.wrong::after {
+  content: ' - 不正解...';
+}
+
+
+
+
+
+// ===== video_summary =====
+section要素を生成し、main要素に追加していきます。
+
+
+    createElement('section')
+    appendChild()
+    開発者ツールで確認
+
+// ===== commentBox 1 =====
+補足情報
+createElement() と appendChild() について
+
+
+
+
+2022年12月13日
+
+
+
+
+
+createElement() と appendChild() については、以下のレッスンを参考にしてください。
+
+#10 要素を追加してみよう | 詳解JavaScript DOM編
+
+// ===== /MyQuizApp/main.js =====
+'use strict';
+
+{
+  function render(quiz) {
+    const main = document.querySelector('main');
+
+    const section = document.createElement('section');
+
+    main.appendChild(section);
+  }
+
+  // 問題文, 選択肢, 選択肢, 選択肢, 正解(0, 1, 2)
+  const quiz = ['1の正解は？', '選択肢 A', '選択肢 B', '選択肢 C', 0];
+
+  render(quiz);
+}
+
+// ===== /MyQuizApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三択クイズ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>三択クイズ</h1>
+    <section>
+      <h2>1の正解は？</h2>
+      <ul>
+        <li class="correct">選択肢 A</li>
+        <li class="wrong">選択肢 B</li>
+        <li class="wrong">選択肢 C</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyQuizApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 320px;
+  margin: 32px auto 0;
+}
+
+h1 {
+  font-size: 20px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+li {
+  cursor: pointer;
+}
+
+.correct {
+  color: green;
+}
+
+.correct::after {
+  content: ' - 正解！';
+}
+
+.wrong {
+  color: red;
+}
+
+.wrong::after {
+  content: ' - 不正解...';
+}
+
+
+
+
+
+
+// ===== video_summary =====
+h2要素を生成し、section要素に追加していきます。
+
+
+    createElement('h2')
+    配列へのアクセス
+    textContent
+    appendChild()
+
+// ===== commentBox 1 =====
+補足情報
+createElement() と appendChild() について
+
+
+
+
+2022年12月13日
+
+
+
+
+
+createElement() と appendChild() については、以下のレッスンを参考にしてください。
+
+#10 要素を追加してみよう | 詳解JavaScript DOM編
+
+// ===== commentBox 2 =====
+補足情報
+配列へアクセスする方法について
+
+
+
+
+2022年12月13日
+
+
+
+
+
+配列へアクセスする方法については、以下のレッスンを参考にしてください。
+
+#02 配列の要素にアクセスしてみよう | 詳解JavaScript オブジェクト編
+
+// ===== /MyQuizApp/main.js =====
+'use strict';
+
+{
+  function render(quiz) {
+    const main = document.querySelector('main');
+
+    const section = document.createElement('section');
+    const h2 = document.createElement('h2');
+    h2.textContent = quiz[0];
+
+    section.appendChild(h2);
+    main.appendChild(section);
+  }
+
+  // 問題文, 選択肢, 選択肢, 選択肢, 正解(0, 1, 2)
+  const quiz = ['1の正解は？', '選択肢 A', '選択肢 B', '選択肢 C', 0];
+
+  render(quiz);
+}
+
+// ===== /MyQuizApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三択クイズ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>三択クイズ</h1>
+    <section>
+      <h2>1の正解は？</h2>
+      <ul>
+        <li class="correct">選択肢 A</li>
+        <li class="wrong">選択肢 B</li>
+        <li class="wrong">選択肢 C</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyQuizApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 320px;
+  margin: 32px auto 0;
+}
+
+h1 {
+  font-size: 20px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+li {
+  cursor: pointer;
+}
+
+.correct {
+  color: green;
+}
+
+.correct::after {
+  content: ' - 正解！';
+}
+
+.wrong {
+  color: red;
+}
+
+.wrong::after {
+  content: ' - 不正解...';
+}
+
+
+
+
+
+
+// ===== video_summary =====
+h2要素を生成し、section要素に追加していきます。
+
+
+    createElement('h2')
+    配列へのアクセス
+    textContent
+    appendChild()
+
+// ===== commentBox 1 =====
+補足情報
+createElement() と appendChild() について
+
+
+
+
+2022年12月13日
+
+
+
+
+
+createElement() と appendChild() については、以下のレッスンを参考にしてください。
+
+#10 要素を追加してみよう | 詳解JavaScript DOM編
+
+// ===== commentBox 2 =====
+補足情報
+配列へアクセスする方法について
+
+
+
+
+2022年12月13日
+
+
+
+
+
+配列へアクセスする方法については、以下のレッスンを参考にしてください。
+
+#02 配列の要素にアクセスしてみよう | 詳解JavaScript オブジェクト編
+
+// ===== /MyQuizApp/main.js =====
+'use strict';
+
+{
+  function render(quiz) {
+    const main = document.querySelector('main');
+
+    const section = document.createElement('section');
+    const h2 = document.createElement('h2');
+    h2.textContent = quiz[0];
+
+    section.appendChild(h2);
+    main.appendChild(section);
+  }
+
+  // 問題文, 選択肢, 選択肢, 選択肢, 正解(0, 1, 2)
+  const quiz = ['1の正解は？', '選択肢 A', '選択肢 B', '選択肢 C', 0];
+
+  render(quiz);
+}
+
+// ===== /MyQuizApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三択クイズ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>三択クイズ</h1>
+    <section>
+      <h2>1の正解は？</h2>
+      <ul>
+        <li class="correct">選択肢 A</li>
+        <li class="wrong">選択肢 B</li>
+        <li class="wrong">選択肢 C</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyQuizApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 320px;
+  margin: 32px auto 0;
+}
+
+h1 {
+  font-size: 20px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+li {
+  cursor: pointer;
+}
+
+.correct {
+  color: green;
+}
+
+.correct::after {
+  content: ' - 正解！';
+}
+
+.wrong {
+  color: red;
+}
+
+.wrong::after {
+  content: ' - 不正解...';
+}
+
+
+
+
+
+// ===== video_summary =====
+li要素を生成し、ul要素に追加していきます。
+
+
+    createElement('li')
+    appendChild()の動作を復習
+
+// ===== commentBox 1 =====
+補足情報
+2:09〜あたりで表示される ::marker について
+
+
+
+
+2022年12月13日
+
+
+
+
+
+レッスンの 2:09〜 あたりの、開発者ツールでの確認時に表示される ::marker という疑似要素ですが、これはリスト項目の箇条書きの黒丸や番号を表しています。
+
+::marker - CSS: カスケーディングスタイルシート | MDN
+
+li 要素を作るときには自動で作られるものなので、気にせずレッスンを進めていただいて問題ありません。
+
+// ===== commentBox 2 =====
+補足情報
+createElement() と appendChild() について
+
+
+
+
+2022年12月13日
+
+
+
+
+
+createElement() と appendChild() については、以下のレッスンを参考にしてください。
+
+#10 要素を追加してみよう | 詳解JavaScript DOM編
+
+// ===== /MyQuizApp/main.js =====
+'use strict';
+
+{
+  function render(quiz) {
+    const main = document.querySelector('main');
+
+    const section = document.createElement('section');
+    const h2 = document.createElement('h2');
+    h2.textContent = quiz[0];
+
+    const ul = document.createElement('ul');
+    const li0 = document.createElement('li');
+    li0.textContent = quiz[1];
+    const li1 = document.createElement('li');
+    li1.textContent = quiz[2];
+    const li2 = document.createElement('li');
+    li2.textContent = quiz[3];
+
+    ul.appendChild(li0);
+    ul.appendChild(li1);
+    ul.appendChild(li2);
+
+    section.appendChild(h2);
+    section.appendChild(ul);
+    main.appendChild(section);
+  }
+
+  // 問題文, 選択肢, 選択肢, 選択肢, 正解(0, 1, 2)
+  const quiz = ['1の正解は？', '選択肢 A', '選択肢 B', '選択肢 C', 0];
+
+  render(quiz);
+}
+
+// ===== /MyQuizApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三択クイズ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>三択クイズ</h1>
+    <section>
+      <h2>1の正解は？</h2>
+      <ul>
+        <li class="correct">選択肢 A</li>
+        <li class="wrong">選択肢 B</li>
+        <li class="wrong">選択肢 C</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyQuizApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 320px;
+  margin: 32px auto 0;
+}
+
+h1 {
+  font-size: 20px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+li {
+  cursor: pointer;
+}
+
+.correct {
+  color: green;
+}
+
+.correct::after {
+  content: ' - 正解！';
+}
+
+.wrong {
+  color: red;
+}
+
+.wrong::after {
+  content: ' - 不正解...';
+}
+
+
+
+
+
+
+// ===== video_summary =====
+DOMでli要素を追加する時に、イベントリスナーも追加していきます。
+
+
+    addEventListener()
+
+// ===== /MyQuizApp/main.js =====
+'use strict';
+
+{
+  function render(quiz) {
+    const main = document.querySelector('main');
+
+    const section = document.createElement('section');
+    const h2 = document.createElement('h2');
+    h2.textContent = quiz[0];
+
+    const ul = document.createElement('ul');
+    const li0 = document.createElement('li');
+    li0.textContent = quiz[1];
+    li0.addEventListener('click', () => {
+      if (quiz[4] === 0) {
+        li0.classList.add('correct');
+      } else {
+        li0.classList.add('wrong');
+      }
+    });
+    const li1 = document.createElement('li');
+    li1.textContent = quiz[2];
+    const li2 = document.createElement('li');
+    li2.textContent = quiz[3];
+
+    ul.appendChild(li0);
+    ul.appendChild(li1);
+    ul.appendChild(li2);
+
+    section.appendChild(h2);
+    section.appendChild(ul);
+    main.appendChild(section);
+  }
+
+  // 問題文, 選択肢, 選択肢, 選択肢, 正解(0, 1, 2)
+  const quiz = ['1の正解は？', '選択肢 A', '選択肢 B', '選択肢 C', 0];
+
+  render(quiz);
+}
+
+// ===== /MyQuizApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三択クイズ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>三択クイズ</h1>
+    <section>
+      <h2>1の正解は？</h2>
+      <ul>
+        <li class="correct">選択肢 A</li>
+        <li class="wrong">選択肢 B</li>
+        <li class="wrong">選択肢 C</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyQuizApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 320px;
+  margin: 32px auto 0;
+}
+
+h1 {
+  font-size: 20px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+li {
+  cursor: pointer;
+}
+
+.correct {
+  color: green;
+}
+
+.correct::after {
+  content: ' - 正解！';
+}
+
+.wrong {
+  color: red;
+}
+
+.wrong::after {
+  content: ' - 不正解...';
+}
+
+
+
+
+
+
+// ===== video_summary =====
+li要素をクリックしたときに、正解か不正解かを判定していきます。
+
+
+    正解・不正解の判定
+    classList.add()
+    classList.remove()
+
+// ===== /MyQuizApp/main.js =====
+'use strict';
+
+{
+  function render(quiz) {
+    const main = document.querySelector('main');
+
+    const section = document.createElement('section');
+    const h2 = document.createElement('h2');
+    h2.textContent = quiz[0];
+
+    const ul = document.createElement('ul');
+    const li0 = document.createElement('li');
+    li0.textContent = quiz[1];
+    li0.addEventListener('click', () => {
+      if (quiz[4] === 0) {
+        li0.classList.add('correct');
+      } else {
+        li0.classList.add('wrong');
+      }
+    });
+    const li1 = document.createElement('li');
+    li1.textContent = quiz[2];
+    li1.addEventListener('click', () => {
+      if (quiz[4] === 1) {
+        li1.classList.add('correct');
+      } else {
+        li1.classList.add('wrong');
+      }
+    });
+    const li2 = document.createElement('li');
+    li2.textContent = quiz[3];
+    li2.addEventListener('click', () => {
+      if (quiz[4] === 2) {
+        li2.classList.add('correct');
+      } else {
+        li2.classList.add('wrong');
+      }
+    });
+
+    ul.appendChild(li0);
+    ul.appendChild(li1);
+    ul.appendChild(li2);
+
+    section.appendChild(h2);
+    section.appendChild(ul);
+    main.appendChild(section);
+  }
+
+  // 問題文, 選択肢, 選択肢, 選択肢, 正解(0, 1, 2)
+  const quiz = ['1の正解は？', '選択肢 A', '選択肢 B', '選択肢 C', 0];
+
+  render(quiz);
+}
+
+// ===== /MyQuizApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三択クイズ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>三択クイズ</h1>
+    <section>
+      <h2>1の正解は？</h2>
+      <ul>
+        <li class="correct">選択肢 A</li>
+        <li class="wrong">選択肢 B</li>
+        <li class="wrong">選択肢 C</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyQuizApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 320px;
+  margin: 32px auto 0;
+}
+
+h1 {
+  font-size: 20px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+li {
+  cursor: pointer;
+}
+
+.correct {
+  color: green;
+}
+
+.correct::after {
+  content: ' - 正解！';
+}
+
+.wrong {
+  color: red;
+}
+
+.wrong::after {
+  content: ' - 不正解...';
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+配列の中にクイズデータをまとめることで、問題の数を増やしていきます。
+
+
+    配列の入れ子
+    クイズの描画
+
+// ===== /MyQuizApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三択クイズ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>三択クイズ</h1>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyQuizApp/main.js =====
+'use strict';
+
+{
+  function render(quiz) {
+    const main = document.querySelector('main');
+
+    const section = document.createElement('section');
+    const h2 = document.createElement('h2');
+    h2.textContent = quiz[0];
+
+    const ul = document.createElement('ul');
+    const li0 = document.createElement('li');
+    li0.textContent = quiz[1];
+    li0.addEventListener('click', () => {
+      if (quiz[4] === 0) {
+        li0.classList.add('correct');
+      } else {
+        li0.classList.add('wrong');
+      }
+    });
+    const li1 = document.createElement('li');
+    li1.textContent = quiz[2];
+    li1.addEventListener('click', () => {
+      if (quiz[4] === 1) {
+        li1.classList.add('correct');
+      } else {
+        li1.classList.add('wrong');
+      }
+    });
+    const li2 = document.createElement('li');
+    li2.textContent = quiz[3];
+    li2.addEventListener('click', () => {
+      if (quiz[4] === 2) {
+        li2.classList.add('correct');
+      } else {
+        li2.classList.add('wrong');
+      }
+    });
+
+    ul.appendChild(li0);
+    ul.appendChild(li1);
+    ul.appendChild(li2);
+
+    section.appendChild(h2);
+    section.appendChild(ul);
+    main.appendChild(section);
+  }
+
+  // 問題文, 選択肢, 選択肢, 選択肢, 正解(0, 1, 2)
+  const quizzes = [
+    ['1の正解は？', '選択肢 A', '選択肢 B', '選択肢 C', 0],
+    ['2の正解は？', '選択肢 A', '選択肢 B', '選択肢 C', 1],
+    ['3の正解は？', '選択肢 A', '選択肢 B', '選択肢 C', 2],
+  ];
+
+  render(quizzes[0]);
+  render(quizzes[1]);
+  render(quizzes[2]);
+}
+
+// ===== /MyQuizApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 320px;
+  margin: 32px auto 0;
+}
+
+h1 {
+  font-size: 20px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+li {
+  cursor: pointer;
+}
+
+.correct {
+  color: green;
+}
+
+.correct::after {
+  content: ' - 正解！';
+}
+
+.wrong {
+  color: red;
+}
+
+.wrong::after {
+  content: ' - 不正解...';
+}
+
+
+
+
+
+
+// ===== video_summary =====
+forEach()と配列を組合せることで、 同じ処理をまとめていきます。
+
+
+    forEach()
+
+// ===== commentBox 1 =====
+補足情報
+forEach() について
+
+
+
+
+2022年12月13日
+
+
+
+
+
+forEach() については、以下のレッスンを参考にしてください。
+
+#08 forEach()を使ってみよう | 詳解JavaScript オブジェクト編
+
+// ===== /MyQuizApp/main.js =====
+'use strict';
+
+{
+  function render(quiz) {
+    const main = document.querySelector('main');
+
+    const section = document.createElement('section');
+    const h2 = document.createElement('h2');
+    h2.textContent = quiz[0];
+
+    const ul = document.createElement('ul');
+    const li0 = document.createElement('li');
+    li0.textContent = quiz[1];
+    li0.addEventListener('click', () => {
+      if (quiz[4] === 0) {
+        li0.classList.add('correct');
+      } else {
+        li0.classList.add('wrong');
+      }
+    });
+    const li1 = document.createElement('li');
+    li1.textContent = quiz[2];
+    li1.addEventListener('click', () => {
+      if (quiz[4] === 1) {
+        li1.classList.add('correct');
+      } else {
+        li1.classList.add('wrong');
+      }
+    });
+    const li2 = document.createElement('li');
+    li2.textContent = quiz[3];
+    li2.addEventListener('click', () => {
+      if (quiz[4] === 2) {
+        li2.classList.add('correct');
+      } else {
+        li2.classList.add('wrong');
+      }
+    });
+
+    ul.appendChild(li0);
+    ul.appendChild(li1);
+    ul.appendChild(li2);
+
+    section.appendChild(h2);
+    section.appendChild(ul);
+    main.appendChild(section);
+  }
+
+  // 問題文, 選択肢, 選択肢, 選択肢, 正解(0, 1, 2)
+  const quizzes = [
+    ['1の正解は？', '選択肢 A', '選択肢 B', '選択肢 C', 0],
+    ['2の正解は？', '選択肢 A', '選択肢 B', '選択肢 C', 1],
+    ['3の正解は？', '選択肢 A', '選択肢 B', '選択肢 C', 2],
+  ];
+
+  quizzes.forEach((quiz) => {
+    render(quiz);
+  });
+}
+
+// ===== /MyQuizApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三択クイズ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>三択クイズ</h1>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyQuizApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 320px;
+  margin: 32px auto 0;
+}
+
+h1 {
+  font-size: 20px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+li {
+  cursor: pointer;
+}
+
+.correct {
+  color: green;
+}
+
+.correct::after {
+  content: ' - 正解！';
+}
+
+.wrong {
+  color: red;
+}
+
+.wrong::after {
+  content: ' - 不正解...';
+}
+
+
+
+
+
+
+// ===== video_summary =====
+完成したアプリを振り返りながら、アプリ開発のコツについてお話していきます。
+
+これまでのまとめ
+アプリ開発の振り返り

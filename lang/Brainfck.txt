@@ -1,0 +1,5438 @@
+// ===== video_summary =====
+言語の概要をざっと説明したあとに実行環境について触れていきます。
+
+言語の概要
+コマンドの意味
+実行環境 http://static.dotinstall.com/basic_brainfck/index.html
+
+// ===== commentBox 1 =====
+補足情報 実行環境について
+2017年4月1日
+
+今回の実行環境には以下からアクセスすることができます。
+http://static.dotinstall.com/basic_brainfck/index.html
+
+
+
+
+
+
+// ===== video_summary =====
+まずはポインターが指している値を増減させるコマンドについて見ていきます。
+
+
+    実行環境の使い方
+    +
+    -
+
+// ===== main.bf =====
++++++-----
+
+
+
+
+
+
+// ===== video_summary =====
+[と]を使ってループを実現する方法について見ていきます。
+
+
+    [
+    ]
+
+// ===== main.bf =====
++++++[-]
+
+
+
+
+
+
+// ===== video_summary =====
+,と.を使って文字の入出力を扱ってみます。
+
+
+    ,
+    .
+
+// ===== main.bf =====
+,.
+
+
+
+
+
+
+// ===== video_summary =====
+ループを使って掛け算を組み立てる方法について見ていきます。
+
+
+    掛け算
+
+// ===== main.bf =====
+++++++[>++++++++++<-]>+++++.
+
+
+
+
+
+// ===== video_summary =====
+コマンド以外の文字を使ってコードをわかりやすくする方法について解説していきます。
+
+
+    コマンド以外の文字の利用
+
+// ===== main.bf =====
++++++ + # 6
+[
+  >
+  +++++ +++++ # 10
+  <
+  -
+]
+>
++++++ # 5
+. # output 65
+
+
+
+
+
+
+// ===== video_summary =====
+シンプルな条件分岐を組み立てる方法について見ていきます。
+
+
+    条件分岐の例
+
+// ===== main.bf =====
+,
+----- -----
+----- -----
+----- -----
+----- -----
+----- -----
+----- -----
+-----
+[
+  +++++ +++++
+  +++++ +++++
+  +++++ +++++
+  +++++ +++++
+  +++++ +++++
+  +++++ +++++
+  +++++
+  .
+  [-]
+]
+
+
+
+
+
+
+
+// ===== video_summary =====
+今まで学んだ知識をもとに「Hello」と出力するプログラムを書いてみます。
+
+
+    Helloの出力
+
+// ===== main.bf =====
+H e l l o
+72 101 108 108 111
+
++++++++++[>++++++++<-]>. # H
+<+++++[>++++++<-]>-. # e
++++++++.. # l l
++++. # o
+
+
+
+
+
+
+// ===== video_summary =====
+複数のセルを使って「Hello」と出力するプログラムを組んでみます。
+
+
+    複数のセルの利用
+
+// ===== main.bf =====
+H e l l o
+72 101 108 108 111
+
++++++ +++++
+[
+  > +++++ ++
+  > +++++ +++++
+  << -
+]
+> ++ . # H
+> + . # e
++++++ ++ . . # l l
++++ . # o
+
+
+
+
+
+
+// ===== video_summary =====
+シンプルな足し算を実現する方法について見ていきます。
+
+
+    足し算
+
+// ===== main.bf =====
++++>++
+[
+  -
+  <
+  +
+  >
+]
+
+
+
+
+
+
+// ===== video_summary =====
+文字コードの足し算をすることで大文字を小文字にしてみます。
+
+
+    大文字、小文字の変換
+
+// ===== main.bf =====
+,>
+>+++++[<++++++>-]<++
+[-<+>]<.
+
+
+
+
+
+// ===== video_summary =====
+値を別のセルに移動させていく方法について見ていきます。
+
+
+    セルの移動
+
+// ===== main.bf =====
+,>
++++++[>++++++<-]>++
+[-<+>]
+<
+[-<+>]
+<.
+
+
+
+
+
+// ===== video_summary =====
+簡単な引き算をする方法について見ていきます。
+
+
+    引き算
+
+// ===== main.bf =====
+,>
+>+++++[<++++++>-]<++
+[-<->]
+<.
+
+
+
+
+
+// ===== video_summary =====
+割り算をする前段階として値をコピーする方法について解説していきます。
+
+
+    値のコピー
+
+// ===== main.bf =====
+++++++>+++
+[>+>+<<-] # 6 0 3 3
+>>[<<+>>-] # 6 3 3
+
+
+
+
+
+// ===== video_summary =====
+値のコピーを活用しながら割り切れる割り算を実現していきます。
+
+
+    割り切れる割り算
+
+// ===== main.bf =====
+++++++++>++
+[>+>+<<-] # 6 0 3 3
+>>[<<+>>-] # 6 3 3
+<<<
+[
+  >>
+  [-<<->>]
+  >>+
+  <<<
+  [>+>+<<-]>>[<<+>>-]
+  <<<
+]
+
+
+
+
+
+
+// ===== video_summary =====
+Brainf*ckのインタープリターを実装することでさらに理解を深めていきます。
+
+
+    index.html
+    main.js
+    styles.css
+
+// ===== /MyBF/css/styles.css =====
+
+
+// ===== /MyBF/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>BF</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+  
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyBF/js/main.js =====
+
+
+
+
+
+
+// ===== video_summary =====
+まずはHTMLのマークアップを進めていきます。
+
+
+    フォーム部品の配置
+
+// ===== /MyBF/css/styles.css =====
+body, textarea {
+  font-size: 12px;
+  font-family: 'Courier New';
+}
+.container {
+  width: 500px;
+  margin: 20px auto;
+}
+.row {
+  margin-bottom: 20px;
+}
+textarea {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  height: 50px;
+  margin-bottom: 5px;
+}
+
+// ===== /MyBF/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>BF</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <textarea id="code"></textarea>
+      <div>
+        <button id="load">Load Program</button>
+        <button id="step">Step</button>
+        <button id="run">Run</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyBF/js/main.js =====
+
+
+
+
+
+
+
+// ===== video_summary =====
+結果を表示するエリアのマークアップを進めていきます。
+
+
+    結果表示エリアのマークアップ
+
+// ===== /MyBF/css/styles.css =====
+body, textarea {
+  font-size: 12px;
+  font-family: 'Courier New';
+}
+.container {
+  width: 500px;
+  margin: 20px auto;
+}
+.row {
+  margin-bottom: 20px;
+}
+textarea {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  height: 50px;
+  margin-bottom: 5px;
+}
+h2 {
+  font-size: 14px;
+  border-bottom: 1px solid #666;
+  color: #666;
+  padding: 0 0 4px 0;
+  letter-spacing: 0.05em;
+}
+
+// ===== /MyBF/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>BF</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <textarea id="code"></textarea>
+      <div>
+        <button id="load">Load Program</button>
+        <button id="step">Step</button>
+        <button id="run">Run</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+    <div id="result">
+      <h2>CODE</h2>
+      <div class="row source" id="ui_code">
+        <span class="current">+</span>
+        <span>+</span>
+        <span>+</span>
+      </div>
+      <h2>CELSS</h2>
+      <div class="row source" id="ui_cells">
+        <span class="current">0</span>
+        <span>0</span>
+        <span>0</span>
+      </div>
+      <h2>OUTPUT</h2>
+      <div class="row source" id="ui_output">
+        <span>a</span>
+      </div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyBF/js/main.js =====
+
+
+
+
+
+
+
+// ===== video_summary =====
+CSSを使ってスタイリングを整えていきます。
+
+
+    スタイリング
+
+// ===== /MyBF/css/styles.css =====
+body, textarea {
+  font-size: 12px;
+  font-family: 'Courier New';
+}
+.container {
+  width: 500px;
+  margin: 20px auto;
+}
+.row {
+  margin-bottom: 20px;
+}
+textarea {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  height: 50px;
+  margin-bottom: 5px;
+}
+h2 {
+  font-size: 14px;
+  border-bottom: 1px solid #666;
+  color: #666;
+  padding: 0 0 4px 0;
+  letter-spacing: 0.05em;
+}
+.source > span {
+  padding: 0 2px;
+  color: #bbb;
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 4px solid transparent;
+}
+.source > span.current {
+  font-weight: bold;
+  color: #666;
+  border-bottom: 4px solid #ccc;
+}
+.hidden {
+  display: none;
+}
+textarea:disabled {
+  background: #eee;
+}
+
+// ===== /MyBF/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>BF</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <textarea id="code"></textarea>
+      <div>
+        <button id="load">Load Program</button>
+        <button id="step">Step</button>
+        <button id="run">Run</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+    <div id="result" class="hidden">
+      <h2>CODE</h2>
+      <div class="row source" id="ui_code">
+        <!-- <span class="current">+</span>
+        <span>+</span>
+        <span>+</span> -->
+      </div>
+      <h2>CELSS</h2>
+      <div class="row source" id="ui_cells">
+        <!-- <span class="current">0</span>
+        <span>0</span>
+        <span>0</span> -->
+      </div>
+      <h2>OUTPUT</h2>
+      <div class="row source" id="ui_output">
+        <!-- <span>a</span> -->
+      </div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyBF/js/main.js =====
+
+
+
+
+
+
+
+// ===== video_summary =====
+必要な要素を取得したあとに処理の大枠を作っていきます。
+
+
+    要素の取得
+    処理の大枠
+
+// ===== /MyBF/js/main.js =====
+(function() {
+  'use strict';
+
+  var code = document.getElementById('code');
+  var load = document.getElementById('load');
+  var step = document.getElementById('step');
+  var run = document.getElementById('run');
+  var reset = document.getElementById('reset');
+  var result = document.getElementById('result');
+
+  var Bf;
+  var bf;
+
+  Bf = function() {
+
+  };
+
+  load.addEventListener('click', function() {
+    result.className = '';
+    bf.load(code.value);
+  });
+
+  step.addEventListener('click', function() {
+    bf.step();
+  });
+
+  run.addEventListener('click', function() {
+    bf.run();
+  });
+
+  reset.addEventListener('click', function() {
+    result.className = 'hidden';
+  });
+
+  bf = new Bf();
+
+  code.focus();
+
+})();
+
+// ===== /MyBF/css/styles.css =====
+body, textarea {
+  font-size: 12px;
+  font-family: 'Courier New';
+}
+.container {
+  width: 500px;
+  margin: 20px auto;
+}
+.row {
+  margin-bottom: 20px;
+}
+textarea {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  height: 50px;
+  margin-bottom: 5px;
+}
+h2 {
+  font-size: 14px;
+  border-bottom: 1px solid #666;
+  color: #666;
+  padding: 0 0 4px 0;
+  letter-spacing: 0.05em;
+}
+.source > span {
+  padding: 0 2px;
+  color: #bbb;
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 4px solid transparent;
+}
+.source > span.current {
+  font-weight: bold;
+  color: #666;
+  border-bottom: 4px solid #ccc;
+}
+.hidden {
+  display: none;
+}
+textarea:disabled {
+  background: #eee;
+}
+
+// ===== /MyBF/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>BF</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <textarea id="code"></textarea>
+      <div>
+        <button id="load">Load Program</button>
+        <button id="step">Step</button>
+        <button id="run">Run</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+    <div id="result" class="hidden">
+      <h2>CODE</h2>
+      <div class="row source" id="ui_code">
+        <!-- <span class="current">+</span>
+        <span>+</span>
+        <span>+</span> -->
+      </div>
+      <h2>CELSS</h2>
+      <div class="row source" id="ui_cells">
+        <!-- <span class="current">0</span>
+        <span>0</span>
+        <span>0</span> -->
+      </div>
+      <h2>OUTPUT</h2>
+      <div class="row source" id="ui_output">
+        <!-- <span>a</span> -->
+      </div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+入力を受け付ける処理を書いた後に必要な変数を設定していきます。
+
+
+    コードの入力、バリデーション
+    変数の設定
+
+// ===== /MyBF/js/main.js =====
+(function() {
+  'use strict';
+
+  var code = document.getElementById('code');
+  var load = document.getElementById('load');
+  var step = document.getElementById('step');
+  var run = document.getElementById('run');
+  var reset = document.getElementById('reset');
+  var result = document.getElementById('result');
+
+  var Bf;
+  var bf;
+
+  Bf = function() {
+    var codeString;
+    var pos;
+    var cells = [];
+    var ptr;
+    var outputString;
+
+    this.load = function(s) {
+      codeString = s;
+      pos = 0;
+      cells = Array(20).fill(0);
+      ptr = 0;
+      outputString = '';
+    };
+
+    this.step = function(s) {
+
+    };
+
+    this.run = function(s) {
+
+    };
+  };
+
+  load.addEventListener('click', function() {
+    var codeString = code.value.replace(/[^\+\-<>\.,\[\]]/g, '');
+    if (codeString === '') {
+      return;
+    }
+    result.className = '';
+    bf.load(codeString);
+  });
+
+  step.addEventListener('click', function() {
+    bf.step();
+  });
+
+  run.addEventListener('click', function() {
+    bf.run();
+  });
+
+  reset.addEventListener('click', function() {
+    result.className = 'hidden';
+  });
+
+  bf = new Bf();
+
+  code.focus();
+
+})();
+
+// ===== /MyBF/css/styles.css =====
+body, textarea {
+  font-size: 12px;
+  font-family: 'Courier New';
+}
+.container {
+  width: 500px;
+  margin: 20px auto;
+}
+.row {
+  margin-bottom: 20px;
+}
+textarea {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  height: 50px;
+  margin-bottom: 5px;
+}
+h2 {
+  font-size: 14px;
+  border-bottom: 1px solid #666;
+  color: #666;
+  padding: 0 0 4px 0;
+  letter-spacing: 0.05em;
+}
+.source > span {
+  padding: 0 2px;
+  color: #bbb;
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 4px solid transparent;
+}
+.source > span.current {
+  font-weight: bold;
+  color: #666;
+  border-bottom: 4px solid #ccc;
+}
+.hidden {
+  display: none;
+}
+textarea:disabled {
+  background: #eee;
+}
+
+// ===== /MyBF/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>BF</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <textarea id="code"></textarea>
+      <div>
+        <button id="load">Load Program</button>
+        <button id="step">Step</button>
+        <button id="run">Run</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+    <div id="result" class="hidden">
+      <h2>CODE</h2>
+      <div class="row source" id="ui_code">
+        <!-- <span class="current">+</span>
+        <span>+</span>
+        <span>+</span> -->
+      </div>
+      <h2>CELSS</h2>
+      <div class="row source" id="ui_cells">
+        <!-- <span class="current">0</span>
+        <span>0</span>
+        <span>0</span> -->
+      </div>
+      <h2>OUTPUT</h2>
+      <div class="row source" id="ui_output">
+        <!-- <span>a</span> -->
+      </div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+入力したコードで画面を更新していきます。
+
+
+    コードの出力
+
+// ===== /MyBF/js/main.js =====
+(function() {
+  'use strict';
+
+  var code = document.getElementById('code');
+  var load = document.getElementById('load');
+  var step = document.getElementById('step');
+  var run = document.getElementById('run');
+  var reset = document.getElementById('reset');
+  var result = document.getElementById('result');
+
+  var Bf;
+  var bf;
+
+  Bf = function() {
+    var codeString;
+    var pos;
+    var cells = [];
+    var ptr;
+    var outputString;
+
+    this.load = function(s) {
+      codeString = s;
+      pos = 0;
+      cells = Array(20).fill(0);
+      ptr = 0;
+      outputString = '';
+      this.updateUI();
+    };
+
+    this.updateUI = function() {
+      // code
+      var uiCode = document.getElementById('ui_code');
+      var span;
+      var i;
+      while (uiCode.firstChild) {
+        uiCode.removeChild(uiCode.firstChild);
+      }
+      for (i = 0; i < codeString.length; i++) {
+        span = document.createElement('span');
+        span.appendChild(document.createTextNode(codeString[i]));
+        if (pos === i) {
+          span.className = 'current';
+        }
+        uiCode.appendChild(span);
+      }
+    };
+
+    this.step = function(s) {
+
+    };
+
+    this.run = function(s) {
+
+    };
+  };
+
+  load.addEventListener('click', function() {
+    var codeString = code.value.replace(/[^\+\-<>\.,\[\]]/g, '');
+    if (codeString === '') {
+      return;
+    }
+    result.className = '';
+    bf.load(codeString);
+  });
+
+  step.addEventListener('click', function() {
+    bf.step();
+  });
+
+  run.addEventListener('click', function() {
+    bf.run();
+  });
+
+  reset.addEventListener('click', function() {
+    result.className = 'hidden';
+  });
+
+  bf = new Bf();
+
+  code.focus();
+
+})();
+
+// ===== /MyBF/css/styles.css =====
+body, textarea {
+  font-size: 12px;
+  font-family: 'Courier New';
+}
+.container {
+  width: 500px;
+  margin: 20px auto;
+}
+.row {
+  margin-bottom: 20px;
+}
+textarea {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  height: 50px;
+  margin-bottom: 5px;
+}
+h2 {
+  font-size: 14px;
+  border-bottom: 1px solid #666;
+  color: #666;
+  padding: 0 0 4px 0;
+  letter-spacing: 0.05em;
+}
+.source > span {
+  padding: 0 2px;
+  color: #bbb;
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 4px solid transparent;
+}
+.source > span.current {
+  font-weight: bold;
+  color: #666;
+  border-bottom: 4px solid #ccc;
+}
+.hidden {
+  display: none;
+}
+textarea:disabled {
+  background: #eee;
+}
+
+// ===== /MyBF/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>BF</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <textarea id="code"></textarea>
+      <div>
+        <button id="load">Load Program</button>
+        <button id="step">Step</button>
+        <button id="run">Run</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+    <div id="result" class="hidden">
+      <h2>CODE</h2>
+      <div class="row source" id="ui_code">
+        <!-- <span class="current">+</span>
+        <span>+</span>
+        <span>+</span> -->
+      </div>
+      <h2>CELSS</h2>
+      <div class="row source" id="ui_cells">
+        <!-- <span class="current">0</span>
+        <span>0</span>
+        <span>0</span> -->
+      </div>
+      <h2>OUTPUT</h2>
+      <div class="row source" id="ui_output">
+        <!-- <span>a</span> -->
+      </div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+UI関連の処理をオブジェクトにまとめて汎用化していきます。
+
+
+    UI関連オブジェクトの実装
+
+// ===== /MyBF/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>BF</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <textarea id="code"></textarea>
+      <div>
+        <button id="load">Load Program</button>
+        <button id="step">Step</button>
+        <button id="run">Run</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+    <div id="result" class="hidden">
+      <h2>CODE</h2>
+      <div class="row source" id="ui_code">
+        <!-- <span class="current">+</span>
+        <span>+</span>
+        <span>+</span> -->
+      </div>
+      <h2>CELLS</h2>
+      <div class="row source" id="ui_cells">
+        <!-- <span class="current">0</span>
+        <span>0</span>
+        <span>0</span> -->
+      </div>
+      <h2>OUTPUT</h2>
+      <div class="row source" id="ui_output">
+        <!-- <span>a</span> -->
+      </div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyBF/js/main.js =====
+(function() {
+  'use strict';
+
+  var code = document.getElementById('code');
+  var load = document.getElementById('load');
+  var step = document.getElementById('step');
+  var run = document.getElementById('run');
+  var reset = document.getElementById('reset');
+  var result = document.getElementById('result');
+
+  var Bf;
+  var bf;
+
+  var UI;
+
+  UI = function(id) {
+    this.update = function(data, current) {
+
+      // code
+      var uiCode = document.getElementById('ui_code');
+      var span;
+      var i;
+      while (uiCode.firstChild) {
+        uiCode.removeChild(uiCode.firstChild);
+      }
+      for (i = 0; i < codeString.length; i++) {
+        span = document.createElement('span');
+        span.appendChild(document.createTextNode(codeString[i]));
+        if (pos === i) {
+          span.className = 'current';
+        }
+        uiCode.appendChild(span);
+      }
+    };
+  };
+
+  Bf = function() {
+    var codeString;
+    var pos;
+    var cells = [];
+    var ptr;
+    var outputString;
+
+    var uiCode = new UI('ui_code');
+    var uiCells = new UI('ui_cells');
+    var uiOutput = new UI('ui_output');
+
+    this.load = function(s) {
+      codeString = s;
+      pos = 0;
+      cells = Array(20).fill(0);
+      ptr = 0;
+      outputString = '';
+      this.updateUI();
+    };
+
+    this.updateUI = function() {
+      uiCode.update(codeString, pos);
+      uiCells.update(cells, ptr);
+      uiOutput.update(outputString);
+    };
+
+    this.step = function(s) {
+
+    };
+
+    this.run = function(s) {
+
+    };
+  };
+
+  load.addEventListener('click', function() {
+    var codeString = code.value.replace(/[^\+\-<>\.,\[\]]/g, '');
+    if (codeString === '') {
+      return;
+    }
+    result.className = '';
+    bf.load(codeString);
+  });
+
+  step.addEventListener('click', function() {
+    bf.step();
+  });
+
+  run.addEventListener('click', function() {
+    bf.run();
+  });
+
+  reset.addEventListener('click', function() {
+    result.className = 'hidden';
+  });
+
+  bf = new Bf();
+
+  code.focus();
+
+})();
+
+// ===== /MyBF/css/styles.css =====
+body, textarea {
+  font-size: 12px;
+  font-family: 'Courier New';
+}
+.container {
+  width: 500px;
+  margin: 20px auto;
+}
+.row {
+  margin-bottom: 20px;
+}
+textarea {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  height: 50px;
+  margin-bottom: 5px;
+}
+h2 {
+  font-size: 14px;
+  border-bottom: 1px solid #666;
+  color: #666;
+  padding: 0 0 4px 0;
+  letter-spacing: 0.05em;
+}
+.source > span {
+  padding: 0 2px;
+  color: #bbb;
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 4px solid transparent;
+}
+.source > span.current {
+  font-weight: bold;
+  color: #666;
+  border-bottom: 4px solid #ccc;
+}
+.hidden {
+  display: none;
+}
+textarea:disabled {
+  background: #eee;
+}
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+画面の更新処理を作り上げていきます。
+
+
+    画面の更新処理
+
+// ===== /MyBF/js/main.js =====
+(function() {
+  'use strict';
+
+  var code = document.getElementById('code');
+  var load = document.getElementById('load');
+  var step = document.getElementById('step');
+  var run = document.getElementById('run');
+  var reset = document.getElementById('reset');
+  var result = document.getElementById('result');
+
+  var Bf;
+  var bf;
+
+  var UI;
+
+  UI = function(id) {
+    this.id = id;
+    this.el = document.getElementById(id);
+    this.update = function(data, current) {
+      var span;
+      var i;
+      while (this.el.firstChild) {
+        this.el.removeChild(this.el.firstChild);
+      }
+      for (i = 0; i < data.length; i++) {
+        span = document.createElement('span');
+        span.appendChild(document.createTextNode(data[i]));
+        if (this.id === 'ui_cells') {
+          span.title = 'cells[' + i + ']';
+        }
+        if (current === i) {
+          span.className = 'current';
+        }
+        this.el.appendChild(span);
+      }
+    };
+  };
+
+  Bf = function() {
+    var codeString;
+    var pos;
+    var cells = [];
+    var ptr;
+    var outputString;
+
+    var uiCode = new UI('ui_code');
+    var uiCells = new UI('ui_cells');
+    var uiOutput = new UI('ui_output');
+
+    this.load = function(s) {
+      codeString = s;
+      pos = 0;
+      cells = Array(20).fill(0);
+      ptr = 0;
+      outputString = '';
+      this.updateUI();
+    };
+
+    this.updateUI = function() {
+      uiCode.update(codeString, pos);
+      uiCells.update(cells, ptr);
+      uiOutput.update(outputString);
+    };
+
+    this.step = function(s) {
+
+    };
+
+    this.run = function(s) {
+
+    };
+  };
+
+  load.addEventListener('click', function() {
+    var codeString = code.value.replace(/[^\+\-<>\.,\[\]]/g, '');
+    if (codeString === '') {
+      return;
+    }
+    result.className = '';
+    bf.load(codeString);
+  });
+
+  step.addEventListener('click', function() {
+    bf.step();
+  });
+
+  run.addEventListener('click', function() {
+    bf.run();
+  });
+
+  reset.addEventListener('click', function() {
+    result.className = 'hidden';
+  });
+
+  bf = new Bf();
+
+  code.focus();
+
+})();
+
+// ===== /MyBF/css/styles.css =====
+body, textarea {
+  font-size: 12px;
+  font-family: 'Courier New';
+}
+.container {
+  width: 500px;
+  margin: 20px auto;
+}
+.row {
+  margin-bottom: 20px;
+}
+textarea {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  height: 50px;
+  margin-bottom: 5px;
+}
+h2 {
+  font-size: 14px;
+  border-bottom: 1px solid #666;
+  color: #666;
+  padding: 0 0 4px 0;
+  letter-spacing: 0.05em;
+}
+.source > span {
+  padding: 0 2px;
+  color: #bbb;
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 4px solid transparent;
+}
+.source > span.current {
+  font-weight: bold;
+  color: #666;
+  border-bottom: 4px solid #ccc;
+}
+.hidden {
+  display: none;
+}
+textarea:disabled {
+  background: #eee;
+}
+
+// ===== /MyBF/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>BF</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <textarea id="code"></textarea>
+      <div>
+        <button id="load">Load Program</button>
+        <button id="step">Step</button>
+        <button id="run">Run</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+    <div id="result" class="hidden">
+      <h2>CODE</h2>
+      <div class="row source" id="ui_code">
+        <!-- <span class="current">+</span>
+        <span>+</span>
+        <span>+</span> -->
+      </div>
+      <h2>CELLS</h2>
+      <div class="row source" id="ui_cells">
+        <!-- <span class="current">0</span>
+        <span>0</span>
+        <span>0</span> -->
+      </div>
+      <h2>OUTPUT</h2>
+      <div class="row source" id="ui_output">
+        <!-- <span>a</span> -->
+      </div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
++と-のコマンドを実装していきます。
+
+
+    +
+    -
+    範囲を超えたときの処理
+
+// ===== /MyBF/js/main.js =====
+(function() {
+  'use strict';
+
+  var code = document.getElementById('code');
+  var load = document.getElementById('load');
+  var step = document.getElementById('step');
+  var run = document.getElementById('run');
+  var reset = document.getElementById('reset');
+  var result = document.getElementById('result');
+
+  var Bf;
+  var bf;
+
+  var UI;
+
+  UI = function(id) {
+    this.id = id;
+    this.el = document.getElementById(id);
+    this.update = function(data, current) {
+      var span;
+      var i;
+      while (this.el.firstChild) {
+        this.el.removeChild(this.el.firstChild);
+      }
+      for (i = 0; i < data.length; i++) {
+        span = document.createElement('span');
+        span.appendChild(document.createTextNode(data[i]));
+        if (this.id === 'ui_cells') {
+          span.title = 'cells[' + i + ']';
+        }
+        if (current === i) {
+          span.className = 'current';
+        }
+        this.el.appendChild(span);
+      }
+    };
+  };
+
+  Bf = function() {
+    var codeString;
+    var pos;
+    var cells = [];
+    var ptr;
+    var outputString;
+
+    var uiCode = new UI('ui_code');
+    var uiCells = new UI('ui_cells');
+    var uiOutput = new UI('ui_output');
+
+    var commandMap = {
+      '+': increment,
+      '-': decrement
+    };
+
+    function increment() {
+      cells[ptr]++;
+      if (cells[ptr] > 255) {
+        cells[ptr] = 0;
+      }
+    }
+
+    function decrement() {
+      cells[ptr]--;
+      if (cells[ptr] < 0) {
+        cells[ptr] = 255;
+      }
+    }
+
+    this.load = function(s) {
+      codeString = s;
+      pos = 0;
+      cells = Array(20).fill(0);
+      ptr = 0;
+      outputString = '';
+      this.updateUI();
+    };
+
+    this.updateUI = function() {
+      uiCode.update(codeString, pos);
+      uiCells.update(cells, ptr);
+      uiOutput.update(outputString);
+    };
+
+    this.step = function(s) {
+      this.compute();
+      pos++;
+      this.updateUI();
+      if (pos >= codeString.length) {
+        // code end
+      }
+    };
+
+    this.compute = function() {
+      commandMap[codeString[pos]]();
+    };
+
+    this.run = function(s) {
+
+    };
+  };
+
+  load.addEventListener('click', function() {
+    var codeString = code.value.replace(/[^\+\-<>\.,\[\]]/g, '');
+    if (codeString === '') {
+      return;
+    }
+    result.className = '';
+    bf.load(codeString);
+  });
+
+  step.addEventListener('click', function() {
+    bf.step();
+  });
+
+  run.addEventListener('click', function() {
+    bf.run();
+  });
+
+  reset.addEventListener('click', function() {
+    result.className = 'hidden';
+  });
+
+  bf = new Bf();
+
+  code.focus();
+
+})();
+
+// ===== /MyBF/css/styles.css =====
+body, textarea {
+  font-size: 12px;
+  font-family: 'Courier New';
+}
+.container {
+  width: 500px;
+  margin: 20px auto;
+}
+.row {
+  margin-bottom: 20px;
+}
+textarea {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  height: 50px;
+  margin-bottom: 5px;
+}
+h2 {
+  font-size: 14px;
+  border-bottom: 1px solid #666;
+  color: #666;
+  padding: 0 0 4px 0;
+  letter-spacing: 0.05em;
+}
+.source > span {
+  padding: 0 2px;
+  color: #bbb;
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 4px solid transparent;
+}
+.source > span.current {
+  font-weight: bold;
+  color: #666;
+  border-bottom: 4px solid #ccc;
+}
+.hidden {
+  display: none;
+}
+textarea:disabled {
+  background: #eee;
+}
+
+// ===== /MyBF/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>BF</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <textarea id="code"></textarea>
+      <div>
+        <button id="load">Load Program</button>
+        <button id="step">Step</button>
+        <button id="run">Run</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+    <div id="result" class="hidden">
+      <h2>CODE</h2>
+      <div class="row source" id="ui_code">
+        <!-- <span class="current">+</span>
+        <span>+</span>
+        <span>+</span> -->
+      </div>
+      <h2>CELLS</h2>
+      <div class="row source" id="ui_cells">
+        <!-- <span class="current">0</span>
+        <span>0</span>
+        <span>0</span> -->
+      </div>
+      <h2>OUTPUT</h2>
+      <div class="row source" id="ui_output">
+        <!-- <span>a</span> -->
+      </div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+<と>のコマンドを実装していきます。
+
+
+    >
+    <
+    範囲を超えたときの処理
+    例外処理
+
+// ===== /MyBF/js/main.js =====
+(function() {
+  'use strict';
+
+  var code = document.getElementById('code');
+  var load = document.getElementById('load');
+  var step = document.getElementById('step');
+  var run = document.getElementById('run');
+  var reset = document.getElementById('reset');
+  var result = document.getElementById('result');
+
+  var Bf;
+  var bf;
+
+  var UI;
+
+  UI = function(id) {
+    this.id = id;
+    this.el = document.getElementById(id);
+    this.update = function(data, current) {
+      var span;
+      var i;
+      while (this.el.firstChild) {
+        this.el.removeChild(this.el.firstChild);
+      }
+      for (i = 0; i < data.length; i++) {
+        span = document.createElement('span');
+        span.appendChild(document.createTextNode(data[i]));
+        if (this.id === 'ui_cells') {
+          span.title = 'cells[' + i + ']';
+        }
+        if (current === i) {
+          span.className = 'current';
+        }
+        this.el.appendChild(span);
+      }
+    };
+  };
+
+  Bf = function() {
+    var codeString;
+    var pos;
+    var cells = [];
+    var ptr;
+    var outputString;
+
+    var uiCode = new UI('ui_code');
+    var uiCells = new UI('ui_cells');
+    var uiOutput = new UI('ui_output');
+
+    var commandMap = {
+      '+': increment,
+      '-': decrement,
+      '>': forward,
+      '<': back
+    };
+
+    function forward() {
+      ptr++;
+      if (ptr === cells.length) {
+        cells.push(0);
+      }
+    }
+
+    function back() {
+      ptr--;
+      if (ptr < 0) {
+        throw "bad cell address!";
+      }
+    }
+
+    function increment() {
+      cells[ptr]++;
+      if (cells[ptr] > 255) {
+        cells[ptr] = 0;
+      }
+    }
+
+    function decrement() {
+      cells[ptr]--;
+      if (cells[ptr] < 0) {
+        cells[ptr] = 255;
+      }
+    }
+
+    this.load = function(s) {
+      codeString = s;
+      pos = 0;
+      cells = Array(20).fill(0);
+      ptr = 0;
+      outputString = '';
+      this.updateUI();
+    };
+
+    this.updateUI = function() {
+      uiCode.update(codeString, pos);
+      uiCells.update(cells, ptr);
+      uiOutput.update(outputString);
+    };
+
+    this.step = function(s) {
+      this.compute();
+      pos++;
+      this.updateUI();
+      if (pos >= codeString.length) {
+        // code end
+      }
+    };
+
+    this.compute = function() {
+      try {
+        commandMap[codeString[pos]]();
+      } catch(e) {
+        alert(e);
+        return;
+      }
+    };
+
+    this.run = function(s) {
+
+    };
+  };
+
+  load.addEventListener('click', function() {
+    var codeString = code.value.replace(/[^\+\-<>\.,\[\]]/g, '');
+    if (codeString === '') {
+      return;
+    }
+    result.className = '';
+    bf.load(codeString);
+  });
+
+  step.addEventListener('click', function() {
+    bf.step();
+  });
+
+  run.addEventListener('click', function() {
+    bf.run();
+  });
+
+  reset.addEventListener('click', function() {
+    result.className = 'hidden';
+  });
+
+  bf = new Bf();
+
+  code.focus();
+
+})();
+
+// ===== /MyBF/css/styles.css =====
+body, textarea {
+  font-size: 12px;
+  font-family: 'Courier New';
+}
+.container {
+  width: 500px;
+  margin: 20px auto;
+}
+.row {
+  margin-bottom: 20px;
+}
+textarea {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  height: 50px;
+  margin-bottom: 5px;
+}
+h2 {
+  font-size: 14px;
+  border-bottom: 1px solid #666;
+  color: #666;
+  padding: 0 0 4px 0;
+  letter-spacing: 0.05em;
+}
+.source > span {
+  padding: 0 2px;
+  color: #bbb;
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 4px solid transparent;
+}
+.source > span.current {
+  font-weight: bold;
+  color: #666;
+  border-bottom: 4px solid #ccc;
+}
+.hidden {
+  display: none;
+}
+textarea:disabled {
+  background: #eee;
+}
+
+// ===== /MyBF/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>BF</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <textarea id="code"></textarea>
+      <div>
+        <button id="load">Load Program</button>
+        <button id="step">Step</button>
+        <button id="run">Run</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+    <div id="result" class="hidden">
+      <h2>CODE</h2>
+      <div class="row source" id="ui_code">
+        <!-- <span class="current">+</span>
+        <span>+</span>
+        <span>+</span> -->
+      </div>
+      <h2>CELLS</h2>
+      <div class="row source" id="ui_cells">
+        <!-- <span class="current">0</span>
+        <span>0</span>
+        <span>0</span> -->
+      </div>
+      <h2>OUTPUT</h2>
+      <div class="row source" id="ui_output">
+        <!-- <span>a</span> -->
+      </div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+,と.のコマンドを実装していきます。
+
+
+    ,
+    .
+    バリデーション処理
+
+// ===== /MyBF/js/main.js =====
+(function() {
+  'use strict';
+
+  var code = document.getElementById('code');
+  var load = document.getElementById('load');
+  var step = document.getElementById('step');
+  var run = document.getElementById('run');
+  var reset = document.getElementById('reset');
+  var result = document.getElementById('result');
+
+  var Bf;
+  var bf;
+
+  var UI;
+
+  UI = function(id) {
+    this.id = id;
+    this.el = document.getElementById(id);
+    this.update = function(data, current) {
+      var span;
+      var i;
+      while (this.el.firstChild) {
+        this.el.removeChild(this.el.firstChild);
+      }
+      for (i = 0; i < data.length; i++) {
+        span = document.createElement('span');
+        span.appendChild(document.createTextNode(data[i]));
+        if (this.id === 'ui_cells') {
+          span.title = 'cells[' + i + ']';
+        }
+        if (current === i) {
+          span.className = 'current';
+        }
+        this.el.appendChild(span);
+      }
+    };
+  };
+
+  Bf = function() {
+    var codeString;
+    var pos;
+    var cells = [];
+    var ptr;
+    var outputString;
+
+    var uiCode = new UI('ui_code');
+    var uiCells = new UI('ui_cells');
+    var uiOutput = new UI('ui_output');
+
+    var commandMap = {
+      '+': increment,
+      '-': decrement,
+      '>': forward,
+      '<': back,
+      ',': input,
+      '.': output
+    };
+
+    function input() {
+      var v = prompt('Enter one character');
+      if (v === '' || v === null || v.charCodeAt(0) > 255) {
+        cells[ptr] = 0;
+      } else {
+        cells[ptr] = v.charCodeAt(0);
+      }
+    }
+
+    function output() {
+      outputString += String.fromCharCode(cells[ptr]);
+    }
+
+    function forward() {
+      ptr++;
+      if (ptr === cells.length) {
+        cells.push(0);
+      }
+    }
+
+    function back() {
+      ptr--;
+      if (ptr < 0) {
+        throw "bad cell address!";
+      }
+    }
+
+    function increment() {
+      cells[ptr]++;
+      if (cells[ptr] > 255) {
+        cells[ptr] = 0;
+      }
+    }
+
+    function decrement() {
+      cells[ptr]--;
+      if (cells[ptr] < 0) {
+        cells[ptr] = 255;
+      }
+    }
+
+    this.load = function(s) {
+      codeString = s;
+      pos = 0;
+      cells = Array(20).fill(0);
+      ptr = 0;
+      outputString = '';
+      this.updateUI();
+    };
+
+    this.updateUI = function() {
+      uiCode.update(codeString, pos);
+      uiCells.update(cells, ptr);
+      uiOutput.update(outputString);
+    };
+
+    this.step = function() {
+      this.compute();
+      pos++;
+      this.updateUI();
+      if (pos >= codeString.length) {
+        // code end
+      }
+    };
+
+    this.compute = function() {
+      try {
+        commandMap[codeString[pos]]();
+      } catch(e) {
+        alert(e);
+        return;
+      }
+    };
+
+    this.run = function() {
+
+    };
+  };
+
+  load.addEventListener('click', function() {
+    var codeString = code.value.replace(/[^\+\-<>\.,\[\]]/g, '');
+    if (codeString === '') {
+      return;
+    }
+    result.className = '';
+    bf.load(codeString);
+  });
+
+  step.addEventListener('click', function() {
+    bf.step();
+  });
+
+  run.addEventListener('click', function() {
+    bf.run();
+  });
+
+  reset.addEventListener('click', function() {
+    result.className = 'hidden';
+  });
+
+  bf = new Bf();
+
+  code.focus();
+
+})();
+
+// ===== /MyBF/css/styles.css =====
+body, textarea {
+  font-size: 12px;
+  font-family: 'Courier New';
+}
+.container {
+  width: 500px;
+  margin: 20px auto;
+}
+.row {
+  margin-bottom: 20px;
+}
+textarea {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  height: 50px;
+  margin-bottom: 5px;
+}
+h2 {
+  font-size: 14px;
+  border-bottom: 1px solid #666;
+  color: #666;
+  padding: 0 0 4px 0;
+  letter-spacing: 0.05em;
+}
+.source > span {
+  padding: 0 2px;
+  color: #bbb;
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 4px solid transparent;
+}
+.source > span.current {
+  font-weight: bold;
+  color: #666;
+  border-bottom: 4px solid #ccc;
+}
+.hidden {
+  display: none;
+}
+textarea:disabled {
+  background: #eee;
+}
+
+// ===== /MyBF/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>BF</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <textarea id="code"></textarea>
+      <div>
+        <button id="load">Load Program</button>
+        <button id="step">Step</button>
+        <button id="run">Run</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+    <div id="result" class="hidden">
+      <h2>CODE</h2>
+      <div class="row source" id="ui_code">
+        <!-- <span class="current">+</span>
+        <span>+</span>
+        <span>+</span> -->
+      </div>
+      <h2>CELLS</h2>
+      <div class="row source" id="ui_cells">
+        <!-- <span class="current">0</span>
+        <span>0</span>
+        <span>0</span> -->
+      </div>
+      <h2>OUTPUT</h2>
+      <div class="row source" id="ui_output">
+        <!-- <span>a</span> -->
+      </div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+[と]のコマンドを実装していきます。
+
+
+    [
+    ]
+
+// ===== /MyBF/js/main.js =====
+(function() {
+  'use strict';
+
+  var code = document.getElementById('code');
+  var load = document.getElementById('load');
+  var step = document.getElementById('step');
+  var run = document.getElementById('run');
+  var reset = document.getElementById('reset');
+  var result = document.getElementById('result');
+
+  var Bf;
+  var bf;
+
+  var UI;
+
+  UI = function(id) {
+    this.id = id;
+    this.el = document.getElementById(id);
+    this.update = function(data, current) {
+      var span;
+      var i;
+      while (this.el.firstChild) {
+        this.el.removeChild(this.el.firstChild);
+      }
+      for (i = 0; i < data.length; i++) {
+        span = document.createElement('span');
+        span.appendChild(document.createTextNode(data[i]));
+        if (this.id === 'ui_cells') {
+          span.title = 'cells[' + i + ']';
+        }
+        if (current === i) {
+          span.className = 'current';
+        }
+        this.el.appendChild(span);
+      }
+    };
+  };
+
+  Bf = function() {
+    var codeString;
+    var pos;
+    var cells = [];
+    var ptr;
+    var outputString;
+
+    var uiCode = new UI('ui_code');
+    var uiCells = new UI('ui_cells');
+    var uiOutput = new UI('ui_output');
+
+    var commandMap = {
+      '+': increment,
+      '-': decrement,
+      '>': forward,
+      '<': back,
+      ',': input,
+      '.': output,
+      '[': startLoop,
+      ']': endLoop
+    };
+
+    /*
+    [++[+]]
+    0123456
+
+    bracemap[0] = 6
+    bracemap[3] = 5
+    bracemap[5] = 3
+    bracemap[6] = 0
+    */
+
+    this.createBracemap = function() {
+
+    };
+
+    function startLoop() {
+      if (cells[ptr] === 0) {
+        // jump
+      }
+    }
+
+    function endLoop() {
+      if (cells[ptr] !== 0) {
+        // jump
+      }
+    }
+
+    function input() {
+      var v = prompt('Enter one character');
+      if (v === '' || v === null || v.charCodeAt(0) > 255) {
+        cells[ptr] = 0;
+      } else {
+        cells[ptr] = v.charCodeAt(0);
+      }
+    }
+
+    function output() {
+      outputString += String.fromCharCode(cells[ptr]);
+    }
+
+    function forward() {
+      ptr++;
+      if (ptr === cells.length) {
+        cells.push(0);
+      }
+    }
+
+    function back() {
+      ptr--;
+      if (ptr < 0) {
+        throw 'bad cell address!';
+      }
+    }
+
+    function increment() {
+      cells[ptr]++;
+      if (cells[ptr] > 255) {
+        cells[ptr] = 0;
+      }
+    }
+
+    function decrement() {
+      cells[ptr]--;
+      if (cells[ptr] < 0) {
+        cells[ptr] = 255;
+      }
+    }
+
+    this.load = function(s) {
+      codeString = s;
+      pos = 0;
+      cells = Array(20).fill(0);
+      ptr = 0;
+      outputString = '';
+      try {
+        this.createBracemap();
+      } catch(e) {
+        alert(e);
+        return;
+      }
+      this.updateUI();
+    };
+
+    this.updateUI = function() {
+      uiCode.update(codeString, pos);
+      uiCells.update(cells, ptr);
+      uiOutput.update(outputString);
+    };
+
+    this.step = function() {
+      this.compute();
+      pos++;
+      this.updateUI();
+      if (pos >= codeString.length) {
+        // code end
+      }
+    };
+
+    this.compute = function() {
+      try {
+        commandMap[codeString[pos]]();
+      } catch(e) {
+        alert(e);
+        return;
+      }
+    };
+
+    this.run = function() {
+
+    };
+  };
+
+  load.addEventListener('click', function() {
+    var codeString = code.value.replace(/[^\+\-<>\.,\[\]]/g, '');
+    if (codeString === '') {
+      return;
+    }
+    result.className = '';
+    bf.load(codeString);
+  });
+
+  step.addEventListener('click', function() {
+    bf.step();
+  });
+
+  run.addEventListener('click', function() {
+    bf.run();
+  });
+
+  reset.addEventListener('click', function() {
+    result.className = 'hidden';
+  });
+
+  bf = new Bf();
+
+  code.focus();
+
+})();
+
+// ===== /MyBF/css/styles.css =====
+body, textarea {
+  font-size: 12px;
+  font-family: 'Courier New';
+}
+.container {
+  width: 500px;
+  margin: 20px auto;
+}
+.row {
+  margin-bottom: 20px;
+}
+textarea {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  height: 50px;
+  margin-bottom: 5px;
+}
+h2 {
+  font-size: 14px;
+  border-bottom: 1px solid #666;
+  color: #666;
+  padding: 0 0 4px 0;
+  letter-spacing: 0.05em;
+}
+.source > span {
+  padding: 0 2px;
+  color: #bbb;
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 4px solid transparent;
+}
+.source > span.current {
+  font-weight: bold;
+  color: #666;
+  border-bottom: 4px solid #ccc;
+}
+.hidden {
+  display: none;
+}
+textarea:disabled {
+  background: #eee;
+}
+
+// ===== /MyBF/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>BF</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <textarea id="code"></textarea>
+      <div>
+        <button id="load">Load Program</button>
+        <button id="step">Step</button>
+        <button id="run">Run</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+    <div id="result" class="hidden">
+      <h2>CODE</h2>
+      <div class="row source" id="ui_code">
+        <!-- <span class="current">+</span>
+        <span>+</span>
+        <span>+</span> -->
+      </div>
+      <h2>CELLS</h2>
+      <div class="row source" id="ui_cells">
+        <!-- <span class="current">0</span>
+        <span>0</span>
+        <span>0</span> -->
+      </div>
+      <h2>OUTPUT</h2>
+      <div class="row source" id="ui_output">
+        <!-- <span>a</span> -->
+      </div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+ペアとなる括弧を配列に落とし込んでいきます。
+
+
+    ペアとなる括弧のデータ化
+
+// ===== /MyBF/js/main.js =====
+(function() {
+  'use strict';
+
+  var code = document.getElementById('code');
+  var load = document.getElementById('load');
+  var step = document.getElementById('step');
+  var run = document.getElementById('run');
+  var reset = document.getElementById('reset');
+  var result = document.getElementById('result');
+
+  var Bf;
+  var bf;
+
+  var UI;
+
+  UI = function(id) {
+    this.id = id;
+    this.el = document.getElementById(id);
+    this.update = function(data, current) {
+      var span;
+      var i;
+      while (this.el.firstChild) {
+        this.el.removeChild(this.el.firstChild);
+      }
+      for (i = 0; i < data.length; i++) {
+        span = document.createElement('span');
+        span.appendChild(document.createTextNode(data[i]));
+        if (this.id === 'ui_cells') {
+          span.title = 'cells[' + i + ']';
+        }
+        if (current === i) {
+          span.className = 'current';
+        }
+        this.el.appendChild(span);
+      }
+    };
+  };
+
+  Bf = function() {
+    var codeString;
+    var pos;
+    var cells = [];
+    var ptr;
+    var outputString;
+    var bracemap = [];
+
+    var uiCode = new UI('ui_code');
+    var uiCells = new UI('ui_cells');
+    var uiOutput = new UI('ui_output');
+
+    var commandMap = {
+      '+': increment,
+      '-': decrement,
+      '>': forward,
+      '<': back,
+      ',': input,
+      '.': output,
+      '[': startLoop,
+      ']': endLoop
+    };
+
+    /*
+    [++[+]]
+    0123456
+
+    bracemap[0] = 6
+    bracemap[3] = 5
+    bracemap[5] = 3
+    bracemap[6] = 0
+    */
+
+    this.createBracemap = function() {
+      var stack = [];
+      var i;
+      var start;
+      var counter = 0;
+      for (i = 0; i < codeString.length; i++) {
+        if (codeString[i] === '[') {
+          stack.push(i);
+          counter++;
+        } else if (codeString[i] === ']') {
+          start = stack.pop(); // start <> i
+          bracemap[start] = i;
+          bracemap[i] = start;
+          counter--;
+        }
+      }
+      if (stack.length !== 0) {
+        throw 'too many [ !';
+      }
+      if (counter < 0) {
+        throw 'too many ] !';
+      }
+    };
+
+    function startLoop() {
+      if (cells[ptr] === 0) {
+        // jump
+      }
+    }
+
+    function endLoop() {
+      if (cells[ptr] !== 0) {
+        // jump
+      }
+    }
+
+    function input() {
+      var v = prompt('Enter one character');
+      if (v === '' || v === null || v.charCodeAt(0) > 255) {
+        cells[ptr] = 0;
+      } else {
+        cells[ptr] = v.charCodeAt(0);
+      }
+    }
+
+    function output() {
+      outputString += String.fromCharCode(cells[ptr]);
+    }
+
+    function forward() {
+      ptr++;
+      if (ptr === cells.length) {
+        cells.push(0);
+      }
+    }
+
+    function back() {
+      ptr--;
+      if (ptr < 0) {
+        throw 'bad cell address!';
+      }
+    }
+
+    function increment() {
+      cells[ptr]++;
+      if (cells[ptr] > 255) {
+        cells[ptr] = 0;
+      }
+    }
+
+    function decrement() {
+      cells[ptr]--;
+      if (cells[ptr] < 0) {
+        cells[ptr] = 255;
+      }
+    }
+
+    this.load = function(s) {
+      codeString = s;
+      pos = 0;
+      cells = Array(20).fill(0);
+      ptr = 0;
+      outputString = '';
+      try {
+        this.createBracemap();
+      } catch(e) {
+        alert(e);
+        return;
+      }
+      this.updateUI();
+    };
+
+    this.updateUI = function() {
+      uiCode.update(codeString, pos);
+      uiCells.update(cells, ptr);
+      uiOutput.update(outputString);
+    };
+
+    this.step = function() {
+      this.compute();
+      pos++;
+      this.updateUI();
+      if (pos >= codeString.length) {
+        // code end
+      }
+    };
+
+    this.compute = function() {
+      try {
+        commandMap[codeString[pos]]();
+      } catch(e) {
+        alert(e);
+        return;
+      }
+    };
+
+    this.run = function() {
+
+    };
+  };
+
+  load.addEventListener('click', function() {
+    var codeString = code.value.replace(/[^\+\-<>\.,\[\]]/g, '');
+    if (codeString === '') {
+      return;
+    }
+    result.className = '';
+    bf.load(codeString);
+  });
+
+  step.addEventListener('click', function() {
+    bf.step();
+  });
+
+  run.addEventListener('click', function() {
+    bf.run();
+  });
+
+  reset.addEventListener('click', function() {
+    result.className = 'hidden';
+  });
+
+  bf = new Bf();
+
+  code.focus();
+
+})();
+
+// ===== /MyBF/css/styles.css =====
+body, textarea {
+  font-size: 12px;
+  font-family: 'Courier New';
+}
+.container {
+  width: 500px;
+  margin: 20px auto;
+}
+.row {
+  margin-bottom: 20px;
+}
+textarea {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  height: 50px;
+  margin-bottom: 5px;
+}
+h2 {
+  font-size: 14px;
+  border-bottom: 1px solid #666;
+  color: #666;
+  padding: 0 0 4px 0;
+  letter-spacing: 0.05em;
+}
+.source > span {
+  padding: 0 2px;
+  color: #bbb;
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 4px solid transparent;
+}
+.source > span.current {
+  font-weight: bold;
+  color: #666;
+  border-bottom: 4px solid #ccc;
+}
+.hidden {
+  display: none;
+}
+textarea:disabled {
+  background: #eee;
+}
+
+// ===== /MyBF/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>BF</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <textarea id="code"></textarea>
+      <div>
+        <button id="load">Load Program</button>
+        <button id="step">Step</button>
+        <button id="run">Run</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+    <div id="result" class="hidden">
+      <h2>CODE</h2>
+      <div class="row source" id="ui_code">
+        <!-- <span class="current">+</span>
+        <span>+</span>
+        <span>+</span> -->
+      </div>
+      <h2>CELLS</h2>
+      <div class="row source" id="ui_cells">
+        <!-- <span class="current">0</span>
+        <span>0</span>
+        <span>0</span> -->
+      </div>
+      <h2>OUTPUT</h2>
+      <div class="row source" id="ui_output">
+        <!-- <span>a</span> -->
+      </div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+[と]が動作するか確認していきます。
+
+
+    動作確認
+    例外処理
+
+// ===== /MyBF/js/main.js =====
+(function() {
+  'use strict';
+
+  var code = document.getElementById('code');
+  var load = document.getElementById('load');
+  var step = document.getElementById('step');
+  var run = document.getElementById('run');
+  var reset = document.getElementById('reset');
+  var result = document.getElementById('result');
+
+  var Bf;
+  var bf;
+
+  var UI;
+
+  UI = function(id) {
+    this.id = id;
+    this.el = document.getElementById(id);
+    this.update = function(data, current) {
+      var span;
+      var i;
+      while (this.el.firstChild) {
+        this.el.removeChild(this.el.firstChild);
+      }
+      for (i = 0; i < data.length; i++) {
+        span = document.createElement('span');
+        span.appendChild(document.createTextNode(data[i]));
+        if (this.id === 'ui_cells') {
+          span.title = 'cells[' + i + ']';
+        }
+        if (current === i) {
+          span.className = 'current';
+        }
+        this.el.appendChild(span);
+      }
+    };
+  };
+
+  Bf = function() {
+    var codeString;
+    var pos;
+    var cells = [];
+    var ptr;
+    var outputString;
+    var bracemap  = [];
+
+    var uiCode = new UI('ui_code');
+    var uiCells = new UI('ui_cells');
+    var uiOutput = new UI('ui_output');
+
+    var commandMap = {
+      '+': increment,
+      '-': decrement,
+      '>': forward,
+      '<': back,
+      ',': input,
+      '.': output,
+      '[': startLoop,
+      ']': endLoop
+    };
+
+    /*
+    [++[+]]
+    0123456
+
+    bracemap[0] = 6
+    bracemap[3] = 5
+    bracemap[5] = 3
+    bracemap[6] = 0
+    */
+
+    this.createBracemap = function() {
+      var stack = [];
+      var i;
+      var start;
+      var counter = 0;
+      for (i = 0; i < codeString.length; i++) {
+        if (codeString[i] === '[') {
+          stack.push(i);
+          counter++;
+        } else if (codeString[i] === ']') {
+          start = stack.pop(); // start <> i
+          bracemap[start] = i;
+          bracemap[i] = start;
+          counter--;
+        }
+      }
+      // console.log(bracemap);
+      if (stack.length !== 0) {
+        throw 'too many [ !';
+      }
+      if (counter < 0) {
+        throw 'too many ] !';
+      }
+    };
+
+    function startLoop() {
+      if (cells[ptr] === 0) {
+        // jump
+        pos = bracemap[pos];
+      }
+    }
+
+    function endLoop() {
+      if (cells[ptr] !== 0) {
+        // jump
+        pos = bracemap[pos];
+      }
+    }
+
+    function input() {
+      var v = prompt('Enter one character');
+      if (v === '' || v === null || v.charCodeAt(0) > 255) {
+        cells[ptr] = 0;
+      } else {
+        cells[ptr] = v.charCodeAt(0);
+      }
+    }
+
+    function output() {
+      outputString += String.fromCharCode(cells[ptr]);
+    }
+
+    function forward() {
+      ptr++;
+      if (ptr === cells.length) {
+        cells.push(0);
+      }
+    }
+
+    function back() {
+      ptr--;
+      if (ptr < 0) {
+        throw 'bad cell address!';
+      }
+    }
+
+    function increment() {
+      cells[ptr]++;
+      if (cells[ptr] > 255) {
+        cells[ptr] = 0;
+      }
+    }
+
+    function decrement() {
+      cells[ptr]--;
+      if (cells[ptr] < 0) {
+        cells[ptr] = 255;
+      }
+    }
+
+    this.load = function(s) {
+      codeString = s;
+      pos = 0;
+      cells = Array(20).fill(0);
+      ptr = 0;
+      outputString = '';
+      try {
+        this.createBracemap();
+      } catch(e) {
+        alert(e);
+        return;
+      }
+      this.updateUI();
+    };
+
+    this.updateUI = function() {
+      uiCode.update(codeString, pos);
+      uiCells.update(cells, ptr);
+      uiOutput.update(outputString);
+    };
+
+    this.step = function() {
+      this.compute();
+      pos++;
+      this.updateUI();
+      if (pos >= codeString.length) {
+        // code end
+      }
+    };
+
+    this.compute = function() {
+      try {
+        commandMap[codeString[pos]]();
+      } catch(e) {
+        alert(e);
+        return;
+      }
+    };
+
+    this.run = function() {
+
+    };
+  };
+
+  load.addEventListener('click', function() {
+    var codeString = code.value.replace(/[^\+\-<>\.,\[\]]/g, '');
+    if (codeString === '') {
+      return;
+    }
+    result.className = '';
+    bf.load(codeString);
+  });
+
+  step.addEventListener('click', function() {
+    bf.step();
+  });
+
+  run.addEventListener('click', function() {
+    bf.run();
+  });
+
+  reset.addEventListener('click', function() {
+    result.className = 'hidden';
+  });
+
+  bf = new Bf();
+
+  code.focus();
+
+})();
+
+// ===== /MyBF/css/styles.css =====
+body, textarea {
+  font-size: 12px;
+  font-family: 'Courier New';
+}
+.container {
+  width: 500px;
+  margin: 20px auto;
+}
+.row {
+  margin-bottom: 20px;
+}
+textarea {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  height: 50px;
+  margin-bottom: 5px;
+}
+h2 {
+  font-size: 14px;
+  border-bottom: 1px solid #666;
+  color: #666;
+  padding: 0 0 4px 0;
+  letter-spacing: 0.05em;
+}
+.source > span {
+  padding: 0 2px;
+  color: #bbb;
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 4px solid transparent;
+}
+.source > span.current {
+  font-weight: bold;
+  color: #666;
+  border-bottom: 4px solid #ccc;
+}
+.hidden {
+  display: none;
+}
+textarea:disabled {
+  background: #eee;
+}
+
+// ===== /MyBF/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>BF</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <textarea id="code"></textarea>
+      <div>
+        <button id="load">Load Program</button>
+        <button id="step">Step</button>
+        <button id="run">Run</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+    <div id="result" class="hidden">
+      <h2>CODE</h2>
+      <div class="row source" id="ui_code">
+        <!-- <span class="current">+</span>
+        <span>+</span>
+        <span>+</span> -->
+      </div>
+      <h2>CELLS</h2>
+      <div class="row source" id="ui_cells">
+        <!-- <span class="current">0</span>
+        <span>0</span>
+        <span>0</span> -->
+      </div>
+      <h2>OUTPUT</h2>
+      <div class="row source" id="ui_output">
+        <!-- <span>a</span> -->
+      </div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+ボタンの状態を管理するオブジェクトを作っていきます。
+
+
+    ButtonStateオブジェクト
+
+// ===== /MyBF/js/main.js =====
+(function() {
+  'use strict';
+
+  var code = document.getElementById('code');
+  var load = document.getElementById('load');
+  var step = document.getElementById('step');
+  var run = document.getElementById('run');
+  var reset = document.getElementById('reset');
+  var result = document.getElementById('result');
+
+  var Bf;
+  var bf;
+
+  var UI;
+
+  var ButtonState;
+
+  ButtonState = {
+    init: function() {
+      step.disabled = true;
+      run.disabled = true;
+      reset.disabled = true;
+    },
+    afterLoad: function() {
+      
+    },
+    lastStep: function() {
+
+    },
+    afterReset: function() {
+
+    }
+  };
+
+  UI = function(id) {
+    this.id = id;
+    this.el = document.getElementById(id);
+    this.update = function(data, current) {
+      var span;
+      var i;
+      while (this.el.firstChild) {
+        this.el.removeChild(this.el.firstChild);
+      }
+      for (i = 0; i < data.length; i++) {
+        span = document.createElement('span');
+        span.appendChild(document.createTextNode(data[i]));
+        if (this.id === 'ui_cells') {
+          span.title = 'cells[' + i + ']';
+        }
+        if (current === i) {
+          span.className = 'current';
+        }
+        this.el.appendChild(span);
+      }
+    };
+  };
+
+  Bf = function() {
+    var codeString;
+    var pos;
+    var cells = [];
+    var ptr;
+    var outputString;
+    var bracemap  = [];
+
+    var uiCode = new UI('ui_code');
+    var uiCells = new UI('ui_cells');
+    var uiOutput = new UI('ui_output');
+
+    var commandMap = {
+      '+': increment,
+      '-': decrement,
+      '>': forward,
+      '<': back,
+      ',': input,
+      '.': output,
+      '[': startLoop,
+      ']': endLoop
+    };
+
+    /*
+    [++[+]]
+    0123456
+
+    bracemap[0] = 6
+    bracemap[3] = 5
+    bracemap[5] = 3
+    bracemap[6] = 0
+    */
+
+    this.createBracemap = function() {
+      var stack = [];
+      var i;
+      var start;
+      var counter = 0;
+      for (i = 0; i < codeString.length; i++) {
+        if (codeString[i] === '[') {
+          stack.push(i);
+          counter++;
+        } else if (codeString[i] === ']') {
+          start = stack.pop(); // start <> i
+          bracemap[start] = i;
+          bracemap[i] = start;
+          counter--;
+        }
+      }
+      // console.log(bracemap);
+      if (stack.length !== 0) {
+        throw 'too many [ !';
+      }
+      if (counter < 0) {
+        throw 'too many ] !';
+      }
+    };
+
+    function startLoop() {
+      if (cells[ptr] === 0) {
+        // jump
+        pos = bracemap[pos];
+      }
+    }
+
+    function endLoop() {
+      if (cells[ptr] !== 0) {
+        // jump
+        pos = bracemap[pos];
+      }
+    }
+
+    function input() {
+      var v = prompt('Enter one character');
+      if (v === '' || v === null || v.charCodeAt(0) > 255) {
+        cells[ptr] = 0;
+      } else {
+        cells[ptr] = v.charCodeAt(0);
+      }
+    }
+
+    function output() {
+      outputString += String.fromCharCode(cells[ptr]);
+    }
+
+    function forward() {
+      ptr++;
+      if (ptr === cells.length) {
+        cells.push(0);
+      }
+    }
+
+    function back() {
+      ptr--;
+      if (ptr < 0) {
+        throw 'bad cell address!';
+      }
+    }
+
+    function increment() {
+      cells[ptr]++;
+      if (cells[ptr] > 255) {
+        cells[ptr] = 0;
+      }
+    }
+
+    function decrement() {
+      cells[ptr]--;
+      if (cells[ptr] < 0) {
+        cells[ptr] = 255;
+      }
+    }
+
+    this.load = function(s) {
+      codeString = s;
+      pos = 0;
+      cells = Array(20).fill(0);
+      ptr = 0;
+      outputString = '';
+      try {
+        this.createBracemap();
+      } catch(e) {
+        alert(e);
+        return;
+      }
+      this.updateUI();
+    };
+
+    this.updateUI = function() {
+      uiCode.update(codeString, pos);
+      uiCells.update(cells, ptr);
+      uiOutput.update(outputString);
+    };
+
+    this.step = function() {
+      this.compute();
+      pos++;
+      this.updateUI();
+      if (pos >= codeString.length) {
+        // code end
+        ButtonState.lastStep();
+      }
+    };
+
+    this.compute = function() {
+      try {
+        commandMap[codeString[pos]]();
+      } catch(e) {
+        alert(e);
+        return;
+      }
+    };
+
+    this.run = function() {
+
+    };
+  };
+
+  load.addEventListener('click', function() {
+    var codeString = code.value.replace(/[^\+\-<>\.,\[\]]/g, '');
+    if (codeString === '') {
+      return;
+    }
+    ButtonState.afterLoad();
+    result.className = '';
+    bf.load(codeString);
+  });
+
+  step.addEventListener('click', function() {
+    bf.step();
+  });
+
+  run.addEventListener('click', function() {
+    bf.run();
+  });
+
+  reset.addEventListener('click', function() {
+    ButtonState.afterReset();
+    result.className = 'hidden';
+  });
+
+  bf = new Bf();
+  ButtonState.init();
+
+  code.focus();
+
+})();
+
+// ===== /MyBF/css/styles.css =====
+body, textarea {
+  font-size: 12px;
+  font-family: 'Courier New';
+}
+.container {
+  width: 500px;
+  margin: 20px auto;
+}
+.row {
+  margin-bottom: 20px;
+}
+textarea {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  height: 50px;
+  margin-bottom: 5px;
+}
+h2 {
+  font-size: 14px;
+  border-bottom: 1px solid #666;
+  color: #666;
+  padding: 0 0 4px 0;
+  letter-spacing: 0.05em;
+}
+.source > span {
+  padding: 0 2px;
+  color: #bbb;
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 4px solid transparent;
+}
+.source > span.current {
+  font-weight: bold;
+  color: #666;
+  border-bottom: 4px solid #ccc;
+}
+.hidden {
+  display: none;
+}
+textarea:disabled {
+  background: #eee;
+}
+
+// ===== /MyBF/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>BF</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <textarea id="code"></textarea>
+      <div>
+        <button id="load">Load Program</button>
+        <button id="step">Step</button>
+        <button id="run">Run</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+    <div id="result" class="hidden">
+      <h2>CODE</h2>
+      <div class="row source" id="ui_code">
+        <!-- <span class="current">+</span>
+        <span>+</span>
+        <span>+</span> -->
+      </div>
+      <h2>CELLS</h2>
+      <div class="row source" id="ui_cells">
+        <!-- <span class="current">0</span>
+        <span>0</span>
+        <span>0</span> -->
+      </div>
+      <h2>OUTPUT</h2>
+      <div class="row source" id="ui_output">
+        <!-- <span>a</span> -->
+      </div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+ボタンの状態を操作しつつrunボタンの実装をしていきます。
+
+
+    ボタンの状態の操作
+    runボタンの実装
+
+// ===== /MyBF/js/main.js =====
+(function() {
+  'use strict';
+
+  var code = document.getElementById('code');
+  var load = document.getElementById('load');
+  var step = document.getElementById('step');
+  var run = document.getElementById('run');
+  var reset = document.getElementById('reset');
+  var result = document.getElementById('result');
+
+  var Bf;
+  var bf;
+
+  var UI;
+
+  var ButtonState;
+
+  ButtonState = {
+    init: function() {
+      step.disabled = true;
+      run.disabled = true;
+      reset.disabled = true;
+    },
+    afterLoad: function() {
+      load.disabled = true;
+      code.disabled = true;
+      step.disabled = false;
+      run.disabled = false;
+      reset.disabled = false;
+    },
+    lastStep: function() {
+      step.disabled = true;
+      run.disabled = true;
+    },
+    afterReset: function() {
+      load.disabled = false;
+      code.disabled = false;
+      step.disabled = true;
+      run.disabled = true;
+      reset.disabled = true;
+    }
+  };
+
+  UI = function(id) {
+    this.id = id;
+    this.el = document.getElementById(id);
+    this.update = function(data, current) {
+      var span;
+      var i;
+      while (this.el.firstChild) {
+        this.el.removeChild(this.el.firstChild);
+      }
+      for (i = 0; i < data.length; i++) {
+        span = document.createElement('span');
+        span.appendChild(document.createTextNode(data[i]));
+        if (this.id === 'ui_cells') {
+          span.title = 'cells[' + i + ']';
+        }
+        if (current === i) {
+          span.className = 'current';
+        }
+        this.el.appendChild(span);
+      }
+    };
+  };
+
+  Bf = function() {
+    var codeString;
+    var pos;
+    var cells = [];
+    var ptr;
+    var outputString;
+    var bracemap  = [];
+
+    var uiCode = new UI('ui_code');
+    var uiCells = new UI('ui_cells');
+    var uiOutput = new UI('ui_output');
+
+    var commandMap = {
+      '+': increment,
+      '-': decrement,
+      '>': forward,
+      '<': back,
+      ',': input,
+      '.': output,
+      '[': startLoop,
+      ']': endLoop
+    };
+
+    /*
+    [++[+]]
+    0123456
+
+    bracemap[0] = 6
+    bracemap[3] = 5
+    bracemap[5] = 3
+    bracemap[6] = 0
+    */
+
+    this.createBracemap = function() {
+      var stack = [];
+      var i;
+      var start;
+      var counter = 0;
+      for (i = 0; i < codeString.length; i++) {
+        if (codeString[i] === '[') {
+          stack.push(i);
+          counter++;
+        } else if (codeString[i] === ']') {
+          start = stack.pop(); // start <> i
+          bracemap[start] = i;
+          bracemap[i] = start;
+          counter--;
+        }
+      }
+      // console.log(bracemap);
+      if (stack.length !== 0) {
+        throw 'too many [ !';
+      }
+      if (counter < 0) {
+        throw 'too many ] !';
+      }
+    };
+
+    function startLoop() {
+      if (cells[ptr] === 0) {
+        // jump
+        pos = bracemap[pos];
+      }
+    }
+
+    function endLoop() {
+      if (cells[ptr] !== 0) {
+        // jump
+        pos = bracemap[pos];
+      }
+    }
+
+    function input() {
+      var v = prompt('Enter one character');
+      if (v === '' || v === null || v.charCodeAt(0) > 255) {
+        cells[ptr] = 0;
+      } else {
+        cells[ptr] = v.charCodeAt(0);
+      }
+    }
+
+    function output() {
+      outputString += String.fromCharCode(cells[ptr]);
+    }
+
+    function forward() {
+      ptr++;
+      if (ptr === cells.length) {
+        cells.push(0);
+      }
+    }
+
+    function back() {
+      ptr--;
+      if (ptr < 0) {
+        throw 'bad cell address!';
+      }
+    }
+
+    function increment() {
+      cells[ptr]++;
+      if (cells[ptr] > 255) {
+        cells[ptr] = 0;
+      }
+    }
+
+    function decrement() {
+      cells[ptr]--;
+      if (cells[ptr] < 0) {
+        cells[ptr] = 255;
+      }
+    }
+
+    this.load = function(s) {
+      codeString = s;
+      pos = 0;
+      cells = Array(20).fill(0);
+      ptr = 0;
+      outputString = '';
+      try {
+        this.createBracemap();
+      } catch(e) {
+        alert(e);
+        return;
+      }
+      this.updateUI();
+    };
+
+    this.updateUI = function() {
+      uiCode.update(codeString, pos);
+      uiCells.update(cells, ptr);
+      uiOutput.update(outputString);
+    };
+
+    this.step = function() {
+      this.compute();
+      pos++;
+      this.updateUI();
+      if (pos >= codeString.length) {
+        // code end
+        ButtonState.lastStep();
+      }
+    };
+
+    this.compute = function() {
+      try {
+        commandMap[codeString[pos]]();
+      } catch(e) {
+        alert(e);
+        return;
+      }
+    };
+
+    this.run = function() {
+      while (pos < codeString.length) {
+        this.step();
+      }
+    };
+  };
+
+  load.addEventListener('click', function() {
+    var codeString = code.value.replace(/[^\+\-<>\.,\[\]]/g, '');
+    if (codeString === '') {
+      return;
+    }
+    ButtonState.afterLoad();
+    result.className = '';
+    bf.load(codeString);
+  });
+
+  step.addEventListener('click', function() {
+    bf.step();
+  });
+
+  run.addEventListener('click', function() {
+    bf.run();
+  });
+
+  reset.addEventListener('click', function() {
+    ButtonState.afterReset();
+    result.className = 'hidden';
+  });
+
+  bf = new Bf();
+  ButtonState.init();
+
+  code.focus();
+
+})();
+
+// ===== /MyBF/css/styles.css =====
+body, textarea {
+  font-size: 12px;
+  font-family: 'Courier New';
+}
+.container {
+  width: 500px;
+  margin: 20px auto;
+}
+.row {
+  margin-bottom: 20px;
+}
+textarea {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  height: 50px;
+  margin-bottom: 5px;
+}
+h2 {
+  font-size: 14px;
+  border-bottom: 1px solid #666;
+  color: #666;
+  padding: 0 0 4px 0;
+  letter-spacing: 0.05em;
+}
+.source > span {
+  padding: 0 2px;
+  color: #bbb;
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 4px solid transparent;
+}
+.source > span.current {
+  font-weight: bold;
+  color: #666;
+  border-bottom: 4px solid #ccc;
+}
+.hidden {
+  display: none;
+}
+textarea:disabled {
+  background: #eee;
+}
+
+// ===== /MyBF/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>BF</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <textarea id="code"></textarea>
+      <div>
+        <button id="load">Load Program</button>
+        <button id="step">Step</button>
+        <button id="run">Run</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+    <div id="result" class="hidden">
+      <h2>CODE</h2>
+      <div class="row source" id="ui_code">
+        <!-- <span class="current">+</span>
+        <span>+</span>
+        <span>+</span> -->
+      </div>
+      <h2>CELLS</h2>
+      <div class="row source" id="ui_cells">
+        <!-- <span class="current">0</span>
+        <span>0</span>
+        <span>0</span> -->
+      </div>
+      <h2>OUTPUT</h2>
+      <div class="row source" id="ui_output">
+        <!-- <span>a</span> -->
+      </div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+コマンドをカスタマイズして派生言語をつくっていく方法について見ていきます。
+
+
+    コマンドのカスタマイズ
+
+// ===== /MyBF/js/main.js =====
+(function() {
+  'use strict';
+
+  var code = document.getElementById('code');
+  var load = document.getElementById('load');
+  var step = document.getElementById('step');
+  var run = document.getElementById('run');
+  var reset = document.getElementById('reset');
+  var result = document.getElementById('result');
+
+  var Bf;
+  var bf;
+
+  var UI;
+
+  var ButtonState;
+
+  /*
+  , wait!
+  . great!
+
+  wait! ... great!
+  */
+
+  var Translator;
+
+  Translator = function() {
+    var cmd = [];
+
+    cmd.push(['+', 'yes!']);
+    cmd.push(['-', 'no!']);
+    cmd.push(['>', 'go!']);
+    cmd.push(['<', 'go!go!']);
+    cmd.push([',', 'wait!']);
+    cmd.push(['.', 'great!']);
+    cmd.push(['[', 'oh!']);
+    cmd.push([']', 'yeah!']);
+  };
+
+  ButtonState = {
+    init: function() {
+      step.disabled = true;
+      run.disabled = true;
+      reset.disabled = true;
+    },
+    afterLoad: function() {
+      load.disabled = true;
+      code.disabled = true;
+      step.disabled = false;
+      run.disabled = false;
+      reset.disabled = false;
+    },
+    lastStep: function() {
+      step.disabled = true;
+      run.disabled = true;
+    },
+    afterReset: function() {
+      load.disabled = false;
+      code.disabled = false;
+      step.disabled = true;
+      run.disabled = true;
+      reset.disabled = true;
+    }
+  };
+
+  UI = function(id) {
+    this.id = id;
+    this.el = document.getElementById(id);
+    this.update = function(data, current) {
+      var span;
+      var i;
+      while (this.el.firstChild) {
+        this.el.removeChild(this.el.firstChild);
+      }
+      for (i = 0; i < data.length; i++) {
+        span = document.createElement('span');
+        span.appendChild(document.createTextNode(data[i]));
+        if (this.id === 'ui_cells') {
+          span.title = 'cells[' + i + ']';
+        }
+        if (current === i) {
+          span.className = 'current';
+        }
+        this.el.appendChild(span);
+      }
+    };
+  };
+
+  Bf = function() {
+    var codeString;
+    var pos;
+    var cells = [];
+    var ptr;
+    var outputString;
+    var bracemap  = [];
+
+    var uiCode = new UI('ui_code');
+    var uiCells = new UI('ui_cells');
+    var uiOutput = new UI('ui_output');
+
+    var commandMap = {
+      '+': increment,
+      '-': decrement,
+      '>': forward,
+      '<': back,
+      ',': input,
+      '.': output,
+      '[': startLoop,
+      ']': endLoop
+    };
+
+    /*
+    [++[+]]
+    0123456
+
+    bracemap[0] = 6
+    bracemap[3] = 5
+    bracemap[5] = 3
+    bracemap[6] = 0
+    */
+
+    this.createBracemap = function() {
+      var stack = [];
+      var i;
+      var start;
+      var counter = 0;
+      for (i = 0; i < codeString.length; i++) {
+        if (codeString[i] === '[') {
+          stack.push(i);
+          counter++;
+        } else if (codeString[i] === ']') {
+          start = stack.pop(); // start <> i
+          bracemap[start] = i;
+          bracemap[i] = start;
+          counter--;
+        }
+      }
+      // console.log(bracemap);
+      if (stack.length !== 0) {
+        throw 'too many [ !';
+      }
+      if (counter < 0) {
+        throw 'too many ] !';
+      }
+    };
+
+    function startLoop() {
+      if (cells[ptr] === 0) {
+        // jump
+        pos = bracemap[pos];
+      }
+    }
+
+    function endLoop() {
+      if (cells[ptr] !== 0) {
+        // jump
+        pos = bracemap[pos];
+      }
+    }
+
+    function input() {
+      var v = prompt('Enter one character');
+      if (v === '' || v === null || v.charCodeAt(0) > 255) {
+        cells[ptr] = 0;
+      } else {
+        cells[ptr] = v.charCodeAt(0);
+      }
+    }
+
+    function output() {
+      outputString += String.fromCharCode(cells[ptr]);
+    }
+
+    function forward() {
+      ptr++;
+      if (ptr === cells.length) {
+        cells.push(0);
+      }
+    }
+
+    function back() {
+      ptr--;
+      if (ptr < 0) {
+        throw 'bad cell address!';
+      }
+    }
+
+    function increment() {
+      cells[ptr]++;
+      if (cells[ptr] > 255) {
+        cells[ptr] = 0;
+      }
+    }
+
+    function decrement() {
+      cells[ptr]--;
+      if (cells[ptr] < 0) {
+        cells[ptr] = 255;
+      }
+    }
+
+    this.load = function(s) {
+      codeString = s;
+      pos = 0;
+      cells = Array(20).fill(0);
+      ptr = 0;
+      outputString = '';
+      try {
+        this.createBracemap();
+      } catch(e) {
+        alert(e);
+        return;
+      }
+      this.updateUI();
+    };
+
+    this.updateUI = function() {
+      uiCode.update(codeString, pos);
+      uiCells.update(cells, ptr);
+      uiOutput.update(outputString);
+    };
+
+    this.step = function() {
+      this.compute();
+      pos++;
+      this.updateUI();
+      if (pos >= codeString.length) {
+        // code end
+        ButtonState.lastStep();
+      }
+    };
+
+    this.compute = function() {
+      try {
+        commandMap[codeString[pos]]();
+      } catch(e) {
+        alert(e);
+        return;
+      }
+    };
+
+    this.run = function() {
+      while (pos < codeString.length) {
+        this.step();
+      }
+    };
+  };
+
+  load.addEventListener('click', function() {
+    var codeString = code.value.replace(/[^\+\-<>\.,\[\]]/g, '');
+    if (codeString === '') {
+      return;
+    }
+    ButtonState.afterLoad();
+    result.className = '';
+    bf.load(codeString);
+  });
+
+  step.addEventListener('click', function() {
+    bf.step();
+  });
+
+  run.addEventListener('click', function() {
+    bf.run();
+  });
+
+  reset.addEventListener('click', function() {
+    ButtonState.afterReset();
+    result.className = 'hidden';
+  });
+
+  bf = new Bf();
+  ButtonState.init();
+
+  code.focus();
+
+})();
+
+// ===== /MyBF/css/styles.css =====
+body, textarea {
+  font-size: 12px;
+  font-family: 'Courier New';
+}
+.container {
+  width: 500px;
+  margin: 20px auto;
+}
+.row {
+  margin-bottom: 20px;
+}
+textarea {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  height: 50px;
+  margin-bottom: 5px;
+}
+h2 {
+  font-size: 14px;
+  border-bottom: 1px solid #666;
+  color: #666;
+  padding: 0 0 4px 0;
+  letter-spacing: 0.05em;
+}
+.source > span {
+  padding: 0 2px;
+  color: #bbb;
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 4px solid transparent;
+}
+.source > span.current {
+  font-weight: bold;
+  color: #666;
+  border-bottom: 4px solid #ccc;
+}
+.hidden {
+  display: none;
+}
+textarea:disabled {
+  background: #eee;
+}
+
+// ===== /MyBF/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>BF</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <textarea id="code"></textarea>
+      <div>
+        <button id="load">Load Program</button>
+        <button id="step">Step</button>
+        <button id="run">Run</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+    <div id="result" class="hidden">
+      <h2>CODE</h2>
+      <div class="row source" id="ui_code">
+        <!-- <span class="current">+</span>
+        <span>+</span>
+        <span>+</span> -->
+      </div>
+      <h2>CELLS</h2>
+      <div class="row source" id="ui_cells">
+        <!-- <span class="current">0</span>
+        <span>0</span>
+        <span>0</span> -->
+      </div>
+      <h2>OUTPUT</h2>
+      <div class="row source" id="ui_output">
+        <!-- <span>a</span> -->
+      </div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+コマンドを探すときに最長マッチをしたいのでデータの並び替えをしておきます。
+
+
+    データの並び替え
+
+// ===== /MyBF/js/main.js =====
+(function() {
+  'use strict';
+
+  var code = document.getElementById('code');
+  var load = document.getElementById('load');
+  var step = document.getElementById('step');
+  var run = document.getElementById('run');
+  var reset = document.getElementById('reset');
+  var result = document.getElementById('result');
+
+  var Bf;
+  var bf;
+
+  var UI;
+
+  var ButtonState;
+
+  /*
+  , wait!
+  . great!
+
+  wait! ... great!
+  */
+
+  var Translator;
+
+  Translator = function() {
+    var cmd = [];
+
+    cmd.push(['+', 'yes!']);
+    cmd.push(['-', 'no!']);
+    cmd.push(['>', 'go!']);
+    cmd.push(['<', 'go!go!']);
+    cmd.push([',', 'wait!']);
+    cmd.push(['.', 'great!']);
+    cmd.push(['[', 'oh!']);
+    cmd.push([']', 'yeah!']);
+
+    // go!go!go!
+    // >>> <> ><
+
+    cmd.sort(function(a, b) {
+      return a[1].length < b[1].length;
+    });
+
+    console.log(cmd);
+  };
+
+  ButtonState = {
+    init: function() {
+      step.disabled = true;
+      run.disabled = true;
+      reset.disabled = true;
+    },
+    afterLoad: function() {
+      load.disabled = true;
+      code.disabled = true;
+      step.disabled = false;
+      run.disabled = false;
+      reset.disabled = false;
+    },
+    lastStep: function() {
+      step.disabled = true;
+      run.disabled = true;
+    },
+    afterReset: function() {
+      load.disabled = false;
+      code.disabled = false;
+      step.disabled = true;
+      run.disabled = true;
+      reset.disabled = true;
+    }
+  };
+
+  UI = function(id) {
+    this.id = id;
+    this.el = document.getElementById(id);
+    this.update = function(data, current) {
+      var span;
+      var i;
+      while (this.el.firstChild) {
+        this.el.removeChild(this.el.firstChild);
+      }
+      for (i = 0; i < data.length; i++) {
+        span = document.createElement('span');
+        span.appendChild(document.createTextNode(data[i]));
+        if (this.id === 'ui_cells') {
+          span.title = 'cells[' + i + ']';
+        }
+        if (current === i) {
+          span.className = 'current';
+        }
+        this.el.appendChild(span);
+      }
+    };
+  };
+
+  Bf = function() {
+    var codeString;
+    var pos;
+    var cells = [];
+    var ptr;
+    var outputString;
+    var bracemap  = [];
+
+    var uiCode = new UI('ui_code');
+    var uiCells = new UI('ui_cells');
+    var uiOutput = new UI('ui_output');
+
+    var commandMap = {
+      '+': increment,
+      '-': decrement,
+      '>': forward,
+      '<': back,
+      ',': input,
+      '.': output,
+      '[': startLoop,
+      ']': endLoop
+    };
+
+    /*
+    [++[+]]
+    0123456
+
+    bracemap[0] = 6
+    bracemap[3] = 5
+    bracemap[5] = 3
+    bracemap[6] = 0
+    */
+
+    this.createBracemap = function() {
+      var stack = [];
+      var i;
+      var start;
+      var counter = 0;
+      for (i = 0; i < codeString.length; i++) {
+        if (codeString[i] === '[') {
+          stack.push(i);
+          counter++;
+        } else if (codeString[i] === ']') {
+          start = stack.pop(); // start <> i
+          bracemap[start] = i;
+          bracemap[i] = start;
+          counter--;
+        }
+      }
+      // console.log(bracemap);
+      if (stack.length !== 0) {
+        throw 'too many [ !';
+      }
+      if (counter < 0) {
+        throw 'too many ] !';
+      }
+    };
+
+    function startLoop() {
+      if (cells[ptr] === 0) {
+        // jump
+        pos = bracemap[pos];
+      }
+    }
+
+    function endLoop() {
+      if (cells[ptr] !== 0) {
+        // jump
+        pos = bracemap[pos];
+      }
+    }
+
+    function input() {
+      var v = prompt('Enter one character');
+      if (v === '' || v === null || v.charCodeAt(0) > 255) {
+        cells[ptr] = 0;
+      } else {
+        cells[ptr] = v.charCodeAt(0);
+      }
+    }
+
+    function output() {
+      outputString += String.fromCharCode(cells[ptr]);
+    }
+
+    function forward() {
+      ptr++;
+      if (ptr === cells.length) {
+        cells.push(0);
+      }
+    }
+
+    function back() {
+      ptr--;
+      if (ptr < 0) {
+        throw 'bad cell address!';
+      }
+    }
+
+    function increment() {
+      cells[ptr]++;
+      if (cells[ptr] > 255) {
+        cells[ptr] = 0;
+      }
+    }
+
+    function decrement() {
+      cells[ptr]--;
+      if (cells[ptr] < 0) {
+        cells[ptr] = 255;
+      }
+    }
+
+    this.load = function(s) {
+      codeString = s;
+      pos = 0;
+      cells = Array(20).fill(0);
+      ptr = 0;
+      outputString = '';
+      try {
+        this.createBracemap();
+      } catch(e) {
+        alert(e);
+        return;
+      }
+      this.updateUI();
+    };
+
+    this.updateUI = function() {
+      uiCode.update(codeString, pos);
+      uiCells.update(cells, ptr);
+      uiOutput.update(outputString);
+    };
+
+    this.step = function() {
+      this.compute();
+      pos++;
+      this.updateUI();
+      if (pos >= codeString.length) {
+        // code end
+        ButtonState.lastStep();
+      }
+    };
+
+    this.compute = function() {
+      try {
+        commandMap[codeString[pos]]();
+      } catch(e) {
+        alert(e);
+        return;
+      }
+    };
+
+    this.run = function() {
+      while (pos < codeString.length) {
+        this.step();
+      }
+    };
+  };
+
+  load.addEventListener('click', function() {
+    var codeString = code.value.replace(/[^\+\-<>\.,\[\]]/g, '');
+    if (codeString === '') {
+      return;
+    }
+    ButtonState.afterLoad();
+    result.className = '';
+    bf.load(codeString);
+  });
+
+  step.addEventListener('click', function() {
+    bf.step();
+  });
+
+  run.addEventListener('click', function() {
+    bf.run();
+  });
+
+  reset.addEventListener('click', function() {
+    ButtonState.afterReset();
+    result.className = 'hidden';
+  });
+
+  bf = new Bf();
+  ButtonState.init();
+
+  code.focus();
+
+})();
+
+// ===== /MyBF/css/styles.css =====
+body, textarea {
+  font-size: 12px;
+  font-family: 'Courier New';
+}
+.container {
+  width: 500px;
+  margin: 20px auto;
+}
+.row {
+  margin-bottom: 20px;
+}
+textarea {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  height: 50px;
+  margin-bottom: 5px;
+}
+h2 {
+  font-size: 14px;
+  border-bottom: 1px solid #666;
+  color: #666;
+  padding: 0 0 4px 0;
+  letter-spacing: 0.05em;
+}
+.source > span {
+  padding: 0 2px;
+  color: #bbb;
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 4px solid transparent;
+}
+.source > span.current {
+  font-weight: bold;
+  color: #666;
+  border-bottom: 4px solid #ccc;
+}
+.hidden {
+  display: none;
+}
+textarea:disabled {
+  background: #eee;
+}
+
+// ===== /MyBF/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>BF</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <textarea id="code"></textarea>
+      <div>
+        <button id="load">Load Program</button>
+        <button id="step">Step</button>
+        <button id="run">Run</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+    <div id="result" class="hidden">
+      <h2>CODE</h2>
+      <div class="row source" id="ui_code">
+        <!-- <span class="current">+</span>
+        <span>+</span>
+        <span>+</span> -->
+      </div>
+      <h2>CELLS</h2>
+      <div class="row source" id="ui_cells">
+        <!-- <span class="current">0</span>
+        <span>0</span>
+        <span>0</span> -->
+      </div>
+      <h2>OUTPUT</h2>
+      <div class="row source" id="ui_output">
+        <!-- <span>a</span> -->
+      </div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+入力されたカスタムコマンドがどのコマンドにマッチするのかを調べていきます。
+
+
+    コマンドの検索
+
+// ===== /MyBF/js/main.js =====
+(function() {
+  'use strict';
+
+  var code = document.getElementById('code');
+  var load = document.getElementById('load');
+  var step = document.getElementById('step');
+  var run = document.getElementById('run');
+  var reset = document.getElementById('reset');
+  var result = document.getElementById('result');
+
+  var Bf;
+  var bf;
+
+  var UI;
+
+  var ButtonState;
+
+  /*
+  , wait!
+  . great!
+
+  wait! ... great!
+  */
+
+  var Translator;
+
+  Translator = function() {
+    var cmd = [];
+    var offset = 0;
+    var result = '';
+
+    cmd.push(['+', 'yes!']);
+    cmd.push(['-', 'no!']);
+    cmd.push(['>', 'go!']);
+    cmd.push(['<', 'go!go!']);
+    cmd.push([',', 'wait!']);
+    cmd.push(['.', 'great!']);
+    cmd.push(['[', 'oh!']);
+    cmd.push([']', 'yeah!']);
+
+    // go!go!go!
+    // >>> <> ><
+
+    cmd.sort(function(a, b) {
+      return a[1].length < b[1].length;
+    });
+
+    // console.log(cmd);
+
+    function searchCmd(code) {
+      var i;
+      for (i = 0; i < cmd.length; i++) {
+        if (code.indexOf(cmd[i][1]) === 0) {
+          result += cmd[i][0];
+          offset += cmd[i][1].length;
+          return true;
+        }
+      }
+      return false;
+    }
+
+    this.translate = function(code) {
+      while (offset < code.length) {
+        if (searchCmd(code.substr(offset)) === false) {
+          offset++;
+        }
+      }
+      return result;
+    };
+  };
+
+  ButtonState = {
+    init: function() {
+      step.disabled = true;
+      run.disabled = true;
+      reset.disabled = true;
+    },
+    afterLoad: function() {
+      load.disabled = true;
+      code.disabled = true;
+      step.disabled = false;
+      run.disabled = false;
+      reset.disabled = false;
+    },
+    lastStep: function() {
+      step.disabled = true;
+      run.disabled = true;
+    },
+    afterReset: function() {
+      load.disabled = false;
+      code.disabled = false;
+      step.disabled = true;
+      run.disabled = true;
+      reset.disabled = true;
+    }
+  };
+
+  UI = function(id) {
+    this.id = id;
+    this.el = document.getElementById(id);
+    this.update = function(data, current) {
+      var span;
+      var i;
+      while (this.el.firstChild) {
+        this.el.removeChild(this.el.firstChild);
+      }
+      for (i = 0; i < data.length; i++) {
+        span = document.createElement('span');
+        span.appendChild(document.createTextNode(data[i]));
+        if (this.id === 'ui_cells') {
+          span.title = 'cells[' + i + ']';
+        }
+        if (current === i) {
+          span.className = 'current';
+        }
+        this.el.appendChild(span);
+      }
+    };
+  };
+
+  Bf = function() {
+    var codeString;
+    var pos;
+    var cells = [];
+    var ptr;
+    var outputString;
+    var bracemap  = [];
+
+    var uiCode = new UI('ui_code');
+    var uiCells = new UI('ui_cells');
+    var uiOutput = new UI('ui_output');
+
+    var commandMap = {
+      '+': increment,
+      '-': decrement,
+      '>': forward,
+      '<': back,
+      ',': input,
+      '.': output,
+      '[': startLoop,
+      ']': endLoop
+    };
+
+    /*
+    [++[+]]
+    0123456
+
+    bracemap[0] = 6
+    bracemap[3] = 5
+    bracemap[5] = 3
+    bracemap[6] = 0
+    */
+
+    this.createBracemap = function() {
+      var stack = [];
+      var i;
+      var start;
+      var counter = 0;
+      for (i = 0; i < codeString.length; i++) {
+        if (codeString[i] === '[') {
+          stack.push(i);
+          counter++;
+        } else if (codeString[i] === ']') {
+          start = stack.pop(); // start <> i
+          bracemap[start] = i;
+          bracemap[i] = start;
+          counter--;
+        }
+      }
+      // console.log(bracemap);
+      if (stack.length !== 0) {
+        throw 'too many [ !';
+      }
+      if (counter < 0) {
+        throw 'too many ] !';
+      }
+    };
+
+    function startLoop() {
+      if (cells[ptr] === 0) {
+        // jump
+        pos = bracemap[pos];
+      }
+    }
+
+    function endLoop() {
+      if (cells[ptr] !== 0) {
+        // jump
+        pos = bracemap[pos];
+      }
+    }
+
+    function input() {
+      var v = prompt('Enter one character');
+      if (v === '' || v === null || v.charCodeAt(0) > 255) {
+        cells[ptr] = 0;
+      } else {
+        cells[ptr] = v.charCodeAt(0);
+      }
+    }
+
+    function output() {
+      outputString += String.fromCharCode(cells[ptr]);
+    }
+
+    function forward() {
+      ptr++;
+      if (ptr === cells.length) {
+        cells.push(0);
+      }
+    }
+
+    function back() {
+      ptr--;
+      if (ptr < 0) {
+        throw 'bad cell address!';
+      }
+    }
+
+    function increment() {
+      cells[ptr]++;
+      if (cells[ptr] > 255) {
+        cells[ptr] = 0;
+      }
+    }
+
+    function decrement() {
+      cells[ptr]--;
+      if (cells[ptr] < 0) {
+        cells[ptr] = 255;
+      }
+    }
+
+    this.load = function(s) {
+      codeString = s;
+      pos = 0;
+      cells = Array(20).fill(0);
+      ptr = 0;
+      outputString = '';
+      try {
+        this.createBracemap();
+      } catch(e) {
+        alert(e);
+        return;
+      }
+      this.updateUI();
+    };
+
+    this.updateUI = function() {
+      uiCode.update(codeString, pos);
+      uiCells.update(cells, ptr);
+      uiOutput.update(outputString);
+    };
+
+    this.step = function() {
+      this.compute();
+      pos++;
+      this.updateUI();
+      if (pos >= codeString.length) {
+        // code end
+        ButtonState.lastStep();
+      }
+    };
+
+    this.compute = function() {
+      try {
+        commandMap[codeString[pos]]();
+      } catch(e) {
+        alert(e);
+        return;
+      }
+    };
+
+    this.run = function() {
+      while (pos < codeString.length) {
+        this.step();
+      }
+    };
+  };
+
+  load.addEventListener('click', function() {
+    var codeString = code.value.replace(/[^\+\-<>\.,\[\]]/g, '');
+    if (codeString === '') {
+      return;
+    }
+    ButtonState.afterLoad();
+    result.className = '';
+    bf.load(codeString);
+  });
+
+  step.addEventListener('click', function() {
+    bf.step();
+  });
+
+  run.addEventListener('click', function() {
+    bf.run();
+  });
+
+  reset.addEventListener('click', function() {
+    ButtonState.afterReset();
+    result.className = 'hidden';
+  });
+
+  bf = new Bf();
+  ButtonState.init();
+
+  code.focus();
+
+})();
+
+// ===== /MyBF/css/styles.css =====
+body, textarea {
+  font-size: 12px;
+  font-family: 'Courier New';
+}
+.container {
+  width: 500px;
+  margin: 20px auto;
+}
+.row {
+  margin-bottom: 20px;
+}
+textarea {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  height: 50px;
+  margin-bottom: 5px;
+}
+h2 {
+  font-size: 14px;
+  border-bottom: 1px solid #666;
+  color: #666;
+  padding: 0 0 4px 0;
+  letter-spacing: 0.05em;
+}
+.source > span {
+  padding: 0 2px;
+  color: #bbb;
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 4px solid transparent;
+}
+.source > span.current {
+  font-weight: bold;
+  color: #666;
+  border-bottom: 4px solid #ccc;
+}
+.hidden {
+  display: none;
+}
+textarea:disabled {
+  background: #eee;
+}
+
+// ===== /MyBF/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>BF</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <textarea id="code"></textarea>
+      <div>
+        <button id="load">Load Program</button>
+        <button id="step">Step</button>
+        <button id="run">Run</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+    <div id="result" class="hidden">
+      <h2>CODE</h2>
+      <div class="row source" id="ui_code">
+        <!-- <span class="current">+</span>
+        <span>+</span>
+        <span>+</span> -->
+      </div>
+      <h2>CELLS</h2>
+      <div class="row source" id="ui_cells">
+        <!-- <span class="current">0</span>
+        <span>0</span>
+        <span>0</span> -->
+      </div>
+      <h2>OUTPUT</h2>
+      <div class="row source" id="ui_output">
+        <!-- <span>a</span> -->
+      </div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+カスタムコマンドによる派生言語を試してみます。
+
+
+    派制言語の確認
+
+// ===== /MyBF/js/main.js =====
+(function() {
+  'use strict';
+
+  var code = document.getElementById('code');
+  var load = document.getElementById('load');
+  var step = document.getElementById('step');
+  var run = document.getElementById('run');
+  var reset = document.getElementById('reset');
+  var result = document.getElementById('result');
+
+  var Bf;
+  var bf;
+
+  var UI;
+
+  var ButtonState;
+
+  /*
+  , wait!
+  . great!
+
+  wait! ... great!
+  */
+
+  var Translator;
+
+  Translator = function() {
+    var cmd = [];
+    var offset = 0;
+    var result = '';
+
+    cmd.push(['+', 'yes!']);
+    cmd.push(['-', 'no!']);
+    cmd.push(['>', 'go!']);
+    cmd.push(['<', 'go!go!']);
+    cmd.push([',', 'wait!']);
+    cmd.push(['.', 'great!']);
+    cmd.push(['[', 'oh!']);
+    cmd.push([']', 'yeah!']);
+
+    // go!go!go!
+    // >>> <> ><
+
+    cmd.sort(function(a, b) {
+      return a[1].length < b[1].length;
+    });
+
+    // console.log(cmd);
+
+    function searchCmd(code) {
+      var i;
+      for (i = 0; i < cmd.length; i++) {
+        if (code.indexOf(cmd[i][1]) === 0) {
+          result += cmd[i][0];
+          offset += cmd[i][1].length;
+          return true;
+        }
+      }
+      return false;
+    }
+
+    this.translate = function(code) {
+      while (offset < code.length) {
+        if (searchCmd(code.substr(offset)) === false) {
+          offset++;
+        }
+      }
+      return result;
+    };
+
+    this.reset = function() {
+      offset = 0;
+      result = '';
+    }
+  };
+
+  ButtonState = {
+    init: function() {
+      step.disabled = true;
+      run.disabled = true;
+      reset.disabled = true;
+    },
+    afterLoad: function() {
+      load.disabled = true;
+      code.disabled = true;
+      step.disabled = false;
+      run.disabled = false;
+      reset.disabled = false;
+    },
+    lastStep: function() {
+      step.disabled = true;
+      run.disabled = true;
+    },
+    afterReset: function() {
+      load.disabled = false;
+      code.disabled = false;
+      step.disabled = true;
+      run.disabled = true;
+      reset.disabled = true;
+    }
+  };
+
+  UI = function(id) {
+    this.id = id;
+    this.el = document.getElementById(id);
+    this.update = function(data, current) {
+      var span;
+      var i;
+      while (this.el.firstChild) {
+        this.el.removeChild(this.el.firstChild);
+      }
+      for (i = 0; i < data.length; i++) {
+        span = document.createElement('span');
+        span.appendChild(document.createTextNode(data[i]));
+        if (this.id === 'ui_cells') {
+          span.title = 'cells[' + i + ']';
+        }
+        if (current === i) {
+          span.className = 'current';
+        }
+        this.el.appendChild(span);
+      }
+    };
+  };
+
+  Bf = function() {
+    var codeString;
+    var pos;
+    var cells = [];
+    var ptr;
+    var outputString;
+    var bracemap  = [];
+
+    var uiCode = new UI('ui_code');
+    var uiCells = new UI('ui_cells');
+    var uiOutput = new UI('ui_output');
+
+    var commandMap = {
+      '+': increment,
+      '-': decrement,
+      '>': forward,
+      '<': back,
+      ',': input,
+      '.': output,
+      '[': startLoop,
+      ']': endLoop
+    };
+
+    /*
+    [++[+]]
+    0123456
+
+    bracemap[0] = 6
+    bracemap[3] = 5
+    bracemap[5] = 3
+    bracemap[6] = 0
+    */
+
+    this.createBracemap = function() {
+      var stack = [];
+      var i;
+      var start;
+      var counter = 0;
+      for (i = 0; i < codeString.length; i++) {
+        if (codeString[i] === '[') {
+          stack.push(i);
+          counter++;
+        } else if (codeString[i] === ']') {
+          start = stack.pop(); // start <> i
+          bracemap[start] = i;
+          bracemap[i] = start;
+          counter--;
+        }
+      }
+      // console.log(bracemap);
+      if (stack.length !== 0) {
+        throw 'too many [ !';
+      }
+      if (counter < 0) {
+        throw 'too many ] !';
+      }
+    };
+
+    function startLoop() {
+      if (cells[ptr] === 0) {
+        // jump
+        pos = bracemap[pos];
+      }
+    }
+
+    function endLoop() {
+      if (cells[ptr] !== 0) {
+        // jump
+        pos = bracemap[pos];
+      }
+    }
+
+    function input() {
+      var v = prompt('Enter one character');
+      if (v === '' || v === null || v.charCodeAt(0) > 255) {
+        cells[ptr] = 0;
+      } else {
+        cells[ptr] = v.charCodeAt(0);
+      }
+    }
+
+    function output() {
+      outputString += String.fromCharCode(cells[ptr]);
+    }
+
+    function forward() {
+      ptr++;
+      if (ptr === cells.length) {
+        cells.push(0);
+      }
+    }
+
+    function back() {
+      ptr--;
+      if (ptr < 0) {
+        throw 'bad cell address!';
+      }
+    }
+
+    function increment() {
+      cells[ptr]++;
+      if (cells[ptr] > 255) {
+        cells[ptr] = 0;
+      }
+    }
+
+    function decrement() {
+      cells[ptr]--;
+      if (cells[ptr] < 0) {
+        cells[ptr] = 255;
+      }
+    }
+
+    this.translator = new Translator();
+
+    this.load = function(s) {
+      codeString = s;
+      pos = 0;
+      cells = Array(20).fill(0);
+      ptr = 0;
+      outputString = '';
+      try {
+        this.createBracemap();
+      } catch(e) {
+        alert(e);
+        return;
+      }
+      this.updateUI();
+    };
+
+    this.updateUI = function() {
+      uiCode.update(codeString, pos);
+      uiCells.update(cells, ptr);
+      uiOutput.update(outputString);
+    };
+
+    this.step = function() {
+      this.compute();
+      pos++;
+      this.updateUI();
+      if (pos >= codeString.length) {
+        // code end
+        ButtonState.lastStep();
+      }
+    };
+
+    this.compute = function() {
+      try {
+        commandMap[codeString[pos]]();
+      } catch(e) {
+        alert(e);
+        return;
+      }
+    };
+
+    this.run = function() {
+      while (pos < codeString.length) {
+        this.step();
+      }
+    };
+  };
+
+  load.addEventListener('click', function() {
+    // var codeString = code.value.replace(/[^\+\-<>\.,\[\]]/g, '');
+    var codeString = bf.translator.translate(code.value).replace(/[^\+\-<>\.,\[\]]/g, '');
+    if (codeString === '') {
+      return;
+    }
+    ButtonState.afterLoad();
+    result.className = '';
+    bf.load(codeString);
+  });
+
+  step.addEventListener('click', function() {
+    bf.step();
+  });
+
+  run.addEventListener('click', function() {
+    bf.run();
+  });
+
+  reset.addEventListener('click', function() {
+    bf.translator.reset();
+    ButtonState.afterReset();
+    result.className = 'hidden';
+  });
+
+  bf = new Bf();
+  ButtonState.init();
+
+  code.focus();
+
+})();
+
+// ===== /MyBF/css/styles.css =====
+body, textarea {
+  font-size: 12px;
+  font-family: 'Courier New';
+}
+.container {
+  width: 500px;
+  margin: 20px auto;
+}
+.row {
+  margin-bottom: 20px;
+}
+textarea {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  height: 50px;
+  margin-bottom: 5px;
+}
+h2 {
+  font-size: 14px;
+  border-bottom: 1px solid #666;
+  color: #666;
+  padding: 0 0 4px 0;
+  letter-spacing: 0.05em;
+}
+.source > span {
+  padding: 0 2px;
+  color: #bbb;
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 4px solid transparent;
+}
+.source > span.current {
+  font-weight: bold;
+  color: #666;
+  border-bottom: 4px solid #ccc;
+}
+.hidden {
+  display: none;
+}
+textarea:disabled {
+  background: #eee;
+}
+
+// ===== /MyBF/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>BF</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <textarea id="code"></textarea>
+      <div>
+        <button id="load">Load Program</button>
+        <button id="step">Step</button>
+        <button id="run">Run</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+    <div id="result" class="hidden">
+      <h2>CODE</h2>
+      <div class="row source" id="ui_code">
+        <!-- <span class="current">+</span>
+        <span>+</span>
+        <span>+</span> -->
+      </div>
+      <h2>CELLS</h2>
+      <div class="row source" id="ui_cells">
+        <!-- <span class="current">0</span>
+        <span>0</span>
+        <span>0</span> -->
+      </div>
+      <h2>OUTPUT</h2>
+      <div class="row source" id="ui_output">
+        <!-- <span>a</span> -->
+      </div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+

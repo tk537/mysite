@@ -1,0 +1,534 @@
+// ===== video_summary =====
+概要を説明したあとに、必要なファイルの作成をしていきます。
+
+
+    概要の説明
+    index.htmlの作成
+    styles.cssの作成
+
+// ===== commentBox 1 =====
+補足情報
+VS Codeでファイルのドラッグ＆ドロップができない場合
+
+
+
+
+2024年2月16日
+
+
+
+
+
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、WindowsならCtrlキー、macOSならcommandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+// ===== /MyHeartAnimation/css/styles.css =====
+
+
+// ===== /MyHeartAnimation/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Heart Animation</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+マテリアルアイコンを導入するための方法を説明していきます。
+
+
+    マテリアルアイコンの導入
+    favoriteアイコンの作成
+
+// ===== commentBox 1 =====
+補足情報
+0:41〜からのiタグについて
+
+
+
+
+2021年3月2日
+
+
+
+
+
+最近仕様が変わってspanタグを使うようになったようです。iタグはspanに読み替えてレッスンを進めてください。
+
+// ===== commentBox 2 =====
+補足情報
+マテリアルアイコンの使い方について
+
+
+
+
+2020年8月7日
+
+
+
+
+
+マテリアルアイコンの使い方については、以下のレッスンで解説しているので参考にしてみてください。
+・マテリアルアイコン入門
+https://dotinstall.com/lessons/basic_materialicons
+
+// ===== /MyHeartAnimation/css/styles.css =====
+body {
+  padding: 40px;
+}
+
+.heart {
+  font-size: 40px;
+  color: #e4e4e4;
+}
+
+// ===== /MyHeartAnimation/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Heart Animation</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <i class="material-icons heart">favorite</i>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+checkboxを使って、要素がチェックされた時にスタイルを変更させていきます。
+
+
+    checkboxの作成
+    :checkedのスタイル
+
+// ===== /MyHeartAnimation/css/styles.css =====
+body {
+  padding: 40px;
+}
+
+.heart {
+  font-size: 40px;
+  color: #e4e4e4;
+  user-select: none;
+}
+
+.like [type="checkbox"]:checked ~ .heart {
+  color: red;
+}
+
+// ===== /MyHeartAnimation/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Heart Animation</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <label class="like">
+    <input type="checkbox">
+    <i class="material-icons heart">favorite</i>
+  </label>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+@keyframesとanimationプロパティを使ってハートの動きを作っていきます。
+
+
+    @keyframes
+    animation-name
+    animation-duration
+    animation-fill-mode
+
+// ===== commentBox 1 =====
+補足情報
+animationプロパティについて
+
+
+
+
+2020年8月7日
+
+
+
+
+
+animationプロパティの使い方については、以下のレッスンで解説しているので参考にしてみてください。
+・詳解CSS アニメーション編
+https://dotinstall.com/lessons/basic_css_animation_v2
+
+// ===== /MyHeartAnimation/css/styles.css =====
+body {
+  padding: 40px;
+}
+
+.heart {
+  font-size: 40px;
+  color: #e4e4e4;
+  user-select: none;
+}
+
+.like [type="checkbox"]:checked ~ .heart {
+  animation-name: heart;
+  animation-duration: .6s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes heart {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    color: red;
+  }
+}
+
+// ===== /MyHeartAnimation/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Heart Animation</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <label class="like">
+    <input type="checkbox">
+    <i class="material-icons heart">favorite</i>
+  </label>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+div要素を設置して、ハートのまわりに波紋の動きを作っていきます。
+
+
+    div要素の設置
+    波紋アニメーションの設定
+
+// ===== /MyHeartAnimation/css/styles.css =====
+body {
+  padding: 40px;
+}
+
+.heart {
+  font-size: 40px;
+  color: #e4e4e4;
+  user-select: none;
+}
+
+.like [type="checkbox"]:checked ~ .heart {
+  animation-name: heart;
+  animation-duration: .6s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes heart {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    color: red;
+  }
+}
+
+.ripple {
+  width: 85px;
+  height: 85px;
+  background: red;
+  border-radius: 50%;
+  transform: scale(0);
+}
+
+.like [type="checkbox"]:checked ~ .ripple {
+  animation-name: ripple;
+  animation-duration: .6s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+// ===== /MyHeartAnimation/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Heart Animation</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <label class="like">
+    <input type="checkbox">
+    <i class="material-icons heart">favorite</i>
+    <div class="ripple"></div>
+  </label>
+
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+flexboxと絶対配置を使って、ハートと波紋を重ねていきます。
+
+
+    flexboxの設定
+    position: absoluteの設定
+
+// ===== /MyHeartAnimation/css/styles.css =====
+body {
+  padding: 40px;
+}
+
+.like {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: pink;
+}
+
+.like [type="checkbox"] {
+  display: none;
+}
+
+.heart {
+  font-size: 40px;
+  color: #e4e4e4;
+  user-select: none;
+}
+
+.like [type="checkbox"]:checked ~ .heart {
+  animation-name: heart;
+  animation-duration: .6s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes heart {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    color: red;
+  }
+}
+
+.ripple {
+  position: absolute;
+  width: 85px;
+  height: 85px;
+  background: red;
+  border-radius: 50%;
+  transform: scale(0);
+}
+
+.like [type="checkbox"]:checked ~ .ripple {
+  animation-name: ripple;
+  animation-duration: .6s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+// ===== /MyHeartAnimation/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Heart Animation</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <label class="like">
+    <input type="checkbox">
+    <i class="material-icons heart">favorite</i>
+    <div class="ripple"></div>
+  </label>
+
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+細かい調整をしてハートアニメーションを完成させていきます。
+
+
+    width, heightの設定
+    inline-flexに変更
+    transitionの設定
+    positionの設定
+
+// ===== /MyHeartAnimation/css/styles.css =====
+body {
+  padding: 40px;
+}
+
+.like {
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  transition: background .3s;
+}
+
+.like:hover {
+  background: #f5f5f5;
+}
+
+.like [type="checkbox"] {
+  display: none;
+}
+
+.heart {
+  font-size: 40px;
+  color: #e4e4e4;
+  user-select: none;
+  position: relative;
+  top: 1px;
+}
+
+.like [type="checkbox"]:checked ~ .heart {
+  animation-name: heart;
+  animation-duration: .6s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes heart {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    color: red;
+  }
+}
+
+.ripple {
+  position: absolute;
+  width: 85px;
+  height: 85px;
+  background: red;
+  border-radius: 50%;
+  transform: scale(0);
+}
+
+.like [type="checkbox"]:checked ~ .ripple {
+  animation-name: ripple;
+  animation-duration: .6s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+// ===== /MyHeartAnimation/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Heart Animation</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <label class="like">
+    <input type="checkbox">
+    <i class="material-icons heart">favorite</i>
+    <div class="ripple"></div>
+  </label>
+
+</body>
+</html>
+
+
+
+
+

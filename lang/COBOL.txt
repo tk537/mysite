@@ -1,0 +1,608 @@
+// ===== video_summary =====
+まずは概要を説明したのちに、公式サイト、必要となる知識、レッスンにおける環境について解説していきます。
+
+
+    概要
+    公式サイト
+    必要となる知識
+    レッスンにおける環境
+
+// ===== commentBox 1 =====
+補足情報
+OpenCOBOLのインストールについて
+
+
+
+
+2016年11月24日
+
+
+
+
+
+OpenCOBOLをローカル開発環境にインストールするには以下のコマンドを実行してみてください。
+
+# gmpのインストール
+cd
+wget http://mirrors.kernel.org/gnu/gmp/gmp-4.3.1.tar.gz
+tar xvf gmp-4.3.1.tar.gz
+cd gmp-4.3.1
+./configure
+make
+sudo make install
+
+# db4のインストール
+cd
+sudo yum -y install db4 db4-devel
+
+# OpenCOBOLのインストール
+cd
+wget http://downloads.sourceforge.net/project/open-cobol/gnu-cobol/1.1/gnu-cobol-1.1.tar.gz
+tar xvf gnu-cobol-1.1.tar.gz
+cd gnu-cobol-1.1
+./configure
+make
+sudo make install
+sudo ldconfig
+
+# バージョンの確認
+cd
+cobc -V
+
+// ===== read.me =====
+COBOL
+
+* 概要
+- 事務処理
+- COmmon Business Oriented Language
+- 1950年代
+
+* 公式サイト
+- GNU Cobol <- OpenCobol
+
+* 知識
+- Unixコマンド
+- ローカル開発環境（Vagrant）
+
+* 環境
+- ローカル開発環境（Vagrant）
+
+
+
+
+
+// ===== video_summary =====
+正書法と自由書式の違いについて触れたあとに、"HELLO WORLD!!"と表示させるプログラムを実行させてみます。
+
+
+    正書法と自由書式
+    コンパイル
+    動作確認
+
+// ===== commentBox 1 =====
+補足情報
+実行時に「libcob.so.1」関連のエラーが出る場合
+
+
+
+
+2019年8月26日
+
+
+
+
+
+実行時に次のようなエラーが出る場合があります。
+
+./hello: error while loading shared libraries: libcob.so.1: cannot open shared object file: No such file or directory
+
+
+その場合は以下のコマンドで.bash_profileを編集します。
+
+vi ~/.bash_profile
+
+
+どこかで以下の設定を追加してください。
+
+LD_LIBRARY_PATH=/usr/local/lib
+export LD_LIBRARY_PATH
+
+
+編集が終わったら保存して、次のコマンドを実行してください。
+
+source ~/.bash_profile
+
+
+そのあとに実行すればうまくいくはずです。
+
+// ===== read.me =====
+12345678901234567890123456789012345678901234567890123456789012345678901234567890
+------ --A--+----------------------------- B ---------------------------+-------
+000000 IDENTIFICATION DIVISION.
+000010 PROGRAM-ID.    HELLO.
+000020 PROCEDURE      DIVISION.
+000030 MAIN           SECTION.
+000040 DISPLAY        'HELLO WORLD!!'.
+000050 STOP           RUN.
+
+// ===== hello.cob =====
+IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO.
+PROCEDURE DIVISION.
+  MAIN SECTION.
+    DISPLAY 'HELLO WORLD!!'.
+    STOP RUN.
+
+
+
+
+
+    // ===== video_summary =====
+プログラムを書く際の約束事と、基本的な構造について説明していきます。
+
+
+    コメント
+    大文字、小文字
+    .
+    基本構造
+    4つの基本DIVISION
+
+// ===== hello.cob =====
+*> コメント
+*> 小文字もOK。
+*> .を忘れずに。
+*> DIVISION > SECTION
+*> 4つのDIVISION
+
+*> 見出し部
+IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO.
+
+*> 環境部
+ENVIRONMENT DIVISION.
+
+*> データ部
+DATA DIVISION.
+
+*> 手続き部
+PROCEDURE DIVISION.
+  MAIN SECTION.
+    DISPLAY 'HELLO WORLD!!'.
+    STOP RUN.
+
+
+
+
+
+
+    // ===== video_summary =====
+変数の宣言の仕方と利用方法について説明していきます。
+
+
+    変数の宣言
+    値の代入
+    利用方法
+
+// ===== hello.cob =====
+IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO.
+DATA DIVISION.
+  WORKING-STORAGE SECTION.
+    01 MY-DATA1 PIC X(20).
+PROCEDURE DIVISION.
+  MAIN SECTION.
+    MOVE "HELLO WORLD!!" TO MY-DATA1.
+    DISPLAY MY-DATA1.
+    STOP RUN.
+
+
+
+
+
+
+    // ===== video_summary =====
+整数および小数点を含む数値を変数で扱う方法について説明していきます。
+
+
+    整数値
+    小数点を含む数値
+
+// ===== hello.cob =====
+IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO.
+DATA DIVISION.
+  WORKING-STORAGE SECTION.
+    01 MY-DATA1 PIC X(20).
+    01 MY-DATA2 PIC 99999 VALUE 130.
+    01 MY-DATA3 PIC 9(5)V9(2).
+PROCEDURE DIVISION.
+  MAIN SECTION.
+    *> MOVE 120 TO MY-DATA2.
+    MOVE 123.42 TO MY-DATA3.
+    MOVE "HELLO WORLD!!" TO MY-DATA1.
+    DISPLAY MY-DATA2.
+    STOP RUN.
+
+
+
+
+
+    // ===== video_summary =====
+形式の違うデータをまとめて扱うことができる集合項目について説明していきます。
+
+
+    集合項目の宣言
+    レベル番号
+    FILLER
+
+// ===== hello.cob =====
+IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO.
+DATA DIVISION.
+  WORKING-STORAGE SECTION.
+    01 MY-PRODUCT.
+      03 PRODUCT-ID PIC X(5).
+      03 FILLER PIC X(20).
+      03 PRODUCT-PRICE PIC 9(5).
+PROCEDURE DIVISION.
+  MAIN SECTION.
+    MOVE "ID-12" TO PRODUCT-ID.
+    MOVE 2980 TO PRODUCT-PRICE.
+    DISPLAY PRODUCT-PRICE.
+    DISPLAY MY-PRODUCT.
+    STOP RUN.
+
+
+
+
+
+
+    // ===== video_summary =====
+同じ形式である複数のデータをまとめて扱うことができる配列について見ていきます。
+
+
+    配列の宣言
+    配列要素へのアクセス
+
+// ===== hello.cob =====
+IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO.
+DATA DIVISION.
+  WORKING-STORAGE SECTION.
+    01 MY-COLORS.
+      03 MY-COLOR OCCURS 3 PIC X(10).
+PROCEDURE DIVISION.
+  MAIN SECTION.
+    MOVE "red" TO MY-COLOR(1).
+    MOVE "blue" TO MY-COLOR(2).
+    MOVE "yellow" TO MY-COLOR(3).
+    DISPLAY MY-COLORS.
+    DISPLAY MY-COLOR(2).
+    STOP RUN.
+
+
+
+
+
+    // ===== video_summary =====
+数値の演算をするための命令を見ていきます。
+
+
+    ADD
+    SUBTRACT
+    DIVIDE
+    MULTIPLY
+    COMPUTE
+
+// ===== hello.cob =====
+IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO.
+DATA DIVISION.
+  WORKING-STORAGE SECTION.
+    01 MY-DATA.
+      03 D1 PIC 99999 VALUE 0.
+      03 D2 PIC 99999 VALUE 0.
+      03 D3 PIC 99999 VALUE 0.
+      03 D4 PIC 99999 VALUE 0.
+PROCEDURE DIVISION.
+  MAIN SECTION.
+    *> ADD 5 TO D1 D2 D3.
+    *> SUBTRACT 2 FROM D1 D2.
+    MOVE 10 TO D1.
+    MOVE 3 TO D2.
+    *> DIVIDE D1 BY D2 GIVING D3 REMAINDER D4.
+    *> MULTIPLY D1 BY D2 GIVING D3.
+    COMPUTE D3 = D1 * D2. *> + - / * **
+    DISPLAY MY-DATA.
+    STOP RUN.
+
+
+
+
+
+
+    // ===== video_summary =====
+ユーザーからの入力を受け付けるACCEPTの使い方を見ていきます。
+
+
+    ACCEPT
+    文字列の連結
+
+// ===== hello.cob =====
+IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO.
+DATA DIVISION.
+  WORKING-STORAGE SECTION.
+    01 MY-DATA PIC X(10).
+PROCEDURE DIVISION.
+  MAIN SECTION.
+    DISPLAY "What's your name? ".
+    ACCEPT MY-DATA.
+    DISPLAY "Hello! " MY-DATA.
+    STOP RUN.
+
+
+
+
+
+    // ===== video_summary =====
+IFを使って条件分岐をしていく方法について見ていきます。
+
+
+    IF
+    比較演算子
+
+// ===== hello.cob =====
+IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO.
+DATA DIVISION.
+  WORKING-STORAGE SECTION.
+    01 MY-SCORE PIC 9(3).
+PROCEDURE DIVISION.
+  MAIN SECTION.
+    MOVE 40 TO MY-SCORE.
+    *> > < >= <= 
+    *> =
+    *> NOT =
+    *> IS EQUAL TO
+    *> IS GREATER THAN
+    *> IS GREATER THAN OR EQUAL TO
+    IF MY-SCORE IS GREATER THAN 60 THEN
+      DISPLAY "OK!"
+    ELSE 
+      DISPLAY "NG!"
+    END-IF.
+    STOP RUN.
+
+
+
+
+
+    // ===== video_summary =====
+EVALUATEを使って条件分岐をしていく方法について見ていきます。
+
+
+    EVALUATE
+    WHEN OTHER
+
+// ===== hello.cob =====
+IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO.
+DATA DIVISION.
+  WORKING-STORAGE SECTION.
+    01 MY-SIGNAL PIC X(5).
+PROCEDURE DIVISION.
+  MAIN SECTION.
+    MOVE "green" TO MY-SIGNAL.
+    EVALUATE MY-SIGNAL
+      WHEN "red"
+        DISPLAY "Stop!"
+      WHEN "blue"
+      WHEN "green"
+        DISPLAY "Go!"
+      WHEN "yellow"
+        DISPLAY "Caution!"
+      WHEN OTHER
+        DISPLAY "Wrong Signal!"
+    END-EVALUATE.
+    STOP RUN.
+
+
+
+
+
+
+    // ===== video_summary =====
+PERFORMを使って繰り返し処理をしていく方法について見ていきます。
+
+
+    PERFORM ... TIMES
+    PERFORM ... UNTIL
+    PERFORM VARYING ... UNTIL
+
+// ===== hello.cob =====
+IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO.
+DATA DIVISION.
+  WORKING-STORAGE SECTION.
+    01 MY-COUNTER PIC 9(3) VALUE 1. 
+PROCEDURE DIVISION.
+  MAIN SECTION.
+
+    *> PERFORM 10 TIMES
+    *>   DISPLAY "counter = " MY-COUNTER
+    *>   ADD 1 TO MY-COUNTER
+    *> END-PERFORM.
+
+    *> PERFORM UNTIL MY-COUNTER > 10
+    *>   DISPLAY "counter = " MY-COUNTER
+    *>   ADD 1 TO MY-COUNTER
+    *> END-PERFORM.
+
+    PERFORM VARYING MY-COUNTER FROM 1 BY 3 UNTIL MY-COUNTER > 10
+      DISPLAY "counter = " MY-COUNTER
+    END-PERFORM.
+
+    STOP RUN.
+
+
+
+
+
+    // ===== video_summary =====
+ファイルにデータを書き込むための準備を整えていきます。
+
+
+    ENVIRONMENT DIVISION
+    FD
+
+// ===== hello.cob =====
+IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO.
+ENVIROMENT DIVISION.
+  INPUT-OUTPUT SECTION.
+    FILE-CONTROL.
+      SELECT OUT-FILE ASSIGN TO 'out.txt'
+        ORGANIZATION IS LINE SEQUENTIAL.
+DATA DIVISION.
+  FILE SECTION.
+    FD OUT-FILE.
+      01 OUT-FILE-REC PIC 99.
+  WORKING-STORAGE SECTION.
+    01 LINE-COUNT PIC 99 VALUE 0.
+PROCEDURE DIVISION.
+  MAIN SECTION.
+    
+    STOP RUN.
+
+
+
+
+
+
+    // ===== video_summary =====
+出力用ファイルに実際にデータを書き込んでいきます。
+
+
+    WRITE
+    動作確認
+
+// ===== hello.cob =====
+IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO.
+ENVIRONMENT DIVISION.
+  INPUT-OUTPUT SECTION.
+    FILE-CONTROL.
+      SELECT OUT-FILE ASSIGN TO 'out.txt'
+        ORGANIZATION IS LINE SEQUENTIAL.
+DATA DIVISION.
+  FILE SECTION.
+    FD OUT-FILE.
+      01 OUT-FILE-REC PIC 99.
+  WORKING-STORAGE SECTION.
+    01 LINE-COUNT PIC 99 VALUE 0.
+PROCEDURE DIVISION.
+  MAIN SECTION.
+
+    OPEN OUTPUT OUT-FILE.
+
+    PERFORM 10 TIMES
+      ADD 1 TO LINE-COUNT
+      MOVE LINE-COUNT TO OUT-FILE-REC
+      WRITE OUT-FILE-REC
+      DISPLAY OUT-FILE-REC
+    END-PERFORM.
+
+    CLOSE OUT-FILE.
+
+    STOP RUN.
+
+
+
+
+
+
+    // ===== video_summary =====
+ファイルからデータを読み込むための準備を整えていきます。
+
+
+    ENVIRONMENT DIVISION
+    STATUS
+    FD
+
+// ===== hello.cob =====
+IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO.
+ENVIRONMENT DIVISION.
+  INPUT-OUTPUT SECTION.
+    FILE-CONTROL.
+      SELECT IN-FILE ASSIGN TO 'in.txt'
+        ORGANIZATION IS LINE SEQUENTIAL
+        STATUS IN-FILE-STATUS.
+DATA DIVISION.
+  FILE SECTION.
+    FD IN-FILE.
+      01 IN-FILE-REC PIC X(20).
+  WORKING-STORAGE SECTION.
+    01 IN-FILE-STATUS PIC XX.
+PROCEDURE DIVISION.
+  MAIN SECTION.
+
+    OPEN INPUT IN-FILE.
+
+    PERFORM UNTIL IN-FILE-STATUS NOT = "00"
+
+    END-PERFORM.
+
+    STOP RUN.
+
+
+
+
+
+
+    // ===== video_summary =====
+入力用ファイルからデータを読み込んで表示させてみます。
+
+
+    READ
+    動作確認
+
+// ===== hello.cob =====
+IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO.
+ENVIRONMENT DIVISION.
+  INPUT-OUTPUT SECTION.
+    FILE-CONTROL.
+      SELECT IN-FILE ASSIGN TO 'in.txt'
+        ORGANIZATION IS LINE SEQUENTIAL
+        STATUS IN-FILE-STATUS.
+DATA DIVISION.
+  FILE SECTION.
+    FD IN-FILE.
+      01 IN-FILE-REC PIC X(20).
+  WORKING-STORAGE SECTION.
+    01 IN-FILE-STATUS PIC XX.
+PROCEDURE DIVISION.
+  MAIN SECTION.
+
+    OPEN INPUT IN-FILE.
+
+    PERFORM UNTIL IN-FILE-STATUS NOT = "00"
+      READ IN-FILE
+        AT END
+          DISPLAY "-- end --"
+        NOT AT END
+          DISPLAY "Content: " IN-FILE-REC
+      END-READ
+    END-PERFORM.
+
+    CLOSE IN-FILE.
+
+    STOP RUN.
+
+
+
+
+
+    

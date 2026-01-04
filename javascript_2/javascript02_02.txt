@@ -1,0 +1,3082 @@
+// ===== video_summary =====
+完成版を確認したのちに、必要となるファイルを作成して、学習の準備を整えていきます。
+
+
+    完成版の確認
+    index.htmlの作成
+
+// ===== commentBox 1 =====
+補足情報
+VS Codeでファイルのドラッグ＆ドロップができない場合
+
+
+
+
+2024年2月16日
+
+
+
+
+
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、WindowsならCtrlキー、macOSならcommandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+// ===== commentBox 2 =====
+補足情報
+必要となる知識について
+
+
+
+
+2020年7月3日
+
+
+
+
+
+このレッスンでは、以下のレッスンで紹介した内容をベースにしています。分からない点があった場合は、こちらも参考にしてみてください。
+
+HTML基礎文法入門 (全30回)
+https://dotinstall.com/lessons/basic_html_tags_v2
+CSS基礎文法入門 (全37回)
+https://dotinstall.com/lessons/basic_css_styles_v2
+詳解JavaScript 基礎文法編 (全24回)
+https://dotinstall.com/lessons/basic_javascript_grammer_v2
+詳解JavaScript オブジェクト編 (全23回)
+https://dotinstall.com/lessons/basic_javascript_objects_v2
+詳解JavaScript DOM編 (全15回)
+https://dotinstall.com/lessons/basic_javascript_dom_v2
+
+// ===== commentBox 3 =====
+補足情報
+VS Code の設定について
+
+
+
+
+2020年7月3日
+
+
+
+
+
+このレッスンでは、デフォルトの設定を一部変えています。基本的な設定の仕方については、以下のレッスンを参照してください。
+
+#04 プログラミング用フォントを導入しよう | HTML/CSSの学習環境を整えよう [macOS編]
+https://dotinstall.com/lessons/basic_pcsetup_mac_v2/50404
+#04 プログラミング用フォントを導入しよう | HTML/CSSの学習環境を整えよう [Windows編]
+https://dotinstall.com/lessons/basic_pcsetup_win_v2/50504
+#08 設定を変更してみよう | Visual Studio Code入門
+https://dotinstall.com/lessons/basic_vscode/50208
+
+// ===== /MyCalendar/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Calendar</title>
+</head>
+<body>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+HTMLで必要な要素をマークアップしていきます。
+
+
+    HTMLのマークアップ
+    ブラウザでの確認
+
+// ===== /MyCalendar/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Calendar</title>
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th id="prev">&laquo;</th>
+        <th id="title" colspan="5">2020/05</th>
+        <th id="next">&raquo;</th>
+      </tr>
+      <tr>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td id="today" colspan="7">Today</td>
+      </tr>
+    </tfoot>
+  </table>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+CSSファイルを作ったあとに、カレンダーの見た目を整えていきます。
+
+
+    styles.cssの作成
+    CSSによるスタイリング
+
+// ===== /MyCalendar/css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+table {
+  border-collapse: collapse;
+  border: 2px solid #eee;
+}
+
+thead,
+tfoot {
+  background: #eee;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+}
+
+// ===== /MyCalendar/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Calendar</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th id="prev">&laquo;</th>
+        <th id="title" colspan="5">2020/05</th>
+        <th id="next">&raquo;</th>
+      </tr>
+      <tr>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td id="today" colspan="7">Today</td>
+      </tr>
+    </tfoot>
+  </table>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+特定の日付にスタイルを付けていく方法について見ていきます。
+
+
+    first-child
+    last-child
+    クラスによるスタイリング
+
+// ===== /MyCalendar/css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+table {
+  border-collapse: collapse;
+  border: 2px solid #eee;
+}
+
+thead,
+tfoot {
+  background: #eee;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+}
+
+tbody td:first-child {
+  color: red;
+}
+
+tbody td:last-child {
+  color: blue;
+}
+
+tfoot {
+  font-weight: bold;
+}
+
+td.disabled {
+  opacity: 0.3;
+}
+
+td.today {
+  font-weight: bold;
+}
+
+#prev,
+#next,
+#today {
+  cursor: pointer;
+  user-select: none;
+}
+
+// ===== /MyCalendar/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Calendar</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th id="prev">&laquo;</th>
+        <th id="title" colspan="5">2020/05</th>
+        <th id="next">&raquo;</th>
+      </tr>
+      <tr>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td class="today">1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td id="today" colspan="7">Today</td>
+      </tr>
+    </tfoot>
+  </table>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+JavaScriptのファイルを作ったあとに、デベロッパーツールのコンソールを起動していきます。
+
+
+    main.jsの作成
+    デベロッパーツールの起動
+
+// ===== /MyCalendar/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Calendar</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th id="prev">&laquo;</th>
+        <th id="title" colspan="5">2020/05</th>
+        <th id="next">&raquo;</th>
+      </tr>
+      <tr>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td class="today">1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td id="today" colspan="7">Today</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyCalendar/js/main.js =====
+'use strict';
+
+{
+  const year = 2020;
+  const month = 4; // 5月
+}
+
+// ===== /MyCalendar/css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+table {
+  border-collapse: collapse;
+  border: 2px solid #eee;
+}
+
+thead,
+tfoot {
+  background: #eee;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+}
+
+tbody td:first-child {
+  color: red;
+}
+
+tbody td:last-child {
+  color: blue;
+}
+
+tfoot {
+  font-weight: bold;
+}
+
+td.disabled {
+  opacity: 0.3;
+}
+
+td.today {
+  font-weight: bold;
+}
+
+#prev,
+#next,
+#today {
+  cursor: pointer;
+  user-select: none;
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+月末の日付を取得し、配列に今月分の日付を入れていきます。
+
+
+    getCalendarBody()
+    push()
+
+// ===== /MyCalendar/js/main.js =====
+'use strict';
+
+{
+  const year = 2020;
+  const month = 4; // 5月
+
+  function getCalendarBody() {
+    const dates = []; // date:日付, day:曜日
+    const lastDate = new Date(year, month + 1, 0).getDate();
+
+    for (let i = 1; i <= lastDate; i++) {
+      dates.push(i);
+    }
+
+    console.log(dates);
+  }
+
+  getCalendarBody();
+}
+
+// ===== /MyCalendar/css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+table {
+  border-collapse: collapse;
+  border: 2px solid #eee;
+}
+
+thead,
+tfoot {
+  background: #eee;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+}
+
+tbody td:first-child {
+  color: red;
+}
+
+tbody td:last-child {
+  color: blue;
+}
+
+tfoot {
+  font-weight: bold;
+}
+
+td.disabled {
+  opacity: 0.3;
+}
+
+td.today {
+  font-weight: bold;
+}
+
+#prev,
+#next,
+#today {
+  cursor: pointer;
+  user-select: none;
+}
+
+// ===== /MyCalendar/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Calendar</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th id="prev">&laquo;</th>
+        <th id="title" colspan="5">2020/05</th>
+        <th id="next">&raquo;</th>
+      </tr>
+      <tr>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td class="today">1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td id="today" colspan="7">Today</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+あとでスタイリングができるように、配列の中身をオブジェクトに書き換えていきます。
+
+
+    オブジェクトへの書き換え
+    console.clear()
+
+// ===== /MyCalendar/js/main.js =====
+'use strict';
+
+console.clear();
+
+{
+  const year = 2020;
+  const month = 4; // 5月
+
+  function getCalendarBody() {
+    const dates = []; // date: 日付, day: 曜日
+    const lastDate = new Date(year, month + 1, 0).getDate();
+
+    for (let i = 1; i <= lastDate; i++) {
+      dates.push({
+        date: i,
+        isToday: false,
+        isDisabled: false,
+      });
+    }
+
+    console.log(dates);
+  }
+
+  getCalendarBody();
+}
+
+// ===== /MyCalendar/css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+table {
+  border-collapse: collapse;
+  border: 2px solid #eee;
+}
+
+thead,
+tfoot {
+  background: #eee;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+}
+
+tbody td:first-child {
+  color: red;
+}
+
+tbody td:last-child {
+  color: blue;
+}
+
+tfoot {
+  font-weight: bold;
+}
+
+td.disabled {
+  opacity: 0.3;
+}
+
+td.today {
+  font-weight: bold;
+}
+
+#prev,
+#next,
+#today {
+  cursor: pointer;
+  user-select: none;
+}
+
+// ===== /MyCalendar/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Calendar</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th id="prev">&laquo;</th>
+        <th id="title" colspan="5">2020/05</th>
+        <th id="next">&raquo;</th>
+      </tr>
+      <tr>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td class="today">1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td id="today" colspan="7">Today</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+先月分の日付を取得する方法について図で確認していきます。
+
+getDate()
+getDay()
+実装方針の確認
+
+
+
+
+
+
+
+// ===== video_summary =====
+先月分の日付を配列に入れていく方法について見ていきます。
+
+
+    getCalendarHead()
+    unshift()
+
+// ===== commentBox 1 =====
+補足情報
+unshift()の使い方について
+
+
+
+
+2020年7月3日
+
+
+
+
+
+以下のレッスンでunshift()の使い方について解説しているので、参考にしてみてください。
+詳解JavaScript オブジェクト編 » #04 配列の要素を変更してみよう
+https://dotinstall.com/lessons/basic_javascript_objects_v2/52304
+
+// ===== /MyCalendar/js/main.js =====
+'use strict';
+
+console.clear();
+
+{
+  const year = 2020;
+  const month = 4; // 5月
+
+  function getCalendarHead() {
+    const dates = [];
+    const d = new Date(year, month, 0).getDate();
+    const n = new Date(year, month, 1).getDay();
+
+    for (let i = 0; i < n; i++) {
+      // 30
+      // 29, 30
+      // 28, 29, 30
+      dates.unshift({
+        date: d - i,
+        isToday: false,
+        isDisabled: true,
+      });
+    }
+
+    console.log(dates);
+  }
+
+  function getCalendarBody() {
+    const dates = []; // date: 日付, day: 曜日
+    const lastDate = new Date(year, month + 1, 0).getDate();
+
+    for (let i = 1; i <= lastDate; i++) {
+      dates.push({
+        date: i,
+        isToday: false,
+        isDisabled: false,
+      });
+    }
+
+    console.log(dates);
+  }
+
+  getCalendarHead();
+  // getCalendarBody();
+}
+
+// ===== /MyCalendar/css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+table {
+  border-collapse: collapse;
+  border: 2px solid #eee;
+}
+
+thead,
+tfoot {
+  background: #eee;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+}
+
+tbody td:first-child {
+  color: red;
+}
+
+tbody td:last-child {
+  color: blue;
+}
+
+tfoot {
+  font-weight: bold;
+}
+
+td.disabled {
+  opacity: 0.3;
+}
+
+td.today {
+  font-weight: bold;
+}
+
+#prev,
+#next,
+#today {
+  cursor: pointer;
+  user-select: none;
+}
+
+// ===== /MyCalendar/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Calendar</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th id="prev">&laquo;</th>
+        <th id="title" colspan="5">2020/05</th>
+        <th id="next">&raquo;</th>
+      </tr>
+      <tr>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td class="today">1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td id="today" colspan="7">Today</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+翌月分の日付を配列に入れていく方法について見ていきます。
+
+
+    翌月分の日付の個数を取得
+    getCalendarTail()
+
+// ===== /MyCalendar/js/main.js =====
+'use strict';
+
+console.clear();
+
+{
+  const year = 2020;
+  const month = 4; // 5月
+
+  function getCalendarHead() {
+    const dates = [];
+    const d = new Date(year, month, 0).getDate();
+    const n = new Date(year, month, 1).getDay();
+
+    for (let i = 0; i < n; i++) {
+      // 30
+      // 29, 30
+      // 28, 29, 30
+      dates.unshift({
+        date: d - i,
+        isToday: false,
+        isDisabled: true,
+      });
+    }
+
+    console.log(dates);
+  }
+
+  function getCalendarBody() {
+    const dates = []; // date: 日付, day: 曜日
+    const lastDate = new Date(year, month + 1, 0).getDate();
+
+    for (let i = 1; i <= lastDate; i++) {
+      dates.push({
+        date: i,
+        isToday: false,
+        isDisabled: false,
+      });
+    }
+
+    console.log(dates);
+  }
+
+  function getCalendarTail() {
+    const dates = [];
+    const lastDay = new Date(year, month + 1, 0).getDay();
+
+    for (let i = 1; i < 7 - lastDay; i++) {
+      dates.push({
+        date: i,
+        isToday: false,
+        isDisabled: true,
+      });
+    }
+
+    console.log(dates);
+  }
+
+  // getCalendarHead();
+  // getCalendarBody();
+  getCalendarTail();
+}
+
+// ===== /MyCalendar/css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+table {
+  border-collapse: collapse;
+  border: 2px solid #eee;
+}
+
+thead,
+tfoot {
+  background: #eee;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+}
+
+tbody td:first-child {
+  color: red;
+}
+
+tbody td:last-child {
+  color: blue;
+}
+
+tfoot {
+  font-weight: bold;
+}
+
+td.disabled {
+  opacity: 0.3;
+}
+
+td.today {
+  font-weight: bold;
+}
+
+#prev,
+#next,
+#today {
+  cursor: pointer;
+  user-select: none;
+}
+
+// ===== /MyCalendar/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Calendar</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th id="prev">&laquo;</th>
+        <th id="title" colspan="5">2020/05</th>
+        <th id="next">&raquo;</th>
+      </tr>
+      <tr>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td class="today">1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td id="today" colspan="7">Today</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+先月分、今月分、翌月分の配列を一つの配列に統合します。
+
+
+    createCalendar()
+    スプレッド演算子
+
+// ===== /MyCalendar/js/main.js =====
+'use strict';
+
+console.clear();
+
+{
+  const year = 2020;
+  const month = 4; // 5月
+
+  function getCalendarHead() {
+    const dates = [];
+    const d = new Date(year, month, 0).getDate();
+    const n = new Date(year, month, 1).getDay();
+
+    for (let i = 0; i < n; i++) {
+      // 30
+      // 29, 30
+      // 28, 29, 30
+      dates.unshift({
+        date: d - i,
+        isToday: false,
+        isDisabled: true,
+      });
+    }
+
+    return dates;
+  }
+
+  function getCalendarBody() {
+    const dates = []; // date: 日付, day: 曜日
+    const lastDate = new Date(year, month + 1, 0).getDate();
+
+    for (let i = 1; i <= lastDate; i++) {
+      dates.push({
+        date: i,
+        isToday: false,
+        isDisabled: false,
+      });
+    }
+
+    return dates;
+  }
+
+  function getCalendarTail() {
+    const dates = [];
+    const lastDay = new Date(year, month + 1, 0).getDay();
+
+    for (let i = 1; i < 7 - lastDay; i++) {
+      dates.push({
+        date: i,
+        isToday: false,
+        isDisabled: true,
+      });
+    }
+
+    return dates;
+  }
+
+  function createCalendar() {
+    const dates = [
+      ...getCalendarHead(),
+      ...getCalendarBody(),
+      ...getCalendarTail(),
+    ];
+
+    console.log(dates);
+  }
+
+  createCalendar();
+}
+
+// ===== /MyCalendar/css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+table {
+  border-collapse: collapse;
+  border: 2px solid #eee;
+}
+
+thead,
+tfoot {
+  background: #eee;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+}
+
+tbody td:first-child {
+  color: red;
+}
+
+tbody td:last-child {
+  color: blue;
+}
+
+tfoot {
+  font-weight: bold;
+}
+
+td.disabled {
+  opacity: 0.3;
+}
+
+td.today {
+  font-weight: bold;
+}
+
+#prev,
+#next,
+#today {
+  cursor: pointer;
+  user-select: none;
+}
+
+// ===== /MyCalendar/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Calendar</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th id="prev">&laquo;</th>
+        <th id="title" colspan="5">2020/05</th>
+        <th id="next">&raquo;</th>
+      </tr>
+      <tr>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td class="today">1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td id="today" colspan="7">Today</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+統合した配列を、週毎の配列に分割していきます。
+
+
+    週毎の分割
+    splice()
+
+// ===== commentBox 1 =====
+補足情報
+splice()の使い方について
+
+
+
+
+2020年7月3日
+
+
+
+
+
+以下のレッスンでsplice()の使い方について解説しているので、参考にしてみてください。
+詳解JavaScript オブジェクト編 » #05 splice()で配列を変更してみよう
+https://dotinstall.com/lessons/basic_javascript_objects_v2/52305
+
+// ===== /MyCalendar/js/main.js =====
+'use strict';
+
+console.clear();
+
+{
+  const year = 2020;
+  const month = 4; // 5月
+
+  function getCalendarHead() {
+    const dates = [];
+    const d = new Date(year, month, 0).getDate();
+    const n = new Date(year, month, 1).getDay();
+
+    for (let i = 0; i < n; i++) {
+      // 30
+      // 29, 30
+      // 28, 29, 30
+      dates.unshift({
+        date: d - i,
+        isToday: false,
+        isDisabled: true,
+      });
+    }
+
+    return dates;
+  }
+
+  function getCalendarBody() {
+    const dates = []; // date: 日付, day: 曜日
+    const lastDate = new Date(year, month + 1, 0).getDate();
+
+    for (let i = 1; i <= lastDate; i++) {
+      dates.push({
+        date: i,
+        isToday: false,
+        isDisabled: false,
+      });
+    }
+
+    return dates;
+  }
+
+  function getCalendarTail() {
+    const dates = [];
+    const lastDay = new Date(year, month + 1, 0).getDay();
+
+    for (let i = 1; i < 7 - lastDay; i++) {
+      dates.push({
+        date: i,
+        isToday: false,
+        isDisabled: true,
+      });
+    }
+
+    return dates;
+  }
+
+  function createCalendar() {
+    const dates = [
+      ...getCalendarHead(),
+      ...getCalendarBody(),
+      ...getCalendarTail(),
+    ];
+    const weeks = [];
+    const weeksCount = dates.length / 7;
+
+    for (let i = 0; i < weeksCount; i++) {
+      weeks.push(dates.splice(0, 7));
+    }
+
+    // console.log(dates);
+    console.log(weeks);
+  }
+
+  createCalendar();
+}
+
+// ===== /MyCalendar/css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+table {
+  border-collapse: collapse;
+  border: 2px solid #eee;
+}
+
+thead,
+tfoot {
+  background: #eee;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+}
+
+tbody td:first-child {
+  color: red;
+}
+
+tbody td:last-child {
+  color: blue;
+}
+
+tfoot {
+  font-weight: bold;
+}
+
+td.disabled {
+  opacity: 0.3;
+}
+
+td.today {
+  font-weight: bold;
+}
+
+#prev,
+#next,
+#today {
+  cursor: pointer;
+  user-select: none;
+}
+
+// ===== /MyCalendar/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Calendar</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th id="prev">&laquo;</th>
+        <th id="title" colspan="5">2020/05</th>
+        <th id="next">&raquo;</th>
+      </tr>
+      <tr>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td class="today">1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+        <td class="disabled">1</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td id="today" colspan="7">Today</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+週毎の配列を使って日付をHTMLに描画していきます。
+
+
+    forEach()
+    DOMへの追加
+
+// ===== /MyCalendar/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Calendar</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th id="prev">&laquo;</th>
+        <th id="title" colspan="5">2020/05</th>
+        <th id="next">&raquo;</th>
+      </tr>
+      <tr>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td id="today" colspan="7">Today</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyCalendar/js/main.js =====
+'use strict';
+
+console.clear();
+
+{
+  const year = 2020;
+  const month = 4; // 5月
+
+  function getCalendarHead() {
+    const dates = [];
+    const d = new Date(year, month, 0).getDate();
+    const n = new Date(year, month, 1).getDay();
+
+    for (let i = 0; i < n; i++) {
+      // 30
+      // 29, 30
+      // 28, 29, 30
+      dates.unshift({
+        date: d - i,
+        isToday: false,
+        isDisabled: true,
+      });
+    }
+
+    return dates;
+  }
+
+  function getCalendarBody() {
+    const dates = []; // date: 日付, day: 曜日
+    const lastDate = new Date(year, month + 1, 0).getDate();
+
+    for (let i = 1; i <= lastDate; i++) {
+      dates.push({
+        date: i,
+        isToday: false,
+        isDisabled: false,
+      });
+    }
+
+    return dates;
+  }
+
+  function getCalendarTail() {
+    const dates = [];
+    const lastDay = new Date(year, month + 1, 0).getDay();
+
+    for (let i = 1; i < 7 - lastDay; i++) {
+      dates.push({
+        date: i,
+        isToday: false,
+        isDisabled: true,
+      });
+    }
+
+    return dates;
+  }
+
+  function createCalendar() {
+    const dates = [
+      ...getCalendarHead(),
+      ...getCalendarBody(),
+      ...getCalendarTail(),
+    ];
+    const weeks = [];
+    const weeksCount = dates.length / 7;
+
+    for (let i = 0; i < weeksCount; i++) {
+      weeks.push(dates.splice(0, 7));
+    }
+
+    weeks.forEach(week => {
+      const tr = document.createElement('tr');
+      week.forEach(date => {
+        const td = document.createElement('td');
+
+        td.textContent = date.date;
+        if (date.isToday) {
+          td.classList.add('today');
+        }
+        if (date.isDisabled) {
+          td.classList.add('disabled');
+        }
+
+        tr.appendChild(td);
+      });
+      document.querySelector('tbody').appendChild(tr);
+    });
+  }
+
+  createCalendar();
+}
+
+// ===== /MyCalendar/css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+table {
+  border-collapse: collapse;
+  border: 2px solid #eee;
+}
+
+thead,
+tfoot {
+  background: #eee;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+}
+
+tbody td:first-child {
+  color: red;
+}
+
+tbody td:last-child {
+  color: blue;
+}
+
+tfoot {
+  font-weight: bold;
+}
+
+td.disabled {
+  opacity: 0.3;
+}
+
+td.today {
+  font-weight: bold;
+}
+
+#prev,
+#next,
+#today {
+  cursor: pointer;
+  user-select: none;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+クリックイベントを設定したあと、年をまたいだときの処理を設定していきます。
+
+
+    prevのイベント処理
+    nextのイベント処理
+
+// ===== /MyCalendar/js/main.js =====
+'use strict';
+
+console.clear();
+
+{
+  let year = 2020;
+  let month = 4; // 5月
+
+  function getCalendarHead() {
+    const dates = [];
+    const d = new Date(year, month, 0).getDate();
+    const n = new Date(year, month, 1).getDay();
+
+    for (let i = 0; i < n; i++) {
+      // 30
+      // 29, 30
+      // 28, 29, 30
+      dates.unshift({
+        date: d - i,
+        isToday: false,
+        isDisabled: true,
+      });
+    }
+
+    return dates;
+  }
+
+  function getCalendarBody() {
+    const dates = []; // date: 日付, day: 曜日
+    const lastDate = new Date(year, month + 1, 0).getDate();
+
+    for (let i = 1; i <= lastDate; i++) {
+      dates.push({
+        date: i,
+        isToday: false,
+        isDisabled: false,
+      });
+    }
+
+    return dates;
+  }
+
+  function getCalendarTail() {
+    const dates = [];
+    const lastDay = new Date(year, month + 1, 0).getDay();
+
+    for (let i = 1; i < 7 - lastDay; i++) {
+      dates.push({
+        date: i,
+        isToday: false,
+        isDisabled: true,
+      });
+    }
+
+    return dates;
+  }
+
+  function createCalendar() {
+    const dates = [
+      ...getCalendarHead(),
+      ...getCalendarBody(),
+      ...getCalendarTail(),
+    ];
+    const weeks = [];
+    const weeksCount = dates.length / 7;
+
+    for (let i = 0; i < weeksCount; i++) {
+      weeks.push(dates.splice(0, 7));
+    }
+
+    weeks.forEach(week => {
+      const tr = document.createElement('tr');
+      week.forEach(date => {
+        const td = document.createElement('td');
+
+        td.textContent = date.date;
+        if (date.isToday) {
+          td.classList.add('today');
+        }
+        if (date.isDisabled) {
+          td.classList.add('disabled');
+        }
+
+        tr.appendChild(td);
+      });
+      document.querySelector('tbody').appendChild(tr);
+    });
+  }
+
+  document.getElementById('prev').addEventListener('click', () => {
+    month--;
+    if (month < 0) {
+      year--;
+      month = 11;
+    }
+
+    createCalendar();
+  });
+
+  document.getElementById('next').addEventListener('click', () => {
+    month++;
+    if (month > 11) {
+      year++;
+      month = 0;
+    }
+
+    createCalendar();
+  });
+
+  createCalendar();
+}
+
+// ===== /MyCalendar/css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+table {
+  border-collapse: collapse;
+  border: 2px solid #eee;
+}
+
+thead,
+tfoot {
+  background: #eee;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+}
+
+tbody td:first-child {
+  color: red;
+}
+
+tbody td:last-child {
+  color: blue;
+}
+
+tfoot {
+  font-weight: bold;
+}
+
+td.disabled {
+  opacity: 0.3;
+}
+
+td.today {
+  font-weight: bold;
+}
+
+#prev,
+#next,
+#today {
+  cursor: pointer;
+  user-select: none;
+}
+
+// ===== /MyCalendar/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Calendar</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th id="prev">&laquo;</th>
+        <th id="title" colspan="5">2020/05</th>
+        <th id="next">&raquo;</th>
+      </tr>
+      <tr>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td id="today" colspan="7">Today</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+前月 / 翌月に移動したときに、年月の表示が変わるようにしていきます。
+
+
+    テンプレートリテラル
+    padStart()
+
+// ===== /MyCalendar/js/main.js =====
+'use strict';
+
+console.clear();
+
+{
+  let year = 2020;
+  let month = 4; // 5月
+
+  function getCalendarHead() {
+    const dates = [];
+    const d = new Date(year, month, 0).getDate();
+    const n = new Date(year, month, 1).getDay();
+
+    for (let i = 0; i < n; i++) {
+      // 30
+      // 29, 30
+      // 28, 29, 30
+      dates.unshift({
+        date: d - i,
+        isToday: false,
+        isDisabled: true,
+      });
+    }
+
+    return dates;
+  }
+
+  function getCalendarBody() {
+    const dates = []; // date: 日付, day: 曜日
+    const lastDate = new Date(year, month + 1, 0).getDate();
+
+    for (let i = 1; i <= lastDate; i++) {
+      dates.push({
+        date: i,
+        isToday: false,
+        isDisabled: false,
+      });
+    }
+
+    return dates;
+  }
+
+  function getCalendarTail() {
+    const dates = [];
+    const lastDay = new Date(year, month + 1, 0).getDay();
+
+    for (let i = 1; i < 7 - lastDay; i++) {
+      dates.push({
+        date: i,
+        isToday: false,
+        isDisabled: true,
+      });
+    }
+
+    return dates;
+  }
+
+  function createCalendar() {
+    const tbody = document.querySelector('tbody');
+
+    while (tbody.firstChild) {
+      tbody.removeChild(tbody.firstChild);
+    }
+
+    const title = `${year}/${String(month + 1).padStart(2, '0')}`;
+    document.getElementById('title').textContent = title;
+
+    const dates = [
+      ...getCalendarHead(),
+      ...getCalendarBody(),
+      ...getCalendarTail(),
+    ];
+    const weeks = [];
+    const weeksCount = dates.length / 7;
+
+    for (let i = 0; i < weeksCount; i++) {
+      weeks.push(dates.splice(0, 7));
+    }
+
+    weeks.forEach(week => {
+      const tr = document.createElement('tr');
+      week.forEach(date => {
+        const td = document.createElement('td');
+
+        td.textContent = date.date;
+        if (date.isToday) {
+          td.classList.add('today');
+        }
+        if (date.isDisabled) {
+          td.classList.add('disabled');
+        }
+
+        tr.appendChild(td);
+      });
+      document.querySelector('tbody').appendChild(tr);
+    });
+  }
+
+  document.getElementById('prev').addEventListener('click', () => {
+    month--;
+    if (month < 0) {
+      year--;
+      month = 11;
+    }
+
+    createCalendar();
+  });
+
+  document.getElementById('next').addEventListener('click', () => {
+    month++;
+    if (month > 11) {
+      year++;
+      month = 0;
+    }
+
+    createCalendar();
+  });
+
+  createCalendar();
+}
+
+// ===== /MyCalendar/css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+table {
+  border-collapse: collapse;
+  border: 2px solid #eee;
+}
+
+thead,
+tfoot {
+  background: #eee;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+}
+
+tbody td:first-child {
+  color: red;
+}
+
+tbody td:last-child {
+  color: blue;
+}
+
+tfoot {
+  font-weight: bold;
+}
+
+td.disabled {
+  opacity: 0.3;
+}
+
+td.today {
+  font-weight: bold;
+}
+
+#prev,
+#next,
+#today {
+  cursor: pointer;
+  user-select: none;
+}
+
+// ===== /MyCalendar/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Calendar</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th id="prev">&laquo;</th>
+        <th id="title" colspan="5">2020/05</th>
+        <th id="next">&raquo;</th>
+      </tr>
+      <tr>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td id="today" colspan="7">Today</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+機能ごとに処理をまとめて、コードを見やすくしていきます。
+
+
+    clearCalendar()
+    rendarTitle()
+    renderWeeks()
+
+// ===== /MyCalendar/js/main.js =====
+'use strict';
+
+console.clear();
+
+{
+  let year = 2020;
+  let month = 4; // 5月
+
+  function getCalendarHead() {
+    const dates = [];
+    const d = new Date(year, month, 0).getDate();
+    const n = new Date(year, month, 1).getDay();
+
+    for (let i = 0; i < n; i++) {
+      // 30
+      // 29, 30
+      // 28, 29, 30
+      dates.unshift({
+        date: d - i,
+        isToday: false,
+        isDisabled: true,
+      });
+    }
+
+    return dates;
+  }
+
+  function getCalendarBody() {
+    const dates = []; // date: 日付, day: 曜日
+    const lastDate = new Date(year, month + 1, 0).getDate();
+
+    for (let i = 1; i <= lastDate; i++) {
+      dates.push({
+        date: i,
+        isToday: false,
+        isDisabled: false,
+      });
+    }
+
+    return dates;
+  }
+
+  function getCalendarTail() {
+    const dates = [];
+    const lastDay = new Date(year, month + 1, 0).getDay();
+
+    for (let i = 1; i < 7 - lastDay; i++) {
+      dates.push({
+        date: i,
+        isToday: false,
+        isDisabled: true,
+      });
+    }
+
+    return dates;
+  }
+
+  function clearCalendar() {
+    const tbody = document.querySelector('tbody');
+
+    while (tbody.firstChild) {
+      tbody.removeChild(tbody.firstChild);
+    }
+  }
+
+  function renderTitle() {
+    const title = `${year}/${String(month + 1).padStart(2, '0')}`;
+    document.getElementById('title').textContent = title;
+  }
+
+  function renderWeeks() {
+    const dates = [
+      ...getCalendarHead(),
+      ...getCalendarBody(),
+      ...getCalendarTail(),
+    ];
+    const weeks = [];
+    const weeksCount = dates.length / 7;
+
+    for (let i = 0; i < weeksCount; i++) {
+      weeks.push(dates.splice(0, 7));
+    }
+
+    weeks.forEach(week => {
+      const tr = document.createElement('tr');
+      week.forEach(date => {
+        const td = document.createElement('td');
+
+        td.textContent = date.date;
+        if (date.isToday) {
+          td.classList.add('today');
+        }
+        if (date.isDisabled) {
+          td.classList.add('disabled');
+        }
+
+        tr.appendChild(td);
+      });
+      document.querySelector('tbody').appendChild(tr);
+    });
+  }
+
+  function createCalendar() {
+    clearCalendar();
+    renderTitle();
+    renderWeeks();
+  }
+
+  document.getElementById('prev').addEventListener('click', () => {
+    month--;
+    if (month < 0) {
+      year--;
+      month = 11;
+    }
+
+    createCalendar();
+  });
+
+  document.getElementById('next').addEventListener('click', () => {
+    month++;
+    if (month > 11) {
+      year++;
+      month = 0;
+    }
+
+    createCalendar();
+  });
+
+  createCalendar();
+}
+
+// ===== /MyCalendar/css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+table {
+  border-collapse: collapse;
+  border: 2px solid #eee;
+}
+
+thead,
+tfoot {
+  background: #eee;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+}
+
+tbody td:first-child {
+  color: red;
+}
+
+tbody td:last-child {
+  color: blue;
+}
+
+tfoot {
+  font-weight: bold;
+}
+
+td.disabled {
+  opacity: 0.3;
+}
+
+td.today {
+  font-weight: bold;
+}
+
+#prev,
+#next,
+#today {
+  cursor: pointer;
+  user-select: none;
+}
+
+// ===== /MyCalendar/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Calendar</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th id="prev">&laquo;</th>
+        <th id="title" colspan="5">2020/05</th>
+        <th id="next">&raquo;</th>
+      </tr>
+      <tr>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td id="today" colspan="7">Today</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+現在の日時を取得したあと、今日の日付を太字にする方法について見ていきます。
+
+
+    new Date()
+    isTodayの判定処理
+
+// ===== /MyCalendar/js/main.js =====
+'use strict';
+
+console.clear();
+
+{
+  const today = new Date();
+  let year = today.getFullYear();
+  let month = today.getMonth();
+
+  function getCalendarHead() {
+    const dates = [];
+    const d = new Date(year, month, 0).getDate();
+    const n = new Date(year, month, 1).getDay();
+
+    for (let i = 0; i < n; i++) {
+      // 30
+      // 29, 30
+      // 28, 29, 30
+      dates.unshift({
+        date: d - i,
+        isToday: false,
+        isDisabled: true,
+      });
+    }
+
+    return dates;
+  }
+
+  function getCalendarBody() {
+    const dates = []; // date: 日付, day: 曜日
+    const lastDate = new Date(year, month + 1, 0).getDate();
+
+    for (let i = 1; i <= lastDate; i++) {
+      dates.push({
+        date: i,
+        isToday: false,
+        isDisabled: false,
+      });
+    }
+
+    if (year === today.getFullYear() && month === today.getMonth()) {
+      dates[today.getDate() - 1].isToday = true;
+    }
+
+    return dates;
+  }
+
+  function getCalendarTail() {
+    const dates = [];
+    const lastDay = new Date(year, month + 1, 0).getDay();
+
+    for (let i = 1; i < 7 - lastDay; i++) {
+      dates.push({
+        date: i,
+        isToday: false,
+        isDisabled: true,
+      });
+    }
+
+    return dates;
+  }
+
+  function clearCalendar() {
+    const tbody = document.querySelector('tbody');
+
+    while (tbody.firstChild) {
+      tbody.removeChild(tbody.firstChild);
+    }
+  }
+
+  function renderTitle() {
+    const title = `${year}/${String(month + 1).padStart(2, '0')}`;
+    document.getElementById('title').textContent = title;
+  }
+
+  function renderWeeks() {
+    const dates = [
+      ...getCalendarHead(),
+      ...getCalendarBody(),
+      ...getCalendarTail(),
+    ];
+    const weeks = [];
+    const weeksCount = dates.length / 7;
+
+    for (let i = 0; i < weeksCount; i++) {
+      weeks.push(dates.splice(0, 7));
+    }
+
+    weeks.forEach(week => {
+      const tr = document.createElement('tr');
+      week.forEach(date => {
+        const td = document.createElement('td');
+
+        td.textContent = date.date;
+        if (date.isToday) {
+          td.classList.add('today');
+        }
+        if (date.isDisabled) {
+          td.classList.add('disabled');
+        }
+
+        tr.appendChild(td);
+      });
+      document.querySelector('tbody').appendChild(tr);
+    });
+  }
+
+  function createCalendar() {
+    clearCalendar();
+    renderTitle();
+    renderWeeks();
+  }
+
+  document.getElementById('prev').addEventListener('click', () => {
+    month--;
+    if (month < 0) {
+      year--;
+      month = 11;
+    }
+
+    createCalendar();
+  });
+
+  document.getElementById('next').addEventListener('click', () => {
+    month++;
+    if (month > 11) {
+      year++;
+      month = 0;
+    }
+
+    createCalendar();
+  });
+
+  createCalendar();
+}
+
+// ===== /MyCalendar/css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+table {
+  border-collapse: collapse;
+  border: 2px solid #eee;
+}
+
+thead,
+tfoot {
+  background: #eee;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+}
+
+tbody td:first-child {
+  color: red;
+}
+
+tbody td:last-child {
+  color: blue;
+}
+
+tfoot {
+  font-weight: bold;
+}
+
+td.disabled {
+  opacity: 0.3;
+}
+
+td.today {
+  font-weight: bold;
+}
+
+#prev,
+#next,
+#today {
+  cursor: pointer;
+  user-select: none;
+}
+
+// ===== /MyCalendar/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Calendar</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th id="prev">&laquo;</th>
+        <th id="title" colspan="5">2020/05</th>
+        <th id="next">&raquo;</th>
+      </tr>
+      <tr>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td id="today" colspan="7">Today</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+Todayを押したら今月に戻れるように、イベント処理を追加していきます。
+
+
+    Todayのイベント処理
+    イベント処理の確認
+
+// ===== /MyCalendar/js/main.js =====
+'use strict';
+
+console.clear();
+
+{
+  const today = new Date();
+  let year = today.getFullYear();
+  let month = today.getMonth();
+
+  function getCalendarHead() {
+    const dates = [];
+    const d = new Date(year, month, 0).getDate();
+    const n = new Date(year, month, 1).getDay();
+
+    for (let i = 0; i < n; i++) {
+      // 30
+      // 29, 30
+      // 28, 29, 30
+      dates.unshift({
+        date: d - i,
+        isToday: false,
+        isDisabled: true,
+      });
+    }
+
+    return dates;
+  }
+
+  function getCalendarBody() {
+    const dates = []; // date: 日付, day: 曜日
+    const lastDate = new Date(year, month + 1, 0).getDate();
+
+    for (let i = 1; i <= lastDate; i++) {
+      dates.push({
+        date: i,
+        isToday: false,
+        isDisabled: false,
+      });
+    }
+
+    if (year === today.getFullYear() && month === today.getMonth()) {
+      dates[today.getDate() - 1].isToday = true;
+    }
+
+    return dates;
+  }
+
+  function getCalendarTail() {
+    const dates = [];
+    const lastDay = new Date(year, month + 1, 0).getDay();
+
+    for (let i = 1; i < 7 - lastDay; i++) {
+      dates.push({
+        date: i,
+        isToday: false,
+        isDisabled: true,
+      });
+    }
+
+    return dates;
+  }
+
+  function clearCalendar() {
+    const tbody = document.querySelector('tbody');
+
+    while (tbody.firstChild) {
+      tbody.removeChild(tbody.firstChild);
+    }
+  }
+
+  function renderTitle() {
+    const title = `${year}/${String(month + 1).padStart(2, '0')}`;
+    document.getElementById('title').textContent = title;
+  }
+
+  function renderWeeks() {
+    const dates = [
+      ...getCalendarHead(),
+      ...getCalendarBody(),
+      ...getCalendarTail(),
+    ];
+    const weeks = [];
+    const weeksCount = dates.length / 7;
+
+    for (let i = 0; i < weeksCount; i++) {
+      weeks.push(dates.splice(0, 7));
+    }
+
+    weeks.forEach(week => {
+      const tr = document.createElement('tr');
+      week.forEach(date => {
+        const td = document.createElement('td');
+
+        td.textContent = date.date;
+        if (date.isToday) {
+          td.classList.add('today');
+        }
+        if (date.isDisabled) {
+          td.classList.add('disabled');
+        }
+
+        tr.appendChild(td);
+      });
+      document.querySelector('tbody').appendChild(tr);
+    });
+  }
+
+  function createCalendar() {
+    clearCalendar();
+    renderTitle();
+    renderWeeks();
+  }
+
+  document.getElementById('prev').addEventListener('click', () => {
+    month--;
+    if (month < 0) {
+      year--;
+      month = 11;
+    }
+
+    createCalendar();
+  });
+
+  document.getElementById('next').addEventListener('click', () => {
+    month++;
+    if (month > 11) {
+      year++;
+      month = 0;
+    }
+
+    createCalendar();
+  });
+
+  document.getElementById('today').addEventListener('click', () => {
+    year = today.getFullYear();
+    month = today.getMonth();
+
+    createCalendar();
+  });
+
+  createCalendar();
+}
+
+// ===== /MyCalendar/css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+table {
+  border-collapse: collapse;
+  border: 2px solid #eee;
+}
+
+thead,
+tfoot {
+  background: #eee;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+}
+
+tbody td:first-child {
+  color: red;
+}
+
+tbody td:last-child {
+  color: blue;
+}
+
+tfoot {
+  font-weight: bold;
+}
+
+td.disabled {
+  opacity: 0.3;
+}
+
+td.today {
+  font-weight: bold;
+}
+
+#prev,
+#next,
+#today {
+  cursor: pointer;
+  user-select: none;
+}
+
+// ===== /MyCalendar/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Calendar</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th id="prev">&laquo;</th>
+        <th id="title" colspan="5">2020/05</th>
+        <th id="next">&raquo;</th>
+      </tr>
+      <tr>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td id="today" colspan="7">Today</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+

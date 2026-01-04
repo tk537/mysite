@@ -1,0 +1,597 @@
+// ===== video_summary =====
+完成版を確認したあとに必要なファイルを作っていきます。
+
+
+    完成版の確認
+    index.htmlの作成
+    main.jsの作成
+
+// ===== commentBox 1 =====
+補足情報
+VS Codeでファイルのドラッグ＆ドロップができない場合
+
+
+
+
+2024年2月16日
+
+
+
+
+
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、WindowsならCtrlキー、macOSならcommandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+// ===== commentBox 2 =====
+補足情報
+必要となる知識について
+
+
+
+
+2020年4月22日
+
+
+
+
+
+このレッスンでは、以下のレッスンで紹介した内容をベースにしています。分からない点があった場合は、こちらも参考にしてみてください。
+
+詳解JavaScript 基礎文法編 (全26回)
+https://dotinstall.com/lessons/basic_javascript_grammer_v2
+詳解JavaScript オブジェクト編 (全35回)
+https://dotinstall.com/lessons/basic_javascript_objects_v2
+詳解JavaScript DOM編 (全21回)
+https://dotinstall.com/lessons/basic_javascript_dom_v2
+詳解JavaScript Canvas編 (全21回)
+https://dotinstall.com/lessons/basic_canvas_v3
+
+// ===== /MyLoadingIcon/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Loading Icon</title>
+</head>
+<body>
+  <canvas width="400" height="260">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyLoadingIcon/js/main.js =====
+
+
+
+
+
+
+
+// ===== video_summary =====
+canvas要素を取得したあとにIconクラスを作っていきます。
+
+
+    canvas要素の取得
+    即時関数への書き換え
+    Iconクラスの作成
+    run()
+
+// ===== commentBox 1 =====
+補足情報
+クラスの作り方について
+
+
+
+
+2020年4月22日
+
+
+
+
+
+
+JavaScriptでクラスを作る方法は以下のレッスンで解説しています。
+・#31 クラスを作ってみよう | 詳解JavaScript オブジェクト編
+https://dotinstall.com/lessons/basic_javascript_objects_v2/52331
+
+// ===== /MyLoadingIcon/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Loading Icon</title>
+  <style>
+    body {
+      background: #eee;
+    }
+
+    canvas {
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="400" height="260">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyLoadingIcon/js/main.js =====
+'use strict';
+
+(() => {
+  class Icon {
+    constructor(canvas) {
+
+    }
+
+    run() {
+      
+    }
+  }
+
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+
+  const icon = new Icon(canvas);
+  icon.run();
+})();
+
+
+
+
+
+// ===== video_summary =====
+描画コンテキストを取得したあとに円を描画していきます。
+
+
+    draw()
+    円の描画
+
+// ===== /MyLoadingIcon/js/main.js =====
+'use strict';
+
+(() => {
+  class Icon {
+    constructor(canvas) {
+      this.ctx = canvas.getContext('2d');
+      this.width = canvas.width;
+      this.height = canvas.height;
+      this.r = 60;
+    }
+
+    draw() {
+      this.ctx.beginPath();
+      this.ctx.arc(this.width / 2, this.height / 2, this.r, 0, 2 * Math.PI);
+      this.ctx.stroke();
+    }
+
+    run() {
+      this.draw();
+    }
+  }
+
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+
+  const icon = new Icon(canvas);
+  icon.run();
+})();
+
+// ===== /MyLoadingIcon/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Loading Icon</title>
+  <style>
+    body {
+      background: #eee;
+    }
+
+    canvas {
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="400" height="260">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+目盛りを描画したあとに座標空間を移動していきます。
+
+
+    座標空間の移動
+
+// ===== /MyLoadingIcon/js/main.js =====
+'use strict';
+
+(() => {
+  class Icon {
+    constructor(canvas) {
+      this.ctx = canvas.getContext('2d');
+      this.width = canvas.width;
+      this.height = canvas.height;
+      this.r = 60;
+    }
+
+    draw() {
+      this.ctx.translate(this.width / 2, this.height / 2);
+
+      this.ctx.beginPath();
+      // this.ctx.arc(this.width / 2, this.height / 2, this.r, 0, 2 * Math.PI);
+      this.ctx.arc(0, 0, this.r, 0, 2 * Math.PI);
+      this.ctx.stroke();
+
+      this.ctx.beginPath();
+      // this.ctx.moveTo(this.width / 2, this.height / 2 - this.r - 5);
+      // this.ctx.lineTo(this.width / 2, this.height / 2 - this.r + 5);
+      this.ctx.moveTo(0, -this.r - 5);
+      this.ctx.lineTo(0, -this.r + 5);
+      this.ctx.strokeStyle = 'orange';
+      this.ctx.lineWidth = 6;
+      this.ctx.stroke();
+    }
+
+    run() {
+      this.draw();
+    }
+  }
+
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+
+  const icon = new Icon(canvas);
+  icon.run();
+})();
+
+// ===== /MyLoadingIcon/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Loading Icon</title>
+  <style>
+    body {
+      background: #eee;
+    }
+
+    canvas {
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="400" height="260">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+angleの値に応じて座標を回転させながら目盛りを描画していきます。
+
+
+    座標空間の回転
+    目盛りの描画
+
+// ===== /MyLoadingIcon/js/main.js =====
+'use strict';
+
+(() => {
+  class Icon {
+    constructor(canvas) {
+      this.ctx = canvas.getContext('2d');
+      this.width = canvas.width;
+      this.height = canvas.height;
+      this.r = 60;
+
+      this.angle = 0;
+    }
+
+    draw() {
+      this.ctx.translate(this.width / 2, this.height / 2);
+      this.ctx.rotate(Math.PI / 180 * this.angle);
+
+      this.ctx.beginPath();
+      this.ctx.arc(0, 0, this.r, 0, 2 * Math.PI);
+      this.ctx.stroke();
+
+      this.ctx.beginPath();
+      this.ctx.moveTo(0, -this.r - 5);
+      this.ctx.lineTo(0, -this.r + 5);
+      this.ctx.strokeStyle = 'orange';
+      this.ctx.lineWidth = 6;
+      this.ctx.stroke();
+    }
+
+    update() {
+      this.angle += 12;
+    }
+
+    run() {
+      this.update();
+      this.draw();
+
+      setTimeout(() => {
+        this.run();
+      }, 100);
+    }
+  }
+
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+
+  const icon = new Icon(canvas);
+  icon.run();
+})();
+
+// ===== /MyLoadingIcon/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Loading Icon</title>
+  <style>
+    body {
+      background: #eee;
+    }
+
+    canvas {
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="400" height="260">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+描画設定を保存・復元したあとに、目盛りを徐々にフェードアウトさせていく方法について見ていきます。
+
+
+    描画設定の保存・復元
+    描画領域の塗りつぶし
+
+// ===== /MyLoadingIcon/js/main.js =====
+'use strict';
+
+(() => {
+  class Icon {
+    constructor(canvas) {
+      this.ctx = canvas.getContext('2d');
+      this.width = canvas.width;
+      this.height = canvas.height;
+      this.r = 60;
+
+      this.angle = 0;
+    }
+
+    draw() {
+      this.ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+      this.ctx.fillRect(0, 0, this.width, this.height);
+
+      this.ctx.save();
+
+      this.ctx.translate(this.width / 2, this.height / 2);
+      this.ctx.rotate(Math.PI / 180 * this.angle);
+
+      // this.ctx.beginPath();
+      // this.ctx.arc(0, 0, this.r, 0, 2 * Math.PI);
+      // this.ctx.stroke();
+
+      this.ctx.beginPath();
+      this.ctx.moveTo(0, -this.r - 5);
+      this.ctx.lineTo(0, -this.r + 5);
+      this.ctx.strokeStyle = 'orange';
+      this.ctx.lineWidth = 6;
+      this.ctx.stroke();
+
+      this.ctx.restore();
+    }
+
+    update() {
+      this.angle += 12;
+    }
+
+    run() {
+      this.update();
+      this.draw();
+
+      setTimeout(() => {
+        this.run();
+      }, 100);
+    }
+  }
+
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+
+  const icon = new Icon(canvas);
+  icon.run();
+})();
+
+// ===== /MyLoadingIcon/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Loading Icon</title>
+  <style>
+    body {
+      background: #eee;
+    }
+
+    canvas {
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="400" height="260">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+描画関連の処理をIconDrawerクラスに切り出す方法について見てきます。
+
+
+    IconDrawerクラスの作成
+    動作確認
+
+// ===== /MyLoadingIcon/js/main.js =====
+'use strict';
+
+(() => {
+  class IconDrawer {
+    constructor(canvas) {
+      this.ctx = canvas.getContext('2d');
+      this.width = canvas.width;
+      this.height = canvas.height;
+      this.r = 60;
+    }
+
+    draw(angle) {
+      this.ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+      this.ctx.fillRect(0, 0, this.width, this.height);
+
+      this.ctx.save();
+
+      this.ctx.translate(this.width / 2, this.height / 2);
+      this.ctx.rotate(Math.PI / 180 * angle);
+
+      this.ctx.beginPath();
+      this.ctx.moveTo(0, -this.r - 5);
+      this.ctx.lineTo(0, -this.r + 5);
+      this.ctx.strokeStyle = 'orange';
+      this.ctx.lineWidth = 6;
+      this.ctx.stroke();
+
+      this.ctx.restore();
+    }
+  }
+
+  class Icon {
+    constructor(drawer) {
+      this.drawer = drawer;
+      this.angle = 0;
+    }
+
+    draw() {
+      this.drawer.draw(this.angle);
+    }
+
+    update() {
+      this.angle += 12;
+    }
+
+    run() {
+      this.update();
+      this.draw();
+
+      setTimeout(() => {
+        this.run();
+      }, 100);
+    }
+  }
+
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+
+  const icon = new Icon(new IconDrawer(canvas));
+  icon.run();
+})();
+
+// ===== /MyLoadingIcon/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Loading Icon</title>
+  <style>
+    body {
+      background: #eee;
+    }
+
+    canvas {
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="400" height="260">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+

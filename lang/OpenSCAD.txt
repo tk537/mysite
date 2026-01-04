@@ -1,0 +1,522 @@
+// ===== video_summary =====
+公式サイトを確認してダウンロードしたあとに、画面の見方について確認していきます。
+
+
+    公式サイトの確認
+    ダウンロード及びインストール
+    新規ファイルの作成
+    レイアウトの確認
+
+// ===== mymodel.scad =====
+
+
+
+
+
+
+// ===== video_summary =====
+簡単な図形を描画しつつ、プレビューエリアの操作方法について見ていきます。
+
+
+    cube()
+    コメントの書き方
+    プレビューエリアの操作
+
+// ===== mymodel.scad =====
+// cube
+cube(10);
+
+
+
+
+
+// ===== video_summary =====
+移動や回転といった操作命令を学びつつ、命令が適用される順序について確認します。
+
+
+    translate()
+    Action命令
+    操作命令
+    rotate()
+    適用される順番
+
+// ===== mymodel.scad =====
+//translate([0, 10, 0]) {
+//  cube(10);
+//}
+
+//rotate([10, 0, 0]) {
+//  translate([0, 10, 0]) {
+//    cube(10);
+//  }
+//}
+
+translate([0, 10, 0]) {
+  rotate([10, 0, 0]) {
+    cube(10);
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+サイズを変える方法を確認しつつ、鏡面に映すように物体を反転させる方法について見ていきます。
+
+
+    scale()
+    resize()
+    mirror()
+
+// ===== mymodel.scad =====
+//scale([0.5, 1, 1]) {
+//  cube(10);
+//}
+
+//resize([5, 10, 5]) {
+//  cube(10);
+//}
+
+//resize([5, 0, 0], auto = true) {
+//  cube(10);
+//}
+
+mirror([1, 0, 0]) {
+  cube(10);
+}
+
+
+
+
+
+// ===== video_summary =====
+特殊な記号を使って、オブジェクトをハイライトしたり、無効化したりする方法などを見ていきます。
+
+
+    # ハイライト
+    * 無効化
+    % 透明化
+    ! ルート表示
+
+// ===== mymodel.scad =====
+translate([10, 0, 0]) {
+  %cube(10);
+  !rotate([45, 0, 0]) cube(10);
+  *translate([15, 15, 0]) {
+    #cube(10);
+    rotate([45, 0, 0]) cube(5);
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+cube()の辺の長さを指定する方法や、原点を中心に配置する方法などについて学びます。
+
+
+    cube()
+    辺の長さの指定
+    原点を中心にする配置
+    パラメータ名の指定
+
+// ===== mymodel.scad =====
+*cube(10);
+*cube([10, 20, 30]);
+*cube([10, 20, 30], true);
+cube(size = [10, 20, 30], center = true);
+
+
+
+
+
+// ===== video_summary =====
+球体の描画方法と、設定可能なパラメータについて見ていきます。
+
+
+    sphere()
+    $fn
+    scale()による変形
+
+// ===== mymodel.scad =====
+*sphere(r = 10, $fn = 5);
+scale([1, 1, 0.5]) {
+  sphere(r = 10);
+}
+
+
+
+
+
+// ===== video_summary =====
+円柱の描画方法および設定可能なパラメータについて説明していきます。
+
+
+    cylinder()
+    h, r, r1, r2, center, $fn
+
+// ===== mymodel.scad =====
+*cylinder(h = 30, r = 10);
+*cylinder(h = 30, r1 = 10, r2 = 0);
+*cylinder(h = 30, r1 = 10, r2 = 0, center = true);
+cylinder(h = 30, r1 = 10, r2 = 0, center = true, $fn = 4);
+
+
+
+
+
+// ===== video_summary =====
+やや複雑なpolyhedronの仕組みについて図を使って解説しつつ、三角錐を作ってみます。
+
+
+    polyhedron()
+    points
+    faces
+
+// ===== mymodel.scad =====
+polyhedron(
+  points = [
+    [0, 0, 1],
+    [0, 0, 0],
+    [1, 0, 0],
+    [0, 1, 0]
+  ],
+  faces = [
+    [0, 2, 1],
+    [0, 3, 2],
+    [0, 1, 3],
+    [1, 2, 3]
+  ]
+);
+
+
+
+
+
+// ===== video_summary =====
+四角や円、テキストやポリゴンといった平面図形を描画する方法について見ていきます。
+
+
+    square()
+    circle()
+    text()
+    polygon()
+
+// ===== mymodel.scad =====
+square([5, 10], center = true);
+
+translate([10, 0, 0]) {
+  circle(5);
+}
+
+translate([20, 0, 0]) {
+  text("d");
+}
+
+translate([30, 0, 0]) {
+  polygon(points = [
+    [0, 0],
+    [10, 0],
+    [10, 10]
+  ]);
+}
+
+
+
+
+
+// ===== video_summary =====
+平面を垂直に押し出して立体にすることができるlinear_extrude()について見ていきます。
+
+
+    linear_extrude()
+    height
+    scale
+    twist
+
+// ===== mymodel.scad =====
+*square([5, 10]);
+
+*linear_extrude(height = 30) {
+  square([5, 10]);
+}
+
+*linear_extrude(height = 30, scale = 0.5) {
+  square([5, 10]);
+}
+
+linear_extrude(height = 30, scale = 0.5, twist = 45) {
+  square([5, 10]);
+}
+
+
+
+
+
+// ===== video_summary =====
+平面を回転させながら押し出すことができるrotate_extrudeについて見ていきます。
+
+
+    rotate_extrude()
+
+// ===== mymodel.scad =====
+rotate_extrude() {
+  #translate([10, 0, 0]) {
+    square([5, 10]);
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+図形同士の論理演算について見ていきます。
+
+
+    intersection()
+    difference()
+
+// ===== mymodel.scad =====
+*intersection() {
+  cube([8, 2, 1], true);
+  cube([2, 8, 1], true);
+}
+
+*difference() {
+  cube([8, 2, 1], true);
+  cube([2, 8, 1], true);
+}
+
+difference() {
+  cube([2, 8, 1], true);
+  cube([8, 2, 1], true);
+}
+
+
+
+
+
+// ===== video_summary =====
+物体を明示的に合成させることができるunion()について、具体例をあげて説明していきます。
+
+
+    union()
+
+// ===== mymodel.scad =====
+difference() {
+  union() {
+    cube([8, 2, 1], true);
+    cube([2, 8, 1], true);
+  }
+  sphere(2);
+}
+
+
+
+
+
+// ===== video_summary =====
+同じような処理を繰り返したい場合に便利なfor文について説明しています。
+
+
+    for()
+
+// ===== mymodel.scad =====
+*for (n = [-20:20]) {
+  translate([n, n, 0]) {
+    cube(1);
+  }
+}
+
+*for (n = [-20:5:20]) {
+  translate([n, n, 0]) {
+    cube(1);
+  }
+}
+
+for (n = [-10, 3, 8, 15]) {
+  translate([n, n, 0]) {
+    cube(1);
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+条件分岐することができるif文について見ていきます。
+
+
+    if
+    条件演算子
+
+// ===== mymodel.scad =====
+*for (n = [-20:5:20]) {
+  translate([n, n, 0]) {
+    if (n % 10 == 0) {
+      cube(2);
+    } else {
+      cube(1);
+    }
+  }
+}
+
+for (n = [-20:5:20]) {
+  translate([n, n, 0]) {
+    cube(n % 10 == 0 ? 2 : 1);
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+複数の処理をまとめることができるmoduleについて、簡単な例を作りながらみていきます。
+
+
+    module
+    引数の設定
+
+// ===== mymodel.scad =====
+module cross(size = 2) {
+  cube([size, 1, 1], true);
+  rotate([0, 0, 90]) {
+    cube([size, 1, 1], true);
+  }
+}
+
+cross();
+translate([5, 5, 0]) cross(5);
+translate([5, -5, 0]) cross(3);
+
+
+
+
+
+
+// ===== video_summary =====
+値を渡すと計算して結果を返してくれる関数について見ていきます。
+
+
+    function
+    動作確認
+
+// ===== mymodel.scad =====
+module cross(size = 2) {
+  cube([size, 1, 1], true);
+  rotate([0, 0, 90]) {
+    cube([size, 1, 1], true);
+  }
+}
+
+function f(x) = 0.05 * x * x - 10;
+
+for (x = [-20:5:20]) {
+  translate([x, f(x), 0]) {
+    cross();
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+いままで学んだ命令を使いつつ、3Dモデルを作っていきます。
+
+
+    cylinder()
+    translate()
+
+// ===== mymodel.scad =====
+difference() {
+  cylinder(h = 3, r = 10);
+
+  translate([4, 2, 0]) {
+    cylinder(h = 3, r = 2);
+  }
+  translate([-4, 2, 0]) {
+    cylinder(h = 3, r = 2);
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+物体の論理演算を使いながら3Dモデルを完成させていきます。
+
+
+    translate()
+    difference()
+    cylinder()
+
+// ===== mymodel.scad =====
+difference() {
+  cylinder(h = 3, r = 10);
+
+  translate([4, 2, 0]) {
+    cylinder(h = 3, r = 2);
+  }
+  translate([-4, 2, 0]) {
+    cylinder(h = 3, r = 2);
+  }
+  
+  translate([0, 2, 0]) {
+    difference() {
+      #cylinder(h = 3, r = 8);
+      translate([-10, -5, 0]) {
+        #cube([20, 20, 3]);
+      }
+    }
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+作成した3DモデルをSTL形式で書き出して、3Dプリンターで出力してみます。
+
+
+    STL形式による書き出し
+    3Dプリンターによる出力
+
+// ===== mymodel.scad =====
+difference() {
+  cylinder(h = 3, r = 10);
+
+  translate([4, 2, 0]) {
+    cylinder(h = 3, r = 2);
+  }
+  translate([-4, 2, 0]) {
+    cylinder(h = 3, r = 2);
+  }
+  
+  translate([0, 2, 0]) {
+    difference() {
+      #cylinder(h = 3, r = 8);
+      translate([-10, -5, 0]) {
+        #cube([20, 20, 3]);
+      }
+    }
+  }
+}
+
+
+
+
+
+

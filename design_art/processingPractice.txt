@@ -1,0 +1,694 @@
+// ===== video_summary =====
+まずは完成版を確認したのちに必要となる知識、レッスンにおける環境について見ていきます。
+
+
+    完成版の確認
+    必要となる知識
+    レッスンにおける環境
+
+// ===== commentBox 1 =====
+補足情報
+このレッスンの作成にあたって
+
+
+
+
+2016年6月14日
+
+
+
+
+
+このレッスンを作成するにあたっては@P5Aholic（ https://twitter.com/p5aholic ）さんにお手伝いいただきました（サンプルプログラムおよびレッスンスクリプト、説明用ツールの制作）。彼のポートフォリオサイトにも美しい作品が掲載されているので興味のある方は是非覗いてみてください。
+
+・Generative Art Gallery
+http://p5aholic.me/
+
+// ===== commentBox 2 =====
+補足情報
+必要となる知識について
+
+
+
+
+2016年6月14日
+
+
+
+
+
+今回のレッスンについては以下も参考にしてみてください。
+
+・Java入門 (全23回)
+http://dotinstall.com/lessons/basic_java
+・Processing入門 (全15回)
+http://dotinstall.com/lessons/basic_processing_v2
+
+// ===== read.me =====
+Processingで美しい球体
+
+* 完成版
+
+* 知識
+
+* 環境
+- Processing
+
+
+
+
+
+
+// ===== video_summary =====
+setup()とdraw()を作成し、描画領域の設定をしていきます。
+
+
+    setup()
+    draw()
+
+// ===== /myapp/myapp.pde =====
+void setup() {
+  size(640, 360, P3D);
+  pixelDensity(displayDensity());
+}
+
+void draw() {
+  background(255);
+  translate(width/2, height/2, 0);
+}
+
+
+
+
+
+
+// ===== video_summary =====
+三角関数を説明したのちに円周上に点を描画していきます。
+
+
+    三角関数
+    点の描画
+
+// ===== /myapp/myapp.pde =====
+float radius = 150;
+
+void setup() {
+  size(640, 360, P3D);
+  pixelDensity(displayDensity());
+}
+
+void draw() {
+  background(255);
+  translate(width/2, height/2, 0);
+  rotateY(frameCount * 0.02);
+  
+  for (int dPhi = 0; dPhi < 360; dPhi += 10) {
+    float phi = radians(dPhi);
+    float x = radius * cos(phi);
+    float y = radius * sin(phi);
+    
+    stroke(0);
+    strokeWeight(4);
+    point(x, y, 0);    
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+前回の描画処理をz軸に沿って展開していきます。
+
+
+    z軸への展開
+
+// ===== /myapp/myapp.pde =====
+float radius = 150;
+
+void setup() {
+  size(640, 360, P3D);
+  pixelDensity(displayDensity());
+}
+
+void draw() {
+  background(255);
+  translate(width/2, height/2, 0);
+  rotateY(frameCount * 0.02);
+  
+  for (int dTheta = 0; dTheta <= 180; dTheta += 10) {
+    float theta = radians(dTheta);
+    
+    drawCircle(z, r);
+  }
+
+}
+
+void drawCircle(float z, float r) {
+  for (int dPhi = 0; dPhi < 360; dPhi += 10) {
+    float phi = radians(dPhi);
+    float x = r * cos(phi);
+    float y = r * sin(phi);
+    stroke(0);
+    strokeWeight(4);
+    point(x, y, z);
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+三角関数を使って球面上に点を描画していきます。
+
+
+    z座標と半径の算出
+    動作確認
+
+// ===== /myapp/myapp.pde =====
+float radius = 150;
+
+void setup() {
+  size(640, 360, P3D);
+  pixelDensity(displayDensity());
+}
+
+void draw() {
+  background(255);
+  translate(width/2, height/2, 0);
+  rotateY(frameCount * 0.02);
+
+  for (int dTheta = 0; dTheta <= 180; dTheta += 10) {
+    float theta = radians(dTheta);
+    float z = radius * cos(theta);
+    float r = radius * sin(theta);
+    drawCircle(z, r);
+  }
+}
+
+void drawCircle(float z, float r) {
+  for (int dPhi = 0; dPhi < 360; dPhi += 10) {
+    float phi = radians(dPhi);
+    float x = r * cos(phi);
+    float y = r * sin(phi);
+    stroke(0);
+    strokeWeight(4);
+    point(x, y, z);
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+前回までの処理を応用してらせん状に点を描画していきます。
+
+
+    らせんの描画
+    動作確認
+
+// ===== /myapp/myapp.pde =====
+float radius = 150;
+
+void setup() {
+  size(640, 360, P3D);
+  pixelDensity(displayDensity());
+}
+
+void draw() {
+  background(255);
+  translate(width/2, height/2, 0);
+  rotateY(frameCount * 0.02);
+  
+  for (int dTheta = 0, dPhi = 0; dTheta <= 180; dTheta++, dPhi += 10) {
+    float theta = radians(dTheta);
+    float z = radius * cos(theta);
+    float phi = radians(dPhi);
+    float x = radius * sin(theta) * cos(phi);
+    float y = radius * sin(theta) * sin(phi);
+    stroke(0);
+    strokeWeight(4);
+    point(x, y, z);
+  }
+  
+}
+
+
+
+
+
+
+// ===== video_summary =====
+らせん状に配置した点を線でつないでいきます。
+
+
+    線の描画
+
+// ===== /myapp/myapp.pde =====
+float radius = 150;
+
+void setup() {
+  size(640, 360, P3D);
+  pixelDensity(displayDensity());
+}
+
+void draw() {
+  background(255);
+  translate(width/2, height/2, 0);
+  rotateY(frameCount * 0.02);
+  
+  float lastX = 0;
+  float lastY = 0;
+  float lastZ = 0;
+  
+  for (int dTheta = 0, dPhi = 0; dTheta <= 180; dTheta++, dPhi += 10) {
+    float theta = radians(dTheta);
+    float phi = radians(dPhi);
+
+    float x = radius * sin(theta) * cos(phi);
+    float y = radius * sin(theta) * sin(phi);
+    float z = radius * cos(theta);
+    
+    stroke(0);
+    if (lastX != 0) {
+      strokeWeight(1);
+      line(lastX, lastY, lastZ, x, y, z);
+    }
+    strokeWeight(4);
+    point(x, y, z);
+    
+    lastX = x;
+    lastY = y;
+    lastZ = z;
+  }
+  
+}
+
+
+
+
+
+// ===== video_summary =====
+点を描画する間隔を増やしていくことでアニメーションに変化をつけていきます。
+
+
+    アニメーションの設定
+
+// ===== /myapp/myapp.pde =====
+float radius = 150;
+float dPhiStep = 0;
+float dPhiStepVelocity = 0.05;
+
+void setup() {
+  size(640, 360, P3D);
+  pixelDensity(displayDensity());
+}
+
+void draw() {
+  background(255);
+  translate(width/2, height/2, 0);
+  rotateY(frameCount * 0.02);
+  
+  float lastX = 0;
+  float lastY = 0;
+  float lastZ = 0;
+  
+  for (float dTheta = 0, dPhi = 0; dTheta <= 180; dTheta++, dPhi += dPhiStep) {
+    float theta = radians(dTheta);
+    float phi = radians(dPhi);
+
+    float x = radius * sin(theta) * cos(phi);
+    float y = radius * sin(theta) * sin(phi);
+    float z = radius * cos(theta);
+    
+    stroke(0);
+    if (lastX != 0) {
+      strokeWeight(1);
+      line(lastX, lastY, lastZ, x, y, z);
+    }
+    strokeWeight(8);
+    point(x, y, z);
+    
+    lastX = x;
+    lastY = y;
+    lastZ = z;
+  }
+  dPhiStep += dPhiStepVelocity;
+  
+}
+
+
+
+
+
+
+// ===== video_summary =====
+球面上のランダムな位置に点を配置していきます。
+
+
+    球面上への点の配置
+
+// ===== /myapp/myapp.pde =====
+float radius = 150;
+int num = 3000;
+float[] x = new float[num];
+float[] y = new float[num];
+float[] z = new float[num];
+
+void setup() {
+  size(640, 360, P3D);
+  pixelDensity(displayDensity());
+  
+  for (int i = 0; i < num; i++) {
+    float theta = random(PI);
+    float phi = random(TWO_PI);
+
+    x[i] = radius * sin(theta) * cos(phi);
+    y[i] = radius * sin(theta) * sin(phi);
+    z[i] = radius * cos(theta);
+  }
+}
+
+void draw() {
+  background(255);
+  translate(width/2, height/2, 0);
+  rotateY(frameCount * 0.01);
+
+  for (int i = 0; i < num; i++) {
+    stroke(0);
+    strokeWeight(3);
+    point(x[i], y[i], z[i]);
+  }
+
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+描画された点の分布にばらつきがあったのでそれを解消していきます。
+
+
+    ばらつきの解消
+    動作確認
+
+// ===== /myapp/myapp.pde =====
+float radius = 150;
+int num = 3000;
+float[] x = new float[num];
+float[] y = new float[num];
+float[] z = new float[num];
+
+void setup() {
+  size(640, 360, P3D);
+  pixelDensity(displayDensity());
+  
+  for (int i = 0; i < num; i++) {
+    float phi = random(TWO_PI);
+    float unitZ = random(-1, 1);
+
+    x[i] = radius * sqrt(1 - unitZ * unitZ) * cos(phi);
+    y[i] = radius * sqrt(1 - unitZ * unitZ) * sin(phi);
+    z[i] = radius * unitZ;
+  }
+}
+
+void draw() {
+  background(255);
+  translate(width/2, height/2, 0);
+  rotateY(frameCount * 0.01);
+
+  for (int i = 0; i < num; i++) {
+    stroke(0);
+    strokeWeight(3);
+    point(x[i], y[i], z[i]);
+  }
+
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+Pointクラスを作ってコードをすっきりと整理していきます。
+
+
+    Pointクラスの作成
+    動作確認
+
+// ===== /myapp/Point.pde =====
+class Point {
+  float x;
+  float y;
+  float z;
+  float radius;
+  
+  Point() {
+    radius = 150;
+    float phi = random(TWO_PI);
+    float unitZ = random(-1, 1);
+    x = radius * sqrt(1 - unitZ * unitZ) * cos(phi);
+    y = radius * sqrt(1 - unitZ * unitZ) * sin(phi);
+    z = radius * unitZ;
+  }
+  
+  void display() {
+    stroke(0);
+    strokeWeight(3);
+    point(x, y, z);
+  }
+
+}
+
+// ===== /myapp/myapp.pde =====
+int num = 500;
+Point[] points = new Point[num];
+
+void setup() {
+  size(640, 360, P3D);
+  pixelDensity(displayDensity());
+  
+  for (int i = 0; i < num; i++) {
+    points[i] = new Point();
+  }
+}
+
+void draw() {
+  background(255);
+  translate(width/2, height/2, 0);
+  rotateY(frameCount * 0.01);
+
+  for (int i = 0; i < num; i++) {
+    points[i].display();
+  }
+
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+ある程度の距離にある点をつないでいく方法について見ていきます。
+
+
+    距離の算出
+    線の描画
+    動作確認
+
+// ===== /myapp/myapp.pde =====
+int num = 500;
+Point[] points = new Point[num];
+
+void setup() {
+  size(640, 360, P3D);
+  pixelDensity(displayDensity());
+
+  for (int i = 0; i < num; i++) {
+    points[i] = new Point();
+  }
+}
+
+void draw() {
+  background(255);
+  translate(width/2, height/2, 0);
+  rotateY(frameCount * 0.01);
+
+  for (int i = 0; i < num; i++) {
+    points[i].display();
+  }
+
+  for (int i = 0; i < num; i++) {
+    for (int j = i + 1; j < num; j++) {
+      float d = dist(
+        points[i].x, 
+        points[i].y, 
+        points[i].z, 
+        points[j].x, 
+        points[j].y, 
+        points[j].z
+        );
+      if (d < 40) {
+        stroke((int) map(d, 0, 40, 0, 255));
+        strokeWeight(1);
+        line(
+          points[i].x, 
+          points[i].y, 
+          points[i].z, 
+          points[j].x, 
+          points[j].y, 
+          points[j].z
+          );
+      }
+    }
+  }
+}
+
+// ===== /myapp/Point.pde =====
+class Point {
+  float x;
+  float y;
+  float z;
+  float radius;
+  
+  Point() {
+    radius = 150;
+    float phi = random(TWO_PI);
+    float unitZ = random(-1, 1);
+    x = radius * sqrt(1 - unitZ * unitZ) * cos(phi);
+    y = radius * sqrt(1 - unitZ * unitZ) * sin(phi);
+    z = radius * unitZ;
+  }
+  
+  void display() {
+    stroke(0);
+    strokeWeight(3);
+    point(x, y, z);
+  }
+
+}
+
+
+
+
+
+
+// ===== video_summary =====
+一定周期ごとに点の位置を変化させて美しいアニメーションを作っていきます。
+
+
+    新しい座標の算出
+    座標の計算
+    動作確認
+
+// ===== /myapp/Point.pde =====
+class Point {
+  float x;
+  float y;
+  float z;
+  float targetX;
+  float targetY;
+  float targetZ;
+  float radius;
+  
+  Point() {
+    setTarget();
+    x = targetX;
+    y = targetY;
+    z = targetZ;
+  }
+  
+  void setTarget() {
+    if (random(2) < 1) {
+      radius = 150;
+    } else {
+      radius = 75;
+    }      
+    float phi = random(TWO_PI);
+    float unitZ = random(-1, 1);
+    targetX = radius * sqrt(1 - unitZ * unitZ) * cos(phi);
+    targetY = radius * sqrt(1 - unitZ * unitZ) * sin(phi);
+    targetZ = radius * unitZ;
+  }
+  
+  void update() {
+    if (frameCount % 120 == 0) {
+      setTarget();
+    }
+    x += (targetX - x) * 0.05;
+    y += (targetY - y) * 0.05;
+    z += (targetZ - z) * 0.05;
+  }
+  
+  void display() {
+    stroke(0);
+    strokeWeight(3);
+    point(x, y, z);
+  }
+
+}
+
+// ===== /myapp/myapp.pde =====
+int num = 500;
+Point[] points = new Point[num];
+
+void setup() {
+  size(640, 360, P3D);
+  pixelDensity(displayDensity());
+
+  for (int i = 0; i < num; i++) {
+    points[i] = new Point();
+  }
+}
+
+void draw() {
+  background(255);
+  translate(width/2, height/2, 0);
+  rotateY(frameCount * 0.01);
+
+  for (int i = 0; i < num; i++) {
+    points[i].update();
+    points[i].display();
+  }
+
+  for (int i = 0; i < num; i++) {
+    for (int j = i + 1; j < num; j++) {
+      float d = dist(
+        points[i].x, 
+        points[i].y, 
+        points[i].z, 
+        points[j].x, 
+        points[j].y, 
+        points[j].z
+        );
+      if (d < 40) {
+        stroke((int) map(d, 0, 40, 0, 255));
+        strokeWeight(1);
+        line(
+          points[i].x, 
+          points[i].y, 
+          points[i].z, 
+          points[j].x, 
+          points[j].y, 
+          points[j].z
+          );
+      }
+    }
+  }
+}
+
+
+
+
+
+

@@ -1,0 +1,2669 @@
+// ===== video_summary =====
+完成版を確認したのちにプロジェクトを作成していきます。
+
+完成版の確認
+プロジェクトの作成
+
+// ===== commentBox 1 =====
+補足情報 プロジェクト作成時のUser Interfaceについて
+2020年1月17日
+
+最新版のXcodeではプロジェクト作成時にUser Interfaceを選べるようになっておりますが、レッスンと同じようにすすめるには「SwiftUI」ではなくて、「Storyboard」を選ぶようにしてください。
+
+// ===== commentBox 2 =====
+補足情報 必要となる知識について
+2017年6月8日
+
+今回のレッスンについては以下も参考にしてみてください。
+
+・iPhoneアプリ開発入門 (全13回)
+http://dotinstall.com/lessons/basic_iphoneapp_v3
+・iOSレイアウト入門 (全14回)
+http://dotinstall.com/lessons/basic_ios_layout_v2
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+TableViewを設置し、処理を書くためのクラスを作成していきます。
+
+
+    TableViewの設置
+    クラスの作成
+
+// ===== /MyMemoApp/MyMemoApp/MemoTableViewController.swift =====
+//
+//  MemoTableViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoTableViewController: UITableViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 0
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return 0
+    }
+
+    /*
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+
+        // Configure the cell...
+
+        return cell
+    }
+    */
+
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    /*
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }    
+    }
+    */
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+
+
+
+
+// ===== video_summary =====
+TableViewを動作させるためのメソッドを実装していきます。
+
+
+    TableViewの実装
+    動作確認
+
+// ===== /MyMemoApp/MyMemoApp/MemoTableViewController.swift =====
+//
+//  MemoTableViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoTableViewController: UITableViewController {
+    
+    var memos = ["blue", "red", "pink"]
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return self.memos.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemoTableViewCell", for: indexPath)
+
+        // Configure the cell...
+        cell.textLabel?.text = self.memos[indexPath.row]
+
+        return cell
+    }
+
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    /*
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }    
+    }
+    */
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+
+
+
+
+// ===== video_summary =====
+複数のセクションに分けてデータを表示していく方法について見ていきます。
+
+
+    データの準備
+    セクションの設定
+    セクションヘッダーの表示
+
+// ===== /MyMemoApp/MyMemoApp/MemoTableViewController.swift =====
+//
+//  MemoTableViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoTableViewController: UITableViewController {
+    
+    var memos = [
+        ["blue", "red", "pink"],
+        ["taguchi", "fkoji"]
+    ]
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return self.memos.count
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return self.memos[section].count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemoTableViewCell", for: indexPath)
+
+        // Configure the cell...
+        cell.textLabel?.text = self.memos[indexPath.section][indexPath.row]
+
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "section-\(section)"
+    }
+
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    /*
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }    
+    }
+    */
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+
+
+
+
+// ===== video_summary =====
+一行にタイトルと詳細を表示するようなレイアウトを実現していきます。
+
+
+    データの準備
+    タイトルと詳細の表示
+
+// ===== /MyMemoApp/MyMemoApp/MemoTableViewController.swift =====
+//
+//  MemoTableViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoTableViewController: UITableViewController {
+    
+    var memos = [
+        ["title": "t1", "detail": "d1"],
+        ["title": "t2", "detail": "d2"],
+        ["title": "t3", "detail": "d3"]
+    ]
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return self.memos.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemoTableViewCell", for: indexPath)
+
+        // Configure the cell...
+        cell.textLabel?.text = self.memos[indexPath.row]["title"]
+        cell.detailTextLabel?.text = self.memos[indexPath.row]["detail"]
+
+        return cell
+    }
+    
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    /*
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }    
+    }
+    */
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+
+
+
+
+// ===== video_summary =====
+一行メモアプリをつくる準備をしていきます。まずはメモ追加画面へのセグエを設定し、処理を書くためのクラスを作成します。
+
+
+    データの準備
+    セグエの設定
+    クラスの作成
+
+// ===== commentBox 1 =====
+補足情報
+NavigationController を追加した後にタイトルをダブルクリックで入力できない場合
+
+
+
+
+2018年2月6日
+
+
+
+
+
+NavigationController を追加した後にタイトルをダブルクリックで入力していますが、 Xcode 9 ではこの操作はできなくなっています。
+
+シングルクリックすると右側の Attribute inspector にタイトル入力欄が表示されますので、そちらに入力するようにしてみてください。
+
+一度タイトルを入力すれば、以降はダブルクリックで編集できるようになります。
+
+// ===== /MyMemoApp/MyMemoApp/MemoTableViewController.swift =====
+//
+//  MemoTableViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoTableViewController: UITableViewController {
+    
+    var memos = ["blue", "red", "pink"]
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return self.memos.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemoTableViewCell", for: indexPath)
+
+        // Configure the cell...
+        cell.textLabel?.text = self.memos[indexPath.row]
+
+        return cell
+    }
+    
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    /*
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }    
+    }
+    */
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+// ===== /MyMemoApp/MyMemoApp/MemoViewController.swift =====
+//
+//  MemoViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/07.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+
+
+
+
+// ===== video_summary =====
+メモを追加する画面の部品を設置していきます。
+
+
+    Navigation Controllerの埋め込み
+    部品の配置
+    変数の設定
+
+// ===== /MyMemoApp/MyMemoApp/MemoViewController.swift =====
+//
+//  MemoViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoViewController: UIViewController {
+
+    var memo: String?
+    
+    @IBOutlet weak var memoTextField: UITextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+    }
+
+}
+
+// ===== /MyMemoApp/MyMemoApp/MemoTableViewController.swift =====
+//
+//  MemoTableViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoTableViewController: UITableViewController {
+    
+    var memos = ["blue", "red", "pink"]
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return self.memos.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemoTableViewCell", for: indexPath)
+
+        // Configure the cell...
+        cell.textLabel?.text = self.memos[indexPath.row]
+
+        return cell
+    }
+    
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    /*
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }    
+    }
+    */
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+
+
+
+
+// ===== video_summary =====
+prepareメソッドを使ってTableViewに値を渡す準備をしていきます。
+
+
+    prepareメソッドの実装
+
+// ===== /MyMemoApp/MyMemoApp/MemoViewController.swift =====
+//
+//  MemoViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoViewController: UIViewController {
+
+    var memo: String?
+    
+    @IBOutlet weak var memoTextField: UITextField!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let button = sender as? UIBarButtonItem, button === self.saveButton else {
+            return
+        }
+        self.memo = self.memoTextField.text ?? ""
+    }
+
+}
+
+// ===== /MyMemoApp/MyMemoApp/MemoTableViewController.swift =====
+//
+//  MemoTableViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoTableViewController: UITableViewController {
+    
+    var memos = ["blue", "red", "pink"]
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return self.memos.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemoTableViewCell", for: indexPath)
+
+        // Configure the cell...
+        cell.textLabel?.text = self.memos[indexPath.row]
+
+        return cell
+    }
+    
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    /*
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }    
+    }
+    */
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+
+
+
+
+// ===== video_summary =====
+セグエが巻き戻されたときに実行されるメソッドを実装し、TableViewに値を渡してメモを保存していきます。
+
+
+    unwindToMemoListの実装
+    動作確認
+
+// ===== /MyMemoApp/MyMemoApp/MemoTableViewController.swift =====
+//
+//  MemoTableViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoTableViewController: UITableViewController {
+    
+    var memos = ["blue", "red", "pink"]
+    
+    @IBAction func unwindToMemoList(sender: UIStoryboardSegue) {
+        guard let sourceVC = sender.source as? MemoViewController, let memo = sourceVC.memo else {
+            return
+        }
+        self.memos.append(memo)
+        self.tableView.reloadData()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return self.memos.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemoTableViewCell", for: indexPath)
+
+        // Configure the cell...
+        cell.textLabel?.text = self.memos[indexPath.row]
+
+        return cell
+    }
+    
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    /*
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }    
+    }
+    */
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+// ===== /MyMemoApp/MyMemoApp/MemoViewController.swift =====
+//
+//  MemoViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoViewController: UIViewController {
+
+    var memo: String?
+    
+    @IBOutlet weak var memoTextField: UITextField!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let button = sender as? UIBarButtonItem, button === self.saveButton else {
+            return
+        }
+        self.memo = self.memoTextField.text ?? ""
+    }
+
+}
+
+
+
+
+
+// ===== video_summary =====
+TextFieldに文字が入力されていなかったらSaveボタンが無効になるように設定していきます。
+
+
+    Saveボタンの有効/無効化
+    Cancelボタンの実装
+
+// ===== /MyMemoApp/MyMemoApp/MemoViewController.swift =====
+//
+//  MemoViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoViewController: UIViewController {
+
+    var memo: String?
+    
+    @IBOutlet weak var memoTextField: UITextField!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        self.saveButton.isEnabled = false
+    }
+
+    @IBAction func memoTextFieldChanged(_ sender: Any) {
+        let memo = self.memoTextField.text ?? ""
+        self.saveButton.isEnabled = !memo.isEmpty
+    }
+    
+    @IBAction func cancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let button = sender as? UIBarButtonItem, button === self.saveButton else {
+            return
+        }
+        self.memo = self.memoTextField.text ?? ""
+    }
+
+}
+
+// ===== /MyMemoApp/MyMemoApp/MemoTableViewController.swift =====
+//
+//  MemoTableViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoTableViewController: UITableViewController {
+    
+    var memos = ["blue", "red", "pink"]
+    
+    @IBAction func unwindToMemoList(sender: UIStoryboardSegue) {
+        guard let sourceVC = sender.source as? MemoViewController, let memo = sourceVC.memo else {
+            return
+        }
+        self.memos.append(memo)
+        self.tableView.reloadData()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return self.memos.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemoTableViewCell", for: indexPath)
+
+        // Configure the cell...
+        cell.textLabel?.text = self.memos[indexPath.row]
+
+        return cell
+    }
+    
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    /*
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }    
+    }
+    */
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+
+
+
+
+
+// ===== video_summary =====
+スワイプしてメモが削除できるように実装していきます。
+
+
+    削除処理の実装
+
+// ===== /MyMemoApp/MyMemoApp/MemoTableViewController.swift =====
+//
+//  MemoTableViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoTableViewController: UITableViewController {
+    
+    var memos = ["blue", "red", "pink"]
+    
+    @IBAction func unwindToMemoList(sender: UIStoryboardSegue) {
+        guard let sourceVC = sender.source as? MemoViewController, let memo = sourceVC.memo else {
+            return
+        }
+        self.memos.append(memo)
+        self.tableView.reloadData()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return self.memos.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemoTableViewCell", for: indexPath)
+
+        // Configure the cell...
+        cell.textLabel?.text = self.memos[indexPath.row]
+
+        return cell
+    }
+    
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            self.memos.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }    
+    }
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+// ===== /MyMemoApp/MyMemoApp/MemoViewController.swift =====
+//
+//  MemoViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoViewController: UIViewController {
+
+    var memo: String?
+    
+    @IBOutlet weak var memoTextField: UITextField!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        self.saveButton.isEnabled = false
+    }
+
+    @IBAction func memoTextFieldChanged(_ sender: Any) {
+        let memo = self.memoTextField.text ?? ""
+        self.saveButton.isEnabled = !memo.isEmpty
+    }
+    
+    @IBAction func cancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let button = sender as? UIBarButtonItem, button === self.saveButton else {
+            return
+        }
+        self.memo = self.memoTextField.text ?? ""
+    }
+
+}
+
+
+
+
+
+// ===== video_summary =====
+セルをタップすると編集画面に遷移するように設定していきます。
+
+
+    セグエの設定
+
+// ===== /MyMemoApp/MyMemoApp/MemoTableViewController.swift =====
+//
+//  MemoTableViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoTableViewController: UITableViewController {
+    
+    var memos = ["blue", "red", "pink"]
+    
+    @IBAction func unwindToMemoList(sender: UIStoryboardSegue) {
+        guard let sourceVC = sender.source as? MemoViewController, let memo = sourceVC.memo else {
+            return
+        }
+        self.memos.append(memo)
+        self.tableView.reloadData()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return self.memos.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemoTableViewCell", for: indexPath)
+
+        // Configure the cell...
+        cell.textLabel?.text = self.memos[indexPath.row]
+
+        return cell
+    }
+    
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            self.memos.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }    
+    }
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+// ===== /MyMemoApp/MyMemoApp/MemoViewController.swift =====
+//
+//  MemoViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoViewController: UIViewController {
+
+    var memo: String?
+    
+    @IBOutlet weak var memoTextField: UITextField!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        self.saveButton.isEnabled = false
+    }
+
+    @IBAction func memoTextFieldChanged(_ sender: Any) {
+        let memo = self.memoTextField.text ?? ""
+        self.saveButton.isEnabled = !memo.isEmpty
+    }
+    
+    @IBAction func cancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let button = sender as? UIBarButtonItem, button === self.saveButton else {
+            return
+        }
+        self.memo = self.memoTextField.text ?? ""
+    }
+
+}
+
+
+
+
+
+// ===== video_summary =====
+prepareメソッドを実装してメモのデータを遷移先の変数にセットしていきます。
+
+
+    prepareメソッドの実装
+    動作確認
+
+// ===== /MyMemoApp/MyMemoApp/MemoTableViewController.swift =====
+//
+//  MemoTableViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoTableViewController: UITableViewController {
+    
+    var memos = ["blue", "red", "pink"]
+    
+    @IBAction func unwindToMemoList(sender: UIStoryboardSegue) {
+        guard let sourceVC = sender.source as? MemoViewController, let memo = sourceVC.memo else {
+            return
+        }
+        self.memos.append(memo)
+        self.tableView.reloadData()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return self.memos.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemoTableViewCell", for: indexPath)
+
+        // Configure the cell...
+        cell.textLabel?.text = self.memos[indexPath.row]
+
+        return cell
+    }
+    
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            self.memos.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }    
+    }
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        guard let identifier = segue.identifier else {
+            return
+        }
+        if identifier == "editMemo" {
+            let memoVC = segue.destination as! MemoViewController
+            memoVC.memo = self.memos[(self.tableView.indexPathForSelectedRow?.row)!]
+        }
+    }
+
+}
+
+// ===== /MyMemoApp/MyMemoApp/MemoViewController.swift =====
+//
+//  MemoViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoViewController: UIViewController {
+
+    var memo: String?
+    
+    @IBOutlet weak var memoTextField: UITextField!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        self.saveButton.isEnabled = false
+        if let memo = self.memo {
+            self.memoTextField.text = memo
+        }
+    }
+
+    @IBAction func memoTextFieldChanged(_ sender: Any) {
+        let memo = self.memoTextField.text ?? ""
+        self.saveButton.isEnabled = !memo.isEmpty
+    }
+    
+    @IBAction func cancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let button = sender as? UIBarButtonItem, button === self.saveButton else {
+            return
+        }
+        self.memo = self.memoTextField.text ?? ""
+    }
+
+}
+
+
+
+
+
+// ===== video_summary =====
+編集画面でSaveボタンとタイトルの挙動がおかしいので修正していきます。
+
+
+    タイトルの設定
+    Saveボタンの修正
+
+// ===== /MyMemoApp/MyMemoApp/MemoViewController.swift =====
+//
+//  MemoViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoViewController: UIViewController {
+
+    var memo: String?
+    
+    @IBOutlet weak var memoTextField: UITextField!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+//        self.saveButton.isEnabled = false
+        if let memo = self.memo {
+            self.memoTextField.text = memo
+            self.navigationItem.title = "Edit Memo"
+        }
+        self.updateSaveButtonState()
+    }
+    
+    private func updateSaveButtonState() {
+        let memo = self.memoTextField.text ?? ""
+        self.saveButton.isEnabled = !memo.isEmpty
+    }
+
+    @IBAction func memoTextFieldChanged(_ sender: Any) {
+        self.updateSaveButtonState()
+    }
+    
+    @IBAction func cancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let button = sender as? UIBarButtonItem, button === self.saveButton else {
+            return
+        }
+        self.memo = self.memoTextField.text ?? ""
+    }
+
+}
+
+// ===== /MyMemoApp/MyMemoApp/MemoTableViewController.swift =====
+//
+//  MemoTableViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoTableViewController: UITableViewController {
+    
+    var memos = ["blue", "red", "pink"]
+    
+    @IBAction func unwindToMemoList(sender: UIStoryboardSegue) {
+        guard let sourceVC = sender.source as? MemoViewController, let memo = sourceVC.memo else {
+            return
+        }
+        self.memos.append(memo)
+        self.tableView.reloadData()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return self.memos.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemoTableViewCell", for: indexPath)
+
+        // Configure the cell...
+        cell.textLabel?.text = self.memos[indexPath.row]
+
+        return cell
+    }
+    
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            self.memos.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }    
+    }
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        guard let identifier = segue.identifier else {
+            return
+        }
+        if identifier == "editMemo" {
+            let memoVC = segue.destination as! MemoViewController
+            memoVC.memo = self.memos[(self.tableView.indexPathForSelectedRow?.row)!]
+        }
+    }
+
+}
+
+
+
+
+
+// ===== video_summary =====
+編集画面でキャンセルボタンを押したときの処理を実装していきます。
+
+
+    条件分岐
+    動作確認
+
+// ===== /MyMemoApp/MyMemoApp/MemoViewController.swift =====
+//
+//  MemoViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoViewController: UIViewController {
+
+    var memo: String?
+    
+    @IBOutlet weak var memoTextField: UITextField!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+//        self.saveButton.isEnabled = false
+        if let memo = self.memo {
+            self.memoTextField.text = memo
+            self.navigationItem.title = "Edit Memo"
+        }
+        self.updateSaveButtonState()
+    }
+    
+    private func updateSaveButtonState() {
+        let memo = self.memoTextField.text ?? ""
+        self.saveButton.isEnabled = !memo.isEmpty
+    }
+
+    @IBAction func memoTextFieldChanged(_ sender: Any) {
+        self.updateSaveButtonState()
+    }
+    
+    @IBAction func cancel(_ sender: Any) {
+        if self.presentingViewController is UINavigationController {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let button = sender as? UIBarButtonItem, button === self.saveButton else {
+            return
+        }
+        self.memo = self.memoTextField.text ?? ""
+    }
+
+}
+
+// ===== /MyMemoApp/MyMemoApp/MemoTableViewController.swift =====
+//
+//  MemoTableViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoTableViewController: UITableViewController {
+    
+    var memos = ["blue", "red", "pink"]
+    
+    @IBAction func unwindToMemoList(sender: UIStoryboardSegue) {
+        guard let sourceVC = sender.source as? MemoViewController, let memo = sourceVC.memo else {
+            return
+        }
+        self.memos.append(memo)
+        self.tableView.reloadData()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return self.memos.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemoTableViewCell", for: indexPath)
+
+        // Configure the cell...
+        cell.textLabel?.text = self.memos[indexPath.row]
+
+        return cell
+    }
+    
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            self.memos.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }    
+    }
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        guard let identifier = segue.identifier else {
+            return
+        }
+        if identifier == "editMemo" {
+            let memoVC = segue.destination as! MemoViewController
+            memoVC.memo = self.memos[(self.tableView.indexPathForSelectedRow?.row)!]
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+セルをタップして編集した時はSaveボタンでメモデータが更新されるようにしていきます。
+
+
+    メモの更新処理
+
+// ===== /MyMemoApp/MyMemoApp/MemoTableViewController.swift =====
+//
+//  MemoTableViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoTableViewController: UITableViewController {
+    
+    var memos = ["blue", "red", "pink"]
+    
+    @IBAction func unwindToMemoList(sender: UIStoryboardSegue) {
+        guard let sourceVC = sender.source as? MemoViewController, let memo = sourceVC.memo else {
+            return
+        }
+        if let selectedIndexPath = self.tableView.indexPathForSelectedRow {
+            self.memos[selectedIndexPath.row] = memo
+        } else {
+            self.memos.append(memo)
+        }
+        self.tableView.reloadData()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return self.memos.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemoTableViewCell", for: indexPath)
+
+        // Configure the cell...
+        cell.textLabel?.text = self.memos[indexPath.row]
+
+        return cell
+    }
+    
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            self.memos.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }    
+    }
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        guard let identifier = segue.identifier else {
+            return
+        }
+        if identifier == "editMemo" {
+            let memoVC = segue.destination as! MemoViewController
+            memoVC.memo = self.memos[(self.tableView.indexPathForSelectedRow?.row)!]
+        }
+    }
+
+}
+
+// ===== /MyMemoApp/MyMemoApp/MemoViewController.swift =====
+//
+//  MemoViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoViewController: UIViewController {
+
+    var memo: String?
+    
+    @IBOutlet weak var memoTextField: UITextField!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+//        self.saveButton.isEnabled = false
+        if let memo = self.memo {
+            self.memoTextField.text = memo
+            self.navigationItem.title = "Edit Memo"
+        }
+        self.updateSaveButtonState()
+    }
+    
+    private func updateSaveButtonState() {
+        let memo = self.memoTextField.text ?? ""
+        self.saveButton.isEnabled = !memo.isEmpty
+    }
+
+    @IBAction func memoTextFieldChanged(_ sender: Any) {
+        self.updateSaveButtonState()
+    }
+    
+    @IBAction func cancel(_ sender: Any) {
+        if self.presentingViewController is UINavigationController {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let button = sender as? UIBarButtonItem, button === self.saveButton else {
+            return
+        }
+        self.memo = self.memoTextField.text ?? ""
+    }
+
+}
+
+
+
+
+
+// ===== video_summary =====
+アプリを終了してもデータを保持できるように、UserDefaultsの使い方について見ていきます。
+
+
+    UserDefaultsの設定
+
+// ===== /MyMemoApp/MyMemoApp/MemoTableViewController.swift =====
+//
+//  MemoTableViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoTableViewController: UITableViewController {
+    
+    // UserDefaults
+    let userDefaults = UserDefaults.standard
+    
+//    var memos = ["blue", "red", "pink"]
+    var memos = [String]()
+    
+    @IBAction func unwindToMemoList(sender: UIStoryboardSegue) {
+        guard let sourceVC = sender.source as? MemoViewController, let memo = sourceVC.memo else {
+            return
+        }
+        if let selectedIndexPath = self.tableView.indexPathForSelectedRow {
+            self.memos[selectedIndexPath.row] = memo
+        } else {
+            self.memos.append(memo)
+        }
+        self.tableView.reloadData()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if self.userDefaults.object(forKey: "memos") != nil {
+            self.memos = self.userDefaults.stringArray(forKey: "memos")!
+        } else {
+            self.memos = ["memo1", "memo2", "memo3"]
+        }
+        
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return self.memos.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemoTableViewCell", for: indexPath)
+
+        // Configure the cell...
+        cell.textLabel?.text = self.memos[indexPath.row]
+
+        return cell
+    }
+    
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            self.memos.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }    
+    }
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        guard let identifier = segue.identifier else {
+            return
+        }
+        if identifier == "editMemo" {
+            let memoVC = segue.destination as! MemoViewController
+            memoVC.memo = self.memos[(self.tableView.indexPathForSelectedRow?.row)!]
+        }
+    }
+
+}
+
+// ===== /MyMemoApp/MyMemoApp/MemoViewController.swift =====
+//
+//  MemoViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoViewController: UIViewController {
+
+    var memo: String?
+    
+    @IBOutlet weak var memoTextField: UITextField!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+//        self.saveButton.isEnabled = false
+        if let memo = self.memo {
+            self.memoTextField.text = memo
+            self.navigationItem.title = "Edit Memo"
+        }
+        self.updateSaveButtonState()
+    }
+    
+    private func updateSaveButtonState() {
+        let memo = self.memoTextField.text ?? ""
+        self.saveButton.isEnabled = !memo.isEmpty
+    }
+
+    @IBAction func memoTextFieldChanged(_ sender: Any) {
+        self.updateSaveButtonState()
+    }
+    
+    @IBAction func cancel(_ sender: Any) {
+        if self.presentingViewController is UINavigationController {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let button = sender as? UIBarButtonItem, button === self.saveButton else {
+            return
+        }
+        self.memo = self.memoTextField.text ?? ""
+    }
+
+}
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+UserDefaultsにデータを保存してデータの永続化を実現していきます。
+
+
+    データの永続化
+    動作確認
+
+// ===== /MyMemoApp/MyMemoApp/MemoTableViewController.swift =====
+//
+//  MemoTableViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoTableViewController: UITableViewController {
+    
+    // UserDefaults
+    let userDefaults = UserDefaults.standard
+    
+//    var memos = ["blue", "red", "pink"]
+    var memos = [String]()
+    
+    @IBAction func unwindToMemoList(sender: UIStoryboardSegue) {
+        guard let sourceVC = sender.source as? MemoViewController, let memo = sourceVC.memo else {
+            return
+        }
+        if let selectedIndexPath = self.tableView.indexPathForSelectedRow {
+            self.memos[selectedIndexPath.row] = memo
+        } else {
+            self.memos.append(memo)
+        }
+        self.userDefaults.set(self.memos, forKey: "memos")
+        self.tableView.reloadData()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if self.userDefaults.object(forKey: "memos") != nil {
+            self.memos = self.userDefaults.stringArray(forKey: "memos")!
+        } else {
+            self.memos = ["memo1", "memo2", "memo3"]
+        }
+        
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return self.memos.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemoTableViewCell", for: indexPath)
+
+        // Configure the cell...
+        cell.textLabel?.text = self.memos[indexPath.row]
+
+        return cell
+    }
+    
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            self.memos.remove(at: indexPath.row)
+            self.userDefaults.set(self.memos, forKey: "memos")
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }    
+    }
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        guard let identifier = segue.identifier else {
+            return
+        }
+        if identifier == "editMemo" {
+            let memoVC = segue.destination as! MemoViewController
+            memoVC.memo = self.memos[(self.tableView.indexPathForSelectedRow?.row)!]
+        }
+    }
+
+}
+
+// ===== /MyMemoApp/MyMemoApp/MemoViewController.swift =====
+//
+//  MemoViewController.swift
+//  MyMemoApp
+//
+//  Created by Gen Taguchi on 2017/06/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class MemoViewController: UIViewController {
+
+    var memo: String?
+    
+    @IBOutlet weak var memoTextField: UITextField!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+//        self.saveButton.isEnabled = false
+        if let memo = self.memo {
+            self.memoTextField.text = memo
+            self.navigationItem.title = "Edit Memo"
+        }
+        self.updateSaveButtonState()
+    }
+    
+    private func updateSaveButtonState() {
+        let memo = self.memoTextField.text ?? ""
+        self.saveButton.isEnabled = !memo.isEmpty
+    }
+
+    @IBAction func memoTextFieldChanged(_ sender: Any) {
+        self.updateSaveButtonState()
+    }
+    
+    @IBAction func cancel(_ sender: Any) {
+        if self.presentingViewController is UINavigationController {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let button = sender as? UIBarButtonItem, button === self.saveButton else {
+            return
+        }
+        self.memo = self.memoTextField.text ?? ""
+    }
+
+}
+
+
+
+
+

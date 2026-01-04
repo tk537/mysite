@@ -1,0 +1,326 @@
+// ===== video_summary =====
+まずは完成版について説明したのちに、必要となる知識、レッスンにおける環境について説明していきます。
+
+
+    完成版の確認
+    必要となる知識
+    レッスンのおける環境
+    プロジェクトの作成
+
+// ===== commentBox 1 =====
+補足情報
+プロジェクト作成時のUser Interfaceについて
+
+
+
+
+2020年1月17日
+
+
+
+
+
+最新版のXcodeではプロジェクト作成時にUser Interfaceを選べるようになっておりますが、レッスンと同じようにすすめるには「SwiftUI」ではなくて、「Storyboard」を選ぶようにしてください。
+
+// ===== commentBox 2 =====
+補足情報
+必要となる知識について
+
+
+
+
+2017年2月1日
+
+
+
+
+
+今回のレッスンについては以下も参考にしてみてください。
+
+・iPhoneアプリ開発入門 (全13回)
+http://dotinstall.com/lessons/basic_iphoneapp_v3
+・iOSレイアウト入門 (全14回)
+http://dotinstall.com/lessons/basic_ios_layout_v2
+・Swift 3入門 (全36回)
+http://dotinstall.com/lessons/basic_swift_v2
+
+// ===== read.me =====
+iOS おみくじ
+
+# 完成版
+
+# 知識
+
+# 環境
+- Xcode 8.1 / Swift 3
+
+// ===== /MyOmikujiApp/MyOmikujiApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyOmikujiApp
+//
+//  Created by Gen Taguchi on 2016/12/28.
+//  Copyright © 2016年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+画面に部品を配置して制約をつけていきます。
+
+
+    部品の配置
+    制約の設定
+    プレビューでの確認
+
+// ===== /MyOmikujiApp/MyOmikujiApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyOmikujiApp
+//
+//  Created by Gen Taguchi on 2016/12/28.
+//  Copyright © 2016年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+配置した部品をコードに接続していく方法について見ていきます。
+
+
+    部品の接続
+
+// ===== /MyOmikujiApp/MyOmikujiApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyOmikujiApp
+//
+//  Created by Gen Taguchi on 2016/12/28.
+//  Copyright © 2016年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    @IBOutlet weak var myLabel: UILabel!
+    @IBAction func getOmikuji(_ sender: Any) {
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+まずは乱数を生成してラベルに表示してみます。
+
+
+    乱数の生成
+    ラベルへの割当
+    動作確認
+
+// ===== /MyOmikujiApp/MyOmikujiApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyOmikujiApp
+//
+//  Created by Gen Taguchi on 2016/12/28.
+//  Copyright © 2016年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    @IBOutlet weak var myLabel: UILabel!
+    @IBAction func getOmikuji(_ sender: Any) {
+        // 0 - n
+        // arc4random_uniform(n + 1)
+        let random = arc4random_uniform(10)
+        
+        self.myLabel.text = String(random)
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+
+
+
+
+
+
+// ===== video_summary =====
+前回の乱数と配列を使っておみくじを動作させてみます。
+
+
+    配列の準備
+    おみくじの表示
+    動作確認
+
+// ===== /MyOmikujiApp/MyOmikujiApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyOmikujiApp
+//
+//  Created by Gen Taguchi on 2016/12/28.
+//  Copyright © 2016年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    @IBOutlet weak var myLabel: UILabel!
+    @IBAction func getOmikuji(_ sender: Any) {
+        // 0 - n
+        // arc4random_uniform(n + 1)
+        let results = ["大吉", "吉", "中吉", "凶", "大凶"]
+//        let random = arc4random_uniform(3)
+        let random = arc4random_uniform(UInt32(results.count))
+    
+//        self.myLabel.text = String(random)
+        self.myLabel.text = results[Int(random)]
+        
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+
+
+
+
+
+
+// ===== video_summary =====
+Viewが表示されたあとに見た目を整えていく方法について見ていきます。
+
+
+    枠線の設定
+    角丸の設定
+    マスクの設定
+    動作確認
+
+// ===== /MyOmikujiApp/MyOmikujiApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyOmikujiApp
+//
+//  Created by Gen Taguchi on 2016/12/28.
+//  Copyright © 2016年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    @IBOutlet weak var myLabel: UILabel!
+    @IBAction func getOmikuji(_ sender: Any) {
+        // 0 - n
+        // arc4random_uniform(n + 1)
+        let results = ["大吉", "吉", "中吉", "凶", "大凶"]
+//        let random = arc4random_uniform(3)
+        let random = arc4random_uniform(UInt32(results.count))
+    
+//        self.myLabel.text = String(random)
+        self.myLabel.text = results[Int(random)]
+        
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+//        myLabel.layer.borderColor = UIColor.orange.cgColor
+//        myLabel.layer.borderWidth = 5
+//        myLabel.layer.cornerRadius = 50
+        myLabel.layer.masksToBounds = true
+        myLabel.layer.cornerRadius = myLabel.bounds.width / 2
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+
+
+
+
+
+

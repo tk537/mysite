@@ -1,0 +1,960 @@
+// ===== video_summary =====
+Google Mapsの公式サイトを確認したのちに、雛形ファイルを作っていきます。
+
+
+    公式サイトの確認
+    雛形ファイルの作成
+
+// ===== commentBox 1 =====
+補足情報
+必要となる知識について
+
+
+
+
+2017年12月22日
+
+
+
+
+
+今回のレッスンについては以下も参考にしてみてください。
+
+・JavaScript入門 (全24回)
+https://dotinstall.com/lessons/basic_javascript_v2
+
+// ===== /MyMap/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Map</title>
+</head>
+<body>
+</body>
+</html>
+
+
+
+
+// ===== video_summary =====
+Google Map API を読み込んだのちに、マップを描画する準備をしていきます。
+
+
+    Google Map APIの読み込み
+    initMap()の作成
+
+// ===== /MyMap/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Map</title>
+  <style>
+    #target {
+      width: 550px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div id="target"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=API_KEY&callback=initMap" async 
+defer></script>
+  <script>
+    function initMap() {
+      'use strict';
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+Google Maps APIの利用制限を緩和するためのAPIキーを取得していきます。
+
+
+    APIキーの取得
+    キーの制限について
+
+// ===== /MyMap/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Map</title>
+  <style>
+    #target {
+      width: 550px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div id="target"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=API_KEY&callback=initMap" async 
+defer></script>
+  <script>
+    function initMap() {
+      'use strict';
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+東京駅を中心としたマップを描画する方法をみていきます。
+
+
+    マップの描画
+    ズームレベルについて
+
+// ===== commentBox 1 =====
+補足情報
+「このページでは Google マップが正しく読み込まれませんでした。」と表示される場合
+
+
+
+
+2019年8月27日
+
+
+
+
+
+現在の Google Maps API は無料の範囲で使用する場合にも請求先アカウントの設定が必要となります。
+「このページでは Google マップが正しく読み込まれませんでした。」と表示される場合には、API Console で作成したプロジェクトに対して請求先アカウントを関連付けるようにしてみてください。
+
+// ===== /MyMap/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Map</title>
+  <style>
+    #target {
+      width: 550px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div id="target"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key
+=***************************************&callback=initMap" async defer></script>
+  <script>
+    function initMap() {
+      'use strict';
+
+      var target = document.getElementById('target');
+      var map;
+      var tokyo = {lat: 35.681167, lng: 139.767052};
+
+      map = new google.maps.Map(target, {
+        center: tokyo,
+        // zoom: 0
+        // zoom: 6
+        zoom: 15
+      });
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+マップを描画する際に指定できるオプションについて見ていきます。
+
+
+    公式ドキュメントの確認
+    描画オプションについて
+
+// ===== /MyMap/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Map</title>
+  <style>
+    #target {
+      width: 550px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div id="target"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key
+=***************************************&callback=initMap" async defer></script>
+  <script>
+    function initMap() {
+      'use strict';
+
+      var target = document.getElementById('target');
+      var map;
+      var tokyo = {lat: 35.681167, lng: 139.767052};
+
+      map = new google.maps.Map(target, {
+        center: tokyo,
+        zoom: 15,
+        disableDefaultUI: true,
+        zoomControl: true,
+        // mapTypeId: 'satellite'
+        mapTypeId: 'hybrid',
+        clickableIcons: false
+      });
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+マップにイベントを設定し、クリックした場所の緯度経度を使って地図の中心を移動させてみます。
+
+
+    クリックイベントの設定
+    setCenter() / panTo()
+
+// ===== /MyMap/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Map</title>
+  <style>
+    #target {
+      width: 550px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div id="target"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key
+=***************************************&callback=initMap" async defer></script>
+  <script>
+    function initMap() {
+      'use strict';
+
+      var target = document.getElementById('target');
+      var map;
+      var tokyo = {lat: 35.681167, lng: 139.767052};
+
+      map = new google.maps.Map(target, {
+        center: tokyo,
+        zoom: 15
+      });
+
+      map.addListener('click', function(e) {
+        console.log(e.latLng.lat());
+        console.log(e.latLng.lng());
+        console.log(e.latLng.toString());
+        // this.setCenter(e.latLng);
+        this.panTo(e.latLng);
+      });
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+GoogleMapsでよく見かけるマーカーを地図に配置する方法を見ていきます。
+
+
+    マーカーの配置
+    タイトルの設定
+    アニメーション設定
+
+// ===== /MyMap/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Map</title>
+  <style>
+    #target {
+      width: 550px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div id="target"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key
+=***************************************&callback=initMap" async defer></script>
+  <script>
+    function initMap() {
+      'use strict';
+
+      var target = document.getElementById('target');
+      var map;
+      var tokyo = {lat: 35.681167, lng: 139.767052};
+      var marker;
+
+      map = new google.maps.Map(target, {
+        center: tokyo,
+        zoom: 15
+      });
+
+      marker = new google.maps.Marker({
+        position: tokyo,
+        map: map,
+        title: 'Tokyo!',
+        // icon: 'icon.png',
+        icon: {
+          url: 'icon.png',
+          scaledSize: new google.maps.Size(24, 24)
+        },
+        // animation: google.maps.Animation.BOUNCE
+        animation: google.maps.Animation.DROP
+      });
+
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+クリックした位置にマーカーを追加し、再度クリックしたら削除する方法について見ていきます。
+
+
+    クリックイベントの設定
+    マーカーの追加/削除
+
+// ===== /MyMap/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Map</title>
+  <style>
+    #target {
+      width: 550px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div id="target"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key
+=***************************************&callback=initMap" async defer></script>
+  <script>
+    function initMap() {
+      'use strict';
+
+      var target = document.getElementById('target');
+      var map;
+      var tokyo = {lat: 35.681167, lng: 139.767052};
+
+      map = new google.maps.Map(target, {
+        center: tokyo,
+        zoom: 15
+      });
+
+      map.addListener('click', function(e) {
+        var marker = new google.maps.Marker({
+          position: e.latLng,
+          map: map,
+          title: e.latLng.toString(),
+          animation: google.maps.Animation.DROP
+        });
+        marker.addListener('click', function() {
+          this.setMap(null);
+        });
+      });
+
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+地図上に情報ウィンドウを配置する方法を見ていきます。
+
+
+    情報ウィンドウの配置
+
+// ===== /MyMap/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Map</title>
+  <style>
+    #target {
+      width: 550px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div id="target"></div>
+  <ul id="info">
+    <li>Hello! Hello! Hello! Hello! Hello! </li>
+    <li>Hello! Hello! Hello! Hello! Hello! </li>
+  </ul>
+  <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key
+=***************************************&callback=initMap" async defer></script>
+  <script>
+    function initMap() {
+      'use strict';
+
+      var target = document.getElementById('target');
+      var map;
+      var tokyo = {lat: 35.681167, lng: 139.767052};
+      var infoWindow;
+
+      map = new google.maps.Map(target, {
+        center: tokyo,
+        zoom: 15
+      });
+
+      infoWindow = new google.maps.InfoWindow({
+        position: tokyo,
+        // content: 'Hello! Hello! Hello! Hello! Hello!'
+        // content: '<strong>Hello!</strong> Hello! Hello! Hello! Hello!'
+        content: document.getElementById('info'),
+        maxWidth: 100
+      });
+
+      infoWindow.open(map);
+
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+マーカーに紐付いた形で情報ウィンドウを表示させる方法について見ていきます。
+
+
+    マーカーと情報ウィンドウの紐付け
+
+// ===== /MyMap/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Map</title>
+  <style>
+    #target {
+      width: 550px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div id="target"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key
+=***************************************&callback=initMap" async defer></script>
+  <script>
+    function initMap() {
+      'use strict';
+
+      var target = document.getElementById('target');
+      var map;
+      var tokyo = {lat: 35.681167, lng: 139.767052};
+
+      map = new google.maps.Map(target, {
+        center: tokyo,
+        zoom: 15
+      });
+
+      map.addListener('click', function(e) {
+        var marker = new google.maps.Marker({
+          position: e.latLng,
+          map: this,
+          animation: google.maps.Animation.DROP
+        });
+        var infoWindow = new google.maps.InfoWindow({
+          content: e.latLng.toString()
+        });
+        marker.addListener('click', function() {
+          infoWindow.open(map, marker);
+        });
+      });
+
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+Gocoding API を有効化したのちに、ジオコーディングの処理を実装していきます。
+
+
+    Gocoding API の有効化
+    入力フォームの作成
+
+// ===== /MyMap/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Map</title>
+  <style>
+    #target {
+      width: 550px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div id="target"></div>
+  <input type="text" id="address">
+  <button id="search">Search</button>
+  <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key
+=***************************************&callback=initMap" async defer></script>
+  <script>
+    function initMap() {
+      'use strict';
+
+      var target = document.getElementById('target');
+      var geocoder = new google.maps.Geocoder();
+
+      // Geocoding: Address -> LatLng
+      // Reverse Geocoding: LatLng -> Address
+
+      document.getElementById('search').addEventListener('click', function() {
+        
+      });
+
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+住所を緯度経度に変換して地図を表示してみます。
+
+
+    住所から緯度経度への変換
+    エラー処理の実装
+    動作確認
+
+// ===== /MyMap/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Map</title>
+  <style>
+    #target {
+      width: 550px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div id="target"></div>
+  <input type="text" id="address">
+  <button id="search">Search</button>
+  <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key
+=***************************************&callback=initMap" async defer></script>
+  <script>
+    function initMap() {
+      'use strict';
+
+      var target = document.getElementById('target');
+      var geocoder = new google.maps.Geocoder();
+
+      // Geocoding: Address -> LatLng
+      // Reverse Geocoding: LatLng -> Address
+
+      document.getElementById('search').addEventListener('click', function() {
+        geocoder.geocode({
+          address: document.getElementById('address').value
+        }, function(results, status) {
+          if (status !== 'OK') {
+            alert('Failed: ' + status);
+            return;
+          }
+          // results[0].geometry.location
+          if (results[0]) {
+            new google.maps.Map(target, {
+              center: results[0].geometry.location,
+              zoom: 15
+            });
+          } else {
+            alert('No results found');
+            return;
+          }
+        });
+      });
+
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+リバースジオコーディングを使って、緯度経度を住所に変換する方法について見ていきます。
+
+
+    緯度経度から住所への変換
+
+// ===== /MyMap/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Map</title>
+  <style>
+    #target {
+      width: 550px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div id="target"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key
+=***************************************&callback=initMap" async defer></script>
+  <script>
+    function initMap() {
+      'use strict';
+
+      var target = document.getElementById('target');
+      var geocoder = new google.maps.Geocoder();
+      var map;
+
+      // Geocoding: Address -> LatLng
+      // Reverse Geocoding: LatLng -> Address
+
+      map = new google.maps.Map(target, {
+        center: {
+          lat: 35.681167,
+          lng: 139.767052
+        },
+        zoom: 15
+      });
+
+      map.addListener('click', function(e) {
+        
+      });
+
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+マップをクリックすると、その地点の住所が表示されるようにしていきます。
+
+
+    エラー処理の実装
+    動作確認
+
+// ===== /MyMap/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Map</title>
+  <style>
+    #target {
+      width: 550px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div id="target"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key
+=***************************************&callback=initMap" async defer></script>
+  <script>
+    function initMap() {
+      'use strict';
+
+      var target = document.getElementById('target');
+      var geocoder = new google.maps.Geocoder();
+      var map;
+
+      // Geocoding: Address -> LatLng
+      // Reverse Geocoding: LatLng -> Address
+
+      map = new google.maps.Map(target, {
+        center: {
+          lat: 35.681167,
+          lng: 139.767052
+        },
+        zoom: 15
+      });
+
+      map.addListener('click', function(e) {
+        geocoder.geocode({
+          location: e.latLng
+        }, function(results, status) {
+          if (status !== 'OK') {
+            alert('Failed: ' + status);
+            return;
+          }
+          // results[0].formatted_address
+          if (results[0]) {
+            new google.maps.Marker({
+              position: e.latLng,
+              map: map,
+              title: results[0].formatted_address,
+              animation: google.maps.Animation.DROP
+            });
+          } else {
+            alert('No results found');
+            return;
+          }
+        });
+      });
+
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+施設情報を検索するためのPlaces APIについて見ていきます。
+
+
+    Places APIの有効化
+
+// ===== /MyMap/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Map</title>
+  <style>
+    #target {
+      width: 550px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div id="target"></div>
+  <input type="text" id="keyword">
+  <button id="search">Search</button>
+  <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key
+=***************************************&callback=initMap&libraries=places" async defer></script>
+  <script>
+    function initMap() {
+      'use strict';
+
+      var target = document.getElementById('target');
+      var map;
+      var tokyo = {lat: 35.681167, lng: 139.767052};
+      var service;
+
+      map = new google.maps.Map(target, {
+        center: tokyo,
+        zoom: 15
+      });
+
+      document.getElementById('search').addEventListener('click', function() {
+        service = new google.maps.places.PlacesService(map);
+        service.nearbySearch({
+          location: tokyo,
+          radius: '500',
+          name: document.getElementById('keyword').value
+        }, function());
+      });
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+キーワードを入力すると施設情報を検索してくれる機能を実装していきます。
+
+
+    施設情報の検索処理
+    動作確認
+
+// ===== /MyMap/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Map</title>
+  <style>
+    #target {
+      width: 550px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div id="target"></div>
+  <input type="text" id="keyword">
+  <button id="search">Search</button>
+  <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key
+=***************************************&callback=initMap&libraries=places" async defer></script>
+  <script>
+    function initMap() {
+      'use strict';
+
+      var target = document.getElementById('target');
+      var map;
+      var tokyo = {lat: 35.681167, lng: 139.767052};
+      var service;
+
+      map = new google.maps.Map(target, {
+        center: tokyo,
+        zoom: 15
+      });
+
+      document.getElementById('search').addEventListener('click', function() {
+        service = new google.maps.places.PlacesService(map);
+        service.nearbySearch({
+          location: tokyo,
+          radius: '500',
+          name: document.getElementById('keyword').value
+        }, function(results, status) {
+          var i;
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            for (i = 0; i < results.length; i++) {
+              new google.maps.Marker({
+                map: map,
+                position: results[i].geometry.location,
+                title: results[i].name
+              });
+            }
+          } else {
+            alert('Failed: ' + status);
+            return;
+          }
+        });
+      });
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+ブラウザの機能であるGeolocationとGoogle Maps APIを組み合わせる方法について見ていきます。
+
+
+    ユーザーの位置情報の取得
+    地図の描画
+
+// ===== /MyMap/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Map</title>
+  <style>
+    #target {
+      width: 550px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div id="target"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key
+=***************************************&callback=initMap" async defer></script>
+  <script>
+    function initMap() {
+      'use strict';
+
+      var target = document.getElementById('target');
+
+      // Geolocation
+
+      if (!navigator.geolocation) {
+        alert('Geolocation not supported');
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(function(position) {
+        new google.maps.Map(target, {
+          center: {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          },
+          zoom: 15
+        });
+      }, function() {
+        alert('Geolocation failed!');
+        return;
+      });
+
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+

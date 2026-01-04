@@ -1,0 +1,1041 @@
+// ===== video_summary =====
+完成版を確認したあとに、ひな形となるHTMLファイルを作っていきます。
+
+
+    完成版の確認
+    作業用フォルダの設定
+    index.htmlの作成
+
+// ===== commentBox 1 =====
+補足情報
+VS Codeでファイルのドラッグ＆ドロップができない場合
+
+
+
+
+2024年2月16日
+
+
+
+
+
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、WindowsならCtrlキー、macOSならcommandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+// ===== commentBox 2 =====
+補足情報
+VS Codeで生成されるHTMLの雛形について
+
+
+
+
+2024年7月11日
+
+
+
+
+
+VS Codeで生成されるHTMLの雛形に変更があったようです。具体的には <meta http-equiv="X-UA-Compatible" content="IE=edge"> が含まれなくなりました。こちらは古いブラウザに対応するための命令でしたが、現在不要になっているので気にせずにそのまま学習を進めてみてください。
+
+// ===== /MyMemoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メモ帳</title>
+</head>
+<body>
+  
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+必要な部品を揃えるため、HTMLでマークアップをしていきます。
+
+
+    index.htmlのマークアップ
+    要素の確認
+
+// ===== /MyMemoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メモ帳</title>
+</head>
+<body>
+  <main>
+    <h1>メモ帳</h1>
+    <textarea></textarea>
+    <div>
+      <span>保存しました</span>
+      <button>削除</button>
+      <button>保存</button>
+    </div>
+  </main>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+CSSファイルを作ったあとに、main要素とh1要素のスタイルを整えていきます。
+
+
+    style.cssの作成
+    文字コードの指定
+    mainのスタイリング
+    h1のスタイリング
+
+// ===== /MyMemoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メモ帳</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>メモ帳</h1>
+    <textarea></textarea>
+    <div>
+      <span>保存しました</span>
+      <button>削除</button>
+      <button>保存</button>
+    </div>
+  </main>
+</body>
+</html>
+
+// ===== /MyMemoApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 360px;
+  margin: 16px auto 0;
+  background: pink;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+  text-align: center;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+textarea要素のスタイルを整えていきます。
+
+
+    textareaのスタイリング
+    box-sizing
+
+// ===== /MyMemoApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 360px;
+  margin: 16px auto 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+  text-align: center;
+}
+
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  height: 160px;
+  font-size: 16px;
+  padding: 8px;
+  margin-top: 8px;
+}
+
+// ===== /MyMemoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メモ帳</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>メモ帳</h1>
+    <textarea></textarea>
+    <div>
+      <span>保存しました</span>
+      <button>削除</button>
+      <button>保存</button>
+    </div>
+  </main>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+button要素とspan要素のスタイルを整えていきます。
+
+
+    buttonのスタイリング
+    spanのスタイリング
+    フレックスボックス
+
+// ===== /MyMemoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メモ帳</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>メモ帳</h1>
+    <textarea></textarea>
+    <div class="container">
+      <span>保存しました</span>
+      <button>削除</button>
+      <button>保存</button>
+    </div>
+  </main>
+</body>
+</html>
+
+// ===== /MyMemoApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 360px;
+  margin: 16px auto 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+  text-align: center;
+}
+
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  height: 160px;
+  font-size: 16px;
+  padding: 8px;
+  margin-top: 8px;
+}
+
+button {
+  padding: 4px 16px;
+  cursor: pointer;
+}
+
+span {
+  font-size: 14px;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+containerクラスをスタイリングし、メモ帳の見た目を完成させます。
+
+
+    .containerのスタイリング
+    margin-right
+    gap
+
+// ===== commentBox 1 =====
+補足情報
+レッスンで扱っている内容について
+
+
+
+
+2023年2月16日
+
+
+
+
+
+レッスンで扱っている内容については、以下の動画でも詳しく解説しています。こちらも参考にしてみてください。
+
+align-items プロパティについて
+#07 align-itemsで要素を揃えてみよう | CSS入門 フレックスボックス編
+
+// ===== /MyMemoApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 360px;
+  margin: 16px auto 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+  text-align: center;
+}
+
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  height: 160px;
+  font-size: 16px;
+  padding: 8px;
+  margin-top: 8px;
+}
+
+button {
+  padding: 4px 16px;
+  cursor: pointer;
+}
+
+span {
+  font-size: 14px;
+  margin-right: auto;
+  opacity: 0;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+// ===== /MyMemoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メモ帳</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>メモ帳</h1>
+    <textarea></textarea>
+    <div class="container">
+      <span>保存しました</span>
+      <button>削除</button>
+      <button>保存</button>
+    </div>
+  </main>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+JavaScriptファイルを作ったあとに、テキストボックスに入力した値をダイアログに表示させます。
+
+
+    main.jsの作成
+    getElementById()
+    addEventListener()
+    alert()
+
+// ===== /MyMemoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メモ帳</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>メモ帳</h1>
+    <textarea id="text"></textarea>
+    <div class="container">
+      <span>保存しました</span>
+      <button>削除</button>
+      <button id="save">保存</button>
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyMemoApp/main.js =====
+'use strict';
+
+{
+  const text = document.getElementById('text');
+  const save = document.getElementById('save');
+
+  save.addEventListener('click', () => {
+    alert(text.value);
+  });
+}
+
+// ===== /MyMemoApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 360px;
+  margin: 16px auto 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+  text-align: center;
+}
+
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  height: 160px;
+  font-size: 16px;
+  padding: 8px;
+  margin-top: 8px;
+}
+
+button {
+  padding: 4px 16px;
+  cursor: pointer;
+}
+
+span {
+  font-size: 14px;
+  margin-right: auto;
+  opacity: 0;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+ブラウザ側で用意されているlocalStorageという機能について、図を使って解説していきます。
+
+localStorage
+キー・値
+データの保存・取得・削除
+注意点
+
+
+
+
+
+// ===== video_summary =====
+保存ボタンを押したらlocalStorageにデータが保存されるようにしていきます。
+
+
+    setItem()
+    開発者ツールでの確認
+
+// ===== commentBox 1 =====
+補足情報
+開発者ツールの設定方法について
+
+
+
+
+2023年2月16日
+
+
+
+
+
+レッスンで紹介している開発者ツールの日本語化等の設定については、以下のレッスンを参考にしてみてください。
+
+#25 Chromeの開発者ツールを使おう | CSS入門 基本スタイリング編
+
+// ===== /MyMemoApp/main.js =====
+'use strict';
+
+{
+  const text = document.getElementById('text');
+  const save = document.getElementById('save');
+
+  save.addEventListener('click', () => {
+    localStorage.setItem('memo', text.value);
+  });
+}
+
+// ===== /MyMemoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メモ帳</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>メモ帳</h1>
+    <textarea id="text"></textarea>
+    <div class="container">
+      <span>保存しました</span>
+      <button>削除</button>
+      <button id="save">保存</button>
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyMemoApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 360px;
+  margin: 16px auto 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+  text-align: center;
+}
+
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  height: 160px;
+  font-size: 16px;
+  padding: 8px;
+  margin-top: 8px;
+}
+
+button {
+  padding: 4px 16px;
+  cursor: pointer;
+}
+
+span {
+  font-size: 14px;
+  margin-right: auto;
+  opacity: 0;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+保存されたことがわかりやすいように、ボタンを押したらテキストがふわっと表示されるようにしていきます。
+
+
+    .appearのスタイリング
+    transition
+    setTimeout()
+
+// ===== commentBox 1 =====
+補足情報
+レッスンで扱っている内容について
+
+
+
+
+2023年2月16日
+
+
+
+
+
+レッスンで扱っている内容については、以下の動画でも詳しく解説しています。こちらも参考にしてみてください。
+
+transition について
+#03 transformプロパティを使ってみよう | CSS入門 アニメーション編
+
+
+setTimeout について
+#25 setTimeout()を使ってみよう | 詳解JavaScript オブジェクト編
+
+// ===== /MyMemoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メモ帳</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>メモ帳</h1>
+    <textarea id="text"></textarea>
+    <div class="container">
+      <span id="message">保存しました</span>
+      <button>削除</button>
+      <button id="save">保存</button>
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyMemoApp/main.js =====
+'use strict';
+
+{
+  const text = document.getElementById('text');
+  const save = document.getElementById('save');
+  const message = document.getElementById('message');
+
+  save.addEventListener('click', () => {
+    message.classList.add('appear');
+    setTimeout(() => {
+      message.classList.remove('appear');
+    }, 1000);
+    localStorage.setItem('memo', text.value);
+  });
+}
+
+// ===== /MyMemoApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 360px;
+  margin: 16px auto 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+  text-align: center;
+}
+
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  height: 160px;
+  font-size: 16px;
+  padding: 8px;
+  margin-top: 8px;
+}
+
+button {
+  padding: 4px 16px;
+  cursor: pointer;
+}
+
+span {
+  font-size: 14px;
+  margin-right: auto;
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.appear {
+  opacity: 1;
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+localStorageに保存されているデータをテキストボックスに表示させます。
+
+
+    getItem()
+    テキストボックスへの表示
+
+// ===== /MyMemoApp/main.js =====
+'use strict';
+
+{
+  const text = document.getElementById('text');
+  const save = document.getElementById('save');
+  const message = document.getElementById('message');
+
+  if (localStorage.getItem('memo') === null) {
+    text.value = '';
+  } else {
+    text.value = localStorage.getItem('memo');
+  }
+
+  save.addEventListener('click', () => {
+    message.classList.add('appear');
+    setTimeout(() => {
+      message.classList.remove('appear');
+    }, 1000);
+    localStorage.setItem('memo', text.value);
+  });
+}
+
+// ===== /MyMemoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メモ帳</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>メモ帳</h1>
+    <textarea id="text"></textarea>
+    <div class="container">
+      <span id="message">保存しました</span>
+      <button>削除</button>
+      <button id="save">保存</button>
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyMemoApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 360px;
+  margin: 16px auto 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+  text-align: center;
+}
+
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  height: 160px;
+  font-size: 16px;
+  padding: 8px;
+  margin-top: 8px;
+}
+
+button {
+  padding: 4px 16px;
+  cursor: pointer;
+}
+
+span {
+  font-size: 14px;
+  margin-right: auto;
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.appear {
+  opacity: 1;
+}
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+削除ボタンを押したら、localStorageに保存されているデータが削除されるようにします。
+
+
+    removeItem()
+    confirm()
+
+// ===== /MyMemoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メモ帳</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>メモ帳</h1>
+    <textarea id="text"></textarea>
+    <div class="container">
+      <span id="message">保存しました</span>
+      <button id="clear">削除</button>
+      <button id="save">保存</button>
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyMemoApp/main.js =====
+'use strict';
+
+{
+  const text = document.getElementById('text');
+  const save = document.getElementById('save');
+  const clear = document.getElementById('clear');
+  const message = document.getElementById('message');
+
+  if (localStorage.getItem('memo') === null) {
+    text.value = '';
+  } else {
+    text.value = localStorage.getItem('memo');
+  }
+
+  save.addEventListener('click', () => {
+    message.classList.add('appear');
+    setTimeout(() => {
+      message.classList.remove('appear');
+    }, 1000);
+    localStorage.setItem('memo', text.value);
+  });
+
+  clear.addEventListener('click', () => {
+    if (confirm('本当に削除しますか？') === true) {
+      text.value = '';
+      localStorage.removeItem('memo');
+    }
+  });
+}
+
+// ===== /MyMemoApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 360px;
+  margin: 16px auto 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+  text-align: center;
+}
+
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  height: 160px;
+  font-size: 16px;
+  padding: 8px;
+  margin-top: 8px;
+}
+
+button {
+  padding: 4px 16px;
+  cursor: pointer;
+}
+
+span {
+  font-size: 14px;
+  margin-right: auto;
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.appear {
+  opacity: 1;
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+完成したアプリを振り返りながら、開発のコツについてお話していきます。
+
+
+    これまでのまとめ
+    アプリ開発の振り返り
+
+// ===== /MyMemoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メモ帳</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>メモ帳</h1>
+    <textarea id="text"></textarea>
+    <div class="container">
+      <span id="message">保存しました</span>
+      <button id="clear">削除</button>
+      <button id="save">保存</button>
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyMemoApp/main.js =====
+'use strict';
+
+{
+  const text = document.getElementById('text');
+  const save = document.getElementById('save');
+  const clear = document.getElementById('clear');
+  const message = document.getElementById('message');
+
+  if (localStorage.getItem('memo') === null) {
+    text.value = '';
+  } else {
+    text.value = localStorage.getItem('memo');
+  }
+
+  save.addEventListener('click', () => {
+    message.classList.add('appear');
+    setTimeout(() => {
+      message.classList.remove('appear');
+    }, 1000);
+    localStorage.setItem('memo', text.value);
+  });
+
+  clear.addEventListener('click', () => {
+    if (confirm('本当に削除しますか？') === true) {
+      text.value = '';
+      localStorage.removeItem('memo');
+    }
+  });
+}
+
+// ===== /MyMemoApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 360px;
+  margin: 16px auto 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+  text-align: center;
+}
+
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  height: 160px;
+  font-size: 16px;
+  padding: 8px;
+  margin-top: 8px;
+}
+
+button {
+  padding: 4px 16px;
+  cursor: pointer;
+}
+
+span {
+  font-size: 14px;
+  margin-right: auto;
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.appear {
+  opacity: 1;
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,3212 @@
+// ===== video_summary =====
+まずは概要を説明したのちに公式サイト、完成版の確認、必要となる知識、レッスンにおける環境について見ていきます。
+
+
+    概要
+    公式サイト
+    完成版の確認
+    必要となる知識
+    レッスンにおける環境
+
+// ===== commentBox 1 =====
+補足情報
+必要となる知識について
+
+
+
+
+2018年12月27日
+
+
+
+
+
+今回のレッスンについては以下も参考にしてみてください。
+
+・はじめてのHTML (全15回)
+https://dotinstall.com/lessons/basic_html_v4
+・はじめてのCSS (全17回) 
+https://dotinstall.com/lessons/basic_css_v4
+・CSS3入門 (全19回) 
+http://dotinstall.com/lessons/basic_css3_v2
+・JavaScript入門 (全24回)
+http://dotinstall.com/lessons/basic_javascript_v2
+・UNIXコマンド入門 (一般ユーザー編) (全16回)
+http://dotinstall.com/lessons/basic_unix
+・Web Storage入門 (全8回)
+http://dotinstall.com/lessons/basic_webstorage
+
+// ===== read.me =====
+Electron
+
+* 概要
+- Mac/Linux/Windows
+- Desktop Application
+- JavaScript/HTML5
+
+* 公式サイト
+
+* 完成版
+
+* 知識
+
+* 環境
+- MacOS X
+- Atom
+
+
+
+
+
+// ===== video_summary =====
+Node.jsのあとにElectronをインストールして開発の準備を整えていきます。
+
+
+    Node.jsのインストール
+    作業用ディレクトリの作成
+    Electronのインストール
+
+// ===== commentBox 1 =====
+補足情報
+Electron のインストールコマンドについて
+
+
+
+
+2016年11月30日
+
+
+
+
+
+Electron 1.3.1 以降では electron-prebuilt は非推奨となっており、代わりに electron を指定するようになっています。
+npm install electron --save-dev
+
+こちらのコマンドを利用するようにしてください。
+
+※ electron-prebuilt のほうは 2016 年末で使えなくなる予定だそうです。
+
+// ===== /MyApp/package.json =====
+{
+  "name": "MyApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.7"
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+package.jsonを編集したあとにMain Processであるindex.jsを作りこんでいきます。
+
+
+    package.jsonの編集
+    index.jsの作成
+
+// ===== /MyApp/index.js =====
+'use strict';
+
+// index.js (main process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+
+const electron = require('electron');
+const app = electron.app;
+
+app.on('ready', function() {
+  // create window
+});
+
+// ===== /MyApp/package.json =====
+{
+  "name": "MyApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.7"
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+アプリ画面を表示するためのBrowserWindowの設定をしていきます。
+
+
+    BrowserWindowの設定
+
+// ===== /MyApp/index.js =====
+'use strict';
+
+// index.js (main process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+
+let mainWindow;
+
+app.on('ready', function() {
+  // create window
+  mainWindow = new BrowserWindow({width: 600, height: 400});
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.webContents.openDevTools();
+  mainWindow.on('closed', function() {
+    mainWindow = null;
+  });
+});
+
+// ===== /MyApp/package.json =====
+{
+  "name": "MyApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.7"
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+実際の画面となるindex.htmlをHTML5で作りこんでいきます。
+
+
+    index.htmlの作成
+    動作確認
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Quotes!</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: skyblue;
+  }
+  p {
+    color: #fff;
+    font-size: 36px;
+    margin: 0;
+    padding: 0;
+  }
+  </style>
+</head>
+<body>
+  <p id="quote">Just do it!</p>
+</body>
+</html>
+
+// ===== /MyApp/index.js =====
+'use strict';
+
+// index.js (main process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+
+let mainWindow;
+
+app.on('ready', function() {
+  // create window
+  mainWindow = new BrowserWindow({width: 600, height: 400});
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.webContents.openDevTools();
+  mainWindow.on('closed', function() {
+    mainWindow = null;
+  });
+});
+
+// ===== /MyApp/package.json =====
+{
+  "name": "MyApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.7"
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+JavaScriptを使って名言をランダムに表示させていきます。
+
+
+    名言の表示
+    動作確認
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Quotes!</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: skyblue;
+  }
+  p {
+    color: #fff;
+    font-size: 36px;
+    margin: 0;
+    padding: 0;
+  }
+  </style>
+</head>
+<body>
+  <p id="quote">Just do it!</p>
+  <script>
+  'use strict';
+
+  const quote = document.getElementById('quote');
+  const quotes = [
+    'Just do it!',
+    'Done is better than perfect',
+    'Stay hungry, stay foolish',
+    'Ask, do not tell',
+    'Focus on the user',
+    'Keep trying',
+    'Nothing is impossible',
+    'That which is measured, improves'
+  ];
+  window.addEventListener('click', function() {
+    quote.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+  });
+  </script>
+</body>
+</html>
+
+// ===== /MyApp/index.js =====
+'use strict';
+
+// index.js (main process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+
+let mainWindow;
+
+app.on('ready', function() {
+  // create window
+  mainWindow = new BrowserWindow({width: 600, height: 400});
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.webContents.openDevTools();
+  mainWindow.on('closed', function() {
+    mainWindow = null;
+  });
+});
+
+// ===== /MyApp/package.json =====
+{
+  "name": "MyApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.7"
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+Windowを閉じた時の処理を実装していきますが、MacOSとそれ以外で条件分岐していきます。
+
+
+    Windowを閉じた時の処理
+
+// ===== /MyApp/index.js =====
+'use strict';
+
+// index.js (main process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+
+let mainWindow;
+
+function createMainWindow() {
+  mainWindow = new BrowserWindow({width: 600, height: 400});
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.webContents.openDevTools();
+  mainWindow.on('closed', function() {
+    mainWindow = null;
+  });
+}
+
+app.on('ready', function() {
+  // create window
+  createMainWindow();
+});
+
+app.on('window-all-closed', function() {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', function() {
+  if (mainWindow === null) {
+    createMainWindow();
+  }
+});
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Quotes!</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: skyblue;
+  }
+  p {
+    color: #fff;
+    font-size: 36px;
+    margin: 0;
+    padding: 0;
+  }
+  </style>
+</head>
+<body>
+  <p id="quote">Just do it!</p>
+  <script>
+  'use strict';
+
+  const quote = document.getElementById('quote');
+  const quotes = [
+    'Just do it!',
+    'Done is better than perfect',
+    'Stay hungry, stay foolish',
+    'Ask, do not tell',
+    'Focus on the user',
+    'Keep trying',
+    'Nothing is impossible',
+    'That which is measured, improves'
+  ];
+  window.addEventListener('click', function() {
+    quote.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+  });
+  </script>
+</body>
+</html>
+
+// ===== /MyApp/package.json =====
+{
+  "name": "MyApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.7"
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+アプリケーションメニューを作成して動作確認をしていきます。
+
+
+    アプリケーションメニューの作成
+    動作確認
+
+// ===== /MyApp/index.js =====
+'use strict';
+
+// index.js (main process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+const Menu = electron.Menu;
+
+let mainWindow;
+
+let menuTemplate = [{
+  label: 'MyApp',
+  submenu: [
+    { label: 'About' },
+    { type: 'separator' },
+    { label: 'Settings' },
+    { type: 'separator' },
+    { label: 'Quit' }
+  ]
+}];
+let menu = Menu.buildFromTemplate(menuTemplate);
+
+function createMainWindow() {
+  Menu.setApplicationMenu(menu);
+  mainWindow = new BrowserWindow({width: 600, height: 400});
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.webContents.openDevTools();
+  mainWindow.on('closed', function() {
+    mainWindow = null;
+  });
+}
+
+app.on('ready', function() {
+  // create window
+  createMainWindow();
+});
+
+app.on('window-all-closed', function() {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', function() {
+  if (mainWindow === null) {
+    createMainWindow();
+  }
+});
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Quotes!</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: skyblue;
+  }
+  p {
+    color: #fff;
+    font-size: 36px;
+    margin: 0;
+    padding: 0;
+  }
+  </style>
+</head>
+<body>
+  <p id="quote">Just do it!</p>
+  <script>
+  'use strict';
+
+  const quote = document.getElementById('quote');
+  const quotes = [
+    'Just do it!',
+    'Done is better than perfect',
+    'Stay hungry, stay foolish',
+    'Ask, do not tell',
+    'Focus on the user',
+    'Keep trying',
+    'Nothing is impossible',
+    'That which is measured, improves'
+  ];
+  window.addEventListener('click', function() {
+    quote.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+  });
+  </script>
+</body>
+</html>
+
+// ===== /MyApp/package.json =====
+{
+  "name": "MyApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.7"
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+メニューにショートカットキーを設定し、終了処理を動作させてみます。
+
+
+    ショートカットキーの設定
+    処理の設定
+    終了処理の実装・確認
+
+// ===== /MyApp/index.js =====
+'use strict';
+
+// index.js (main process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+const Menu = electron.Menu;
+
+let mainWindow;
+
+let menuTemplate = [{
+  label: 'MyApp',
+  submenu: [
+    { label: 'About', accelerator: 'CmdOrCtrl+Shift+A', click: function() { showAboutDialog(); } },
+    { type: 'separator' },
+    { label: 'Settings', accelerator: 'CmdOrCtrl+,', click: function() { showSettingsWindow(); }  },
+    { type: 'separator' },
+    { label: 'Quit', accelerator: 'CmdOrCtrl+Q', click: function() { app.quit(); }  }
+  ]
+}];
+let menu = Menu.buildFromTemplate(menuTemplate);
+
+function createMainWindow() {
+  Menu.setApplicationMenu(menu);
+  mainWindow = new BrowserWindow({width: 600, height: 400});
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.webContents.openDevTools();
+  mainWindow.on('closed', function() {
+    mainWindow = null;
+  });
+}
+
+app.on('ready', function() {
+  // create window
+  createMainWindow();
+});
+
+app.on('window-all-closed', function() {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', function() {
+  if (mainWindow === null) {
+    createMainWindow();
+  }
+});
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Quotes!</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: skyblue;
+  }
+  p {
+    color: #fff;
+    font-size: 36px;
+    margin: 0;
+    padding: 0;
+  }
+  </style>
+</head>
+<body>
+  <p id="quote">Just do it!</p>
+  <script>
+  'use strict';
+
+  const quote = document.getElementById('quote');
+  const quotes = [
+    'Just do it!',
+    'Done is better than perfect',
+    'Stay hungry, stay foolish',
+    'Ask, do not tell',
+    'Focus on the user',
+    'Keep trying',
+    'Nothing is impossible',
+    'That which is measured, improves'
+  ];
+  window.addEventListener('click', function() {
+    quote.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+  });
+  </script>
+</body>
+</html>
+
+// ===== /MyApp/package.json =====
+{
+  "name": "MyApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.7"
+  }
+}
+
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+「このアプリについて」の画面をdialogを使って表示してみます。
+
+
+    dialogの表示
+    動作確認
+
+// ===== /MyApp/index.js =====
+'use strict';
+
+// index.js (main process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+const Menu = electron.Menu;
+const dialog = electron.dialog;
+
+let mainWindow;
+
+let menuTemplate = [{
+  label: 'MyApp',
+  submenu: [
+    { label: 'About', accelerator: 'CmdOrCtrl+Shift+A', click: function() { showAboutDialog(); } },
+    { type: 'separator' },
+    { label: 'Settings', accelerator: 'CmdOrCtrl+,', click: function() { showSettingsWindow(); }  },
+    { type: 'separator' },
+    { label: 'Quit', accelerator: 'CmdOrCtrl+Q', click: function() { app.quit(); }  }
+  ]
+}];
+let menu = Menu.buildFromTemplate(menuTemplate);
+
+function showAboutDialog() {
+  dialog.showMessageBox({
+    type: 'info',
+    buttons: ['OK'],
+    message: 'About This App',
+    detail: 'This app was created by @dotinstall'
+  });
+}
+
+function createMainWindow() {
+  Menu.setApplicationMenu(menu);
+  mainWindow = new BrowserWindow({width: 600, height: 400});
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.webContents.openDevTools();
+  mainWindow.on('closed', function() {
+    mainWindow = null;
+  });
+}
+
+app.on('ready', function() {
+  // create window
+  createMainWindow();
+});
+
+app.on('window-all-closed', function() {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', function() {
+  if (mainWindow === null) {
+    createMainWindow();
+  }
+});
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Quotes!</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: skyblue;
+  }
+  p {
+    color: #fff;
+    font-size: 36px;
+    margin: 0;
+    padding: 0;
+  }
+  </style>
+</head>
+<body>
+  <p id="quote">Just do it!</p>
+  <script>
+  'use strict';
+
+  const quote = document.getElementById('quote');
+  const quotes = [
+    'Just do it!',
+    'Done is better than perfect',
+    'Stay hungry, stay foolish',
+    'Ask, do not tell',
+    'Focus on the user',
+    'Keep trying',
+    'Nothing is impossible',
+    'That which is measured, improves'
+  ];
+  window.addEventListener('click', function() {
+    quote.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+  });
+  </script>
+</body>
+</html>
+
+// ===== /MyApp/package.json =====
+{
+  "name": "MyApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.7"
+  }
+}
+
+
+
+
+// ===== video_summary =====
+背景色を選択するための設定画面を作りこんでいきます。
+
+
+    showSettingsWindow()の実装
+    settings.htmlの作成
+    動作確認
+
+// ===== /MyApp/index.js =====
+'use strict';
+
+// index.js (main process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+const Menu = electron.Menu;
+const dialog = electron.dialog;
+
+let mainWindow;
+let settingsWindow;
+
+let menuTemplate = [{
+  label: 'MyApp',
+  submenu: [
+    { label: 'About', accelerator: 'CmdOrCtrl+Shift+A', click: function() { showAboutDialog(); } },
+    { type: 'separator' },
+    { label: 'Settings', accelerator: 'CmdOrCtrl+,', click: function() { showSettingsWindow(); }  },
+    { type: 'separator' },
+    { label: 'Quit', accelerator: 'CmdOrCtrl+Q', click: function() { app.quit(); }  }
+  ]
+}];
+let menu = Menu.buildFromTemplate(menuTemplate);
+
+function showAboutDialog() {
+  dialog.showMessageBox({
+    type: 'info',
+    buttons: ['OK'],
+    message: 'About This App',
+    detail: 'This app was created by @dotinstall'
+  });
+}
+
+function showSettingsWindow() {
+  settingsWindow = new BrowserWindow({width: 600, height: 400});
+  settingsWindow.loadURL('file://' + __dirname + '/settings.html');
+  settingsWindow.webContents.openDevTools();
+  settingsWindow.show();
+  settingsWindow.on('closed', function() {
+    settingsWindow = null;
+  });
+}
+
+function createMainWindow() {
+  Menu.setApplicationMenu(menu);
+  mainWindow = new BrowserWindow({width: 600, height: 400});
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.webContents.openDevTools();
+  mainWindow.on('closed', function() {
+    mainWindow = null;
+  });
+}
+
+app.on('ready', function() {
+  // create window
+  createMainWindow();
+});
+
+app.on('window-all-closed', function() {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', function() {
+  if (mainWindow === null) {
+    createMainWindow();
+  }
+});
+
+// ===== /MyApp/settings.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Settings</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: #eee;
+  }
+  </style>
+</head>
+<body>
+  <h1>Background Color</h1>
+  <ul>
+    <li><label><input type="radio" name="colors" value="skyblue"> Skyblue</label></li>
+    <li><label><input type="radio" name="colors" value="tomato"> Tomato</label></li>
+    <li><label><input type="radio" name="colors" value="slategray"> Slate Gray</label></li>
+  </ul>
+  <script>
+  'use strict';
+  </script>
+</body>
+</html>
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Quotes!</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: skyblue;
+  }
+  p {
+    color: #fff;
+    font-size: 36px;
+    margin: 0;
+    padding: 0;
+  }
+  </style>
+</head>
+<body>
+  <p id="quote">Just do it!</p>
+  <script>
+  'use strict';
+
+  const quote = document.getElementById('quote');
+  const quotes = [
+    'Just do it!',
+    'Done is better than perfect',
+    'Stay hungry, stay foolish',
+    'Ask, do not tell',
+    'Focus on the user',
+    'Keep trying',
+    'Nothing is impossible',
+    'That which is measured, improves'
+  ];
+  window.addEventListener('click', function() {
+    quote.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+  });
+  </script>
+</body>
+</html>
+
+// ===== /MyApp/package.json =====
+{
+  "name": "MyApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.7"
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+画面のスタイルを整えたあとにラジオボタンの値を取得していきます。
+
+
+    スタイルの設定
+    ラジオボタンの値を取得
+    動作確認
+
+// ===== /MyApp/settings.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Settings</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: #eee;
+  }
+  h1 {
+    font-size: 16px;
+    margin: 0;
+    padding: 0 0 10px 0;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  ul > li {
+    font-size: 14px;
+    padding: 3px 0;
+  }
+  </style>
+</head>
+<body>
+  <h1>Background Color</h1>
+  <ul>
+    <li><label><input type="radio" name="colors" value="skyblue"> Skyblue</label></li>
+    <li><label><input type="radio" name="colors" value="tomato"> Tomato</label></li>
+    <li><label><input type="radio" name="colors" value="slategray"> Slate Gray</label></li>
+  </ul>
+  <script>
+  'use strict';
+
+  let colors = document.getElementsByName('colors');
+  for (let i = 0; i < colors.length; i++) {
+    colors[i].addEventListener('change', function() {
+      let color = this.value;
+      console.log(color);
+    });
+  }
+  </script>
+</body>
+</html>
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Quotes!</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: skyblue;
+  }
+  p {
+    color: #fff;
+    font-size: 36px;
+    margin: 0;
+    padding: 0;
+  }
+  </style>
+</head>
+<body>
+  <p id="quote">Just do it!</p>
+  <script>
+  'use strict';
+
+  const quote = document.getElementById('quote');
+  const quotes = [
+    'Just do it!',
+    'Done is better than perfect',
+    'Stay hungry, stay foolish',
+    'Ask, do not tell',
+    'Focus on the user',
+    'Keep trying',
+    'Nothing is impossible',
+    'That which is measured, improves'
+  ];
+  window.addEventListener('click', function() {
+    quote.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+  });
+  </script>
+</body>
+</html>
+
+// ===== /MyApp/index.js =====
+'use strict';
+
+// index.js (main process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+const Menu = electron.Menu;
+const dialog = electron.dialog;
+
+let mainWindow;
+let settingsWindow;
+
+let menuTemplate = [{
+  label: 'MyApp',
+  submenu: [
+    { label: 'About', accelerator: 'CmdOrCtrl+Shift+A', click: function() { showAboutDialog(); } },
+    { type: 'separator' },
+    { label: 'Settings', accelerator: 'CmdOrCtrl+,', click: function() { showSettingsWindow(); }  },
+    { type: 'separator' },
+    { label: 'Quit', accelerator: 'CmdOrCtrl+Q', click: function() { app.quit(); }  }
+  ]
+}];
+let menu = Menu.buildFromTemplate(menuTemplate);
+
+function showAboutDialog() {
+  dialog.showMessageBox({
+    type: 'info',
+    buttons: ['OK'],
+    message: 'About This App',
+    detail: 'This app was created by @dotinstall'
+  });
+}
+
+function showSettingsWindow() {
+  settingsWindow = new BrowserWindow({width: 600, height: 400});
+  settingsWindow.loadURL('file://' + __dirname + '/settings.html');
+  settingsWindow.webContents.openDevTools();
+  settingsWindow.show();
+  settingsWindow.on('closed', function() {
+    settingsWindow = null;
+  });
+}
+
+function createMainWindow() {
+  Menu.setApplicationMenu(menu);
+  mainWindow = new BrowserWindow({width: 600, height: 400});
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.webContents.openDevTools();
+  mainWindow.on('closed', function() {
+    mainWindow = null;
+  });
+}
+
+app.on('ready', function() {
+  // create window
+  createMainWindow();
+});
+
+app.on('window-all-closed', function() {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', function() {
+  if (mainWindow === null) {
+    createMainWindow();
+  }
+});
+
+// ===== /MyApp/package.json =====
+{
+  "name": "MyApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.7"
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+Main ProcessとRenderer Processの間で通信をする準備を整えていきます。
+
+
+    ipcMainの設定
+    ipcRendererの設定
+
+// ===== /MyApp/index.js =====
+'use strict';
+
+// index.js (main process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+const Menu = electron.Menu;
+const dialog = electron.dialog;
+const ipcMain = electron.ipcMain;
+
+let mainWindow;
+let settingsWindow;
+
+let menuTemplate = [{
+  label: 'MyApp',
+  submenu: [
+    { label: 'About', accelerator: 'CmdOrCtrl+Shift+A', click: function() { showAboutDialog(); } },
+    { type: 'separator' },
+    { label: 'Settings', accelerator: 'CmdOrCtrl+,', click: function() { showSettingsWindow(); }  },
+    { type: 'separator' },
+    { label: 'Quit', accelerator: 'CmdOrCtrl+Q', click: function() { app.quit(); }  }
+  ]
+}];
+let menu = Menu.buildFromTemplate(menuTemplate);
+
+ipcMain.on('settings_changed', function(event, color) {
+  
+});
+
+function showAboutDialog() {
+  dialog.showMessageBox({
+    type: 'info',
+    buttons: ['OK'],
+    message: 'About This App',
+    detail: 'This app was created by @dotinstall'
+  });
+}
+
+function showSettingsWindow() {
+  settingsWindow = new BrowserWindow({width: 600, height: 400});
+  settingsWindow.loadURL('file://' + __dirname + '/settings.html');
+  settingsWindow.webContents.openDevTools();
+  settingsWindow.show();
+  settingsWindow.on('closed', function() {
+    settingsWindow = null;
+  });
+}
+
+function createMainWindow() {
+  Menu.setApplicationMenu(menu);
+  mainWindow = new BrowserWindow({width: 600, height: 400});
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.webContents.openDevTools();
+  mainWindow.on('closed', function() {
+    mainWindow = null;
+  });
+}
+
+app.on('ready', function() {
+  // create window
+  createMainWindow();
+});
+
+app.on('window-all-closed', function() {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', function() {
+  if (mainWindow === null) {
+    createMainWindow();
+  }
+});
+
+// ===== /MyApp/settings.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Settings</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: #eee;
+  }
+  h1 {
+    font-size: 16px;
+    margin: 0;
+    padding: 0 0 10px 0;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  ul > li {
+    font-size: 14px;
+    padding: 3px 0;
+  }
+  </style>
+</head>
+<body>
+  <h1>Background Color</h1>
+  <ul>
+    <li><label><input type="radio" name="colors" value="skyblue"> Skyblue</label></li>
+    <li><label><input type="radio" name="colors" value="tomato"> Tomato</label></li>
+    <li><label><input type="radio" name="colors" value="slategray"> Slate Gray</label></li>
+  </ul>
+  <script>
+  'use strict';
+
+  const ipcRenderer = require('electron').ipcRenderer;
+
+  let colors = document.getElementsByName('colors');
+  for (let i = 0; i < colors.length; i++) {
+    colors[i].addEventListener('change', function() {
+      let color = this.value;
+      // console.log(color);
+      // settings.html -> index.js -> index.html
+      // ipc
+      ipcRenderer.send('settings_changed', color);
+    });
+  }
+  </script>
+</body>
+</html>
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Quotes!</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: skyblue;
+  }
+  p {
+    color: #fff;
+    font-size: 36px;
+    margin: 0;
+    padding: 0;
+  }
+  </style>
+</head>
+<body>
+  <p id="quote">Just do it!</p>
+  <script>
+  'use strict';
+
+  const quote = document.getElementById('quote');
+  const quotes = [
+    'Just do it!',
+    'Done is better than perfect',
+    'Stay hungry, stay foolish',
+    'Ask, do not tell',
+    'Focus on the user',
+    'Keep trying',
+    'Nothing is impossible',
+    'That which is measured, improves'
+  ];
+  window.addEventListener('click', function() {
+    quote.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+  });
+  </script>
+</body>
+</html>
+
+// ===== /MyApp/package.json =====
+{
+  "name": "MyApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.7"
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+設定画面で選んだ背景色が画面に半値位されるように設定していきます。
+
+
+    ipc通信の設定
+    動作確認
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Quotes!</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: skyblue;
+  }
+  p {
+    color: #fff;
+    font-size: 36px;
+    margin: 0;
+    padding: 0;
+  }
+  </style>
+</head>
+<body>
+  <p id="quote">Just do it!</p>
+  <script>
+  'use strict';
+
+  const electron = require('electron');
+  const ipcRenderer = electron.ipcRenderer;
+
+  const quote = document.getElementById('quote');
+  const quotes = [
+    'Just do it!',
+    'Done is better than perfect',
+    'Stay hungry, stay foolish',
+    'Ask, do not tell',
+    'Focus on the user',
+    'Keep trying',
+    'Nothing is impossible',
+    'That which is measured, improves'
+  ];
+  window.addEventListener('click', function() {
+    quote.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+  });
+
+  ipcRenderer.on('set_bgcolor', function(event, color) {
+    document.body.style.backgroundColor = color;
+  });
+  </script>
+</body>
+</html>
+
+// ===== /MyApp/index.js =====
+'use strict';
+
+// index.js (main process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+const Menu = electron.Menu;
+const dialog = electron.dialog;
+const ipcMain = electron.ipcMain;
+
+let mainWindow;
+let settingsWindow;
+
+let menuTemplate = [{
+  label: 'MyApp',
+  submenu: [
+    { label: 'About', accelerator: 'CmdOrCtrl+Shift+A', click: function() { showAboutDialog(); } },
+    { type: 'separator' },
+    { label: 'Settings', accelerator: 'CmdOrCtrl+,', click: function() { showSettingsWindow(); }  },
+    { type: 'separator' },
+    { label: 'Quit', accelerator: 'CmdOrCtrl+Q', click: function() { app.quit(); }  }
+  ]
+}];
+let menu = Menu.buildFromTemplate(menuTemplate);
+
+ipcMain.on('settings_changed', function(event, color) {
+  mainWindow.webContents.send('set_bgcolor', color);
+});
+
+function showAboutDialog() {
+  dialog.showMessageBox({
+    type: 'info',
+    buttons: ['OK'],
+    message: 'About This App',
+    detail: 'This app was created by @dotinstall'
+  });
+}
+
+function showSettingsWindow() {
+  settingsWindow = new BrowserWindow({width: 600, height: 400});
+  settingsWindow.loadURL('file://' + __dirname + '/settings.html');
+  settingsWindow.webContents.openDevTools();
+  settingsWindow.show();
+  settingsWindow.on('closed', function() {
+    settingsWindow = null;
+  });
+}
+
+function createMainWindow() {
+  Menu.setApplicationMenu(menu);
+  mainWindow = new BrowserWindow({width: 600, height: 400});
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.webContents.openDevTools();
+  mainWindow.on('closed', function() {
+    mainWindow = null;
+  });
+}
+
+app.on('ready', function() {
+  // create window
+  createMainWindow();
+});
+
+app.on('window-all-closed', function() {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', function() {
+  if (mainWindow === null) {
+    createMainWindow();
+  }
+});
+
+// ===== /MyApp/package.json =====
+{
+  "name": "MyApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.7"
+  }
+}
+
+// ===== /MyApp/settings.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Settings</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: #eee;
+  }
+  h1 {
+    font-size: 16px;
+    margin: 0;
+    padding: 0 0 10px 0;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  ul > li {
+    font-size: 14px;
+    padding: 3px 0;
+  }
+  </style>
+</head>
+<body>
+  <h1>Background Color</h1>
+  <ul>
+    <li><label><input type="radio" name="colors" value="skyblue"> Skyblue</label></li>
+    <li><label><input type="radio" name="colors" value="tomato"> Tomato</label></li>
+    <li><label><input type="radio" name="colors" value="slategray"> Slate Gray</label></li>
+  </ul>
+  <script>
+  'use strict';
+
+  const ipcRenderer = require('electron').ipcRenderer;
+
+  let colors = document.getElementsByName('colors');
+  for (let i = 0; i < colors.length; i++) {
+    colors[i].addEventListener('change', function() {
+      let color = this.value;
+      // console.log(color);
+      // settings.html -> index.js -> index.html
+      // ipc
+      ipcRenderer.send('settings_changed', color);
+    });
+  }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+ipc通信で同期通信をするための方法を見ていきます。
+
+
+    sendSync()
+    returnValue
+    動作確認
+
+// ===== /MyApp/index.js =====
+'use strict';
+
+// index.js (main process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+const Menu = electron.Menu;
+const dialog = electron.dialog;
+const ipcMain = electron.ipcMain;
+
+let mainWindow;
+let settingsWindow;
+let backgroundColor = 'skyblue';
+
+let menuTemplate = [{
+  label: 'MyApp',
+  submenu: [
+    { label: 'About', accelerator: 'CmdOrCtrl+Shift+A', click: function() { showAboutDialog(); } },
+    { type: 'separator' },
+    { label: 'Settings', accelerator: 'CmdOrCtrl+,', click: function() { showSettingsWindow(); }  },
+    { type: 'separator' },
+    { label: 'Quit', accelerator: 'CmdOrCtrl+Q', click: function() { app.quit(); }  }
+  ]
+}];
+let menu = Menu.buildFromTemplate(menuTemplate);
+
+ipcMain.on('settings_changed', function(event, color) {
+  mainWindow.webContents.send('set_bgcolor', color);
+});
+
+ipcMain.on('get_bgcolor', function(event) {
+  event.returnValue = backgroundColor;
+});
+
+function showAboutDialog() {
+  dialog.showMessageBox({
+    type: 'info',
+    buttons: ['OK'],
+    message: 'About This App',
+    detail: 'This app was created by @dotinstall'
+  });
+}
+
+function showSettingsWindow() {
+  settingsWindow = new BrowserWindow({width: 600, height: 400});
+  settingsWindow.loadURL('file://' + __dirname + '/settings.html');
+  settingsWindow.webContents.openDevTools();
+  settingsWindow.show();
+  settingsWindow.on('closed', function() {
+    settingsWindow = null;
+  });
+}
+
+function createMainWindow() {
+  Menu.setApplicationMenu(menu);
+  mainWindow = new BrowserWindow({width: 600, height: 400});
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.webContents.openDevTools();
+  mainWindow.on('closed', function() {
+    mainWindow = null;
+  });
+}
+
+app.on('ready', function() {
+  // create window
+  createMainWindow();
+});
+
+app.on('window-all-closed', function() {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', function() {
+  if (mainWindow === null) {
+    createMainWindow();
+  }
+});
+
+// ===== /MyApp/settings.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Settings</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: #eee;
+  }
+  h1 {
+    font-size: 16px;
+    margin: 0;
+    padding: 0 0 10px 0;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  ul > li {
+    font-size: 14px;
+    padding: 3px 0;
+  }
+  </style>
+</head>
+<body>
+  <h1>Background Color</h1>
+  <ul>
+    <li><label><input type="radio" name="colors" value="skyblue"> Skyblue</label></li>
+    <li><label><input type="radio" name="colors" value="tomato"> Tomato</label></li>
+    <li><label><input type="radio" name="colors" value="slategray"> Slate Gray</label></li>
+  </ul>
+  <script>
+  'use strict';
+
+  const ipcRenderer = require('electron').ipcRenderer;
+  let currentColor = ipcRenderer.sendSync('get_bgcolor');
+
+  let colors = document.getElementsByName('colors');
+  for (let i = 0; i < colors.length; i++) {
+    if (currentColor === colors[i].value) {
+      colors[i].checked = true;
+    }
+    colors[i].addEventListener('change', function() {
+      let color = this.value;
+      // console.log(color);
+      // settings.html -> index.js -> index.html
+      // ipc
+      ipcRenderer.send('settings_changed', color);
+    });
+  }
+  </script>
+</body>
+</html>
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Quotes!</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: skyblue;
+  }
+  p {
+    color: #fff;
+    font-size: 36px;
+    margin: 0;
+    padding: 0;
+  }
+  </style>
+</head>
+<body>
+  <p id="quote">Just do it!</p>
+  <script>
+  'use strict';
+
+  const electron = require('electron');
+  const ipcRenderer = electron.ipcRenderer;
+
+  const quote = document.getElementById('quote');
+  const quotes = [
+    'Just do it!',
+    'Done is better than perfect',
+    'Stay hungry, stay foolish',
+    'Ask, do not tell',
+    'Focus on the user',
+    'Keep trying',
+    'Nothing is impossible',
+    'That which is measured, improves'
+  ];
+  window.addEventListener('click', function() {
+    quote.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+  });
+
+  ipcRenderer.on('set_bgcolor', function(event, color) {
+    document.body.style.backgroundColor = color;
+  });
+  </script>
+</body>
+</html>
+
+// ===== /MyApp/package.json =====
+{
+  "name": "MyApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.7"
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+remoteモジュールを使ってRenderer Processで右クリックメニューを作っていきます。
+
+
+    remoteモジュール
+    右クリックメニューの作成
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Quotes!</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: skyblue;
+  }
+  p {
+    color: #fff;
+    font-size: 36px;
+    margin: 0;
+    padding: 0;
+  }
+  </style>
+</head>
+<body>
+  <p id="quote">Just do it!</p>
+  <script>
+  'use strict';
+
+  const electron = require('electron');
+  const ipcRenderer = electron.ipcRenderer;
+  const remote = electron.remote;
+  const Menu = remote.Menu;
+  const MenuItem = remote.MenuItem;
+
+  let menu = new Menu();
+  menu.append(new MenuItem({ label: 'Skyblue', click: function() { setBackgroundColor('skyblue'); }}));
+  menu.append(new MenuItem({ label: 'Tomato', click: function() { setBackgroundColor('tomato'); }}));
+  menu.append(new MenuItem({ label: 'Slate Gray', click: function() { setBackgroundColor('slategray'); }}));
+  windows.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    menu.popup(remote.getCurrentWindow());
+  });
+
+  const quote = document.getElementById('quote');
+  const quotes = [
+    'Just do it!',
+    'Done is better than perfect',
+    'Stay hungry, stay foolish',
+    'Ask, do not tell',
+    'Focus on the user',
+    'Keep trying',
+    'Nothing is impossible',
+    'That which is measured, improves'
+  ];
+  window.addEventListener('click', function() {
+    quote.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+  });
+
+  ipcRenderer.on('set_bgcolor', function(event, color) {
+    document.body.style.backgroundColor = color;
+  });
+  </script>
+</body>
+</html>
+
+// ===== /MyApp/index.js =====
+'use strict';
+
+// index.js (main process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+const Menu = electron.Menu;
+const dialog = electron.dialog;
+const ipcMain = electron.ipcMain;
+
+let mainWindow;
+let settingsWindow;
+let backgroundColor = 'skyblue';
+
+let menuTemplate = [{
+  label: 'MyApp',
+  submenu: [
+    { label: 'About', accelerator: 'CmdOrCtrl+Shift+A', click: function() { showAboutDialog(); } },
+    { type: 'separator' },
+    { label: 'Settings', accelerator: 'CmdOrCtrl+,', click: function() { showSettingsWindow(); }  },
+    { type: 'separator' },
+    { label: 'Quit', accelerator: 'CmdOrCtrl+Q', click: function() { app.quit(); }  }
+  ]
+}];
+let menu = Menu.buildFromTemplate(menuTemplate);
+
+ipcMain.on('settings_changed', function(event, color) {
+  mainWindow.webContents.send('set_bgcolor', color);
+});
+
+ipcMain.on('get_bgcolor', function(event) {
+  event.returnValue = backgroundColor;
+});
+
+function showAboutDialog() {
+  dialog.showMessageBox({
+    type: 'info',
+    buttons: ['OK'],
+    message: 'About This App',
+    detail: 'This app was created by @dotinstall'
+  });
+}
+
+function showSettingsWindow() {
+  settingsWindow = new BrowserWindow({width: 600, height: 400});
+  settingsWindow.loadURL('file://' + __dirname + '/settings.html');
+  settingsWindow.webContents.openDevTools();
+  settingsWindow.show();
+  settingsWindow.on('closed', function() {
+    settingsWindow = null;
+  });
+}
+
+function createMainWindow() {
+  Menu.setApplicationMenu(menu);
+  mainWindow = new BrowserWindow({width: 600, height: 400});
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.webContents.openDevTools();
+  mainWindow.on('closed', function() {
+    mainWindow = null;
+  });
+}
+
+app.on('ready', function() {
+  // create window
+  createMainWindow();
+});
+
+app.on('window-all-closed', function() {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', function() {
+  if (mainWindow === null) {
+    createMainWindow();
+  }
+});
+
+// ===== /MyApp/package.json =====
+{
+  "name": "MyApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.7"
+  }
+}
+
+// ===== /MyApp/settings.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Settings</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: #eee;
+  }
+  h1 {
+    font-size: 16px;
+    margin: 0;
+    padding: 0 0 10px 0;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  ul > li {
+    font-size: 14px;
+    padding: 3px 0;
+  }
+  </style>
+</head>
+<body>
+  <h1>Background Color</h1>
+  <ul>
+    <li><label><input type="radio" name="colors" value="skyblue"> Skyblue</label></li>
+    <li><label><input type="radio" name="colors" value="tomato"> Tomato</label></li>
+    <li><label><input type="radio" name="colors" value="slategray"> Slate Gray</label></li>
+  </ul>
+  <script>
+  'use strict';
+
+  const ipcRenderer = require('electron').ipcRenderer;
+  let currentColor = ipcRenderer.sendSync('get_bgcolor');
+
+  let colors = document.getElementsByName('colors');
+  for (let i = 0; i < colors.length; i++) {
+    if (currentColor === colors[i].value) {
+      colors[i].checked = true;
+    }
+    colors[i].addEventListener('change', function() {
+      let color = this.value;
+      // console.log(color);
+      // settings.html -> index.js -> index.html
+      // ipc
+      ipcRenderer.send('settings_changed', color);
+    });
+  }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+右クリックメニューから選んだ背景色を、画面および設定画面に反映させる方法を見ていきます
+
+
+    右クリックメニューの実装
+    動作確認
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Quotes!</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: skyblue;
+  }
+  p {
+    color: #fff;
+    font-size: 36px;
+    margin: 0;
+    padding: 0;
+  }
+  </style>
+</head>
+<body>
+  <p id="quote">Just do it!</p>
+  <script>
+  'use strict';
+
+  const electron = require('electron');
+  const ipcRenderer = electron.ipcRenderer;
+  const remote = electron.remote;
+  const Menu = remote.Menu;
+  const MenuItem = remote.MenuItem;
+
+  let menu = new Menu();
+  menu.append(new MenuItem({ label: 'Skyblue', click: function() { setBackgroundColor('skyblue'); }}));
+  menu.append(new MenuItem({ label: 'Tomato', click: function() { setBackgroundColor('tomato'); }}));
+  menu.append(new MenuItem({ label: 'Slate Gray', click: function() { setBackgroundColor('slategray'); }}));
+  window.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    menu.popup(remote.getCurrentWindow());
+  });
+
+  function setBackgroundColor(color) {
+    document.body.style.backgroundColor = color;
+    ipcRenderer.send('bgcolor_changed', color);
+  }
+
+  const quote = document.getElementById('quote');
+  const quotes = [
+    'Just do it!',
+    'Done is better than perfect',
+    'Stay hungry, stay foolish',
+    'Ask, do not tell',
+    'Focus on the user',
+    'Keep trying',
+    'Nothing is impossible',
+    'That which is measured, improves'
+  ];
+  window.addEventListener('click', function() {
+    quote.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+  });
+
+  ipcRenderer.on('set_bgcolor', function(event, color) {
+    setBackgroundColor(color);
+  });
+  </script>
+</body>
+</html>
+
+// ===== /MyApp/index.js =====
+'use strict';
+
+// index.js (main process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+const Menu = electron.Menu;
+const dialog = electron.dialog;
+const ipcMain = electron.ipcMain;
+
+let mainWindow;
+let settingsWindow;
+let backgroundColor = 'skyblue';
+
+let menuTemplate = [{
+  label: 'MyApp',
+  submenu: [
+    { label: 'About', accelerator: 'CmdOrCtrl+Shift+A', click: function() { showAboutDialog(); } },
+    { type: 'separator' },
+    { label: 'Settings', accelerator: 'CmdOrCtrl+,', click: function() { showSettingsWindow(); }  },
+    { type: 'separator' },
+    { label: 'Quit', accelerator: 'CmdOrCtrl+Q', click: function() { app.quit(); }  }
+  ]
+}];
+let menu = Menu.buildFromTemplate(menuTemplate);
+
+ipcMain.on('settings_changed', function(event, color) {
+  mainWindow.webContents.send('set_bgcolor', color);
+});
+
+ipcMain.on('bgcolor_changed', function(event, color) {
+  backgroundColor = color;
+});
+
+ipcMain.on('get_bgcolor', function(event) {
+  event.returnValue = backgroundColor;
+});
+
+function showAboutDialog() {
+  dialog.showMessageBox({
+    type: 'info',
+    buttons: ['OK'],
+    message: 'About This App',
+    detail: 'This app was created by @dotinstall'
+  });
+}
+
+function showSettingsWindow() {
+  settingsWindow = new BrowserWindow({width: 600, height: 400});
+  settingsWindow.loadURL('file://' + __dirname + '/settings.html');
+  settingsWindow.webContents.openDevTools();
+  settingsWindow.show();
+  settingsWindow.on('closed', function() {
+    settingsWindow = null;
+  });
+}
+
+function createMainWindow() {
+  Menu.setApplicationMenu(menu);
+  mainWindow = new BrowserWindow({width: 600, height: 400});
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.webContents.openDevTools();
+  mainWindow.on('closed', function() {
+    mainWindow = null;
+  });
+}
+
+app.on('ready', function() {
+  // create window
+  createMainWindow();
+});
+
+app.on('window-all-closed', function() {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', function() {
+  if (mainWindow === null) {
+    createMainWindow();
+  }
+});
+
+// ===== /MyApp/package.json =====
+{
+  "name": "MyApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.7"
+  }
+}
+
+// ===== /MyApp/settings.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Settings</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: #eee;
+  }
+  h1 {
+    font-size: 16px;
+    margin: 0;
+    padding: 0 0 10px 0;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  ul > li {
+    font-size: 14px;
+    padding: 3px 0;
+  }
+  </style>
+</head>
+<body>
+  <h1>Background Color</h1>
+  <ul>
+    <li><label><input type="radio" name="colors" value="skyblue"> Skyblue</label></li>
+    <li><label><input type="radio" name="colors" value="tomato"> Tomato</label></li>
+    <li><label><input type="radio" name="colors" value="slategray"> Slate Gray</label></li>
+  </ul>
+  <script>
+  'use strict';
+
+  const ipcRenderer = require('electron').ipcRenderer;
+  let currentColor = ipcRenderer.sendSync('get_bgcolor');
+
+  let colors = document.getElementsByName('colors');
+  for (let i = 0; i < colors.length; i++) {
+    if (currentColor === colors[i].value) {
+      colors[i].checked = true;
+    }
+    colors[i].addEventListener('change', function() {
+      let color = this.value;
+      // console.log(color);
+      // settings.html -> index.js -> index.html
+      // ipc
+      ipcRenderer.send('settings_changed', color);
+    });
+  }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+Web Storageを使って背景色の値を保持する方法について見ていきます。
+
+
+    Web Storageの利用
+    動作確認
+
+// ===== commentBox 1 =====
+補足情報
+let color = ... に関する別の記法について
+
+
+
+
+2016年2月4日
+
+
+
+
+
+index.htmlの31行目ですが、以下のようにすっきりと書く方法もあります。
+let color = localStorage.getItem('color') || 'skyblue';
+
+
+||演算子の詳細については以下のサイトも参考にしてみてください。
+https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Logical_Operators
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Quotes!</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: skyblue;
+  }
+  p {
+    color: #fff;
+    font-size: 36px;
+    margin: 0;
+    padding: 0;
+  }
+  </style>
+</head>
+<body>
+  <p id="quote">Just do it!</p>
+  <script>
+  'use strict';
+
+  const electron = require('electron');
+  const ipcRenderer = electron.ipcRenderer;
+  const remote = electron.remote;
+  const Menu = remote.Menu;
+  const MenuItem = remote.MenuItem;
+
+  let color = localStorage.getItem('color') ? localStorage.getItem('color') : 'skyblue';
+  setBackgroundColor(color);
+
+  let menu = new Menu();
+  menu.append(new MenuItem({ label: 'Skyblue', click: function() { setBackgroundColor('skyblue'); }}));
+  menu.append(new MenuItem({ label: 'Tomato', click: function() { setBackgroundColor('tomato'); }}));
+  menu.append(new MenuItem({ label: 'Slate Gray', click: function() { setBackgroundColor('slategray'); }}));
+  window.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    menu.popup(remote.getCurrentWindow());
+  });
+
+  function setBackgroundColor(color) {
+    document.body.style.backgroundColor = color;
+    localStorage.setItem('color', color);
+    // ipcRenderer.send('bgcolor_changed', color);
+  }
+
+  const quote = document.getElementById('quote');
+  const quotes = [
+    'Just do it!',
+    'Done is better than perfect',
+    'Stay hungry, stay foolish',
+    'Ask, do not tell',
+    'Focus on the user',
+    'Keep trying',
+    'Nothing is impossible',
+    'That which is measured, improves'
+  ];
+  window.addEventListener('click', function() {
+    quote.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+  });
+
+  ipcRenderer.on('set_bgcolor', function(event, color) {
+    setBackgroundColor(color);
+  });
+  </script>
+</body>
+</html>
+
+// ===== /MyApp/index.js =====
+'use strict';
+
+// index.js (main process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+const Menu = electron.Menu;
+const dialog = electron.dialog;
+const ipcMain = electron.ipcMain;
+
+let mainWindow;
+let settingsWindow;
+// let backgroundColor = 'skyblue';
+
+let menuTemplate = [{
+  label: 'MyApp',
+  submenu: [
+    { label: 'About', accelerator: 'CmdOrCtrl+Shift+A', click: function() { showAboutDialog(); } },
+    { type: 'separator' },
+    { label: 'Settings', accelerator: 'CmdOrCtrl+,', click: function() { showSettingsWindow(); }  },
+    { type: 'separator' },
+    { label: 'Quit', accelerator: 'CmdOrCtrl+Q', click: function() { app.quit(); }  }
+  ]
+}];
+let menu = Menu.buildFromTemplate(menuTemplate);
+
+ipcMain.on('settings_changed', function(event, color) {
+  mainWindow.webContents.send('set_bgcolor', color);
+});
+
+// ipcMain.on('bgcolor_changed', function(event, color) {
+//   backgroundColor = color;
+// });
+
+// ipcMain.on('get_bgcolor', function(event) {
+//   event.returnValue = backgroundColor;
+// });
+
+function showAboutDialog() {
+  dialog.showMessageBox({
+    type: 'info',
+    buttons: ['OK'],
+    message: 'About This App',
+    detail: 'This app was created by @dotinstall'
+  });
+}
+
+function showSettingsWindow() {
+  settingsWindow = new BrowserWindow({width: 600, height: 400});
+  settingsWindow.loadURL('file://' + __dirname + '/settings.html');
+  settingsWindow.webContents.openDevTools();
+  settingsWindow.show();
+  settingsWindow.on('closed', function() {
+    settingsWindow = null;
+  });
+}
+
+function createMainWindow() {
+  Menu.setApplicationMenu(menu);
+  mainWindow = new BrowserWindow({width: 600, height: 400});
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.webContents.openDevTools();
+  mainWindow.on('closed', function() {
+    mainWindow = null;
+  });
+}
+
+app.on('ready', function() {
+  // create window
+  createMainWindow();
+});
+
+app.on('window-all-closed', function() {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', function() {
+  if (mainWindow === null) {
+    createMainWindow();
+  }
+});
+
+// ===== /MyApp/settings.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Settings</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: #eee;
+  }
+  h1 {
+    font-size: 16px;
+    margin: 0;
+    padding: 0 0 10px 0;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  ul > li {
+    font-size: 14px;
+    padding: 3px 0;
+  }
+  </style>
+</head>
+<body>
+  <h1>Background Color</h1>
+  <ul>
+    <li><label><input type="radio" name="colors" value="skyblue"> Skyblue</label></li>
+    <li><label><input type="radio" name="colors" value="tomato"> Tomato</label></li>
+    <li><label><input type="radio" name="colors" value="slategray"> Slate Gray</label></li>
+  </ul>
+  <script>
+  'use strict';
+
+  const ipcRenderer = require('electron').ipcRenderer;
+  // let currentColor = ipcRenderer.sendSync('get_bgcolor');
+  let currentColor = localStorage.getItem('color');
+  
+  let colors = document.getElementsByName('colors');
+  for (let i = 0; i < colors.length; i++) {
+    if (currentColor === colors[i].value) {
+      colors[i].checked = true;
+    }
+    colors[i].addEventListener('change', function() {
+      let color = this.value;
+      // console.log(color);
+      // settings.html -> index.js -> index.html
+      // ipc
+      ipcRenderer.send('settings_changed', color);
+    });
+  }
+  </script>
+</body>
+</html>
+
+// ===== /MyApp/package.json =====
+{
+  "name": "MyApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.7"
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+HTML5のNotification APIを使ってデスクトップ通知を実装していきます。
+
+
+    Notification API
+    shellモジュール
+    動作確認
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Quotes!</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: skyblue;
+  }
+  p {
+    color: #fff;
+    font-size: 36px;
+    margin: 0;
+    padding: 0;
+  }
+  </style>
+</head>
+<body>
+  <p id="quote">Just do it!</p>
+  <script>
+  'use strict';
+
+  const electron = require('electron');
+  const ipcRenderer = electron.ipcRenderer;
+  const remote = electron.remote;
+  const Menu = remote.Menu;
+  const MenuItem = remote.MenuItem;
+  const shell = remote.shell;
+
+  let color = localStorage.getItem('color') ? localStorage.getItem('color') : 'skyblue';
+  setBackgroundColor(color);
+
+  let menu = new Menu();
+  menu.append(new MenuItem({ label: 'Skyblue', click: function() { setBackgroundColor('skyblue'); }}));
+  menu.append(new MenuItem({ label: 'Tomato', click: function() { setBackgroundColor('tomato'); }}));
+  menu.append(new MenuItem({ label: 'Slate Gray', click: function() { setBackgroundColor('slategray'); }}));
+  window.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    menu.popup(remote.getCurrentWindow());
+  });
+
+  function setBackgroundColor(color) {
+    document.body.style.backgroundColor = color;
+    localStorage.setItem('color', color);
+    // ipcRenderer.send('bgcolor_changed', color);
+  }
+
+  const quote = document.getElementById('quote');
+  const quotes = [
+    'Just do it!',
+    'Done is better than perfect',
+    'Stay hungry, stay foolish',
+    'Ask, do not tell',
+    'Focus on the user',
+    'Keep trying',
+    'Nothing is impossible',
+    'That which is measured, improves'
+  ];
+  window.addEventListener('click', function() {
+    quote.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+  });
+
+  ipcRenderer.on('set_bgcolor', function(event, color) {
+    setBackgroundColor(color);
+  });
+
+  setTimeout(function() {
+    let notification = new Notification(
+      'Quote!',
+      { body: 'Visit our website!' }
+    );
+    notification.onclick = function() {
+      shell.openExternal('http://dotinstall.com');
+    }
+  }, 3000);
+  </script>
+</body>
+</html>
+
+// ===== /MyApp/index.js =====
+'use strict';
+
+// index.js (main process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+const Menu = electron.Menu;
+const dialog = electron.dialog;
+const ipcMain = electron.ipcMain;
+
+let mainWindow;
+let settingsWindow;
+// let backgroundColor = 'skyblue';
+
+let menuTemplate = [{
+  label: 'MyApp',
+  submenu: [
+    { label: 'About', accelerator: 'CmdOrCtrl+Shift+A', click: function() { showAboutDialog(); } },
+    { type: 'separator' },
+    { label: 'Settings', accelerator: 'CmdOrCtrl+,', click: function() { showSettingsWindow(); }  },
+    { type: 'separator' },
+    { label: 'Quit', accelerator: 'CmdOrCtrl+Q', click: function() { app.quit(); }  }
+  ]
+}];
+let menu = Menu.buildFromTemplate(menuTemplate);
+
+ipcMain.on('settings_changed', function(event, color) {
+  mainWindow.webContents.send('set_bgcolor', color);
+});
+
+// ipcMain.on('bgcolor_changed', function(event, color) {
+//   backgroundColor = color;
+// });
+
+// ipcMain.on('get_bgcolor', function(event) {
+//   event.returnValue = backgroundColor;
+// });
+
+function showAboutDialog() {
+  dialog.showMessageBox({
+    type: 'info',
+    buttons: ['OK'],
+    message: 'About This App',
+    detail: 'This app was created by @dotinstall'
+  });
+}
+
+function showSettingsWindow() {
+  settingsWindow = new BrowserWindow({width: 600, height: 400});
+  settingsWindow.loadURL('file://' + __dirname + '/settings.html');
+  settingsWindow.webContents.openDevTools();
+  settingsWindow.show();
+  settingsWindow.on('closed', function() {
+    settingsWindow = null;
+  });
+}
+
+function createMainWindow() {
+  Menu.setApplicationMenu(menu);
+  mainWindow = new BrowserWindow({width: 600, height: 400});
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.webContents.openDevTools();
+  mainWindow.on('closed', function() {
+    mainWindow = null;
+  });
+}
+
+app.on('ready', function() {
+  // create window
+  createMainWindow();
+});
+
+app.on('window-all-closed', function() {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', function() {
+  if (mainWindow === null) {
+    createMainWindow();
+  }
+});
+
+// ===== /MyApp/package.json =====
+{
+  "name": "MyApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.7"
+  }
+}
+
+// ===== /MyApp/settings.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Settings</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: #eee;
+  }
+  h1 {
+    font-size: 16px;
+    margin: 0;
+    padding: 0 0 10px 0;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  ul > li {
+    font-size: 14px;
+    padding: 3px 0;
+  }
+  </style>
+</head>
+<body>
+  <h1>Background Color</h1>
+  <ul>
+    <li><label><input type="radio" name="colors" value="skyblue"> Skyblue</label></li>
+    <li><label><input type="radio" name="colors" value="tomato"> Tomato</label></li>
+    <li><label><input type="radio" name="colors" value="slategray"> Slate Gray</label></li>
+  </ul>
+  <script>
+  'use strict';
+
+  const ipcRenderer = require('electron').ipcRenderer;
+  // let currentColor = ipcRenderer.sendSync('get_bgcolor');
+  let currentColor = localStorage.getItem('color');
+  
+  let colors = document.getElementsByName('colors');
+  for (let i = 0; i < colors.length; i++) {
+    if (currentColor === colors[i].value) {
+      colors[i].checked = true;
+    }
+    colors[i].addEventListener('change', function() {
+      let color = this.value;
+      // console.log(color);
+      // settings.html -> index.js -> index.html
+      // ipc
+      ipcRenderer.send('settings_changed', color);
+    });
+  }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+electron-packagerを使って実行ファイルを生成していきます。
+
+
+    electron-packagerのインストール
+    実行ファイルの生成
+    動作確認
+
+// ===== commentBox 1 =====
+補足情報
+electron-packager での --version は --electron-version に変更されています
+
+
+
+
+2018年11月28日
+
+
+
+
+
+electron-packager のバージョンアップに伴い、 --version のオプションは使用できなくなりました。
+
+代わりに --electron-version を使用するようにしてください。
+
+// ===== commentBox 2 =====
+補足情報
+electron-packagerについて
+
+
+
+
+2016年2月4日
+
+
+
+
+
+electron-packagerの公式サイトは以下となります。それぞれのオプションの値などはこちらで調べてみてください。
+https://github.com/maxogden/electron-packager
+
+// ===== /MyApp/index.js =====
+'use strict';
+
+// index.js (main process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+// - GUI (renderer process)
+
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+const Menu = electron.Menu;
+const dialog = electron.dialog;
+const ipcMain = electron.ipcMain;
+
+let mainWindow;
+let settingsWindow;
+// let backgroundColor = 'skyblue';
+
+let menuTemplate = [{
+  label: 'MyApp',
+  submenu: [
+    { label: 'About', accelerator: 'CmdOrCtrl+Shift+A', click: function() { showAboutDialog(); } },
+    { type: 'separator' },
+    { label: 'Settings', accelerator: 'CmdOrCtrl+,', click: function() { showSettingsWindow(); }  },
+    { type: 'separator' },
+    { label: 'Quit', accelerator: 'CmdOrCtrl+Q', click: function() { app.quit(); }  }
+  ]
+}];
+let menu = Menu.buildFromTemplate(menuTemplate);
+
+ipcMain.on('settings_changed', function(event, color) {
+  mainWindow.webContents.send('set_bgcolor', color);
+});
+
+// ipcMain.on('bgcolor_changed', function(event, color) {
+//   backgroundColor = color;
+// });
+
+// ipcMain.on('get_bgcolor', function(event) {
+//   event.returnValue = backgroundColor;
+// });
+
+function showAboutDialog() {
+  dialog.showMessageBox({
+    type: 'info',
+    buttons: ['OK'],
+    message: 'About This App',
+    detail: 'This app was created by @dotinstall'
+  });
+}
+
+function showSettingsWindow() {
+  settingsWindow = new BrowserWindow({width: 600, height: 400});
+  settingsWindow.loadURL('file://' + __dirname + '/settings.html');
+  // settingsWindow.webContents.openDevTools();
+  settingsWindow.show();
+  settingsWindow.on('closed', function() {
+    settingsWindow = null;
+  });
+}
+
+function createMainWindow() {
+  Menu.setApplicationMenu(menu);
+  mainWindow = new BrowserWindow({width: 600, height: 400});
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  // mainWindow.webContents.openDevTools();
+  mainWindow.on('closed', function() {
+    mainWindow = null;
+  });
+}
+
+app.on('ready', function() {
+  // create window
+  createMainWindow();
+});
+
+app.on('window-all-closed', function() {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', function() {
+  if (mainWindow === null) {
+    createMainWindow();
+  }
+});
+
+// ===== /MyApp/package.json =====
+{
+  "name": "MyApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-packager": "^5.2.1",
+    "electron-prebuilt": "^0.36.7"
+  }
+}
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Quotes!</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: skyblue;
+  }
+  p {
+    color: #fff;
+    font-size: 36px;
+    margin: 0;
+    padding: 0;
+  }
+  </style>
+</head>
+<body>
+  <p id="quote">Just do it!</p>
+  <script>
+  'use strict';
+
+  const electron = require('electron');
+  const ipcRenderer = electron.ipcRenderer;
+  const remote = electron.remote;
+  const Menu = remote.Menu;
+  const MenuItem = remote.MenuItem;
+  const shell = remote.shell;
+
+  let color = localStorage.getItem('color') ? localStorage.getItem('color') : 'skyblue';
+  setBackgroundColor(color);
+
+  let menu = new Menu();
+  menu.append(new MenuItem({ label: 'Skyblue', click: function() { setBackgroundColor('skyblue'); }}));
+  menu.append(new MenuItem({ label: 'Tomato', click: function() { setBackgroundColor('tomato'); }}));
+  menu.append(new MenuItem({ label: 'Slate Gray', click: function() { setBackgroundColor('slategray'); }}));
+  window.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    menu.popup(remote.getCurrentWindow());
+  });
+
+  function setBackgroundColor(color) {
+    document.body.style.backgroundColor = color;
+    localStorage.setItem('color', color);
+    // ipcRenderer.send('bgcolor_changed', color);
+  }
+
+  const quote = document.getElementById('quote');
+  const quotes = [
+    'Just do it!',
+    'Done is better than perfect',
+    'Stay hungry, stay foolish',
+    'Ask, do not tell',
+    'Focus on the user',
+    'Keep trying',
+    'Nothing is impossible',
+    'That which is measured, improves'
+  ];
+  window.addEventListener('click', function() {
+    quote.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+  });
+
+  ipcRenderer.on('set_bgcolor', function(event, color) {
+    setBackgroundColor(color);
+  });
+
+  setTimeout(function() {
+    let notification = new Notification(
+      'Quote!',
+      { body: 'Visit our website!' }
+    );
+    notification.onclick = function() {
+      shell.openExternal('http://dotinstall.com');
+    }
+  }, 3000);
+  </script>
+</body>
+</html>
+
+// ===== /MyApp/settings.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Settings</title>
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    padding: 10px;
+    background: #eee;
+  }
+  h1 {
+    font-size: 16px;
+    margin: 0;
+    padding: 0 0 10px 0;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  ul > li {
+    font-size: 14px;
+    padding: 3px 0;
+  }
+  </style>
+</head>
+<body>
+  <h1>Background Color</h1>
+  <ul>
+    <li><label><input type="radio" name="colors" value="skyblue"> Skyblue</label></li>
+    <li><label><input type="radio" name="colors" value="tomato"> Tomato</label></li>
+    <li><label><input type="radio" name="colors" value="slategray"> Slate Gray</label></li>
+  </ul>
+  <script>
+  'use strict';
+
+  const ipcRenderer = require('electron').ipcRenderer;
+  // let currentColor = ipcRenderer.sendSync('get_bgcolor');
+  let currentColor = localStorage.getItem('color');
+  
+  let colors = document.getElementsByName('colors');
+  for (let i = 0; i < colors.length; i++) {
+    if (currentColor === colors[i].value) {
+      colors[i].checked = true;
+    }
+    colors[i].addEventListener('change', function() {
+      let color = this.value;
+      // console.log(color);
+      // settings.html -> index.js -> index.html
+      // ipc
+      ipcRenderer.send('settings_changed', color);
+    });
+  }
+  </script>
+</body>
+</html>
+
+
+
+
+
+

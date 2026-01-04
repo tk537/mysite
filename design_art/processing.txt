@@ -1,0 +1,461 @@
+// ===== video_summary =====
+まずは概要を説明したのちに公式サイトや必要となる知識について触れていきます。
+
+
+    概要
+    公式サイト
+    必要となる知識
+    準備
+
+// ===== commentBox 1 =====
+補足情報
+必要となる知識について
+
+
+
+
+2021年11月18日
+
+
+
+
+
+このレッスンに必要な知識に関しては以下のレッスンを参照してください。
+
+・Java入門 (全23回)
+http://dotinstall.com/lessons/basic_java
+
+// ===== read.me =====
+Processing
+
+* 概要
+- アーティスト＆デザイナー
+
+* 公式サイト
+
+* 知識
+- Java
+
+* 準備
+
+
+
+
+
+
+// ===== video_summary =====
+Processingを起動したのちに画面の説明、プログラムの実行方法について見ていきます。
+
+
+    画面の説明
+    プログラムの実行方法
+    リファレンスの見方
+
+// ===== sketch_141202c.pde =====
+println("hello world");
+
+
+
+
+
+
+// ===== video_summary =====
+四角形を描画するためのrect()について見ていきます。
+
+
+    size()
+    smooth()
+    background()
+    rect()
+    width/height
+
+// ===== sketch_141202c.pde =====
+size(200, 200); // width: 200, height: 200
+smooth();
+background(255);
+
+//rect(50, 50, 80, 30); // x, y, width, height
+//rect(50, 50, 80, 30, 10); // x, y, width, height, r
+
+rect(width/2, height/2, 80, 30, 10);
+
+
+
+
+
+// ===== video_summary =====
+rect()の描画モードを切り替えるためのrectMode()について説明していきます。
+
+
+    rectMode()
+
+// ===== sketch_141202c.pde =====
+size(200, 200); // width: 200, height: 200
+smooth();
+background(255);
+
+//rectMode(CORNER);
+//rect(50, 50, 80, 30); // x, y, width, height
+
+//rectMode(CORNERS);
+//rect(50, 50, 80, 100); // xy, xy
+
+//rectMode(CENTER);
+//rect(50, 50, 80, 100); // center xy, width, height
+
+rectMode(RADIUS);
+rect(50, 50, 80, 100); // center xy, dist, dist
+
+
+
+
+// ===== video_summary =====
+色を指定するさまざまな方法について学びます。
+
+
+    fill()
+    色の指定方法
+    colorMode()
+
+// ===== sketch_141202c.pde =====
+size(200, 200);
+smooth();
+background(255);
+
+// color
+// 0-255 127
+// RGB 255, 0, 0
+// #ff0000
+
+// fill(#ff0000, 127);
+
+//colorMode(HSB);
+//colorMode(RGB, 100);
+
+//fill(100, 100, 255);
+noFill();
+rect(50, 50, 80, 30);
+
+
+
+
+
+
+// ===== video_summary =====
+枠線を描画するためのstroke()について学びます。
+
+
+    stroke()
+    strokeWeight()
+    noStroke()
+
+// ===== sketch_141202c.pde =====
+size(200, 200);
+smooth();
+background(255);
+
+//stroke(#ff0000);
+//strokeWeight(3);
+noStroke();
+fill(127);
+rect(50, 50, 80, 30);
+
+
+
+
+
+
+// ===== video_summary =====
+点、線、円、円弧などを描画する命令について見ていきます。
+
+
+    point()
+    line()
+    ellipse()
+    arc()
+
+// ===== sketch_141202c.pde =====
+size(200, 200);
+smooth();
+background(255);
+
+stroke(#333333);
+fill(#999999);
+
+//point(50, 50);
+//line(50, 50, 100, 100);
+//ellipse(50, 50, 80, 80); // ellipseMode(CENTER)
+//arc(50, 50, 80, 80, 0, PI);
+//arc(50, 50, 80, 80, 0, radians(180), OPEN);
+
+//arc(50, 50, 80, 80, 0, radians(225), PIE);
+arc(50, 50, 80, 80, 0, radians(225), CHORD);
+
+
+
+
+
+
+// ===== video_summary =====
+さらに複雑な図形を描画するための命令について学びます。
+
+
+    beginShape()
+    vertex()
+    endShape()
+
+// ===== sketch_141202c.pde =====
+size(200, 200);
+smooth();
+background(255);
+
+stroke(#333333);
+fill(#999999);
+
+beginShape();
+vertex(100,  20);
+vertex(120, 100);
+vertex(100,  80);
+vertex( 80, 100);
+endShape(CLOSE);
+
+
+
+
+
+
+// ===== video_summary =====
+Processingから画像ファイルを扱っていく方法について学びます。
+
+
+    PImage
+    loadImage()
+    image()
+    tint()
+    filter()
+
+// ===== sketch_141202c.pde =====
+size(200, 200);
+smooth();
+background(255);
+
+PImage img;
+img = loadImage("100shiki.jpg");
+//image(img, 10, 10, 50, 50);
+//tint(#ff0000, 127);
+image(img, 10, 10);
+//filter(GRAY);
+filter(BLUR, 3);
+
+
+
+
+
+
+// ===== video_summary =====
+Processingでテキストを描画していく方法について学びます。
+
+
+    PFont
+    createFont()
+    textFont()
+    text()
+
+// ===== sketch_141202c.pde =====
+size(200, 200);
+smooth();
+background(255);
+
+PFont f;
+f = createFont("Helvetica", 16, true);
+
+textFont(f, 18);
+fill(#00ff00);
+
+text("hello world", 100, 100);
+
+
+
+
+
+// ===== video_summary =====
+さまざまな方法で図形を変形させていく方法について学びます。
+
+
+    pushMatrix()
+    popMatrix()
+    translate()
+    rotate()
+    scale()
+
+// ===== sketch_141202c.pde =====
+size(200, 200);
+smooth();
+background(255);
+
+fill(#ff0000, 127);
+noStroke();
+rect(10, 10, 50, 50);
+
+fill(#0000ff, 127);
+noStroke();
+pushMatrix();
+//translate(10, 10);
+//rotate(radians(30));
+scale(2, 0.5);
+rect(10, 10, 50, 50);
+popMatrix();
+
+
+
+
+
+// ===== video_summary =====
+立方体、球体を描画する方法について学びます。
+
+
+    lights()
+    box()
+    sphere()
+
+// ===== sketch_141202c.pde =====
+size(200, 200, P3D);
+smooth();
+background(0);
+lights();
+
+// box
+// sphere
+
+pushMatrix();
+translate(50, 50, 0);
+rotateX(radians(30));
+rotateY(radians(40));
+rotateZ(radians(10));
+noStroke();
+box(40);
+popMatrix();
+
+pushMatrix();
+translate(100, 100, -100);
+noStroke();
+sphere(40);
+popMatrix();
+
+
+
+
+
+// ===== video_summary =====
+setup()、draw()を使ってアニメーションを実現する方法について学びます。
+
+
+    setup()
+    draw()
+    frameRate()
+    frameCount
+
+// ===== sketch_141202c.pde =====
+void setup() {
+  size(200, 200);
+  smooth();
+  background(255);
+  
+  noStroke();
+  fill(#ff0000);
+  
+  frameRate(10);
+}
+
+int x = 0;
+int y = 0;
+
+void draw() {
+  background(255);
+  rect(x, y, 100, 100);
+  x++;
+  y++;
+  println(frameCount);
+}
+
+
+
+
+
+// ===== video_summary =====
+マウスの座標やクリック情報を取得する方法について学びます。
+
+
+    mouseX, mouseY
+    mousePressed
+    mousePressed()
+
+// ===== sketch_141202c.pde =====
+void setup() {
+  size(200, 200);
+  smooth();
+  background(255);
+  noStroke();
+  fill(#ff0000);
+}
+
+int r = 100;
+
+void draw() {
+  background(255);
+//  if (mousePressed) {
+//    fill(255);
+//  } else {
+//    fill(#ff0000);
+//  }
+  ellipse(mouseX, mouseY, r, r);
+}
+
+void mousePressed() {
+  r += 5;
+}
+
+
+
+
+
+// ===== video_summary =====
+ControlP5の使い方を説明しつつライブラリの導入方法について見ていきます。
+
+
+    ControlP5のインストール
+    ControlP5の利用
+
+// ===== sketch_141202c.pde =====
+import controlP5.*;
+ControlP5 cp5;
+
+void setup() {
+  size(200, 200);
+  smooth();
+  background(255);
+  noStroke();
+  fill(#ff0000);
+  cp5 = new ControlP5(this);
+  cp5.addSlider("r")
+     .setPosition(10, 10)
+     .setSize(100, 15)
+     .setRange(0, 255);
+}
+
+int r = 100;
+
+void draw() {
+  background(255);
+  ellipse(mouseX, mouseY, r, r);
+}
+
+void mousePressed() {
+  r += 5;
+}
+
+
+
+
+
+

@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre><code>
+    
+
+関数の概要について確認したあとに、引数や返り値といった用語についても解説していきます。
+
+関数の仕組み
+引数
+返り値
+補足情報 動画中で紹介しているコードについて
+2023年5月10日
+動画中で紹介しているコードについては以下のレッスンを参考にしてみてください。
+
+・#03 ハートをクリックして数値を増やそう | はじめてのJavaScript
+https://dotinstall.com/lessons/basic_javascript_v6/63303
+
+
+
+
+
+
+学習環境を整えたあとに、数値を2倍にしてくれるdouble関数を作っていきます。
+
+学習環境
+関数の定義
+関数の実行
+実引数、仮引数
+補足情報 基礎文法編のレッスンについて
+2023年5月10日
+このレッスンは基礎文法編が終わった状態から進めていきます。まだ履修していない方は以下からご確認ください。
+
+・JavaScript入門 基礎文法編 (全27回)
+https://dotinstall.com/lessons/basic_javascript_grammar_v3
+
+補足情報 定数名、変数名のルールについて
+2023年5月10日
+動画中で紹介している定数名、変数名のルールについては以下のレッスンを参照してください。
+
+・#09 定数と変数の違いを理解しよう | JavaScript入門 基礎文法編
+https://dotinstall.com/lessons/basic_javascript_grammar_v3/63409
+
+
+
+
+/MyJavaScript/index.html
+    <!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  function double(num) { // 仮引数
+    return num * 2;
+  }
+
+  console.log(double(10)); // 実引数
+  console.log(double(4) * 3); // 実引数
+}
+
+
+
+
+
+
+関数のコードがどのように実行されていくか、順を追って説明していきます。
+
+double関数
+処理の順序
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+/MyJavaScript/sub.js
+'use strict';
+
+{
+  function double(num) { // 仮引数
+    return num * 2;
+  }
+
+  console.log(double(10)); // 実引数
+  console.log(double(4) * 3); // 実引数
+}
+
+
+
+
+
+returnを書く必要がない関数について見ていきます。
+
+sum関数
+returnのない関数
+補足情報 1:58〜の説明について
+2024年5月7日
+1:58あたりから、「関数を使うべきときと、そうでないときの区別ができるようになります。」と説明していますが、「 returnを使うべきときと、 そうでないときの区別ができるようになります。」の間違いでした。訂正してお詫び申し上げます。
+
+
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  // function sum(a, b) {
+  //   return a + b;
+  // }
+
+  // console.log(sum(300, 700));
+
+  function sum(a, b) {
+    console.log(a + b);
+  }
+
+  sum(300, 700);
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+returnを書かなかったときにどうなるかについて確認していきます。
+
+return undefined
+NaN
+returnの使いどころ
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  function sum(a, b) {
+    return a + b;
+  }
+
+  // console.log(sum(300, 700));
+
+  // function sum(a, b) {
+  //   console.log(a + b);
+  //   // return undefined;
+  // }
+
+  // console.log(sum(300, 700));
+  console.log(sum(300, 700) * 3);
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+仮引数にデフォルト値を設定する方法について見ていきます。
+
+関数名の付け方
+calculateTotal関数
+デフォルト引数
+
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  function calculateTotal(price, amount, rate = 1.1) {
+    return price * amount * rate;
+  }
+
+  console.log(calculateTotal(100, 10));
+  console.log(calculateTotal(150, 10));
+  console.log(calculateTotal(200, 10));
+  console.log(calculateTotal(120, 10, 1.08));
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+処理の途中でreturnを使う方法について解説していきます。
+
+複数のreturn
+早期return
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  function calcurateTotal(price, amount, rate = 1.1) {
+    // if (amount >= 100) {
+    //   return price * amount;
+    // } else {
+    //   return price * amount * rate;
+    // }
+
+    if (amount >= 100) {
+      // 早期リターン
+      return price * amount;
+    }
+    return price * amount * rate;
+  }
+
+  console.log(calcurateTotal(100, 100));
+  console.log(calcurateTotal(1000, 10));
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+仮引数のスコープについて確認したあとに、スコープがあることの利点について説明していきます。
+
+仮引数のスコープ
+スコープがあることの利点
+補足情報 スコープについて
+2023年5月10日
+スコープについて復習したい方は以下のレッスンをご確認ください。
+
+・#26 スコープの仕組みを理解しよう | JavaScript入門 基礎文法編
+https://dotinstall.com/lessons/basic_javascript_grammar_v3/63426
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  function double(num) {
+    return num * 2;
+  }
+
+  function triple(num) {
+    return num * 3;
+  }
+
+  console.log(double(10));
+  // console.log(num);
+  console.log(triple(20));
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+関数を使って処理をまとめ、コードの見通しを良くする方法について見ていきます。
+
+showAd関数
+showContent関数
+引数のない関数
+補足情報 冒頭のコードについて
+2023年5月10日
+冒頭で貼り付けているコードについては以下をご利用ください。
+
+console.log("---------");
+console.log("SALE! 50% OFF!");
+console.log("---------");
+console.log("BREAKING NEWS!");
+console.log("Two baby pandas born at our Zoo!");
+console.log("---------");
+console.log("SALE! 50% OFF!");
+console.log("---------");
+
+
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  function showAd() {
+    console.log("---------");
+    console.log("SALE! 50% OFF!");
+    console.log("---------");
+  }
+
+  function showContent() {
+    console.log("BREAKING NEWS!");
+    console.log("Two baby pandas born at our Zoo!");
+  }
+
+  showAd();
+  showContent();
+  showAd();
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+関数を定義するもう一つの方法である、関数式について見ていきます。
+
+関数式
+関数宣言
+関数の巻き上げ
+
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  console.log(double(10));
+
+  // 関数宣言
+  function double(num) {
+    return num * 2;
+  }
+
+  // 関数式
+  // const double = function(num) {
+  //   return num * 2;
+  // };
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+関数式を簡潔に書くことができる、アロー関数式について見ていきます。
+
+アロー関数式
+アロー関数式における省略記法
+補足情報 アロー関数式における挙動の違いについて
+2023年5月10日
+動画中で説明しているアロー関数式を使った際の挙動の違いについては以下をご確認ください。いくつかありますが、特に注意すべきはthisの扱いです。thisキーワードを含む関数式をアロー関数式に書き換える際には十分に注意しましょう。
+
+・アロー関数式 - JavaScript | MDN
+https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Functions/Arrow_functions
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  // 関数宣言
+  // function double(num) {
+  //   return num * 2;
+  // }
+
+  // アロー関数式
+  const double = (num) => {
+    return num * 2;
+  };
+
+  // const double = num => {
+  //   return num * 2;
+  // };
+
+  // const double = num => num * 2;
+
+  console.log(double(10));
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+関数を引数にとる関数を用いて、アロー関数式の使いどころについてみていきます。
+
+calc関数
+引数としての関数
+アロー関数式による書き換え
+次のステップ
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  // const double = (num) => {
+  //   return num * 2;
+  // };
+
+  const calc = (num, func) => {
+    // return double(20)
+    return func(num);
+  };
+
+  // console.log(calc(20, double));
+  console.log(calc(20, (num) => { 
+    return num * 2; 
+  }));
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+  </code></pre>
+</body>
+</html>

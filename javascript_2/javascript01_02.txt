@@ -1,0 +1,2002 @@
+// ===== video_summary =====
+完成版を確認したあとに、ひな形となるHTMLファイルを作っていきます。
+
+
+    完成版の確認
+    作業用フォルダの設定
+    index.htmlの作成
+
+// ===== commentBox 1 =====
+補足情報
+VS Codeでファイルのドラッグ＆ドロップができない場合
+
+
+
+
+2024年2月16日
+
+
+
+
+
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、WindowsならCtrlキー、macOSならcommandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+// ===== commentBox 2 =====
+補足情報
+VS Codeで生成されるHTMLの雛形について
+
+
+
+
+2024年7月11日
+
+
+
+
+
+VS Codeで生成されるHTMLの雛形に変更があったようです。具体的には <meta http-equiv="X-UA-Compatible" content="IE=edge"> が含まれなくなりました。こちらは古いブラウザに対応するための命令でしたが、現在不要になっているので気にせずにそのまま学習を進めてみてください。
+
+// ===== /MyPasswordApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>パスワードジェネレーター</title>
+</head>
+<body>
+  
+</body>
+</html>
+
+
+
+
+// ===== video_summary =====
+必要な部品を揃えるため、HTMLでマークアップをしていきます。
+
+
+    index.htmlのマークアップ
+    要素の確認
+
+// ===== commentBox 1 =====
+補足情報
+コピーアンドペーストのショートカットキーについて
+
+
+
+
+2022年11月9日
+
+
+
+
+
+動画で紹介しているコピーとペーストのショートカットキーは以下のとおりです。
+
+コピー
+macOS: Cmd + C
+Windows: Ctrl + C
+
+
+ペースト
+macOS: Cmd + V
+Windows: Ctrl + V
+
+// ===== /MyPasswordApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>パスワードジェネレーター</title>
+</head>
+<body>
+  <main>
+    <p>asdfghjk</p>
+
+    <button>パスワードを生成</button>
+
+    <fieldset>
+      <legend>オプション</legend>
+      <label>
+        長さ(8)
+        <input type="range">
+      </label>
+      <label>
+        数字
+        <input type="checkbox">
+      </label>
+      <label>
+        記号
+        <input type="checkbox">
+      </label>
+    </fieldset>
+  </main>
+</body>
+</html>
+
+
+
+
+// ===== video_summary =====
+CSSファイルを作ったあとに、main要素のスタイルを整えていきます。
+
+
+    文字コードの指定
+    style.cssの作成
+    mainのスタイリング
+
+// ===== /MyPasswordApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>パスワードジェネレーター</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p>asdfghjk</p>
+
+    <button>パスワードを生成</button>
+
+    <fieldset>
+      <legend>オプション</legend>
+      <label>
+        長さ(8)
+        <input type="range">
+      </label>
+      <label>
+        数字
+        <input type="checkbox">
+      </label>
+      <label>
+        記号
+        <input type="checkbox">
+      </label>
+    </fieldset>
+  </main>
+</body>
+</html>
+
+// ===== /MyPasswordApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 380px;
+  margin: 0 auto;
+}
+
+
+
+
+// ===== video_summary =====
+main要素のスタイルをさらに追加し、全体を大まかにスタイリングしていきます。
+
+
+    box-shadow
+    border-radius
+    余白の設定
+
+// ===== /MyPasswordApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 380px;
+  margin: 24px auto 0;
+  box-shadow: 0 0 8px #999;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+// ===== /MyPasswordApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>パスワードジェネレーター</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p>asdfghjk</p>
+
+    <button>パスワードを生成</button>
+
+    <fieldset>
+      <legend>オプション</legend>
+      <label>
+        長さ(8)
+        <input type="range">
+      </label>
+      <label>
+        数字
+        <input type="checkbox">
+      </label>
+      <label>
+        記号
+        <input type="checkbox">
+      </label>
+    </fieldset>
+  </main>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+p要素にデフォルトで設定されている余白をリセットしたあと、パスワードを表示する部分をスタイリングしていきます。
+
+
+    スタイルのリセット
+    パスワードのスタイリング
+
+// ===== /MyPasswordApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 380px;
+  margin: 24px auto 0;
+  box-shadow: 0 0 8px #999;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+p {
+  margin: 0;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-family: "Courier New";
+  font-size: 24px;
+  text-align: center;
+  padding: 12px 0;
+}
+
+// ===== /MyPasswordApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>パスワードジェネレーター</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p>asdfghjk</p>
+
+    <button>パスワードを生成</button>
+
+    <fieldset>
+      <legend>オプション</legend>
+      <label>
+        長さ(8)
+        <input type="range">
+      </label>
+      <label>
+        数字
+        <input type="checkbox">
+      </label>
+      <label>
+        記号
+        <input type="checkbox">
+      </label>
+    </fieldset>
+  </main>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+デフォルトで設定されているスタイルをリセットしたあとに、ボタンのスタイルを整えていきます。
+
+
+    スタイルのリセット
+    ボタンのスタイリング
+
+// ===== /MyPasswordApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 380px;
+  margin: 24px auto 0;
+  box-shadow: 0 0 8px #999;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+p {
+  margin: 0;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-family: "Courier New";
+  font-size: 24px;
+  text-align: center;
+  padding: 12px 0;
+}
+
+button {
+  all: unset;
+  width: 100%;
+  background: #08c;
+  border-radius: 8px;
+  color: #fff;
+  text-align: center;
+  padding: 12px 0;
+  margin-top: 16px;
+}
+
+// ===== /MyPasswordApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>パスワードジェネレーター</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p>asdfghjk</p>
+
+    <button>パスワードを生成</button>
+
+    <fieldset>
+      <legend>オプション</legend>
+      <label>
+        長さ(8)
+        <input type="range">
+      </label>
+      <label>
+        数字
+        <input type="checkbox">
+      </label>
+      <label>
+        記号
+        <input type="checkbox">
+      </label>
+    </fieldset>
+  </main>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+ボタンを押し込んだことがわかりやすくなるようにスタイルを調整していきます。
+
+
+    cursor
+    button:hover
+    button:active
+    opacity
+
+// ===== /MyPasswordApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 380px;
+  margin: 24px auto 0;
+  box-shadow: 0 0 8px #999;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+p {
+  margin: 0;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-family: "Courier New";
+  font-size: 24px;
+  text-align: center;
+  padding: 12px 0;
+}
+
+button {
+  all: unset;
+  width: 100%;
+  background: #08c;
+  border-radius: 8px;
+  color: #fff;
+  text-align: center;
+  padding: 12px 0;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: .6;
+}
+
+button:active {
+  opacity: .4;
+}
+
+// ===== /MyPasswordApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>パスワードジェネレーター</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p>asdfghjk</p>
+
+    <button>パスワードを生成</button>
+
+    <fieldset>
+      <legend>オプション</legend>
+      <label>
+        長さ(8)
+        <input type="range">
+      </label>
+      <label>
+        数字
+        <input type="checkbox">
+      </label>
+      <label>
+        記号
+        <input type="checkbox">
+      </label>
+    </fieldset>
+  </main>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+キャプションなどのfieldset周りのスタイルを整えていきます。
+
+
+    fieldset
+    フレックスボックス
+    justify-content
+
+// ===== /MyPasswordApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 380px;
+  margin: 24px auto 0;
+  box-shadow: 0 0 8px #999;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+p {
+  margin: 0;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-family: "Courier New";
+  font-size: 24px;
+  text-align: center;
+  padding: 12px 0;
+}
+
+button {
+  all: unset;
+  width: 100%;
+  background: #08c;
+  border-radius: 8px;
+  color: #fff;
+  text-align: center;
+  padding: 12px 0;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: .6;
+}
+
+button:active {
+  opacity: .4;
+}
+
+fieldset {
+  border: 1px dashed #aaa;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+legend {
+  padding: 0 8px;
+}
+
+// ===== /MyPasswordApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>パスワードジェネレーター</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p>asdfghjk</p>
+
+    <button>パスワードを生成</button>
+
+    <fieldset>
+      <legend>オプション</legend>
+      <label>
+        長さ(8)
+        <input type="range">
+      </label>
+      <label>
+        数字
+        <input type="checkbox">
+      </label>
+      <label>
+        記号
+        <input type="checkbox">
+      </label>
+    </fieldset>
+  </main>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+JavaScriptファイルを作ったあと、HTMLのスライダー部分にidを付けていきます。
+
+
+    main.jsの作成
+    idの付与
+
+// ===== commentBox 1 =====
+補足情報
+Google Style Guides について
+
+
+
+
+2022年11月9日
+
+
+
+
+
+Google が定めているスタイルガイドについては、以下のリンクを参考にしてください。
+
+
+Google Style Guides
+https://google.github.io/styleguide/
+
+
+Google HTML/CSS Style Guide
+https://google.github.io/styleguide/htmlcssguide.html
+
+// ===== /MyPasswordApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>パスワードジェネレーター</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p>asdfghjk</p>
+
+    <button>パスワードを生成</button>
+
+    <fieldset>
+      <legend>オプション</legend>
+      <label>
+        長さ(<span id="password-length">8</span>)
+        <input type="range" id="slider">
+      </label>
+      <label>
+        数字
+        <input type="checkbox">
+      </label>
+      <label>
+        記号
+        <input type="checkbox">
+      </label>
+    </fieldset>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyPasswordApp/main.js =====
+'use strict';
+
+{
+  
+}
+
+// ===== /MyPasswordApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 380px;
+  margin: 24px auto 0;
+  box-shadow: 0 0 8px #999;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+p {
+  margin: 0;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-family: "Courier New";
+  font-size: 24px;
+  text-align: center;
+  padding: 12px 0;
+}
+
+button {
+  all: unset;
+  width: 100%;
+  background: #08c;
+  border-radius: 8px;
+  color: #fff;
+  text-align: center;
+  padding: 12px 0;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: .6;
+}
+
+button:active {
+  opacity: .4;
+}
+
+fieldset {
+  border: 1px dashed #aaa;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+legend {
+  padding: 0 8px;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+idがついた要素を取得し、スライダーを操作させたときの挙動を追加していきます。
+
+
+    getElementById()
+    addEventListener()
+    inputイベント
+    スライダーの範囲指定
+    スタイルの調整
+
+// ===== commentBox 1 =====
+補足情報
+Google Style Guides について
+
+
+
+
+2022年11月9日
+
+
+
+
+
+Google が定めているスタイルガイドについては、以下のリンクを参考にしてください。
+
+
+Google Style Guides
+https://google.github.io/styleguide/
+
+
+Google HTML/CSS Style Guide
+https://google.github.io/styleguide/htmlcssguide.html
+
+// ===== /MyPasswordApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>パスワードジェネレーター</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p>asdfghjk</p>
+
+    <button>パスワードを生成</button>
+
+    <fieldset>
+      <legend>オプション</legend>
+      <label>
+        長さ(<span id="password-length">8</span>)
+        <input type="range" id="slider" min="8" max="24" value="8">
+      </label>
+      <label>
+        数字
+        <input type="checkbox">
+      </label>
+      <label>
+        記号
+        <input type="checkbox">
+      </label>
+    </fieldset>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyPasswordApp/main.js =====
+'use strict';
+
+{
+  const slider = document.getElementById('slider');
+
+  slider.addEventListener('input', () => {
+    const passwordLength = document.getElementById('password-length');
+
+    passwordLength.textContent = slider.value;
+  });
+}
+
+// ===== /MyPasswordApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 380px;
+  margin: 24px auto 0;
+  box-shadow: 0 0 8px #999;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+p {
+  margin: 0;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-family: "Courier New";
+  font-size: 24px;
+  text-align: center;
+  padding: 12px 0;
+}
+
+button {
+  all: unset;
+  width: 100%;
+  background: #08c;
+  border-radius: 8px;
+  color: #fff;
+  text-align: center;
+  padding: 12px 0;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: .6;
+}
+
+button:active {
+  opacity: .4;
+}
+
+fieldset {
+  border: 1px dashed #aaa;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+legend {
+  padding: 0 8px;
+}
+
+#password-length {
+  width: 24px;
+  display: inline-block;
+  text-align: center;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+ボタンを押すとパスワードのテキストが変化するようにしていきます。
+
+
+    clickイベント
+    idの付与
+    textContent
+
+// ===== /MyPasswordApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>パスワードジェネレーター</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p id="result">asdfghjk</p>
+
+    <button id="btn">パスワードを生成 </button>
+
+    <fieldset>
+      <legend>オプション</legend>
+      <label>
+        長さ(<span id="password-length">8</span>)
+        <input type="range" id="slider" min="8" max="24" value="8">
+      </label>
+      <label>
+        数字
+        <input type="checkbox">
+      </label>
+      <label>
+        記号
+        <input type="checkbox">
+      </label>
+    </fieldset>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyPasswordApp/main.js =====
+'use strict';
+
+{
+  const slider = document.getElementById('slider');
+  const btn = document.getElementById('btn');
+
+  slider.addEventListener('input', () => {
+    const passwordLength = document.getElementById('password-length');
+
+    passwordLength.textContent = slider.value;
+  });
+
+  btn.addEventListener('click', () => {
+    const result = document.getElementById('result');
+
+    result.textContent = 'clicked!';
+  });
+}
+
+// ===== /MyPasswordApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 380px;
+  margin: 24px auto 0;
+  box-shadow: 0 0 8px #999;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+p {
+  margin: 0;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-family: "Courier New";
+  font-size: 24px;
+  text-align: center;
+  padding: 12px 0;
+}
+
+button {
+  all: unset;
+  width: 100%;
+  background: #08c;
+  border-radius: 8px;
+  color: #fff;
+  text-align: center;
+  padding: 12px 0;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: .6;
+}
+
+button:active {
+  opacity: .4;
+}
+
+fieldset {
+  border: 1px dashed #aaa;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+legend {
+  padding: 0 8px;
+}
+
+#password-length {
+  width: 24px;
+  display: inline-block;
+  text-align: center;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+アルファベットの入った文字列から、ランダムに文字を1つ取り出していきます。
+
+
+    アルファベットの準備
+    文字列へのアクセス
+    Math.random()
+    Math.floor()
+
+// ===== commentBox 1 =====
+補足情報
+コピーアンドペーストのショートカットキーについて
+
+
+
+
+2022年11月9日
+
+
+
+
+
+動画で紹介しているコピーとペーストのショートカットキーは以下のとおりです。
+
+コピー
+macOS: Cmd + C
+Windows: Ctrl + C
+
+
+ペースト
+macOS: Cmd + V
+Windows: Ctrl + V
+
+// ===== commentBox 2 =====
+補足情報
+ランダムな整数値の作り方について
+
+
+
+
+2022年11月9日
+
+
+
+
+
+ランダムな整数値の作り方については以下のレッスンを参考にしてください。
+
+#20 ランダムな整数値を作ってみよう
+#09 ランダムな整数値を生成しよう
+
+// ===== commentBox 3 =====
+補足情報
+文字列へのアクセスについて
+
+
+
+
+2022年11月9日
+
+
+
+
+
+文字列へのアクセスについては以下のレッスンを参考にしてください。
+
+#17 文字列を操作してみよう
+
+// ===== commentBox 4 =====
+補足情報
+パスワードの文字列について
+
+
+
+
+2022年11月9日
+
+
+
+
+
+レッスンで使用しているアルファベットの文字列は、以下をコピーして使用してください。
+abcdefghijklmnopqrstuvwxyz
+
+// ===== /MyPasswordApp/main.js =====
+'use strict';
+
+{
+  const slider = document.getElementById('slider');
+  const btn = document.getElementById('btn');
+
+  slider.addEventListener('input', () => {
+    const passwordLength = document.getElementById('password-length');
+
+    passwordLength.textContent = slider.value;
+  });
+
+  btn.addEventListener('click', () => {
+    const result = document.getElementById('result');
+    const letters = 'abcdefghijklmnopqrstuvwxyz';
+
+    result.textContent = letters[Math.floor(Math.random() * 26)];
+  });
+}
+
+// ===== /MyPasswordApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>パスワードジェネレーター</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p id="result">asdfghjk</p>
+
+    <button id="btn">パスワードを生成 </button>
+
+    <fieldset>
+      <legend>オプション</legend>
+      <label>
+        長さ(<span id="password-length">8</span>)
+        <input type="range" id="slider" min="8" max="24" value="8">
+      </label>
+      <label>
+        数字
+        <input type="checkbox">
+      </label>
+      <label>
+        記号
+        <input type="checkbox">
+      </label>
+    </fieldset>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyPasswordApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 380px;
+  margin: 24px auto 0;
+  box-shadow: 0 0 8px #999;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+p {
+  margin: 0;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-family: "Courier New";
+  font-size: 24px;
+  text-align: center;
+  padding: 12px 0;
+}
+
+button {
+  all: unset;
+  width: 100%;
+  background: #08c;
+  border-radius: 8px;
+  color: #fff;
+  text-align: center;
+  padding: 12px 0;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: .6;
+}
+
+button:active {
+  opacity: .4;
+}
+
+fieldset {
+  border: 1px dashed #aaa;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+legend {
+  padding: 0 8px;
+}
+
+#password-length {
+  width: 24px;
+  display: inline-block;
+  text-align: center;
+}
+
+
+
+
+
+// ===== video_summary =====
+スライダーで選択した値の長さ分のパスワードを生成していきます。
+
+
+    パスワードの生成
+    パスワードの長さ変更
+
+// ===== commentBox 1 =====
+補足情報
+文字列の連結について
+
+
+
+
+2022年11月9日
+
+
+
+
+
+レッスンで扱っている文字列の連結（+= という書き方）についてわからない場合は、以下のレッスンを参考にしてください。
+
+#09 変数を使った計算をしてみよう
+
+// ===== /MyPasswordApp/main.js =====
+'use strict';
+
+{
+  const slider = document.getElementById('slider');
+  const btn = document.getElementById('btn');
+
+  slider.addEventListener('input', () => {
+    const passwordLength = document.getElementById('password-length');
+
+    passwordLength.textContent = slider.value;
+  });
+
+  btn.addEventListener('click', () => {
+    const result = document.getElementById('result');
+    const letters = 'abcdefghijklmnopqrstuvwxyz';
+    let password = '';
+    const seed = letters + letters.toUpperCase();
+
+    for (let i = 0; i < slider.value; i++) {
+      password += seed[Math.floor(Math.random() * 52)];
+    }
+
+    result.textContent = password;
+  });
+}
+
+// ===== /MyPasswordApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>パスワードジェネレーター</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p id="result">asdfghjk</p>
+
+    <button id="btn">パスワードを生成 </button>
+
+    <fieldset>
+      <legend>オプション</legend>
+      <label>
+        長さ(<span id="password-length">8</span>)
+        <input type="range" id="slider" min="8" max="24" value="8">
+      </label>
+      <label>
+        数字
+        <input type="checkbox">
+      </label>
+      <label>
+        記号
+        <input type="checkbox">
+      </label>
+    </fieldset>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyPasswordApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 380px;
+  margin: 24px auto 0;
+  box-shadow: 0 0 8px #999;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+p {
+  margin: 0;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-family: "Courier New";
+  font-size: 24px;
+  text-align: center;
+  padding: 12px 0;
+}
+
+button {
+  all: unset;
+  width: 100%;
+  background: #08c;
+  border-radius: 8px;
+  color: #fff;
+  text-align: center;
+  padding: 12px 0;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: .6;
+}
+
+button:active {
+  opacity: .4;
+}
+
+fieldset {
+  border: 1px dashed #aaa;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+legend {
+  padding: 0 8px;
+}
+
+#password-length {
+  width: 24px;
+  display: inline-block;
+  text-align: center;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+数字にチェックが入っていたら、パスワードに数字が含まれるようにしていきます。
+
+
+    数字の準備
+    checkedプロパティ
+    lengthプロパティ
+
+// ===== /MyPasswordApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>パスワードジェネレーター</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p id="result">asdfghjk</p>
+
+    <button id="btn">パスワードを生成 </button>
+
+    <fieldset>
+      <legend>オプション</legend>
+      <label>
+        長さ(<span id="password-length">8</span>)
+        <input type="range" id="slider" min="8" max="24" value="8">
+      </label>
+      <label>
+        数字
+        <input type="checkbox" id="numbers-checkbox">
+      </label>
+      <label>
+        記号
+        <input type="checkbox">
+      </label>
+    </fieldset>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyPasswordApp/main.js =====
+'use strict';
+
+{
+  const slider = document.getElementById('slider');
+  const btn = document.getElementById('btn');
+
+  slider.addEventListener('input', () => {
+    const passwordLength = document.getElementById('password-length');
+
+    passwordLength.textContent = slider.value;
+  });
+
+  btn.addEventListener('click', () => {
+    const result = document.getElementById('result');
+    const numbersCheckbox = document.getElementById('numbers-checkbox');
+    const letters = 'abcdefghijklmnopqrstuvwxyz';
+    const numbers = '0123456789';
+    let password = '';
+    let seed = letters + letters.toUpperCase();
+
+    if (numbersCheckbox.checked) {
+      seed += numbers;
+    }
+
+    for (let i = 0; i < slider.value; i++) {
+      password += seed[Math.floor(Math.random() * seed.length)];
+    }
+
+    result.textContent = password;
+  });
+}
+
+// ===== /MyPasswordApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 380px;
+  margin: 24px auto 0;
+  box-shadow: 0 0 8px #999;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+p {
+  margin: 0;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-family: "Courier New";
+  font-size: 24px;
+  text-align: center;
+  padding: 12px 0;
+}
+
+button {
+  all: unset;
+  width: 100%;
+  background: #08c;
+  border-radius: 8px;
+  color: #fff;
+  text-align: center;
+  padding: 12px 0;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: .6;
+}
+
+button:active {
+  opacity: .4;
+}
+
+fieldset {
+  border: 1px dashed #aaa;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+legend {
+  padding: 0 8px;
+}
+
+#password-length {
+  width: 24px;
+  display: inline-block;
+  text-align: center;
+}
+
+
+
+
+
+// ===== video_summary =====
+記号にチェックが入っていたら、パスワードに記号が含まれるようにしていきます。
+
+
+    仕様の解説
+    記号の準備
+
+// ===== commentBox 1 =====
+補足情報
+コピーアンドペーストのショートカットキーについて
+
+
+
+
+2022年11月9日
+
+
+
+
+
+動画で紹介しているコピーとペーストのショートカットキーは以下のとおりです。
+
+コピー
+macOS: Cmd + C
+Windows: Ctrl + C
+
+
+ペースト
+macOS: Cmd + V
+Windows: Ctrl + V
+
+// ===== /MyPasswordApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>パスワードジェネレーター</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p id="result">asdfghjk</p>
+
+    <button id="btn">パスワードを生成 </button>
+
+    <fieldset>
+      <legend>オプション</legend>
+      <label>
+        長さ(<span id="password-length">8</span>)
+        <input type="range" id="slider" min="8" max="24" value="8">
+      </label>
+      <label>
+        数字
+        <input type="checkbox" id="numbers-checkbox">
+      </label>
+      <label>
+        記号
+        <input type="checkbox" id="symbols-checkbox">
+      </label>
+    </fieldset>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyPasswordApp/main.js =====
+'use strict';
+
+{
+  const slider = document.getElementById('slider');
+  const btn = document.getElementById('btn');
+
+  slider.addEventListener('input', () => {
+    const passwordLength = document.getElementById('password-length');
+
+    passwordLength.textContent = slider.value;
+  });
+
+  btn.addEventListener('click', () => {
+    const result = document.getElementById('result');
+    const numbersCheckbox = document.getElementById('numbers-checkbox');
+    const symbolsCheckbox = document.getElementById('symbols-checkbox');
+    const letters = 'abcdefghijklmnopqrstuvwxyz';
+    const numbers = '0123456789';
+    const symbols = '!#$%&()';
+    let password = '';
+    let seed = letters + letters.toUpperCase();
+
+    if (numbersCheckbox.checked) {
+      seed += numbers;
+    }
+
+    if (symbolsCheckbox.checked) {
+      seed += symbols;
+    }
+
+    for (let i = 0; i < slider.value; i++) {
+      password += seed[Math.floor(Math.random() * seed.length)];
+    }
+
+    result.textContent = password;
+  });
+}
+
+// ===== /MyPasswordApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 380px;
+  margin: 24px auto 0;
+  box-shadow: 0 0 8px #999;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+p {
+  margin: 0;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-family: "Courier New";
+  font-size: 24px;
+  text-align: center;
+  padding: 12px 0;
+}
+
+button {
+  all: unset;
+  width: 100%;
+  background: #08c;
+  border-radius: 8px;
+  color: #fff;
+  text-align: center;
+  padding: 12px 0;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: .6;
+}
+
+button:active {
+  opacity: .4;
+}
+
+fieldset {
+  border: 1px dashed #aaa;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+legend {
+  padding: 0 8px;
+}
+
+#password-length {
+  width: 24px;
+  display: inline-block;
+  text-align: center;
+}
+
+
+
+
+
+// ===== video_summary =====
+クリックイベントに書いた処理を関数にまとめていきます。
+
+
+    showPassword()
+    動作確認
+
+// ===== commentBox 1 =====
+補足情報
+カット（切り取り）のショートカットキーについて
+
+
+
+
+2022年11月9日
+
+
+
+
+
+動画で紹介しているカットのショートカットキーは以下のとおりです。
+
+macOS: Cmd + X
+Windows: Ctrl + X
+
+// ===== commentBox 2 =====
+補足情報
+Google Style Guides について
+
+
+
+
+2022年11月9日
+
+
+
+
+
+Google が定めているスタイルガイドについては、以下のリンクを参考にしてください。
+
+
+Google Style Guides
+https://google.github.io/styleguide/
+
+
+Google JavaScript Style Guide
+https://google.github.io/styleguide/jsguide.html
+
+// ===== /MyPasswordApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>パスワードジェネレーター</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p id="result"></p>
+
+    <button id="btn">パスワードを生成 </button>
+
+    <fieldset>
+      <legend>オプション</legend>
+      <label>
+        長さ(<span id="password-length">8</span>)
+        <input type="range" id="slider" min="8" max="24" value="8">
+      </label>
+      <label>
+        数字
+        <input type="checkbox" id="numbers-checkbox">
+      </label>
+      <label>
+        記号
+        <input type="checkbox" id="symbols-checkbox">
+      </label>
+    </fieldset>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyPasswordApp/main.js =====
+'use strict';
+
+{
+  function showPassword() {
+    const result = document.getElementById('result');
+    const numbersCheckbox = document.getElementById('numbers-checkbox');
+    const symbolsCheckbox = document.getElementById('symbols-checkbox');
+    const letters = 'abcdefghijklmnopqrstuvwxyz';
+    const numbers = '0123456789';
+    const symbols = '!#$%&()';
+    let password = '';
+    let seed = letters + letters.toUpperCase();
+
+    if (numbersCheckbox.checked) {
+      seed += numbers;
+    }
+
+    if (symbolsCheckbox.checked) {
+      seed += symbols;
+    }
+
+    for (let i = 0; i < slider.value; i++) {
+      password += seed[Math.floor(Math.random() * seed.length)];
+    }
+
+    result.textContent = password;
+  }
+
+  const slider = document.getElementById('slider');
+  const btn = document.getElementById('btn');
+
+  slider.addEventListener('input', () => {
+    const passwordLength = document.getElementById('password-length');
+
+    passwordLength.textContent = slider.value;
+  });
+
+  btn.addEventListener('click', () => {
+    showPassword();
+  });
+
+  showPassword();
+}
+
+// ===== /MyPasswordApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 380px;
+  margin: 24px auto 0;
+  box-shadow: 0 0 8px #999;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+p {
+  margin: 0;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-family: "Courier New";
+  font-size: 24px;
+  text-align: center;
+  padding: 12px 0;
+}
+
+button {
+  all: unset;
+  width: 100%;
+  background: #08c;
+  border-radius: 8px;
+  color: #fff;
+  text-align: center;
+  padding: 12px 0;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: .6;
+}
+
+button:active {
+  opacity: .4;
+}
+
+fieldset {
+  border: 1px dashed #aaa;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+legend {
+  padding: 0 8px;
+}
+
+#password-length {
+  width: 24px;
+  display: inline-block;
+  text-align: center;
+}
+
+
+
+
+
+// ===== video_summary =====
+完成したアプリを振り返りながら、アプリ開発のコツについてお話していきます。
+
+
+    これまでのまとめ
+    アプリ開発の振り返り
+    開発のコツ
+
+// ===== /MyPasswordApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>パスワードジェネレーター</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p id="result"></p>
+
+    <button id="btn">パスワードを生成 </button>
+
+    <fieldset>
+      <legend>オプション</legend>
+      <label>
+        長さ(<span id="password-length">8</span>)
+        <input type="range" id="slider" min="8" max="24" value="8">
+      </label>
+      <label>
+        数字
+        <input type="checkbox" id="numbers-checkbox">
+      </label>
+      <label>
+        記号
+        <input type="checkbox" id="symbols-checkbox">
+      </label>
+    </fieldset>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyPasswordApp/main.js =====
+'use strict';
+
+{
+  function showPassword() {
+    const result = document.getElementById('result');
+    const numbersCheckbox = document.getElementById('numbers-checkbox');
+    const symbolsCheckbox = document.getElementById('symbols-checkbox');
+    const letters = 'abcdefghijklmnopqrstuvwxyz';
+    const numbers = '0123456789';
+    const symbols = '!#$%&()';
+    let password = '';
+    let seed = letters + letters.toUpperCase();
+
+    if (numbersCheckbox.checked) {
+      seed += numbers;
+    }
+
+    if (symbolsCheckbox.checked) {
+      seed += symbols;
+    }
+
+    for (let i = 0; i < slider.value; i++) {
+      password += seed[Math.floor(Math.random() * seed.length)];
+    }
+
+    result.textContent = password;
+  }
+
+  const slider = document.getElementById('slider');
+  const btn = document.getElementById('btn');
+
+  slider.addEventListener('input', () => {
+    const passwordLength = document.getElementById('password-length');
+
+    passwordLength.textContent = slider.value;
+  });
+
+  btn.addEventListener('click', () => {
+    showPassword();
+  });
+
+  showPassword();
+}
+
+// ===== /MyPasswordApp/style.css =====
+@charset "utf-8";
+
+main {
+  width: 380px;
+  margin: 24px auto 0;
+  box-shadow: 0 0 8px #999;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+p {
+  margin: 0;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-family: "Courier New";
+  font-size: 24px;
+  text-align: center;
+  padding: 12px 0;
+}
+
+button {
+  all: unset;
+  width: 100%;
+  background: #08c;
+  border-radius: 8px;
+  color: #fff;
+  text-align: center;
+  padding: 12px 0;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: .6;
+}
+
+button:active {
+  opacity: .4;
+}
+
+fieldset {
+  border: 1px dashed #aaa;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+legend {
+  padding: 0 8px;
+}
+
+#password-length {
+  width: 24px;
+  display: inline-block;
+  text-align: center;
+}

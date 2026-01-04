@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+  関数の構造を説明したのちに、引数や返り値といった用語を紹介していきます。
+
+関数の構造
+引数
+返り値/戻り値  
+
+
+
+
+
+
+渡した整数値を3倍にして返してくれる関数を実装していきます。
+
+triple()
+関数の定義、func triple() {}
+仮引数、func triple(num int)
+実引数、triple(10)
+補足情報 関数名のルールについて
+2024年9月25日
+動画中で紹介している変数の命名ルールについては以下のレッスンを復習してみましょう。関数名のルールもこちらと同じです。
+
+・#14 変数と定数のルールを知っておこう | Go言語入門 基礎文法編
+https://dotinstall.com/lessons/basic_golang_grammar/68214
+
+main.go
+package main
+
+import "fmt"
+
+func triple(num int) int {
+    return num * 3
+}
+
+func main() {
+    fmt.Println(triple(10))
+    fmt.Println(triple(4) * 3)
+}
+
+
+
+
+
+
+
+前回の実装がどのような順序で実行されていくか、図を使って説明していきます。
+
+上から順に処理が実行される
+関数を呼び出す
+関数が呼び出された位置に返り値が戻る
+
+main.go
+package main
+
+import "fmt"
+
+func triple(num int) int {
+    return num * 3
+}
+
+func main() {
+    fmt.Println(triple(10))
+    fmt.Println(triple(4) * 3)
+}
+
+
+
+
+
+
+
+
+引数の合計を返して表示する処理を実装したあとに、別の書き方を見ていきます。
+
+データ型の省略、func sum(a, b int)
+sum(), showSum()
+書き方1: a+bを計算する関数の返り値を表示する
+書き方2: a+bの計算結果を表示する関数
+
+main.go
+package main
+
+import "fmt"
+
+// func sum(a, b int) int {
+//     return a + b
+// }
+
+func showSum(a, b int) {
+    fmt.Println(a + b)
+}
+
+func main() {
+    // fmt.Println(sum(3, 7))
+    showSum(3, 7)
+}
+
+
+
+
+
+
+
+
+
+関数内でreturnを書かなかったときに何が起こっているかを説明していきます。
+
+returnあるなしの違い、返り値で演算ができるか、できないか
+仮引数のスコープの確認
+はじめに実行される関数、func main()
+補足情報 変数のスコープについて
+2024年9月25日
+動画中で紹介している変数のスコープについては以下の動画を復習してみてください。
+
+・#14 変数のスコープを理解しよう | Go言語入門 制御構造編
+https://dotinstall.com/lessons/basic_golang_controls/68314
+
+main.go
+package main
+
+import "fmt"
+
+func sum(a, b int) int {
+    return a + b
+}
+
+func showSum(a, b int) {
+    fmt.Println(a + b)
+}
+
+func main() {
+    fmt.Println(sum(3, 7) * 3)
+    showSum(3, 7) * 3
+}
+
+
+
+
+
+
+
+
+
+複数の値を返す書き方を見ていきます。
+
+複数の値を返す、return a / b, a % b
+複数の値を受け取る、quotient, remainder := divide(10, 3)
+
+main.go
+package main
+
+import "fmt"
+
+func divide(a, b int) (int, int) {
+    return a / b, a % b
+}
+
+func main() {
+    quotient, remainder := divide(10, 3)
+    fmt.Println(quotient)
+    fmt.Println(remainder)
+}
+
+
+
+
+
+
+
+
+コードを見通しをよくするために関数を活用する方法について見ていきます。
+
+広告、パンダの赤ちゃん誕生ニュース
+実引数なしの関数、showAd()、showContent()
+重複する内容を関数にまとめる
+関数をまとめる利点、コードの見通しが良くなる、保守性の向上
+
+main.go
+package main
+
+import "fmt"
+
+func showAd() {
+    fmt.Println("---------")
+    fmt.Println("SALE! 50% OFF!")
+    fmt.Println("---------")
+}
+
+func showContent() {
+    fmt.Println("BREAKING NEWS!")
+    fmt.Println("Two baby pandas born at our Zoo!")
+}
+
+func main() {
+    showAd()
+    showContent()
+    showAd()
+}
+
+
+
+
+
+
+
+真偽値を返す関数を実装していきます。
+
+パスワード8文字未満はfalse、それ以上はtrueを返す
+return false、return true
+文字数を調べる、len(password)
+文字列のデータ型、string
+真偽値のデータ型、bool
+補足情報 真偽値について
+2024年9月25日
+動画中で紹介している真偽値について忘れてしまった人は以下の動画を復習してみてください。
+
+・#13 真偽値を使ってみよう | Go言語入門 制御構造編
+https://dotinstall.com/lessons/basic_golang_controls/68313
+
+main.go
+package main
+
+import "fmt"
+
+func isPasswordValid(password string) bool {
+    if len(password) < 8 {
+        return false
+    } else {
+        return true
+    }
+}
+
+func main() {
+    fmt.Println(isPasswordValid("abc")) // false
+    fmt.Println(isPasswordValid("helloworld")) // true
+}
+
+
+
+
+
+
+
+条件にあわないものを最初に振り落としてから処理を書いていくテクニックを学びます。
+
+パスワードが無効になる条件を追加
+論理演算子で条件を追加
+条件が増え、長くなると読みづらくなる
+先に特殊なケースをふるい落とす、早期リターン
+補足情報 論理演算子について
+2024年9月25日
+動画中で紹介している論理演算子について忘れてしまった人は以下の動画を復習してみてください。
+
+・#12 論理演算子を使ってみよう | Go言語入門 制御構造編
+https://dotinstall.com/lessons/basic_golang_controls/68312
+
+main.go
+package main
+
+import "fmt"
+
+func isPasswordValid(password string) bool {
+    // if len(password) < 8 || len(password) >= 16 {
+    //     return false
+    // } else {
+    //     return true
+    // }
+
+    if len(password) < 8 {
+        return false
+    }
+    if len(password) >= 16 {
+        return false
+    }
+    return true
+}
+
+func main() {
+    fmt.Println(isPasswordValid("abc")) // false
+    fmt.Println(isPasswordValid("helloworld")) // true
+    fmt.Println(isPasswordValid("helloworldhelloworld")) // false
+}
+
+
+
+
+
+
+
+応用として、関数を変数に代入して使う方法について見ていきます。
+
+関数は値として扱うことができる、関数を変数に代入
+f := triple
+f := func() {}
+名前なしで書いた関数、無名関数
+
+main.go
+package main
+
+import "fmt"
+
+// func triple(num int) int {
+//     return num * 3
+// }
+
+func main() {
+    // f := triple
+    f := func(num int) int {
+        return num * 3
+    }
+
+    fmt.Println(f(5))
+}
+
+
+
+
+
+
+
+
+応用として、関数を別の関数の引数として使う方法について見ていきます。
+
+calc(3, double)、calc(3, triple)
+関数は変数や引数として使える
+関数のデータ型、func(int) int
+
+main.go
+package main
+
+import "fmt"
+
+func double(num int) int {
+    return num * 2
+}
+
+func triple(num int) int {
+    return num * 3
+}
+
+func calc(num int, f func(int) int) int {
+    return f(num)
+}
+
+func main() {
+    fmt.Println(calc(3, double))
+    fmt.Println(calc(3, triple))
+}
+
+
+
+
+
+
+
+
+
+違うデータ型に同じ処理をしたい場合のデータ型の書き方について見ていきます。
+
+違うデータ型に対して同じ処理をしたい、まとめたい
+データ型をパラメータ化する、ジェネリクス
+どんなデータ型でも良い、[T any](num T)
+
+main.go
+package main
+
+import "fmt"
+
+// func showIntThreeTimes(num int) {
+//     fmt.Println(num)
+//     fmt.Println(num)
+//     fmt.Println(num)
+// }
+
+// func showFloat64ThreeTimes(num float64) {
+//     fmt.Println(num)
+//     fmt.Println(num)
+//     fmt.Println(num)
+// }
+
+func showThreeTimes[T any](num T) {
+    fmt.Println(num)
+    fmt.Println(num)
+    fmt.Println(num)
+}
+
+func main() {
+    // showIntThreeTimes(3)
+    // showFloat64ThreeTimes(5.2)
+    showThreeTimes(3)
+    showThreeTimes(5.2)
+}
+
+
+
+
+
+
+
+
+
+
+  </pre>
+  
+</body>
+</html>

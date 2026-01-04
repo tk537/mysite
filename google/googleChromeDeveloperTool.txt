@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre><code>
+    // ===== video_summary =====
+まずは概要を説明したのちに、公式サイト、必要となる知識やツール、そして起動と終了の仕方について学んでいきます。
+
+
+    概要
+    公式サイト
+    必要となる知識
+    必要となるツール
+    起動と終了の仕方
+
+// ===== read.me =====
+Chrome Developer Tools
+
+* 概要
+- Chromeのデバッグツール
+
+* 公式サイト
+
+* 知識
+- HTML/CSS/JavaScript
+
+* ツール
+- Chrome
+
+* 起動と終了
+
+// ===== video_summary =====
+Elementsパネルを使って、ブラウザに読み込まれたオブジェクトを操作してみます。
+
+
+    パネルの見方
+    オブジェクトの操作
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>My World</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>San Franciscoに行ってきた！</h1>
+    <p>とってもおいしいサンドイッチでした。</p>
+    <p><img src="food.jpg" width="320" height="240"></p>
+    <p><a href="" id="button">詳細を見る</a></p>
+</body>
+</html>
+
+// ===== styles.css =====
+body {
+    text-align: center;
+    background: #C9E8F1;
+}
+
+h1 {
+    color: #DA5019;
+}
+
+#button {
+    display: block;
+    text-decoration: none;
+    margin: 0 auto;
+    width: 150px;
+    line-height: 32px;
+    color: #FFFFFF;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 3px;
+    background: #6BBED5;
+    cursor: pointer;
+}
+
+#button:hover {
+    opacity: 0.7;
+}
+
+// ===== video_summary =====
+Elementsパネルの右側を使って、オブジェクトのスタイルを操作していきます。
+
+
+    スタイルの確認
+    スタイルの変更
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>My World</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>San Franciscoに行ってきた！</h1>
+    <p>とってもおいしいサンドイッチでした。</p>
+    <p><img src="food.jpg" width="320" height="240"></p>
+    <p><a href="" id="button">詳細を見る</a></p>
+</body>
+</html>
+
+// ===== styles.css =====
+body {
+    text-align: center;
+    background: #C9E8F1;
+}
+
+h1 {
+    color: #DA5019;
+}
+
+#button {
+    display: block;
+    text-decoration: none;
+    margin: 0 auto;
+    width: 150px;
+    line-height: 32px;
+    color: #FFFFFF;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 3px;
+    background: #6BBED5;
+    cursor: pointer;
+}
+
+#button:hover {
+    opacity: 0.7;
+}
+
+// ===== video_summary =====
+どのファイルがどのタイミングで読み込まれたかを確認できるNetworkパネルについて見ていきます。
+
+
+    Networkパネルの見方
+    Cache/Cookieのクリア方法
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>My World</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>San Franciscoに行ってきた！</h1>
+    <p>とってもおいしいサンドイッチでした。</p>
+    <p><img src="food.jpg" width="320" height="240"></p>
+    <p><a href="" id="button">詳細を見る</a></p>
+</body>
+</html>
+
+// ===== styles.css =====
+body {
+    text-align: center;
+    background: #C9E8F1;
+}
+
+h1 {
+    color: #DA5019;
+}
+
+#button {
+    display: block;
+    text-decoration: none;
+    margin: 0 auto;
+    width: 150px;
+    line-height: 32px;
+    color: #FFFFFF;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 3px;
+    background: #6BBED5;
+    cursor: pointer;
+}
+
+#button:hover {
+    opacity: 0.7;
+}
+
+// ===== video_summary =====
+Sourcesパネルを使ってCSSの編集をしてみます。
+
+
+    CSSの編集
+    編集履歴の確認
+
+// ===== commentBox 1 =====
+補足情報
+最新版ではLocal Modifications の機能がありません
+
+
+
+
+2018年4月17日
+
+
+
+
+
+現在の Chrome Developer Tools では Local Modifications の機能は表示されなくなっています。
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>My World</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>San Franciscoに行ってきた！</h1>
+    <p>とってもおいしいサンドイッチでした。</p>
+    <p><img src="food.jpg" width="320" height="240"></p>
+    <p><a href="" id="button">詳細を見る</a></p>
+</body>
+</html>
+
+// ===== styles.css =====
+body {
+    text-align: center;
+    background: #C9E8F1;
+}
+
+h1 {
+    color: #DA5019;
+}
+
+#button {
+    display: block;
+    text-decoration: none;
+    margin: 0 auto;
+    width: 150px;
+    line-height: 32px;
+    color: #FFFFFF;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 3px;
+    background: #6BBED5;
+    cursor: pointer;
+}
+
+#button:hover {
+    opacity: 0.7;
+}
+
+// ===== video_summary =====
+エラーメッセージを確認してJavaScriptの不具合を修正していきます。
+
+
+    エラーメッセージ
+    JavaScriptの修正
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>My World</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <p>
+        <button id="omikuji">おみくじの結果は... </button> 
+        <span id="result"></span>
+    </p>
+    <script src="myscript.js"></script>
+</body>
+</html>
+
+// ===== myscript.js =====
+document.getElementById('omikuji').addEventListener('click', function() {
+    var options = ["大吉", "小吉", "凶"];
+    var result = options[Math.floor(Math.random() * options.length)];
+    if (result = "大吉") {
+        result += "!!!!!";
+    }
+    document.getElementById('result').innerHTML = result;
+});
+
+// ===== styles.css =====
+body {
+    text-align: center;
+    background: #C9E8F1;
+}
+
+h1 {
+    color: blue;
+}
+
+#button {
+    display: block;
+    text-decoration: none;
+    margin: 0 auto;
+    width: 150px;
+    line-height: 32px;
+    color: #FFFFFF;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 3px;
+    background: #6BBED5;
+    cursor: pointer;
+}
+
+#button:hover {
+    opacity: 0.7;
+}
+
+// ===== video_summary =====
+ブレークポイントを設定してJavaScriptの挙動を確かめていきます。
+
+
+    ブレークポイントの設定
+    挙動の確認
+    不具合の修正
+    動作確認
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>My World</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <p>
+        <button id="omikuji">おみくじの結果は... </button> 
+        <span id="result"></span>
+    </p>
+    <script src="myscript.js"></script>
+</body>
+</html>
+
+// ===== myscript.js =====
+document.getElementById('omikuji').addEventListener('click', function() {
+    var options = ["大吉", "小吉", "凶"];
+    var result = options[Math.floor(Math.random() * options.length)];
+    if (result = "大吉") {
+        result += "!!!!!";
+    }
+    document.getElementById('result').innerHTML = result;
+});
+
+// ===== styles.css =====
+body {
+    text-align: center;
+    background: #C9E8F1;
+}
+
+h1 {
+    color: blue;
+}
+
+#button {
+    display: block;
+    text-decoration: none;
+    margin: 0 auto;
+    width: 150px;
+    line-height: 32px;
+    color: #FFFFFF;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 3px;
+    background: #6BBED5;
+    cursor: pointer;
+}
+
+#button:hover {
+    opacity: 0.7;
+}
+
+// ===== video_summary =====
+Timeline、Profile、Resources、Auditsパネルについてざっと見ていきます。
+
+
+    Timeline
+    Profile
+    Resources
+    Audits
+
+// ===== commentBox 1 =====
+補足情報
+Chrome のアップデートによりパネルの名前が変更されています
+
+
+
+
+2018年6月4日
+
+
+
+
+
+現在の Chrome では以下のようにパネルの名前が変更されています。
+
+
+Timeline → Performance
+Profiles → Memory
+Resources → Application
+
+
+詳しくは公式サイトも参考にしてみてください。
+
+» Chrome DevTools  |  Tools for Web Developers  |  Google Developers
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>My World</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>San Franciscoに行ってきた！</h1>
+    <p>とってもおいしいサンドイッチでした。</p>
+    <p><img src="food.jpg" width="320" height="240"></p>
+    <p><a href="" id="button">詳細を見る</a></p>
+</body>
+</html>
+
+// ===== myscript.js =====
+document.getElementById('omikuji').addEventListener('click', function() {
+    var options = ["大吉", "小吉", "凶"];
+    var result = options[Math.floor(Math.random() * options.length)];
+    if (result === "大吉") {
+        result += "!!!!!";
+    }
+    document.getElementById('result').innerHTML = result;
+});
+
+// ===== styles.css =====
+body {
+    text-align: center;
+    background: #C9E8F1;
+}
+
+h1 {
+    color: #DA5019;
+}
+
+h2 {
+    color: red;
+}
+
+#button {
+    display: block;
+    text-decoration: none;
+    margin: 0 auto;
+    width: 150px;
+    line-height: 32px;
+    color: #FFFFFF;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 3px;
+    background: #6BBED5;
+    cursor: pointer;
+}
+
+#button:hover {
+    opacity: 0.7;
+}
+
+// ===== video_summary =====
+Consoleの使い方、便利に使える記号について見ていきます。
+
+
+    Consoleの使い方
+    $0 ... $4
+    $('h1')
+    $$('p')
+    copy()
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>My World</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>San Franciscoに行ってきた！</h1>
+    <p>とってもおいしいサンドイッチでした。</p>
+    <p><img src="food.jpg" width="320" height="240"></p>
+    <p><a href="" id="button">詳細を見る</a></p>
+</body>
+</html>
+
+// ===== myscript.js =====
+document.getElementById('omikuji').addEventListener('click', function() {
+    var options = ["大吉", "小吉", "凶"];
+    var result = options[Math.floor(Math.random() * options.length)];
+    if (result === "大吉") {
+        result += "!!!!!";
+    }
+    document.getElementById('result').innerHTML = result;
+});
+
+// ===== styles.css =====
+body {
+    text-align: center;
+    background: #C9E8F1;
+}
+
+h1 {
+    color: #DA5019;
+}
+
+h2 {
+    color: red;
+}
+
+#button {
+    display: block;
+    text-decoration: none;
+    margin: 0 auto;
+    width: 150px;
+    line-height: 32px;
+    color: #FFFFFF;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 3px;
+    background: #6BBED5;
+    cursor: pointer;
+}
+
+#button:hover {
+    opacity: 0.7;
+}
+
+// ===== video_summary =====
+スマートフォンやタブレットをエミュレートするモード、その他の設定項目について見ていきます。
+
+
+    横断検索
+    エミュレーション
+    その他設定項目
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>My World</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>San Franciscoに行ってきた！</h1>
+    <p>とってもおいしいサンドイッチでした。</p>
+    <p><img src="food.jpg" width="320" height="240"></p>
+    <p><a href="" id="button">詳細を見る</a></p>
+</body>
+</html>
+
+// ===== myscript.js =====
+document.getElementById('omikuji').addEventListener('click', function() {
+    var options = ["大吉", "小吉", "凶"];
+    var result = options[Math.floor(Math.random() * options.length)];
+    if (result === "大吉") {
+        result += "!!!!!";
+    }
+    document.getElementById('result').innerHTML = result;
+});
+
+// ===== styles.css =====
+body {
+    text-align: center;
+    background: #C9E8F1;
+}
+
+h1 {
+    color: #DA5019;
+}
+
+h2 {
+    color: red;
+}
+
+#button {
+    display: block;
+    text-decoration: none;
+    margin: 0 auto;
+    width: 150px;
+    line-height: 32px;
+    color: #FFFFFF;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 3px;
+    background: #6BBED5;
+    cursor: pointer;
+}
+
+#button:hover {
+    opacity: 0.7;
+}
+
+
+  </code></pre>
+</body>
+</html>

@@ -1,0 +1,620 @@
+// ===== video_summary =====
+まずは概要を説明したあとに公式サイトの説明、ひな形ファイルの作成へと進んでいきます。
+
+
+    概要の説明
+    公式サイト
+    index.htmlの作成
+
+// ===== /TweakpaneDemo/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Tweakpane Demo</title>
+</head>
+<body>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /TweakpaneDemo/js/main.js =====
+'use strict';
+
+
+
+
+
+
+// ===== video_summary =====
+題材として使うアニメーションをp5.jsで実装していきます。
+
+
+    p5.jsの読み込み
+    アニメーションの実装
+
+// ===== commentBox 1 =====
+補足情報
+p5.jsのレッスンについて
+
+
+
+
+2019年1月31日
+
+
+
+
+
+p5.jsの詳細については以下のレッスンを参照してください。
+
+・p5.js入門 (全14回)
+https://dotinstall.com/lessons/basic_p5js
+
+// ===== /TweakpaneDemo/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Tweakpane Demo</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /TweakpaneDemo/js/main.js =====
+'use strict';
+
+function setup() {
+  createCanvas(400, 200, WEBGL);
+}
+
+function draw() {
+  background(0);
+  rotateX(frameCount * 0.01);
+  rotateY(frameCount * 0.01);
+
+  noFill();
+  stroke(255);
+  box(180, 100, 100);
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+Tweakpaneのパネルを追加して、立方体の大きさをインタラクティブに調整してみます。
+
+
+    tweakpaneの読み込み
+    addInput()
+
+// ===== /TweakpaneDemo/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Tweakpane Demo</title>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/tweakpane@1.0.4/dist/tweakpane.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /TweakpaneDemo/js/main.js =====
+'use strict';
+
+const params = {
+  width: 100,
+  height: 100,
+  depth: 100,
+};
+
+function setup() {
+  createCanvas(400, 200, WEBGL);
+
+  const pane = new Tweakpane({
+    title: 'Parameters',
+  });
+  pane.addInput(params, 'width');
+  pane.addInput(params, 'height');
+  pane.addInput(params, 'depth');
+}
+
+function draw() {
+  background(0);
+  rotateX(frameCount * 0.01);
+  rotateY(frameCount * 0.01);
+
+  noFill();
+  stroke(255);
+  box(params.width, params.height, params.depth);
+}
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+パラメータの値に制限をつけたり、プルダウンメニューから選べるようにしてみます。
+
+
+    min, max
+    step
+    options
+
+// ===== /TweakpaneDemo/js/main.js =====
+'use strict';
+
+const params = {
+  width: 100,
+  height: 100,
+  depth: 100,
+};
+
+function setup() {
+  createCanvas(400, 200, WEBGL);
+
+  const pane = new Tweakpane({
+    title: 'Parameters',
+  });
+  pane.addInput(params, 'width', {
+    min: 0,
+    max: 200,
+  });
+  pane.addInput(params, 'height', {
+    step: 50,
+    min: 0,
+    max: 200,
+  });
+  pane.addInput(params, 'depth', {
+    options: {
+      small: 50,
+      medium: 100,
+      large: 200,
+    },
+  });
+}
+
+function draw() {
+  background(0);
+  rotateX(frameCount * 0.01);
+  rotateY(frameCount * 0.01);
+
+  noFill();
+  stroke(255);
+  box(params.width, params.height, params.depth);
+}
+
+// ===== /TweakpaneDemo/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Tweakpane Demo</title>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/tweakpane@1.0.4/dist/tweakpane.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+色のパラメーターを用意してインタラクティブに調整してみます。
+
+
+    パラメータの追加
+    色の調整
+
+// ===== /TweakpaneDemo/js/main.js =====
+'use strict';
+
+const params = {
+  width: 100,
+  height: 100,
+  depth: 100,
+  backgroundColor: '#f00',
+};
+
+function setup() {
+  createCanvas(400, 200, WEBGL);
+
+  const pane = new Tweakpane({
+    title: 'Parameters',
+  });
+  pane.addInput(params, 'width', {
+    min: 0,
+    max: 200,
+  });
+  pane.addInput(params, 'height', {
+    step: 50,
+    min: 0,
+    max: 200,
+  });
+  pane.addInput(params, 'depth', {
+    options: {
+      small: 50,
+      medium: 100,
+      large: 200,
+    },
+  });
+  pane.addInput(params, 'backgroundColor');
+}
+
+function draw() {
+  background(color(params.backgroundColor));
+  rotateX(frameCount * 0.01);
+  rotateY(frameCount * 0.01);
+
+  noFill();
+  stroke(255);
+  box(params.width, params.height, params.depth);
+}
+
+// ===== /TweakpaneDemo/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Tweakpane Demo</title>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/tweakpane@1.0.4/dist/tweakpane.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+真偽値を調整するためのチェックボックスを追加する方法について見ていきます。
+
+
+    パラメータの追加
+    チェックボックスの追加
+
+// ===== /TweakpaneDemo/js/main.js =====
+'use strict';
+
+const params = {
+  width: 100,
+  height: 100,
+  depth: 100,
+  backgroundColor: '#f00',
+  canRotate: true,
+};
+
+function setup() {
+  createCanvas(400, 200, WEBGL);
+
+  const pane = new Tweakpane({
+    title: 'Parameters',
+  });
+  pane.addInput(params, 'width', {
+    min: 0,
+    max: 200,
+  });
+  pane.addInput(params, 'height', {
+    step: 50,
+    min: 0,
+    max: 200,
+  });
+  pane.addInput(params, 'depth', {
+    options: {
+      small: 50,
+      medium: 100,
+      large: 200,
+    },
+  });
+  pane.addInput(params, 'backgroundColor');
+  pane.addInput(params, 'canRotate');
+}
+
+function draw() {
+  background(color(params.backgroundColor));
+
+  if (params.canRotate) {
+    rotateX(frameCount * 0.01);
+    rotateY(frameCount * 0.01);
+  }
+
+  noFill();
+  stroke(255);
+  box(params.width, params.height, params.depth);
+}
+
+// ===== /TweakpaneDemo/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Tweakpane Demo</title>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/tweakpane@1.0.4/dist/tweakpane.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+フォルダやセパレータを追加してパネルを整理する方法について見ていきます。
+
+
+    addFolder()
+    addSeparator()
+
+// ===== /TweakpaneDemo/js/main.js =====
+'use strict';
+
+const params = {
+  width: 100,
+  height: 100,
+  depth: 100,
+  backgroundColor: '#f00',
+  canRotate: true,
+};
+
+function setup() {
+  createCanvas(400, 200, WEBGL);
+
+  const pane = new Tweakpane({
+    title: 'Parameters',
+  });
+  const sizeFolder = pane.addFolder({
+    title: 'Size',
+  });
+  sizeFolder.addInput(params, 'width', {
+    min: 0,
+    max: 200,
+  });
+  sizeFolder.addInput(params, 'height', {
+    step: 50,
+    min: 0,
+    max: 200,
+  });
+  sizeFolder.addInput(params, 'depth', {
+    options: {
+      small: 50,
+      medium: 100,
+      large: 200,
+    },
+  });
+  pane.addSeparator();
+  pane.addInput(params, 'backgroundColor');
+  pane.addInput(params, 'canRotate');
+}
+
+function draw() {
+  background(color(params.backgroundColor));
+
+  if (params.canRotate) {
+    rotateX(frameCount * 0.01);
+    rotateY(frameCount * 0.01);
+  }
+
+  noFill();
+  stroke(255);
+  box(params.width, params.height, params.depth);
+}
+
+// ===== /TweakpaneDemo/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Tweakpane Demo</title>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/tweakpane@1.0.4/dist/tweakpane.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+パネルにボタンを追加して、特定の処理を実行する方法について見ていきます。
+
+
+    addButton()
+    refresh()
+
+// ===== /TweakpaneDemo/js/main.js =====
+'use strict';
+
+const params = {
+  width: 100,
+  height: 100,
+  depth: 100,
+  backgroundColor: '#f00',
+  canRotate: true,
+};
+
+function setup() {
+  createCanvas(400, 200, WEBGL);
+
+  const pane = new Tweakpane({
+    title: 'Parameters',
+  });
+  const sizeFolder = pane.addFolder({
+    title: 'Size',
+  });
+  sizeFolder.addInput(params, 'width', {
+    min: 0,
+    max: 200,
+  });
+  sizeFolder.addButton({
+    title: 'Randomize width',
+  }).on('click', () => {
+    params.width = Math.random() * 100;
+    pane.refresh();
+  });
+  sizeFolder.addInput(params, 'height', {
+    step: 50,
+    min: 0,
+    max: 200,
+  });
+  sizeFolder.addInput(params, 'depth', {
+    options: {
+      small: 50,
+      medium: 100,
+      large: 200,
+    },
+  });
+  pane.addSeparator();
+  pane.addInput(params, 'backgroundColor');
+  pane.addInput(params, 'canRotate');
+}
+
+function draw() {
+  background(color(params.backgroundColor));
+
+  if (params.canRotate) {
+    rotateX(frameCount * 0.01);
+    rotateY(frameCount * 0.01);
+  }
+
+  noFill();
+  stroke(255);
+  box(params.width, params.height, params.depth);
+}
+
+// ===== /TweakpaneDemo/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Tweakpane Demo</title>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/tweakpane@1.0.4/dist/tweakpane.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+調整後の値をJSON形式で書き出す方法について見ていきます。
+
+
+    exportPreset()
+    JSON.stringify()
+
+// ===== /TweakpaneDemo/js/main.js =====
+'use strict';
+
+const params = {
+  width: 100,
+  height: 100,
+  depth: 100,
+  backgroundColor: '#f00',
+  canRotate: true,
+};
+
+function setup() {
+  createCanvas(400, 200, WEBGL);
+
+  const pane = new Tweakpane({
+    title: 'Parameters',
+  });
+  const sizeFolder = pane.addFolder({
+    title: 'Size',
+  });
+  sizeFolder.addInput(params, 'width', {
+    min: 0,
+    max: 200,
+  });
+  sizeFolder.addButton({
+    title: 'Randomize width',
+  }).on('click', () => {
+    params.width = Math.random() * 100;
+    pane.refresh();
+  });
+  sizeFolder.addInput(params, 'height', {
+    step: 50,
+    min: 0,
+    max: 200,
+  });
+  sizeFolder.addInput(params, 'depth', {
+    options: {
+      small: 50,
+      medium: 100,
+      large: 200,
+    },
+  });
+  pane.addSeparator();
+  pane.addInput(params, 'backgroundColor');
+  pane.addInput(params, 'canRotate');
+  pane.addButton({
+    title: 'Export',
+  }).on('click', () => {
+    const results = pane.exportPreset();
+    console.log(JSON.stringify(results, null, 2));
+  });
+}
+
+function draw() {
+  background(color(params.backgroundColor));
+
+  if (params.canRotate) {
+    rotateX(frameCount * 0.01);
+    rotateY(frameCount * 0.01);
+  }
+
+  noFill();
+  stroke(255);
+  box(params.width, params.height, params.depth);
+}
+
+// ===== /TweakpaneDemo/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Tweakpane Demo</title>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/tweakpane@1.0.4/dist/tweakpane.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+

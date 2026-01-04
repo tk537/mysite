@@ -1,0 +1,682 @@
+// ===== video_summary =====
+高機能なプログラミング言語であるPerlの概要、公式サイトなどについて解説していきます。
+
+
+    概要
+    公式サイト
+    必要となる知識
+    レッスンの環境
+
+// ===== commentBox 1 =====
+補足情報
+Perlドキュメントの日本語訳について
+
+
+
+
+2012年10月2日
+
+
+
+
+
+Perlドキュメントの日本語訳は以下のサイトで読むことができます。有志の方が翻訳されているようで、本家ドキュメントのほとんどを日本語で読むことができます。
+http://perldoc.jp/
+
+// ===== commentBox 2 =====
+補足情報
+あわせて見ておきたいサイトについて
+
+
+
+
+2012年9月27日
+
+
+
+
+
+Perlの公式サイトはこちらになります。
+http://www.perl.org/
+ドキュメントはいろいろありますが、概要をざっと知りたい方にはperlintroがおすすめです。
+http://perldoc.perl.org/perlintro.html
+ドキュメントの一覧はこちらから。
+http://perldoc.perl.org/perl.html
+
+// ===== read.me =====
+Perlの基礎
+
+* 概要
+- テキスト処理から大規模なシステム
+- 自由度が高い書き方が可能
+- コミュニティが活発
+
+* 公式サイト
+
+* 知識
+- unixコマンド
+- 正規表現
+
+* 環境
+
+
+
+
+
+// ===== video_summary =====
+はじめてのPerlプログラムを書き、それを実行させる方法について説明していきます。
+
+
+    Hello World
+    Perlの実行
+    コメントの書き方
+    use strict;
+    use warnings;
+
+// ===== commentBox 1 =====
+補足情報
+ソースコードに日本語を記述する際の注意点について
+
+
+
+
+2012年9月27日
+
+
+
+
+
+ソースコードに日本語を記述する場合は冒頭に次の宣言もしておきましょう。
+use utf8;
+
+// ===== hello.pl =====
+use strict;
+use warnings;
+
+# コメント
+print "hello world\n"; # コメント
+
+
+
+
+
+// ===== video_summary =====
+Perlで扱えるスカラー変数について説明していきます。
+
+
+    スカラー変数
+    変数の宣言
+    値の代入
+    変数の使用
+
+// ===== commentBox 1 =====
+補足情報
+シジルとはなにか？
+
+
+
+
+2013年9月9日
+
+
+
+
+
+それぞれの変数の頭につける記号（$, @, %など）は「シジル（Sigil）」と呼ばれますので覚えてきましょう。
+
+// ===== hello.pl =====
+use strict;
+use warnings;
+
+# 変数：データ（スカラー値、配列、ハッシュ）につけるラベル
+
+# スカラー（単一の値：数値、文字列）変数: $
+
+my $msg = "hello world\n";
+
+print $msg;
+
+
+
+
+
+
+// ===== video_summary =====
+スカラー変数で扱える数値についてその種類と演算子を説明していきます。
+
+
+    スカラー変数で扱える値
+    数値の演算子
+
+// ===== hello.pl =====
+use strict;
+use warnings;
+
+# スカラー（単一の値：数値、文字列）変数: $
+
+my $x = 10;
+my $y = 10.7;
+my $z = 123_235_235;
+
+# 演算子
+# =
+# + - / * % **
+
+my $xx = 10 * 10; # 100
+my $yy = 10 % 3; # 1
+my $zz = 2 ** 3; # 8
+
+# ++ --
+$x++; # 11
+$x--; # 10
+
+# +=
+$x += 5; # $x = $x + 5
+
+
+
+
+
+
+// ===== video_summary =====
+スカラー変数で扱える文字列について、その使い方及び演算子を説明していきます。
+
+
+    文字列の表現方法
+    'と"の違い
+    文字列の演算子
+
+// ===== hello.pl =====
+use strict;
+use warnings;
+
+# スカラー（単一の値：数値、文字列）変数: $
+
+my $name = "tom";
+my $a = "he\tllo, $name\n"; # 特殊文字(\n, \t)が使える、変数展開がされる
+my $b = 'he\tllo';
+
+#print $a;
+
+# . x
+
+#print "hello " . "world";
+
+print "hello" x 5;
+
+
+
+
+
+
+// ===== video_summary =====
+複数の値をまとめて扱うことができる配列変数について学んでいきます。
+
+
+    配列変数の宣言
+    範囲演算子
+    qw
+
+// ===== commentBox 1 =====
+補足情報
+print時のセパレータを指定するには？
+
+
+
+
+2012年9月26日
+
+
+
+
+
+$, という特殊な変数を使うと、配列を print で出力するときのセパレータを設定することができます。
+
+(例) 空白区切りにする場合。
+use strict;
+use warnings;
+
+$, = " ";
+my @inc = (1..100);
+print @inc;
+
+
+http://perldoc.perl.org/functions/print.html
+
+// ===== hello.pl =====
+use strict;
+use warnings;
+
+# 配列変数 @
+
+my @sales = (150, 200, 300);
+# my @colors = ('red', 'green');
+my @mixed = (150, 'red', 1.5);
+
+my @inc = (1..100);
+my @colors =qw(red green);
+
+print @inc;
+
+
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+配列変数から値を取り出す方法について学んでいきます。
+
+
+    要素の取り出し方
+    配列の一部の取り出し方
+    最後の添字の取り出し方
+
+// ===== hello.pl =====
+use strict;
+use warnings;
+
+# 配列変数: @ : スカラー値のリスト
+
+my @sales = (300, 150, 200);
+
+# @sales $#sales: 末尾の添字
+
+print @sales[1..$#sales];
+
+
+
+
+
+
+// ===== video_summary =====
+キーと値をペアで扱うことができるハッシュ変数について学んでいきます。
+
+
+    ハッシュ変数の表現方法
+    要素の取り出し方
+
+// ===== commentBox 1 =====
+補足情報
+ハッシュの書き方について
+
+
+
+
+2012年9月27日
+
+
+
+
+
+ハッシュのキーと値は次のようにカンマで単に区切っていくことで書くことも可能です。ただこれだと対応がわかりにくいので動画中のような書き方を覚えておくようにしましょう。
+my %sales = ("tanaka", 300, "suzuki", 150, "ohira", 200);
+
+// ===== hello.pl =====
+use strict;
+use warnings;
+
+# ハッシュ変数 : キーと値 : %
+
+my %sales = ("tanaka"=>300, "suzuki"=>150, "ohira"=>200);
+
+print $sales{"tanaka"};
+
+
+
+
+
+
+// ===== video_summary =====
+if文を使った条件分岐を見ていきます。また数値の比較演算子についても学んでいきます。
+
+
+    if文の構造
+    数値の比較演算子
+
+// ===== hello.pl =====
+use strict;
+use warnings;
+
+# 条件分岐と比較演算子
+
+my $score = 85;
+
+if ($score >= 80) {
+    print("OK!");
+}
+
+# 数値: < > <= >= == != 
+# 文字列:
+
+
+
+
+
+// ===== video_summary =====
+文字列を比較する際に使える演算子と、論理演算子について学んでいきます。
+
+
+    文字列の演算子
+    論理演算子
+
+// ===== hello.pl =====
+use strict;
+use warnings;
+
+# 条件分岐と比較演算子
+
+my $score = 85;
+my $name = "Luke";
+
+if (($name eq "Luke") && ($score >= 80)) {
+    print("I am your father!!");
+}
+
+# 数値: < > <= >= == != 
+# 文字列: eq ne gt lt ge le : 0-9 < A-Z < a-z
+
+# && (AND)
+# || (OR)
+# ! (NOT)
+
+
+
+
+
+// ===== video_summary =====
+if文をさらに拡張して自在に場合分けをしていく方法について学びます。
+
+
+    if ... else ...
+    if ... elsif ... else ...
+
+// ===== hello.pl =====
+use strict;
+use warnings;
+
+# 条件分岐
+
+my $score = 25;
+
+if ($score >= 80) {
+    print("OK!");
+} elsif ($score >= 40) {
+    print("not ok...");
+} else {
+    print("take the test again!");
+}
+
+
+
+
+
+
+// ===== video_summary =====
+if文を後置する方法、三項演算子について学びます。
+
+
+    if文の後置
+    三項演算子
+
+// ===== hello.pl =====
+use strict;
+use warnings;
+
+# 条件分岐
+
+my $score = 85;
+
+if ($score >= 80) {
+    print("OK!");
+}
+
+# if文の後置
+print("OK!") if ($score >= 80);
+
+# 三項演算子 if ... else ...
+# (条件) ? 値1 : 値2
+
+my $a = 10;
+my $b = 20;
+
+my $max = ($a > $b) ? $a : $b;
+
+
+
+
+
+
+// ===== video_summary =====
+while文とfor文を使った繰り返し（ループ）処理について解説していきます。
+
+
+    while文
+    for文
+
+// ===== hello.pl =====
+use strict;
+use warnings;
+
+# ループ処理 (while)
+
+my $i = 0;
+
+while ($i < 10) {
+    print "i = $i\n";
+    $i++;
+}
+
+# for 
+
+for (my $i = 0; $i < 10; $i++) {
+    print "i = $i\n";    
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+配列の要素をループさせていく方法について学びます。
+
+
+    foreach文
+    省略と$_
+
+// ===== hello.pl =====
+use strict;
+use warnings;
+
+# ループ処理 (foreach)
+
+my @colors = qw(red green blue orange pink);
+
+foreach my $color (@colors) {
+    print "color = $color\n";
+}
+
+for my $color (@colors) {
+    print "color = $color\n";
+}
+
+for (@colors) {
+    print "color = $_\n";
+}
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+次はハッシュをループさせてキーと値を表示させる方法について学びます。
+
+
+    foreach文
+    keys
+    省略と$_
+
+// ===== hello.pl =====
+use strict;
+use warnings;
+
+# ループ処理 (foreach)
+
+my %sales = ("tanaka"=>150, "suzuki"=>300, "ohira"=>200);
+
+foreach my $key (keys(%sales)) {
+    print "sales for $key is $sales{$key}\n";
+}
+
+for (keys %sales) {
+    print "sales for $_ is $sales{$_}\n";
+}
+
+
+
+
+
+
+// ===== video_summary =====
+外部ファイルから内容を読み取り、他のファイルへ書き込んでいく方法について学びます。
+
+
+    ファイルのOpen
+    データの読み込み
+    データの書き込み
+    ファイルのClose
+
+// ===== hello.pl =====
+use strict;
+use warnings;
+
+# ファイル入出力
+
+open(my $in, "<", "test.dat") or die("could not open file.");
+open(my $out, ">", "test.out") or die("could not open file.");
+
+while (<$in>) {
+    print $out $_;
+}
+
+close($in);
+close($out);
+
+// ===== test.dat =====
+abc
+def
+ghi
+123
+456
+789
+
+
+
+
+
+// ===== video_summary =====
+読み込んだデータを正規表現を使って置換、検索していく方法について学びます。
+
+
+    正規表現による置換
+    正規表現による検索（マッチング）
+
+// ===== hello.pl =====
+use strict;
+use warnings;
+
+# ファイル入出力
+# 正規表現
+
+open(my $in, "<", "test.dat") or die("could not open file.");
+
+while (<$in>) {
+    s/abc/ABC/;
+    if (/[a-z]/) {
+        print $_;
+    }
+}
+
+close($in);
+
+// ===== test.dat =====
+abc
+def
+ghi
+123
+456
+789
+
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+簡単なサブルーチンの作り方について解説していきます。
+
+
+    サブルーチンの作成方法
+    引数
+    返り値
+    省略
+
+// ===== hello.pl =====
+use strict;
+use warnings;
+
+# サブルーチン
+
+sub max {
+    my $max = $_[0];
+    if ($_[1] > $max) {
+        $max = $_[1];
+    }
+    $max;
+}
+
+print max(12, 8);
+
+
+
+
+
+// ===== video_summary =====
+前回作ったサブルーチンをさらに改良していきます。
+
+
+    引数の取得
+    ロジックの改良
+
+// ===== hello.pl =====
+use strict;
+use warnings;
+
+# サブルーチン
+
+sub max {
+    my $max = shift; # @_
+    for (@_) {
+        $max = $_ if $_ > $max;
+    }
+    $max;
+}
+
+print max(12, 8, 100, 200, 300, 23, 38);
+
+
+
+
+
+

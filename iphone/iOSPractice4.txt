@@ -1,0 +1,1607 @@
+// ===== video_summary =====
+まずは完成版について説明したのちに、必要となる知識、レッスンにおける環境について説明していきます。
+
+
+    完成版の確認
+    必要となる知識
+    レッスンのおける環境
+    プロジェクトの作成
+
+// ===== commentBox 1 =====
+補足情報
+プロジェクト作成時のUser Interfaceについて
+
+
+
+
+2020年1月17日
+
+
+
+
+
+最新版のXcodeではプロジェクト作成時にUser Interfaceを選べるようになっておりますが、レッスンと同じようにすすめるには「SwiftUI」ではなくて、「Storyboard」を選ぶようにしてください。
+
+// ===== commentBox 2 =====
+補足情報
+必要となる知識について
+
+
+
+
+2017年3月16日
+
+
+
+
+
+今回のレッスンについては以下も参考にしてみてください。
+
+・iPhoneアプリ開発入門 (全13回)
+http://dotinstall.com/lessons/basic_iphoneapp_v3
+・iOSレイアウト入門 (全14回)
+http://dotinstall.com/lessons/basic_ios_layout_v2
+・Swift 3入門 (全36回)
+http://dotinstall.com/lessons/basic_swift_v2
+
+// ===== read.me =====
+iOS ブラウザ
+
+# 完成版
+
+# 知識
+
+# 環境
+- Xcode 8.1 / Swift 3
+
+// ===== /MyBrowserApp/MyBrowserApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyBrowserApp
+//
+//  Created by Gen Taguchi on 2017/01/30.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+
+
+
+
+
+
+// ===== video_summary =====
+必要な部品を配置して制約をつけていきます。
+
+
+    部品の配置
+    制約の設定
+
+// ===== /MyBrowserApp/MyBrowserApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyBrowserApp
+//
+//  Created by Gen Taguchi on 2017/01/30.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+
+
+
+
+
+
+// ===== video_summary =====
+部品のアイコンや、キーボードの設定などをしていきます。
+
+
+    ボタンの設定
+    キーボードの設定
+
+// ===== /MyBrowserApp/MyBrowserApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyBrowserApp
+//
+//  Created by Gen Taguchi on 2017/03/01.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    @IBOutlet weak var urlTextField: UITextField!
+    @IBOutlet weak var browserWebView: UIWebView!
+    
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var forwardButton: UIBarButtonItem!
+    @IBOutlet weak var reloadButton: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    @IBAction func goBack(_ sender: Any) {
+    }
+
+    @IBAction func goForward(_ sender: Any) {
+    }
+    
+    @IBAction func reload(_ sender: Any) {
+    }
+}
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+設置した部品をコードから扱えるように接続していきます。
+
+
+    部品の接続
+
+// ===== /MyBrowserApp/MyBrowserApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyBrowserApp
+//
+//  Created by Gen Taguchi on 2017/01/30.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    @IBOutlet weak var urlTextField: UITextField!
+    @IBOutlet weak var browserWebView: UIWebView!
+    
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var forwardButton: UIBarButtonItem!
+    @IBOutlet weak var reloadButton: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    @IBAction func goBack(_ sender: Any) {
+    }
+
+    @IBAction func goForward(_ sender: Any) {
+    }
+    
+    @IBAction func reload(_ sender: Any) {
+    }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+URLを指定してサイトを表示するためのコードを書いていきます。
+
+
+    サイトの表示
+    App Transport Securityの設定
+
+// ===== /MyBrowserApp/MyBrowserApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyBrowserApp
+//
+//  Created by Gen Taguchi on 2017/01/30.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    @IBOutlet weak var urlTextField: UITextField!
+    @IBOutlet weak var browserWebView: UIWebView!
+    
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var forwardButton: UIBarButtonItem!
+    @IBOutlet weak var reloadButton: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let urlString = "http://dotinstall.com"
+        let urlRequest = URLRequest(url: URL(string: urlString)!)
+        self.browserWebView.loadRequest(urlRequest)
+        
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    @IBAction func goBack(_ sender: Any) {
+    }
+
+    @IBAction func goForward(_ sender: Any) {
+    }
+    
+    @IBAction func reload(_ sender: Any) {
+    }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+URLが空文字だったり、適切ではない文字を含んでいた場合にエラーを出すようにしていきます。
+
+
+    URLのチェック
+    動作確認
+
+// ===== /MyBrowserApp/MyBrowserApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyBrowserApp
+//
+//  Created by Gen Taguchi on 2017/01/30.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    @IBOutlet weak var urlTextField: UITextField!
+    @IBOutlet weak var browserWebView: UIWebView!
+    
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var forwardButton: UIBarButtonItem!
+    @IBOutlet weak var reloadButton: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+//        let urlString = "http://dotinstall.com"
+        let urlString = ""
+        self.loadUrl(urlString: urlString)
+        
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    func getValidatedUrl(urlString: String) -> URL? {
+        if URL(string: urlString) == nil {
+            print("Invalid URL")
+            return nil
+        }
+        return URL(string: urlString)
+    }
+    
+    func loadUrl(urlString: String) {
+        if let url = self.getValidatedUrl(urlString: urlString) {
+            let urlRequest = URLRequest(url: url)
+            self.browserWebView.loadRequest(urlRequest)
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    @IBAction func goBack(_ sender: Any) {
+    }
+
+    @IBAction func goForward(_ sender: Any) {
+    }
+    
+    @IBAction func reload(_ sender: Any) {
+    }
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+エラーが発生したときにアラートで表示されるようにしていきます。
+
+
+    アラートの表示
+    動作確認
+
+// ===== /MyBrowserApp/MyBrowserApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyBrowserApp
+//
+//  Created by Gen Taguchi on 2017/01/30.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    @IBOutlet weak var urlTextField: UITextField!
+    @IBOutlet weak var browserWebView: UIWebView!
+    
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var forwardButton: UIBarButtonItem!
+    @IBOutlet weak var reloadButton: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+//        let urlString = "http://dotinstall.com"
+        let urlString = ""
+        self.loadUrl(urlString: urlString)
+        
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    func showAlert(_ message: String) {
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func getValidatedUrl(urlString: String) -> URL? {
+        if URL(string: urlString) == nil {
+//            print("Invalid URL")
+            self.showAlert("Invalid URL")
+            return nil
+        }
+        return URL(string: urlString)
+    }
+    
+    func loadUrl(urlString: String) {
+        if let url = self.getValidatedUrl(urlString: urlString) {
+            let urlRequest = URLRequest(url: url)
+            self.browserWebView.loadRequest(urlRequest)
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    @IBAction func goBack(_ sender: Any) {
+    }
+
+    @IBAction func goForward(_ sender: Any) {
+    }
+    
+    @IBAction func reload(_ sender: Any) {
+    }
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+Viewが表示されたあとにアラートが表示されるように調整していきます。
+
+
+    viewDidAlert
+    動作確認
+
+// ===== /MyBrowserApp/MyBrowserApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyBrowserApp
+//
+//  Created by Gen Taguchi on 2017/01/30.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    @IBOutlet weak var urlTextField: UITextField!
+    @IBOutlet weak var browserWebView: UIWebView!
+    
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var forwardButton: UIBarButtonItem!
+    @IBOutlet weak var reloadButton: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let urlString = "http://dotinstall.com"
+//        let urlString = ""
+        self.loadUrl(urlString: urlString)
+    }
+    
+    func showAlert(_ message: String) {
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func getValidatedUrl(urlString: String) -> URL? {
+        if URL(string: urlString) == nil {
+//            print("Invalid URL")
+            self.showAlert("Invalid URL")
+            return nil
+        }
+        return URL(string: urlString)
+    }
+    
+    func loadUrl(urlString: String) {
+        if let url = self.getValidatedUrl(urlString: urlString) {
+            let urlRequest = URLRequest(url: url)
+            self.browserWebView.loadRequest(urlRequest)
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    @IBAction func goBack(_ sender: Any) {
+    }
+
+    @IBAction func goForward(_ sender: Any) {
+    }
+    
+    @IBAction func reload(_ sender: Any) {
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+WebViewの上端に境界線を表示させる方法について見ていきます。
+
+
+    境界線の設定
+    境界線の表示
+
+// ===== /MyBrowserApp/MyBrowserApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyBrowserApp
+//
+//  Created by Gen Taguchi on 2017/01/30.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    @IBOutlet weak var urlTextField: UITextField!
+    @IBOutlet weak var browserWebView: UIWebView!
+    
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var forwardButton: UIBarButtonItem!
+    @IBOutlet weak var reloadButton: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let urlString = "http://dotinstall.com"
+//        let urlString = ""
+        self.loadUrl(urlString: urlString)
+        self.addBorder()
+    }
+    
+    func addBorder() {
+        let topBorder = CALayer()
+        topBorder.frame = CGRect(x: 0.0, y: 0.0, width: self.browserWebView.frame.size.width, height: 1.0)
+        topBorder.backgroundColor = UIColor.lightGray.cgColor
+        self.browserWebView.layer.addSublayer(topBorder)
+    }
+
+    func showAlert(_ message: String) {
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func getValidatedUrl(urlString: String) -> URL? {
+        if URL(string: urlString) == nil {
+//            print("Invalid URL")
+            self.showAlert("Invalid URL")
+            return nil
+        }
+        return URL(string: urlString)
+    }
+    
+    func loadUrl(urlString: String) {
+        if let url = self.getValidatedUrl(urlString: urlString) {
+            let urlRequest = URLRequest(url: url)
+            self.browserWebView.loadRequest(urlRequest)
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    @IBAction func goBack(_ sender: Any) {
+    }
+
+    @IBAction func goForward(_ sender: Any) {
+    }
+    
+    @IBAction func reload(_ sender: Any) {
+    }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+WebViewのDelegateを使って、今表示されているサイトのURLがTextFieldに反映されるようにしていきます。
+
+
+    UIWebViewDelegate
+    URLの表示
+
+// ===== /MyBrowserApp/MyBrowserApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyBrowserApp
+//
+//  Created by Gen Taguchi on 2017/01/30.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController, UIWebViewDelegate {
+
+    @IBOutlet weak var urlTextField: UITextField!
+    @IBOutlet weak var browserWebView: UIWebView!
+    
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var forwardButton: UIBarButtonItem!
+    @IBOutlet weak var reloadButton: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.browserWebView.delegate = self
+        
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        if let urlString = self.browserWebView.request?.url?.absoluteString {
+            self.urlTextField.text = urlString
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let urlString = "http://dotinstall.com"
+//        let urlString = ""
+        self.loadUrl(urlString: urlString)
+        self.addBorder()
+    }
+    
+    func addBorder() {
+        let topBorder = CALayer()
+        topBorder.frame = CGRect(x: 0.0, y: 0.0, width: self.browserWebView.frame.size.width, height: 1.0)
+        topBorder.backgroundColor = UIColor.lightGray.cgColor
+        self.browserWebView.layer.addSublayer(topBorder)
+    }
+
+    func showAlert(_ message: String) {
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func getValidatedUrl(urlString: String) -> URL? {
+        if URL(string: urlString) == nil {
+//            print("Invalid URL")
+            self.showAlert("Invalid URL")
+            return nil
+        }
+        return URL(string: urlString)
+    }
+    
+    func loadUrl(urlString: String) {
+        if let url = self.getValidatedUrl(urlString: urlString) {
+            let urlRequest = URLRequest(url: url)
+            self.browserWebView.loadRequest(urlRequest)
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    @IBAction func goBack(_ sender: Any) {
+    }
+
+    @IBAction func goForward(_ sender: Any) {
+    }
+    
+    @IBAction func reload(_ sender: Any) {
+    }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+サイトが読み込み中のときにActivityIndicatorを表示してみます。
+
+
+    ActivityIndicatorの表示
+
+// ===== /MyBrowserApp/MyBrowserApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyBrowserApp
+//
+//  Created by Gen Taguchi on 2017/01/30.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController, UIWebViewDelegate {
+
+    @IBOutlet weak var urlTextField: UITextField!
+    @IBOutlet weak var browserWebView: UIWebView!
+    
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var forwardButton: UIBarButtonItem!
+    @IBOutlet weak var reloadButton: UIBarButtonItem!
+    
+    @IBOutlet weak var browserActivityIndicatorView: UIActivityIndicatorView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.browserWebView.delegate = self
+        self.browserActivityIndicatorView.hidesWhenStopped = true
+        
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        self.browserActivityIndicatorView.startAnimating()
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        if let urlString = self.browserWebView.request?.url?.absoluteString {
+            self.urlTextField.text = urlString
+        }
+        self.browserActivityIndicatorView.stopAnimating()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let urlString = "http://dotinstall.com"
+//        let urlString = ""
+        self.loadUrl(urlString: urlString)
+        self.addBorder()
+    }
+    
+    func addBorder() {
+        let topBorder = CALayer()
+        topBorder.frame = CGRect(x: 0.0, y: 0.0, width: self.browserWebView.frame.size.width, height: 1.0)
+        topBorder.backgroundColor = UIColor.lightGray.cgColor
+        self.browserWebView.layer.addSublayer(topBorder)
+    }
+
+    func showAlert(_ message: String) {
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func getValidatedUrl(urlString: String) -> URL? {
+        if URL(string: urlString) == nil {
+//            print("Invalid URL")
+            self.showAlert("Invalid URL")
+            return nil
+        }
+        return URL(string: urlString)
+    }
+    
+    func loadUrl(urlString: String) {
+        if let url = self.getValidatedUrl(urlString: urlString) {
+            let urlRequest = URLRequest(url: url)
+            self.browserWebView.loadRequest(urlRequest)
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    @IBAction func goBack(_ sender: Any) {
+    }
+
+    @IBAction func goForward(_ sender: Any) {
+    }
+    
+    @IBAction func reload(_ sender: Any) {
+    }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+戻る、進む、リロードなどのボタンを動作させてみます。
+
+
+    ボタンの動作設定
+    ボタンの有効化/無効化
+
+// ===== /MyBrowserApp/MyBrowserApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyBrowserApp
+//
+//  Created by Gen Taguchi on 2017/01/30.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController, UIWebViewDelegate {
+
+    @IBOutlet weak var urlTextField: UITextField!
+    @IBOutlet weak var browserWebView: UIWebView!
+    
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var forwardButton: UIBarButtonItem!
+    @IBOutlet weak var reloadButton: UIBarButtonItem!
+    
+    @IBOutlet weak var browserActivityIndicatorView: UIActivityIndicatorView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.browserWebView.delegate = self
+        self.browserActivityIndicatorView.hidesWhenStopped = true
+        
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        self.browserActivityIndicatorView.startAnimating()
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        if let urlString = self.browserWebView.request?.url?.absoluteString {
+            self.urlTextField.text = urlString
+        }
+        self.browserActivityIndicatorView.stopAnimating()
+        self.backButton.isEnabled = self.browserWebView.canGoBack
+        self.forwardButton.isEnabled = self.browserWebView.canGoForward
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let urlString = "http://dotinstall.com"
+//        let urlString = ""
+        self.loadUrl(urlString: urlString)
+        self.addBorder()
+    }
+    
+    func addBorder() {
+        let topBorder = CALayer()
+        topBorder.frame = CGRect(x: 0.0, y: 0.0, width: self.browserWebView.frame.size.width, height: 1.0)
+        topBorder.backgroundColor = UIColor.lightGray.cgColor
+        self.browserWebView.layer.addSublayer(topBorder)
+    }
+
+    func showAlert(_ message: String) {
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func getValidatedUrl(urlString: String) -> URL? {
+        if URL(string: urlString) == nil {
+//            print("Invalid URL")
+            self.showAlert("Invalid URL")
+            return nil
+        }
+        return URL(string: urlString)
+    }
+    
+    func loadUrl(urlString: String) {
+        if let url = self.getValidatedUrl(urlString: urlString) {
+            let urlRequest = URLRequest(url: url)
+            self.browserWebView.loadRequest(urlRequest)
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    @IBAction func goBack(_ sender: Any) {
+        self.browserWebView.goBack()
+    }
+
+    @IBAction func goForward(_ sender: Any) {
+        self.browserWebView.goForward()
+    }
+    
+    @IBAction func reload(_ sender: Any) {
+        self.browserWebView.reload()
+    }
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+TextFieldにURLを打ち込んでそのサイトを表示させてみます。
+
+
+    UITextFieldDelegate
+    サイトの表示
+
+// ===== /MyBrowserApp/MyBrowserApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyBrowserApp
+//
+//  Created by Gen Taguchi on 2017/01/30.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController, UIWebViewDelegate, UITextFieldDelegate {
+
+    @IBOutlet weak var urlTextField: UITextField!
+    @IBOutlet weak var browserWebView: UIWebView!
+    
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var forwardButton: UIBarButtonItem!
+    @IBOutlet weak var reloadButton: UIBarButtonItem!
+    
+    @IBOutlet weak var browserActivityIndicatorView: UIActivityIndicatorView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.browserWebView.delegate = self
+        self.urlTextField.delegate = self
+        self.browserActivityIndicatorView.hidesWhenStopped = true
+        
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField != self.urlTextField {
+            return true
+        }
+        if let urlString = textField.text {
+            self.loadUrl(urlString: urlString)
+        }
+        return true
+    }
+    
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        self.browserActivityIndicatorView.startAnimating()
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        if let urlString = self.browserWebView.request?.url?.absoluteString {
+            self.urlTextField.text = urlString
+        }
+        self.browserActivityIndicatorView.stopAnimating()
+        self.backButton.isEnabled = self.browserWebView.canGoBack
+        self.forwardButton.isEnabled = self.browserWebView.canGoForward
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let urlString = "http://dotinstall.com"
+//        let urlString = ""
+        self.loadUrl(urlString: urlString)
+        self.addBorder()
+    }
+    
+    func addBorder() {
+        let topBorder = CALayer()
+        topBorder.frame = CGRect(x: 0.0, y: 0.0, width: self.browserWebView.frame.size.width, height: 1.0)
+        topBorder.backgroundColor = UIColor.lightGray.cgColor
+        self.browserWebView.layer.addSublayer(topBorder)
+    }
+
+    func showAlert(_ message: String) {
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func getValidatedUrl(urlString: String) -> URL? {
+        if URL(string: urlString) == nil {
+//            print("Invalid URL")
+            self.showAlert("Invalid URL")
+            return nil
+        }
+        return URL(string: urlString)
+    }
+    
+    func loadUrl(urlString: String) {
+        if let url = self.getValidatedUrl(urlString: urlString) {
+            let urlRequest = URLRequest(url: url)
+            self.browserWebView.loadRequest(urlRequest)
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    @IBAction func goBack(_ sender: Any) {
+        self.browserWebView.goBack()
+    }
+
+    @IBAction func goForward(_ sender: Any) {
+        self.browserWebView.goForward()
+    }
+    
+    @IBAction func reload(_ sender: Any) {
+        self.browserWebView.reload()
+    }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+URLをタップしたときに全選択されるように設定していきます。
+
+
+    TextFieldの全選択
+
+// ===== /MyBrowserApp/MyBrowserApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyBrowserApp
+//
+//  Created by Gen Taguchi on 2017/01/30.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController, UIWebViewDelegate, UITextFieldDelegate {
+
+    @IBOutlet weak var urlTextField: UITextField!
+    @IBOutlet weak var browserWebView: UIWebView!
+    
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var forwardButton: UIBarButtonItem!
+    @IBOutlet weak var reloadButton: UIBarButtonItem!
+    
+    @IBOutlet weak var browserActivityIndicatorView: UIActivityIndicatorView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.browserWebView.delegate = self
+        self.urlTextField.delegate = self
+        self.browserActivityIndicatorView.hidesWhenStopped = true
+        
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField != self.urlTextField {
+            return true
+        }
+        if let urlString = textField.text {
+            self.loadUrl(urlString: urlString)
+        }
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField != self.urlTextField {
+            return
+        }
+        textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
+    }
+
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        self.browserActivityIndicatorView.startAnimating()
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        if let urlString = self.browserWebView.request?.url?.absoluteString {
+            self.urlTextField.text = urlString
+        }
+        self.browserActivityIndicatorView.stopAnimating()
+        self.backButton.isEnabled = self.browserWebView.canGoBack
+        self.forwardButton.isEnabled = self.browserWebView.canGoForward
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let urlString = "http://dotinstall.com"
+//        let urlString = ""
+        self.loadUrl(urlString: urlString)
+        self.addBorder()
+    }
+    
+    func addBorder() {
+        let topBorder = CALayer()
+        topBorder.frame = CGRect(x: 0.0, y: 0.0, width: self.browserWebView.frame.size.width, height: 1.0)
+        topBorder.backgroundColor = UIColor.lightGray.cgColor
+        self.browserWebView.layer.addSublayer(topBorder)
+    }
+
+    func showAlert(_ message: String) {
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func getValidatedUrl(urlString: String) -> URL? {
+        if URL(string: urlString) == nil {
+//            print("Invalid URL")
+            self.showAlert("Invalid URL")
+            return nil
+        }
+        return URL(string: urlString)
+    }
+    
+    func loadUrl(urlString: String) {
+        if let url = self.getValidatedUrl(urlString: urlString) {
+            let urlRequest = URLRequest(url: url)
+            self.browserWebView.loadRequest(urlRequest)
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    @IBAction func goBack(_ sender: Any) {
+        self.browserWebView.goBack()
+    }
+
+    @IBAction func goForward(_ sender: Any) {
+        self.browserWebView.goForward()
+    }
+    
+    @IBAction func reload(_ sender: Any) {
+        self.browserWebView.reload()
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+http://やhttps://が省略されてもサイトが表示されるようにしていきます。
+
+
+    http://やhttps://のチェック
+    http://やhttps://の補完
+
+// ===== /MyBrowserApp/MyBrowserApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyBrowserApp
+//
+//  Created by Gen Taguchi on 2017/01/30.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController, UIWebViewDelegate, UITextFieldDelegate {
+
+    @IBOutlet weak var urlTextField: UITextField!
+    @IBOutlet weak var browserWebView: UIWebView!
+    
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var forwardButton: UIBarButtonItem!
+    @IBOutlet weak var reloadButton: UIBarButtonItem!
+    
+    @IBOutlet weak var browserActivityIndicatorView: UIActivityIndicatorView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.browserWebView.delegate = self
+        self.urlTextField.delegate = self
+        self.browserActivityIndicatorView.hidesWhenStopped = true
+        
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField != self.urlTextField {
+            return true
+        }
+        if let urlString = textField.text {
+            self.loadUrl(urlString: urlString)
+        }
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField != self.urlTextField {
+            return
+        }
+        textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
+    }
+
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        self.browserActivityIndicatorView.startAnimating()
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        if let urlString = self.browserWebView.request?.url?.absoluteString {
+            self.urlTextField.text = urlString
+        }
+        self.browserActivityIndicatorView.stopAnimating()
+        self.backButton.isEnabled = self.browserWebView.canGoBack
+        self.forwardButton.isEnabled = self.browserWebView.canGoForward
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let urlString = "http://dotinstall.com"
+//        let urlString = ""
+        self.loadUrl(urlString: urlString)
+        self.addBorder()
+    }
+    
+    func addBorder() {
+        let topBorder = CALayer()
+        topBorder.frame = CGRect(x: 0.0, y: 0.0, width: self.browserWebView.frame.size.width, height: 1.0)
+        topBorder.backgroundColor = UIColor.lightGray.cgColor
+        self.browserWebView.layer.addSublayer(topBorder)
+    }
+
+    func showAlert(_ message: String) {
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func getValidatedUrl(urlString: String) -> URL? {
+        if URL(string: urlString) == nil {
+//            print("Invalid URL")
+            self.showAlert("Invalid URL")
+            return nil
+        }
+        return URL(string: appendScheme(urlString))
+    }
+    
+    func appendScheme(_ urlString: String) -> String {
+        if URL(string: urlString)?.scheme == nil {
+            return "http://" + urlString
+        }
+        return urlString
+    }
+    
+    func loadUrl(urlString: String) {
+        if let url = self.getValidatedUrl(urlString: urlString) {
+            let urlRequest = URLRequest(url: url)
+            self.browserWebView.loadRequest(urlRequest)
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    @IBAction func goBack(_ sender: Any) {
+        self.browserWebView.goBack()
+    }
+
+    @IBAction func goForward(_ sender: Any) {
+        self.browserWebView.goForward()
+    }
+    
+    @IBAction func reload(_ sender: Any) {
+        self.browserWebView.reload()
+    }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+入力されたURLに余分な空白があった場合にそれを取り除く処理を施していきます。
+
+
+    余分な空白の除去
+
+// ===== /MyBrowserApp/MyBrowserApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyBrowserApp
+//
+//  Created by Gen Taguchi on 2017/01/30.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController, UIWebViewDelegate, UITextFieldDelegate {
+
+    @IBOutlet weak var urlTextField: UITextField!
+    @IBOutlet weak var browserWebView: UIWebView!
+    
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var forwardButton: UIBarButtonItem!
+    @IBOutlet weak var reloadButton: UIBarButtonItem!
+    
+    @IBOutlet weak var browserActivityIndicatorView: UIActivityIndicatorView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.browserWebView.delegate = self
+        self.urlTextField.delegate = self
+        self.browserActivityIndicatorView.hidesWhenStopped = true
+        
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField != self.urlTextField {
+            return true
+        }
+        if let urlString = textField.text {
+            self.loadUrl(urlString: urlString)
+        }
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField != self.urlTextField {
+            return
+        }
+        textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
+    }
+
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        self.browserActivityIndicatorView.startAnimating()
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        if let urlString = self.browserWebView.request?.url?.absoluteString {
+            self.urlTextField.text = urlString
+        }
+        self.browserActivityIndicatorView.stopAnimating()
+        self.backButton.isEnabled = self.browserWebView.canGoBack
+        self.forwardButton.isEnabled = self.browserWebView.canGoForward
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let urlString = "http://dotinstall.com"
+//        let urlString = ""
+        self.loadUrl(urlString: urlString)
+        self.addBorder()
+    }
+    
+    func addBorder() {
+        let topBorder = CALayer()
+        topBorder.frame = CGRect(x: 0.0, y: 0.0, width: self.browserWebView.frame.size.width, height: 1.0)
+        topBorder.backgroundColor = UIColor.lightGray.cgColor
+        self.browserWebView.layer.addSublayer(topBorder)
+    }
+
+    func showAlert(_ message: String) {
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func getValidatedUrl(urlString: String) -> URL? {
+        let trimmed = urlString.trimmingCharacters(in: NSCharacterSet.whitespaces)
+        if URL(string: trimmed) == nil {
+//            print("Invalid URL")
+            self.showAlert("Invalid URL")
+            return nil
+        }
+        return URL(string: self.appendScheme(trimmed))
+    }
+    
+    func appendScheme(_ urlString: String) -> String {
+        if URL(string: urlString)?.scheme == nil {
+            return "http://" + urlString
+        }
+        return urlString
+    }
+    
+    func loadUrl(urlString: String) {
+        if let url = self.getValidatedUrl(urlString: urlString) {
+            let urlRequest = URLRequest(url: url)
+            self.browserWebView.loadRequest(urlRequest)
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    @IBAction func goBack(_ sender: Any) {
+        self.browserWebView.goBack()
+    }
+
+    @IBAction func goForward(_ sender: Any) {
+        self.browserWebView.goForward()
+    }
+    
+    @IBAction func reload(_ sender: Any) {
+        self.browserWebView.reload()
+    }
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+ネットワークエラーを検出して、必要ならアラートを出すように設定していきます。
+
+
+    ネットワークエラーの検出
+    動作確認
+
+// ===== /MyBrowserApp/MyBrowserApp/ViewController.swift =====
+//
+//  ViewController.swift
+//  MyBrowserApp
+//
+//  Created by Gen Taguchi on 2017/01/30.
+//  Copyright © 2017年 Dotinstall. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController, UIWebViewDelegate, UITextFieldDelegate {
+
+    @IBOutlet weak var urlTextField: UITextField!
+    @IBOutlet weak var browserWebView: UIWebView!
+    
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var forwardButton: UIBarButtonItem!
+    @IBOutlet weak var reloadButton: UIBarButtonItem!
+    
+    @IBOutlet weak var browserActivityIndicatorView: UIActivityIndicatorView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.browserWebView.delegate = self
+        self.urlTextField.delegate = self
+        self.browserActivityIndicatorView.hidesWhenStopped = true
+        
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField != self.urlTextField {
+            return true
+        }
+        if let urlString = textField.text {
+            self.loadUrl(urlString: urlString)
+        }
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField != self.urlTextField {
+            return
+        }
+        textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
+    }
+
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        self.browserActivityIndicatorView.startAnimating()
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        if let urlString = self.browserWebView.request?.url?.absoluteString {
+            self.urlTextField.text = urlString
+        }
+        self.browserActivityIndicatorView.stopAnimating()
+        self.backButton.isEnabled = self.browserWebView.canGoBack
+        self.forwardButton.isEnabled = self.browserWebView.canGoForward
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let urlString = "http://dotinstall.com"
+//        let urlString = ""
+        self.loadUrl(urlString: urlString)
+        self.addBorder()
+    }
+    
+    func addBorder() {
+        let topBorder = CALayer()
+        topBorder.frame = CGRect(x: 0.0, y: 0.0, width: self.browserWebView.frame.size.width, height: 1.0)
+        topBorder.backgroundColor = UIColor.lightGray.cgColor
+        self.browserWebView.layer.addSublayer(topBorder)
+    }
+
+    func showAlert(_ message: String) {
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+        if (error as! URLError).code == URLError.cancelled {
+            return
+        }
+        self.showAlert("Network Error")
+        self.browserWebView.stopLoading()
+        self.browserActivityIndicatorView.stopAnimating()
+    }
+    
+    func getValidatedUrl(urlString: String) -> URL? {
+        let trimmed = urlString.trimmingCharacters(in: NSCharacterSet.whitespaces)
+        if URL(string: trimmed) == nil {
+//            print("Invalid URL")
+            self.showAlert("Invalid URL")
+            return nil
+        }
+        return URL(string: self.appendScheme(trimmed))
+    }
+    
+    func appendScheme(_ urlString: String) -> String {
+        if URL(string: urlString)?.scheme == nil {
+            return "http://" + urlString
+        }
+        return urlString
+    }
+    
+    func loadUrl(urlString: String) {
+        if let url = self.getValidatedUrl(urlString: urlString) {
+            let urlRequest = URLRequest(url: url)
+            self.browserWebView.loadRequest(urlRequest)
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    @IBAction func goBack(_ sender: Any) {
+        self.browserWebView.goBack()
+    }
+
+    @IBAction func goForward(_ sender: Any) {
+        self.browserWebView.goForward()
+    }
+    
+    @IBAction func reload(_ sender: Any) {
+        self.browserWebView.reload()
+    }
+}
+
+
+
+
+
+

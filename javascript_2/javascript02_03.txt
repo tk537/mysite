@@ -1,0 +1,1079 @@
+// ===== video_summary =====
+完成版を確認したあとに、必要なファイルを作っていきます。
+
+
+    完成版の確認
+    index.htmlの作成
+    styles.cssの作成
+    main.jsの作成
+
+// ===== commentBox 1 =====
+補足情報
+必要となる知識について
+
+
+
+
+2019年8月27日
+
+
+
+
+
+このレッスンでは、以下のレッスンで紹介した内容をベースにしています。分からない点があった場合は、こちらも参考にしてみてください。
+
+HTML基礎文法入門 (全30回)
+https://dotinstall.com/lessons/basic_html_tags
+CSS基礎文法入門 (全37回)
+https://dotinstall.com/lessons/basic_css_styles
+詳解JavaScript 基礎文法編 (全24回)
+https://dotinstall.com/lessons/basic_javascript_grammer
+詳解JavaScript オブジェクト編 (全23回)
+https://dotinstall.com/lessons/basic_javascript_objects
+詳解JavaScript DOM編 (全15回)
+https://dotinstall.com/lessons/basic_javascript_dom
+
+// ===== /css/styles.css =====
+
+
+// ===== /js/main.js =====
+
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Stopwatch</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+HTMLで、タイマーやボタンのマークアップをしたあとに、JavaScriptを書く準備をしていきます。
+
+
+    タイマーのマークアップ
+    ボタンのマークアップ
+    要素の取得
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  const timer = document.getElementById('timer');
+  const start = document.getElementById('start');
+  const stop = document.getElementById('stop');
+  const reset = document.getElementById('reset');
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Stopwatch</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="timer">00:00.000</div>
+  <button id="start">Start</button>
+  <button id="stop">Stop</button>
+  <button id="reset">Reset</button>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /css/styles.css =====
+
+
+
+
+
+
+
+// ===== video_summary =====
+タイマーのカウントアップ機能を実装していきます。
+
+
+    clickイベントの設定
+    Date.now()
+    setTimeout()
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  const timer = document.getElementById('timer');
+  const start = document.getElementById('start');
+  const stop = document.getElementById('stop');
+  const reset = document.getElementById('reset');
+
+  let startTime;
+
+  function countUp() {
+    console.log(Date.now() - startTime);
+    setTimeout(() => {
+      countUp();
+    }, 10);
+  }
+
+  start.addEventListener('click', () => {
+    startTime = Date.now();
+    countUp();
+  });
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Stopwatch</title>
+</head>
+<body>
+  <div id="timer">00:00.000</div>
+  <button id="start">Start</button>
+  <button id="stop">Stop</button>
+  <button id="reset">Reset</button>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /css/styles.css =====
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+カウントアップされる値を分や秒に変換し、桁数を固定したうえで画面に表示させます。
+
+
+    new Date()
+    padStart()
+    String()
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  const timer = document.getElementById('timer');
+  const start = document.getElementById('start');
+  const stop = document.getElementById('stop');
+  const reset = document.getElementById('reset');
+
+  let startTime;
+
+  function countUp() {
+    const d = new Date(Date.now() - startTime);
+    const m = String(d.getMinutes()).padStart(2, '0');
+    const s = String(d.getSeconds()).padStart(2, '0');
+    const ms = String(d.getMilliseconds()).padStart(3, '0');
+    timer.textContent = `${m}:${s}.${ms}`;
+
+    setTimeout(() => {
+      countUp();
+    }, 10);
+  }
+
+  start.addEventListener('click', () => {
+    startTime = Date.now();
+    countUp();
+  });
+}
+
+// ===== /css/styles.css =====
+
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Stopwatch</title>
+</head>
+<body>
+  <div id="timer">00:00.000</div>
+  <button id="start">Start</button>
+  <button id="stop">Stop</button>
+  <button id="reset">Reset</button>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+タイマーを一時停止、リセットする機能を実装していきます。
+
+
+    clickイベントの設定
+    clearTimeout()
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  const timer = document.getElementById('timer');
+  const start = document.getElementById('start');
+  const stop = document.getElementById('stop');
+  const reset = document.getElementById('reset');
+
+  let startTime;
+  let timeoutId;
+
+  function countUp() {
+    const d = new Date(Date.now() - startTime);
+    const m = String(d.getMinutes()).padStart(2, '0');
+    const s = String(d.getSeconds()).padStart(2, '0');
+    const ms = String(d.getMilliseconds()).padStart(3, '0');
+    timer.textContent = `${m}:${s}.${ms}`;
+
+    timeoutId = setTimeout(() => {
+      countUp();
+    }, 10);
+  }
+
+  start.addEventListener('click', () => {
+    startTime = Date.now();
+    countUp();
+  });
+
+  stop.addEventListener('click', () => {
+    clearTimeout(timeoutId);
+  });
+
+  reset.addEventListener('click', () => {
+    timer.textContent = '00:00.000';
+  });
+}
+
+// ===== /css/styles.css =====
+
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Stopwatch</title>
+</head>
+<body>
+  <div id="timer">00:00.000</div>
+  <button id="start">Start</button>
+  <button id="stop">Stop</button>
+  <button id="reset">Reset</button>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+タイマーを停止した時間から再開させる機能を実装していきます。
+
+
+    clickイベントの設定
+    Date.now()
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  const timer = document.getElementById('timer');
+  const start = document.getElementById('start');
+  const stop = document.getElementById('stop');
+  const reset = document.getElementById('reset');
+
+  let startTime;
+  let timeoutId;
+  let elapsedTime = 0;
+
+  function countUp() {
+    const d = new Date(Date.now() - startTime + elapsedTime);
+    const m = String(d.getMinutes()).padStart(2, '0');
+    const s = String(d.getSeconds()).padStart(2, '0');
+    const ms = String(d.getMilliseconds()).padStart(3, '0');
+    timer.textContent = `${m}:${s}.${ms}`;
+
+    timeoutId = setTimeout(() => {
+      countUp();
+    }, 10);
+  }
+
+  start.addEventListener('click', () => {
+    startTime = Date.now();
+    countUp();
+  });
+
+  stop.addEventListener('click', () => {
+    clearTimeout(timeoutId);
+    elapsedTime += Date.now() - startTime;
+  });
+
+  reset.addEventListener('click', () => {
+    timer.textContent = '00:00.000';
+    elapsedTime = 0;
+  });
+}
+
+// ===== /css/styles.css =====
+
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Stopwatch</title>
+</head>
+<body>
+  <div id="timer">00:00.000</div>
+  <button id="start">Start</button>
+  <button id="stop">Stop</button>
+  <button id="reset">Reset</button>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+ボタンを無効化していないことによる問題とその解決策について、図を使って整理します。
+
+
+    ボタンの状態
+    button要素のdisabled属性
+
+// ===== /css/styles.css =====
+
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  const timer = document.getElementById('timer');
+  const start = document.getElementById('start');
+  const stop = document.getElementById('stop');
+  const reset = document.getElementById('reset');
+
+  let startTime;
+  let timeoutId;
+  let elapsedTime = 0;
+
+  function countUp() {
+    const d = new Date(Date.now() - startTime + elapsedTime);
+    const m = String(d.getMinutes()).padStart(2, '0');
+    const s = String(d.getSeconds()).padStart(2, '0');
+    const ms = String(d.getMilliseconds()).padStart(3, '0');
+    timer.textContent = `${m}:${s}.${ms}`;
+
+    timeoutId = setTimeout(() => {
+      countUp();
+    }, 10);
+  }
+
+  start.addEventListener('click', () => {
+    startTime = Date.now();
+    countUp();
+  });
+
+  stop.addEventListener('click', () => {
+    clearTimeout(timeoutId);
+    elapsedTime += Date.now() - startTime;
+  });
+
+  reset.addEventListener('click', () => {
+    timer.textContent = '00:00.000';
+    elapsedTime = 0;
+  });
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Stopwatch</title>
+</head>
+<body>
+  <div id="timer">00:00.000</div>
+  <button id="start">Start</button>
+  <button id="stop">Stop</button>
+  <button id="reset">Reset</button>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+状態に応じてボタンの有効・無効を切り替えることで、不具合を修正していきます。
+
+
+    button要素のdisabled属性
+    関数化
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  const timer = document.getElementById('timer');
+  const start = document.getElementById('start');
+  const stop = document.getElementById('stop');
+  const reset = document.getElementById('reset');
+
+  let startTime;
+  let timeoutId;
+  let elapsedTime = 0;
+
+  function countUp() {
+    const d = new Date(Date.now() - startTime + elapsedTime);
+    const m = String(d.getMinutes()).padStart(2, '0');
+    const s = String(d.getSeconds()).padStart(2, '0');
+    const ms = String(d.getMilliseconds()).padStart(3, '0');
+    timer.textContent = `${m}:${s}.${ms}`;
+
+    timeoutId = setTimeout(() => {
+      countUp();
+    }, 10);
+  }
+
+  function setButtonStateInitial() {
+    start.disabled = false;
+    stop.disabled = true;
+    reset.disabled = true;
+  }
+
+  function setButtonStateRunning() {
+    start.disabled = true;
+    stop.disabled = false;
+    reset.disabled = true;
+  }
+
+  function setButtonStateStopped() {
+    start.disabled = false;
+    stop.disabled = true;
+    reset.disabled = false;
+  }
+
+  setButtonStateInitial();
+
+  start.addEventListener('click', () => {
+    setButtonStateRunning();
+    startTime = Date.now();
+    countUp();
+  });
+
+  stop.addEventListener('click', () => {
+    setButtonStateStopped();
+    clearTimeout(timeoutId);
+    elapsedTime += Date.now() - startTime;
+  });
+
+  reset.addEventListener('click', () => {
+    setButtonStateInitial();
+    timer.textContent = '00:00.000';
+    elapsedTime = 0;
+  });
+}
+
+// ===== /css/styles.css =====
+
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Stopwatch</title>
+</head>
+<body>
+  <div id="timer">00:00.000</div>
+  <button id="start">Start</button>
+  <button id="stop">Stop</button>
+  <button id="reset">Reset</button>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+CSSでストップウォッチ全体の見た目を整えていきます。
+
+
+    bodyのスタイリング
+    .containerのスタイリング
+
+// ===== /css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  background: #eee;
+}
+
+.container {
+  margin: 20px auto;
+  width: 270px;
+  background: #fff;
+  padding: 15px;
+  text-align: center;
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Stopwatch</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div id="timer">00:00.000</div>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+    <button id="reset">Reset</button>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  const timer = document.getElementById('timer');
+  const start = document.getElementById('start');
+  const stop = document.getElementById('stop');
+  const reset = document.getElementById('reset');
+
+  let startTime;
+  let timeoutId;
+  let elapsedTime = 0;
+
+  function countUp() {
+    const d = new Date(Date.now() - startTime + elapsedTime);
+    const m = String(d.getMinutes()).padStart(2, '0');
+    const s = String(d.getSeconds()).padStart(2, '0');
+    const ms = String(d.getMilliseconds()).padStart(3, '0');
+    timer.textContent = `${m}:${s}.${ms}`;
+
+    timeoutId = setTimeout(() => {
+      countUp();
+    }, 10);
+  }
+
+  function setButtonStateInitial() {
+    start.disabled = false;
+    stop.disabled = true;
+    reset.disabled = true;
+  }
+
+  function setButtonStateRunning() {
+    start.disabled = true;
+    stop.disabled = false;
+    reset.disabled = true;
+  }
+
+  function setButtonStateStopped() {
+    start.disabled = false;
+    stop.disabled = true;
+    reset.disabled = false;
+  }
+
+  setButtonStateInitial();
+
+  start.addEventListener('click', () => {
+    setButtonStateRunning();
+    startTime = Date.now();
+    countUp();
+  });
+
+  stop.addEventListener('click', () => {
+    setButtonStateStopped();
+    clearTimeout(timeoutId);
+    elapsedTime += Date.now() - startTime;
+  });
+
+  reset.addEventListener('click', () => {
+    setButtonStateInitial();
+    timer.textContent = '00:00.000';
+    elapsedTime = 0;
+  });
+}
+
+
+
+
+
+
+// ===== video_summary =====
+タイマーのスタイルを整えます。またスタイルの設定をするために、buttonタグをdivタグに置き換えていきます。
+
+
+    #timerのスタイリング
+    button要素とdiv要素の違い
+
+// ===== /css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  background: #eee;
+}
+
+.container {
+  margin: 20px auto;
+  width: 270px;
+  background: #fff;
+  padding: 15px;
+  text-align: center;
+}
+
+#timer {
+  background: #ddd;
+  height: 120px;
+  line-height: 120px;
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Stopwatch</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div id="timer">00:00.000</div>
+    <div class="btn" id="start">Start</div>
+    <div class="btn" id="stop">Stop</div>
+    <div class="btn" id="reset">Reset</div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  const timer = document.getElementById('timer');
+  const start = document.getElementById('start');
+  const stop = document.getElementById('stop');
+  const reset = document.getElementById('reset');
+
+  let startTime;
+  let timeoutId;
+  let elapsedTime = 0;
+
+  function countUp() {
+    const d = new Date(Date.now() - startTime + elapsedTime);
+    const m = String(d.getMinutes()).padStart(2, '0');
+    const s = String(d.getSeconds()).padStart(2, '0');
+    const ms = String(d.getMilliseconds()).padStart(3, '0');
+    timer.textContent = `${m}:${s}.${ms}`;
+
+    timeoutId = setTimeout(() => {
+      countUp();
+    }, 10);
+  }
+
+  function setButtonStateInitial() {
+    start.disabled = false;
+    stop.disabled = true;
+    reset.disabled = true;
+  }
+
+  function setButtonStateRunning() {
+    start.disabled = true;
+    stop.disabled = false;
+    reset.disabled = true;
+  }
+
+  function setButtonStateStopped() {
+    start.disabled = false;
+    stop.disabled = true;
+    reset.disabled = false;
+  }
+
+  setButtonStateInitial();
+
+  start.addEventListener('click', () => {
+    setButtonStateRunning();
+    startTime = Date.now();
+    countUp();
+  });
+
+  stop.addEventListener('click', () => {
+    setButtonStateStopped();
+    clearTimeout(timeoutId);
+    elapsedTime += Date.now() - startTime;
+  });
+
+  reset.addEventListener('click', () => {
+    setButtonStateInitial();
+    timer.textContent = '00:00.000';
+    elapsedTime = 0;
+  });
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+Flexboxを使いながら、ボタンのスタイルを整えていきます。
+
+
+    .btnのスタイリング
+    Flexbox
+
+// ===== commentBox 1 =====
+補足情報
+Flexboxについて
+
+
+
+
+2019年8月27日
+
+
+
+
+
+Flexboxについては、以下のレッスンで詳しく紹介しています。あわせて参考にしてみてください。
+
+#5 justify-contentを使ってみよう | Flexbox入門
+https://dotinstall.com/lessons/basic_flexbox/32105
+
+// ===== /css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  background: #eee;
+}
+
+.container {
+  margin: 20px auto;
+  width: 270px;
+  background: #fff;
+  padding: 15px;
+  text-align: center;
+}
+
+#timer {
+  background: #ddd;
+  height: 120px;
+  line-height: 120px;
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+.btn {
+  width: 80px;
+  height: 45px;
+  line-height: 45px;
+  background: #ddd;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Stopwatch</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div id="timer">00:00.000</div>
+    <div class="controls">
+      <div class="btn" id="start">Start</div>
+      <div class="btn" id="stop">Stop</div>
+      <div class="btn" id="reset">Reset</div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  const timer = document.getElementById('timer');
+  const start = document.getElementById('start');
+  const stop = document.getElementById('stop');
+  const reset = document.getElementById('reset');
+
+  let startTime;
+  let timeoutId;
+  let elapsedTime = 0;
+
+  function countUp() {
+    const d = new Date(Date.now() - startTime + elapsedTime);
+    const m = String(d.getMinutes()).padStart(2, '0');
+    const s = String(d.getSeconds()).padStart(2, '0');
+    const ms = String(d.getMilliseconds()).padStart(3, '0');
+    timer.textContent = `${m}:${s}.${ms}`;
+
+    timeoutId = setTimeout(() => {
+      countUp();
+    }, 10);
+  }
+
+  function setButtonStateInitial() {
+    start.disabled = false;
+    stop.disabled = true;
+    reset.disabled = true;
+  }
+
+  function setButtonStateRunning() {
+    start.disabled = true;
+    stop.disabled = false;
+    reset.disabled = true;
+  }
+
+  function setButtonStateStopped() {
+    start.disabled = false;
+    stop.disabled = true;
+    reset.disabled = false;
+  }
+
+  setButtonStateInitial();
+
+  start.addEventListener('click', () => {
+    setButtonStateRunning();
+    startTime = Date.now();
+    countUp();
+  });
+
+  stop.addEventListener('click', () => {
+    setButtonStateStopped();
+    clearTimeout(timeoutId);
+    elapsedTime += Date.now() - startTime;
+  });
+
+  reset.addEventListener('click', () => {
+    setButtonStateInitial();
+    timer.textContent = '00:00.000';
+    elapsedTime = 0;
+  });
+}
+
+
+
+
+
+
+// ===== video_summary =====
+divタグを使ったボタンの有効・無効の切り替えを実装していきます。
+
+
+    classList.add()
+    classList.remove()
+    classList.contains()
+
+// ===== /css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  background: #eee;
+}
+
+.container {
+  margin: 20px auto;
+  width: 270px;
+  background: #fff;
+  padding: 15px;
+  text-align: center;
+}
+
+#timer {
+  background: #ddd;
+  height: 120px;
+  line-height: 120px;
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+.btn {
+  width: 80px;
+  height: 45px;
+  line-height: 45px;
+  background: #ddd;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inactive {
+  opacity: 0.6;
+}
+
+// ===== /js/main.js =====
+'use strict';
+
+{
+  const timer = document.getElementById('timer');
+  const start = document.getElementById('start');
+  const stop = document.getElementById('stop');
+  const reset = document.getElementById('reset');
+
+  let startTime;
+  let timeoutId;
+  let elapsedTime = 0;
+
+  function countUp() {
+    const d = new Date(Date.now() - startTime + elapsedTime);
+    const m = String(d.getMinutes()).padStart(2, '0');
+    const s = String(d.getSeconds()).padStart(2, '0');
+    const ms = String(d.getMilliseconds()).padStart(3, '0');
+    timer.textContent = `${m}:${s}.${ms}`;
+
+    timeoutId = setTimeout(() => {
+      countUp();
+    }, 10);
+  }
+
+  function setButtonStateInitial() {
+    start.classList.remove('inactive');
+    stop.classList.add('inactive');
+    reset.classList.add('inactive');
+  }
+
+  function setButtonStateRunning() {
+    start.classList.add('inactive');
+    stop.classList.remove('inactive');
+    reset.classList.add('inactive');
+  }
+
+  function setButtonStateStopped() {
+    start.classList.remove('inactive');
+    stop.classList.add('inactive');
+    reset.classList.remove('inactive');
+  }
+
+  setButtonStateInitial();
+
+  start.addEventListener('click', () => {
+    if (start.classList.contains('inactive') === true) {
+      return;
+    }
+    setButtonStateRunning();
+    startTime = Date.now();
+    countUp();
+  });
+
+  stop.addEventListener('click', () => {
+    if (stop.classList.contains('inactive') === true) {
+      return;
+    }
+    setButtonStateStopped();
+    clearTimeout(timeoutId);
+    elapsedTime += Date.now() - startTime;
+  });
+
+  reset.addEventListener('click', () => {
+    if (reset.classList.contains('inactive') === true) {
+      return;
+    }
+    setButtonStateInitial();
+    timer.textContent = '00:00.000';
+    elapsedTime = 0;
+  });
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Stopwatch</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div id="timer">00:00.000</div>
+    <div class="controls">
+      <div class="btn" id="start">Start</div>
+      <div class="btn" id="stop">Stop</div>
+      <div class="btn" id="reset">Reset</div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,2121 @@
+// ===== video_summary =====
+完成版を確認したあとに必要なファイルを作っていきます。
+
+
+    完成版の確認
+    index.htmlの作成
+
+// ===== commentBox 1 =====
+補足情報
+VS Codeでファイルのドラッグ＆ドロップができない場合
+
+
+
+
+2024年2月16日
+
+
+
+
+
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、WindowsならCtrlキー、macOSならcommandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+// ===== /MyPong/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Pong Game</title>
+</head>
+<body>
+
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+Canvasを配置したあとにスタイルを整えていきます。
+
+
+    canvasの配置
+    canvasのスタイリング
+
+// ===== /MyPong/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Pong Game</title>
+  <style>
+    canvas {
+      background: #222;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="280" height="280">
+    Canvas not supported.
+  </canvas>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+JavaScriptを書く準備をしたあとにGameクラスを作っていきます。
+
+
+    main.jsの作成
+    canvasの設定
+    Gameクラスの作成
+
+// ===== /MyPong/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Pong Game</title>
+  <style>
+    canvas {
+      background: #222;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="280" height="280">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyPong/js/main.js =====
+'use strict';
+
+(() => {
+  class Game {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+    }
+  }
+  
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+  
+  new Game(canvas);
+})();
+
+
+
+
+
+
+
+// ===== video_summary =====
+update()とdraw()を定義したあとに、requestAnimationFrame()を使ってゲームループを実装していきます。
+
+
+    requestAnimationFrame()
+    thisに関する注意点
+    ゲームループの実装
+
+// ===== /MyPong/js/main.js =====
+'use strict';
+
+(() => {
+  class Game {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.loop();
+    }
+    
+    loop() {
+      this.update();
+      this.draw();
+      
+      requestAnimationFrame(() => {
+        this.loop();
+      });
+    }
+    
+    update() {
+
+    }
+    
+    draw() {
+      console.log(new Date());
+    }
+  }
+  
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+  
+  new Game(canvas);
+})();
+
+// ===== /MyPong/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Pong Game</title>
+  <style>
+    canvas {
+      background: #222;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="280" height="280">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+GameクラスでBallのインスタンスを作ったあとに、Ballクラスを定義して描画処理を実装していきます。
+
+
+    Ballクラスの作成
+    draw()の実装
+
+// ===== /MyPong/js/main.js =====
+'use strict';
+
+(() => {
+  class Ball {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.x = 30;
+      this.y = 30;
+      this.r = 10;
+    }
+
+    update() {
+
+    }
+  
+    draw() {
+      this.ctx.beginPath();
+      this.ctx.fillStyle = '#fdfdfd';
+      this.ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+      this.ctx.fill();
+    }
+  }
+
+  class Game {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.ball = new Ball(this.canvas);
+      this.loop();
+    }
+    
+    loop() {
+      this.update();
+      this.draw();
+      
+      requestAnimationFrame(() => {
+        this.loop();
+      });
+    }
+    
+    update() {
+      this.ball.update();
+    }
+    
+    draw() {
+      this.ball.draw();
+    }
+  }
+  
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+  
+  new Game(canvas);
+})();
+
+// ===== /MyPong/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Pong Game</title>
+  <style>
+    canvas {
+      background: #222;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="280" height="280">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+Ballクラスのupdate()を実装してボールを動かしていきます。
+
+
+    速度の導入
+    update()の実装
+    clearRect()
+
+// ===== /MyPong/js/main.js =====
+'use strict';
+
+(() => {
+  class Ball {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.x = 30;
+      this.y = 30;
+      this.r = 10;
+      this.vx = 2;
+      this.vy = 3;
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+    }
+
+    draw() {
+      this.ctx.beginPath();
+      this.ctx.fillStyle = '#fdfdfd';
+      this.ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+      this.ctx.fill();
+    }
+  }
+  
+  class Game {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.ball = new Ball(this.canvas);
+      this.loop();
+    }
+
+    loop() {
+      this.update();
+      this.draw();
+
+      requestAnimationFrame(() => {
+        this.loop();
+      });
+    }
+
+    update() {
+      this.ball.update();
+    }
+
+    draw() {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.ball.draw();
+    }
+  }
+  
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+  
+  new Game(canvas);
+})();
+
+// ===== /MyPong/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Pong Game</title>
+  <style>
+    canvas {
+      background: #222;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="280" height="280">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+ボールが壁に当たったら跳ね返るように実装していきます。
+
+
+    壁との衝突判定
+    半径を考慮した調整
+
+// ===== /MyPong/js/main.js =====
+'use strict';
+
+(() => {
+  class Ball {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.x = 30;
+      this.y = 30;
+      this.r = 10;
+      this.vx = 2;
+      this.vy = 3;
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+
+      if (
+        this.x - this.r < 0 ||
+        this.x + this.r > this.canvas.width
+      ) {
+        this.vx *= -1;
+      }
+
+      if (
+        this.y - this.r < 0 ||
+        this.y + this.r > this.canvas.height
+      ) {
+        this.vy *= -1;
+      }
+    }
+
+    draw() {
+      this.ctx.beginPath();
+      this.ctx.fillStyle = '#fdfdfd';
+      this.ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+      this.ctx.fill();
+    }
+  }
+  
+  class Game {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.ball = new Ball(this.canvas);
+      this.loop();
+    }
+
+    loop() {
+      this.update();
+      this.draw();
+
+      requestAnimationFrame(() => {
+        this.loop();
+      });
+    }
+
+    update() {
+      this.ball.update();
+    }
+
+    draw() {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.ball.draw();
+    }
+  }
+  
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+  
+  new Game(canvas);
+})();
+
+// ===== /MyPong/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Pong Game</title>
+  <style>
+    canvas {
+      background: #222;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="280" height="280">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+ボールの生成される位置や速度をランダムにするための関数を作っていきます。
+
+
+    rand()の作成
+
+// ===== /MyPong/js/main.js =====
+'use strict';
+
+(() => {
+  function rand(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+  
+  class Ball {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.x = rand(30, 250);
+      this.y = 30;
+      this.r = 10;
+      this.vx = rand(3, 5) * (Math.random() < 0.5 ? 1 : -1);
+      this.vy = rand(3, 5);
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+
+      if (
+        this.x - this.r < 0 ||
+        this.x + this.r > this.canvas.width
+      ) {
+        this.vx *= -1;
+      }
+
+      if (
+        this.y - this.r < 0 ||
+        this.y + this.r > this.canvas.height
+      ) {
+        this.vy *= -1;
+      }
+    }
+
+    draw() {
+      this.ctx.beginPath();
+      this.ctx.fillStyle = '#fdfdfd';
+      this.ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+      this.ctx.fill();
+    }
+  }
+  
+  class Game {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.ball = new Ball(this.canvas);
+      this.loop();
+    }
+
+    loop() {
+      this.update();
+      this.draw();
+
+      requestAnimationFrame(() => {
+        this.loop();
+      });
+    }
+
+    update() {
+      this.ball.update();
+    }
+
+    draw() {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.ball.draw();
+    }
+  }
+  
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+  
+  new Game(canvas);
+})();
+
+// ===== /MyPong/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Pong Game</title>
+  <style>
+    canvas {
+      background: #222;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="280" height="280">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+GameクラスでPaddleのインスタンスを作ったあとに、Paddleクラスを定義して描画処理を実装していきます。
+
+
+    Paddleクラスの作成
+    draw()の実装
+
+// ===== /MyPong/js/main.js =====
+'use strict';
+
+(() => {
+  function rand(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+  
+  class Ball {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.x = rand(30, 250);
+      this.y = 30;
+      this.r = 10;
+      this.vx = rand(3, 5) * (Math.random() < 0.5 ? 1 : -1);
+      this.vy = rand(3, 5);
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+
+      if (
+        this.x - this.r < 0 ||
+        this.x + this.r > this.canvas.width
+      ) {
+        this.vx *= -1;
+      }
+
+      if (
+        this.y - this.r < 0 ||
+        this.y + this.r > this.canvas.height
+      ) {
+        this.vy *= -1;
+      }
+    }
+
+    draw() {
+      this.ctx.beginPath();
+      this.ctx.fillStyle = '#fdfdfd';
+      this.ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+      this.ctx.fill();
+    }
+  }
+
+  class Paddle {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.w = 60;
+      this.h = 16;
+      this.x = this.canvas.width / 2 - (this.w / 2);
+      this.y = this.canvas.height - 32;
+    }
+
+    update() {
+
+    }
+
+    draw() {
+      this.ctx.fillStyle = '#fdfdfd';
+      this.ctx.fillRect(this.x, this.y, this.w, this.h);
+    }
+  }
+  
+  class Game {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.ball = new Ball(this.canvas);
+      this.paddle = new Paddle(this.canvas);
+      this.loop();
+    }
+
+    loop() {
+      this.update();
+      this.draw();
+
+      requestAnimationFrame(() => {
+        this.loop();
+      });
+    }
+
+    update() {
+      this.ball.update();
+      this.paddle.update();
+    }
+
+    draw() {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.ball.draw();
+      this.paddle.draw();
+    }
+  }
+  
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+  
+  new Game(canvas);
+})();
+
+// ===== /MyPong/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Pong Game</title>
+  <style>
+    canvas {
+      background: #222;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="280" height="280">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+clientXの値を使ってPaddleを動かせるようにしていきます。
+
+
+    イベントリスナーの設定
+    e.clientX
+    getBoundingClientRect()
+
+// ===== /MyPong/js/main.js =====
+'use strict';
+
+(() => {
+  function rand(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+  
+  class Ball {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.x = rand(30, 250);
+      this.y = 30;
+      this.r = 10;
+      this.vx = rand(3, 5) * (Math.random() < 0.5 ? 1 : -1);
+      this.vy = rand(3, 5);
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+
+      if (
+        this.x - this.r < 0 ||
+        this.x + this.r > this.canvas.width
+      ) {
+        this.vx *= -1;
+      }
+
+      if (
+        this.y - this.r < 0 ||
+        this.y + this.r > this.canvas.height
+      ) {
+        this.vy *= -1;
+      }
+    }
+
+    draw() {
+      this.ctx.beginPath();
+      this.ctx.fillStyle = '#fdfdfd';
+      this.ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+      this.ctx.fill();
+    }
+  }
+
+  class Paddle {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.w = 60;
+      this.h = 16;
+      this.x = this.canvas.width / 2 - (this.w / 2);
+      this.y = this.canvas.height - 32;
+      this.mouseX = this.x;
+      this.addHandler();
+    }
+
+    addHandler() {
+      document.addEventListener('mousemove', e => {
+        this.mouseX = e.clientX;
+      });
+    }
+
+    update() {
+      const rect = this.canvas.getBoundingClientRect();
+      this.x = this.mouseX - rect.left - (this.w / 2);
+
+      if (this.x < 0) {
+        this.x = 0;
+      }
+      if (this.x + this.w > this.canvas.width) {
+        this.x = this.canvas.width - this.w;
+      }
+    }
+
+    draw() {
+      this.ctx.fillStyle = '#fdfdfd';
+      this.ctx.fillRect(this.x, this.y, this.w, this.h);
+    }
+  }
+  
+  class Game {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.ball = new Ball(this.canvas);
+      this.paddle = new Paddle(this.canvas);
+      this.loop();
+    }
+
+    loop() {
+      this.update();
+      this.draw();
+
+      requestAnimationFrame(() => {
+        this.loop();
+      });
+    }
+
+    update() {
+      this.ball.update();
+      this.paddle.update();
+    }
+
+    draw() {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.ball.draw();
+      this.paddle.draw();
+    }
+  }
+  
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+  
+  new Game(canvas);
+})();
+
+// ===== /MyPong/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Pong Game</title>
+  <style>
+    canvas {
+      background: #222;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="280" height="280">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+パドルがボールを跳ね返す際の条件について図で解説していきます。
+
+
+    ボールが跳ね返るときの条件
+    ボールを跳ね返すときの処理
+
+// ===== /MyPong/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Pong Game</title>
+  <style>
+    canvas {
+      background: #222;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="280" height="280">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyPong/js/main.js =====
+'use strict';
+
+(() => {
+  function rand(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+  
+  class Ball {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.x = rand(30, 250);
+      this.y = 30;
+      this.r = 10;
+      this.vx = rand(3, 5) * (Math.random() < 0.5 ? 1 : -1);
+      this.vy = rand(3, 5);
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+
+      if (
+        this.x - this.r < 0 ||
+        this.x + this.r > this.canvas.width
+      ) {
+        this.vx *= -1;
+      }
+
+      if (
+        this.y - this.r < 0 ||
+        this.y + this.r > this.canvas.height
+      ) {
+        this.vy *= -1;
+      }
+    }
+
+    draw() {
+      this.ctx.beginPath();
+      this.ctx.fillStyle = '#fdfdfd';
+      this.ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+      this.ctx.fill();
+    }
+  }
+
+  class Paddle {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.w = 60;
+      this.h = 16;
+      this.x = this.canvas.width / 2 - (this.w / 2);
+      this.y = this.canvas.height - 32;
+      this.mouseX = this.x;
+      this.addHandler();
+    }
+
+    addHandler() {
+      document.addEventListener('mousemove', e => {
+        this.mouseX = e.clientX;
+      });
+    }
+
+    update() {
+      const rect = this.canvas.getBoundingClientRect();
+      this.x = this.mouseX - rect.left - (this.w / 2);
+
+      if (this.x < 0) {
+        this.x = 0;
+      }
+      if (this.x + this.w > this.canvas.width) {
+        this.x = this.canvas.width - this.w;
+      }
+    }
+
+    draw() {
+      this.ctx.fillStyle = '#fdfdfd';
+      this.ctx.fillRect(this.x, this.y, this.w, this.h);
+    }
+  }
+  
+  class Game {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.ball = new Ball(this.canvas);
+      this.paddle = new Paddle(this.canvas);
+      this.loop();
+    }
+
+    loop() {
+      this.update();
+      this.draw();
+
+      requestAnimationFrame(() => {
+        this.loop();
+      });
+    }
+
+    update() {
+      this.ball.update();
+      this.paddle.update();
+    }
+
+    draw() {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.ball.draw();
+      this.paddle.draw();
+    }
+  }
+  
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+  
+  new Game(canvas);
+})();
+
+
+
+
+
+
+// ===== video_summary =====
+パドルがボールを跳ね返すときの条件を設定していきます。
+
+
+    ボールが跳ね返るときの条件
+    定数の定義
+
+// ===== /MyPong/js/main.js =====
+'use strict';
+
+(() => {
+  function rand(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+  
+  class Ball {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.x = rand(30, 250);
+      this.y = 30;
+      this.r = 10;
+      this.vx = rand(3, 5) * (Math.random() < 0.5 ? 1 : -1);
+      this.vy = rand(3, 5);
+    }
+
+    getX() {
+      return this.x;
+    }
+
+    getY() {
+      return this.y;
+    }
+
+    getR() {
+      return this.r;
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+
+      if (
+        this.x - this.r < 0 ||
+        this.x + this.r > this.canvas.width
+      ) {
+        this.vx *= -1;
+      }
+
+      if (
+        this.y - this.r < 0 ||
+        this.y + this.r > this.canvas.height
+      ) {
+        this.vy *= -1;
+      }
+    }
+
+    draw() {
+      this.ctx.beginPath();
+      this.ctx.fillStyle = '#fdfdfd';
+      this.ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+      this.ctx.fill();
+    }
+  }
+
+  class Paddle {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.w = 60;
+      this.h = 16;
+      this.x = this.canvas.width / 2 - (this.w / 2);
+      this.y = this.canvas.height - 32;
+      this.mouseX = this.x;
+      this.addHandler();
+    }
+
+    addHandler() {
+      document.addEventListener('mousemove', e => {
+        this.mouseX = e.clientX;
+      });
+    }
+
+    update(ball) {
+      const ballBottom = ball.getY() + ball.getR();
+      const paddleTop = this.y;
+      const ballTop = ball.getY() - ball.getR();
+      const paddleBottom = this.y + this.h;
+      const ballCenter = ball.getX();
+      const paddleLeft = this.x;
+      const paddleRight = this.x + this.w;
+      
+      if (
+        ballBottom > paddleTop &&
+        ballTop < paddleBottom &&
+        ballCenter > paddleLeft &&
+        ballCenter < paddleRight
+      ) {
+        
+      }
+      
+      const rect = this.canvas.getBoundingClientRect();
+      this.x = this.mouseX - rect.left - (this.w / 2);
+
+      if (this.x < 0) {
+        this.x = 0;
+      }
+      if (this.x + this.w > this.canvas.width) {
+        this.x = this.canvas.width - this.w;
+      }
+    }
+
+    draw() {
+      this.ctx.fillStyle = '#fdfdfd';
+      this.ctx.fillRect(this.x, this.y, this.w, this.h);
+    }
+  }
+  
+  class Game {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.ball = new Ball(this.canvas);
+      this.paddle = new Paddle(this.canvas);
+      this.loop();
+    }
+
+    loop() {
+      this.update();
+      this.draw();
+
+      requestAnimationFrame(() => {
+        this.loop();
+      });
+    }
+
+    update() {
+      this.ball.update();
+      this.paddle.update(this.ball);
+    }
+
+    draw() {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.ball.draw();
+      this.paddle.draw();
+    }
+  }
+  
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+  
+  new Game(canvas);
+})();
+
+// ===== /MyPong/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Pong Game</title>
+  <style>
+    canvas {
+      background: #222;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="280" height="280">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+ボールを跳ね返すためのメソッドを実装していきます。
+
+
+    bounce()の実装
+    reposition()の実装
+
+// ===== /MyPong/js/main.js =====
+'use strict';
+
+(() => {
+  function rand(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+  
+  class Ball {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.x = rand(30, 250);
+      this.y = 30;
+      this.r = 10;
+      this.vx = rand(3, 5) * (Math.random() < 0.5 ? 1 : -1);
+      this.vy = rand(3, 5);
+    }
+
+    bounce() {
+      this.vy *= -1;
+    }
+
+    reposition(paddleTop) {
+      this.y = paddleTop - this.r;
+    }
+
+    getX() {
+      return this.x;
+    }
+
+    getY() {
+      return this.y;
+    }
+
+    getR() {
+      return this.r;
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+
+      if (
+        this.x - this.r < 0 ||
+        this.x + this.r > this.canvas.width
+      ) {
+        this.vx *= -1;
+      }
+
+      if (
+        this.y - this.r < 0 ||
+        this.y + this.r > this.canvas.height
+      ) {
+        this.vy *= -1;
+      }
+    }
+
+    draw() {
+      this.ctx.beginPath();
+      this.ctx.fillStyle = '#fdfdfd';
+      this.ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+      this.ctx.fill();
+    }
+  }
+
+  class Paddle {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.w = 60;
+      this.h = 16;
+      this.x = this.canvas.width / 2 - (this.w / 2);
+      this.y = this.canvas.height - 32;
+      this.mouseX = this.x;
+      this.addHandler();
+    }
+
+    addHandler() {
+      document.addEventListener('mousemove', e => {
+        this.mouseX = e.clientX;
+      });
+    }
+
+    update(ball) {
+      const ballBottom = ball.getY() + ball.getR();
+      const paddleTop = this.y;
+      const ballTop = ball.getY() - ball.getR();
+      const paddleBottom = this.y + this.h;
+      const ballCenter = ball.getX();
+      const paddleLeft = this.x;
+      const paddleRight = this.x + this.w;
+      
+      if (
+        ballBottom > paddleTop &&
+        ballTop < paddleBottom &&
+        ballCenter > paddleLeft &&
+        ballCenter < paddleRight
+      ) {
+        ball.bounce();
+        ball.reposition(paddleTop);
+      }
+      
+      const rect = this.canvas.getBoundingClientRect();
+      this.x = this.mouseX - rect.left - (this.w / 2);
+
+      if (this.x < 0) {
+        this.x = 0;
+      }
+      if (this.x + this.w > this.canvas.width) {
+        this.x = this.canvas.width - this.w;
+      }
+    }
+
+    draw() {
+      this.ctx.fillStyle = '#fdfdfd';
+      this.ctx.fillRect(this.x, this.y, this.w, this.h);
+    }
+  }
+  
+  class Game {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.ball = new Ball(this.canvas);
+      this.paddle = new Paddle(this.canvas);
+      this.loop();
+    }
+
+    loop() {
+      this.update();
+      this.draw();
+
+      requestAnimationFrame(() => {
+        this.loop();
+      });
+    }
+
+    update() {
+      this.ball.update();
+      this.paddle.update(this.ball);
+    }
+
+    draw() {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.ball.draw();
+      this.paddle.draw();
+    }
+  }
+  
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+  
+  new Game(canvas);
+})();
+
+// ===== /MyPong/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Pong Game</title>
+  <style>
+    canvas {
+      background: #222;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="280" height="280">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+ボールが画面下に行ったときにゲームオーバーと表示されるようにしていきます。
+
+
+    ゲームの状態管理
+    drawGameOver()の実装
+
+// ===== /MyPong/js/main.js =====
+'use strict';
+
+(() => {
+  function rand(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+  
+  class Ball {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.x = rand(30, 250);
+      this.y = 30;
+      this.r = 10;
+      this.vx = rand(3, 5) * (Math.random() < 0.5 ? 1 : -1);
+      this.vy = rand(3, 5);
+    }
+
+    bounce() {
+      this.vy *= -1;
+    }
+
+    reposition(paddleTop) {
+      this.y = paddleTop - this.r;
+    }
+
+    getX() {
+      return this.x;
+    }
+
+    getY() {
+      return this.y;
+    }
+
+    getR() {
+      return this.r;
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+
+      if (
+        this.x - this.r < 0 ||
+        this.x + this.r > this.canvas.width
+      ) {
+        this.vx *= -1;
+      }
+
+      if (
+        this.y - this.r < 0 ||
+        this.y + this.r > this.canvas.height
+      ) {
+        this.vy *= -1;
+      }
+    }
+
+    draw() {
+      this.ctx.beginPath();
+      this.ctx.fillStyle = '#fdfdfd';
+      this.ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+      this.ctx.fill();
+    }
+  }
+
+  class Paddle {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.w = 60;
+      this.h = 16;
+      this.x = this.canvas.width / 2 - (this.w / 2);
+      this.y = this.canvas.height - 32;
+      this.mouseX = this.x;
+      this.addHandler();
+    }
+
+    addHandler() {
+      document.addEventListener('mousemove', e => {
+        this.mouseX = e.clientX;
+      });
+    }
+
+    update(ball) {
+      const ballBottom = ball.getY() + ball.getR();
+      const paddleTop = this.y;
+      const ballTop = ball.getY() - ball.getR();
+      const paddleBottom = this.y + this.h;
+      const ballCenter = ball.getX();
+      const paddleLeft = this.x;
+      const paddleRight = this.x + this.w;
+      
+      if (
+        ballBottom > paddleTop &&
+        ballTop < paddleBottom &&
+        ballCenter > paddleLeft &&
+        ballCenter < paddleRight
+      ) {
+        ball.bounce();
+        ball.reposition(paddleTop);
+      }
+      
+      const rect = this.canvas.getBoundingClientRect();
+      this.x = this.mouseX - rect.left - (this.w / 2);
+
+      if (this.x < 0) {
+        this.x = 0;
+      }
+      if (this.x + this.w > this.canvas.width) {
+        this.x = this.canvas.width - this.w;
+      }
+    }
+
+    draw() {
+      this.ctx.fillStyle = '#fdfdfd';
+      this.ctx.fillRect(this.x, this.y, this.w, this.h);
+    }
+  }
+  
+  class Game {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.ball = new Ball(this.canvas);
+      this.paddle = new Paddle(this.canvas);
+      this.loop();
+      this.isGameOver = false;
+    }
+
+    loop() {
+      if (this.isGameOver) {
+        return;
+      }
+
+      this.update();
+      this.draw();
+
+      requestAnimationFrame(() => {
+        this.loop();
+      });
+    }
+
+    update() {
+      this.ball.update();
+      this.paddle.update(this.ball);
+
+      if (this.ball.getMissedStatus()) {
+        this.isGameOver = true;
+      }
+    }
+
+    draw() {
+      if (this.isGameOver) {
+        this.drawGameOver();
+        return;
+      }
+
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.ball.draw();
+      this.paddle.draw();
+    }
+
+    drawGameOver() {
+      this.ctx.font = '28px "Arial Black"';
+      this.ctx.fillStyle = 'tomato';
+      this.ctx.fillText('GAME OVER', 50, 150);
+    }
+  }
+  
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+  
+  new Game(canvas);
+})();
+
+// ===== /MyPong/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Pong Game</title>
+  <style>
+    canvas {
+      background: #222;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="280" height="280">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+getMissedStatus()を実装してゲームオーバーの処理を完成させていきます。
+
+
+    ボールの状態管理
+    getMissedStatus()の実装
+
+// ===== /MyPong/js/main.js =====
+'use strict';
+
+(() => {
+  function rand(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+  
+  class Ball {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.x = rand(30, 250);
+      this.y = 30;
+      this.r = 10;
+      this.vx = rand(3, 5) * (Math.random() < 0.5 ? 1 : -1);
+      this.vy = rand(3, 5);
+      this.isMissed = false;
+    }
+
+    getMissedStatus() {
+      return this.isMissed;
+    }
+
+    bounce() {
+      this.vy *= -1;
+    }
+
+    reposition(paddleTop) {
+      this.y = paddleTop - this.r;
+    }
+
+    getX() {
+      return this.x;
+    }
+
+    getY() {
+      return this.y;
+    }
+
+    getR() {
+      return this.r;
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+
+      if (this.y - this.r > this.canvas.height) {
+        this.isMissed = true;
+      }
+
+      if (
+        this.x - this.r < 0 ||
+        this.x + this.r > this.canvas.width
+      ) {
+        this.vx *= -1;
+      }
+
+      if (
+        this.y - this.r < 0
+      ) {
+        this.vy *= -1;
+      }
+    }
+
+    draw() {
+      this.ctx.beginPath();
+      this.ctx.fillStyle = '#fdfdfd';
+      this.ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+      this.ctx.fill();
+    }
+  }
+
+  class Paddle {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.w = 60;
+      this.h = 16;
+      this.x = this.canvas.width / 2 - (this.w / 2);
+      this.y = this.canvas.height - 32;
+      this.mouseX = this.x;
+      this.addHandler();
+    }
+
+    addHandler() {
+      document.addEventListener('mousemove', e => {
+        this.mouseX = e.clientX;
+      });
+    }
+
+    update(ball) {
+      const ballBottom = ball.getY() + ball.getR();
+      const paddleTop = this.y;
+      const ballTop = ball.getY() - ball.getR();
+      const paddleBottom = this.y + this.h;
+      const ballCenter = ball.getX();
+      const paddleLeft = this.x;
+      const paddleRight = this.x + this.w;
+      
+      if (
+        ballBottom > paddleTop &&
+        ballTop < paddleBottom &&
+        ballCenter > paddleLeft &&
+        ballCenter < paddleRight
+      ) {
+        ball.bounce();
+        ball.reposition(paddleTop);
+      }
+      
+      const rect = this.canvas.getBoundingClientRect();
+      this.x = this.mouseX - rect.left - (this.w / 2);
+
+      if (this.x < 0) {
+        this.x = 0;
+      }
+      if (this.x + this.w > this.canvas.width) {
+        this.x = this.canvas.width - this.w;
+      }
+    }
+
+    draw() {
+      this.ctx.fillStyle = '#fdfdfd';
+      this.ctx.fillRect(this.x, this.y, this.w, this.h);
+    }
+  }
+  
+  class Game {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.ball = new Ball(this.canvas);
+      this.paddle = new Paddle(this.canvas);
+      this.loop();
+      this.isGameOver = false;
+    }
+
+    loop() {
+      if (this.isGameOver) {
+        return;
+      }
+
+      this.update();
+      this.draw();
+
+      requestAnimationFrame(() => {
+        this.loop();
+      });
+    }
+
+    update() {
+      this.ball.update();
+      this.paddle.update(this.ball);
+
+      if (this.ball.getMissedStatus()) {
+        this.isGameOver = true;
+      }
+    }
+
+    draw() {
+      if (this.isGameOver) {
+        this.drawGameOver();
+        return;
+      }
+
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.ball.draw();
+      this.paddle.draw();
+    }
+
+    drawGameOver() {
+      this.ctx.font = '28px "Arial Black"';
+      this.ctx.fillStyle = 'tomato';
+      this.ctx.fillText('GAME OVER', 50, 150);
+    }
+  }
+  
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+  
+  new Game(canvas);
+})();
+
+// ===== /MyPong/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Pong Game</title>
+  <style>
+    canvas {
+      background: #222;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="280" height="280">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+パドルでボールを跳ね返したときにスコアが加算されるようにしていきます。
+
+
+    drawScore()の実装
+    addScore()の実装
+
+// ===== /MyPong/js/main.js =====
+'use strict';
+
+(() => {
+  function rand(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+  
+  class Ball {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.x = rand(30, 250);
+      this.y = 30;
+      this.r = 10;
+      this.vx = rand(3, 5) * (Math.random() < 0.5 ? 1 : -1);
+      this.vy = rand(3, 5);
+      this.isMissed = false;
+    }
+
+    getMissedStatus() {
+      return this.isMissed;
+    }
+
+    bounce() {
+      this.vy *= -1;
+    }
+
+    reposition(paddleTop) {
+      this.y = paddleTop - this.r;
+    }
+
+    getX() {
+      return this.x;
+    }
+
+    getY() {
+      return this.y;
+    }
+
+    getR() {
+      return this.r;
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+
+      if (this.y - this.r > this.canvas.height) {
+        this.isMissed = true;
+      }
+
+      if (
+        this.x - this.r < 0 ||
+        this.x + this.r > this.canvas.width
+      ) {
+        this.vx *= -1;
+      }
+
+      if (
+        this.y - this.r < 0
+      ) {
+        this.vy *= -1;
+      }
+    }
+
+    draw() {
+      this.ctx.beginPath();
+      this.ctx.fillStyle = '#fdfdfd';
+      this.ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+      this.ctx.fill();
+    }
+  }
+
+  class Paddle {
+    constructor(canvas, game) {
+      this.canvas = canvas;
+      this.game = game;
+      this.ctx = this.canvas.getContext('2d');
+      this.w = 60;
+      this.h = 16;
+      this.x = this.canvas.width / 2 - (this.w / 2);
+      this.y = this.canvas.height - 32;
+      this.mouseX = this.x;
+      this.addHandler();
+    }
+
+    addHandler() {
+      document.addEventListener('mousemove', e => {
+        this.mouseX = e.clientX;
+      });
+    }
+
+    update(ball) {
+      const ballBottom = ball.getY() + ball.getR();
+      const paddleTop = this.y;
+      const ballTop = ball.getY() - ball.getR();
+      const paddleBottom = this.y + this.h;
+      const ballCenter = ball.getX();
+      const paddleLeft = this.x;
+      const paddleRight = this.x + this.w;
+      
+      if (
+        ballBottom > paddleTop &&
+        ballTop < paddleBottom &&
+        ballCenter > paddleLeft &&
+        ballCenter < paddleRight
+      ) {
+        ball.bounce();
+        ball.reposition(paddleTop);
+        this.game.addScore();
+      }
+      
+      const rect = this.canvas.getBoundingClientRect();
+      this.x = this.mouseX - rect.left - (this.w / 2);
+
+      if (this.x < 0) {
+        this.x = 0;
+      }
+      if (this.x + this.w > this.canvas.width) {
+        this.x = this.canvas.width - this.w;
+      }
+    }
+
+    draw() {
+      this.ctx.fillStyle = '#fdfdfd';
+      this.ctx.fillRect(this.x, this.y, this.w, this.h);
+    }
+  }
+  
+  class Game {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.ball = new Ball(this.canvas);
+      this.paddle = new Paddle(this.canvas, this);
+      this.loop();
+      this.isGameOver = false;
+      this.score = 0;
+    }
+
+    addScore() {
+      this.score++;
+    }
+
+    loop() {
+      if (this.isGameOver) {
+        return;
+      }
+
+      this.update();
+      this.draw();
+
+      requestAnimationFrame(() => {
+        this.loop();
+      });
+    }
+
+    update() {
+      this.ball.update();
+      this.paddle.update(this.ball);
+
+      if (this.ball.getMissedStatus()) {
+        this.isGameOver = true;
+      }
+    }
+
+    draw() {
+      if (this.isGameOver) {
+        this.drawGameOver();
+        return;
+      }
+
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.ball.draw();
+      this.paddle.draw();
+      this.drawScore();
+    }
+
+    drawGameOver() {
+      this.ctx.font = '28px "Arial Black"';
+      this.ctx.fillStyle = 'tomato';
+      this.ctx.fillText('GAME OVER', 50, 150);
+    }
+
+    drawScore() {
+      this.ctx.font = '20px Arial';
+      this.ctx.fillStyle = '#fdfdfd';
+      this.ctx.fillText(this.score, 10, 25);
+    }
+  }
+  
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+  
+  new Game(canvas);
+})();
+
+// ===== /MyPong/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Pong Game</title>
+  <style>
+    canvas {
+      background: #222;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="280" height="280">
+    Canvas not supported.
+  </canvas>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+

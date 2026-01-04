@@ -1,0 +1,869 @@
+// ===== video_summary =====
+完成版を確認したのちに、必要となるファイルを作成して、学習を進める準備を整えていきます。
+
+
+    完成版の確認
+    index.htmlの作成
+
+// ===== commentBox 1 =====
+補足情報
+VS Codeでファイルのドラッグ＆ドロップができない場合
+
+
+
+
+2024年2月16日
+
+
+
+
+
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、WindowsならCtrlキー、macOSならcommandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+// ===== commentBox 2 =====
+補足情報
+必要となる知識について
+
+
+
+
+2020年6月16日
+
+
+
+
+
+このレッスンでは、以下のレッスンで紹介した内容をベースにしています。分からない点があった場合は、こちらも参考にしてみてください。
+
+HTML基礎文法入門 (全30回)
+https://dotinstall.com/lessons/basic_html_tags_v2
+CSS基礎文法入門 (全37回)
+https://dotinstall.com/lessons/basic_css_styles_v2
+詳解JavaScript 基礎文法編 (全24回)
+https://dotinstall.com/lessons/basic_javascript_grammer_v2
+詳解JavaScript オブジェクト編 (全23回)
+https://dotinstall.com/lessons/basic_javascript_objects_v2
+詳解JavaScript DOM編 (全15回)
+https://dotinstall.com/lessons/basic_javascript_dom_v2
+
+// ===== commentBox 3 =====
+補足情報
+VS Code の設定について
+
+
+
+
+2020年6月16日
+
+
+
+
+
+このレッスンでは、デフォルトの設定を一部変えています。基本的な設定の仕方については、以下のレッスンを参照してください。
+
+#04 プログラミング用フォントを導入しよう | HTML/CSSの学習環境を整えよう [macOS編]
+https://dotinstall.com/lessons/basic_pcsetup_mac_v2/50404
+#04 プログラミング用フォントを導入しよう | HTML/CSSの学習環境を整えよう [Windows編]
+https://dotinstall.com/lessons/basic_pcsetup_win_v2/50504
+#08 設定を変更してみよう | Visual Studio Code入門
+https://dotinstall.com/lessons/basic_vscode/50208
+
+// ===== /MyBingo/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Bingo</title>
+</head>
+<body>
+
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+ビンゴシートのルールを確認したのち、実装方針について説明していきます。
+
+ビンゴシートのルール確認
+実装方針の説明
+
+
+
+
+
+
+// ===== video_summary =====
+splice() を使ってランダムな数字を5つ取り出していきます。
+
+
+    main.jsファイルの作成
+    splice()での配列生成
+
+// ===== commentBox 1 =====
+補足情報
+ランダムな整数値を作る方法について
+
+
+
+
+2020年6月16日
+
+
+
+
+
+以下のレッスンでランダムな整数値を作る方法について解説しているので、参考にしてみてください。
+
+詳解JavaScript オブジェクト編 » #20 ランダムな整数値を作ってみよう
+https://dotinstall.com/lessons/basic_javascript_objects_v2/52320
+
+// ===== /MyBingo/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Bingo</title>
+</head>
+<body>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyBingo/js/main.js =====
+'use strict';
+
+{
+  const source = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
+  // Math.floor(Math.random() * (14 + 1))
+  // Math.floor(Math.random() * source.length)
+
+  const b = [];
+  b[0] = source.splice(Math.floor(Math.random() * source.length), 1);
+  b[1] = source.splice(Math.floor(Math.random() * source.length), 1);
+  b[2] = source.splice(Math.floor(Math.random() * source.length), 1);
+  b[3] = source.splice(Math.floor(Math.random() * source.length), 1);
+  b[4] = source.splice(Math.floor(Math.random() * source.length), 1);
+
+  console.log(b);
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+デベロッパーツールを使ってビンゴシートのB列ができているか確認していきます。
+
+
+    デベロッパーツールでの確認
+    spliceに関する注意点
+
+// ===== /MyBingo/js/main.js =====
+'use strict';
+
+{
+  const source = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
+  const b = [];
+  b[0] = source.splice(Math.floor(Math.random() * source.length), 1)[0];
+  b[1] = source.splice(Math.floor(Math.random() * source.length), 1)[0];
+  b[2] = source.splice(Math.floor(Math.random() * source.length), 1)[0];
+  b[3] = source.splice(Math.floor(Math.random() * source.length), 1)[0];
+  b[4] = source.splice(Math.floor(Math.random() * source.length), 1)[0];
+
+  console.log(b);
+}
+
+// ===== /MyBingo/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Bingo</title>
+</head>
+<body>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+for文のループを使って、処理をシンプルな書き方に変えていきます。
+
+
+    for文を使った書き換え
+    動作確認
+
+// ===== /MyBingo/js/main.js =====
+'use strict';
+
+{
+  // const source = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+  const source = [];
+  for (let i = 0; i < 15; i++) {
+    source[i] = i + 1;
+  }
+
+  const b = [];
+  // b[0] = source.splice(Math.floor(Math.random() * source.length), 1)[0];
+  // b[1] = source.splice(Math.floor(Math.random() * source.length), 1)[0];
+  // b[2] = source.splice(Math.floor(Math.random() * source.length), 1)[0];
+  // b[3] = source.splice(Math.floor(Math.random() * source.length), 1)[0];
+  // b[4] = source.splice(Math.floor(Math.random() * source.length), 1)[0];
+  for (let i = 0; i < 5; i++) {
+    b[i] = source.splice(Math.floor(Math.random() * source.length), 1)[0];
+  }
+
+  console.log(b);
+}
+
+// ===== /MyBingo/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Bingo</title>
+</head>
+<body>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+似たような処理を関数にまとめ、汎用化してあげます。
+
+
+    関数を使った書き換え
+    扱う数値の範囲を一般化
+
+// ===== /MyBingo/js/main.js =====
+'use strict';
+
+{
+  function createColumn(col) {
+    const source = [];
+    for (let i = 0; i < 15; i++) {
+      // 1 ... 15
+      // source[i] = i + 1 + 15 * 0;
+      // 16 ... 30
+      // source[i] = i + 1 + 15 * 1;
+      // 31 ... 45
+      // source[i] = i + 1 + 15 * 2;
+      source[i] = i + 1 + 15 * col;
+    }
+  
+    const b = [];
+    for (let i = 0; i < 5; i++) {
+      b[i] = source.splice(Math.floor(Math.random() * source.length), 1)[0];
+    }
+  
+    console.log(b);
+  }
+
+  const columns = [];
+  columns[0] = createColumn(0);
+  columns[1] = createColumn(1);
+  columns[2] = createColumn(2);
+  columns[3] = createColumn(3);
+  columns[4] = createColumn(4);
+}
+
+// ===== /MyBingo/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Bingo</title>
+</head>
+<body>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+関数を使って出来上がったビンゴシートの配列を、console.table() を使って確認します。
+
+
+    配列の完成
+    console.table()を使った確認
+
+// ===== /MyBingo/js/main.js =====
+'use strict';
+
+{
+  function createColumn(col) {
+    const source = [];
+    for (let i = 0; i < 15; i++) {
+      source[i] = i + 1 + 15 * col;
+    }
+  
+    const column = [];
+    for (let i = 0; i < 5; i++) {
+      column[i] = source.splice(Math.floor(Math.random() * source.length), 1)[0];
+    }
+
+    return column;
+  }
+
+  const columns = [];
+  columns[0] = createColumn(0);
+  columns[1] = createColumn(1);
+  columns[2] = createColumn(2);
+  columns[3] = createColumn(3);
+  columns[4] = createColumn(4);
+  columns[2][2] = 'FREE';
+
+  console.table(columns);
+}
+
+// ===== /MyBingo/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Bingo</title>
+</head>
+<body>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+ビンゴシートの配列の行と列が逆になっているので、反転させる処理を追加していきます。
+
+
+    行と列の反転
+    for文の入れ子表現
+
+// ===== /MyBingo/js/main.js =====
+'use strict';
+
+{
+  function createColumn(col) {
+    const source = [];
+    for (let i = 0; i < 15; i++) {
+      source[i] = i + 1 + 15 * col;
+    }
+  
+    const column = [];
+    for (let i = 0; i < 5; i++) {
+      column[i] = source.splice(Math.floor(Math.random() * source.length), 1)[0];
+    }
+
+    return column;
+  }
+
+  const columns = [];
+  columns[0] = createColumn(0);
+  columns[1] = createColumn(1);
+  columns[2] = createColumn(2);
+  columns[3] = createColumn(3);
+  columns[4] = createColumn(4);
+  columns[2][2] = 'FREE';
+
+  // console.table(columns);
+
+  const bingo = [];
+  for (let row = 0; row < 5; row++) {
+    bingo[row] = [];
+    for (let col = 0; col < 5; col++) {
+      bingo[row][col] = columns[col][row];
+    }
+  }
+  console.table(bingo);
+}
+
+// ===== /MyBingo/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Bingo</title>
+</head>
+<body>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+ダミーテキストを使って、HTMLにビンゴシートの画面を作っていきます。
+
+
+    HTMLのマークアップ
+    ブラウザでの確認
+
+// ===== /MyBingo/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Bingo</title>
+</head>
+<body>
+  <table>
+    <thead>
+      <tr><th>B</th><th>I</th><th>N</th><th>G</th><th>O</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+      <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+      <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+      <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+      <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+    </tbody>
+  </table>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyBingo/js/main.js =====
+'use strict';
+
+{
+  function createColumn(col) {
+    const source = [];
+    for (let i = 0; i < 15; i++) {
+      source[i] = i + 1 + 15 * col;
+    }
+  
+    const column = [];
+    for (let i = 0; i < 5; i++) {
+      column[i] = source.splice(Math.floor(Math.random() * source.length), 1)[0];
+    }
+
+    return column;
+  }
+
+  const columns = [];
+  columns[0] = createColumn(0);
+  columns[1] = createColumn(1);
+  columns[2] = createColumn(2);
+  columns[3] = createColumn(3);
+  columns[4] = createColumn(4);
+  columns[2][2] = 'FREE';
+
+  const bingo = [];
+  for (let row = 0; row < 5; row++) {
+    bingo[row] = [];
+    for (let col = 0; col < 5; col++) {
+      bingo[row][col] = columns[col][row];
+    }
+  }
+  console.table(bingo);
+}
+
+
+
+
+
+
+// ===== video_summary =====
+CSSでビンゴシートの見た目を整えていきます。
+
+
+    styles.cssの作成
+    CSSによるスタイリング
+
+// ===== /MyBingo/css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+}
+
+th, td {
+  background: pink;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+}
+
+// ===== /MyBingo/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Bingo</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <table>
+    <thead>
+      <tr><th>B</th><th>I</th><th>N</th><th>G</th><th>O</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+      <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+      <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+      <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+      <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+    </tbody>
+  </table>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyBingo/js/main.js =====
+'use strict';
+
+{
+  function createColumn(col) {
+    const source = [];
+    for (let i = 0; i < 15; i++) {
+      source[i] = i + 1 + 15 * col;
+    }
+  
+    const column = [];
+    for (let i = 0; i < 5; i++) {
+      column[i] = source.splice(Math.floor(Math.random() * source.length), 1)[0];
+    }
+
+    return column;
+  }
+
+  const columns = [];
+  columns[0] = createColumn(0);
+  columns[1] = createColumn(1);
+  columns[2] = createColumn(2);
+  columns[3] = createColumn(3);
+  columns[4] = createColumn(4);
+  columns[2][2] = 'FREE';
+
+  const bingo = [];
+  for (let row = 0; row < 5; row++) {
+    bingo[row] = [];
+    for (let col = 0; col < 5; col++) {
+      bingo[row][col] = columns[col][row];
+    }
+  }
+  console.table(bingo);
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+ビンゴシートの配列をHTMLに表示させて、画面を完成させます。
+
+
+    DOM操作によるtr､td要素の生成
+    画面の完成
+
+// ===== /MyBingo/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Bingo</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <table>
+    <thead>
+      <tr><th>B</th><th>I</th><th>N</th><th>G</th><th>O</th></tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyBingo/js/main.js =====
+'use strict';
+
+{
+  function createColumn(col) {
+    const source = [];
+    for (let i = 0; i < 15; i++) {
+      source[i] = i + 1 + 15 * col;
+    }
+  
+    const column = [];
+    for (let i = 0; i < 5; i++) {
+      column[i] = source.splice(Math.floor(Math.random() * source.length), 1)[0];
+    }
+
+    return column;
+  }
+
+  const columns = [];
+  columns[0] = createColumn(0);
+  columns[1] = createColumn(1);
+  columns[2] = createColumn(2);
+  columns[3] = createColumn(3);
+  columns[4] = createColumn(4);
+  columns[2][2] = 'FREE';
+
+  const bingo = [];
+  for (let row = 0; row < 5; row++) {
+    bingo[row] = [];
+    for (let col = 0; col < 5; col++) {
+      bingo[row][col] = columns[col][row];
+    }
+  }
+  console.table(bingo);
+
+  for (let row = 0; row < 5; row++) {
+    const tr = document.createElement('tr');
+    for (let col = 0; col < 5; col++) {
+      const td = document.createElement('td');
+      td.textContent = bingo[row][col];
+      tr.appendChild(td);
+    }
+    document.querySelector('tbody').appendChild(tr);
+  }
+}
+
+// ===== /MyBingo/css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+}
+
+th, td {
+  background: pink;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+全体の処理を関数でまとめていき、ソースコードを見やすくします。
+
+
+    関数を使った書き換え
+    createColumns() の作成
+    createBingo() の作成
+
+// ===== /MyBingo/js/main.js =====
+'use strict';
+
+{
+  function createColumn(col) {
+    const source = [];
+    for (let i = 0; i < 15; i++) {
+      source[i] = i + 1 + 15 * col;
+    }
+  
+    const column = [];
+    for (let i = 0; i < 5; i++) {
+      column[i] = source.splice(Math.floor(Math.random() * source.length), 1)[0];
+    }
+
+    return column;
+  }
+
+  function createColumns() {
+    const columns = [];
+    for (let i = 0; i < 5; i++) {
+      columns[i] = createColumn(i);
+    }
+    columns[2][2] = 'FREE';
+    return columns;
+  }
+
+  function createBingo(columns) {
+    const bingo = [];
+    for (let row = 0; row < 5; row++) {
+      bingo[row] = [];
+      for (let col = 0; col < 5; col++) {
+        bingo[row][col] = columns[col][row];
+      }
+    }
+    return bingo;
+  }
+
+  for (let row = 0; row < 5; row++) {
+    const tr = document.createElement('tr');
+    for (let col = 0; col < 5; col++) {
+      const td = document.createElement('td');
+      td.textContent = bingo[row][col];
+      tr.appendChild(td);
+    }
+    document.querySelector('tbody').appendChild(tr);
+  }
+}
+
+// ===== /MyBingo/css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+}
+
+th, td {
+  background: pink;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+}
+
+// ===== /MyBingo/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Bingo</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <table>
+    <thead>
+      <tr><th>B</th><th>I</th><th>N</th><th>G</th><th>O</th></tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+関数で全体をまとめつつ、ビンゴシートを完成させていきます。
+
+
+    関数を使った書き換え
+    renderBingo() の作成
+
+// ===== /MyBingo/js/main.js =====
+'use strict';
+
+{
+  function createColumn(col) {
+    const source = [];
+    for (let i = 0; i < 15; i++) {
+      source[i] = i + 1 + 15 * col;
+    }
+  
+    const column = [];
+    for (let i = 0; i < 5; i++) {
+      column[i] = source.splice(Math.floor(Math.random() * source.length), 1)[0];
+    }
+
+    return column;
+  }
+
+  function createColumns() {
+    const columns = [];
+    for (let i = 0; i < 5; i++) {
+      columns[i] = createColumn(i);
+    }
+    columns[2][2] = 'FREE';
+    return columns;
+  }
+
+  function renderBingo(columns) {
+    for (let row = 0; row < 5; row++) {
+      const tr = document.createElement('tr');
+      for (let col = 0; col < 5; col++) {
+        const td = document.createElement('td');
+        td.textContent = columns[col][row];
+        tr.appendChild(td);
+      }
+      document.querySelector('tbody').appendChild(tr);
+    }
+  }
+
+  const columns = createColumns();
+  renderBingo(columns);
+}
+
+// ===== /MyBingo/css/styles.css =====
+body {
+  font-family: 'Courier New', monospace;
+}
+
+th, td {
+  background: pink;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+}
+
+// ===== /MyBingo/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Bingo</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <table>
+    <thead>
+      <tr><th>B</th><th>I</th><th>N</th><th>G</th><th>O</th></tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+

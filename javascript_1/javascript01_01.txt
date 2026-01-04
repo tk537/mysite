@@ -1,0 +1,536 @@
+
+    HTML/CSSを学習した人向けに、JavaScriptがどういう言語か説明していきます。
+
+JavaScriptの概要
+学習の進め方
+HTML/CSSとの違い
+
+
+
+
+JavaScript実装の一例として、アイコンをクリックしたら現れる入力フォームを紹介していきます。
+
+ブラウザ実行環境の紹介
+Bootstrap Icons
+JavaScriptコードの構成、特徴
+補足情報 ブラウザ実行環境について
+2023年4月19日
+このレッスンで扱っているブラウザ実行環境ではいくつかのショートカットキーを使うことができます。詳しくは以下のヘルプをご覧ください。
+
+・ブラウザ実行環境のエディタで使えるショートカットキーについて知りたい
+https://dotinstall.com/help/903
+
+補足情報 Bootstrap Iconsについて
+2023年4月19日
+Bootstrap Iconsの詳しい使い方については以下のレッスンを参考にしてみてください。
+
+・Bootstrap Icons入門 (全3回)
+https://dotinstall.com/lessons/basic_bootstrap_icons
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Playground</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.0/font/bootstrap-icons.css">
+  <style>
+    input {
+      all: unset;
+      transition: width 0.4s, border 0.4s;
+      width: 0;
+    }
+    input.appear {
+      transition: width 0.6s, border 0.6s;
+      border: 1px solid #333;
+      padding: 4px 8px;
+      border-radius: 4px;
+      width: 200px;
+    }
+    #search {
+      font-size: 18px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <input type="text" id="input">
+  <i class="bi bi-search" id="search"></i>
+
+  <script>
+    // メガネアイコンの要素を取得
+    const search = document.getElementById('search');
+    // 入力フォームの要素を取得
+    const input = document.getElementById('input');
+    
+    // メガネアイコンをクリックしたときの処理
+    search.addEventListener('click', () => {
+      // 入力フォームを表示する
+      input.classList.add('appear');
+      // 入力フォームにフォーカスを当てる
+      input.focus();
+    });
+    
+    // 入力フォームからフォーカスが外れたときの処理
+    input.addEventListener('blur', () => {
+      // 入力フォームを非表示にする
+      input.classList.remove('appear');
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+ハートアイコンをクリックしたら数値が増えていく機能を実装するためのコードを紹介していきます。
+
+挙動の確認
+JavaScriptコードの特徴
+JavaScript実装の注意点
+補足情報 ハートアイコンについて
+2023年4月19日
+ハートアイコンはBootstrap Iconsを使って表示しています。詳しい使い方については以下のレッスンを参考にしてみてください。
+
+・Bootstrap Icons入門 (全3回)
+https://dotinstall.com/lessons/basic_bootstrap_icons
+
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Playground</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.0/font/bootstrap-icons.css">
+  <style>
+    body {
+      user-select: none;
+    }
+    i {
+      color: red;
+      font-size: 20px;
+      margin-right: 4px;
+      cursor: pointer;
+    }
+    i.large {
+      font-size: 32px;
+    }
+    span {
+      font-size: 20px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <i class="bi bi-heart-fill" id="heart"></i>
+  <span id="counter">0</span>
+
+  <script>
+    // クリック回数を0で初期化
+    let n = 0;
+    // ハートアイコンの要素を取得
+    const heart = document.getElementById('heart');
+    // カウンターの要素を取得
+    const counter = document.getElementById('counter');
+    
+    // ハートアイコンをクリックしたときの処理
+    heart.addEventListener('click', () => {
+      // カウンターを1増やす
+      n++;
+      // カウンターが10を超えた場合、ハートを大きくする
+      if (n > 10) {
+        heart.classList.add('large');
+      }
+      // クリック回数を表示
+      counter.textContent = n;
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+JavaScriptを使って大量のデータを効率的に処理するための仕組みを紹介します。
+
+挙動の確認
+forEachによる処理の効率化
+コードの変更、動作確認
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Playground</title>
+  <style>
+    .container {
+      margin: 16px auto;
+      width: 500px;
+    }
+    .tabs {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+    }
+    .tabs li a {
+      display: inline-block;
+      width: 80px;
+      text-align: center;
+      padding: 8px;
+      color: #333;
+      text-decoration: none;
+    }
+    .tabs li a.active {
+      background: #333;
+      color: #fff;
+    }
+    .content.active {
+      background: #333;
+      color: #fff;
+      min-height: 150px;
+      padding: 12px;
+      display: block;
+    }
+    .content {
+      display: none;
+    }
+  </style>
+</head>
+
+
+
+
+
+
+JavaScriptを使ってデータからHTMLの要素を自動生成するための実装を紹介していきます。
+
+挙動の確認
+JavaScriptコードの紹介
+データの変更、動作確認
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Playground</title>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+    th {
+      font-weight: normal;
+      background: #eee;
+    }
+    th,
+    td {
+      padding: 4px;
+      border: 1px solid;
+      text-align: center;
+    }
+    th:nth-child(1) {
+      width: 40px;
+    }
+    th:nth-child(2) {
+      width: 180px;
+    }
+  </style>
+</head>
+<body>
+  <table>
+    <thead>
+      <tr><th>#</th><th>名前</th></tr>
+    </thead>
+    <tbody id="names">
+    </tbody>
+  </table>
+  <script>
+    // 名前の配列を定義
+    const names = [
+      '佐藤',
+      '鈴木',
+      '高橋',
+      '田中',
+      '伊藤',
+      '渡辺',
+      '木村',
+      '吉田',
+      '山本',
+      '中村',
+      '小林',
+      '加藤'
+    ];
+    
+    // 配列のすべての要素に対して処理を実行
+    names.forEach((name, index) => {
+      // 新しいtr要素を作成
+      const tr = document.createElement('tr');
+      // インデックス用のtd要素を作成し、インデックスを設定
+      const indexTd = document.createElement('td');
+      indexTd.textContent = index + 1;
+      // 名前用のtd要素を作成し、名前を設定
+      const nameTd = document.createElement('td');
+      nameTd.textContent = name;
+      // インデックス用のtd要素をtr要素に追加
+      tr.appendChild(indexTd);
+      // 名前用のtd要素をtr要素に追加
+      tr.appendChild(nameTd);
+      // tr要素をテーブルのtbody要素に追加
+      document.getElementById('names').appendChild(tr);
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+JavaScriptを使った要素の自動生成に加え、より複雑な計算をするための実装を紹介していきます。
+
+挙動の確認
+JavaScriptコードの紹介
+データの変更、動作確認
+
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Playground</title>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+    th {
+      font-weight: normal;
+      background: #eee;
+    }
+    th,
+    td {
+      padding: 4px;
+      border: 1px solid;
+    }
+    th:nth-child(1) {
+      width: 180px;
+    }
+    th:nth-child(2) {
+      width: 180px;
+    }
+    td:nth-child(2) {
+      text-align: right;
+    }
+    tr:last-child {
+      font-weight: bold;
+    }
+    input[type="checkbox"] {
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+  <table>
+    <thead>
+      <tr><th>商品名</th><th>価格</th></tr>
+    </thead>
+    <tbody id="items">
+      <tr><td>合計 (送料込)</td><td><span id="total">0</span>円</td></tr>
+    </tbody>
+  </table>
+  <p>
+    ※ 税込価格、送料350円は5,000円以上で無料
+  </p>
+  <script>
+    // 合計金額を0で初期化
+    let total = 0;
+    // 送料を定義するための変数
+    let shipping;
+    // HTMLからitemsというIDを持つテーブル要素を取得
+    const table = document.getElementById('items');
+    // HTMLからtotalというIDを持つspan要素を取得
+    const totalSpan = document.getElementById('total');
+    // 商品データを格納した配列
+    const items = [
+      {name: 'Tシャツ', price: 1200},
+      {name: 'カットシャツ', price: 4200},
+      {name: 'チノパン', price: 3800},
+      {name: '靴下', price: 800},
+    ];
+    
+    // すべての商品データに対して処理を行う
+    items.forEach((item) => {
+      // 新しいtr要素を作成
+      const tr = document.createElement('tr');
+      // 新しいtd要素を作成
+      const nameTd = document.createElement('td');
+      // 商品名のテキストを作成
+      const nameText = document.createTextNode(item.name);
+      // チェックボックスを作成
+      const checkbox = document.createElement('input');
+      // チェックボックスのタイプを設定
+      checkbox.type = "checkbox";
+      // チェックボックスがチェックされたときの処理
+      checkbox.addEventListener('change', () => {
+        // チェックされている場合、合計金額を加算
+        if (checkbox.checked) {
+          total += Number(item.price);
+        } else {
+          // チェックされていない場合、合計金額から減算
+          total -= Number(item.price);
+        }
+        // 合計金額が5000以上または0の場合、送料は0
+        if (total >= 5000 || total === 0) {
+          shipping = 0;
+        } else {
+          // それ以外の場合、送料は350
+          shipping = 350;
+        }
+        // 合計金額と送料を加算し、totalSpanに表示
+        totalSpan.textContent = (total + shipping).toLocaleString();
+      });
+      // 新しいtd要素を作成
+      const priceTd = document.createElement('td');
+      // 価格をテキストとしてtd要素に追加
+      priceTd.textContent = item.price.toLocaleString() + '円';
+      // td要素にチェックボックスと商品名を追加
+      nameTd.appendChild(checkbox);
+      nameTd.appendChild(nameText);
+      // tr要素に商品名のtd要素と価格のtd要素を追加
+      tr.appendChild(nameTd);
+      tr.appendChild(priceTd);
+      // tr要素をテーブルの最後の行の前に挿入
+      table.insertBefore(tr, table.rows[table.rows.length - 1]);
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+JavaScriptをさらに詳しく学習していくためのステップについて紹介していきます。
+
+JavaScriptの学習方法
+レッスンの紹介
+学習のコツ
+
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Playground</title>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+    th {
+      font-weight: normal;
+      background: #eee;
+    }
+    th,
+    td {
+      padding: 4px;
+      border: 1px solid;
+    }
+    th:nth-child(1) {
+      width: 180px;
+    }
+    th:nth-child(2) {
+      width: 180px;
+    }
+    td:nth-child(2) {
+      text-align: right;
+    }
+    tr:last-child {
+      font-weight: bold;
+    }
+    input[type="checkbox"] {
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+  <table>
+    <thead>
+      <tr><th>商品名</th><th>価格</th></tr>
+    </thead>
+    <tbody id="items">
+      <tr><td>合計 (送料込)</td><td><span id="total">0</span>円</td></tr>
+    </tbody>
+  </table>
+  <p>
+    ※ 税込価格、送料350円は5,000円以上で無料
+  </p>
+  <script>
+    // 合計金額を0で初期化
+    let total = 0;
+    // 送料を定義するための変数
+    let shipping;
+    // HTMLからitemsというIDを持つテーブル要素を取得
+    const table = document.getElementById('items');
+    // HTMLからtotalというIDを持つspan要素を取得
+    const totalSpan = document.getElementById('total');
+    // 商品データを格納した配列
+    const items = [
+      {name: 'Tシャツ', price: 1200},
+      {name: 'カットシャツ', price: 4200},
+      {name: 'チノパン', price: 3800},
+      {name: '靴下', price: 800},
+    ];
+    
+    // すべての商品データに対して処理を行う
+    items.forEach((item) => {
+      // 新しいtr要素を作成
+      const tr = document.createElement('tr');
+      // 新しいtd要素を作成
+      const nameTd = document.createElement('td');
+      // 商品名のテキストを作成
+      const nameText = document.createTextNode(item.name);
+      // チェックボックスを作成
+      const checkbox = document.createElement('input');
+      // チェックボックスのタイプを設定
+      checkbox.type = "checkbox";
+      // チェックボックスがチェックされたときの処理
+      checkbox.addEventListener('change', () => {
+        // チェックされている場合、合計金額を加算
+        if (checkbox.checked) {
+          total += Number(item.price);
+        } else {
+          // チェックされていない場合、合計金額から減算
+          total -= Number(item.price);
+        }
+        // 合計金額が5000以上または0の場合、送料は0
+        if (total >= 5000 || total === 0) {
+          shipping = 0;
+        } else {
+          // それ以外の場合、送料は350
+          shipping = 350;
+        }
+        // 合計金額と送料を加算し、totalSpanに表示
+        totalSpan.textContent = (total + shipping).toLocaleString();
+      });
+      // 新しいtd要素を作成
+      const priceTd = document.createElement('td');
+      // 価格をテキストとしてtd要素に追加
+      priceTd.textContent = item.price.toLocaleString() + '円';
+      // td要素にチェックボックスと商品名を追加
+      nameTd.appendChild(checkbox);
+      nameTd.appendChild(nameText);
+      // tr要素に商品名のtd要素と価格のtd要素を追加
+      tr.appendChild(nameTd);
+      tr.appendChild(priceTd);
+      // tr要素をテーブルの最後の行の前に挿入
+      table.insertBefore(tr, table.rows[table.rows.length - 1]);
+    });
+  </script>
+</body>
+</html>
+

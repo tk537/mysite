@@ -1,0 +1,274 @@
+// ===== video_summary =====
+昔なつかしのプログラミング言語であるBASICについて、その概要と、レッスンにおける環境について説明していきます。
+
+
+    概要
+    Chipmunk BASICについて
+    レッスンにおける環境
+    BASICの起動と終了
+
+// ===== commentBox 1 =====
+補足情報
+Chipmunk BASICの公式サイトについて
+
+
+
+
+2013年4月1日
+
+
+
+
+
+Chipmunk BASICのダウンロードはこちらから。
+http://www.nicholson.com/rhn/basic/
+なお、ドキュメントはこちらにあります。
+http://www.nicholson.com/rhn/basic/basic.man.html
+
+// ===== read.me =====
+BASIC
+
+* 概要
+- 1970年代
+
+* 環境
+
+* 起動と終了
+./basic
+quit
+
+
+
+
+
+
+// ===== video_summary =====
+まずはBASICで「hello world」を表示させてみます。行番号の扱い方なども解説していきます。
+
+
+    hello world
+    list
+    cls
+    print
+    end
+    行の編集
+    行の追加
+    行の削除
+    Syntax Error
+
+// ===== hello.bas =====
+10 cls
+20 print "hello world"
+30 end
+
+10 rem コメント
+25 print "hello world again!"
+
+
+
+
+
+
+// ===== video_summary =====
+書いたプログラムを保存したり（save）、呼出したりする方法（load）について解説していきます。
+
+save
+new
+load
+
+
+
+
+
+// ===== video_summary =====
+BASICの特徴的な命令であるgoto文について、その使い方を見ていきます。また処理を一時中止して、再開させる方法についても解説していきます。
+
+
+    goto
+    CTRL+c
+    renum
+    stop / cont
+
+// ===== hello.bas =====
+10 rem コメント
+20 print "hello world"
+30 print "hello world again"
+40 goto 20
+
+renum
+
+35 stop
+
+
+
+
+
+
+// ===== video_summary =====
+数値や文字列に名前を付けられる変数についてその使い方を見ていきます。
+
+
+    数値の変数
+    文字列の変数
+    print と ;
+    数値の演算子 + - * / mod ^
+    文字列の演算子 +
+
+// ===== ex5.bas =====
+10 x = 5
+20 print x
+15 s$ = "apples"
+20 print x; s$
+
+print 5 + 5
+print 5 * 5
+print 5 - 5
+print 5 / 5
+print 5 mod 2
+print 5 ^ 2
+print "hello" + "world"
+
+
+
+
+
+
+// ===== video_summary =====
+if文を使った条件分岐と比較演算子について見ていきます。
+
+
+    if ... then ...
+    if ... then ... else ...
+    比較演算子
+
+// ===== ex6.bas =====
+10 score = 80
+20 if score > 60 then print "ok"
+
+10 score = 20
+20 if score > 60 then print "ok" else print "ng!"
+
+5 rem < > <= >= = <> and or not xor ()
+
+
+
+
+
+
+// ===== video_summary =====
+if文とgoto文を組み合わせて処理をしていく方法について学びます。
+
+
+    if ... then goto ... else goto ...
+    複数の処理を一文で書く方法(:)
+    gotoの省略
+
+// ===== ex7.bas =====
+10 score = 20
+20 if score > 60 then goto 30 else goto 40
+30 print "ok": end
+40 print "ng": end
+
+20 if score > 60 then 30 else goto 40
+
+
+
+
+
+
+// ===== video_summary =====
+繰り返し処理を行うためのfor文、while文について見ていきます。
+
+
+    for文
+    while文
+    for文の入れ子
+
+// ===== ex8.bas =====
+10 for i = 1 to 10
+20   print i
+30 next i
+
+new
+
+10 i = 1
+20 while i <= 10
+30   print i
+40   i = i + 1
+50 wend
+
+new
+
+10 for i = 1 to 9
+20   for j = 1 to 9
+30     print i; "x"; j; "= "; i * j
+40   next j
+50 next i
+
+
+
+
+
+
+// ===== video_summary =====
+gosubを使ってサブルーチンに処理を飛ばす方法について解説していきます。
+
+
+    gosub
+    return
+
+// ===== ex9.bas =====
+10 print "hello"
+20 gosub 100
+30 end
+100 print "hello from subroutine"
+110 return
+
+
+
+
+
+
+// ===== video_summary =====
+input文を使ってユーザーからの入力を受け付けます。
+
+
+    input
+
+// ===== ex10.bas =====
+10 input "your age? ", age
+20 print "you are "; age; " years old!"
+
+new
+
+10 input "(a, b)?", a, b
+20 print "a + b = "; a + b
+
+15 if a + b = 0 then 30
+30 end
+25 goto 10
+
+
+
+
+
+// ===== video_summary =====
+今まで習ったことをもとに1から10の数を当てるゲームを作ってみます。
+
+
+    乱数の算出方法
+    デバッグ
+    動作確認
+
+// ===== ex11.bas =====
+10 answer = int(rnd(1) * 10) + 1
+20 input "guess (1-10)? ", guess
+30 if guess > answer then print "too high!": goto 20
+40 if guess < answer then print "too low!": goto 20
+50 if guess = answer then print "you got it!": end
+
+
+
+
+
+

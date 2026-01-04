@@ -1,0 +1,1728 @@
+// ===== video_summary =====
+Firebaseの概要を確認したのちに、ひな形となるファイルを作成していきます。
+
+
+    公式サイトの確認
+    index.htmlの作成
+
+// ===== commentBox 1 =====
+補足情報
+事前に受講しておきたいレッスンについて
+
+
+
+
+2018年6月21日
+
+
+
+
+
+このレッスンの前に以下を受講されることをおすすめしておきます。
+
+https://dotinstall.com/lessons/basic_javascript_v2
+
+// ===== /MyFirebaseProject/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chat App</title>
+</head>
+<body>
+  Chat App
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+Firebaseのプロジェクトを作成したのちに、Cloud Firestoreの設定を行っていきます。
+
+
+    プロジェクトの作成
+    Cloud Firestoreの設定
+
+// ===== /MyFirebaseProject/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chat App</title>
+</head>
+<body>
+  Chat App
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+開発に必要なスクリプトの導入とmain.jsの作成を行っていきます。
+
+
+    開発用スクリプトの導入
+    main.jsの作成
+    公式ドキュメントの参照
+
+// ===== commentBox 1 =====
+補足情報
+英語版の最新ドキュメントも参考にしましょう
+
+
+
+
+2018年7月11日
+
+
+
+
+
+レッスンでは Firebase JavaScript SDK のバージョン 5 系を使用していますが、日本語ドキュメントではバージョン 4 系の説明になっており（2018年6月現在）、そのため最新の SDK と仕様が異なっている場合があります。
+
+おおまかな概要などに変更はありませんが、細かなコードの仕様を確認する際には必ず英語版の最新ドキュメントを参考にするようにしましょう。
+
+// ===== /MyFirebaseProject/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chat App</title>
+</head>
+<body>
+  Chat App
+
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script> -->
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyFirebaseProject/js/main.js =====
+'use strict';
+
+const config = {
+  apiKey: "AIzaSyD5aNqEzYGs_Va_b9Zlc7k2vyRa74xLUI0",
+  authDomain: "myfirebasechatapp-53aba.firebaseapp.com",
+  databaseURL: "https://myfirebasechatapp-53aba.firebaseio.com",
+  projectId: "myfirebasechatapp-53aba",
+  storageBucket: "myfirebasechatapp-53aba.appspot.com",
+  messagingSenderId: "843378139381"
+};
+firebase.initializeApp(config);
+
+
+
+
+
+// ===== video_summary =====
+今回のアプリで使っていくFirebaseの機能について、図で説明していきます。
+
+
+    Cloud Firestoreの仕組み
+    匿名ログインの仕組み
+    データ構造
+
+// ===== /MyFirebaseProject/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chat App</title>
+</head>
+<body>
+  Chat App
+
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script> -->
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyFirebaseProject/js/main.js =====
+'use strict';
+
+const config = {
+  apiKey: "AIzaSyD5aNqEzYGs_Va_b9Zlc7k2vyRa74xLUI0",
+  authDomain: "myfirebasechatapp-53aba.firebaseapp.com",
+  databaseURL: "https://myfirebasechatapp-53aba.firebaseio.com",
+  projectId: "myfirebasechatapp-53aba",
+  storageBucket: "myfirebasechatapp-53aba.appspot.com",
+  messagingSenderId: "843378139381"
+};
+firebase.initializeApp(config);
+
+
+
+
+
+
+// ===== video_summary =====
+Cloud Firestoreにデータを保存、削除する方法について見ていきます。
+
+
+    データの保存
+    collectionの作成
+    timestampsInSnapshotsの設定
+    コンソールの確認
+    データの削除
+
+// ===== commentBox 1 =====
+補足情報
+コンソールにエラーが出る場合 timestampsInSnapshots の設定は不要です
+
+
+
+
+2019年4月5日
+
+
+
+
+
+バージョン 5.9.2 以降の Firestore では以下のようなエラーがコンソールに表示されてしまいます。
+
+
+
+これはバージョン 5.9.2 以降、timestampsInSnapshots のデフォルト値が true になっているためです。将来的にこの設定は廃止されるようですので、エラーが気になる場合は以下のようにコメントアウトしておくとよいでしょう。
+
+//db.settings({
+//  timestampsInSnapshots: true
+//});
+
+// ===== /MyFirebaseProject/js/main.js =====
+'use strict';
+
+const config = {
+  apiKey: "AIzaSyD5aNqEzYGs_Va_b9Zlc7k2vyRa74xLUI0",
+  authDomain: "myfirebasechatapp-53aba.firebaseapp.com",
+  databaseURL: "https://myfirebasechatapp-53aba.firebaseio.com",
+  projectId: "myfirebasechatapp-53aba",
+  storageBucket: "myfirebasechatapp-53aba.appspot.com",
+  messagingSenderId: "843378139381"
+};
+firebase.initializeApp(config);
+
+const db = firebase.firestore();
+db.settings({
+  timestampsInSnapshots: true
+});
+const collection = db.collection('messages');
+
+collection.add({
+  message: 'test'
+})
+.then(doc => {
+  console.log(`${doc.id} added!`);
+})
+.catch(error => {
+  console.log(error);
+});
+
+// ===== /MyFirebaseProject/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chat App</title>
+</head>
+<body>
+  Chat App
+
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script> -->
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+フォームを用意して、データを投稿できるようにしていきます。
+
+
+    フォームの作成
+    focus()の設定
+    autocompleteの設定
+
+// ===== /MyFirebaseProject/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chat App</title>
+</head>
+<body>
+  <form autocomplete="off">
+    <input type="text" id="message" placeholder="your message...">
+  </form>
+
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script> -->
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyFirebaseProject/js/main.js =====
+'use strict';
+
+const config = {
+  apiKey: "AIzaSyD5aNqEzYGs_Va_b9Zlc7k2vyRa74xLUI0",
+  authDomain: "myfirebasechatapp-53aba.firebaseapp.com",
+  databaseURL: "https://myfirebasechatapp-53aba.firebaseio.com",
+  projectId: "myfirebasechatapp-53aba",
+  storageBucket: "myfirebasechatapp-53aba.appspot.com",
+  messagingSenderId: "843378139381"
+};
+firebase.initializeApp(config);
+
+const db = firebase.firestore();
+db.settings({
+  timestampsInSnapshots: true
+});
+const collection = db.collection('messages');
+
+const message = document.getElementById('message');
+const form = document.querySelector('form');
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+
+  collection.add({
+    message: message.value
+  })
+  .then(doc => {
+    console.log(`${doc.id} added!`);
+    message.value = '';
+    message.focus();
+  })
+  .catch(error => {
+    console.log(error);
+  });
+});
+
+message.focus();
+
+
+
+
+
+// ===== video_summary =====
+データの一覧を表示させる方法について見ていきます。
+
+
+    表示領域の確保
+    データ一覧の表示
+
+// ===== /MyFirebaseProject/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chat App</title>
+</head>
+<body>
+  <ul id="messages"></ul>
+  <form autocomplete="off">
+    <input type="text" id="message" placeholder="your message...">
+  </form>
+
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script> -->
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyFirebaseProject/js/main.js =====
+'use strict';
+
+const config = {
+  apiKey: "AIzaSyD5aNqEzYGs_Va_b9Zlc7k2vyRa74xLUI0",
+  authDomain: "myfirebasechatapp-53aba.firebaseapp.com",
+  databaseURL: "https://myfirebasechatapp-53aba.firebaseio.com",
+  projectId: "myfirebasechatapp-53aba",
+  storageBucket: "myfirebasechatapp-53aba.appspot.com",
+  messagingSenderId: "843378139381"
+};
+firebase.initializeApp(config);
+
+const db = firebase.firestore();
+db.settings({
+  timestampsInSnapshots: true
+});
+const collection = db.collection('messages');
+
+const message = document.getElementById('message');
+const form = document.querySelector('form');
+const messages = document.getElementById('messages');
+
+collection.get().then(snapshot => {
+  snapshot.forEach(doc => {
+    const li = document.createElement('li');
+    li.textContent = doc.data().message;
+    messages.appendChild(li);
+  });
+});
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+
+  collection.add({
+    message: message.value
+  })
+  .then(doc => {
+    console.log(`${doc.id} added!`);
+    message.value = '';
+    message.focus();
+  })
+  .catch(error => {
+    console.log(error);
+  });
+});
+
+message.focus();
+
+
+
+
+
+// ===== video_summary =====
+データを入力順に並べ替えたのちに、投稿直後に内容がリストに反映されるようにしていきます。
+
+
+    サーバー側タイムスタンプの取得
+    投稿日時によるソート
+    リストへの反映
+
+// ===== /MyFirebaseProject/js/main.js =====
+'use strict';
+
+const config = {
+  apiKey: "AIzaSyD5aNqEzYGs_Va_b9Zlc7k2vyRa74xLUI0",
+  authDomain: "myfirebasechatapp-53aba.firebaseapp.com",
+  databaseURL: "https://myfirebasechatapp-53aba.firebaseio.com",
+  projectId: "myfirebasechatapp-53aba",
+  storageBucket: "myfirebasechatapp-53aba.appspot.com",
+  messagingSenderId: "843378139381"
+};
+firebase.initializeApp(config);
+
+const db = firebase.firestore();
+db.settings({
+  timestampsInSnapshots: true
+});
+const collection = db.collection('messages');
+
+const message = document.getElementById('message');
+const form = document.querySelector('form');
+const messages = document.getElementById('messages');
+
+collection.orderBy('created').get().then(snapshot => {
+  snapshot.forEach(doc => {
+    const li = document.createElement('li');
+    li.textContent = doc.data().message;
+    messages.appendChild(li);
+  });
+});
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const li = document.createElement('li');
+  li.textContent = message.value;
+  messages.appendChild(li);
+
+  collection.add({
+    message: message.value,
+    created: firebase.firestore.FieldValue.serverTimestamp()
+  })
+  .then(doc => {
+    console.log(`${doc.id} added!`);
+    message.value = '';
+    message.focus();
+  })
+  .catch(error => {
+    console.log(error);
+  });
+});
+
+message.focus();
+
+// ===== /MyFirebaseProject/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chat App</title>
+</head>
+<body>
+  <ul id="messages"></ul>
+  <form autocomplete="off">
+    <input type="text" id="message" placeholder="your message...">
+  </form>
+
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script> -->
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+投稿後にformがもたつかないようにしていきます。また、空文字の入力を防ぐ方法についても見ていきます。
+
+
+    体感速度の向上
+    空文字の投稿禁止
+
+// ===== /MyFirebaseProject/js/main.js =====
+'use strict';
+
+const config = {
+  apiKey: "AIzaSyD5aNqEzYGs_Va_b9Zlc7k2vyRa74xLUI0",
+  authDomain: "myfirebasechatapp-53aba.firebaseapp.com",
+  databaseURL: "https://myfirebasechatapp-53aba.firebaseio.com",
+  projectId: "myfirebasechatapp-53aba",
+  storageBucket: "myfirebasechatapp-53aba.appspot.com",
+  messagingSenderId: "843378139381"
+};
+firebase.initializeApp(config);
+
+const db = firebase.firestore();
+db.settings({
+  timestampsInSnapshots: true
+});
+const collection = db.collection('messages');
+
+const message = document.getElementById('message');
+const form = document.querySelector('form');
+const messages = document.getElementById('messages');
+
+collection.orderBy('created').get().then(snapshot => {
+  snapshot.forEach(doc => {
+    const li = document.createElement('li');
+    li.textContent = doc.data().message;
+    messages.appendChild(li);
+  });
+});
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const val = message.value.trim();
+  if (val === "") {
+    return;
+  }
+
+  const li = document.createElement('li');
+  li.textContent = val;
+  messages.appendChild(li);
+
+  message.value = '';
+  message.focus();
+
+  collection.add({
+    message: val,
+    created: firebase.firestore.FieldValue.serverTimestamp()
+  })
+  .then(doc => {
+    console.log(`${doc.id} added!`);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+});
+
+message.focus();
+
+// ===== /MyFirebaseProject/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chat App</title>
+</head>
+<body>
+  <ul id="messages"></ul>
+  <form autocomplete="off">
+    <input type="text" id="message" placeholder="your message...">
+  </form>
+
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script> -->
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+CSSを使ってチャットアプリの見た目を整えていきます。
+
+
+    styles.cssの作成
+    アプリ画面のスタイリング
+
+// ===== /MyFirebaseProject/css/styles.css =====
+body {
+  font-size: 14px;
+  font-family: Verdana, sans-serif;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: normal;
+}
+
+li {
+  line-height: 2;
+}
+
+input[type="text"] {
+  padding: 6px 8px;
+  font-size: 14px;
+  width: 300px;
+}
+
+// ===== /MyFirebaseProject/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chat App</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <h1>
+    Firebase Chat
+  </h1>
+
+  <ul id="messages"></ul>
+  <form autocomplete="off">
+    <input type="text" id="message" placeholder="your message...">
+  </form>
+
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script> -->
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyFirebaseProject/js/main.js =====
+'use strict';
+
+const config = {
+  apiKey: "AIzaSyD5aNqEzYGs_Va_b9Zlc7k2vyRa74xLUI0",
+  authDomain: "myfirebasechatapp-53aba.firebaseapp.com",
+  databaseURL: "https://myfirebasechatapp-53aba.firebaseio.com",
+  projectId: "myfirebasechatapp-53aba",
+  storageBucket: "myfirebasechatapp-53aba.appspot.com",
+  messagingSenderId: "843378139381"
+};
+firebase.initializeApp(config);
+
+const db = firebase.firestore();
+db.settings({
+  timestampsInSnapshots: true
+});
+const collection = db.collection('messages');
+
+const message = document.getElementById('message');
+const form = document.querySelector('form');
+const messages = document.getElementById('messages');
+
+collection.orderBy('created').get().then(snapshot => {
+  snapshot.forEach(doc => {
+    const li = document.createElement('li');
+    li.textContent = doc.data().message;
+    messages.appendChild(li);
+  });
+});
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const val = message.value.trim();
+  if (val === "") {
+    return;
+  }
+
+  const li = document.createElement('li');
+  li.textContent = val;
+  messages.appendChild(li);
+
+  message.value = '';
+  message.focus();
+
+  collection.add({
+    message: val,
+    created: firebase.firestore.FieldValue.serverTimestamp()
+  })
+  .then(doc => {
+    console.log(`${doc.id} added!`);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+});
+
+message.focus();
+
+
+
+
+
+// ===== video_summary =====
+onSnapshotで変更を監視して、リアルタイムにデータが更新されるようにしていきます。
+
+
+    onSnapshot()
+    複数ブラウザでの動作確認
+
+// ===== /MyFirebaseProject/js/main.js =====
+'use strict';
+
+const config = {
+  apiKey: "AIzaSyD5aNqEzYGs_Va_b9Zlc7k2vyRa74xLUI0",
+  authDomain: "myfirebasechatapp-53aba.firebaseapp.com",
+  databaseURL: "https://myfirebasechatapp-53aba.firebaseio.com",
+  projectId: "myfirebasechatapp-53aba",
+  storageBucket: "myfirebasechatapp-53aba.appspot.com",
+  messagingSenderId: "843378139381"
+};
+firebase.initializeApp(config);
+
+const db = firebase.firestore();
+db.settings({
+  timestampsInSnapshots: true
+});
+const collection = db.collection('messages');
+
+const message = document.getElementById('message');
+const form = document.querySelector('form');
+const messages = document.getElementById('messages');
+
+collection.orderBy('created').onSnapshot(snapshot => {
+  snapshot.docChanges().forEach(change => {
+    if (change.type === 'added') {
+      const li = document.createElement('li');
+      li.textContent = change.doc.data().message;
+      messages.appendChild(li);
+    }
+  });
+});
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const val = message.value.trim();
+  if (val === "") {
+    return;
+  }
+
+  message.value = '';
+  message.focus();
+
+  collection.add({
+    message: val,
+    created: firebase.firestore.FieldValue.serverTimestamp()
+  })
+  .then(doc => {
+    console.log(`${doc.id} added!`);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+});
+
+message.focus();
+
+// ===== /MyFirebaseProject/css/styles.css =====
+body {
+  font-size: 14px;
+  font-family: Verdana, sans-serif;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: normal;
+}
+
+li {
+  line-height: 2;
+}
+
+input[type="text"] {
+  padding: 6px 8px;
+  font-size: 14px;
+  width: 300px;
+}
+
+// ===== /MyFirebaseProject/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chat App</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <h1>
+    Firebase Chat
+  </h1>
+
+  <ul id="messages"></ul>
+  <form autocomplete="off">
+    <input type="text" id="message" placeholder="your message...">
+  </form>
+
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script> -->
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+匿名ログイン機能を有効にしたのちに、ログイン/ログアウトボタンを作成していきます。
+
+
+    匿名ログイン
+    firebase-authの読み込み
+    ボタンの作成
+
+// ===== /MyFirebaseProject/css/styles.css =====
+body {
+  font-size: 14px;
+  font-family: Verdana, sans-serif;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: normal;
+}
+
+li {
+  line-height: 2;
+}
+
+input[type="text"] {
+  padding: 6px 8px;
+  font-size: 14px;
+  width: 300px;
+}
+
+h1 > button {
+  float: right;
+}
+
+.hidden {
+  display: none;
+}
+
+// ===== /MyFirebaseProject/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chat App</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <h1>
+    <button id="login">Login</button>
+    <button id="logout" class="hidden">Logout</button>
+    Firebase Chat
+  </h1>
+
+  <ul id="messages" class="hidden"></ul>
+  <form autocomplete="off" class="hidden">
+    <input type="text" id="message" placeholder="your message...">
+  </form>
+
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script> -->
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-auth.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyFirebaseProject/js/main.js =====
+'use strict';
+
+const config = {
+  apiKey: "AIzaSyD5aNqEzYGs_Va_b9Zlc7k2vyRa74xLUI0",
+  authDomain: "myfirebasechatapp-53aba.firebaseapp.com",
+  databaseURL: "https://myfirebasechatapp-53aba.firebaseio.com",
+  projectId: "myfirebasechatapp-53aba",
+  storageBucket: "myfirebasechatapp-53aba.appspot.com",
+  messagingSenderId: "843378139381"
+};
+firebase.initializeApp(config);
+
+const db = firebase.firestore();
+db.settings({
+  timestampsInSnapshots: true
+});
+const collection = db.collection('messages');
+
+const auth = firebase.auth();
+
+const message = document.getElementById('message');
+const form = document.querySelector('form');
+const messages = document.getElementById('messages');
+
+collection.orderBy('created').onSnapshot(snapshot => {
+  snapshot.docChanges().forEach(change => {
+    if (change.type === 'added') {
+      const li = document.createElement('li');
+      li.textContent = change.doc.data().message;
+      messages.appendChild(li);
+    }
+  });
+});
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const val = message.value.trim();
+  if (val === "") {
+    return;
+  }
+
+  message.value = '';
+  message.focus();
+
+  collection.add({
+    message: val,
+    created: firebase.firestore.FieldValue.serverTimestamp()
+  })
+  .then(doc => {
+    console.log(`${doc.id} added!`);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+});
+
+message.focus();
+
+
+
+
+
+// ===== video_summary =====
+ログイン、ログアウト処理を実装し、ログイン状態を監視して条件分岐を行います。
+
+
+    クリックイベントの設定
+    onAuthStateChanged()
+
+// ===== /MyFirebaseProject/js/main.js =====
+'use strict';
+
+const config = {
+  apiKey: "AIzaSyD5aNqEzYGs_Va_b9Zlc7k2vyRa74xLUI0",
+  authDomain: "myfirebasechatapp-53aba.firebaseapp.com",
+  databaseURL: "https://myfirebasechatapp-53aba.firebaseio.com",
+  projectId: "myfirebasechatapp-53aba",
+  storageBucket: "myfirebasechatapp-53aba.appspot.com",
+  messagingSenderId: "843378139381"
+};
+firebase.initializeApp(config);
+
+const db = firebase.firestore();
+db.settings({
+  timestampsInSnapshots: true
+});
+const collection = db.collection('messages');
+
+const auth = firebase.auth();
+
+const message = document.getElementById('message');
+const form = document.querySelector('form');
+const messages = document.getElementById('messages');
+const login = document.getElementById('login');
+const logout = document.getElementById('logout');
+
+login.addEventListener('click', () => {
+  auth.signInAnonymously();
+});
+
+logout.addEventListener('click', () => {
+  auth.signOut();
+});
+
+auth.onAuthStateChanged(user => {
+  if (user) {
+    collection.orderBy('created').onSnapshot(snapshot => {
+      snapshot.docChanges().forEach(change => {
+        if (change.type === 'added') {
+          const li = document.createElement('li');
+          li.textContent = change.doc.data().message;
+          messages.appendChild(li);
+        }
+      });
+    });
+    console.log(`Logged in as: ${user.uid}`);
+    return;
+  }
+  console.log('Nobody is logged in');
+});
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const val = message.value.trim();
+  if (val === "") {
+    return;
+  }
+
+  message.value = '';
+  message.focus();
+
+  collection.add({
+    message: val,
+    created: firebase.firestore.FieldValue.serverTimestamp()
+  })
+  .then(doc => {
+    console.log(`${doc.id} added!`);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+});
+
+message.focus();
+
+// ===== /MyFirebaseProject/css/styles.css =====
+body {
+  font-size: 14px;
+  font-family: Verdana, sans-serif;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: normal;
+}
+
+li {
+  line-height: 2;
+}
+
+input[type="text"] {
+  padding: 6px 8px;
+  font-size: 14px;
+  width: 300px;
+}
+
+h1 > button {
+  float: right;
+}
+
+.hidden {
+  display: none;
+}
+
+// ===== /MyFirebaseProject/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chat App</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <h1>
+    <button id="login">Login</button>
+    <button id="logout" class="hidden">Logout</button>
+    Firebase Chat
+  </h1>
+
+  <ul id="messages" class="hidden"></ul>
+  <form autocomplete="off" class="hidden">
+    <input type="text" id="message" placeholder="your message...">
+  </form>
+
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script> -->
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-auth.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+ボタン表示の切り替えを実装し、複数端末からログインする方法について見ていきます。
+
+
+    ログイン/ログアウトボタンの表示切り替え
+    複数端末からのログイン
+
+// ===== /MyFirebaseProject/js/main.js =====
+'use strict';
+
+const config = {
+  apiKey: "AIzaSyD5aNqEzYGs_Va_b9Zlc7k2vyRa74xLUI0",
+  authDomain: "myfirebasechatapp-53aba.firebaseapp.com",
+  databaseURL: "https://myfirebasechatapp-53aba.firebaseio.com",
+  projectId: "myfirebasechatapp-53aba",
+  storageBucket: "myfirebasechatapp-53aba.appspot.com",
+  messagingSenderId: "843378139381"
+};
+firebase.initializeApp(config);
+
+const db = firebase.firestore();
+db.settings({
+  timestampsInSnapshots: true
+});
+const collection = db.collection('messages');
+
+const auth = firebase.auth();
+
+const message = document.getElementById('message');
+const form = document.querySelector('form');
+const messages = document.getElementById('messages');
+const login = document.getElementById('login');
+const logout = document.getElementById('logout');
+
+login.addEventListener('click', () => {
+  auth.signInAnonymously();
+});
+
+logout.addEventListener('click', () => {
+  auth.signOut();
+});
+
+auth.onAuthStateChanged(user => {
+  if (user) {
+    collection.orderBy('created').onSnapshot(snapshot => {
+      snapshot.docChanges().forEach(change => {
+        if (change.type === 'added') {
+          const li = document.createElement('li');
+          li.textContent = change.doc.data().message;
+          messages.appendChild(li);
+        }
+      });
+    });
+    console.log(`Logged in as: ${user.uid}`);
+    login.classList.add('hidden');
+    [logout, form, messages].forEach(el => {
+      el.classList.remove('hidden');
+    });
+    message.focus();
+    return;
+  }
+  console.log('Nobody is logged in');
+  login.classList.remove('hidden');
+  [logout, form, messages].forEach(el => {
+    el.classList.add('hidden');
+  });
+});
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const val = message.value.trim();
+  if (val === "") {
+    return;
+  }
+
+  message.value = '';
+  message.focus();
+
+  collection.add({
+    message: val,
+    created: firebase.firestore.FieldValue.serverTimestamp()
+  })
+  .then(doc => {
+    console.log(`${doc.id} added!`);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+});
+
+// ===== /MyFirebaseProject/css/styles.css =====
+body {
+  font-size: 14px;
+  font-family: Verdana, sans-serif;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: normal;
+}
+
+li {
+  line-height: 2;
+}
+
+input[type="text"] {
+  padding: 6px 8px;
+  font-size: 14px;
+  width: 300px;
+}
+
+h1 > button {
+  float: right;
+}
+
+.hidden {
+  display: none;
+}
+
+// ===== /MyFirebaseProject/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chat App</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <h1>
+    <button id="login">Login</button>
+    <button id="logout" class="hidden">Logout</button>
+    Firebase Chat
+  </h1>
+
+  <ul id="messages" class="hidden"></ul>
+  <form autocomplete="off" class="hidden">
+    <input type="text" id="message" placeholder="your message...">
+  </form>
+
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script> -->
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-auth.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+ログイン時のユーザーIDを保存しつつ、投稿者IDを一覧に表示していきます。
+
+
+    ユーザー情報の保存
+    投稿者IDの表示
+
+// ===== /MyFirebaseProject/js/main.js =====
+'use strict';
+
+const config = {
+  apiKey: "AIzaSyD5aNqEzYGs_Va_b9Zlc7k2vyRa74xLUI0",
+  authDomain: "myfirebasechatapp-53aba.firebaseapp.com",
+  databaseURL: "https://myfirebasechatapp-53aba.firebaseio.com",
+  projectId: "myfirebasechatapp-53aba",
+  storageBucket: "myfirebasechatapp-53aba.appspot.com",
+  messagingSenderId: "843378139381"
+};
+firebase.initializeApp(config);
+
+const db = firebase.firestore();
+db.settings({
+  timestampsInSnapshots: true
+});
+const collection = db.collection('messages');
+
+const auth = firebase.auth();
+let me = null;
+
+const message = document.getElementById('message');
+const form = document.querySelector('form');
+const messages = document.getElementById('messages');
+const login = document.getElementById('login');
+const logout = document.getElementById('logout');
+
+login.addEventListener('click', () => {
+  auth.signInAnonymously();
+});
+
+logout.addEventListener('click', () => {
+  auth.signOut();
+});
+
+auth.onAuthStateChanged(user => {
+  if (user) {
+    me = user;
+    collection.orderBy('created').onSnapshot(snapshot => {
+      snapshot.docChanges().forEach(change => {
+        if (change.type === 'added') {
+          const li = document.createElement('li');
+          const d = change.doc.data();
+          li.textContent = d.uid.substr(0, 8) + ': ' + d.message;
+          messages.appendChild(li);
+        }
+      });
+    });
+    console.log(`Logged in as: ${user.uid}`);
+    login.classList.add('hidden');
+    [logout, form, messages].forEach(el => {
+      el.classList.remove('hidden');
+    });
+    message.focus();
+    return;
+  }
+  me = null;
+  console.log('Nobody is logged in');
+  login.classList.remove('hidden');
+  [logout, form, messages].forEach(el => {
+    el.classList.add('hidden');
+  });
+});
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const val = message.value.trim();
+  if (val === "") {
+    return;
+  }
+
+  message.value = '';
+  message.focus();
+
+  collection.add({
+    message: val,
+    created: firebase.firestore.FieldValue.serverTimestamp(),
+    uid: me ? me.uid : 'nobody'
+  })
+  .then(doc => {
+    console.log(`${doc.id} added!`);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+});
+
+// ===== /MyFirebaseProject/css/styles.css =====
+body {
+  font-size: 14px;
+  font-family: Verdana, sans-serif;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: normal;
+}
+
+li {
+  line-height: 2;
+}
+
+input[type="text"] {
+  padding: 6px 8px;
+  font-size: 14px;
+  width: 300px;
+}
+
+h1 > button {
+  float: right;
+}
+
+.hidden {
+  display: none;
+}
+
+// ===== /MyFirebaseProject/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chat App</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <h1>
+    <button id="login">Login</button>
+    <button id="logout" class="hidden">Logout</button>
+    Firebase Chat
+  </h1>
+
+  <ul id="messages" class="hidden"></ul>
+  <form autocomplete="off" class="hidden">
+    <input type="text" id="message" placeholder="your message...">
+  </form>
+
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script> -->
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-auth.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+未ログイン時に投稿できないように読み書き権限の設定をしていきます。
+
+
+    読み書き権限の設定
+    動作確認
+
+// ===== /MyFirebaseProject/js/main.js =====
+'use strict';
+
+const config = {
+  apiKey: "AIzaSyD5aNqEzYGs_Va_b9Zlc7k2vyRa74xLUI0",
+  authDomain: "myfirebasechatapp-53aba.firebaseapp.com",
+  databaseURL: "https://myfirebasechatapp-53aba.firebaseio.com",
+  projectId: "myfirebasechatapp-53aba",
+  storageBucket: "myfirebasechatapp-53aba.appspot.com",
+  messagingSenderId: "843378139381"
+};
+firebase.initializeApp(config);
+
+const db = firebase.firestore();
+db.settings({
+  timestampsInSnapshots: true
+});
+const collection = db.collection('messages');
+
+const auth = firebase.auth();
+let me = null;
+
+const message = document.getElementById('message');
+const form = document.querySelector('form');
+const messages = document.getElementById('messages');
+const login = document.getElementById('login');
+const logout = document.getElementById('logout');
+
+login.addEventListener('click', () => {
+  auth.signInAnonymously();
+});
+
+logout.addEventListener('click', () => {
+  auth.signOut();
+});
+
+auth.onAuthStateChanged(user => {
+  if (user) {
+    me = user;
+    collection.orderBy('created').onSnapshot(snapshot => {
+      snapshot.docChanges().forEach(change => {
+        if (change.type === 'added') {
+          const li = document.createElement('li');
+          const d = change.doc.data();
+          li.textContent = d.uid.substr(0, 8) + ': ' + d.message;
+          messages.appendChild(li);
+        }
+      });
+    });
+    console.log(`Logged in as: ${user.uid}`);
+    login.classList.add('hidden');
+    [logout, form, messages].forEach(el => {
+      el.classList.remove('hidden');
+    });
+    message.focus();
+    return;
+  }
+  me = null;
+  console.log('Nobody is logged in');
+  login.classList.remove('hidden');
+  // form.classList.remove('hidden');
+  [logout, form, messages].forEach(el => {
+    el.classList.add('hidden');
+  });
+});
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const val = message.value.trim();
+  if (val === "") {
+    return;
+  }
+
+  message.value = '';
+  message.focus();
+
+  collection.add({
+    message: val,
+    created: firebase.firestore.FieldValue.serverTimestamp(),
+    uid: me ? me.uid : 'nobody'
+  })
+  .then(doc => {
+    console.log(`${doc.id} added!`);
+  })
+  .catch(error => {
+    console.log('document add error!');
+    console.log(error);
+  });
+});
+
+// ===== /MyFirebaseProject/css/styles.css =====
+body {
+  font-size: 14px;
+  font-family: Verdana, sans-serif;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: normal;
+}
+
+li {
+  line-height: 2;
+}
+
+input[type="text"] {
+  padding: 6px 8px;
+  font-size: 14px;
+  width: 300px;
+}
+
+h1 > button {
+  float: right;
+}
+
+.hidden {
+  display: none;
+}
+
+// ===== /MyFirebaseProject/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chat App</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <h1>
+    <button id="login">Login</button>
+    <button id="logout" class="hidden">Logout</button>
+    Firebase Chat
+  </h1>
+
+  <ul id="messages" class="hidden"></ul>
+  <form autocomplete="off" class="hidden">
+    <input type="text" id="message" placeholder="your message...">
+  </form>
+
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script> -->
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-auth.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+エラー処理や細かな調整を行ってアプリを完成させていきます。
+
+
+    onSnapshotのエラー処理
+    ログイン時に投稿一覧をクリアする方法
+    変数スコープの限定
+
+// ===== /MyFirebaseProject/js/main.js =====
+(() => {
+  'use strict';
+
+  const config = {
+    apiKey: "AIzaSyD5aNqEzYGs_Va_b9Zlc7k2vyRa74xLUI0",
+    authDomain: "myfirebasechatapp-53aba.firebaseapp.com",
+    databaseURL: "https://myfirebasechatapp-53aba.firebaseio.com",
+    projectId: "myfirebasechatapp-53aba",
+    storageBucket: "myfirebasechatapp-53aba.appspot.com",
+    messagingSenderId: "843378139381"
+  };
+  firebase.initializeApp(config);
+
+  const db = firebase.firestore();
+  db.settings({
+    timestampsInSnapshots: true
+  });
+  const collection = db.collection('messages');
+
+  const auth = firebase.auth();
+  let me = null;
+
+  const message = document.getElementById('message');
+  const form = document.querySelector('form');
+  const messages = document.getElementById('messages');
+  const login = document.getElementById('login');
+  const logout = document.getElementById('logout');
+
+  login.addEventListener('click', () => {
+    auth.signInAnonymously();
+  });
+
+  logout.addEventListener('click', () => {
+    auth.signOut();
+  });
+
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      me = user;
+
+      while (messages.firstChild) {
+        messages.removeChild(messages.firstChild);
+      }
+
+      collection.orderBy('created').onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(change => {
+          if (change.type === 'added') {
+            const li = document.createElement('li');
+            const d = change.doc.data();
+            li.textContent = d.uid.substr(0, 8) + ': ' + d.message;
+            messages.appendChild(li);
+          }
+        });
+      }, error => {});
+      console.log(`Logged in as: ${user.uid}`);
+      login.classList.add('hidden');
+      [logout, form, messages].forEach(el => {
+        el.classList.remove('hidden');
+      });
+      message.focus();
+      return;
+    }
+    me = null;
+    console.log('Nobody is logged in');
+    login.classList.remove('hidden');
+    // form.classList.remove('hidden');
+    [logout, form, messages].forEach(el => {
+      el.classList.add('hidden');
+    });
+  });
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const val = message.value.trim();
+    if (val === "") {
+      return;
+    }
+
+    message.value = '';
+    message.focus();
+
+    collection.add({
+      message: val,
+      created: firebase.firestore.FieldValue.serverTimestamp(),
+      uid: me ? me.uid : 'nobody'
+    })
+    .then(doc => {
+      console.log(`${doc.id} added!`);
+    })
+    .catch(error => {
+      console.log('document add error!');
+      console.log(error);
+    });
+  });
+})();
+
+// ===== /MyFirebaseProject/css/styles.css =====
+body {
+  font-size: 14px;
+  font-family: Verdana, sans-serif;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: normal;
+}
+
+li {
+  line-height: 2;
+}
+
+input[type="text"] {
+  padding: 6px 8px;
+  font-size: 14px;
+  width: 300px;
+}
+
+h1 > button {
+  float: right;
+}
+
+.hidden {
+  display: none;
+}
+
+// ===== /MyFirebaseProject/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Chat App</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <h1>
+    <button id="login">Login</button>
+    <button id="logout" class="hidden">Logout</button>
+    Firebase Chat
+  </h1>
+
+  <ul id="messages" class="hidden"></ul>
+  <form autocomplete="off" class="hidden">
+    <input type="text" id="message" placeholder="your message...">
+  </form>
+
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script> -->
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-auth.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+

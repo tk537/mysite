@@ -1,0 +1,1995 @@
+// ===== video_summary =====
+概要を説明したのちに、PICO-8を起動してデモゲームを体験してみます。
+
+概要
+起動
+デモゲームの確認
+
+// ===== commentBox 1 =====
+補足情報 必要となる知識について
+2018年4月1日
+
+PICO-8ではLuaを使っているので以下もあわせてご覧ください。
+
+・Lua入門 (全17回)
+https://dotinstall.com/lessons/basic_lua
+
+
+
+
+
+
+// ===== video_summary =====
+公開されているゲームを探すことができるSPLOREコマンドについて見ていきます。
+
+SPLOREコマンド
+ゲームの実行
+開発環境の確認
+
+
+
+
+
+// ===== video_summary =====
+カートリッジファイルを作って簡単なメッセージを表示するプログラムを書いてみます。
+
+
+    ファイルの作成、読み込み
+    PRINT()
+    コメント
+    実行方法
+
+// ===== /myapp/mygame.p8 =====
+pico-8 cartridge // http://www.pico-8.com
+version 16
+__lua__
+-- comment
+print "hello"
+
+
+
+
+
+// ===== video_summary =====
+CIRCFILL()を使って画面にボールを描画してみます。
+
+
+    CIRCFILL()
+    CLS()
+
+// ===== /myapp/mygame.p8 =====
+pico-8 cartridge // http://www.pico-8.com
+version 16
+__lua__
+x = 10 -- 0 - 127
+y = 10
+r = 3
+
+cls()
+circfill(x, y, r, 10)
+
+
+
+
+
+// ===== video_summary =====
+特殊な関数を使って描画したボールを動かしてみます。
+
+
+    _INIT(), _UPDATE(), _DRAW()
+    ボールのアニメーション
+
+// ===== /myapp/mygame.p8 =====
+pico-8 cartridge // http://www.pico-8.com
+version 16
+__lua__
+function _init()
+ x = 10 -- 0 - 127
+ y = 10
+ r = 3
+end
+
+function _update()
+ x += 3
+ y += 3
+end
+
+function _draw()
+ cls()
+ circfill(x, y, r, 10)
+end
+
+
+
+
+
+// ===== video_summary =====
+使い慣れたエディタを使ってプログラムの編集をしていきます。
+
+
+    FOLDER
+    Atomの設定
+
+// ===== /myapp/mygame.p8 =====
+pico-8 cartridge // http://www.pico-8.com
+version 16
+__lua__
+
+function _init()
+ x = 10 -- 0 - 127
+ y = 10
+ r = 3
+end
+
+function _update()
+ x += 3
+ y += 3
+end
+
+function _draw()
+ cls()
+ circfill(x, y, r, 10)
+end
+
+
+
+
+
+// ===== video_summary =====
+Luaのテーブルを使ってボール関連の処理をまとめていきます。
+
+
+    ballテーブル
+    プログラムの組み換え
+
+// ===== /myapp/mygame.p8 =====
+pico-8 cartridge // http://www.pico-8.com
+version 16
+__lua__
+
+-- ball
+
+ball = {}
+
+ball.new = function()
+  ball.x = 10
+  ball.y = 10
+  ball.r = 3
+end
+
+ball.update = function()
+  ball.x += 3
+  ball.y += 3
+end
+
+ball.draw = function()
+  circfill(ball.x, ball.y, ball.r, 10)
+end
+
+-- main
+
+function _init()
+  ball.new()
+end
+
+function _update()
+  ball.update()
+end
+
+function _draw()
+  cls()
+  ball.draw()
+end
+
+
+
+
+
+
+// ===== video_summary =====
+ボールの出現位置や速度をランダムにしつつ、壁にあたったら跳ね返るようにしていきます。
+
+
+    RND()
+    跳ね返り処理
+
+// ===== /myapp/mygame.p8 =====
+pico-8 cartridge // http://www.pico-8.com
+version 16
+__lua__
+
+-- ball
+
+ball = {}
+
+ball.new = function()
+  ball.x = rnd(128) -- 0 - 128
+  ball.y = 10
+  ball.r = 3
+  ball.vx = rnd(2) + 1 * (rnd(1) > 0.5 and 1 or -1)
+  ball.vy = rnd(2) + 1
+end
+
+ball.update = function()
+  ball.x += ball.vx
+  ball.y += ball.vy
+  -- if ball.x < 0 or ball.x > 127 then
+  --   ball.vx *= -1
+  -- end
+  if (ball.x < 0 or ball.x > 127) ball.vx *= -1
+  if (ball.y < 0 or ball.y > 127) ball.vy *= -1
+end
+
+ball.draw = function()
+  circfill(ball.x, ball.y, ball.r, 10)
+end
+
+-- main
+
+function _init()
+  ball.new()
+end
+
+function _update()
+  ball.update()
+end
+
+function _draw()
+  cls()
+  ball.draw()
+end
+
+
+
+
+
+// ===== video_summary =====
+ボールを打ち返すためのパドルを描画する方法を見ていきます。
+
+
+    paddleテーブル
+    パドルの描画
+
+// ===== /myapp/mygame.p8 =====
+pico-8 cartridge // http://www.pico-8.com
+version 16
+__lua__
+
+-- ball
+
+ball = {}
+
+ball.new = function()
+  ball.x = rnd(128) -- 0 - 128
+  ball.y = 10
+  ball.r = 3
+  ball.vx = rnd(2) + 1 * (rnd(1) > 0.5 and 1 or -1)
+  ball.vy = rnd(2) + 1
+end
+
+ball.update = function()
+  ball.x += ball.vx
+  ball.y += ball.vy
+  if (ball.x < 0 or ball.x > 127) ball.vx *= -1
+  if (ball.y < 0 or ball.y > 127) ball.vy *= -1
+end
+
+ball.draw = function()
+  circfill(ball.x, ball.y, ball.r, 10)
+end
+
+-- paddle
+
+paddle = {}
+
+paddle.new = function()
+  paddle.x = 54
+  paddle.y = 115
+  paddle.w = 20
+  paddle.h = 4
+end
+
+paddle.update = function()
+end
+
+paddle.draw = function()
+  rectfill(
+    paddle.x,
+    paddle.y,
+    paddle.x + paddle.w,
+    paddle.y + paddle.h,
+    9
+  )
+end
+
+-- main
+
+function _init()
+  ball.new()
+  paddle.new()
+end
+
+function _update()
+  ball.update()
+  paddle.update()
+end
+
+function _draw()
+  cls()
+  ball.draw()
+  paddle.draw()
+end
+
+
+
+
+// ===== video_summary =====
+ユーザーからの入力を受け取ってパドルを動かせるようにしていきます。
+
+
+    BTN()
+    パドルの移動
+
+// ===== /myapp/mygame.p8 =====
+pico-8 cartridge // http://www.pico-8.com
+version 16
+__lua__
+
+-- ball
+
+ball = {}
+
+ball.new = function()
+  ball.x = rnd(128) -- 0 - 128
+  ball.y = 10
+  ball.r = 3
+  ball.vx = rnd(2) + 1 * (rnd(1) > 0.5 and 1 or -1)
+  ball.vy = rnd(2) + 1
+end
+
+ball.update = function()
+  ball.x += ball.vx
+  ball.y += ball.vy
+  if (ball.x < 0 or ball.x > 127) ball.vx *= -1
+  if (ball.y < 0 or ball.y > 127) ball.vy *= -1
+end
+
+ball.draw = function()
+  circfill(ball.x, ball.y, ball.r, 10)
+end
+
+-- paddle
+
+paddle = {}
+
+paddle.new = function()
+  paddle.x = 54
+  paddle.y = 115
+  paddle.w = 20
+  paddle.h = 4
+end
+
+paddle.update = function()
+  -- btn(0) left
+  -- btn(1) right
+  -- btn(2) up
+  -- btn(3) down
+  -- btn(4) o - z
+  -- btn(5) x - x
+  if (btn(0)) paddle.x -= 3
+  if (btn(1)) paddle.x += 3
+  if (pget(ball.x, ball.y) == 9) ball.vy *= -1
+end
+
+paddle.draw = function()
+  rectfill(
+    paddle.x,
+    paddle.y,
+    paddle.x + paddle.w,
+    paddle.y + paddle.h,
+    9
+  )
+end
+
+-- main
+
+function _init()
+  ball.new()
+  paddle.new()
+end
+
+function _update()
+  ball.update()
+  paddle.update()
+end
+
+function _draw()
+  cls()
+  ball.draw()
+  paddle.draw()
+end
+
+
+
+
+
+// ===== video_summary =====
+gameテーブルを作ってスコアを管理していきます。
+
+
+    gameテーブル
+    スコアの管理、表示
+    表示領域の分割処理
+
+// ===== /myapp/mygame.p8 =====
+pico-8 cartridge // http://www.pico-8.com
+version 16
+__lua__
+
+-- ball
+
+ball = {}
+
+ball.new = function()
+  ball.x = rnd(128) -- 0 - 128
+  ball.y = 14
+  ball.r = 3
+  ball.vx = rnd(2) + 1 * (rnd(1) > 0.5 and 1 or -1)
+  ball.vy = rnd(2) + 1
+end
+
+ball.update = function()
+  ball.x += ball.vx
+  ball.y += ball.vy
+  if (ball.x < 0 or ball.x > 127) ball.vx *= -1
+  if (ball.y < 14 or ball.y > 127) ball.vy *= -1
+end
+
+ball.draw = function()
+  circfill(ball.x, ball.y, ball.r, 10)
+end
+
+-- paddle
+
+paddle = {}
+
+paddle.new = function()
+  paddle.x = 54
+  paddle.y = 115
+  paddle.w = 20
+  paddle.h = 4
+end
+
+paddle.update = function()
+  if (btn(0)) paddle.x -= 3
+  if (btn(1)) paddle.x += 3
+  if pget(ball.x, ball.y) == 9 then
+    game.score += 1
+    ball.vy *= -1
+  end
+end
+
+paddle.draw = function()
+  rectfill(
+    paddle.x,
+    paddle.y,
+    paddle.x + paddle.w,
+    paddle.y + paddle.h,
+    9
+  )
+end
+
+-- game
+
+game = {}
+
+game.new = function()
+  game.score = 0
+end
+
+game.update = function()
+end
+
+game.draw = function()
+  rectfill(0, 0, 127, 9, 0)
+  rectfill(0, 10, 127, 127, 1)
+  print("score:" .. game.score, 0, 1, 7)
+end
+
+-- main
+
+function _init()
+  game.new()
+  ball.new()
+  paddle.new()
+end
+
+function _update()
+  ball.update()
+  paddle.update()
+end
+
+function _draw()
+  game.draw()
+  ball.draw()
+  paddle.draw()
+end
+
+
+
+
+
+// ===== video_summary =====
+ライフの概念を導入し、3回ミスしたらゲームが終了するようにしていきます。
+
+
+    ライフの管理、表示
+    STOP()
+
+// ===== /myapp/mygame.p8 =====
+pico-8 cartridge // http://www.pico-8.com
+version 16
+__lua__
+
+-- ball
+
+ball = {}
+
+ball.new = function()
+  ball.x = rnd(128) -- 0 - 128
+  ball.y = 14
+  ball.r = 3
+  ball.vx = rnd(2) + 1 * (rnd(1) > 0.5 and 1 or -1)
+  ball.vy = rnd(2) + 1
+end
+
+ball.update = function()
+  ball.x += ball.vx
+  ball.y += ball.vy
+  if (ball.x < 0 or ball.x > 127) ball.vx *= -1
+  if (ball.y < 14) ball.vy *= -1
+  if ball.y > 127 then
+    ball.vy *= -1
+    game.life -= 1
+    ball.new()
+  end
+end
+
+ball.draw = function()
+  circfill(ball.x, ball.y, ball.r, 10)
+end
+
+-- paddle
+
+paddle = {}
+
+paddle.new = function()
+  paddle.x = 54
+  paddle.y = 115
+  paddle.w = 20
+  paddle.h = 4
+end
+
+paddle.update = function()
+  if (btn(0)) paddle.x -= 3
+  if (btn(1)) paddle.x += 3
+  if pget(ball.x, ball.y) == 9 then
+    game.score += 1
+    ball.vy *= -1
+  end
+end
+
+paddle.draw = function()
+  rectfill(
+    paddle.x,
+    paddle.y,
+    paddle.x + paddle.w,
+    paddle.y + paddle.h,
+    9
+  )
+end
+
+-- game
+
+game = {}
+
+game.new = function()
+  game.score = 0
+  game.life = 3
+end
+
+game.update = function()
+  if (game.life == 0) stop()
+end
+
+game.draw = function()
+  rectfill(0, 0, 127, 9, 0)
+  rectfill(0, 10, 127, 127, 1)
+  print("score:" .. game.score .. " life:" .. game.life, 0, 1, 7)
+end
+
+-- main
+
+function _init()
+  game.new()
+  ball.new()
+  paddle.new()
+end
+
+function _update()
+  ball.update()
+  paddle.update()
+  game.update()
+end
+
+function _draw()
+  game.draw()
+  ball.draw()
+  paddle.draw()
+end
+
+
+
+
+
+// ===== video_summary =====
+スタート画面とゲームオーバー画面が表示できるようにプログラムを拡張していきます。
+
+
+    modeの導入
+    startテーブルの作成
+    動作確認
+
+// ===== /myapp/mygame.p8 =====
+pico-8 cartridge // http://www.pico-8.com
+version 16
+__lua__
+
+-- ball
+
+ball = {}
+
+ball.new = function()
+  ball.x = rnd(128) -- 0 - 128
+  ball.y = 14
+  ball.r = 3
+  ball.vx = rnd(2) + 1 * (rnd(1) > 0.5 and 1 or -1)
+  ball.vy = rnd(2) + 1
+end
+
+ball.update = function()
+  ball.x += ball.vx
+  ball.y += ball.vy
+  if (ball.x < 0 or ball.x > 127) ball.vx *= -1
+  if (ball.y < 14) ball.vy *= -1
+  if ball.y > 127 then
+    ball.vy *= -1
+    game.life -= 1
+    ball.new()
+  end
+end
+
+ball.draw = function()
+  circfill(ball.x, ball.y, ball.r, 10)
+end
+
+-- paddle
+
+paddle = {}
+
+paddle.new = function()
+  paddle.x = 54
+  paddle.y = 115
+  paddle.w = 20
+  paddle.h = 4
+end
+
+paddle.update = function()
+  if (btn(0)) paddle.x -= 3
+  if (btn(1)) paddle.x += 3
+  if pget(ball.x, ball.y) == 9 then
+    game.score += 1
+    ball.vy *= -1
+  end
+end
+
+paddle.draw = function()
+  rectfill(
+    paddle.x,
+    paddle.y,
+    paddle.x + paddle.w,
+    paddle.y + paddle.h,
+    9
+  )
+end
+
+-- game
+
+game = {}
+
+game.new = function()
+  game.score = 0
+  game.life = 3
+  game.mode = "start"
+end
+
+game.update = function()
+  if (game.life == 0) stop()
+end
+
+game.draw = function()
+  rectfill(0, 0, 127, 9, 0)
+  rectfill(0, 10, 127, 127, 1)
+  print("score:" .. game.score .. " life:" .. game.life, 0, 1, 7)
+end
+
+-- start
+
+start = {}
+
+start.update = function()
+  if (btn(4)) game.mode = "playing"
+end
+
+start.draw = function()
+  cls(1)
+  print("press z to start", 30, 61, 11)
+end
+
+-- main
+
+function _init()
+  game.new()
+  ball.new()
+  paddle.new()
+end
+
+function _update()
+  if game.mode == "start" then
+    start.update()
+  elseif game.mode == "playing" then
+    ball.update()
+    paddle.update()
+    game.update()
+  elseif game.mode == "over" then
+  end
+end
+
+function _draw()
+  if game.mode == "start" then
+    start.draw()
+  elseif game.mode == "playing" then
+    game.draw()
+    ball.draw()
+    paddle.draw()
+  elseif game.mode == "over" then
+  end
+end
+
+
+
+
+
+// ===== video_summary =====
+ゲームオーバー画面を作ってリスタートできるようにしていきます。
+
+
+    ゲームオーバー画面
+    リスタート処理
+
+// ===== /myapp/mygame.p8 =====
+pico-8 cartridge // http://www.pico-8.com
+version 16
+__lua__
+
+-- ball
+
+ball = {}
+
+ball.new = function()
+  ball.x = rnd(128) -- 0 - 128
+  ball.y = 14
+  ball.r = 3
+  ball.vx = rnd(2) + 1 * (rnd(1) > 0.5 and 1 or -1)
+  ball.vy = rnd(2) + 1
+end
+
+ball.update = function()
+  ball.x += ball.vx
+  ball.y += ball.vy
+  if (ball.x < 0 or ball.x > 127) ball.vx *= -1
+  if (ball.y < 14) ball.vy *= -1
+  if ball.y > 127 then
+    ball.vy *= -1
+    game.life -= 1
+    ball.new()
+  end
+end
+
+ball.draw = function()
+  circfill(ball.x, ball.y, ball.r, 10)
+end
+
+-- paddle
+
+paddle = {}
+
+paddle.new = function()
+  paddle.x = 54
+  paddle.y = 115
+  paddle.w = 20
+  paddle.h = 4
+end
+
+paddle.update = function()
+  if (btn(0)) paddle.x -= 3
+  if (btn(1)) paddle.x += 3
+  if pget(ball.x, ball.y) == 9 then
+    game.score += 1
+    ball.vy *= -1
+  end
+end
+
+paddle.draw = function()
+  rectfill(
+    paddle.x,
+    paddle.y,
+    paddle.x + paddle.w,
+    paddle.y + paddle.h,
+    9
+  )
+end
+
+-- game
+
+game = {}
+
+game.new = function()
+  game.score = 0
+  game.life = 3
+  game.mode = "start"
+end
+
+game.update = function()
+  if (game.life == 0) game.mode = "over"
+end
+
+game.draw = function()
+  rectfill(0, 0, 127, 9, 0)
+  rectfill(0, 10, 127, 127, 1)
+  print("score:" .. game.score .. " life:" .. game.life, 0, 1, 7)
+end
+
+-- start
+
+start = {}
+
+start.update = function()
+  if (btn(4)) game.mode = "playing"
+end
+
+start.draw = function()
+  cls(1)
+  print("press z to start", 30, 61, 11)
+end
+
+-- over
+
+over = {}
+
+over.update = function()
+  if btn(4) then
+    _init()
+    game.mode = "playing"
+  end
+end
+
+over.draw = function()
+  cls(1)
+  print("game over!", 46, 53, 11)
+  print("press z to restart", 26, 68, 11)
+end
+
+-- main
+
+function _init()
+  game.new()
+  ball.new()
+  paddle.new()
+end
+
+function _update()
+  if game.mode == "start" then
+    start.update()
+  elseif game.mode == "playing" then
+    ball.update()
+    paddle.update()
+    game.update()
+  elseif game.mode == "over" then
+    over.update()
+  end
+end
+
+function _draw()
+  if game.mode == "start" then
+    start.draw()
+  elseif game.mode == "playing" then
+    game.draw()
+    ball.draw()
+    paddle.draw()
+  elseif game.mode == "over" then
+    over.draw()
+  end
+end
+
+
+
+
+
+// ===== video_summary =====
+ミスをしたときに画面を揺らすような処理を実装していきます。
+
+
+    フレームカウントの導入
+    揺らしの実装
+
+// ===== /myapp/mygame.p8 =====
+pico-8 cartridge // http://www.pico-8.com
+version 16
+__lua__
+
+-- ball
+
+ball = {}
+
+ball.new = function()
+  ball.x = rnd(128) -- 0 - 128
+  ball.y = 14
+  ball.r = 3
+  ball.vx = rnd(2) + 1 * (rnd(1) > 0.5 and 1 or -1)
+  ball.vy = rnd(2) + 1
+end
+
+ball.update = function()
+  ball.x += ball.vx
+  ball.y += ball.vy
+  if (ball.x < 0 or ball.x > 127) ball.vx *= -1
+  if (ball.y < 14) ball.vy *= -1
+  if ball.y > 127 then
+    ball.vy *= -1
+    game.life -= 1
+    ball.new()
+    game.quake = 4
+  end
+end
+
+ball.draw = function()
+  circfill(ball.x, ball.y, ball.r, 10)
+end
+
+-- paddle
+
+paddle = {}
+
+paddle.new = function()
+  paddle.x = 54
+  paddle.y = 115
+  paddle.w = 20
+  paddle.h = 4
+end
+
+paddle.update = function()
+  if (btn(0)) paddle.x -= 3
+  if (btn(1)) paddle.x += 3
+  if pget(ball.x, ball.y) == 9 then
+    game.score += 1
+    ball.vy *= -1
+  end
+end
+
+paddle.draw = function()
+  rectfill(
+    paddle.x,
+    paddle.y,
+    paddle.x + paddle.w,
+    paddle.y + paddle.h,
+    9
+  )
+end
+
+-- game
+
+game = {}
+
+game.new = function()
+  game.score = 0
+  game.life = 3
+  game.mode = "start"
+  game.fcount = 0
+  game.quake = 0
+end
+
+game.update = function()
+  if (game.life == 0) game.mode = "over"
+  game.fcount += 1
+  if (game.fcount > 32000) game.fcount = 0
+  game.quake -= 1
+  if (game.quake < 0) game.quake = 0
+end
+
+game.draw = function()
+  local offset = game.fcount % 2 == 0 and 1 or -1
+  camera(0, offset * game.quake)
+  rectfill(0, 0, 127, 9, 0)
+  rectfill(0, 10, 127, 127, 1)
+  print("score:" .. game.score .. " life:" .. game.life, 0, 1, 7)
+end
+
+-- start
+
+start = {}
+
+start.update = function()
+  if (btn(4)) game.mode = "playing"
+end
+
+start.draw = function()
+  cls(1)
+  print("press z to start", 30, 61, 11)
+end
+
+-- over
+
+over = {}
+
+over.update = function()
+  if btn(4) then
+    _init()
+    game.mode = "playing"
+  end
+end
+
+over.draw = function()
+  cls(1)
+  print("game over!", 46, 53, 11)
+  print("press z to restart", 26, 68, 11)
+end
+
+-- main
+
+function _init()
+  game.new()
+  ball.new()
+  paddle.new()
+end
+
+function _update()
+  if game.mode == "start" then
+    start.update()
+  elseif game.mode == "playing" then
+    ball.update()
+    paddle.update()
+    game.update()
+  elseif game.mode == "over" then
+    over.update()
+  end
+end
+
+function _draw()
+  if game.mode == "start" then
+    start.draw()
+  elseif game.mode == "playing" then
+    game.draw()
+    ball.draw()
+    paddle.draw()
+  elseif game.mode == "over" then
+    over.draw()
+  end
+end
+
+
+
+
+
+// ===== video_summary =====
+フレームカウントを使ってテキストを点滅させていきます。
+
+
+    テキストの点滅
+    特殊な文字の入力
+
+// ===== /myapp/mygame.p8 =====
+pico-8 cartridge // http://www.pico-8.com
+version 16
+__lua__
+
+-- ball
+
+ball = {}
+
+ball.new = function()
+  ball.x = rnd(128) -- 0 - 128
+  ball.y = 14
+  ball.r = 3
+  ball.vx = rnd(2) + 1 * (rnd(1) > 0.5 and 1 or -1)
+  ball.vy = rnd(2) + 1
+end
+
+ball.update = function()
+  ball.x += ball.vx
+  ball.y += ball.vy
+  if (ball.x < 0 or ball.x > 127) ball.vx *= -1
+  if (ball.y < 14) ball.vy *= -1
+  if ball.y > 127 then
+    ball.vy *= -1
+    game.life -= 1
+    ball.new()
+    game.quake = 4
+  end
+end
+
+ball.draw = function()
+  circfill(ball.x, ball.y, ball.r, 10)
+end
+
+-- paddle
+
+paddle = {}
+
+paddle.new = function()
+  paddle.x = 54
+  paddle.y = 115
+  paddle.w = 20
+  paddle.h = 4
+end
+
+paddle.update = function()
+  if (btn(0)) paddle.x -= 3
+  if (btn(1)) paddle.x += 3
+  if pget(ball.x, ball.y) == 9 then
+    game.score += 1
+    ball.vy *= -1
+  end
+end
+
+paddle.draw = function()
+  rectfill(
+    paddle.x,
+    paddle.y,
+    paddle.x + paddle.w,
+    paddle.y + paddle.h,
+    9
+  )
+end
+
+-- game
+
+game = {}
+
+game.new = function()
+  game.score = 0
+  game.life = 3
+  game.mode = "start"
+  game.fcount = 0
+  game.quake = 0
+  game.tcolor = 11
+end
+
+game.update = function()
+  if (game.life == 0) game.mode = "over"
+  game.fcount += 1
+  if (game.fcount > 32000) game.fcount = 0
+  game.quake -= 1
+  if (game.quake < 0) game.quake = 0
+  game.tcolor = (game.fcount % 24 > 12) and 11 or 3
+end
+
+game.draw = function()
+  local offset = game.fcount % 2 == 0 and 1 or -1
+  camera(0, offset * game.quake)
+  rectfill(0, 0, 127, 9, 0)
+  rectfill(0, 10, 127, 127, 1)
+  print("score:" .. game.score .. " life:" .. game.life, 0, 1, 7)
+end
+
+-- start
+
+start = {}
+
+start.update = function()
+  if (btn(4)) game.mode = "playing"
+end
+
+start.draw = function()
+  cls(1)
+  print("press 🅾️ to start", 30, 61, game.tcolor)
+end
+
+-- over
+
+over = {}
+
+over.update = function()
+  if btn(4) then
+    _init()
+    game.mode = "playing"
+  end
+end
+
+over.draw = function()
+  cls(1)
+  print("game over!", 46, 53, 11)
+  print("press 🅾️ to restart", 26, 68, game.tcolor)
+end
+
+-- main
+
+function _init()
+  game.new()
+  ball.new()
+  paddle.new()
+end
+
+function _update()
+  if game.mode == "start" then
+    start.update()
+  elseif game.mode == "playing" then
+    ball.update()
+    paddle.update()
+  elseif game.mode == "over" then
+    over.update()
+  end
+  game.update()
+end
+
+function _draw()
+  if game.mode == "start" then
+    start.draw()
+  elseif game.mode == "playing" then
+    game.draw()
+    ball.draw()
+    paddle.draw()
+  elseif game.mode == "over" then
+    over.draw()
+  end
+end
+
+
+
+
+
+
+// ===== video_summary =====
+効果音を作ることができるサウンドエディターの機能について見ていきます。
+
+
+    LocalStorage
+    不要なコードの削除
+
+// ===== /myapp/mygame.p8 =====
+pico-8 cartridge // http://www.pico-8.com
+version 16
+__lua__
+
+-- ball
+
+ball = {}
+
+ball.new = function()
+  ball.x = rnd(128) -- 0 - 128
+  ball.y = 14
+  ball.r = 3
+  ball.vx = rnd(2) + 1 * (rnd(1) > 0.5 and 1 or -1)
+  ball.vy = rnd(2) + 1
+end
+
+ball.update = function()
+  ball.x += ball.vx
+  ball.y += ball.vy
+  if (ball.x < 0 or ball.x > 127) ball.vx *= -1
+  if (ball.y < 14) ball.vy *= -1
+  if ball.y > 127 then
+    ball.vy *= -1
+    game.life -= 1
+    ball.new()
+    game.quake = 4
+  end
+end
+
+ball.draw = function()
+  circfill(ball.x, ball.y, ball.r, 10)
+end
+
+-- paddle
+
+paddle = {}
+
+paddle.new = function()
+  paddle.x = 54
+  paddle.y = 115
+  paddle.w = 20
+  paddle.h = 4
+end
+
+paddle.update = function()
+  if (btn(0)) paddle.x -= 3
+  if (btn(1)) paddle.x += 3
+  if pget(ball.x, ball.y) == 9 then
+    game.score += 1
+    ball.vy *= -1
+  end
+end
+
+paddle.draw = function()
+  rectfill(
+    paddle.x,
+    paddle.y,
+    paddle.x + paddle.w,
+    paddle.y + paddle.h,
+    9
+  )
+end
+
+-- game
+
+game = {}
+
+game.new = function()
+  game.score = 0
+  game.life = 3
+  game.mode = "start"
+  game.fcount = 0
+  game.quake = 0
+  game.tcolor = 11
+end
+
+game.update = function()
+  if (game.life == 0) game.mode = "over"
+  game.fcount += 1
+  if (game.fcount > 32000) game.fcount = 0
+  game.quake -= 1
+  if (game.quake < 0) game.quake = 0
+  game.tcolor = (game.fcount % 24 > 12) and 11 or 3
+end
+
+game.draw = function()
+  local offset = game.fcount % 2 == 0 and 1 or -1
+  camera(0, offset * game.quake)
+  rectfill(0, 0, 127, 9, 0)
+  rectfill(0, 10, 127, 127, 1)
+  print("score:" .. game.score .. " life:" .. game.life, 0, 1, 7)
+end
+
+-- start
+
+start = {}
+
+start.update = function()
+  if (btn(4)) game.mode = "playing"
+end
+
+start.draw = function()
+  cls(1)
+  print("press 🅾️ to start", 30, 61, game.tcolor)
+end
+
+-- over
+
+over = {}
+
+over.update = function()
+  if btn(4) then
+    _init()
+    game.mode = "playing"
+  end
+end
+
+over.draw = function()
+  cls(1)
+  print("game over!", 46, 53, 11)
+  print("press 🅾️ to restart", 26, 68, game.tcolor)
+end
+
+-- main
+
+function _init()
+  game.new()
+  ball.new()
+  paddle.new()
+end
+
+function _update()
+  if game.mode == "start" then
+    start.update()
+  elseif game.mode == "playing" then
+    ball.update()
+    paddle.update()
+  elseif game.mode == "over" then
+    over.update()
+  end
+  game.update()
+end
+
+function _draw()
+  if game.mode == "start" then
+    start.draw()
+  elseif game.mode == "playing" then
+    game.draw()
+    ball.draw()
+    paddle.draw()
+  elseif game.mode == "over" then
+    over.draw()
+  end
+end
+
+
+
+
+
+
+
+// ===== video_summary =====
+壁にあたったときやミスをしたときの効果音を作っていきます。
+
+
+    効果音の作成
+    SFX
+
+// ===== /myapp/mygame.p8 =====
+pico-8 cartridge // http://www.pico-8.com
+version 16
+__lua__
+
+-- ball
+
+ball = {}
+
+ball.new = function()
+  ball.x = rnd(128) -- 0 - 128
+  ball.y = 14
+  ball.r = 3
+  ball.vx = rnd(2) + 1 * (rnd(1) > 0.5 and 1 or -1)
+  ball.vy = rnd(2) + 1
+end
+
+ball.update = function()
+  ball.x += ball.vx
+  ball.y += ball.vy
+  if ball.x < 0 or ball.x > 127 then
+    ball.vx *= -1
+    sfx(0)
+  end
+  if ball.y < 14 then
+    ball.vy *= -1
+    sfx(0)
+  end
+  if ball.y > 127 then
+    ball.vy *= -1
+    game.life -= 1
+    ball.new()
+    game.quake = 4
+    sfx(2)
+  end
+end
+
+ball.draw = function()
+  circfill(ball.x, ball.y, ball.r, 10)
+end
+
+-- paddle
+
+paddle = {}
+
+paddle.new = function()
+  paddle.x = 54
+  paddle.y = 115
+  paddle.w = 20
+  paddle.h = 4
+end
+
+paddle.update = function()
+  if (btn(0)) paddle.x -= 3
+  if (btn(1)) paddle.x += 3
+  if pget(ball.x, ball.y) == 9 then
+    game.score += 1
+    ball.vy *= -1
+    sfx(1)
+  end
+end
+
+paddle.draw = function()
+  rectfill(
+    paddle.x,
+    paddle.y,
+    paddle.x + paddle.w,
+    paddle.y + paddle.h,
+    9
+  )
+end
+
+-- game
+
+game = {}
+
+game.new = function()
+  game.score = 0
+  game.life = 3
+  game.mode = "start"
+  game.fcount = 0
+  game.quake = 0
+  game.tcolor = 11
+end
+
+game.update = function()
+  if (game.life == 0) game.mode = "over"
+  game.fcount += 1
+  if (game.fcount > 32000) game.fcount = 0
+  game.quake -= 1
+  if (game.quake < 0) game.quake = 0
+  game.tcolor = (game.fcount % 24 > 12) and 11 or 3
+end
+
+game.draw = function()
+  local offset = game.fcount % 2 == 0 and 1 or -1
+  camera(0, offset * game.quake)
+  rectfill(0, 0, 127, 9, 0)
+  rectfill(0, 10, 127, 127, 1)
+  print("score:" .. game.score .. " life:" .. game.life, 0, 1, 7)
+end
+
+-- start
+
+start = {}
+
+start.update = function()
+  if (btn(4)) game.mode = "playing"
+end
+
+start.draw = function()
+  cls(1)
+  print("press 🅾️ to start", 30, 61, game.tcolor)
+end
+
+-- over
+
+over = {}
+
+over.update = function()
+  if btn(4) then
+    _init()
+    game.mode = "playing"
+  end
+end
+
+over.draw = function()
+  cls(1)
+  print("game over!", 46, 53, 11)
+  print("press 🅾️ to restart", 26, 68, game.tcolor)
+end
+
+-- main
+
+function _init()
+  game.new()
+  ball.new()
+  paddle.new()
+end
+
+function _update()
+  if game.mode == "start" then
+    start.update()
+  elseif game.mode == "playing" then
+    ball.update()
+    paddle.update()
+  elseif game.mode == "over" then
+    over.update()
+  end
+  game.update()
+end
+
+function _draw()
+  if game.mode == "start" then
+    start.draw()
+  elseif game.mode == "playing" then
+    game.draw()
+    ball.draw()
+    paddle.draw()
+  elseif game.mode == "over" then
+    over.draw()
+  end
+end
+__sfx__
+000100001a3501a3501a3501a3501a3501a35013300093000530005300183001a3001c3001d3001a3001c3001d3000d3000d30000300003000030000300003000030000300113000030000300003000030000300
+000100002d3502d3502c3502d3502e3502d3502d3502d350000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00040000316502f6502c6502965024650216501b65015640106300b62007620000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+
+
+
+
+
+
+
+// ===== video_summary =====
+スプライトエディターを使ってライフ用のハートを作っていきます。
+
+
+    ハートの作成
+    SPR()
+
+// ===== /myapp/mygame.p8 =====
+pico-8 cartridge // http://www.pico-8.com
+version 16
+__lua__
+
+-- ball
+
+ball = {}
+
+ball.new = function()
+  ball.x = rnd(128) -- 0 - 128
+  ball.y = 14
+  ball.r = 3
+  ball.vx = rnd(2) + 1 * (rnd(1) > 0.5 and 1 or -1)
+  ball.vy = rnd(2) + 1
+end
+
+ball.update = function()
+  ball.x += ball.vx
+  ball.y += ball.vy
+  if ball.x < 0 or ball.x > 127 then
+    ball.vx *= -1
+    sfx(0)
+  end
+  if ball.y < 14 then
+    ball.vy *= -1
+    sfx(0)
+  end
+  if ball.y > 127 then
+    ball.vy *= -1
+    game.life -= 1
+    ball.new()
+    game.quake = 4
+    sfx(2)
+  end
+end
+
+ball.draw = function()
+  circfill(ball.x, ball.y, ball.r, 10)
+end
+
+-- paddle
+
+paddle = {}
+
+paddle.new = function()
+  paddle.x = 54
+  paddle.y = 115
+  paddle.w = 20
+  paddle.h = 4
+end
+
+paddle.update = function()
+  if (btn(0)) paddle.x -= 3
+  if (btn(1)) paddle.x += 3
+  if pget(ball.x, ball.y) == 9 then
+    game.score += 1
+    ball.vy *= -1
+    sfx(1)
+  end
+end
+
+paddle.draw = function()
+  rectfill(
+    paddle.x,
+    paddle.y,
+    paddle.x + paddle.w,
+    paddle.y + paddle.h,
+    9
+  )
+end
+
+-- game
+
+game = {}
+
+game.new = function()
+  game.score = 0
+  game.life = 3
+  game.mode = "start"
+  game.fcount = 0
+  game.quake = 0
+  game.tcolor = 11
+end
+
+game.update = function()
+  if (game.life == 0) game.mode = "over"
+  game.fcount += 1
+  if (game.fcount > 32000) game.fcount = 0
+  game.quake -= 1
+  if (game.quake < 0) game.quake = 0
+  game.tcolor = (game.fcount % 24 > 12) and 11 or 3
+end
+
+game.draw = function()
+  local offset = game.fcount % 2 == 0 and 1 or -1
+  camera(0, offset * game.quake)
+  rectfill(0, 0, 127, 9, 0)
+  rectfill(0, 10, 127, 127, 1)
+  print("score:" .. game.score, 0, 1, 7)
+  for i = 1, game.life do
+    spr(1, 93 + i * 9, 0)
+  end
+end
+
+-- start
+
+start = {}
+
+start.update = function()
+  if (btn(4)) game.mode = "playing"
+end
+
+start.draw = function()
+  cls(1)
+  print("press 🅾️ to start", 30, 61, game.tcolor)
+end
+
+-- over
+
+over = {}
+
+over.update = function()
+  if btn(4) then
+    _init()
+    game.mode = "playing"
+  end
+end
+
+over.draw = function()
+  cls(1)
+  print("game over!", 46, 53, 11)
+  print("press 🅾️ to restart", 26, 68, game.tcolor)
+end
+
+-- main
+
+function _init()
+  game.new()
+  ball.new()
+  paddle.new()
+end
+
+function _update()
+  if game.mode == "start" then
+    start.update()
+  elseif game.mode == "playing" then
+    ball.update()
+    paddle.update()
+  elseif game.mode == "over" then
+    over.update()
+  end
+  game.update()
+end
+
+function _draw()
+  if game.mode == "start" then
+    start.draw()
+  elseif game.mode == "playing" then
+    game.draw()
+    ball.draw()
+    paddle.draw()
+  elseif game.mode == "over" then
+    over.draw()
+  end
+end
+__gfx__
+000000000e800e800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000e888e8880000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00700700e88888880000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00077000e88888880000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00077000088888800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00700700008888000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000880000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+__sfx__
+000100001a3501a3501a3501a3501a3501a35013300093000530005300183001a3001c3001d3001a3001c3001d3000d3000d30000300003000030000300003000030000300113000030000300003000030000300
+000100002d3502d3502c3502d3502e3502d3502d3502d350000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00040000316502f6502c6502965024650216501b65015640106300b62007620000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+
+
+
+
+
+
+// ===== video_summary =====
+EXPORTコマンドを使ってHTML、PNG、WAV形式でゲームを書き出してみます。
+
+
+    EXPORTコマンド
+    HTML
+    PNG
+    WAV
+
+// ===== /myapp/mygame.p8 =====
+pico-8 cartridge // http://www.pico-8.com
+version 16
+__lua__
+
+-- ball
+
+ball = {}
+
+ball.new = function()
+  ball.x = rnd(128) -- 0 - 128
+  ball.y = 14
+  ball.r = 3
+  ball.vx = rnd(2) + 1 * (rnd(1) > 0.5 and 1 or -1)
+  ball.vy = rnd(2) + 1
+end
+
+ball.update = function()
+  ball.x += ball.vx
+  ball.y += ball.vy
+  if ball.x < 0 or ball.x > 127 then
+    ball.vx *= -1
+    sfx(0)
+  end
+  if ball.y < 14 then
+    ball.vy *= -1
+    sfx(0)
+  end
+  if ball.y > 127 then
+    ball.vy *= -1
+    game.life -= 1
+    ball.new()
+    game.quake = 4
+    sfx(2)
+  end
+end
+
+ball.draw = function()
+  circfill(ball.x, ball.y, ball.r, 10)
+end
+
+-- paddle
+
+paddle = {}
+
+paddle.new = function()
+  paddle.x = 54
+  paddle.y = 115
+  paddle.w = 20
+  paddle.h = 4
+end
+
+paddle.update = function()
+  if (btn(0)) paddle.x -= 3
+  if (btn(1)) paddle.x += 3
+  if pget(ball.x, ball.y) == 9 then
+    game.score += 1
+    ball.vy *= -1
+    sfx(1)
+  end
+end
+
+paddle.draw = function()
+  rectfill(
+    paddle.x,
+    paddle.y,
+    paddle.x + paddle.w,
+    paddle.y + paddle.h,
+    9
+  )
+end
+
+-- game
+
+game = {}
+
+game.new = function()
+  game.score = 0
+  game.life = 3
+  game.mode = "start"
+  game.fcount = 0
+  game.quake = 0
+  game.tcolor = 11
+end
+
+game.update = function()
+  if (game.life == 0) game.mode = "over"
+  game.fcount += 1
+  if (game.fcount > 32000) game.fcount = 0
+  game.quake -= 1
+  if (game.quake < 0) game.quake = 0
+  game.tcolor = (game.fcount % 24 > 12) and 11 or 3
+end
+
+game.draw = function()
+  local offset = game.fcount % 2 == 0 and 1 or -1
+  camera(0, offset * game.quake)
+  rectfill(0, 0, 127, 9, 0)
+  rectfill(0, 10, 127, 127, 1)
+  print("score:" .. game.score, 0, 1, 7)
+  for i = 1, game.life do
+    spr(1, 93 + i * 9, 0)
+  end
+end
+
+-- start
+
+start = {}
+
+start.update = function()
+  if (btn(4)) game.mode = "playing"
+end
+
+start.draw = function()
+  cls(1)
+  print("press 🅾️ to start", 30, 61, game.tcolor)
+end
+
+-- over
+
+over = {}
+
+over.update = function()
+  if btn(4) then
+    _init()
+    game.mode = "playing"
+  end
+end
+
+over.draw = function()
+  cls(1)
+  print("game over!", 46, 53, 11)
+  print("press 🅾️ to restart", 26, 68, game.tcolor)
+end
+
+-- main
+
+function _init()
+  game.new()
+  ball.new()
+  paddle.new()
+end
+
+function _update()
+  if game.mode == "start" then
+    start.update()
+  elseif game.mode == "playing" then
+    ball.update()
+    paddle.update()
+  elseif game.mode == "over" then
+    over.update()
+  end
+  game.update()
+end
+
+function _draw()
+  if game.mode == "start" then
+    start.draw()
+  elseif game.mode == "playing" then
+    game.draw()
+    ball.draw()
+    paddle.draw()
+  elseif game.mode == "over" then
+    over.draw()
+  end
+end
+__gfx__
+000000000e800e800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000e888e8880000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00700700e88888880000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00077000e88888880000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00077000088888800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00700700008888000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000880000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+__sfx__
+000100001a3501a3501a3501a3501a3501a35013300093000530005300183001a3001c3001d3001a3001c3001d3000d3000d30000300003000030000300003000030000300113000030000300003000030000300
+000100002d3502d3502c3502d3502e3502d3502d3502d350000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00040000316502f6502c6502965024650216501b65015640106300b62007620000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+
+
+
+
+
+

@@ -1,0 +1,1317 @@
+// ===== video_summary =====
+まずは概要を説明したのちに、公式サイト、開発ツールなどについて解説していきます。
+
+
+    概要
+    公式サイト
+    開発ツール
+    プロジェクトの設定
+
+// ===== commentBox 1 =====
+補足情報
+必要となる知識について
+
+
+
+
+2017年1月26日
+
+
+
+
+
+今回のレッスンについては以下も参考にしてみてください。
+
+・iPhoneアプリ開発入門 (全13回)
+http://dotinstall.com/lessons/basic_iphoneapp_v3
+
+// ===== read.me =====
+Swift
+
+* 概要
+- iOS / macOS
+- 2014
+- Swift 3
+
+* 公式サイト
+
+* ツール
+- Xcode 8.1
+
+// ===== /MyPlayground.playground/Contents.swift =====
+//: Playground - noun: a place where people can play
+
+import UIKit
+
+var str = "Hello, playground"
+
+
+
+
+
+// ===== video_summary =====
+Playgroundを使ってはじめてのSwiftプログラムを書いてみます。
+
+
+    Playgroundの使い方
+    画面の見方
+    print
+    プログラムの実行
+    コメント
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// comment
+/*
+ comment
+ comment
+ comment
+ */
+
+print("hello world")
+print("hello")
+
+
+
+
+
+// ===== video_summary =====
+データにわかりやすいラベルをつけることができる定数と変数について見ていきます。
+
+
+    定数
+    変数
+    値の再代入
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// 定数 let
+// 変数 var
+
+//let msg: String
+//msg = "hello world"
+var msg = "hello world" // 型推論
+msg = "hello again"
+
+print(msg)
+
+
+
+
+// ===== video_summary =====
+Swiftで扱うことができる基本的なデータ型について見ていきます。
+
+
+    整数
+    浮動小数点数
+    文字列
+    論理値
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// Int
+//let i: Int = 10
+let i = 10
+
+// Float Double
+let d = 53.8
+
+// String
+let s = "hello"
+
+// Bool true/false
+let flag = true
+
+var x = "five"
+x = String(5)
+
+
+
+
+
+// ===== video_summary =====
+基本的なデータ型の演算をするための演算子を見ていきます。
+
+
+    数値の演算
+    文字列の演算
+    論理値の演算
+    型の変換
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// 数値
+// + - * / %
+//print(10 / 3) // 3
+//print(10.0 / 3) // 3.3333
+//print(10 % 3) // 1
+
+var y = 10
+//y = y + 5
+y += 5
+//print(y) // 15
+
+// 文字列
+//print("hello " + "world")
+//print("y is \(y)")
+//print("y2 is \(y * 2)")
+
+// 論理値 true false
+// && || !
+print(true && false) // false
+print(true || false) // true
+print(!true) // false
+
+
+
+
+
+// ===== video_summary =====
+条件に応じて処理を振り分けることができるifについて見ていきます。
+
+
+    if / else / else if
+    条件演算子
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// if
+// > >= < <= == !=
+
+let score = 40
+let result: String
+
+//if score > 80 {
+//    result = "great"
+//} else if score > 60 {
+//    result = "good"
+//} else {
+//    result = "so so ..."
+//}
+
+// 条件演算子
+// 条件 ? A : B
+result = score > 80 ? "great" : "so so ..."
+
+print(result)
+
+
+
+
+
+// ===== video_summary =====
+値に応じて処理を振り分けたいときに使えるswitchについて見ていきます。
+
+
+    switch
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// switch
+
+let num = 15
+
+switch num {
+case 0:
+    print("zero")
+case 1, 2, 3:
+    print("small")
+case 4...6:
+    print("4/5/6")
+case 7..<9:
+    print("7/8")
+case let n where n > 20:
+    print("\(n) is huge!")
+default:
+//    print("n.a.")
+    break
+}
+
+
+
+
+
+// ===== video_summary =====
+条件が満たされるあいだ、特定の処理を繰り返し行うことができるwhile、repeat ... whileについて見ていきます。
+
+
+    while
+    repeat ... while
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// while
+
+var n = 10
+
+while n < 3 {
+    print(n)
+    n += 1
+}
+
+//repeat {
+//    print(n)
+//    n += 1
+//} while n < 3
+
+
+
+
+// ===== video_summary =====
+データの集合から要素を取り出して、要素がなくなるまで処理を繰り返すことができるforについて見ていきます。
+
+
+    for
+    break
+    continue
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// for 変数 in データの集合 { 処理 }
+// break
+// continue
+
+for i in 0...5 {
+    if i == 3 {
+//        break
+        continue
+    }
+    print(i)
+}
+
+
+
+
+// ===== video_summary =====
+nilになりうるデータ型であるオプショナル型について見ていきます。
+
+
+    Optional型の宣言
+    unwrap
+    Optional Binding
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// nil
+
+//let s: String = nil
+//let s: Optional<String> = nil
+let s: String? = nil
+
+//if s != nil {
+//    print(s!) // unwrap
+//}
+
+// Optional Binding
+//if let value = s {
+//    print(value)
+//}
+
+print(s ?? "this is nil!")
+
+
+
+
+
+// ===== video_summary =====
+複数のデータをまとめて扱うことができる配列について見ていきます。
+
+
+    配列の宣言、初期化
+    要素へのアクセス
+    便利な命令
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// 配列, タプル
+// 集合
+// 辞書
+
+//var scores: [Int] = [50, 40]
+//var scores = [50, 40]
+//
+//print(scores[0]) // 50
+//scores[1] = 30
+//print(scores)
+//
+//print(scores.count) // 2
+//print(scores.isEmpty) // false
+
+var names = [String]()
+names.append("taguchi")
+names.append("fkoji")
+names += ["dotinstall"]
+
+for name in names {
+    print(name)
+}
+
+
+
+
+
+// ===== video_summary =====
+異なる型のデータをまとめて扱うことができるタプルについて見ていきます。
+
+
+    タプルの宣言、初期化
+    要素へのアクセス
+    _
+    名前付き初期化
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// 配列, タプル
+// 集合
+// 辞書
+
+//var items = ("apple", 5)
+//print(items.0)
+//items.1 = 8
+//print(items)
+
+//let (product, amount) = items
+//print(product)
+//print(amount)
+
+//let (product, _) = items
+//print(product)
+
+var items = (product: "apple", amount: 5)
+print(items.product)
+
+
+
+
+
+// ===== video_summary =====
+順序がない、なおかつ重複を許さないデータ型である集合型について見ていきます。
+
+
+    集合型の宣言、初期化
+    要素へのアクセス
+    便利な命令
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// 配列, タプル
+// 集合
+// 辞書
+
+//var winners: Set<Int> = [3, 5, 8, 8]
+//var winners: Set = [3, 5, 8, 8]
+////print(winners)
+//
+//print(winners.contains(3))
+//winners.insert(10)
+//winners.remove(5)
+//print(winners)
+//print(winners.count)
+
+//let s = Set<Int>()
+//print(s.isEmpty)
+
+let a: Set = [1, 3, 5, 8]
+let b: Set = [3, 5, 8, 9]
+
+print(a.union(b))
+print(a.intersection(b))
+print(a.subtracting(b))
+
+
+
+
+
+// ===== video_summary =====
+キーと値でデータを管理していくことができる辞書型について見ていきます。
+
+
+    配列の宣言、初期化
+    要素へのアクセス
+    便利な命令
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// 配列, タプル
+// 集合
+// 辞書
+
+//var sales: Dictionary<String, Int> = ["taguchi": 200, "fkoji": 300]
+//var sales = ["taguchi": 200, "fkoji": 300]
+//sales["fkoji"] = 500
+//print(sales["taguchi"] ?? "n.a.")
+//sales["dotinstall"] = 400
+//print(sales.count)
+//
+//for (key, value) in sales {
+//    print("\(key): \(value)")
+//}
+
+let d = [String: Int]()
+print(d.isEmpty)
+
+
+
+
+
+
+// ===== video_summary =====
+複数の処理をまとめて名前をつけることができる関数について見ていきます。
+
+
+    関数の作り方
+    関数の実行
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// 関数
+
+//func sayHi() {
+//    print("hi")
+//}
+//
+//sayHi()
+
+func sayHi() -> String {
+    return "hi"
+}
+
+print(sayHi())
+
+
+
+
+
+// ===== video_summary =====
+関数を実行するときに渡すことができる引数について解説していきます。
+
+
+    引数
+    引数のラベル
+    ラベルの省略
+    引数の初期値
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// 関数
+// 引数
+
+//func sayHi(name: String) {
+//    print("hi \(name)")
+//}
+//
+//sayHi(name: "tom")
+
+//func sayHi(from name: String) {
+//    print("hi \(name)")
+//}
+//
+//sayHi(from: "tom")
+
+//func sayHi(_ name: String) {
+//    print("hi \(name)")
+//}
+//
+//sayHi("tom")
+
+func sayHi(_ name: String = "tom") {
+    print("hi \(name)")
+}
+
+sayHi()
+
+
+
+
+
+// ===== video_summary =====
+関数に渡された引数に値を再代入するための方法について見ていきます。
+
+
+    inoutキーワード
+    &
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// 関数
+// 引数 -> 定数
+
+func add10(x: inout Int) {
+    x = x + 10
+    print(x)
+}
+
+var i = 10
+add10(x: &i)
+print(i)
+
+
+
+
+
+// ===== video_summary =====
+自分で型を作ることができるクラスという仕組みについて見ていきます。
+
+
+    クラスの作り方
+    プロパティ
+    イニシャライザ
+    インスタンス
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// Class
+
+class User {
+    let name: String // property
+    var score: Int
+    init() {
+        self.name = "me!"
+        self.score = 23
+    }
+}
+
+//let user: User = User()
+let user = User() // instance
+print(user.name)
+print(user.score)
+user.score = 26
+print(user.score)
+
+
+
+
+
+
+// ===== video_summary =====
+インスタンス生成時に値を渡してイニシャライザで受け取る方法について見ていきます。
+
+
+    イニシャライザに値を渡す方法
+    複数のイニシャライザ
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// Class
+
+class User {
+    let name: String // property
+    var score: Int
+//    init(name: String, score: Int) {
+    init(_ name: String, _ score: Int) {
+        self.name = name
+        self.score = score
+    }
+    init() {
+        self.name = "bob"
+        self.score = 30
+    }
+}
+
+//let tom = User(name: "tom", score: 23)
+let tom = User("tom", 23)
+print(tom.name)
+print(tom.score)
+
+let bob = User()
+print(bob.name)
+print(bob.score)
+
+
+
+
+
+// ===== video_summary =====
+動的に値を取得、設定できる計算プロパティについて例を出しながら解説していきます。
+
+
+    計算プロパティ
+    値の設定
+    値の取得
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// Class
+
+class User {
+    let name: String
+    var score: Int
+    // 計算プロパティ
+//    var level: Int {
+//        get {
+//            return Int(score / 10)
+//        }
+//        set {
+//            if newValue >= 0 {
+//                score = newValue * 10
+//            }
+//        }
+//    }
+    var level: Int {
+        return Int(score / 10)
+    }
+    init(_ name: String, _ score: Int) {
+        self.name = name
+        self.score = score
+    }
+}
+
+let tom = User("tom", 23)
+print(tom.level) // 2
+//tom.level = 5
+//print(tom.score) // 50
+//tom.level = -3
+//print(tom.score) // 50
+
+
+
+
+
+// ===== video_summary =====
+プロパティの値を監視して、値が変更される前後に処理を行う方法について見ていきます。
+
+
+    willSet
+    didSet
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// Class
+
+class User {
+    let name: String
+    var score: Int {
+        willSet {
+            // before change
+            print("\(score) -> \(newValue)")
+        }
+        didSet {
+            // after change
+            print("Changed: \(score - oldValue)")
+        }
+    }
+    init(_ name: String, _ score: Int) {
+        self.name = name
+        self.score = score
+    }
+}
+
+let tom = User("tom", 23)
+tom.score = 53
+tom.score = 40
+
+
+
+
+
+// ===== video_summary =====
+クラスに持たせることができる関数であるメソッドについて見ていきます。
+
+
+    メソッドの作り方
+    メソッドの使い方
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// Class
+
+class User {
+    let name: String
+    var score: Int
+    init(_ name: String, _ score: Int) {
+        self.name = name
+        self.score = score
+    }
+    // method
+//    func sayHi() {
+//        print("hi \(name)")
+//    }
+//    func sayHi(msg: String) {
+    func sayHi(_ msg: String) {
+        print("\(msg) \(name)")
+    }
+}
+
+let tom = User("tom", 23)
+//tom.sayHi()
+//tom.sayHi(msg: "hola")
+tom.sayHi("hola")
+
+
+
+
+
+// ===== video_summary =====
+既存のクラスをもとに新しいクラスを作るための仕組みについて見ていきます。
+
+
+    クラスの継承
+    override
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// 継承
+// User -> AdminUser
+
+class User {
+    let name: String
+    var score: Int
+    init(_ name: String, _ score: Int) {
+        self.name = name
+        self.score = score
+    }
+    final func sayHi() {
+        print("hi \(name)")
+    }
+}
+
+class AdminUser: User {
+    func sayHello() {
+        print("hello \(name)")
+    }
+    override func sayHi() {
+        print("[admin] hi \(name)")
+    }
+}
+
+let tom = User("tom", 23)
+let bob = AdminUser("bob", 33)
+print(bob.name)
+print(bob.score)
+bob.sayHi()
+bob.sayHello()
+
+
+
+
+
+
+// ===== video_summary =====
+クラスから直接使うことができる型プロパティ、型メソッドについて見ていきます。
+
+
+    型プロパティ
+    型メソッド
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// Class
+
+class User {
+    let name: String
+    var score: Int
+    static var count = 0
+    init(_ name: String, _ score: Int) {
+        self.name = name
+        self.score = score
+        User.count += 1
+    }
+    func sayHi() {
+        print("hi \(name)")
+    }
+    class func getInfo() {
+        print("\(count) instances")
+    }
+}
+
+class AdminUser: User {
+    func sayHello() {
+        print("hello \(name)")
+    }
+    override func sayHi() {
+        print("[admin] hi \(name)")
+    }
+    override class func getInfo() {
+        print("[admin] \(count) instances")
+    }
+}
+
+User.getInfo()
+let tom = User("tom", 23)
+User.getInfo()
+
+AdminUser.getInfo()
+let bob = AdminUser("bob", 33)
+AdminUser.getInfo()
+
+
+//print(bob.name)
+//print(bob.score)
+//bob.sayHi()
+//bob.sayHello()
+
+
+
+
+
+// ===== video_summary =====
+あるクラスを他のクラスに変換したり、変換可能か調べる方法について見ていきます。
+
+
+    型キャスト
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// 型キャスト
+
+class User {
+    let name: String
+    init(_ name: String) {
+        self.name = name
+    }
+}
+class AdminUser: User {}
+
+let tom = User("tom")
+let bob = AdminUser("bob")
+
+let users: [User] = [tom, bob]
+
+for user in users {
+//    if let u = user as? AdminUser {
+//        print(u.name)
+//    }
+    if user is AdminUser {
+        let u = user as! AdminUser
+        print(u.name)
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+あるクラスに対してプロパティやメソッドの実装を約束させることができるプロトコルについて解説していきます。
+
+
+    プロトコルの作り方
+    プロトコルの適合
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// Protocol
+
+protocol Printable {
+    var type: String { get }
+    var count: Int { get set }
+    func printout()
+}
+
+class User: Printable {
+    let type = "Laser"
+    var count = 0
+    let name: String
+    init(_ name: String) {
+        self.name = name
+    }
+    func printout() {
+        count += 1
+        print("\(type): \(count)")
+    }
+}
+
+let tom = User("tom")
+tom.printout()
+tom.printout()
+tom.printout()
+
+
+
+
+
+
+// ===== video_summary =====
+既存の型に新しいプロパティやメソッドを追加することができるエクステンションについて説明していきます。
+
+
+    エクステンションの作り方、使い方
+    プロトコルとエクステンション
+
+// ===== commentBox 1 =====
+補足情報
+Swift 4 では characters は非推奨です
+
+
+
+
+2018年9月25日
+
+
+
+
+
+Xcode 9.1 (Swift 4) では String の characters は非推奨となっており、
+
+"文字列".characters.count
+
+
+ではなく、
+
+"文字列".count
+
+
+と直接 count を使うことができます。
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// extension
+
+//extension String {
+//    var length: Int {
+//        return self.characters.count
+//    }
+//}
+//
+//let msg = "hello"
+//print(msg.characters.count)
+//print(msg.length)
+
+protocol Printable {
+    func printout()
+}
+
+extension Printable {
+    func printout() {
+        print("now printing...")
+    }
+}
+
+class User: Printable {
+    let name: String
+    init(_ name: String) {
+        self.name = name
+    }
+}
+
+let tom = User("tom")
+tom.printout()
+
+
+
+
+
+// ===== video_summary =====
+値型と参照型の変数がどのように振る舞うか、コードで確認していきます。
+
+
+    値型変数の挙動
+    参照型変数の挙動
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// Int, Double, Array .. -> 値型
+// Class -> 参照型
+
+//var original = 10
+//var copy = original // originalの値そのもの
+//original = 20
+//print(original) // 20
+//print(copy) // 10
+
+class User {
+    var name: String
+    init(_ name: String) {
+        self.name = name
+    }
+}
+
+var original = User("tom")
+var copy = original // originalが格納されている場所
+original.name = "bob"
+print(original.name) // "bob"
+print(copy.name) // "bob"
+
+
+
+
+
+// ===== video_summary =====
+クラスとほぼ同等の機能を持ちつつ、値型である構造体について見ていきます。
+
+
+    構造体の作り方、挙動
+    mutating
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// 構造体
+// - クラスとほぼ同機能
+// - 値型
+// - 継承ができない
+// - extension, protocol
+
+//class User {
+struct User {
+    var name: String
+    init(_ name: String) {
+        self.name = name
+    }
+    mutating func changeName() {
+        self.name = name.uppercased()
+    }
+}
+
+var original = User("tom")
+var copy = original // copy: originalの値
+original.name = "bob"
+print(original.name) // bob
+print(copy.name) // tom
+
+
+
+
+
+
+// ===== video_summary =====
+関連する値をまとめることができる列挙型について見ていきます。
+
+
+    列挙型の作り方
+    値へのアクセス
+    列挙型とswitch
+    値の割当
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// 列挙型
+
+//enum Direction {
+//    case right
+//    case left
+//}
+
+//var dir: Direction
+////dir = Direction.right
+//dir = .right
+//
+//switch (dir) {
+//case .right:
+//    print("right")
+//case .left:
+//    print("left")
+//}
+
+enum Direction: Int {
+    case right = 1
+    case left = -1
+}
+
+print(Direction.right.rawValue)
+
+
+
+
+
+// ===== video_summary =====
+型を汎用化することができるジェネリクスについて例を出しながら解説していきます。
+
+
+    ジェネリクスの作り方、使い方
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// Generics
+
+//func getThree(x: Int) {
+func getThree<T>(x: T) {
+    print(x)
+    print(x)
+    print(x)
+}
+
+//getThree(x: 5)
+getThree(x: "hello")
+getThree(x: 2.3)
+
+
+
+
+
+// ===== video_summary =====
+インスタンスを配列のように扱うことができるサブスクリプトについて見ていきます。
+
+
+    サブスクリプトの作り方、使い方
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// subscript
+
+class Team {
+    var members = ["taguchi", "fkoji", "dotinstall"]
+    subscript(index: Int) -> String {
+        get {
+            return members[index]
+        }
+        set {
+            members.insert(newValue, at: index)
+        }
+    }
+}
+
+var giants = Team()
+//giants[0] = "taguchi"
+print(giants[1]) // fkoji
+giants[3] = "tanaka"
+print(giants[3]) // tanaka
+
+
+
+
+
+// ===== video_summary =====
+異常処理をわかりやすく、かつ、安全に書くことができるguardについて見ていきます。
+
+
+    early return / early exit
+    guard
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// guard
+
+//func sayHi(_ msg: String?) {
+//    if let s = msg {
+//        print(s)
+//    } else {
+//        print("value not set!")
+//    }
+//}
+
+// early return, early exit
+
+//func sayHi(_ msg: String?) {
+//    if msg == nil {
+//        print("value not set!")
+//        return
+//    }
+//    print(msg!)
+//}
+
+func sayHi(_ msg: String?) {
+    guard let s = msg else {
+        print("value not set!")
+        return
+    }
+    print(s)
+}
+
+sayHi(nil)
+sayHi("hello")
+
+
+
+
+
+// ===== video_summary =====
+実行時エラーを適切に処理していくための例外処理について見ていきます。
+
+
+    例外処理
+
+// ===== commentBox 1 =====
+補足情報
+Swift 4 では characters は非推奨です
+
+
+
+
+2018年9月25日
+
+
+
+
+
+https://dotinstall.com/lessons/basic_swift_v2/39127 の補足情報にもあるように characters は非推奨となっていますので、
+
+guard name.characters.count > 5 else {
+
+
+の箇所は、
+
+guard name.count > 5 else {
+
+
+と書くようにしましょう。
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// 例外処理
+
+enum LoginError: Error {
+    case emptyName
+    case shortName
+}
+
+class User {
+    let name: String
+    init(_ name: String) {
+        self.name = name
+    }
+    func login() throws {
+        guard name != "" else {
+            throw LoginError.emptyName
+        }
+        guard name.characters.count > 5 else {
+            throw LoginError.shortName
+        }
+        print("login success")
+    }
+}
+
+//let tom = User("tom")
+//let tom = User("takahashi")
+let tom = User("")
+
+do {
+    try tom.login()
+} catch LoginError.emptyName {
+    print("please enter your name")
+} catch LoginError.shortName {
+    print("too short")
+}
+
+
+
+
+
+// ===== video_summary =====
+Optinal型が複数つながるときに安全にnilチェックできるOptional Chainingという仕組みについて見ていきます。
+
+
+    Optional Chaining
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// Optional Chaining
+
+//class User {
+//    var name: String = ""
+//}
+//
+//let user: User
+//user = User()
+//user.name = "him"
+//let s = user.name.uppercased()
+//print(s)
+
+class User {
+    var name: String? = ""
+}
+
+let user: User?
+user = User()
+user?.name = "him"
+if let s = user?.name?.uppercased() {
+    print(s)
+}
+
+
+
+
+
+// ===== video_summary =====
+値が入っていることを前提に、強制的にUnwrapされるオプショナル型について見ていきます。
+
+
+    暗黙的アンラップオプショナル型
+
+// ===== commentBox 1 =====
+補足情報
+Xcode 8.3 以上では nil を print してもエラーになりません
+
+
+
+
+2017年5月11日
+
+
+
+
+
+Xcode のバージョンアップに伴い msg が nil の際に print(msg) としてもエラーにならなくなりました。
+
+// ===== /MyPlayground.playground/Contents.swift =====
+// Implicitly Unwrapped Optional
+
+//var msg: String?
+var msg: String!
+msg = "hello"
+
+//if msg != nil {
+//    print(msg!)
+//}
+
+print(msg)
+
+
+
+
+

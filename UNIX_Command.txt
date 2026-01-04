@@ -1,0 +1,580 @@
+// ===== video_summary =====
+UNIX互換OSの種類と、CUIで使えるコマンドを学ぶメリットについて見ていきます。
+
+UNIX
+Linux
+GUIとCUI
+
+
+
+
+// ===== video_summary =====
+ブラウザ実行環境を使って、いくつかの基本的なコマンドを実行してみます。
+
+
+    シェル
+    プロンプト
+    date
+    cal
+    上矢印キー、下矢印キー
+    Ctrl + U
+    Ctrl + C
+    Ctrl + L
+
+// ===== read.me =====
+dotinstall:~ $ date
+dotinstall:~ $ Date
+dotinstall:~ $ cal
+dotinstall:~ $ clear
+
+
+
+
+// ===== video_summary =====
+今回の環境におけるディレクトリ構成と、絶対PATH、相対PATHについて見ていきます。
+
+ディレクトリ構成
+絶対PATH
+~
+相対PATH
+
+
+
+
+// ===== video_summary =====
+絶対PATHを使ったディレクトリの移動方法について学んでいきます。
+
+
+    pwd
+    cd
+    TABキー補完
+
+// ===== read.me =====
+dotinstall:~ $ pwd
+dotinstall:~ $ cd /
+dotinstall:/ $ pwd
+dotinstall:/ $ cd /etc/
+dotinstall:/etc $ cd
+dotinstall:~ $ cd /
+
+
+
+
+
+// ===== video_summary =====
+相対PATHを使ったディレクトリの移動方法について学んでいきます。
+
+
+    .
+    ..
+    TABキーによるディレクトリ確認
+
+// ===== read.me =====
+dotinstall:~ $ pwd
+dotinstall:~ $ cd ..
+dotinstall:/home $ cd ..
+dotinstall:/ $ cd etc
+dotinstall:etc $ cd
+dotinstall:~ $ cd ../../etc
+dotinstall:/etc $ cd ../
+dotinstall:/etc $ cd
+
+
+
+
+// ===== video_summary =====
+lsコマンドを使ってディレクトリの中身を見る方法と、いくつかのオプションについて見ていきます。
+
+
+    ls
+    -a
+    -l
+    オプションの複数指定
+
+// ===== read.me =====
+dotinstall:~ $ ls
+dotinstall:~ $ ls -a
+dotinstall:~ $ ls -al
+dotinstall:~ $ ls -al /etc/
+dotinstall:~ $ ls -al
+
+
+
+
+// ===== video_summary =====
+コマンドの使い方やオプションについて調べる方法について学んでいきます。
+
+
+    ls --help
+    man ls
+
+// ===== read.me =====
+dotinstall:~ $ ls --help
+dotinstall:~ $ ls -alS /etc/
+dotinstall:~ $ ls --help
+dotinstall:~ $ man ls
+dotinstall:~ $ man ls
+
+
+
+
+// ===== video_summary =====
+特定の文字や文字列にマッチするワイルドカードについて見ていきます。
+
+
+    *
+    ?
+    []
+    {,}
+
+// ===== read.me =====
+dotinstall:~ $ cd /etc/
+dotinstall:/etc $ ls -l
+dotinstall:/etc $ ls -l *.conf
+dotinstall:/etc $ ls -l s?????
+dotinstall:/etc $ ls -l [ps]?????
+dotinstall:/etc $ ls -l [f-h]*
+dotinstall:/etc $ ls -l {sh,ho}*
+dotinstall:/etc $ cd
+
+
+
+
+// ===== video_summary =====
+ファイルの作成、コピー、名称変更、削除の方法について学んでいきます。
+
+
+    touch
+    cp
+    mv
+    rm
+
+// ===== read.me =====
+dotinstall:~ $ touch index.html
+dotinstall:~ $ ls
+dotinstall:~ $ cp index.html profile.html
+dotinstall:~ $ ls
+dotinstall:~ $ mv profile.html about.html
+dotinstall:~ $ ls
+dotinstall:~ $ rm about.html
+dotinstall:~ $ rm index.html
+dotinstall:~ $ ls
+
+
+
+
+// ===== video_summary =====
+ディレクトリの作成、コピー、名称変更、削除の方法について学んでいきます。
+
+
+    mkdir
+    rmdir
+
+// ===== read.me =====
+dotinstall:~ $ ls
+dotinstall:~ $ touch index.html
+dotinstall:~ $ mkdir mysite
+dotinstall:~ $ ls
+dotinstall:~ $ mv index.html mysite/
+dotinstall:~ $ ls
+dotinstall:~ $ ls mysite/
+dotinstall:~ $ mv mysite/ myprofile
+dotinstall:~ $ ls
+dotinstall:~ $ rmdir myprofile/
+dotinstall:~ $ rm myprofile/index.html
+dotinstall:~ $ rmdir myprofile/
+dotinstall:~ $ ls
+
+
+
+
+// ===== video_summary =====
+深い階層のディレクトリを一気に作成したり、ディレクトリをまるごとコピー、削除する方法について学んでいきます。
+
+
+    mkdir -p
+    cp -r
+    rm -r
+
+// ===== read.me =====
+dotinstall:~ $ ls
+dotinstall:~ $ mkdir -p mysite/css
+dotinstall:~ $ ls
+dotinstall:~ $ ls mysite/
+dotinstall:~ $ touch mysite/css/styles.css
+dotinstall:~ $ ls mysite/css
+dotinstall:~ $ cp mysite/ myprofile
+dotinstall:~ $ cp -r mysite/ myprofile
+dotinstall:~ $ ls
+dotinstall:~ $ ls myprofile/css/
+dotinstall:~ $ rm -r myprofile/
+dotinstall:~ $ ls
+dotinstall:~ $ rm -r mysite/
+dotinstall:~ $ ls
+
+
+
+
+
+// ===== video_summary =====
+シンボリックリンクを使った、よく使うディレクトリに別名を付けていく方法について学んでいきます。
+
+
+    シンボリックリンク
+    ln
+
+// ===== read.me =====
+dotinstall:~ $ ls
+dotinstall:~ $ mkdir -p myapp/css/common
+dotinstall:~ $ ln -s myapp/css/common/ mycommon
+dotinstall:~ $ ls -l
+dotinstall:~ $ touch mycommon/common.css
+dotinstall:~ $ ls mycommon
+dotinstall:~ $ ls myapp/css/common/
+dotinstall:~ $ rm mycommon
+dotinstall:~ $ ls
+dotinstall:~ $ rm -r myapp/
+dotinstall:~ $ ls
+
+
+
+
+
+// ===== video_summary =====
+ファイルの中身を見るコマンドについて学んだのち、ページャーについても見ていきます。
+
+
+    cat
+    ページャー
+    more
+    less
+
+// ===== read.me =====
+dotinstall:~ $ ls
+dotinstall:~ $ cp /etc/services .
+dotinstall:~ $ ls
+dotinstall:~ $ cat services
+dotinstall:~ $ more services
+dotinstall:~ $ less services
+dotinstall:~ $ rm services
+
+
+
+
+
+// ===== video_summary =====
+テキストファイルを扱うときによく使うコマンドについて見ていきます。
+
+
+    wc
+    head
+    tail
+    grep
+
+// ===== read.me =====
+dotinstall:~ $ ls
+dotinstall:~ $ cp /etc/services .
+dotinstall:~ $ wc services
+dotinstall:~ $ wc -l services
+dotinstall:~ $ head -3 services
+dotinstall:~ $ tail -3 services
+dotinstall:~ $ grep 'backup' services
+dotinstall:~ $ rm services
+
+
+
+
+
+// ===== video_summary =====
+コマンドの履歴を活用する方法について見ていきます。
+
+
+    history
+    !
+    !!
+    !$
+    :p
+
+// ===== read.me =====
+dotinstall:~ $ ls
+dotinstall:~ $ cd /etc/
+dotinstall:/etc $ pwd
+dotinstall:/etc $ ls -al
+dotinstall:/etc $ cat services
+dotinstall:/etc $ cat alpine-release
+dotinstall:/etc $ cd
+dotinstall:~ $ history
+dotinstall:~ $ !3
+dotinstall:~ $ !!
+dotinstall:~ $ !-2
+dotinstall:~ $ ls /etc/
+dotinstall:~ $ cd !$
+dotinstall:/etc $ !pw
+dotinstall:/etc $ !pw:p
+dotinstall:/etc $ !!
+
+
+
+
+
+// ===== video_summary =====
+システムに設定されたユーザーとグループを確認する方法について学んでいきます。
+
+
+    /etc/passwd
+    /etc/group
+    groups
+
+// ===== read.me =====
+dotinstall:~ $ cat /etc/passwd
+dotinstall:~ $ cat /etc/group
+dotinstall:~ $ groups dotinstall
+dotinstall:~ $ groups root
+
+
+
+
+
+// ===== video_summary =====
+ファイルのアクセス権を確認する方法と、その見方について学習していきます。
+
+
+    ファイルのアクセス権
+    所有ユーザー
+    所有グループ
+
+// ===== read.me =====
+dotinstall:~ $ ls
+dotinstall:~ $ touch index.html
+dotinstall:~ $ ls -l
+dotinstall:~ $ rm index.html
+
+
+
+
+
+// ===== video_summary =====
+ファイルのアクセス権を変更することができるchmodコマンドについて見ていきます。
+
+chmod
+
+
+
+
+// ===== video_summary =====
+chmodの使い方について、実際にコマンドを打ち込んで確認していきます。
+
+
+    chmod a=rwxrwxrwx index.html
+    chmod g=rw,o=r index.html
+    chmod g+x,o-r index.html
+    chmod 666 index.html
+
+// ===== read.me =====
+dotinstall:~ $ ls
+dotinstall:~ $ touch index.html
+dotinstall:~ $ ls -l
+dotinstall:~ $ chmod a=rwxrwxrwx index.html
+dotinstall:~ $ ls -l
+dotinstall:~ $ chmod g=rw,o=r index.html
+dotinstall:~ $ ls -l
+dotinstall:~ $ chmod g+x,o-r index.html
+dotinstall:~ $ ls -l
+dotinstall:~ $ chmod 666 index.html
+dotinstall:~ $ ls -l
+dotinstall:~ $ rm index.html
+
+
+
+
+
+
+// ===== video_summary =====
+一時的にrootユーザーの権限を使うことができる、sudoコマンドについて学習していきます。
+
+
+    権限のないファイルへのアクセス
+    sudo
+
+// ===== read.me =====
+dotinstall:~ $ ls -l /etc/shadow
+dotinstall:~ $ cat /etc/shadow
+dotinstall:~ $ sudo !!
+dotinstall:~ $ sudo
+
+
+
+
+// ===== video_summary =====
+テキストを編集することができる、viエディタの起動と終了について見ていきます。
+
+
+    vi
+    i
+    esc
+    :q
+
+// ===== read.me =====
+dotinstall:~ $ vi hello
+
+
+
+
+// ===== video_summary =====
+viを使ってテキストファイルを作成する方法について見ていきます。
+
+
+    #!
+    :qw
+    :q!
+
+// ===== read.me =====
+dotinstall:~ $ ls
+dotinstall:~ $ vi hello
+dotinstall:~ $ cat hello
+dotinstall:~ $ vi hello
+dotinstall:~ $ cat hello
+
+
+
+
+// ===== video_summary =====
+viを使ってテキストファイルを作成する方法について見ていきます。
+
+
+    #!
+    :qw
+    :q!
+
+// ===== read.me =====
+dotinstall:~ $ ls
+dotinstall:~ $ vi hello
+dotinstall:~ $ cat hello
+dotinstall:~ $ vi hello
+dotinstall:~ $ cat hello
+
+
+
+
+
+// ===== video_summary =====
+環境変数を設定し、どのディレクトリからも hello を実行できるようにしてみます。
+
+
+    export
+    which
+
+// ===== read.me =====
+dotinstall:~ $ ls -l
+dotinstall:~ $ echo $PATH
+dotinstall:~ $ pwd
+dotinstall:~ $ export PATH=/home/dotinstall:$PATH
+dotinstall:~ $ echo $PATH
+dotinstall:~ $ hello
+dotinstall:~ $ cd ..
+dotinstall:/home $ hello
+dotinstall:/home $ which hello
+dotinstall:/home $ echo $PATH
+dotinstall:/home $ cd
+dotinstall:~ $ rm hello
+
+
+
+
+
+// ===== video_summary =====
+コマンドとファイルの間で、相互にやり取りをすることができるリダイレクションについて学んでいきます。
+
+
+    >
+    >>
+    <
+
+// ===== read.me =====
+dotinstall:~ $ echo 'date'
+dotinstall:~ $ echo 'date' > commands.txt
+dotinstall:~ $ cat commands.txt
+dotinstall:~ $ echo 'cal' > commands.txt
+dotinstall:~ $ cat commands.txt
+dotinstall:~ $ echo 'date' >> commands.txt
+dotinstall:~ $ cat commands.txt
+dotinstall:~ $ /bin/ash < commands.txt
+dotinstall:~ $ /bin/ash < commands.txt > results.txt
+dotinstall:~ $ cat results.txt
+dotinstall:~ $ rm *
+
+
+
+
+
+// ===== video_summary =====
+コマンドの実行結果を、別のコマンドに渡すためのパイプという仕組みについて見ていきます。
+
+
+    |
+    リダイレクションとの組み合わせ
+
+// ===== read.me =====
+dotinstall:~ $ ls -l /etc/
+dotinstall:~ $ ls -l /etc/ | grep 'sudo'
+dotinstall:~ $ ls -l /etc/ | grep 'sudo' | wc -l
+dotinstall:~ $ ls -l /etc/ | grep 'sudo' | wc -l > results.txt
+dotinstall:~ $ cat results.txt
+dotinstall:~ $ rm results.txt
+
+
+
+
+
+// ===== video_summary =====
+シェルで使えるブレース展開について解説していきます。
+
+
+    {}
+    &&
+
+// ===== read.me =====
+dotinstall:~ $ echo {a,b,c}
+dotinstall:~ $ echo {1..10}{a..g}
+dotinstall:~ $ mkdir test && cd test
+dotinstall:~/test $ mkdir app{1..5}
+dotinstall:~/test $ ls
+dotinstall:~/test $ touch app{1..5}/test{1..3}{.jpg,.png,.gif}
+dotinstall:~/test $ ls app2
+dotinstall:~/test $ rm app{1..5}/test{1..3}{.jpg,.gif}
+dotinstall:~/test $ ls app2
+dotinstall:~/test $ cd
+dotinstall:~ $ rm -r test/
+
+
+
+
+
+// ===== video_summary =====
+ファイルの検索をすることができるfindコマンドについて学んでいきます。
+
+
+    find
+    ワイルドカードとの組み合わせ
+    -type f
+    -type d
+
+// ===== read.me =====
+dotinstall:~ $ mkdir -p test/app{1..5}
+dotinstall:~ $ touch test/app{1..5}/app{1..3}{.jpg,.png,.gif}
+dotinstall:~ $ ls test/
+dotinstall:~ $ ls test/app1
+dotinstall:~ $ find test -name 'app3.png'
+dotinstall:~ $ find test -name 'app1*'
+dotinstall:~ $ find test -name 'app1*' -type f
+dotinstall:~ $ find test -name 'app1*' -type d
+dotinstall:~ $ rm -r test/
+
+
+
+
+
+
+
+
+

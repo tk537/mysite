@@ -1,0 +1,1229 @@
+// ===== video_summary =====
+クラスの概要に触れたのちに、独自のデータ型とインスタンスの関係について説明していきます。
+
+
+    概要
+    独自のデータ型
+    クラス
+    インスタンス
+
+// ===== MyApp.java =====
+
+
+
+
+
+
+// ===== video_summary =====
+クラスを使ってUserというデータ型を定義し、インスタンスを作る方法について見ていきます。
+
+
+    Userクラス
+    フィールド
+    new
+    データ型
+
+// ===== MyApp.java =====
+class User {
+  String name; // field
+  int score; // field
+}
+
+public class MyApp {
+  public static void main(String[] args) {
+    User user1 = new User();
+    User user2 = new User();
+  }
+}
+
+
+
+
+// ===== video_summary =====
+インスタンスのフィールドにアクセスする方法について見ていきます。
+
+
+    値のセット
+    値の取得
+
+// ===== MyApp.java =====
+class User {
+  String name;
+  int score;
+}
+
+public class MyApp {
+  public static void main(String[] args) {
+    User user1 = new User();
+    user1.name = "Taro";
+    user1.score = 70;
+    User user2 = new User();
+    user2.name = "Jiro";
+    user2.score = 80;
+
+    System.out.println(user1.name);
+    System.out.println(user1.score);
+    System.out.println(user2.name);
+    System.out.println(user2.score);
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+インスタンスを作る際に実行されるコンストラクタについて見ていきます。
+
+
+    コンストラクタ
+    this
+    仮引数の設定
+
+// ===== commentBox 1 =====
+補足情報
+仮引数について
+
+
+
+
+2023年9月21日
+
+
+
+
+
+メソッドの仮引数について忘れてしまった人は以下のレッスンを復習してみましょう。
+・#02 メソッドを実装していこう | Java入門 メソッド編
+https://dotinstall.com/lessons/basic_java_methods/64902
+
+// ===== MyApp.java =====
+class User {
+  String name;
+  int score;
+
+  // constructor
+  // User(String nameFromNew, int scoreFromNew) {
+  //   this.name = nameFromNew;
+  //   this.score = scoreFromNew;
+  // }
+  User(String name, int score) {
+    this.name = name;
+    this.score = score;
+  }
+}
+
+public class MyApp {
+  public static void main(String[] args) {
+    User user1 = new User("Taro", 70);
+    // user1.name = "Taro";
+    // user1.score = 70;
+    User user2 = new User("Jiro", 80);
+    // user2.name = "Jiro";
+    // user2.score = 80;
+
+    System.out.println(user1.name);
+    System.out.println(user1.score);
+    System.out.println(user2.name);
+    System.out.println(user2.score);
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+クラス内にメソッドを定義する方法について見ていきます。
+
+
+    getUserString()
+    thisの省略
+
+// ===== commentBox 1 =====
+補足情報
+文字列の連結について
+
+
+
+
+2023年9月21日
+
+
+
+
+
++を使った文字列の連結については以下のレッスンを復習してみてください。
+・#10 文字列と変数を組み合わせてみよう | Java入門 基礎文法編
+https://dotinstall.com/lessons/basic_java_grammar/64710
+
+// ===== MyApp.java =====
+class User {
+  String name;
+  int score;
+
+  User(String name, int score) {
+    this.name = name;
+    this.score = score;
+  }
+
+  String getUserString() {
+    // return this.name + ", " + this.score;
+    return name + ", " + score;
+  }
+}
+
+public class MyApp {
+  public static void main(String[] args) {
+    User user1 = new User("Taro", 70);
+    User user2 = new User("Jiro", 80);
+
+    System.out.println(user1.getUserString());
+    System.out.println(user2.getUserString());
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+メソッドを介することによって、安全に値を変更する方法について見ていきます。
+
+
+    値の変更
+    setScore()
+
+// ===== commentBox 1 =====
+補足情報
+returnの意味について
+
+
+
+
+2023年9月21日
+
+
+
+
+
+メソッド内でreturnを使ったときに、それ以降の処理が実行されるかされないかについては以下の動画を復習してみましょう。
+・#06 真偽値を返すメソッドを実装しよう | Java入門 メソッド編
+https://dotinstall.com/lessons/basic_java_methods/64906
+
+// ===== MyApp.java =====
+class User {
+  String name;
+  int score;
+
+  User(String name, int score) {
+    this.name = name;
+    this.score = score;
+  }
+
+  String getUserString() {
+    return this.name + ", " + this.score;
+  }
+
+  void setScore(int score) {
+    if (score < 0 || score > 100) {
+      System.out.println("Invalid score!");
+      return;
+    }
+    this.score = score;
+  }
+}
+
+public class MyApp {
+  public static void main(String[] args) {
+    User user1 = new User("Taro", 70);
+    User user2 = new User("Jiro", 80);
+
+    user1.score = 900;
+    // user1.setScore(900);
+
+    System.out.println(user1.getUserString());
+    System.out.println(user2.getUserString());
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+クラス外からフィールドにアクセスできないようにするアクセス修飾子について見ていきます。
+
+
+    private / アクセス修飾子
+    カプセル化
+    getScore()
+    setter / getter
+
+// ===== MyApp.java =====
+class User {
+  String name;
+  private int score;
+
+  User(String name, int score) {
+    this.name = name;
+    this.score = score;
+  }
+
+  String getUserString() {
+    return this.name + ", " + this.score;
+  }
+
+  // setter
+  void setScore(int score) {
+    if (score < 0 || score > 100) {
+      System.out.println("Invalid score!");
+      return;
+    }
+    this.score = score;
+  }
+
+  // getter
+  int getScore() {
+    return this.score;
+  }
+}
+
+public class MyApp {
+  public static void main(String[] args) {
+    User user1 = new User("Taro", 70);
+    User user2 = new User("Jiro", 80);
+
+    // user1.score = 900;
+    // user1.setScore(900);
+    // System.out.println(user1.score);
+    System.out.println(user1.getScore());
+
+    System.out.println(user1.getUserString());
+    System.out.println(user2.getUserString());
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+クラス外からメソッドにアクセスできないようにprivateキーワードを使っていきます。
+
+
+    getResult()
+    private
+
+// ===== MyApp.java =====
+class User {
+  String name;
+  private int score;
+
+  User(String name, int score) {
+    this.name = name;
+    this.score = score;
+  }
+
+  String getUserString() {
+    return this.name + ", " + this.score + ", " + this.getResult();
+  }
+
+  // setter
+  void setScore(int score) {
+    if (score < 0 || score > 100) {
+      System.out.println("Invalid score!");
+      return;
+    }
+    this.score = score;
+  }
+
+  // getter
+  int getScore() {
+    return this.score;
+  }
+
+  private String getResult() {
+    if (this.score >= 80) {
+      return "Pass";
+    } else {
+      return "Fail";
+    }
+  }
+}
+
+public class MyApp {
+  public static void main(String[] args) {
+    User user1 = new User("Taro", 70);
+    User user2 = new User("Jiro", 80);
+
+    System.out.println(user1.getUserString());
+    System.out.println(user2.getUserString());
+    System.out.println(user1.getResult());
+    System.out.println(user2.getResult());
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+インスタンスではなくてクラスにひもづいた変数を設定する方法について見ていきます。
+
+
+    インスタンス数のカウント
+    static
+    インスタンス変数 / クラス変数
+
+// ===== MyApp.java =====
+class User {
+  String name;
+  int score;
+  static int count = 0;
+
+  User(String name, int score) {
+    this.name = name;
+    this.score = score;
+    User.count++;
+  }
+}
+
+public class MyApp {
+  public static void main(String[] args) {
+    // int count = 0;
+    User user1 = new User("Taro", 70);
+    // count++;
+    User user2 = new User("Jiro", 80);
+    // count++;
+
+    // System.out.println(count);
+    System.out.println(User.count);
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+staticキーワードを使ってクラスにひもづいたメソッドを定義する方法について見ていきます。
+
+
+    getUserCount()
+    static
+    インスタンスメソッド / クラスメソッド
+
+// ===== MyApp.java =====
+class User {
+  String name;
+  int score;
+  private static int count = 0;
+
+  User(String name, int score) {
+    this.name = name;
+    this.score = score;
+    User.count++;
+  }
+
+  static int getUserCount() {
+    return User.count;
+  }
+}
+
+public class MyApp {
+  public static void main(String[] args) {
+    User user1 = new User("Taro", 70);
+    User user2 = new User("Jiro", 80);
+
+    // User.count++;
+    // System.out.println(User.count);
+    System.out.println(User.getUserCount());
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+点数に関する値を拡張するためにScoreクラスを定義していきます。
+
+
+    Scoreクラス
+    フィールドの設定
+    コンストラクタの設定
+    アクセス修飾子の設定
+
+// ===== commentBox 1 =====
+補足情報
+コンストラクタの処理について
+
+
+
+
+2023年9月23日
+
+
+
+
+
+動画中で紹介しているコンストラクタの処理について忘れてしまった人は以下の動画を復習してみましょう。
+・#04 コンストラクタを使ってみよう | Java入門 クラス編
+https://dotinstall.com/lessons/basic_java_classes/65004
+
+// ===== MyApp.java =====
+class Score {
+  private String subject;
+  private int score;
+
+  Score(String subject, int score) {
+    this.subject = subject;
+    this.score = score;
+  }
+}
+
+class User {
+  private String name;
+  private Score score;
+
+  User(String name, Score score) {
+    this.name = name;
+    this.score = score;
+  }
+}
+
+public class MyApp {
+  public static void main(String[] args) {
+    User user1 = new User("Taro", new Score("Math", 70));
+    User user2 = new User("Jiro", new Score("English", 80));
+  }
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+インスタンスの情報を表示するためにUserクラス、Scoreクラスを拡張していきます。
+
+
+    ユーザー情報の表示
+    getUserString()
+    getScoreString()
+
+// ===== MyApp.java =====
+class Score {
+  private String subject;
+  private int score;
+
+  Score(String subject, int score) {
+    this.subject = subject;
+    this.score = score;
+  }
+
+  String getScoreString() {
+    return this.subject + ", " + this.score;
+  }
+}
+
+class User {
+  private String name;
+  private Score score;
+
+  User(String name, Score score) {
+    this.name = name;
+    this.score = score;
+  }
+
+  String getUserString() {
+    // return this.name + ", " + this.score.subject;
+    return this.name + ", " + this.score.getScoreString();
+  }
+}
+
+public class MyApp {
+  public static void main(String[] args) {
+    User user1 = new User("Taro", new Score("Math", 70));
+    User user2 = new User("Jiro", new Score("English", 80));
+
+    System.out.println(user1.getUserString());
+    System.out.println(user2.getUserString());
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+Scoreクラスに結果の判定を行うメソッドを定義していきます。
+
+
+    getResult()
+    条件演算子
+    private
+
+// ===== commentBox 1 =====
+補足情報
+条件演算子について
+
+
+
+
+2023年9月21日
+
+
+
+
+
+動画中で紹介している条件演算子については以下のレッスンを復習してみましょう。
+・#14 条件演算子を使ってみよう | Java入門 制御構造編
+https://dotinstall.com/lessons/basic_java_controls/64814
+
+// ===== MyApp.java =====
+class Score {
+  private String subject;
+  private int score;
+
+  Score(String subject, int score) {
+    this.subject = subject;
+    this.score = score;
+  }
+
+  private String getResult() {
+    return this.score >= 80 ? "Pass" : "Fail";
+  }
+
+  String getScoreString() {
+    return this.subject + ", " + this.score + ", " + this.getResult();
+  }
+}
+
+class User {
+  private String name;
+  private Score score;
+
+  User(String name, Score score) {
+    this.name = name;
+    this.score = score;
+  }
+
+  String getUserString() {
+    return this.name + ", " + this.score.getScoreString();
+  }
+}
+
+public class MyApp {
+  public static void main(String[] args) {
+    User user1 = new User("Taro", new Score("Math", 70));
+    User user2 = new User("Jiro", new Score("English", 80));
+
+    System.out.println(user1.getUserString());
+    System.out.println(user2.getUserString());
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+クラスの継承に関する考え方と、気をつけるべきポイントについて説明していきます。
+
+
+    クラスの継承
+    データ型に関するポイント
+    アクセス修飾子に関するポイント
+
+// ===== MyApp.java =====
+class Score {
+  private String subject;
+  private int score;
+
+  Score(String subject, int score) {
+    this.subject = subject;
+    this.score = score;
+  }
+
+  private String getResult() {
+    return this.score >= 80 ? "Pass" : "Fail";
+  }
+
+  String getScoreString() {
+    return this.subject + ", " + this.score + ", " + this.getResult();
+  }
+}
+
+class User {
+  private String name;
+  private Score score;
+
+  User(String name, Score score) {
+    this.name = name;
+    this.score = score;
+  }
+
+  String getUserString() {
+    return this.name + ", " + this.score.getScoreString();
+  }
+}
+
+public class MyApp {
+  public static void main(String[] args) {
+    User user1 = new User("Taro", new Score("Math", 70));
+    User user2 = new User("Jiro", new Score("English", 80));
+
+    System.out.println(user1.getUserString());
+    System.out.println(user2.getUserString());
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+Scoreクラスを継承して子クラスを作っていく方法について見ていきます。
+
+
+    extends
+    コンストラクタの設定
+    動作確認
+
+// ===== MyApp.java =====
+class Score {
+  private String subject;
+  private int score;
+
+  Score(String subject, int score) {
+    this.subject = subject;
+    this.score = score;
+  }
+
+  private String getResult() {
+    return this.score >= 80 ? "Pass" : "Fail";
+  }
+
+  String getScoreString() {
+    return this.subject + ", " + this.score + ", " + this.getResult();
+  }
+}
+
+class MathScore extends Score {
+  MathScore(int score) {
+    super("Math", score);
+  }
+}
+
+class EnglishScore extends Score {
+  EnglishScore(int score) {
+    super("English", score);
+  }
+}
+
+class User {
+  private String name;
+  private Score score;
+
+  User(String name, Score score) {
+    this.name = name;
+    this.score = score;
+  }
+
+  String getUserString() {
+    return this.name + ", " + this.score.getScoreString();
+  }
+}
+
+public class MyApp {
+  public static void main(String[] args) {
+    User user1 = new User("Taro", new MathScore(70));
+    User user2 = new User("Jiro", new EnglishScore(80));
+
+    System.out.println(user1.getUserString());
+    System.out.println(user2.getUserString());
+  }
+}
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+子クラスで親クラスのメソッドをオーバーライドする方法について見ていきます。
+
+
+    protected
+    メソッドのオーバーライド
+    @Override
+
+// ===== commentBox 1 =====
+補足情報
+オーバーライドとオーバーロード
+
+
+
+
+2023年9月21日
+
+
+
+
+
+オーバーライドとよく似た概念に「オーバーロード」があります。それぞれの違いは以下のとおりです。
+
+オーバーライド → 子クラスのメソッドを上書きする。
+オーバーロード → シグネチャが異なる同じ名前のメソッドを定義する。
+
+メソッドのオーバーロードについては以下の動画も復習してみましょう。
+・#09 メソッドをオーバーロードしよう | Java入門 メソッド編
+https://dotinstall.com/lessons/basic_java_methods/64909
+
+// ===== MyApp.java =====
+class Score {
+  private String subject;
+  protected int score;
+
+  Score(String subject, int score) {
+    this.subject = subject;
+    this.score = score;
+  }
+
+  protected String getResult() {
+    return this.score >= 80 ? "Pass" : "Fail";
+  }
+
+  String getScoreString() {
+    return this.subject + ", " + this.score + ", " + this.getResult();
+  }
+}
+
+class MathScore extends Score {
+  MathScore(int score) {
+    super("Math", score);
+  }
+
+  @Override
+  protected String getResult() {
+    System.out.println("MathScore method");
+    return this.score >= 50 ? "Pass" : "Fail";
+  }
+}
+
+class EnglishScore extends Score {
+  EnglishScore(int score) {
+    super("English", score);
+  }
+
+  @Override
+  protected String getResult() {
+    System.out.println("EnglishScore method");
+    return this.score >= 70 ? "Pass" : "Fail";
+  }
+}
+
+class User {
+  private String name;
+  private Score score;
+
+  User(String name, Score score) {
+    this.name = name;
+    this.score = score;
+  }
+
+  String getUserString() {
+    return this.name + ", " + this.score.getScoreString();
+  }
+}
+
+public class MyApp {
+  public static void main(String[] args) {
+    User user1 = new User("Taro", new MathScore(70));
+    User user2 = new User("Jiro", new EnglishScore(80));
+
+    System.out.println(user1.getUserString());
+    System.out.println(user2.getUserString());
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+子クラスでの実装を強制することができる抽象メソッドについて見ていきます。
+
+
+    abstract
+    抽象メソッド / 抽象クラス
+    動作確認
+
+// ===== MyApp.java =====
+abstract class Score {
+  private String subject;
+  protected int score;
+
+  Score(String subject, int score) {
+    this.subject = subject;
+    this.score = score;
+  }
+
+  protected abstract String getResult();
+
+  String getScoreString() {
+    return this.subject + ", " + this.score + ", " + this.getResult();
+  }
+}
+
+class MathScore extends Score {
+  MathScore(int score) {
+    super("Math", score);
+  }
+
+  // @Override
+  // protected String getResult() {
+  //   System.out.println("MathScore method");
+  //   return this.score >= 50 ? "Pass" : "Fail";
+  // }
+}
+
+class EnglishScore extends Score {
+  EnglishScore(int score) {
+    super("English", score);
+  }
+
+  @Override
+  protected String getResult() {
+    System.out.println("EnglishScore method");
+    return this.score >= 70 ? "Pass" : "Fail";
+  }
+}
+
+class User {
+  private String name;
+  private Score score;
+
+  User(String name, Score score) {
+    this.name = name;
+    this.score = score;
+  }
+
+  String getUserString() {
+    return this.name + ", " + this.score.getScoreString();
+  }
+}
+
+public class MyApp {
+  public static void main(String[] args) {
+    User user1 = new User("Taro", new MathScore(70));
+    User user2 = new User("Jiro", new EnglishScore(80));
+
+    System.out.println(user1.getUserString());
+    System.out.println(user2.getUserString());
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+任意のクラスに対して実装を強制することができるインターフェースについて見ていきます。
+
+
+    interface
+    log()
+    エラーの確認
+
+// ===== MyApp.java =====
+interface Loggable {
+  void log();
+}
+
+abstract class Score implements Loggable {
+  private String subject;
+  protected int score;
+
+  Score(String subject, int score) {
+    this.subject = subject;
+    this.score = score;
+  }
+
+  protected abstract String getResult();
+
+  String getScoreString() {
+    return this.subject + ", " + this.score + ", " + this.getResult();
+  }
+}
+
+class MathScore extends Score {
+  MathScore(int score) {
+    super("Math", score);
+  }
+
+  @Override
+  protected String getResult() {
+    System.out.println("MathScore method");
+    return this.score >= 50 ? "Pass" : "Fail";
+  }
+}
+
+class EnglishScore extends Score {
+  EnglishScore(int score) {
+    super("English", score);
+  }
+
+  @Override
+  protected String getResult() {
+    System.out.println("EnglishScore method");
+    return this.score >= 70 ? "Pass" : "Fail";
+  }
+}
+
+class User implements Loggable {
+  private String name;
+  private Score score;
+
+  User(String name, Score score) {
+    this.name = name;
+    this.score = score;
+  }
+
+  String getUserString() {
+    return this.name + ", " + this.score.getScoreString();
+  }
+}
+
+public class MyApp {
+  public static void main(String[] args) {
+    User user1 = new User("Taro", new MathScore(70));
+    User user2 = new User("Jiro", new EnglishScore(80));
+
+    System.out.println(user1.getUserString());
+    System.out.println(user2.getUserString());
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+前回エラーになったメソッドの実装を進めていきます。
+
+
+    log()
+    public
+
+// ===== MyApp.java =====
+interface Loggable {
+  void log();
+}
+
+abstract class Score implements Loggable {
+  private String subject;
+  protected int score;
+
+  Score(String subject, int score) {
+    this.subject = subject;
+    this.score = score;
+    this.log();
+  }
+
+  protected abstract String getResult();
+
+  String getScoreString() {
+    return this.subject + ", " + this.score + ", " + this.getResult();
+  }
+
+  @Override
+  public void log() {
+    System.out.println("Instance created: " + this.subject);
+  }
+}
+
+class MathScore extends Score {
+  MathScore(int score) {
+    super("Math", score);
+  }
+
+  @Override
+  protected String getResult() {
+    System.out.println("MathScore method");
+    return this.score >= 50 ? "Pass" : "Fail";
+  }
+}
+
+class EnglishScore extends Score {
+  EnglishScore(int score) {
+    super("English", score);
+  }
+
+  @Override
+  protected String getResult() {
+    System.out.println("EnglishScore method");
+    return this.score >= 70 ? "Pass" : "Fail";
+  }
+}
+
+class User implements Loggable {
+  private String name;
+  private Score score;
+
+  User(String name, Score score) {
+    this.name = name;
+    this.score = score;
+    this.log();
+  }
+
+  String getUserString() {
+    return this.name + ", " + this.score.getScoreString();
+  }
+
+  @Override
+  public void log() {
+    System.out.println("Instance created: " + this.name);
+  }
+}
+
+public class MyApp {
+  public static void main(String[] args) {
+    User user1 = new User("Taro", new MathScore(70));
+    User user2 = new User("Jiro", new EnglishScore(80));
+
+    System.out.println(user1.getUserString());
+    System.out.println(user2.getUserString());
+  }
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+MyAppクラスについて確認したのちに、アクセス修飾子の種類について確認していきます。
+
+
+    MyAppクラス
+    package
+    アクセス修飾子の違い
+    これまでのまとめ
+    次のステップ
+
+// ===== commentBox 1 =====
+補足情報
+応用的なトピックを取り上げたレッスンについて
+
+
+
+
+2023年9月21日
+
+
+
+
+
+動画中で紹介している「応用的なトピックを取り上げたレッスン」は2023年9月現在、制作中です。リリースの際にはnoteにてお知らせいたします。
+・ドットインストール｜note
+https://note.com/dotinstall/
+
+// ===== MyApp.java =====
+interface Loggable {
+  void log();
+}
+
+abstract class Score implements Loggable {
+  private String subject;
+  protected int score;
+
+  Score(String subject, int score) {
+    this.subject = subject;
+    this.score = score;
+    this.log();
+  }
+
+  protected abstract String getResult();
+
+  String getScoreString() {
+    return this.subject + ", " + this.score + ", " + this.getResult();
+  }
+
+  @Override
+  public void log() {
+    System.out.println("Instance created: " + this.subject);
+  }
+}
+
+class MathScore extends Score {
+  MathScore(int score) {
+    super("Math", score);
+  }
+
+  @Override
+  protected String getResult() {
+    System.out.println("MathScore method");
+    return this.score >= 50 ? "Pass" : "Fail";
+  }
+}
+
+class EnglishScore extends Score {
+  EnglishScore(int score) {
+    super("English", score);
+  }
+
+  @Override
+  protected String getResult() {
+    System.out.println("EnglishScore method");
+    return this.score >= 70 ? "Pass" : "Fail";
+  }
+}
+
+class User implements Loggable {
+  private String name;
+  private Score score;
+
+  User(String name, Score score) {
+    this.name = name;
+    this.score = score;
+    this.log();
+  }
+
+  String getUserString() {
+    return this.name + ", " + this.score.getScoreString();
+  }
+
+  @Override
+  public void log() {
+    System.out.println("Instance created: " + this.name);
+  }
+}
+
+public class MyApp {
+  public static void main(String[] args) {
+    User user1 = new User("Taro", new MathScore(70));
+    User user2 = new User("Jiro", new EnglishScore(80));
+
+    System.out.println(user1.getUserString());
+    System.out.println(user2.getUserString());
+  }
+}
+
+
+
+

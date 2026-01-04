@@ -1,0 +1,1004 @@
+
+    JavaScriptの概要に触れたあとに本レッスンのアウトライン、学習のコツについて触れていきます。
+
+概要
+アウトライン
+学習のコツ
+
+
+
+VS Codeにプロジェクトフォルダを設定したあとに、scriptタグを使ってalert()を実行してみます。
+
+プロジェクトフォルダの設定
+index.htmlの作成
+scriptタグ
+alert();
+ソースコード比較機能の紹介
+補足情報 VS Codeでファイルのドラッグ＆ドロップができない場合
+2024年2月16日
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+macOS VS Code ドラッグ&ドロップ イメージ
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、WindowsならCtrlキー、macOSならcommandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+補足情報 VS Codeで生成されるHTMLの雛形について
+2023年7月13日
+VS Codeで生成されるHTMLの雛形に変更があったようです。具体的には<meta http-equiv="X-UA-Compatible" content="IE=edge">が含まれなくなりました。こちらは古いブラウザに対応するための命令でしたが、現在不要になっているので気にせずにそのまま学習を進めていただいてかまいません。
+
+補足情報 ソースコードの比較機能について
+2023年4月28日
+動画中で紹介されているソースコードの比較機能については以下のヘルプを参照してください。
+
+・ヘルプ「ソースコードの比較機能について」
+https://dotinstall.com/help/417
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script>
+    alert(100);
+  </script>
+</body>
+</html>
+
+
+
+
+
+別ファイルからJavaScriptのコードを読み込み、コンソールに値を表示してみます。
+
+main.jsの作成
+厳格モード
+console.log();
+コンソールの確認
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+/MyJavaScript/main.js
+'use strict';
+
+console.log(100);
+
+
+
+
+
+JavaScriptでさまざまな数値を表現する方法について見ていきます。
+
+整数値
+マイナスの値
+小数点を含む値
+eによる表現
+
+
+/MyJavaScript/main.js
+'use strict';
+
+console.log(100);
+console.log(-10);
+console.log(2.5);
+
+console.log(1.2e4);
+console.log(1.2e-4);
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+コード内にメモ書きをいれたり、命令を無効化することができるコメント記法について見ていきます。
+
+/* */
+//
+ショートカットキー
+命令の無効化
+
+/MyJavaScript/main.js
+'use strict';
+
+/*
+JavaScriptにおける数値の表現
+@taguchi
+*/
+
+// console.log(100);
+// console.log(-10);
+// console.log(2.5);
+
+// 大きな数値、小さな数値の表現
+console.log(1.2e4); // 1.2かける10の4乗 = 12000
+console.log(1.2e-4); // 1.2かける10の-4乗 = 0.00012
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+さまざまな数値計算をするための演算子について見ていきます。
+
++ - * ** / %
+実数を扱う際の注意点
+演算子の優先順位
+()
+
+/MyJavaScript/main.js
+'use strict';
+
+console.log(10 + 3); // 13
+console.log(10 - 3); // 7
+console.log(10 * 3); // 30
+console.log(10 ** 3); // 1000
+console.log(10 / 3); // 3.3333....
+console.log(10 % 3); // 1
+
+console.log(10 + 2 * 3); // 16
+console.log((10 + 2) * 3); // 36
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+数値に名前をつけて管理することができる定数について見ていきます。
+
+const
+定数の宣言
+値の代入
+代入演算子
+定数を使うメリット
+
+/MyJavaScript/main.js
+'use strict';
+
+// console.log(150 * 120 * 1.1);
+// console.log(150 * 130 * 1.1);
+// console.log(150 * 140 * 1.1);
+
+// 定数
+const price = 150;
+const rate = 1.1;
+
+console.log(price * 120 * rate);
+console.log(price * 130 * rate);
+console.log(price * 140 * rate);
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+宣言したあとに値を再代入することができる変数について見ていきます。
+
+変数
+let
+値の再代入
+定数との違い
+
+/MyJavaScript/main.js
+'use strict';
+
+// 変数
+let price;
+// 定数
+const rate = 1.1;
+
+price = 150;
+console.log(price * 120 * rate);
+console.log(price * 130 * rate);
+console.log(price * 140 * rate);
+
+price = 151;
+console.log(price * 120 * rate);
+console.log(price * 130 * rate);
+console.log(price * 140 * rate);
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+数値のリテラル表現、定数/変数名のルール、定数と変数の使い分けについて見ていきます。
+
+リテラル表現
+命名時のルール
+定数と変数のルール
+使い分けのコツ
+
+
+
+
+
+
+
+
+
+
+
+変数に値を再代入するときによく使われる演算子について見ていきます。
+
+price = price + 1;
+price += 1;
+price++;
+
+/MyJavaScript/main.js
+'use strict';
+
+// 変数
+let price;
+// 定数
+const rate = 1.1;
+
+price = 150;
+console.log(price * 120 * rate);
+console.log(price * 130 * rate);
+console.log(price * 140 * rate);
+
+// price = 151;
+// price = price + 1;
+// price += 1;
+// price *= 1.5;
+price++;
+console.log(price * 120 * rate);
+console.log(price * 130 * rate);
+console.log(price * 140 * rate);
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+JavaScriptで文字列を表現するための方法について見ていきます。
+
+文字列のリテラル表現
+区切り記号と同じ文字を使う際の注意点
+改行の表現
+補足情報 バックスラッシュの入力方法
+2023年4月28日
+Windowsだったら「Alt」キーを押しながら、「￥」キーを押してください。macOSの場合は「Option」キーを押しながら「￥」キーを押してください。
+
+/MyJavaScript/main.js
+'use strict';
+
+// console.log('It is a pen.');
+// console.log('It\'s a pen.');
+// console.log("It's a pen.");
+console.log("It's \na \npen.");
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+文字列を連結する方法、文字列に値を埋め込むためのテンプレートリテラルについて見ていきます。
+
+文字列の連結
+テンプレートリテラル
+補足情報 バッククオートの出し方について
+2023年4月28日
+バッククオートの出し方については以下の動画の「2:27〜」付近を参照してください。
+
+・#17 forを使ったループ処理をしよう | 詳解JavaScript 基礎文法編
+https://dotinstall.com/lessons/basic_javascript_grammer_v2/52217
+
+
+
+/MyJavaScript/main.js
+'use strict';
+
+// My name is Taro Yamada, call me Taro!
+
+const fname = 'Taro';
+const lname = 'Yamada';
+
+// console.log('My name is ' + fname + ' ' + lname + ', call me ' + fname + '!');
+console.log(`My name is ${fname} ${lname}, call me ${fname}!`);
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+文字列と数値に対して+記号を使ったときの挙動について見ていきます。
+
++記号を使ったときのルール
+prompt()
+Number()
+
+/MyJavaScript/main.js
+'use strict';
+
+// console.log(50 + '20');
+
+const n = prompt('Any number?');
+console.log(Number(n) + 10);
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+どういったシーンで条件分岐が使われているかを説明したのちに、ifの構文について見ていきます。
+
+条件分岐
+ifの構文
+比較演算子
+ブロック
+
+
+
+
+
+
+
+
+
+ユーザーが入力した点数をもとに条件分岐していくプログラムを実装していきます。
+
+prompt
+if
+if ... else ...
+
+
+/MyJavaScript/main.js
+'use strict';
+
+const score = Number(prompt('Score?'));
+
+if (score >= 90) {
+  console.log('A!');
+} else {
+  console.log('Not A!');
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+elseのあとにifでさらに条件を追加していく方法について見ていきます。
+
+else if
+ドキュメントのフォーマット
+
+
+/MyJavaScript/main.js
+'use strict';
+
+const score = Number(prompt('Score?'));
+
+if (score >= 90) {
+  console.log('A!');
+} else if (score >= 70) {
+  console.log('B!');
+} else {
+  console.log('C!');
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+取りうる値が決まっている際の条件分岐に使える、switchの構文について見ていきます。
+
+switch
+case
+
+
+/MyJavaScript/main.js
+'use strict';
+
+const color = prompt('Color?');
+
+switch (color) {
+  case 'red':
+    console.log('Stop!');
+    break;
+  case 'yellow':
+    console.log('Slow down!');
+    break;
+  case 'blue':
+  case 'green':
+    console.log('Go!');
+    break;
+  default:
+    console.log('Wrong color');
+    break;
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+反復処理で使えるforの構文について見たあとに、コードがどう実行されていくか、順を追って説明していきます。
+
+forの構文
+forの動作
+
+
+
+
+
+
+
+
+
+forを使った、さまざまな反復処理の書き方を見ていきます。
+
+forの実行
+変数の利用
+さまざまな書き方
+
+/MyJavaScript/main.js
+'use strict';
+
+// for (let i = 0; i < 10; i++) {
+// for (let i = 1; i < 11; i++) {
+for (let i = 1; i <= 10; i++) {
+    // console.log('Hello');
+  console.log(`${i}: Hello`);
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+以前にみたコードをforを使って書き換える方法を見ていきます。
+
+コードの書き換え
+forの中でforを使う方法
+補足情報 動画冒頭で紹介しているコードについて
+2023年4月28日
+冒頭で紹介しているコードは以下をコピーしてみてください。
+
+'use strict';
+
+let price;
+const rate = 1.1;
+
+price = 150;
+console.log(price * 120 * rate);
+console.log(price * 130 * rate);
+console.log(price * 140 * rate);
+
+price++;
+console.log(price * 120 * rate);
+console.log(price * 130 * rate);
+console.log(price * 140 * rate);
+
+/MyJavaScript/main.js
+'use strict';
+
+const rate = 1.1;
+
+for (let price = 150; price <= 160; price++) {
+  console.log(`Price: ${price}`);
+  for (let amount = 120; amount <= 140; amount+=10) {
+    console.log(price * amount * rate);
+  }
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+反復処理を行う範囲が決まっていない場合に使える、whileについて見ていきます。
+
+whileの構文
+動作確認
+
+
+/MyJavaScript/main.js
+'use strict';
+
+// const command = Number(prompt('Menu 1, 2, 3 or 0 to exit'));
+// console.log(`Menu ${command} processed.`);
+
+let command = Number(prompt('Menu 1, 2, 3 or 0 to exit'));
+
+while (command !== 0) {
+  console.log(`Menu ${command} processed.`);
+  command = Number(prompt('Menu 1, 2, 3 or 0 to exit'));
+}
+
+/MyJavaScript/index.html
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+条件判定のまえに必ず一度は処理を実行することができる、do ... whileについて見ていきます。
+
+do ... while
+動作確認
+
+
+/MyJavaScript/main.js'use strict';
+
+// let command = Number(prompt('Menu 1, 2, 3 or 0 to exit'));
+
+// while (command !== 0) {
+//   console.log(`Menu ${command} processed.`);
+//   command = Number(prompt('Menu 1, 2, 3 or 0 to exit'));
+// }
+
+let command;
+
+do {
+  command = Number(prompt('Menu 1, 2, 3 or 0 to exit'));
+  if (command === 0) {
+    console.log('Exited');
+  } else {
+    console.log(`Menu ${command} processed.`);
+  }
+} while (command !== 0);
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+反復処理を終了させて次のコードに移ることができるbreak、現在の処理を中断して次の反復処理に移ることができるcontinueについて見ていきます。
+
+条件分岐
+break
+continue
+
+/MyJavaScript/main.js
+'use strict';
+
+let amount = 100;
+
+for (let year = 1; year <= 30; year++) {
+  amount *= 1.05;
+  if (amount < 200) {
+    continue;
+  }
+  if (amount > 300) {
+    break;
+  }
+  console.log(`Year ${year}: ${amount}`);
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+ここから中上級者向けに高度なトピックについて説明していきます。まずは条件（三項）演算子から見ていきます。
+
+条件（三項）演算子の構文
+ifとの違い
+動作確認
+
+/MyJavaScript/main.js
+'use strict';
+
+const score = Number(prompt('Score?'));
+const result = score > 80 ? 'A' : 'B';
+console.log(result);
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+論理演算子を使って複雑な条件を作るための方法について見ていきます。
+
+論理演算子
+&&
+||
+!
+
+
+/MyJavaScript/main.js
+'use strict';
+
+const english = Number(prompt('English?'));
+const math = Number(prompt('Math?'));
+
+if (!(english >= 80 && math >= 80)) {
+  console.log('A');
+} else {
+  console.log('B');
+}
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+定数や変数が参照可能な範囲である、スコープについて説明していきます。
+
+スコープ
+挙動の確認
+
+
+/MyJavaScript/main.js
+'use strict';
+
+let x = 10;
+
+{
+  // let x = 20;
+  x = 20;
+  console.log(x); // 20
+}
+
+console.log(x); // 20
+
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+複数のスクリプトを読み込む際に気をつけるポイントについて触れていきます。
+
+複数のスクリプトの読み込み
+ブロックによるスコープの分離
+次のステップ
+
+
+/MyJavaScript/sub.js
+/MyJavaScript/main.js
+/MyJavaScript/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript</title>
+</head>
+<body>
+  <script src="main.js"></script>
+  <script src="sub.js"></script>
+</body>
+</html>
+
+/MyJavaScript/sub.js
+'use strict';
+
+{
+  let x = 20;
+  console.log(x);
+}
+
+/MyJavaScript/main.js
+'use strict';
+
+{
+  let x = 10;
+  console.log(x);
+}
+

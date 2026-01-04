@@ -1,0 +1,1413 @@
+// ===== video_summary =====
+完成版を確認したあとに、作業用フォルダをmacOSで設定する手順について見ていきます。
+
+完成版の確認
+素材ファイルのダウンロード
+作業用フォルダの設定
+ブラウザでの確認
+
+// ===== commentBox 1 =====
+補足情報 VS Codeでファイルのドラッグ＆ドロップができない場合
+2024年2月16日
+
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、commandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+// ===== commentBox 2 =====
+補足情報 素材ファイルのダウンロードについて
+2023年1月10日
+
+動画中で紹介されている素材ファイルのダウンロードは以下のURLにアクセスしてください。
+
+ドットインストールでプログラミングを始めよう: JavaScriptでスライドショーを作ろう
+
+
+
+
+
+// ===== video_summary =====
+作業用フォルダをWindowsで設定する手順について見ていきます。
+
+素材ファイルのダウンロード
+作業用フォルダの設定
+ブラウザでの確認
+
+// ===== commentBox 1 =====
+補足情報 VS Codeでファイルのドラッグ＆ドロップができない場合
+2024年2月16日
+
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、Ctrlキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+// ===== commentBox 2 =====
+補足情報 素材ファイルのダウンロードについて
+2023年1月10日
+
+動画中で紹介されている素材ファイルのダウンロードは以下のURLにアクセスしてください。
+
+ドットインストールでプログラミングを始めよう: JavaScriptでスライドショーを作ろう
+
+
+
+
+
+// ===== video_summary =====
+ひな形となるHTMLファイルを作っていきます。
+
+
+    index.htmlの作成
+
+// ===== commentBox 1 =====
+補足情報
+VS Codeで生成されるHTMLの雛形について
+
+
+
+
+2024年7月11日
+
+
+
+
+
+VS Codeで生成されるHTMLの雛形に変更があったようです。具体的には <meta http-equiv="X-UA-Compatible" content="IE=edge"> が含まれなくなりました。こちらは古いブラウザに対応するための命令でしたが、現在不要になっているので気にせずにそのまま学習を進めてみてください。
+
+// ===== /MySlideshow/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スライドショー</title>
+</head>
+<body>
+  
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+必要な部品をHTMLでマークアップしていきます。
+
+
+    index.htmlのマークアップ
+
+// ===== /MySlideshow/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スライドショー</title>
+</head>
+<body>
+  <main>
+    <img src="pic0.png">
+
+    <button>←</button>
+    <button>→</button>
+
+    <img src="pic0.png">
+    <img src="pic1.png">
+    <img src="pic2.png">
+  </main>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+画像やボタンのサイズについて図で解説したあとに、画像のサイズだけ HTML で直接指定していきます。
+
+
+    画像やボタンのサイズを確認
+    HTMLで画像サイズの指定
+
+// ===== /MySlideshow/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スライドショー</title>
+</head>
+<body>
+  <main>
+    <img src="pic0.png" width="256" height="192">
+
+    <button>←</button>
+    <button>→</button>
+
+    <img src="pic0.png" width="80" height="60">
+    <img src="pic1.png" width="80" height="60">
+    <img src="pic2.png" width="80" height="60">
+  </main>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+CSSファイルを作ったあとに、main要素のスタイルを整えていきます。
+
+
+    style.cssの作成
+    文字コードの指定
+    mainのスタイリング
+
+// ===== /MySlideshow/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スライドショー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <img src="pic0.png" width="256" height="192">
+
+    <button>←</button>
+    <button>→</button>
+
+    <img src="pic0.png" width="80" height="60">
+    <img src="pic1.png" width="80" height="60">
+    <img src="pic2.png" width="80" height="60">
+  </main>
+</body>
+</html>
+
+// ===== /MySlideshow/style.css =====
+@charset "utf-8";
+
+main {
+  width: 256px;
+  margin: 0 auto;
+  background: pink;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+img要素の余白を修正したあと、ボタンとサムネイル画像を横並びにしていきます。
+
+
+    vertical-align
+    フレックスボックス
+    gap
+
+// ===== commentBox 1 =====
+補足情報
+レッスンで扱っている内容について
+
+
+
+
+2023年1月10日
+
+
+
+
+
+レッスンで扱っている内容については、以下の動画でも詳しく解説しています。こちらも参考にしてみてください。
+
+フレックスコンテナについて
+#03 フレックスボックスの用語を整理しよう | 詳解CSS フレックスボックス編
+
+
+行ボックスについて
+#18 line-heightで行間を制御しよう | 詳解CSS 基本スタイリング編
+
+
+img 要素の下にある余白と vertical-align について
+#14 vertical-alignプロパティを使ってみよう | 詳解CSS 応用スタイリング編
+
+// ===== /MySlideshow/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スライドショー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <img src="pic0.png" width="256" height="192">
+
+    <div class="container">
+      <button>←</button>
+      <button>→</button>
+    </div>
+  
+    <div class="container">
+      <img src="pic0.png" width="80" height="60">
+      <img src="pic1.png" width="80" height="60">
+      <img src="pic2.png" width="80" height="60">
+    </div>
+  </main>
+</body>
+</html>
+
+// ===== /MySlideshow/style.css =====
+@charset "utf-8";
+
+main {
+  width: 256px;
+  margin: 0 auto;
+  background: pink;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+.container {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+ボタンにデフォルトで設定されているスタイルをリセットしたあとに、スタイルを整えていきます。
+
+
+    スタイルのリセット
+    ボタンのスタイリング
+    box-sizing
+    cursor
+
+// ===== commentBox 1 =====
+補足情報
+レッスンで扱っている内容について
+
+
+
+
+2023年1月10日
+
+
+
+
+
+レッスンで扱っている内容については、以下の動画でも詳しく解説しています。こちらも参考にしてみてください。
+
+box-sizing について
+#13 box-sizingを使ってみよう | 詳解CSS 基本スタイリング編
+
+// ===== /MySlideshow/style.css =====
+@charset "utf-8";
+
+main {
+  width: 256px;
+  margin: 0 auto;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+.container {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+button {
+  all: unset;
+  width: 124px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+// ===== /MySlideshow/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スライドショー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <img src="pic0.png" width="256" height="192">
+
+    <div class="container">
+      <button>←</button>
+      <button>→</button>
+    </div>
+
+    <div class="container">
+      <img src="pic0.png" width="80" height="60">
+      <img src="pic1.png" width="80" height="60">
+      <img src="pic2.png" width="80" height="60">
+    </div>
+  </main>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+サムネイル画像のスタイルを整えていきます。
+
+
+    .thumbnail
+    cursor
+    opacity
+    .active
+
+// ===== /MySlideshow/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スライドショー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <img src="pic0.png" width="256" height="192">
+
+    <div class="container">
+      <button>←</button>
+      <button>→</button>
+    </div>
+
+    <div class="container">
+      <img src="pic0.png" width="80" height="60" class="thumbnail active">
+      <img src="pic1.png" width="80" height="60" class="thumbnail">
+      <img src="pic2.png" width="80" height="60" class="thumbnail">
+    </div>
+  </main>
+</body>
+</html>
+
+// ===== /MySlideshow/style.css =====
+@charset "utf-8";
+
+main {
+  width: 256px;
+  margin: 0 auto;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+.container {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+button {
+  all: unset;
+  width: 124px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+.thumbnail {
+  cursor: pointer;
+  opacity: .4;
+}
+
+.active {
+  opacity: 1;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+サムネイル画像のスタイルを整えていきます。
+
+
+    .thumbnail
+    cursor
+    opacity
+    .active
+
+// ===== /MySlideshow/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スライドショー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <img src="pic0.png" width="256" height="192">
+
+    <div class="container">
+      <button>←</button>
+      <button>→</button>
+    </div>
+
+    <div class="container">
+      <img src="pic0.png" width="80" height="60" class="thumbnail active">
+      <img src="pic1.png" width="80" height="60" class="thumbnail">
+      <img src="pic2.png" width="80" height="60" class="thumbnail">
+    </div>
+  </main>
+</body>
+</html>
+
+// ===== /MySlideshow/style.css =====
+@charset "utf-8";
+
+main {
+  width: 256px;
+  margin: 0 auto;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+.container {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+button {
+  all: unset;
+  width: 124px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+.thumbnail {
+  cursor: pointer;
+  opacity: .4;
+}
+
+.active {
+  opacity: 1;
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+JavaScriptのファイルを作ったあとに、サムネイル画像の要素を取得していきます。
+
+
+    main.jsの作成
+    querySelectorAll()
+    addEventListener()
+
+// ===== /MySlideshow/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スライドショー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <img src="pic0.png" width="256" height="192">
+
+    <div class="container">
+      <button>←</button>
+      <button>→</button>
+    </div>
+
+    <div class="container">
+      <img src="pic0.png" width="80" height="60" class="thumbnail active">
+      <img src="pic1.png" width="80" height="60" class="thumbnail">
+      <img src="pic2.png" width="80" height="60" class="thumbnail">
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MySlideshow/main.js =====
+'use strict';
+
+{
+  const thumbnails = document.querySelectorAll('.thumbnail');
+
+  thumbnails[1].addEventListener('click', () => {
+
+  });
+}
+
+// ===== /MySlideshow/style.css =====
+@charset "utf-8";
+
+main {
+  width: 256px;
+  margin: 0 auto;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+.container {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+button {
+  all: unset;
+  width: 124px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+.thumbnail {
+  cursor: pointer;
+  opacity: .4;
+}
+
+.active {
+  opacity: 1;
+}
+
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+サムネイル画像をクリックしたときに、メインの画像が切り替わるようにしていきます。
+
+
+    getElementById()
+    src属性
+
+// ===== commentBox 1 =====
+補足情報
+Google Style Guides について
+
+
+
+
+2023年1月10日
+
+
+
+
+
+Google が定めているスタイルガイドについては、以下のリンクを参考にしてください。
+
+Google Style Guides
+Google HTML/CSS Style Guide
+Google JavaScript Style Guide
+
+// ===== /MySlideshow/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スライドショー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <img src="pic0.png" width="256" height="192" id="main-image">
+
+    <div class="container">
+      <button>←</button>
+      <button>→</button>
+    </div>
+
+    <div class="container">
+      <img src="pic0.png" width="80" height="60" class="thumbnail active">
+      <img src="pic1.png" width="80" height="60" class="thumbnail">
+      <img src="pic2.png" width="80" height="60" class="thumbnail">
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MySlideshow/main.js =====
+'use strict';
+
+{
+  const thumbnails = document.querySelectorAll('.thumbnail');
+  const mainImage = document.getElementById('main-image');
+
+  thumbnails[1].addEventListener('click', () => {
+    mainImage.src = thumbnails[1].src;
+  });
+}
+
+// ===== /MySlideshow/style.css =====
+@charset "utf-8";
+
+main {
+  width: 256px;
+  margin: 0 auto;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+.container {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+button {
+  all: unset;
+  width: 124px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+.thumbnail {
+  cursor: pointer;
+  opacity: .4;
+}
+
+.active {
+  opacity: 1;
+}
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+サムネイル画像の切り替えがわかりやすくなるように、active クラスをつけ外ししていきます。
+
+
+    classList.add()
+    classList.remove()
+
+// ===== commentBox 1 =====
+補足情報
+レッスンで扱っている内容について
+
+
+
+
+2023年1月10日
+
+
+
+
+
+レッスンで扱っている内容については、以下の動画でも詳しく解説しています。こちらも参考にしてみてください。
+
+class 属性の操作方法について
+#08 classListを使ってみよう | 詳解JavaScript DOM編 - プログラミングならドットインストール
+
+// ===== /MySlideshow/main.js =====
+'use strict';
+
+{
+  const thumbnails = document.querySelectorAll('.thumbnail');
+  const mainImage = document.getElementById('main-image');
+
+  thumbnails[0].addEventListener('click', () => {
+    mainImage.src = thumbnails[0].src;
+    thumbnails[0].classList.add('active');
+    thumbnails[1].classList.remove('active');
+    thumbnails[2].classList.remove('active');
+  });
+
+  thumbnails[1].addEventListener('click', () => {
+    mainImage.src = thumbnails[1].src;
+    thumbnails[0].classList.remove('active');
+    thumbnails[1].classList.add('active');
+    thumbnails[2].classList.remove('active');
+  });
+
+  thumbnails[2].addEventListener('click', () => {
+    mainImage.src = thumbnails[2].src;
+    thumbnails[0].classList.remove('active');
+    thumbnails[1].classList.remove('active');
+    thumbnails[2].classList.add('active');
+  });
+}
+
+// ===== /MySlideshow/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スライドショー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <img src="pic0.png" width="256" height="192" id="main-image">
+
+    <div class="container">
+      <button>←</button>
+      <button>→</button>
+    </div>
+
+    <div class="container">
+      <img src="pic0.png" width="80" height="60" class="thumbnail active">
+      <img src="pic1.png" width="80" height="60" class="thumbnail">
+      <img src="pic2.png" width="80" height="60" class="thumbnail">
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MySlideshow/style.css =====
+@charset "utf-8";
+
+main {
+  width: 256px;
+  margin: 0 auto;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+.container {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+button {
+  all: unset;
+  width: 124px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+.thumbnail {
+  cursor: pointer;
+  opacity: .4;
+}
+
+.active {
+  opacity: 1;
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+nextボタンを押したときの処理を実装していきます。
+
+
+    activeIndex変数の用意
+    画像の切り替え
+
+// ===== /MySlideshow/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スライドショー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <img src="pic0.png" width="256" height="192" id="main-image">
+
+    <div class="container">
+      <button>←</button>
+      <button id="next">→</button>
+    </div>
+
+    <div class="container">
+      <img src="pic0.png" width="80" height="60" class="thumbnail active">
+      <img src="pic1.png" width="80" height="60" class="thumbnail">
+      <img src="pic2.png" width="80" height="60" class="thumbnail">
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MySlideshow/main.js =====
+'use strict';
+
+{
+  const thumbnails = document.querySelectorAll('.thumbnail');
+  const mainImage = document.getElementById('main-image');
+  const next = document.getElementById('next');
+  let activeIndex = 0;
+
+  thumbnails[0].addEventListener('click', () => {
+    mainImage.src = thumbnails[0].src;
+    thumbnails[0].classList.add('active');
+    thumbnails[1].classList.remove('active');
+    thumbnails[2].classList.remove('active');
+  });
+
+  thumbnails[1].addEventListener('click', () => {
+    mainImage.src = thumbnails[1].src;
+    thumbnails[0].classList.remove('active');
+    thumbnails[1].classList.add('active');
+    thumbnails[2].classList.remove('active');
+  });
+
+  thumbnails[2].addEventListener('click', () => {
+    mainImage.src = thumbnails[2].src;
+    thumbnails[0].classList.remove('active');
+    thumbnails[1].classList.remove('active');
+    thumbnails[2].classList.add('active');
+  });
+
+  next.addEventListener('click', () => {
+    activeIndex++;
+
+    mainImage.src = thumbnails[activeIndex].src;
+  });
+}
+
+// ===== /MySlideshow/style.css =====
+@charset "utf-8";
+
+main {
+  width: 256px;
+  margin: 0 auto;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+.container {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+button {
+  all: unset;
+  width: 124px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+.thumbnail {
+  cursor: pointer;
+  opacity: .4;
+}
+
+.active {
+  opacity: 1;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+nextボタンを押したときの処理を完成させていきます。
+
+
+    条件分岐
+    activeクラスのつけ外し
+
+// ===== /MySlideshow/main.js =====
+'use strict';
+
+{
+  const thumbnails = document.querySelectorAll('.thumbnail');
+  const mainImage = document.getElementById('main-image');
+  const next = document.getElementById('next');
+  let activeIndex = 0;
+
+  thumbnails[0].addEventListener('click', () => {
+    mainImage.src = thumbnails[0].src;
+    thumbnails[0].classList.add('active');
+    thumbnails[1].classList.remove('active');
+    thumbnails[2].classList.remove('active');
+  });
+
+  thumbnails[1].addEventListener('click', () => {
+    mainImage.src = thumbnails[1].src;
+    thumbnails[0].classList.remove('active');
+    thumbnails[1].classList.add('active');
+    thumbnails[2].classList.remove('active');
+  });
+
+  thumbnails[2].addEventListener('click', () => {
+    mainImage.src = thumbnails[2].src;
+    thumbnails[0].classList.remove('active');
+    thumbnails[1].classList.remove('active');
+    thumbnails[2].classList.add('active');
+  });
+
+  next.addEventListener('click', () => {
+    activeIndex++;
+    if (activeIndex > 2) {
+      activeIndex = 0;
+    }
+
+    mainImage.src = thumbnails[activeIndex].src;
+    thumbnails[0].classList.remove('active');
+    thumbnails[1].classList.remove('active');
+    thumbnails[2].classList.remove('active');
+    thumbnails[activeIndex].classList.add('active');
+  });
+}
+
+// ===== /MySlideshow/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スライドショー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <img src="pic0.png" width="256" height="192" id="main-image">
+
+    <div class="container">
+      <button>←</button>
+      <button id="next">→</button>
+    </div>
+
+    <div class="container">
+      <img src="pic0.png" width="80" height="60" class="thumbnail active">
+      <img src="pic1.png" width="80" height="60" class="thumbnail">
+      <img src="pic2.png" width="80" height="60" class="thumbnail">
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MySlideshow/style.css =====
+@charset "utf-8";
+
+main {
+  width: 256px;
+  margin: 0 auto;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+.container {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+button {
+  all: unset;
+  width: 124px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+.thumbnail {
+  cursor: pointer;
+  opacity: .4;
+}
+
+.active {
+  opacity: 1;
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+prevボタンを押したときの処理を実装していきます。
+
+
+    条件分岐
+    画像の切り替え
+    activeクラスのつけ外し
+
+// ===== /MySlideshow/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スライドショー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <img src="pic0.png" width="256" height="192" id="main-image">
+
+    <div class="container">
+      <button id="prev">←</button>
+      <button id="next">→</button>
+    </div>
+
+    <div class="container">
+      <img src="pic0.png" width="80" height="60" class="thumbnail active">
+      <img src="pic1.png" width="80" height="60" class="thumbnail">
+      <img src="pic2.png" width="80" height="60" class="thumbnail">
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MySlideshow/main.js =====
+'use strict';
+
+{
+  const thumbnails = document.querySelectorAll('.thumbnail');
+  const mainImage = document.getElementById('main-image');
+  const next = document.getElementById('next');
+  const prev = document.getElementById('prev');
+  let activeIndex = 0;
+
+  thumbnails[0].addEventListener('click', () => {
+    activeIndex = 0;
+    mainImage.src = thumbnails[0].src;
+    thumbnails[0].classList.add('active');
+    thumbnails[1].classList.remove('active');
+    thumbnails[2].classList.remove('active');
+  });
+
+  thumbnails[1].addEventListener('click', () => {
+    activeIndex = 1;
+    mainImage.src = thumbnails[1].src;
+    thumbnails[0].classList.remove('active');
+    thumbnails[1].classList.add('active');
+    thumbnails[2].classList.remove('active');
+  });
+
+  thumbnails[2].addEventListener('click', () => {
+    activeIndex = 2;
+    mainImage.src = thumbnails[2].src;
+    thumbnails[0].classList.remove('active');
+    thumbnails[1].classList.remove('active');
+    thumbnails[2].classList.add('active');
+  });
+
+  next.addEventListener('click', () => {
+    activeIndex++;
+    if (activeIndex > 2) {
+      activeIndex = 0;
+    }
+
+    mainImage.src = thumbnails[activeIndex].src;
+    thumbnails[0].classList.remove('active');
+    thumbnails[1].classList.remove('active');
+    thumbnails[2].classList.remove('active');
+    thumbnails[activeIndex].classList.add('active');
+  });
+
+  prev.addEventListener('click', () => {
+    activeIndex--;
+    if (activeIndex < 0) {
+      activeIndex = 2;
+    }
+
+    mainImage.src = thumbnails[activeIndex].src;
+    thumbnails[0].classList.remove('active');
+    thumbnails[1].classList.remove('active');
+    thumbnails[2].classList.remove('active');
+    thumbnails[activeIndex].classList.add('active');
+  });
+}
+
+// ===== /MySlideshow/style.css =====
+@charset "utf-8";
+
+main {
+  width: 256px;
+  margin: 0 auto;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+.container {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+button {
+  all: unset;
+  width: 124px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+.thumbnail {
+  cursor: pointer;
+  opacity: .4;
+}
+
+.active {
+  opacity: 1;
+}
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+完成したアプリを振り返りながら、アプリ開発のコツについてお話していきます。
+
+
+    これまでのまとめ
+    アプリ開発の振り返り
+
+// ===== /MySlideshow/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スライドショー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <img src="pic0.png" width="256" height="192" id="main-image">
+
+    <div class="container">
+      <button id="prev">←</button>
+      <button id="next">→</button>
+    </div>
+
+    <div class="container">
+      <img src="pic0.png" width="80" height="60" class="thumbnail active">
+      <img src="pic1.png" width="80" height="60" class="thumbnail">
+      <img src="pic2.png" width="80" height="60" class="thumbnail">
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MySlideshow/main.js =====
+'use strict';
+
+{
+  const thumbnails = document.querySelectorAll('.thumbnail');
+  const mainImage = document.getElementById('main-image');
+  const next = document.getElementById('next');
+  const prev = document.getElementById('prev');
+  let activeIndex = 0;
+
+  thumbnails[0].addEventListener('click', () => {
+    activeIndex = 0;
+    mainImage.src = thumbnails[0].src;
+    thumbnails[0].classList.add('active');
+    thumbnails[1].classList.remove('active');
+    thumbnails[2].classList.remove('active');
+  });
+
+  thumbnails[1].addEventListener('click', () => {
+    activeIndex = 1;
+    mainImage.src = thumbnails[1].src;
+    thumbnails[0].classList.remove('active');
+    thumbnails[1].classList.add('active');
+    thumbnails[2].classList.remove('active');
+  });
+
+  thumbnails[2].addEventListener('click', () => {
+    activeIndex = 2;
+    mainImage.src = thumbnails[2].src;
+    thumbnails[0].classList.remove('active');
+    thumbnails[1].classList.remove('active');
+    thumbnails[2].classList.add('active');
+  });
+
+  next.addEventListener('click', () => {
+    activeIndex++;
+    if (activeIndex > 2) {
+      activeIndex = 0;
+    }
+
+    mainImage.src = thumbnails[activeIndex].src;
+    thumbnails[0].classList.remove('active');
+    thumbnails[1].classList.remove('active');
+    thumbnails[2].classList.remove('active');
+    thumbnails[activeIndex].classList.add('active');
+  });
+
+  prev.addEventListener('click', () => {
+    activeIndex--;
+    if (activeIndex < 0) {
+      activeIndex = 2;
+    }
+
+    mainImage.src = thumbnails[activeIndex].src;
+    thumbnails[0].classList.remove('active');
+    thumbnails[1].classList.remove('active');
+    thumbnails[2].classList.remove('active');
+    thumbnails[activeIndex].classList.add('active');
+  });
+}
+
+// ===== /MySlideshow/style.css =====
+@charset "utf-8";
+
+main {
+  width: 256px;
+  margin: 0 auto;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+.container {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+button {
+  all: unset;
+  width: 124px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+.thumbnail {
+  cursor: pointer;
+  opacity: .4;
+}
+
+.active {
+  opacity: 1;
+}
+
+
+
+
+
+
+
+

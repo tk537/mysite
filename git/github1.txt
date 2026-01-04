@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+Gitの概要について説明したのちに、レッスンの構成、学習のコツについて見ていきます。
+
+Gitの概要
+レッスンの構成
+学習のコツ
+
+
+
+
+
+
+
+
+
+
+macOSにGitをインストールしていく方法について見ていきます。
+
+ターミナルの起動
+git --version
+
+
+
+
+
+
+
+
+
+
+
+WindowsにGitをインストールしていく方法について見ていきます。
+
+公式サイトへのアクセス
+Gitのインストール
+補足情報 動画中で紹介しているURLについて
+2023年10月6日
+動画中でアクセスしているURLは以下のとおりです。
+
+・Git
+https://git-scm.com/
+
+
+
+
+
+
+
+
+
+
+
+
+VS Codeエディタに作業用フォルダを設定したのちに、Gitの設定を進めていきます。
+
+作業用フォルダの設定
+ターミナルの起動
+git --version
+git config
+補足情報 VS Codeでターミナルの文字サイズを設定する方法
+2023年10月6日
+VS Codeでターミナルの文字サイズを設定したい場合、設定画面を開いてから「terminal font」を検索し、下図の赤丸で示されている数値を設定します。
+
+スクリーンショット 2023-10-06 12.25.32.png
+
+補足情報 設定のためのコマンドについて
+2023年10月6日
+今回使った設定のためのコマンドは以下のとおりです。名前やメールアドレスはご自身のものを使ってください。
+
+git config --global user.name "ご自身の名前"
+git config --global user.email "ご自身のメールアドレス"
+git config --global init.defaultBranch main
+
+また設定を確認するためのコマンドは以下のとおりです。
+
+git config user.name
+git config user.email
+git config init.defaultBranch
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gitでの作業の流れを、いくつかの用語とともに紹介していきます。
+
+作業の流れ
+リポジトリ
+コミット
+ワーキングディレクトリ
+ステージングエリア
+git init
+git add
+git commit
+git log
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+まずはGitのコマンドを使って最初のコミットを作ってみます。
+
+clear
+git init
+git add readme.md
+git commit -m "01を追加"
+git log
+
+readme.md 
+# 01
+01のテキストです。
+
+
+
+
+
+
+
+現在の状況を確認するためのコマンドを見ていきます。
+
+git status
+git add readme.md
+git status
+git commit -m "02を追加"
+git status
+
+readme.md 
+# 01
+01のテキストです。
+
+# 02
+02のテキストです。
+
+
+
+
+
+
+
+
+
+
+
+
+コミットの履歴を確認するためのコマンドを見ていきます。
+
+git log
+画面からあふれた場合の操作
+qキーによるモードの切替
+git log --oneline
+git log -n 1
+
+readme.md 
+# 01
+01のテキストです。
+
+# 02
+02のテキストです。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+どのような変更が行われたかを確認するための方法を見ていきます。
+
+git log -p
+変更内容の見方
+git log --oneline
+コミットハッシュのコピー
+git show [hash]
+
+readme.md 
+# 01
+01のテキストです。
+
+# 02
+02のテキストです。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+さらにコミットを追加して、直近のコミットや、ステージングとの差分を確認する方法について見ていきます。
+
+git status
+git diff
+git add readme.md
+git status
+git diff --staged
+git commit -m "03を追加"
+
+readme.md 
+# 01
+01のテキストです。
+
+# 02
+02のテキストです。
+
+# 03
+03のテキストです。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+直近のコミットメッセージを修正するためのコマンドオプションについて見ていきます。
+
+git add readme.md
+git commit -m "044を追加"
+git log --oneline
+git commit --amend -m "04を追加"
+git log --oneline
+
+readme.md 
+# 01
+01のテキストです。
+
+# 02
+02のテキストです。
+
+# 03
+03のテキストです。
+
+# 04
+04のテキストです。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+直近のコミット内容を修正するための手順を見ていきます。
+
+git add readme.md
+git commit --amend --no-edit
+git log --oneline
+git log -p -n 1
+過去の履歴を修正する際の注意点
+
+readme.md 
+# 01
+01のテキストです。
+
+# 02
+02のテキストです。
+
+# 03
+03のテキストです。
+
+# 04
+04のテキストです。追加コメントです。
+
+
+
+
+
+
+
+
+
+
+任意のコミット時点の内容を確認するためのコマンドを見ていきます。
+
+git log --oneline
+git checkout [hash]
+git log --oneline
+git switch -
+git log --oneline
+
+readme.md 
+# 01
+01のテキストです。
+
+# 02
+02のテキストです。
+
+# 03
+03のテキストです。
+
+# 04
+04のテキストです。追加コメントです。
+
+
+
+
+
+
+
+
+
+
+複数のファイルをまとめてgit addするためのコマンドオプションを見ていきます。
+
+appendix.mdの作成
+git status
+git add .
+git status
+git commit -m "05を資料付きで追加"
+git log --oneline
+
+readme.md
+# 01
+01のテキストです。
+
+# 02
+02のテキストです。
+
+# 03
+03のテキストです。
+
+# 04
+04のテキストです。追加コメントです。
+
+# 05
+05のテキストです。appendix.mdも参照のこと。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+git addとgit commitを同時に行うためのコマンドオプションを見ていきます。
+
+git status
+git commit -am "06を資料付きで追加"
+git log --oneline
+
+appendix.md 
+# 05 appendix
+05の資料です。
+
+# 06 appendix
+06の資料です。
+
+readme.md 
+# 01
+01のテキストです。
+
+# 02
+02のテキストです。
+
+# 03
+03のテキストです。
+
+# 04
+04のテキストです。追加コメントです。
+
+# 05
+05のテキストです。appendix.mdも参照のこと。
+
+# 06
+06のテキストです。appendix.mdも参照のこと。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+特定のファイルやフォルダをGitの管理対象から外す方法について見ていきます。
+
+memo.txtの作成
+git status
+.gitignoreの作成
+git status
+git add .gitignore
+git commit -m ".gitignoreを追加"
+git log --oneline
+
+/.gitignore
+memo.txt
+
+appendix.md
+# 05 appendix
+05の資料です。
+
+# 06 appendix
+06の資料です。
+
+readme.md 
+# 01
+01のテキストです。
+
+# 02
+02のテキストです。
+
+# 03
+03のテキストです。
+
+# 04
+04のテキストです。追加コメントです。
+
+# 05
+05のテキストです。appendix.mdも参照のこと。
+
+# 06
+06のテキストです。appendix.mdも参照のこと。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+git resetの挙動について説明図を使って解説していきます。
+
+git resetの概要と注意点
+git reset --hard
+git reset --soft
+git reset --mixed
+
+.gitignore
+memo.txt
+
+/appendix.md
+# 05 appendix
+05の資料です。
+
+# 06 appendix
+06の資料です。
+
+readme.md 
+# 01
+01のテキストです。
+
+# 02
+02のテキストです。
+
+# 03
+03のテキストです。
+
+# 04
+04のテキストです。追加コメントです。
+
+# 05
+05のテキストです。appendix.mdも参照のこと。
+
+# 06
+06のテキストです。appendix.mdも参照のこと。
+
+
+
+
+
+
+
+
+
+
+
+複数のコミットを作った上で、git resetを使ってそれらをまとめる方法について説明していきます。
+
+git status
+git commit -am "まとめを追加"
+git log --oneline
+git commit -am "さらにまとめを追加"
+git log --oneline
+
+.gitignore
+memo.txt
+
+/appendix.md
+# 05 appendix
+05の資料です。
+
+# 06 appendix
+06の資料です。
+
+readme.md 
+# 01
+01のテキストです。
+まとめです。
+さらにまとめです。
+
+# 02
+02のテキストです。
+まとめです。
+さらにまとめです。
+
+# 03
+03のテキストです。
+まとめです。
+さらにまとめです。
+
+# 04
+04のテキストです。追加コメントです。
+まとめです。
+さらにまとめです。
+
+# 05
+05のテキストです。appendix.mdも参照のこと。
+まとめです。
+さらにまとめです。
+
+# 06
+06のテキストです。appendix.mdも参照のこと。
+まとめです。
+さらにまとめです。
+
+
+
+
+
+
+
+
+git reset --mixedとgit commitを組み合わせることで、複数のコミットを1つにまとめていきます。
+
+git reset --mixed [hash]
+git log --oneline
+git commit -am "いろいろまとめを追加"
+
+.gitignore
+memo.txt
+
+appendix.md
+# 05 appendix
+05の資料です。
+
+# 06 appendix
+06の資料です。
+
+readme.md 
+# 01
+01のテキストです。
+まとめです。
+さらにまとめです。
+
+# 02
+02のテキストです。
+まとめです。
+さらにまとめです。
+
+# 03
+03のテキストです。
+まとめです。
+さらにまとめです。
+
+# 04
+04のテキストです。追加コメントです。
+まとめです。
+さらにまとめです。
+
+# 05
+05のテキストです。appendix.mdも参照のこと。
+まとめです。
+さらにまとめです。
+
+# 06
+06のテキストです。appendix.mdも参照のこと。
+まとめです。
+さらにまとめです
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </pre>
+
+</body>
+</html>

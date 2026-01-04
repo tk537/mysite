@@ -1,0 +1,3593 @@
+// ===== video_summary =====
+完成版を確認したあとに、VS Codeに作業フォルダを設定していきます。
+
+
+    完成版の確認
+    学習環境の確認
+    作業用フォルダの設定
+    index.htmlの作成
+
+// ===== commentBox 1 =====
+補足情報
+VS Codeでファイルのドラッグ＆ドロップができない場合
+
+
+
+
+2024年2月16日
+
+
+
+
+
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、WindowsならCtrlキー、macOSならcommandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+// ===== commentBox 2 =====
+補足情報
+完成版を確認するには？
+
+
+
+
+2023年7月28日
+
+
+
+
+
+動画内で紹介している完成版と同じものは以下のURLにて確認することができます（プレミアム会員のみアクセス可能です）。
+・My Todos
+http://samples.dotinstall.com/s/todo_js/64622/MyTodoApp/index.html
+
+// ===== /MyTodoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+</head>
+<body>
+  
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+ページ内に必要な要素を配置していきます。
+
+
+    完成版の確認
+    要素の配置
+
+// ===== /MyTodoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+</head>
+<body>
+  <h1>
+    Todos
+    <button>Purge</button>
+  </h1>
+  <ul>
+    <li>
+      <label>
+        <input type="checkbox">
+        aaa
+      </label>
+      <button>x</button>
+    </li>
+    <li>
+      <label>
+        <input type="checkbox">
+        aaa
+      </label>
+      <button>x</button>
+    </li>
+  </ul>
+  <form>
+    <input type="text">
+    <button>Add</button>
+  </form>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+style.cssを作成したのちに、スタイリングを進めていきます。
+
+
+    style.cssの作成
+    余白のリセット
+    .containerのスタイリング
+
+// ===== /MyTodoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Todos
+      <button>Purge</button>
+    </h1>
+    <ul>
+      <li>
+        <label>
+          <input type="checkbox">
+          aaa
+        </label>
+        <button>x</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          aaa
+        </label>
+        <button>x</button>
+      </li>
+    </ul>
+    <form>
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+</body>
+</html>
+
+// ===== /MyTodoApp/style.css =====
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto 0;
+  background: pink;
+}
+
+h1 {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+見出しおよびフォームのスタイリングを進めていきます。
+
+
+    h1のスタイリング
+    formのスタイリング
+
+// ===== commentBox 1 =====
+補足情報
+フレックスボックスの設定について
+
+
+
+
+2023年7月28日
+
+
+
+
+
+今回使っているフレックスボックスの設定について復習したい方は以下を参考にしてみてください。
+
+justify-content で要素間の余白を設定する
+align-items で交差軸方向に要素を揃える
+flex: 1 で要素を広げる
+gap で要素間のすき間を設定する
+
+// ===== /MyTodoApp/style.css =====
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+// ===== /MyTodoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Todos
+      <button>Purge</button>
+    </h1>
+    <ul>
+      <li>
+        <label>
+          <input type="checkbox">
+          aaa
+        </label>
+        <button>x</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          aaa
+        </label>
+        <button>x</button>
+      </li>
+    </ul>
+    <form>
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+リスト項目を完成版のようにスタイリングしていきます。
+
+
+    フレックスボックスの設定
+    余白の設定
+
+// ===== commentBox 1 =====
+補足情報
+フレックスボックスの設定について
+
+
+
+
+2023年7月28日
+
+
+
+
+
+今回使っているフレックスボックスの設定について復習したい方は以下を参考にしてみてください。
+
+justify-content で要素間の余白を設定する
+align-items で交差軸方向に要素を揃える
+
+// ===== /MyTodoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Todos
+      <button>Purge</button>
+    </h1>
+    <ul>
+      <li>
+        <label>
+          <input type="checkbox">
+          aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+        </label>
+        <button>x</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+        </label>
+        <button>x</button>
+      </li>
+    </ul>
+    <form>
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+</body>
+</html>
+
+// ===== /MyTodoApp/style.css =====
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+// ===== video_summary =====
+チェックボックスがチェックされたときのスタイルを設定していきます。
+
+
+    span要素の追加
+    擬似クラス
+    隣接兄弟結合子
+
+// ===== commentBox 1 =====
+補足情報
+擬似クラスと隣接兄弟結合子について
+
+
+
+
+2023年7月28日
+
+
+
+
+
+今回使っている擬似クラス（:checked）と隣接兄弟結合子（+）については以下のMDNとレッスン動画を復習してみてください。
+
+:checked擬似クラス - MDN
+隣接兄弟結合子を設定する
+
+// ===== /MyTodoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Todos
+      <button>Purge</button>
+    </h1>
+    <ul>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li>
+    </ul>
+    <form>
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+</body>
+</html>
+
+// ===== /MyTodoApp/style.css =====
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+// ===== video_summary =====
+main.jsを作成し、オブジェクトの配列を用意していきます。
+
+
+    main.jsの作成
+    todosの宣言
+    renderTodos関数の定義
+
+// ===== commentBox 1 =====
+補足情報
+真偽値について
+
+
+
+
+2023年7月28日
+
+
+
+
+
+isCompletedのような二択の値には真偽値がよく使われます。真偽値について詳しく知りたい方は以下を復習してみてください。
+・#02 真偽値を扱ってみよう | JavaScript入門 データ型編
+https://dotinstall.com/lessons/basic_javascript_types/64302
+
+// ===== commentBox 2 =====
+補足情報
+アロー関数式による関数定義について
+
+
+
+
+2023年7月28日
+
+
+
+
+
+今回使っているアロー関数式による関数定義については以下の動画を復習してみてください。
+・#11 アロー関数式を使ってみよう | JavaScript入門 関数編
+https://dotinstall.com/lessons/basic_javascript_functions/63511
+
+// ===== /MyTodoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Todos
+      <button>Purge</button>
+    </h1>
+    <ul>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li>
+    </ul>
+    <form>
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyTodoApp/main.js =====
+'use strict';
+
+{
+  const todos = [
+    {title: 'aaa', isCompleted: false},
+    {title: 'bbb', isCompleted: false},
+    {title: 'ccc', isCompleted: false},
+  ];
+
+  const renderTodos = () => {
+
+  };
+
+  renderTodos();
+}
+
+// ===== /MyTodoApp/style.css =====
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+// ===== video_summary =====
+renderTodo関数を定義したのちに、今回構築していく要素の構造について確認していきます。
+
+
+    renderTodo関数の定義
+    構造の確認
+
+// ===== commentBox 1 =====
+補足情報
+forEach()について
+
+
+
+
+2023年7月28日
+
+
+
+
+
+今回使っているforEach()について復習したい方は以下の動画を参考にしてみてください。
+・#07 forEach()の挙動を理解しよう | JavaScript入門 データ構造編
+https://dotinstall.com/lessons/basic_javascript_data_structure/63607
+
+// ===== /MyTodoApp/main.js =====
+'use strict';
+
+{
+  const todos = [
+    {title: 'aaa', isCompleted: false},
+    {title: 'bbb', isCompleted: false},
+    {title: 'ccc', isCompleted: false},
+  ];
+
+  const renderTodo = (todo) => {
+    /*
+    - li
+      - label
+        - input
+        - span
+      - button
+    */
+    
+  };
+
+  const renderTodos = () => {
+    todos.forEach((todo) => {
+      renderTodo(todo);
+    });
+  };
+
+  renderTodos();
+}
+
+// ===== /MyTodoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Todos
+      <button>Purge</button>
+    </h1>
+    <ul>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li>
+    </ul>
+    <form>
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyTodoApp/style.css =====
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+// ===== video_summary =====
+label要素内に配置したい要素を一つずつ構築していきます。
+
+
+    input要素の構築
+    spn要素の構築
+    label要素の構築
+
+// ===== commentBox 1 =====
+補足情報
+appendChild()について
+
+
+
+
+2023年7月28日
+
+
+
+
+
+appendChild()の挙動について忘れてしまった方は以下の動画を復習してみてください。
+・#09 appendChild()､insertBefore()を使ってみよう | JavaScript入門 DOM編
+https://dotinstall.com/lessons/basic_javascript_dom_v3/63809
+
+// ===== /MyTodoApp/main.js =====
+'use strict';
+
+{
+  const todos = [
+    {title: 'aaa', isCompleted: false},
+    {title: 'bbb', isCompleted: false},
+    {title: 'ccc', isCompleted: false},
+  ];
+
+  const renderTodo = (todo) => {
+    /*
+    - li
+      - label
+        - input
+        - span
+      - button
+    */
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.checked = todo.isCompleted;
+    const span = document.createElement('span');
+    span.textContent = todo.title;
+    const label = document.createElement('label');
+    label.appendChild(input);
+    label.appendChild(span);
+  };
+
+  const renderTodos = () => {
+    todos.forEach((todo) => {
+      renderTodo(todo);
+    });
+  };
+
+  renderTodos();
+}
+
+// ===== /MyTodoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Todos
+      <button>Purge</button>
+    </h1>
+    <ul>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li>
+    </ul>
+    <form>
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyTodoApp/style.css =====
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+button要素、li要素を構築したのちに、ページ内にリストを描画していきます。
+
+
+    button要素の構築
+    li要素の構築
+    リストの描画
+
+// ===== commentBox 1 =====
+補足情報
+appendChild()について
+
+
+
+
+2023年7月28日
+
+
+
+
+
+appendChild()の挙動について忘れてしまった方は以下の動画を復習してみてください。
+・#09 appendChild()､insertBefore()を使ってみよう | JavaScript入門 DOM編
+https://dotinstall.com/lessons/basic_javascript_dom_v3/63809
+
+// ===== /MyTodoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Todos
+      <button>Purge</button>
+    </h1>
+    <ul id="todos">
+      <!-- <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li> -->
+    </ul>
+    <form>
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyTodoApp/main.js =====
+'use strict';
+
+{
+  const todos = [
+    {title: 'aaa', isCompleted: false},
+    {title: 'bbb', isCompleted: false},
+    {title: 'ccc', isCompleted: false},
+  ];
+
+  const renderTodo = (todo) => {
+    /*
+    - li
+      - label
+        - input
+        - span
+      - button
+    */
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.checked = todo.isCompleted;
+    const span = document.createElement('span');
+    span.textContent = todo.title;
+    const label = document.createElement('label');
+    label.appendChild(input);
+    label.appendChild(span);
+    const button = document.createElement('button');
+    button.textContent = 'x';
+    const li = document.createElement('li');
+    li.appendChild(label);
+    li.appendChild(button);
+    document.querySelector('#todos').appendChild(li);
+  };
+
+  const renderTodos = () => {
+    todos.forEach((todo) => {
+      renderTodo(todo);
+    });
+  };
+
+  renderTodos();
+}
+
+// ===== /MyTodoApp/style.css =====
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+todosを変更して表示を確認したのちに、余白を設定していきます。
+
+
+    todosの変更
+    表示の確認
+    余白の設定
+
+// ===== /MyTodoApp/main.js =====
+'use strict';
+
+{
+  const todos = [
+    {title: 'aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa ', isCompleted: false},
+    {title: 'bbb', isCompleted: true},
+    {title: 'ccc', isCompleted: false},
+    {title: 'ddd', isCompleted: false},
+  ];
+
+  const renderTodo = (todo) => {
+    /*
+    - li
+      - label
+        - input
+        - span
+      - button
+    */
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.checked = todo.isCompleted;
+    const span = document.createElement('span');
+    span.textContent = todo.title;
+    const label = document.createElement('label');
+    label.appendChild(input);
+    label.appendChild(span);
+    const button = document.createElement('button');
+    button.textContent = 'x';
+    const li = document.createElement('li');
+    li.appendChild(label);
+    li.appendChild(button);
+    document.querySelector('#todos').appendChild(li);
+  };
+
+  const renderTodos = () => {
+    todos.forEach((todo) => {
+      renderTodo(todo);
+    });
+  };
+
+  renderTodos();
+}
+
+// ===== /MyTodoApp/style.css =====
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+// ===== /MyTodoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Todos
+      <button>Purge</button>
+    </h1>
+    <ul id="todos">
+      <!-- <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li> -->
+    </ul>
+    <form>
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+フォームにイベントリスナーを設定し、項目を追加できるようにしていきます。
+
+
+    id属性の設定
+    イベントリスナーの追加
+    項目の追加
+
+// ===== commentBox 1 =====
+補足情報
+e.preventDefault()について
+
+
+
+
+2023年7月28日
+
+
+
+
+
+動画内で使っているイベントオブジェクト及びpreventDefault()については以下を復習してみてください。
+・#19 submitイベントを使ってみよう | JavaScript入門 DOM編
+https://dotinstall.com/lessons/basic_javascript_dom_v3/63819
+
+// ===== /MyTodoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Todos
+      <button>Purge</button>
+    </h1>
+    <ul id="todos">
+      <!-- <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li> -->
+    </ul>
+    <form id="add-form">
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyTodoApp/main.js =====
+'use strict';
+
+{
+  const todos = [
+    {title: 'aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa ', isCompleted: false},
+    {title: 'bbb', isCompleted: true},
+    {title: 'ccc', isCompleted: false},
+    {title: 'ddd', isCompleted: false},
+  ];
+
+  const renderTodo = (todo) => {
+    /*
+    - li
+      - label
+        - input
+        - span
+      - button
+    */
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.checked = todo.isCompleted;
+    const span = document.createElement('span');
+    span.textContent = todo.title;
+    const label = document.createElement('label');
+    label.appendChild(input);
+    label.appendChild(span);
+    const button = document.createElement('button');
+    button.textContent = 'x';
+    const li = document.createElement('li');
+    li.appendChild(label);
+    li.appendChild(button);
+    document.querySelector('#todos').appendChild(li);
+  };
+
+  const renderTodos = () => {
+    todos.forEach((todo) => {
+      renderTodo(todo);
+    });
+  };
+
+  document.querySelector('#add-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const todo = {
+      title: document.querySelector('#add-form input').value,
+      isCompleted: false,
+    };
+    renderTodo(todo);
+  });
+
+  renderTodos();
+}
+
+// ===== /MyTodoApp/style.css =====
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+項目を追加したあとにフォームを空にしてからフォーカスを当てていきます。
+
+
+    フォームのクリアー
+    focus()
+    余白の設定
+
+// ===== commentBox 1 =====
+補足情報
+focus()について
+
+
+
+
+2023年7月28日
+
+
+
+
+
+要素にフォーカスを当てるためのfocus()については以下の動画を復習してみてください。
+・#16 focus､blurイベントを使ってみよう | JavaScript入門 DOM編
+https://dotinstall.com/lessons/basic_javascript_dom_v3/63816
+
+// ===== /MyTodoApp/main.js =====
+'use strict';
+
+{
+  const todos = [
+    {title: 'aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa ', isCompleted: false},
+    {title: 'bbb', isCompleted: true},
+    {title: 'ccc', isCompleted: false},
+    {title: 'ddd', isCompleted: false},
+  ];
+
+  const renderTodo = (todo) => {
+    /*
+    - li
+      - label
+        - input
+        - span
+      - button
+    */
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.checked = todo.isCompleted;
+    const span = document.createElement('span');
+    span.textContent = todo.title;
+    const label = document.createElement('label');
+    label.appendChild(input);
+    label.appendChild(span);
+    const button = document.createElement('button');
+    button.textContent = 'x';
+    const li = document.createElement('li');
+    li.appendChild(label);
+    li.appendChild(button);
+    document.querySelector('#todos').appendChild(li);
+  };
+
+  const renderTodos = () => {
+    todos.forEach((todo) => {
+      renderTodo(todo);
+    });
+  };
+
+  document.querySelector('#add-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = document.querySelector('#add-form input');
+    const todo = {
+      title: input.value,
+      isCompleted: false,
+    };
+    renderTodo(todo);
+    input.value = '';
+    input.focus();
+  });
+
+  renderTodos();
+}
+
+// ===== /MyTodoApp/style.css =====
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+// ===== /MyTodoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Todos
+      <button>Purge</button>
+    </h1>
+    <ul id="todos">
+      <!-- <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li> -->
+    </ul>
+    <form id="add-form">
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+削除ボタンにイベントリスナーを追加し、項目を削除できるようにしていきます。
+
+
+    イベントリスナーの追加
+    項目の削除
+    confirmの設定
+
+// ===== commentBox 1 =====
+補足情報
+ifと真偽値について
+
+
+
+
+2023年7月28日
+
+
+
+
+
+今回のifの挙動について理解を深めたい方は以下の動画を復習してみてください。
+・#04 条件分岐で真偽値を使ってみよう | JavaScript入門 データ型編
+https://dotinstall.com/lessons/basic_javascript_types/64304
+
+// ===== /MyTodoApp/main.js =====
+'use strict';
+
+{
+  const todos = [
+    {title: 'aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa ', isCompleted: false},
+    {title: 'bbb', isCompleted: true},
+    {title: 'ccc', isCompleted: false},
+    {title: 'ddd', isCompleted: false},
+  ];
+
+  const renderTodo = (todo) => {
+    /*
+    - li
+      - label
+        - input
+        - span
+      - button
+    */
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.checked = todo.isCompleted;
+    const span = document.createElement('span');
+    span.textContent = todo.title;
+    const label = document.createElement('label');
+    label.appendChild(input);
+    label.appendChild(span);
+    const button = document.createElement('button');
+    button.textContent = 'x';
+    button.addEventListener('click', () => {
+      // if (confirm('Sure?') === false) {
+      if (!confirm('Sure?')) {
+          return;
+      }
+      li.remove();
+    });
+    const li = document.createElement('li');
+    li.appendChild(label);
+    li.appendChild(button);
+    document.querySelector('#todos').appendChild(li);
+  };
+
+  const renderTodos = () => {
+    todos.forEach((todo) => {
+      renderTodo(todo);
+    });
+  };
+
+  document.querySelector('#add-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = document.querySelector('#add-form input');
+    const todo = {
+      title: input.value,
+      isCompleted: false,
+    };
+    renderTodo(todo);
+    input.value = '';
+    input.focus();
+  });
+
+  renderTodos();
+}
+
+// ===== /MyTodoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Todos
+      <button>Purge</button>
+    </h1>
+    <ul id="todos">
+      <!-- <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li> -->
+    </ul>
+    <form id="add-form">
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyTodoApp/style.css =====
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+ブラウザに搭載されたlocalStorageの使い方について見ていきます。
+
+
+    localStorage.setItem()
+    開発者ツールによる確認
+    localStorage.getItem()
+
+// ===== commentBox 1 =====
+補足情報
+localStorageについて
+
+
+
+
+2023年7月28日
+
+
+
+
+
+今回使った命令について詳細を確認したい方は以下のMDNを参照してみてください。
+・Storage.setItem() - Web API | MDN
+https://developer.mozilla.org/ja/docs/Web/API/Storage/setItem
+・Storage.getItem() - Web API | MDN
+https://developer.mozilla.org/ja/docs/Web/API/Storage/getItem
+
+// ===== /MyTodoApp/main.js =====
+'use strict';
+
+{
+  const todos = [
+    {title: 'aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa ', isCompleted: false},
+    {title: 'bbb', isCompleted: true},
+    {title: 'ccc', isCompleted: false},
+    {title: 'ddd', isCompleted: false},
+  ];
+
+  const renderTodo = (todo) => {
+    /*
+    - li
+      - label
+        - input
+        - span
+      - button
+    */
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.checked = todo.isCompleted;
+    const span = document.createElement('span');
+    span.textContent = todo.title;
+    const label = document.createElement('label');
+    label.appendChild(input);
+    label.appendChild(span);
+    const button = document.createElement('button');
+    button.textContent = 'x';
+    button.addEventListener('click', () => {
+      // if (confirm('Sure?') === false) {
+      if (!confirm('Sure?')) {
+          return;
+      }
+      li.remove();
+    });
+    const li = document.createElement('li');
+    li.appendChild(label);
+    li.appendChild(button);
+    document.querySelector('#todos').appendChild(li);
+  };
+
+  const renderTodos = () => {
+    todos.forEach((todo) => {
+      renderTodo(todo);
+    });
+  };
+
+  document.querySelector('#add-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = document.querySelector('#add-form input');
+    const todo = {
+      title: input.value,
+      isCompleted: false,
+    };
+    renderTodo(todo);
+    input.value = '';
+    input.focus();
+  });
+
+  renderTodos();
+
+  localStorage.setItem('message', 'hello');
+  console.log(localStorage.getItem('message'));
+}
+
+// ===== /MyTodoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Todos
+      <button>Purge</button>
+    </h1>
+    <ul id="todos">
+      <!-- <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li> -->
+    </ul>
+    <form id="add-form">
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyTodoApp/style.css =====
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+localStorageで複雑なデータを管理するためのテクニックについて学んでいきます。
+
+
+    JSON.stringify()
+    JSON.parse()
+
+// ===== commentBox 1 =====
+補足情報
+JSON関連の命令について
+
+
+
+
+2023年7月28日
+
+
+
+
+
+今回使ったJSON関連の命令については以下のMDNも参考にしてみてください。
+・JSON.stringify() - JavaScript | MDN
+https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
+・JSON.parse() - JavaScript | MDN
+https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+
+// ===== /MyTodoApp/main.js =====
+'use strict';
+
+{
+  const todos = [
+    {title: 'aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa ', isCompleted: false},
+    {title: 'bbb', isCompleted: true},
+    {title: 'ccc', isCompleted: false},
+    {title: 'ddd', isCompleted: false},
+  ];
+
+  const renderTodo = (todo) => {
+    /*
+    - li
+      - label
+        - input
+        - span
+      - button
+    */
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.checked = todo.isCompleted;
+    const span = document.createElement('span');
+    span.textContent = todo.title;
+    const label = document.createElement('label');
+    label.appendChild(input);
+    label.appendChild(span);
+    const button = document.createElement('button');
+    button.textContent = 'x';
+    button.addEventListener('click', () => {
+      // if (confirm('Sure?') === false) {
+      if (!confirm('Sure?')) {
+          return;
+      }
+      li.remove();
+    });
+    const li = document.createElement('li');
+    li.appendChild(label);
+    li.appendChild(button);
+    document.querySelector('#todos').appendChild(li);
+  };
+
+  const renderTodos = () => {
+    todos.forEach((todo) => {
+      renderTodo(todo);
+    });
+  };
+
+  document.querySelector('#add-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = document.querySelector('#add-form input');
+    const todo = {
+      title: input.value,
+      isCompleted: false,
+    };
+    renderTodo(todo);
+    input.value = '';
+    input.focus();
+  });
+
+  renderTodos();
+
+  localStorage.setItem('todos', JSON.stringify(todos));
+  console.log(JSON.parse(localStorage.getItem('todos')));
+}
+
+// ===== /MyTodoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Todos
+      <button>Purge</button>
+    </h1>
+    <ul id="todos">
+      <!-- <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li> -->
+    </ul>
+    <form id="add-form">
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyTodoApp/style.css =====
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+// ===== video_summary =====
+ページを読み込んだとき、項目が追加されたときにデータを更新する方法について見ていきます。
+
+
+    todosの設定
+    todosの更新
+
+// ===== /MyTodoApp/main.js =====
+'use strict';
+
+{
+  let todos;
+
+  if (localStorage.getItem('todos') === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem('todos'));
+  }
+  
+  const renderTodo = (todo) => {
+    /*
+    - li
+      - label
+        - input
+        - span
+      - button
+    */
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.checked = todo.isCompleted;
+    const span = document.createElement('span');
+    span.textContent = todo.title;
+    const label = document.createElement('label');
+    label.appendChild(input);
+    label.appendChild(span);
+    const button = document.createElement('button');
+    button.textContent = 'x';
+    button.addEventListener('click', () => {
+      // if (confirm('Sure?') === false) {
+      if (!confirm('Sure?')) {
+          return;
+      }
+      li.remove();
+    });
+    const li = document.createElement('li');
+    li.appendChild(label);
+    li.appendChild(button);
+    document.querySelector('#todos').appendChild(li);
+  };
+
+  const renderTodos = () => {
+    todos.forEach((todo) => {
+      renderTodo(todo);
+    });
+  };
+
+  document.querySelector('#add-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = document.querySelector('#add-form input');
+    const todo = {
+      title: input.value,
+      isCompleted: false,
+    };
+    renderTodo(todo);
+    todos.push(todo);
+    localStorage.setItem('todos', JSON.stringify(todos));
+    input.value = '';
+    input.focus();
+  });
+
+  renderTodos();
+}
+
+// ===== /MyTodoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Todos
+      <button>Purge</button>
+    </h1>
+    <ul id="todos">
+      <!-- <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li> -->
+    </ul>
+    <form id="add-form">
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyTodoApp/style.css =====
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+todosから要素を削除するために、個々の要素を特定するためのIDを設定していきます。
+
+
+    idプロパティの設定
+    Date.now()
+    コンソールでの確認
+    インデックスに関する注意点
+
+// ===== commentBox 1 =====
+補足情報
+UNIXタイムスタンプについて
+
+
+
+
+2023年7月28日
+
+
+
+
+
+今回使ったUNIXタイムスタンプとDate.now()について以下の動画を復習してみてください。
+・JavaScript入門 日時操作編 (全8回)
+https://dotinstall.com/lessons/basic_javascript_datetime
+・#07 日時の差を求めてみよう | JavaScript入門 日時操作編
+https://dotinstall.com/lessons/basic_javascript_datetime/64107
+
+// ===== /MyTodoApp/main.js =====
+'use strict';
+
+{
+  let todos;
+
+  if (localStorage.getItem('todos') === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem('todos'));
+  }
+  
+  const renderTodo = (todo) => {
+    /*
+    - li
+      - label
+        - input
+        - span
+      - button
+    */
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.checked = todo.isCompleted;
+    const span = document.createElement('span');
+    span.textContent = todo.title;
+    const label = document.createElement('label');
+    label.appendChild(input);
+    label.appendChild(span);
+    const button = document.createElement('button');
+    button.textContent = 'x';
+    button.addEventListener('click', () => {
+      // if (confirm('Sure?') === false) {
+      if (!confirm('Sure?')) {
+          return;
+      }
+      li.remove();
+
+
+    });
+    const li = document.createElement('li');
+    li.appendChild(label);
+    li.appendChild(button);
+    document.querySelector('#todos').appendChild(li);
+  };
+
+  const renderTodos = () => {
+    todos.forEach((todo) => {
+      renderTodo(todo);
+    });
+  };
+
+  document.querySelector('#add-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = document.querySelector('#add-form input');
+    const todo = {
+      id: Date.now(),
+      title: input.value,
+      isCompleted: false,
+    };
+    renderTodo(todo);
+    todos.push(todo);
+    console.table(todos);
+    localStorage.setItem('todos', JSON.stringify(todos));
+    input.value = '';
+    input.focus();
+  });
+
+  renderTodos();
+}
+
+// ===== /MyTodoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Todos
+      <button>Purge</button>
+    </h1>
+    <ul id="todos">
+      <!-- <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li> -->
+    </ul>
+    <form id="add-form">
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyTodoApp/style.css =====
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+前回設定したIDをもとに項目の削除処理を完成させていきます。
+
+
+    filterによる配列の更新
+    動作確認
+
+// ===== commentBox 1 =====
+補足情報
+filter()について
+
+
+
+
+2023年7月28日
+
+
+
+
+
+今回使っているfilter()について復習したい方は以下の動画を参照してみてください。
+・#19 filter()で新しい配列を作ってみよう | JavaScript入門 データ構造編
+https://dotinstall.com/lessons/basic_javascript_data_structure/63619
+
+// ===== /MyTodoApp/main.js =====
+'use strict';
+
+{
+  let todos;
+
+  if (localStorage.getItem('todos') === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem('todos'));
+  }
+  
+  const renderTodo = (todo) => {
+    /*
+    - li
+      - label
+        - input
+        - span
+      - button
+    */
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.checked = todo.isCompleted;
+    const span = document.createElement('span');
+    span.textContent = todo.title;
+    const label = document.createElement('label');
+    label.appendChild(input);
+    label.appendChild(span);
+    const button = document.createElement('button');
+    button.textContent = 'x';
+    button.addEventListener('click', () => {
+      // if (confirm('Sure?') === false) {
+      if (!confirm('Sure?')) {
+          return;
+      }
+      li.remove();
+      todos = todos.filter((item) => {
+        return item.id !== todo.id;
+      });
+      localStorage.setItem('todos', JSON.stringify(todos));
+    });
+    const li = document.createElement('li');
+    li.appendChild(label);
+    li.appendChild(button);
+    document.querySelector('#todos').appendChild(li);
+  };
+
+  const renderTodos = () => {
+    todos.forEach((todo) => {
+      renderTodo(todo);
+    });
+  };
+
+  document.querySelector('#add-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = document.querySelector('#add-form input');
+    const todo = {
+      id: Date.now(),
+      title: input.value,
+      isCompleted: false,
+    };
+    renderTodo(todo);
+    todos.push(todo);
+    console.table(todos);
+    localStorage.setItem('todos', JSON.stringify(todos));
+    input.value = '';
+    input.focus();
+  });
+
+  renderTodos();
+}
+
+// ===== /MyTodoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Todos
+      <button>Purge</button>
+    </h1>
+    <ul id="todos">
+      <!-- <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li> -->
+    </ul>
+    <form id="add-form">
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyTodoApp/style.css =====
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+チェックボックスがチェックされたときにもtodos、localStorageが更新されるように実装していきます。
+
+
+    イベントリスナーの追加
+    todosの更新
+    真偽値の反転
+    localStorageの更新
+
+// ===== commentBox 1 =====
+補足情報
+0:59〜の説明について
+
+
+
+
+2024年2月2日
+
+
+
+
+
+0:59〜、forEach()を使っていますが、isCompletedで反転させるデータはrenderTodo()に渡しているtodoなので、23行目以降は以下のように短く書くこともできます。
+input.addEventListener('change', () => {
+  todo.isCompleted = !todo.isCompleted;
+  localStorage.setItem('todos', JSON.stringify(todos));
+});
+ユーザーの方よりご指摘いただきました。ありがとうございました。
+
+// ===== commentBox 2 =====
+補足情報
+changeイベントについて
+
+
+
+
+2023年7月28日
+
+
+
+
+
+今回使っているchageイベントについては以下の動画を復習してみてください。
+・#15 inputイベントを使ってみよう | JavaScript入門 DOM編
+https://dotinstall.com/lessons/basic_javascript_dom_v3/63815
+
+// ===== commentBox 3 =====
+補足情報
+!について
+
+
+
+
+2023年7月28日
+
+
+
+
+
+今回使っている!の演算子について以下を復習してみてください。
+・#25 論理演算子を使ってみよう | JavaScript入門 基礎文法編
+https://dotinstall.com/lessons/basic_javascript_grammar_v3/63425
+
+// ===== /MyTodoApp/main.js =====
+'use strict';
+
+{
+  let todos;
+
+  if (localStorage.getItem('todos') === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem('todos'));
+  }
+  
+  const renderTodo = (todo) => {
+    /*
+    - li
+      - label
+        - input
+        - span
+      - button
+    */
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.checked = todo.isCompleted;
+    input.addEventListener('change', () => {
+      todos.forEach((item) => {
+        if (item.id === todo.id) {
+          item.isCompleted = !item.isCompleted;
+        }
+      });
+      localStorage.setItem('todos', JSON.stringify(todos));
+    });
+    const span = document.createElement('span');
+    span.textContent = todo.title;
+    const label = document.createElement('label');
+    label.appendChild(input);
+    label.appendChild(span);
+    const button = document.createElement('button');
+    button.textContent = 'x';
+    button.addEventListener('click', () => {
+      // if (confirm('Sure?') === false) {
+      if (!confirm('Sure?')) {
+          return;
+      }
+      li.remove();
+      todos = todos.filter((item) => {
+        return item.id !== todo.id;
+      });
+      localStorage.setItem('todos', JSON.stringify(todos));
+    });
+    const li = document.createElement('li');
+    li.appendChild(label);
+    li.appendChild(button);
+    document.querySelector('#todos').appendChild(li);
+  };
+
+  const renderTodos = () => {
+    todos.forEach((todo) => {
+      renderTodo(todo);
+    });
+  };
+
+  document.querySelector('#add-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = document.querySelector('#add-form input');
+    const todo = {
+      id: Date.now(),
+      title: input.value,
+      isCompleted: false,
+    };
+    renderTodo(todo);
+    todos.push(todo);
+    console.table(todos);
+    localStorage.setItem('todos', JSON.stringify(todos));
+    input.value = '';
+    input.focus();
+  });
+
+  renderTodos();
+}
+
+// ===== /MyTodoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Todos
+      <button>Purge</button>
+    </h1>
+    <ul id="todos">
+      <!-- <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li> -->
+    </ul>
+    <form id="add-form">
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyTodoApp/style.css =====
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+チェックした項目をまとめて削除するための機能を実装していきます。
+
+
+    イベントリスナーの追加
+    todosの更新
+    saveTodos関数の定義
+
+// ===== commentBox 1 =====
+補足情報
+filter()について
+
+
+
+
+2023年7月28日
+
+
+
+
+
+今回使っているfilter()について復習したい方は以下の動画を参照してみてください。
+・#19 filter()で新しい配列を作ってみよう | JavaScript入門 データ構造編
+https://dotinstall.com/lessons/basic_javascript_data_structure/63619
+
+// ===== /MyTodoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Todos
+      <button id="purge">Purge</button>
+    </h1>
+    <ul id="todos">
+      <!-- <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li> -->
+    </ul>
+    <form id="add-form">
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyTodoApp/main.js =====
+'use strict';
+
+{
+  let todos;
+
+  if (localStorage.getItem('todos') === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem('todos'));
+  }
+
+  const saveTodos = () => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  };
+  
+  const renderTodo = (todo) => {
+    /*
+    - li
+      - label
+        - input
+        - span
+      - button
+    */
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.checked = todo.isCompleted;
+    input.addEventListener('change', () => {
+      todos.forEach((item) => {
+        if (item.id === todo.id) {
+          item.isCompleted = !item.isCompleted;
+        }
+      });
+      saveTodos();
+    });
+    const span = document.createElement('span');
+    span.textContent = todo.title;
+    const label = document.createElement('label');
+    label.appendChild(input);
+    label.appendChild(span);
+    const button = document.createElement('button');
+    button.textContent = 'x';
+    button.addEventListener('click', () => {
+      // if (confirm('Sure?') === false) {
+      if (!confirm('Sure?')) {
+          return;
+      }
+      li.remove();
+      todos = todos.filter((item) => {
+        return item.id !== todo.id;
+      });
+      saveTodos();
+    });
+    const li = document.createElement('li');
+    li.appendChild(label);
+    li.appendChild(button);
+    document.querySelector('#todos').appendChild(li);
+  };
+
+  const renderTodos = () => {
+    todos.forEach((todo) => {
+      renderTodo(todo);
+    });
+  };
+
+  document.querySelector('#add-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = document.querySelector('#add-form input');
+    const todo = {
+      id: Date.now(),
+      title: input.value,
+      isCompleted: false,
+    };
+    renderTodo(todo);
+    todos.push(todo);
+    console.table(todos);
+    saveTodos();
+    input.value = '';
+    input.focus();
+  });
+
+  document.querySelector('#purge').addEventListener('click', () => {
+    todos = todos.filter((todo) => {
+      return todo.isCompleted === false;
+    });
+    saveTodos();
+  });
+
+  renderTodos();
+}
+
+// ===== /MyTodoApp/style.css =====
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+項目が削除されたあとにリストを再描画する方法を見ていきます。
+
+
+    li要素の削除
+    renderTodos()の実行
+
+// ===== /MyTodoApp/main.js =====
+'use strict';
+
+{
+  let todos;
+
+  if (localStorage.getItem('todos') === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem('todos'));
+  }
+
+  const saveTodos = () => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  };
+  
+  const renderTodo = (todo) => {
+    /*
+    - li
+      - label
+        - input
+        - span
+      - button
+    */
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.checked = todo.isCompleted;
+    input.addEventListener('change', () => {
+      todos.forEach((item) => {
+        if (item.id === todo.id) {
+          item.isCompleted = !item.isCompleted;
+        }
+      });
+      saveTodos();
+    });
+    const span = document.createElement('span');
+    span.textContent = todo.title;
+    const label = document.createElement('label');
+    label.appendChild(input);
+    label.appendChild(span);
+    const button = document.createElement('button');
+    button.textContent = 'x';
+    button.addEventListener('click', () => {
+      // if (confirm('Sure?') === false) {
+      if (!confirm('Sure?')) {
+          return;
+      }
+      li.remove();
+      todos = todos.filter((item) => {
+        return item.id !== todo.id;
+      });
+      saveTodos();
+    });
+    const li = document.createElement('li');
+    li.appendChild(label);
+    li.appendChild(button);
+    document.querySelector('#todos').appendChild(li);
+  };
+
+  const renderTodos = () => {
+    todos.forEach((todo) => {
+      renderTodo(todo);
+    });
+  };
+
+  document.querySelector('#add-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = document.querySelector('#add-form input');
+    const todo = {
+      id: Date.now(),
+      title: input.value,
+      isCompleted: false,
+    };
+    renderTodo(todo);
+    todos.push(todo);
+    console.table(todos);
+    saveTodos();
+    input.value = '';
+    input.focus();
+  });
+
+  document.querySelector('#purge').addEventListener('click', () => {
+    if (!confirm('Sure?')) {
+      return;
+    }
+    todos = todos.filter((todo) => {
+      return todo.isCompleted === false;
+    });
+    saveTodos();
+    document.querySelectorAll('#todos li').forEach((li) => {
+      li.remove();
+    });
+    renderTodos();
+  });
+
+  renderTodos();
+}
+
+// ===== /MyTodoApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Todos
+      <button id="purge">Purge</button>
+    </h1>
+    <ul id="todos">
+      <!-- <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>x</button>
+      </li> -->
+    </ul>
+    <form id="add-form">
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
+
+// ===== /MyTodoApp/style.css =====
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+
+

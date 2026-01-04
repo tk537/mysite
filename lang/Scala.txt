@@ -1,0 +1,1269 @@
+// ===== video_summary =====
+まずは概要を説明したのちに公式サイト、必要となる知識、レッスンにおける環境について説明していきます。
+
+
+    概要
+    公式サイト
+    必要となる知識
+    レッスンにおける環境
+    Vagrantfileの編集
+
+// ===== commentBox 1 =====
+補足情報
+Scalaの実行環境について
+
+
+
+
+2020年12月2日
+
+
+
+
+
+現在ローカル開発環境のレッスンどおりに環境を構築することができません（レッスン内で利用しているCentOS6が終了したため）。実行環境の代替手段についてはローカル開発環境を構築できないのですが……をご覧ください。
+
+// ===== commentBox 2 =====
+補足情報
+ScalaにはJavaが必要です
+
+
+
+
+2017年7月1日
+
+
+
+
+
+Scalaを動作させるにはJavaをインストールする必要があります。まだインストールしていない場合は以下のコマンドを実行しておいてください。
+
+sudo yum -y install java-1.8.0-openjdk-devel
+
+// ===== commentBox 3 =====
+補足情報
+必要となる知識について
+
+
+
+
+2016年11月21日
+
+
+
+
+
+今回のレッスンについては以下も参考にしてみてください。
+
+・ローカル開発環境の構築 [macOS編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_mac_v2
+・ローカル開発環境の構築 [Windows編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_win_v2
+・UNIXコマンド入門 (一般ユーザー編) (全16回)
+http://dotinstall.com/lessons/basic_unix
+・Java 8入門 (全43回) 
+http://dotinstall.com/lessons/basic_java_v2
+
+// ===== read.me =====
+Scala
+
+* 概要
+- Scalable Language
+- オブジェクト指向 / 関数型プログラミング
+- Java
+
+* 公式サイト
+
+* 知識
+
+* 環境
+- ローカル開発環境
+
+// ===== Vagrantfile =====
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure(2) do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
+
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://atlas.hashicorp.com/search.
+  config.vm.box = "bento/centos-6.7"
+
+  # Disable automatic box update checking. If you disable this, then
+  # boxes will only be checked for updates when the user runs
+  # `vagrant box outdated`. This is not recommended.
+  # config.vm.box_check_update = false
+
+  # Create a forwarded port mapping which allows access to a specific port
+  # within the machine from a port on the host machine. In the example below,
+  # accessing "localhost:8080" will access port 80 on the guest machine.
+  # config.vm.network "forwarded_port", guest: 80, host: 8080
+
+  # Create a private network, which allows host-only access to the machine
+  # using a specific IP.
+  config.vm.network "private_network", ip: "192.168.33.11"
+
+  # Create a public network, which generally matched to bridged network.
+  # Bridged networks make the machine appear as another physical device on
+  # your network.
+  # config.vm.network "public_network"
+
+  # Share an additional folder to the guest VM. The first argument is
+  # the path on the host to the actual folder. The second argument is
+  # the path on the guest to mount the folder. And the optional third
+  # argument is a set of non-required options.
+  # config.vm.synced_folder "../data", "/vagrant_data"
+
+  # Provider-specific configuration so you can fine-tune various
+  # backing providers for Vagrant. These expose provider-specific options.
+  # Example for VirtualBox:
+  #
+   config.vm.provider "virtualbox" do |vb|
+  #   # Display the VirtualBox GUI when booting the machine
+  #   vb.gui = true
+  #
+  #   # Customize the amount of memory on the VM:
+     vb.memory = "2048"
+   end
+  #
+  # View the documentation for the provider you are using for more
+  # information on available options.
+
+  # Define a Vagrant Push strategy for pushing to Atlas. Other push strategies
+  # such as FTP and Heroku are also available. See the documentation at
+  # https://docs.vagrantup.com/v2/push/atlas.html for more information.
+  # config.push.define "atlas" do |push|
+  #   push.app = "YOUR_ATLAS_USERNAME/YOUR_APPLICATION_NAME"
+  # end
+
+  # Enable provisioning with a shell script. Additional provisioners such as
+  # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
+  # documentation for more information about their specific syntax and use.
+  # config.vm.provision "shell", inline: <<-SHELL
+  #   sudo apt-get update
+  #   sudo apt-get install -y apache2
+  # SHELL
+end
+
+
+
+// ===== video_summary =====
+JavaやScalaをインストールするためのsbtを導入していきます。
+
+
+    sbtのインストール
+    sbtの設定
+    consoleの起動、終了
+    language-scalaの導入
+
+// ===== read.me =====
+curl https://bintray.com/sbt/rpm/rpm | sudo tee /etc/yum.repos.d/bintray-sbt-rpm.repo
+sudo yum install sbt
+
+mkdir scala_lessons
+cd scala_lessons
+echo 'scalaVersion := "2.11.8"' > build.sbt
+
+sbt
+console
+1 + 2
+:quit
+exit
+
+
+// ===== video_summary =====
+Hello Worldと表示するプログラムを書いて実行してみます。
+
+
+    MyApp.scalaの作成
+    コメントの書き方
+    実行方法
+
+// ===== /src/main/scala/MyApp.scala =====
+object MyApp {
+
+  // comment
+
+  /*
+  comment
+  comment
+  comment
+  */
+
+  def main(args: Array[String]): Unit = {
+    println("Hello World")
+  }
+
+}
+
+
+// ===== video_summary =====
+変数の使い方、型推論について見ていきます。
+
+
+    2種類の変数
+    型推論
+
+// ===== /src/main/scala/MyApp.scala =====
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    // 変数
+    // - val: 値の再代入ができない immutable
+    // - var: 値の再代入ができる mutable
+
+    // val msg: String = "Hello World"
+    // val msg = "Hello World" // 型推論
+    var msg = "Hello World" // 型推論
+    msg = "Hello World Again?"
+    println(msg)
+  }
+
+}
+
+
+
+// ===== video_summary =====
+Scalaで扱える基本的なデータ型について例を出していきます。
+
+
+    基本的なデータ型
+    文字列で使える特殊文字
+
+// ===== /src/main/scala/MyApp.scala =====
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    // 整数 Byte Short Int Long
+    val i = 5
+    val l = 5555555555L
+    // 浮動小数点数 Float Double
+    val d = 32535.5
+    val f = 234.34F
+    // 文字 Char
+    val c = 'a'
+    // 文字列 String
+    val s = "Hello"
+    // 特殊文字 \n: 改行、\t: タブ
+
+    // 論理値 Boolean
+    val flag = true // false
+
+    val msg = "Hello W\norl\td"
+    println(msg)
+  }
+
+}
+
+
+// ===== video_summary =====
+基本的なデータ型の演算について見ていきます。
+
+
+    データの演算
+
+// ===== /src/main/scala/MyApp.scala =====
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    // 数値
+    // + - * / %
+    val x = 10
+    println(x / 3) // 3
+    println(x / 3.0) // 3.3333...
+    println(x % 3) // 1
+
+    var y = 5
+    // y = y + 10
+    y += 10 // 15
+
+    // 文字列
+    val s = "hello "
+    println(s + "world")
+
+    // 論理値
+    // and or not
+    // && || !
+    val flag = true
+    println(!flag) // false
+  }
+
+}
+
+
+
+// ===== video_summary =====
+文字列の中で変数の値を展開する記法について見ていきます。
+
+
+    変数の展開記法
+
+// ===== /src/main/scala/MyApp.scala =====
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    val name = "taguchi"
+    val score = 80
+    val height = 158.3
+
+    println(s"name: $name, score: $score, height: $height")
+    println(s"name: $name, score: ${score + 10}, height: $height")
+
+    println(f"name: $name%s, score: $score%d, height: $height%f")
+    println(f"name: $name%10s, score: $score%10d, height: $height%10f")
+    println(f"name: $name%10s, score: $score%-10d, height: $height%10f")
+    println(f"name: $name%10s, score: $score%-10d, height: $height%10.2f")
+
+  }
+
+}
+
+
+// ===== video_summary =====
+ifを使って条件分岐をする方法について解説していきます。
+
+
+    条件分岐
+    比較演算子
+
+// ===== /src/main/scala/MyApp.scala =====
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    // if
+    val score = 70
+    // > >= < <= == != && || !
+    // if (score > 80) println("Great!")
+    // else if (score > 60) println("Good!")
+    // else println("so so ...")
+    val result =
+      if (score > 80) "Great!"
+      else if (score > 60) "Good!"
+      else "so so ..."
+    println(result)
+  }
+
+}
+
+
+// ===== video_summary =====
+matchを使って条件分岐をする方法について見ていきます。
+
+
+    match
+
+// ===== /src/main/scala/MyApp.scala =====
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    // match
+    val signal = "pink"
+    val result = signal match {
+      case "red" => "stop"
+      case "blue" | "green" => "go"
+      case "yellow" => "caution"
+      // case _ => "wrong signal"
+      case other => s"wrong signal: ${other}"
+    }
+    println(result)
+  }
+
+}
+
+
+// ===== video_summary =====
+条件を満たしているあいだ、特定の処理を繰り返して実行する方法について見ていきます。
+
+
+    while
+    do ... while
+
+// ===== /src/main/scala/MyApp.scala =====
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    // while
+    // 0 - 9
+
+    // var i = 0
+    var i = 100
+
+    // while (i < 10) {
+    //   println(i)
+    //   i += 1 // i++
+    // }
+
+    do {
+      println(i)
+      i += 1
+    } while (i < 10)
+
+  }
+
+}
+
+
+// ===== video_summary =====
+forを使って繰り返し処理を行う方法について解説していきます。
+
+
+    for
+    ジェネレータ
+    yield
+
+// ===== /src/main/scala/MyApp.scala =====
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    // for
+    // for (ジェネレータ) 処理
+    // for (変数 <- データの集合) 処理
+    // 0 to 3, 0 until 4
+    // for (i <- 0 to 3) println(i)
+    // for (i <- 0 to 3; j <- 0 to 3) println(s"$i, $j")
+    // for (i <- 0 to 3; j <- 0 to 3 if i != j) println(s"$i, $j")
+
+    val result = for (i <- 0 to 3; j <- 0 to 3 if i != j) yield s"$i, $j"
+    for (el <- result) println(el)
+
+  }
+
+}
+
+
+
+// ===== video_summary =====
+処理をまとめるためのメソッドの作り方について見ていきます。
+
+
+    メソッドの作り方
+    返り値
+
+// ===== /src/main/scala/MyApp.scala =====
+object MyApp {
+
+  // method
+
+  // def sayHi(): Unit = {
+  def sayHi(): String = {
+    // println("hi!")
+    // 返り値
+    // return "hi!"
+    "hi!"
+  }
+
+  def main(args: Array[String]): Unit = {
+    // sayHi()
+    println(sayHi())
+  }
+
+}
+
+
+// ===== video_summary =====
+メソッドの引数について解説していきます。
+
+
+    引数
+    デフォルト値
+    名前付き引数
+
+// ===== /src/main/scala/MyApp.scala =====
+object MyApp {
+
+  def sayHi(name: String = "taguchi", age: Int = 23): Unit = {
+    println(s"hi! $name ($age)")
+  }
+
+  def main(args: Array[String]): Unit = {
+    sayHi("bob", 35) // 引数
+    sayHi("tom", 55)
+    sayHi()
+    sayHi(age = 18, name = "steve")
+  }
+}
+
+
+// ===== video_summary =====
+自分で作るデータ型であるクラスについて見ていきます。
+
+
+    クラスの作り方
+    メンバ
+
+// ===== /src/main/scala/MyApp.scala =====
+// Class
+//   user: User
+//   i: Int
+// - 変数 / フィールド
+// - メソッド
+
+class User {
+  val name = "my name"
+  def sayHi() = println("hi!")
+}
+
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    // val user: User = new User
+    val user = new User
+    println(user.name)
+    user.sayHi()
+  }
+
+}
+
+
+// ===== video_summary =====
+クラスに渡すことができるコンストラクタ引数について解説していきます。
+
+
+    インスタンス
+    コンストラクタ引数
+
+// ===== /src/main/scala/MyApp.scala =====
+// class User(_name: String) {
+class User(val name: String) {
+  // val name = _name
+  // def sayHi() = println("hi! " + this.name)
+  def sayHi() = println("hi! " + name)
+}
+
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    val tom = new User("tom") // インスタンス
+    println(tom.name)
+    tom.sayHi()
+  }
+
+}
+
+
+// ===== video_summary =====
+既存のクラスを継承して新しいクラスをつくる方法について見ていきます。
+
+
+    クラスの継承
+    override
+
+// ===== /src/main/scala/MyApp.scala =====
+// User -> AdminUser
+
+class User(val name: String) {
+  def sayHi() = println("hi! " + name)
+}
+
+class AdminUser(name: String, val age: Int) extends User(name) {
+  def sayHello() = println("hello! " + name + "(" + age + ")")
+  override def sayHi() = println("[admin] hi! " + name)
+}
+
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    val bob = new AdminUser("bob", 23)
+    println(bob.name)
+    println(bob.age)
+    bob.sayHi()
+    bob.sayHello()
+  }
+
+}
+
+
+// ===== video_summary =====
+packageを使ってクラスをまとめる方法について解説していきます。
+
+
+    package
+    import
+
+// ===== /src/main/scala/MyApp.scala =====
+// Package
+
+import com.dotinstall.model.User
+import com.dotinstall.model.AdminUser
+// import com.dotinstall.model.{User, AdminUser}
+// import com.dotinstall.model._
+
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    // val tom = new com.dotinstall.model.User("tom")
+    val tom = new User("tom")
+    val bob = new AdminUser("bob", 23)
+  }
+
+}
+
+// ===== /src/main/scala/User.scala =====
+package com.dotinstall.model
+
+class User(val name: String) {
+  def sayHi() = println("hi! " + name)
+}
+
+class AdminUser(name: String, val age: Int) extends User(name) {
+  def sayHello() = println("hello! " + name + "(" + age + ")")
+  override def sayHi() = println("[admin] hi! " + name)
+}
+
+
+// ===== video_summary =====
+クラスやメンバにつけることができるアクセス修飾子について見ていきます。
+
+
+    (public)
+    private
+    protected
+
+// ===== /src/main/scala/MyApp.scala =====
+// アクセス修飾子
+// (public)
+// private
+// protected
+
+class User {
+  // val name = "user"
+  // protected val name = "user"
+  private val name = "user"
+  def sayHi() = println("hi! " + name)
+}
+
+class AdminUser extends User {
+  override def sayHi() = println("[admin] hi! " + name)
+}
+
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    val user = new User
+    val adminUser = new AdminUser
+    // println(user.name)
+    user.sayHi()
+    adminUser.sayHi()
+  }
+
+}
+
+
+// ===== video_summary =====
+final修飾子で継承やオーバーライドを禁止する方法について見ていきます。
+
+
+    final
+
+// ===== /src/main/scala/MyApp.scala =====
+// final
+// - class: 継承できない
+// - members: overrideできない
+
+class User {
+// final class User {
+  final val name = "user"
+  def sayHi() = println("hi! " + name)
+}
+
+class AdminUser extends User {
+  override val name = "admin user"
+  override def sayHi() = println("[admin] hi! " + name)
+}
+
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    val user = new User
+    val adminUser = new AdminUser
+    println(adminUser.name)
+  }
+
+}
+
+
+
+// ===== video_summary =====
+objectの特性について解説していきます。
+
+
+    object
+    applyメソッド
+
+// ===== /src/main/scala/MyApp.scala =====
+// object
+
+object User {
+  def getInfo() = println("User Object")
+  def apply(name: String) = new User(name)
+}
+
+class User(val name: String) {
+  def sayHi() = Predef.println("hi! " + name)
+}
+
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    User.getInfo()
+    // val tom = new User("tom")
+    // val tom = User.apply("tom")
+    val tom = User("tom")
+    println(tom.name)
+  }
+
+}
+
+
+// ===== video_summary =====
+継承することが前提となる抽象クラスについて見ていきます。
+
+
+    抽象クラス
+    抽象メンバ
+
+// ===== /src/main/scala/MyApp.scala =====
+// 抽象クラス
+// User: 抽象クラス
+// - Japanese: 具象クラス
+// - American: 具象クラス
+
+abstract class User {
+  def sayHi()
+}
+
+class Japanese extends User {
+  def sayHi() = println("こんにちは！")
+}
+
+class American extends User {
+  def sayHi() = println("hi!")
+}
+
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    val aki = new Japanese
+    val tom = new American
+    aki.sayHi()
+    tom.sayHi()
+  }
+
+}
+
+
+// ===== video_summary =====
+トレイトを使ってクラスに機能を合成する方法について解説していきます。
+
+
+    トレイトの作成
+    トレイトの合成
+
+// ===== /src/main/scala/MyApp.scala =====
+// trait
+
+trait Printable {
+  def print() = println("now printing ...")
+}
+
+trait Sharable {
+  def share() = println("now sharing ...")
+}
+
+class User extends Printable with Sharable
+// class User extends OtherClass with Printable
+
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    val user = new User
+    user.print()
+    user.share()
+  }
+
+}
+
+
+
+// ===== video_summary =====
+複数のトレイトを使ったときに発生する問題の解決方法について見ていきます。
+
+
+    トレイトの同名メソッド
+    問題の解決方法
+
+// ===== /src/main/scala/MyApp.scala =====
+// // trait
+//
+// trait Printable {
+//   def print() = println("now printing ...")
+//   def getInfo() = println("Print!")
+// }
+//
+// trait Sharable {
+//   def share() = println("now sharing ...")
+//   def getInfo() = println("Share!")
+// }
+//
+// class User extends Printable with Sharable {
+//   override def getInfo() = super[Printable].getInfo()
+// }
+
+// trait
+
+trait Common {
+  def getInfo()
+}
+
+trait Printable extends Common {
+  def print() = println("now printing ...")
+  override def getInfo() = println("Print!")
+}
+
+trait Sharable extends Common {
+  def share() = println("now sharing ...")
+  override def getInfo() = println("Share!")
+}
+
+class User extends Printable with Sharable
+
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    val user = new User
+    user.getInfo()
+  }
+
+}
+
+
+
+// ===== video_summary =====
+型をパラメータ化して使う方法について見ていきます。
+
+
+    型のパラメータ化
+
+// ===== /src/main/scala/MyApp.scala =====
+// 型パラメータ
+
+// class MyInt {
+//   def getThree(i: Int): Unit = println(s"$i $i $i")
+// }
+
+class MyData[T] {
+  def getThree(i: T): Unit = println(s"$i $i $i")
+}
+
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    // val mi = new MyInt
+    // mi.getThree(3)
+
+    val i = new MyData[Int]
+    i.getThree(5)
+    val s = new MyData[String]
+    s.getThree("hello")
+  }
+
+}
+
+
+// ===== video_summary =====
+関数オブジェクトの作り方、使い方について見ていきます。
+
+
+    関数オブジェクト
+
+// ===== /src/main/scala/MyApp.scala =====
+object MyApp {
+
+  // 関数 Input -> Output
+
+  // method
+  def mult(a: Int, b: Int) = a * b
+
+  // 関数オブジェクト
+  // 引数 => 処理
+  // val multFunc: (Int, Int) => Int = (a: Int, b: Int) => a * b
+  // val multFunc = (a: Int, b: Int) => a * b
+  val multFunc = (_: Int) * (_: Int)
+
+  def main(args: Array[String]): Unit = {
+    // println(multFunc(3, 5)) // 15
+    println(multFunc(2, 4)) // 8
+  }
+
+}
+
+
+// ===== video_summary =====
+関数をカリー化する方法について解説していきます。
+
+
+    関数のカリー化
+
+// ===== /src/main/scala/MyApp.scala =====
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    // 関数のカリー化
+    val multFunc = (a: Int, b: Int) => a * b
+    val multFuncCurried = (a: Int) => ((b: Int) => a * b)
+
+    // println(multFunc(3, 5))
+    // println(multFuncCurried(3)(5))
+
+    val double = multFuncCurried(2)
+    val tripple = multFuncCurried(3)
+
+    println(double(5)) // 10
+    println(tripple(5)) // 15
+  }
+
+}
+
+
+// ===== video_summary =====
+関数の引数を部分的に適用する方法について見ていきます。
+
+
+    関数の部分適用
+    メソッドから関数オブジェクトへの変換
+
+// ===== /src/main/scala/MyApp.scala =====
+object MyApp {
+
+  // 部分適用
+
+  def msg(from: String, to: String, text: String) = s"($from -> $to): $text"
+
+  def main(args: Array[String]): Unit = {
+    // println(msg("taguchi", "fkoji", "OK!"))
+    // println(msg("sugita", "fkoji", "Great!"))
+    // println(msg("tanaka", "fkoji", "Good!"))
+
+    val msgToFkoji = msg(_: String, "fkoji", _: String)
+    // val msgToFkoji = msg(_: String, _: String, _: String)
+    val msgFunc = msg _
+
+    println(msgToFkoji("taguchi", "OK!"))
+    println(msgToFkoji("sugita", "Great!"))
+    println(msgToFkoji("tanaka", "Good!"))
+  }
+
+}
+
+
+// ===== video_summary =====
+複数の値をまとめることができるタプルについて見ていきます。
+
+
+    タプルの作り方
+    タプルの使い方
+
+// ===== /src/main/scala/MyApp.scala =====
+object MyApp {
+
+  def swap(a: Int, b: Int) = (b, a)
+
+  def main(args: Array[String]): Unit = {
+    // tuple
+    //
+    // val data = (12, "taguchi", 52.4)
+    // println(data._1)
+    // println(data._2)
+    // println(data._3)
+
+    val (x, y) = swap(30, 20)
+    println(x) // 20
+    println(y) // 30
+
+  }
+
+}
+
+
+
+// ===== video_summary =====
+コレクションの一種であるListについて見ていきます。
+
+
+    Listの作り方
+    Listで使えるメソッド
+
+// ===== /src/main/scala/MyApp.scala =====
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    // Collection
+    // - Seq: List
+    // - Set
+    // - Map
+
+    // val scores = List(200, 300, 400)
+    // val scores = List[Int](200, 300, 400)
+
+    // val scores = Nil
+    // val scores = 200 :: Nil
+    val scores = 200 :: 300 :: 400 :: Nil
+
+    println(scores.length)
+    println(scores.isEmpty)
+    println(scores.head)
+    println(scores.tail)
+    println(scores(1)) // 300
+
+  }
+
+}
+
+
+// ===== video_summary =====
+重複を許さないコレクションであるSetについて解説していきます。
+
+
+    Setの作り方
+    集合演算
+
+// ===== /src/main/scala/MyApp.scala =====
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    // Collection
+    // - Seq: List
+    // - Set
+    // - Map
+
+    // val answers = Set(5, 3, 8, 5)
+    // println(answers) // 5, 3, 8
+    // // println(answers.contains(3)) // true
+    // println(answers(3)) // true
+
+    val set1 = Set(1, 3, 5, 8)
+    val set2 = Set(3, 5, 8, 9)
+
+    println(set1 & set2) // intersect
+    println(set1 | set2) // union
+    println(set1 &~ set2) // diff
+  }
+
+}
+
+
+// ===== video_summary =====
+キーと値でデータを管理するMapについて見ていきます。
+
+
+    Mapの作り方
+    Mapで使えるメソッド
+
+// ===== /src/main/scala/MyApp.scala =====
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    // Collection
+    // - Seq: List
+    // - Set
+    // - Map
+    //    - key -> value
+
+    val sales = Map("taguchi" -> 200, "fkoji" -> 400)
+    // println(sales("taguchi")) // 200
+    // println(sales("dotinstall")) // error
+    // println(sales.contains("dotinstall")) // false
+    println(sales.getOrElse("dotinstall", -1))
+
+
+  }
+
+}
+
+
+
+// ===== video_summary =====
+キーと値でデータを管理するMapについて見ていきます。
+
+
+    Mapの作り方
+    Mapで使えるメソッド
+
+// ===== /src/main/scala/MyApp.scala =====
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    // Collection
+    // - Seq: List
+    // - Set
+    // - Map
+    //    - key -> value
+
+    val sales = Map("taguchi" -> 200, "fkoji" -> 400)
+    // println(sales("taguchi")) // 200
+    // println(sales("dotinstall")) // error
+    // println(sales.contains("dotinstall")) // false
+    println(sales.getOrElse("dotinstall", -1))
+
+
+  }
+
+}
+
+
+
+// ===== video_summary =====
+Immutable、Mutableなコレクションの違いについて解説していきます。
+
+
+    Immutable、Mutableの違い
+    Mutableなコレクションの使い方
+
+// ===== /src/main/scala/MyApp.scala =====
+// import scala.collection.mutable.Map
+import scala.collection.mutable.{ Map => MutableMap }
+
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    // Collection
+    // - Seq: List
+    // - Set
+    // - Map
+
+    // Immutable
+    // val scores = Map("taguchi" -> 40, "fkoji" -> 80)
+    // val scores2 = scores.updated("taguchi", 60)
+
+    // Mutable
+    val scores = MutableMap("taguchi" -> 40, "fkoji" -> 80)
+    scores("taguchi") = 60
+    
+  }
+}
+
+
+
+// ===== video_summary =====
+リストに関数を適用する方法について解説していきます。
+
+
+    map
+    filter
+    foreach
+
+// ===== /src/main/scala/MyApp.scala =====
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    val prices = List(53.2, 48.2, 32.8)
+
+    // prices.map((n: Double) => n * 1.08)
+    // prices.map(n => n * 1.08)
+    prices.map(_ * 1.08).filter(_ > 50).foreach(println)
+  }
+
+}
+
+
+// ===== video_summary =====
+case classを使ったパターンマッチングについて見ていきます。
+
+
+    case class
+    パターンマッチング
+
+// ===== /src/main/scala/MyApp.scala =====
+// case class: immutable
+
+case class Point(x: Int, y: Int)
+
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+
+    val points = List(
+      Point(5, 3),
+      Point(0, 0),
+      Point(3, 4)
+    )
+
+    points.foreach(_ match {
+      case Point(0, 0) => println("origin!")
+      case Point(5, _) => println("right edge!")
+      case Point(x, y) => println(s"$x:$y")
+    })
+
+  }
+
+}
+
+
+// ===== video_summary =====
+Option型を使ってエラー時に値を返す方法について見ていきます。
+
+
+    Option型
+
+// ===== /src/main/scala/MyApp.scala =====
+object MyApp {
+
+  def main(args: Array[String]): Unit = {
+    // Error
+    // Option
+    // - Some
+    // - None
+
+    val scores = Map("taguchi" -> 50, "fkoji" -> 80)
+    // println(scores("dotinstall")) // getOrElse, contains
+
+    // scores.get("dotinstall") match {
+    scores.get("fkoji") match {
+      case Some(v) => println(v)
+      case None => println("key not found")
+    }
+
+  }
+
+}
+
+
+// ===== video_summary =====
+Either型を使ってエラーの内容を返す方法について見ていきます。
+
+
+    Either型
+
+// ===== /src/main/scala/MyApp.scala =====
+object MyApp {
+
+  // Error
+  // Either
+  // - Right
+  // - Left
+
+  def div(a: Int, b: Int): Either[String, Int] = {
+    if (b == 0) Left("Zero div error!")
+    else Right(a / b)
+  }
+
+  def main(args: Array[String]): Unit = {
+
+    // div(10, 0) match {
+    div(10, 3) match {
+      case Right(n) => println(n)
+      case Left(s) => println(s)
+    }
+
+  }
+
+}
+
+

@@ -1,0 +1,1067 @@
+// ===== video_summary =====
+C言語の概要と、レッスンで使う環境について説明していきます。
+
+
+    概要
+    レッスンで使う環境
+
+// ===== commentBox 1 =====
+補足情報
+レッスンにおける環境について
+
+
+
+
+2019年4月3日
+
+
+
+
+
+今回のレッスンではローカル開発環境を使っています。ローカル開発環境の構築方法は以下をご覧ください。
+
+・ローカル開発環境の構築 [Windows編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_win_v2
+・ローカル開発環境の構築 [macOS編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_mac_v2
+
+// ===== commentBox 2 =====
+補足情報
+C言語の実行環境について
+
+
+
+
+2020年12月2日
+
+
+
+
+
+現在ローカル開発環境のレッスンどおりに環境を構築することができません（レッスン内で利用しているCentOS6が終了したため）。実行環境の代替手段についてはローカル開発環境を構築できないのですが……をご覧ください。
+
+// ===== read.me =====
+C言語の基礎
+
+* 概要
+- Unix(OS)
+- 高速
+- 簡単に暴走
+- 基礎
+
+* 環境
+Linux gcc (GNU C Compiler)
+
+
+
+
+
+// ===== video_summary =====
+まずは「hello world」と出力するためのCプログラムを書いてみます。
+
+
+    .cファイルの作成
+    hello world
+    コメントの書き方
+    コンパイルの仕方
+    実行の仕方
+
+// ===== commentBox 1 =====
+補足情報
+gccの使い方について
+
+
+
+
+2013年9月9日
+
+
+
+
+
+gccはソースコードから実行ファイルを作るコマンドです。簡単な使い方は以下のとおりとなります。
+
+hello.cから実行ファイル（デフォルトだとa.out）を作ります。
+gcc hello.c
+
+
+実行ファイルの名前を指定したい場合は-oオプションで指定してあげます。
+gcc -o hello hello.c
+
+
+その他、使えるオプションについてはマニュアルを参照してみてください。
+man gcc
+
+// ===== commentBox 2 =====
+補足情報
+ファイル名だけでは実行できない
+
+
+
+
+2012年10月22日
+
+
+
+
+
+ここでは実行ファイルを「hello」ではなく「./hello」と指定していることに注意してください。
+
+「./」は「現在のディレクトリ」という意味で、実行ファイルを実行するには、このように実行ファイルまでのパスを指定する必要があります。
+
+ただし $PATH という環境変数に設定されているディレクトリに実行ファイルが置かれている場合は、ファイル名だけで実行ができます。
+
+// ===== commentBox 3 =====
+補足情報
+コンパイラ言語とインタプリタ言語について
+
+
+
+
+2012年10月19日
+
+
+
+
+
+プログラミング言語には「コンパイラ言語」と「インタプリタ言語」があります。
+その違いはソースコードを書いた後に実行ファイルをいったん作るかどうか、にあります。C言語やJavaはコンパイラ言語で、PHPやRubyは実行ファイルを作らずにいきなり実行できるのでインタプリタ言語です。
+以前はコンパイラ言語が高速、インタプリタ言語は逐次実行型だったので低速、という違いがありました。ただ、現在では、コンピュータが高性能化してきたので、ほぼ違いがなくなってきました。
+こうした歴史的経緯を踏まえて、豆知識的にこれらの用語を知っておくのも良いでしょう。
+
+// ===== hello.c =====
+#include <stdio.h>
+
+/* 
+コメント
+コメント
+*/
+
+int main(void) {
+    printf("hello world!\n");
+    return 0;
+}
+
+
+
+
+
+// ===== video_summary =====
+プログラミングにおいて重要な概念である変数について解説していきます。
+
+
+    変数の説明
+    データ型の種類（int, float, char）
+    変数の宣言
+    データの代入
+    変数の表示（printf）
+
+// ===== commentBox 1 =====
+補足情報
+ファイルを修正したらコンパイルし直す
+
+
+
+
+2012年10月17日
+
+
+
+
+
+動画でおこなっているように、C言語ではプログラムファイルを修正するたびに、コンパイルし直す必要があります。
+
+ファイルを修正したらコンパイルし直す、ということを忘れないようにしましょう。
+
+// ===== hello.c =====
+#include <stdio.h>
+
+/* 
+変数：データにつけるラベル
+
+データ型
+int(整数) %d
+float(実数) %f
+char(1文字) %c
+
+*/
+
+int main(void) {
+
+    int x = 10;
+    float y = 5.2;
+    char c = 'A';
+    
+    printf("x = %d, y = %f, c = %c\n", x, y, c);
+    return 0;
+}
+
+
+
+
+
+// ===== video_summary =====
+計算をするための演算子について学びます。
+
+
+    基本の演算子（+, -, *, /, %）
+    代入を伴う演算子
+    単項演算子
+
+// ===== hello.c =====
+#include <stdio.h>
+
+/* 
+
+演算子
++ - * / %(余り) 
+
+代入を伴う演算子
+x = x + 5; → x += 5;
+
+単項演算子
+++ --
+
+*/
+
+int main(void) {
+
+    int x;
+    
+    x = 10 % 3; /* 1 */
+    
+    x += 3; /* 4 */
+    
+    x++; /* 5 */
+    
+    
+    printf("%d\n", x);
+
+    return 0;
+}
+
+
+
+
+
+// ===== video_summary =====
+if文を使った条件分岐処理について解説していきます。
+
+
+    if文
+    比較演算子
+    if ... else ...
+    if ... else if ... else ...
+    動作確認
+
+// ===== hello.c =====
+#include <stdio.h>
+
+/* 
+
+条件分岐(if)
+>= 
+<=
+>
+<
+==
+!=
+
+*/
+
+int main(void) {
+
+    int score = 55;
+    
+    if (score >= 60) {
+        printf("OK!\n");
+    } else if (score >= 50) {
+        printf("so so...\n");
+    } else {
+        printf("NG!\n");
+    }
+
+    return 0;
+}
+
+
+
+
+
+// ===== video_summary =====
+switch文を使った条件分岐について説明していきます。
+
+
+    switch文
+    動作確認
+
+// ===== hello.c =====
+#include <stdio.h>
+
+/* 
+
+条件分岐（switch）
+
+*/
+
+int main(void) {
+
+    int rank = 20;
+    
+    switch(rank) {
+        case 1:
+            printf("Gold!\n");
+            break;
+        case 2:
+            printf("Silver!\n");
+            break;
+        case 3:
+            printf("Bronze!\n");
+            break;
+        default:
+            printf("no medal...\n");
+            break;    
+    }
+
+    return 0;
+}
+
+
+
+
+
+// ===== video_summary =====
+while文、do ... while文を使ってループ処理をしてみます。
+
+
+    while文
+    do ... while文
+    動作確認
+
+// ===== hello.c =====
+#include <stdio.h>
+
+/* 
+
+ループ（while）
+
+*/
+
+int main(void) {
+
+    int m = 20;
+    
+    while (m < 10) {
+        printf("m: %d\n", m);
+        m++;
+    }
+    
+    int n = 20;
+    
+    do {
+        printf("n: %d\n", n);
+        n++;
+    } while (n < 10);
+    
+    return 0;
+}
+
+
+
+
+
+// ===== video_summary =====
+for文を使ったループ処理をしてみます。またループを抜けるためのcontinue, breakについても学びます。
+
+
+    for文
+    continue
+    break
+
+// ===== hello.c =====
+#include <stdio.h>
+
+/* 
+
+ループ (for)
+
+continue; 一回スキップ
+break; ループを抜ける
+
+*/
+
+int main(void) {
+
+    int m;
+    for (m = 0; m < 10; m++) {
+        if (m == 3) {
+            continue;
+        }
+        if (m == 8) {
+            break;
+        }
+        printf("m: %d\n", m);
+    }
+
+    /*
+    int m = 0;    
+    while (m < 10) {
+        printf("m: %d\n", m);
+        m++;
+    }
+    */
+        
+    return 0;
+}
+
+
+
+
+
+// ===== video_summary =====
+複数の処理をまとめることが出来る関数について解説していきます。
+
+
+    関数の構文（返り値の値、関数名、引数、返り値）
+
+// ===== hello.c =====
+#include <stdio.h>
+
+/* 
+
+関数：複数の処理
+
+返り値の型 関数名(引数, ...) {
+    処理;
+    return 返り値;
+}
+
+*/
+
+float getMax(float a, float b) {
+    if (a >= b) {
+        return a;
+    } else {
+        return b;
+    }
+}
+
+int main(void) {
+
+    float result;
+    result = getMax(2.3, 5.2);
+    printf("%f\n", result);
+    
+    return 0;
+}
+
+
+
+
+
+// ===== video_summary =====
+引数や戻り値のない関数、main関数、プロトタイプ宣言について学びます。
+
+
+    引数、戻り値のない関数（void）
+    main関数
+    プロトタイプ宣言
+
+// ===== hello.c =====
+#include <stdio.h>
+
+/* 
+
+関数：複数の処理
+
+返り値の型 関数名(引数, ...) {
+    処理;
+    return 返り値;
+}
+
+プロトタイプ宣言
+
+*/
+
+float getMax(float a, float b);
+void sayHi(void);
+
+
+void sayHi(void) {
+    printf("hi!\n");
+}
+
+int main(void) {
+
+    float result;
+    result = getMax(2.3, 5.2);
+    printf("%f\n", result);
+    
+    sayHi();
+            
+    return 0;
+}
+
+float getMax(float a, float b) {
+    if (a >= b) {
+        return a;
+    } else {
+        return b;
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+条件分岐の特殊な記法である三項演算子について説明してきます。
+
+
+    三項演算子
+
+// ===== hello.c =====
+#include <stdio.h>
+
+/* 
+
+三項演算子
+
+if (条件) {
+    return A;
+} else {
+    return B;
+}
+
+返り値 = (条件) ? A : B;
+
+*/
+
+float getMax(float a, float b) {
+/*
+    if (a >= b) {
+        return a;
+    } else {
+        return b;
+    }
+*/
+    return (a >= b) ? a : b;
+}
+
+int main(void) {
+
+    float result;
+    result = getMax(2.3, 5.2);
+    printf("%f\n", result);
+            
+    return 0;
+}
+
+
+
+
+
+
+
+// ===== video_summary =====
+ローカル変数、グローバル変数といった、変数の有効範囲について説明していきます。
+
+
+    ローカル変数
+    グローバル変数
+
+// ===== hello.c =====
+#include <stdio.h>
+
+/* 
+
+変数の有効範囲
+
+*/
+
+int a = 0; /* グローバル変数 */
+
+void f(void) {
+    a++;
+    printf("a:%d\n", a);
+}
+
+int main(void) {
+
+    f();
+    printf("[main] a:%d\n", a);
+
+    return 0;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+変数が値を保持する期限について説明していきます。
+
+
+    自動変数
+    静的変数（static）
+
+// ===== commentBox 1 =====
+補足情報
+static宣言された変数
+
+
+
+
+2012年10月18日
+
+
+
+
+
+関数 f() の先頭で「static int a = 0;」と宣言しているので、関数 f() を複数回呼ぶと毎回 a に 0 がセットされるかのように見えますが、static をつけて宣言された変数は、2回目以降はその宣言部分は無視されます。
+
+無視されるのは宣言部分だけなので、以下のように書くと当然毎回変数 a には 0 がセットされ、処理が継続されます。
+
+void f(void) {
+  static int a;
+  a = 0;
+  a++;
+  printf("a:%d\n", a);
+}
+
+// ===== hello.c =====
+#include <stdio.h>
+
+/* 
+
+変数の有効期限
+
+*/
+
+
+void f(void) {
+    static int a = 0; /* 静的変数 */
+    a++;
+    printf("a:%d\n", a);
+}
+
+int main(void) {
+
+    f();
+    f();
+    f();
+
+    return 0;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+複数のデータを一つの変数名でまとめることのできる配列について説明していきます。
+
+
+    配列の宣言
+    データの代入
+    宣言と代入を同時に行う
+
+// ===== hello.c =====
+#include <stdio.h>
+
+/* 
+
+配列
+
+*/
+
+int main(void) {
+
+    int sales[3];
+    
+    sales[0] = 200;
+    sales[1] = 400;
+    sales[2] = 300;
+    /* sales[3] = 300; */
+
+    int sales2[] = {200, 400, 300};
+    
+    printf("%d\n", sales[1]);
+
+    return 0;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+文字列は文字型データの配列であることを説明していきます。
+
+
+    文字列の宣言
+    文字列データの代入
+
+// ===== hello.c =====
+#include <stdio.h>
+
+/* 
+
+文字列：charの配列（※ 終端は「\0」）
+
+int i;
+
+× string s;
+
+"abc"
+
+char s[] = {'a', 'b', 'c', '\0'};
+char s[] = "abc";
+char s[4] = "abc";
+
+*/
+
+int main(void) {
+    
+    char s[] = "abc";
+
+    printf("%c\n", s[1]);
+        
+    return 0;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+ポインタを理解するために簡単なプログラムがメモリ空間をどう使っているか見ていきます。
+
+
+    メモリ空間
+    ポインタの説明
+
+// ===== commentBox 1 =====
+補足情報
+専有するメモリ空間について調べる方法
+
+
+
+
+2013年9月9日
+
+
+
+
+
+動画中で「int型は4つのメモリ空間を占有する」と説明しましたが、お使いのPCの種類によっては4つではない場合もあります。正確にいくつの空間を占有するかはsizeofという命令で調べることができるので、興味がある方は次のように実行してみましょう。
+/* int型が占有するメモリ空間の数が表示されます */
+printf("%d\n", sizeof(int));
+
+// ===== hello.c =====
+#include <stdio.h>
+
+/* 
+
+ポインタ: アドレスを格納するための変数
+
+メモリ（記憶領域）
+
+*/
+
+int main(void) {
+
+    int a;
+    a = 10;
+
+    return 0;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+ポインタをどう宣言し、どうデータにアクセスしていくかについて解説していきます。
+
+
+    ポインタの宣言
+    アドレス演算子
+    間接演算子
+
+// ===== commentBox 1 =====
+補足情報
+ポインタ宣言の書き方について
+
+
+
+
+2012年10月17日
+
+
+
+
+
+ポインタの宣言は参考書などによって「int *pa」「int * pa」「int* pa」といった書き方があるようです。
+どれでも動作しますが、「int *pa」が一般的かと思います。これは「間接演算子を使ったpaの値（*pa）がint型なので」と覚えると良いかもしれません（個人的にはそれですっきりしました）。
+このあたりの議論は以下のサイトも参考にしてみてください。
+http://togetter.com/li/185167
+
+// ===== hello.c =====
+#include <stdio.h>
+
+/* 
+
+ポインタ: アドレスを格納するための変数
+
+メモリ（記憶領域）
+
+& : アドレス演算子
+
+* : 間接演算子
+
+*/
+
+int main(void) {
+
+    int a;
+    a = 10;
+
+    int *pa;
+    pa = &a;
+    
+    printf("%d\n", *pa);
+    
+    return 0;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+ポインタの宣言やデータへのアクセスがメモリ空間でどう表現されるか説明していきます。
+
+
+    ポインタの宣言
+    アドレス演算子
+    間接演算子
+
+// ===== commentBox 1 =====
+補足情報
+ポインタが確保するメモリサイズ
+
+
+
+
+2012年10月17日
+
+
+
+
+
+OSが64bit環境だった場合は、ポインタ(動画中だと変数 pa )が確保するメモリのサイズは8個分になります。
+
+// ===== hello.c =====
+#include <stdio.h>
+
+/* 
+
+ポインタ: アドレスを格納するための変数
+
+メモリ（記憶領域）
+
+& : アドレス演算子
+
+* : 間接演算子
+
+*/
+
+int main(void) {
+
+    int a;
+    a = 10;
+
+    int *pa;
+    pa = &a;
+    
+    printf("%d\n", *pa);
+    
+    return 0;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+ポインタを使うとメモリの節約ができるということを説明するために、まずはポインタを使わない場合の処理を解説していきます。
+
+
+    ポインタを使わない場合の処理
+    メモリ空間の動き
+
+// ===== commentBox 1 =====
+補足情報
+long型が確保するメモリサイズ
+
+
+
+
+2013年9月9日
+
+
+
+
+
+環境によっては long 型が確保するメモリサイズは 4 個分の場合もあります。
+
+// ===== hello.c =====
+#include <stdio.h>
+
+/* 
+
+ポインタ: メモリの節約
+
+*/
+
+void f(long a) {
+    a += 100;
+    printf("%ld\n", a);
+}
+
+int main(void) {
+
+    long a = 1000;
+    f(a);
+    
+    return 0;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+次にポインタを使った場合の処理について解説していきます。
+
+
+    ポインタを使った場合の処理
+    メモリ空間の動き
+
+// ===== hello.c =====
+#include <stdio.h>
+
+/* 
+
+ポインタ: メモリの節約
+
+*/
+
+void f(long *pa) {
+    *pa = *pa + 100;
+    printf("%ld\n", *pa);
+}
+
+int main(void) {
+
+    long a = 1000;
+    f(&a);
+    
+    return 0;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+関数を呼び出す際に参照渡しを使うと、値渡しでは実現できないことが可能になることを説明していきます。
+
+
+    値渡しと参照渡し
+
+// ===== hello.c =====
+#include <stdio.h>
+
+/* 
+
+ポインタ
+
+値渡し
+参照渡し
+
+*/
+
+void swap(int *pa, int *pb) {
+
+
+}
+
+int main(void) {
+    
+    int a;
+    int b;
+    swap(&a, &b);
+    printf("a:%d, b:%d\n", a, b);
+    
+    return 0;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+参照渡しの例として2つの数値を入れ替える関数を書いてみます。
+
+
+    swap関数の作成
+    動作確認
+
+// ===== hello.c =====
+#include <stdio.h>
+
+/* 
+
+ポインタ
+
+値渡し
+参照渡し
+
+*/
+
+void swap(int *pa, int *pb) {
+    int tmp;
+    tmp = *pa;
+    *pa = *pb;
+    *pb = tmp;
+}
+
+int main(void) {
+    
+    int a = 5;
+    int b = 10;
+    swap(&a, &b);
+    printf("a:%d, b:%d\n", a, b);
+    
+    return 0;
+}
+
+
+
+
+
+
+
+
