@@ -1,0 +1,510 @@
+// ===== video_summary =====
+PostgreSQLの概要を説明したのちに、公式サイト、必要となる知識、レッスンにおける環境、用語について説明していきます。
+
+
+    概要
+    公式サイト
+    必要となる知識
+    レッスンにおける環境
+    データベース用語について
+
+// ===== read.me =====
+PostgreSQL
+
+* 概要
+- オープンソースかつ高機能なデータベースシステム
+
+* 公式サイト
+
+* 知識
+- ローカル開発環境
+- Unixコマンド
+- vim
+
+* 環境
+- Vagrant + CentOS6
+- PostgreSQL 9.3.2
+- vagrantユーザー
+
+* 用語
+データベース
+- テーブル
+-- 列（カラム、フィールド）
+-- 行（レコード、タプル）
+
+
+
+
+
+
+// ===== video_summary =====
+データベースの一覧を見る方法や作成方法、削除方法について学びます。またpsqlコマンドの使い方についても触れていきます。
+
+
+    psql -l
+    psqlの使い方
+    createdb
+    dropdb
+    SQL文の書き方
+
+// ===== read.me =====
+psql --version
+psql -l
+createdb blogapp
+psql -l
+dropdb blogapp
+psql -l
+createdb blogapp
+psql blogapp
+help
+\?
+\l
+\q
+psql blogapp
+select now();
+select now()
+;
+
+
+
+
+
+// ===== video_summary =====
+テーブルの作成や削除、一覧や詳細を見る方法に加え、ファイルからコマンドを実行する手順についてもみていきます。
+
+
+    create table
+    \dt
+    \d
+    alter table
+    drop table
+    \i
+
+// ===== read.me =====
+create table posts (title varchar(255), body text);
+\dt
+\d posts
+alter table posts rename to myposts;
+\dt
+drop table myposts;
+\dt
+\q
+vi commands.sql
+psql blogapp
+\i commands.sql
+\dt
+
+// ===== commands.sql =====
+create table posts (title varchar(255), body text);
+
+
+
+
+
+// ===== video_summary =====
+PostgreSQLで使えるさまざまなデータ型について説明してきます。
+
+
+    コメントの書き方
+    データ型（数値、文字、真偽、日付）
+
+// ===== read.me =====
+create table posts (
+    title varchar(255), 
+    body text
+);
+-- コメント
+/*
+データの型
+数値: integer(int), real, serial
+文字: char(5), varchar(255), text
+真偽: boolean TRUE FALSE t f
+日付: date, time, timestamp
+*/
+
+
+
+
+
+// ===== video_summary =====
+さまざまなフィールドを設定したあとにいくつか制約をつけてみます。
+
+
+    データ型の利用
+    制約の設定方法
+
+// ===== commentBox 1 =====
+補足情報
+【訂正】 default 'now'について
+
+
+
+
+2014年4月3日
+
+
+
+
+
+今回ご紹介したコード中、以下の行に誤りがありましたので訂正いたします。
+created timestamp default 'now'
+
+この設定では「レコードを挿入した日時」とはならず、「テーブルを作成した日時」になってしまいます。
+createdフイールドを「レコードを挿入した日時」にしたい場合は以下のように修正してください。
+created timestamp default statement_timestamp()
+
+// ===== read.me =====
+create table posts (
+    id serial primary key,
+    title varchar(255) not null, 
+    body text check(length(body) > 5),
+    is_draft boolean default TRUE,
+    created timestamp default 'now'
+);
+-- コメント
+/*
+データの型
+数値: integer(int), real, serial
+文字: char(5), varchar(255), text
+真偽: boolean TRUE FALSE t f
+日付: date, time, timestamp
+
+制約
+not null
+unique
+check
+default
+primary key (not null, unique)
+*/
+
+
+
+
+
+
+// ===== video_summary =====
+insert文にてレコードの挿入をしてみます。またデフォルト値や連番、制約がうまく動くかもチェックしていきます。
+
+
+    レコードの挿入
+    連番やデフォルト値のチェック
+    check制約のチェック
+
+// ===== read.me =====
+\q
+vi poststable.sql
+psql blogapp
+\i poststable.sql
+drop table posts;
+\i poststable.sql
+\dt
+\dt posts
+insert into posts (title, body) values ('title1', 'body11111');
+select * from posts;
+insert into posts (title, body) values ('title2', 'body222222');
+select * from posts;
+insert into posts (title, body) values ('title3', 'b3');
+
+// ===== poststable.sql =====
+create table posts (
+    id serial primary key,
+    title varchar(255) not null, 
+    body text check(length(body) > 5),
+    is_draft boolean default TRUE,
+    created timestamp default 'now'
+);
+
+
+
+
+
+
+// ===== video_summary =====
+select文を使ってレコードを抽出してみます。また拡張表示を有効にする方法についても見ていきます。
+
+
+    select文
+    拡張表示の有効化
+
+// ===== read.me =====
+select * from posts;
+create table users (
+    id serial primary key,
+    name varchar(255),
+    score real,
+    team varchar(255)
+);
+insert into users (name, score, team) values 
+('taguchi', 5.5, 'red'),
+('fkoji', 8.3, 'blue'),
+('dotinstall', 2.2, 'blue'),
+('sasaki', 5.0, 'green'),
+('sakaki', 4.6, 'red'),
+('kimura', 4.7, 'green');
+\dt
+\d users
+select * from users;
+\x
+select * from users;
+\x
+select * from users;
+select name, score from users;
+
+
+
+
+
+
+// ===== video_summary =====
+さまざまな条件をつけてレコードを抽出する方法について見ていきます。
+
+
+    where
+    条件の指定（like等）
+
+// ===== commentBox 1 =====
+補足情報
+動画中の「@」について
+
+
+
+
+2018年2月19日
+
+
+
+
+
+1:39あたりで説明されている「@」ですが、そのあとで例を出して説明しているとおり、「%」の間違いでした...。任意の文字を表す記号には「%」を使うようにしてください。
+
+// ===== read.me =====
+select * from users where score > 4.0;
+-- > < <= >= = <> !=
+select * from users where score = 5.0;
+select * from users where score != 5.0;
+-- like @ _
+select * from users where name = 'taguchi';
+select * from users where name like '%i';
+select * from users where name like 'sa_aki';
+
+
+
+
+
+// ===== video_summary =====
+抽出結果の並び替えや件数制限をするための命令について見ていきます。
+
+
+    order by
+    limit offset
+
+// ===== read.me =====
+select * from users;
+select * from users order by score;
+select * from users order by score desc;
+select * from users order by team;
+select * from users order by team, score desc;
+select * from users limit 3;
+select * from users;
+select * from users limit 3 offset 3;
+select * from users order by score desc limit 3;
+
+
+
+
+
+// ===== video_summary =====
+さまざまな命令を使ってレコードの集計をしていきます。
+
+
+    count
+    distinct
+    sum
+    max
+    min
+    avg
+    group by
+    having
+
+// ===== read.me =====
+select count(*) from users;
+select * from users;
+select distinct team from users;
+select sum(score) from users;
+select max(score) from users;
+select avg(score) from users;
+select * from users;
+select team, sum(score) from users group by team;
+select team, sum(score) from users group by team having sum(score) > 10.0;
+
+
+
+
+
+// ===== video_summary =====
+PostgreSQLがあらかじめ用意している便利な関数についてその使い方を見ていきます。
+
+
+    length
+    concat
+    as
+    substring
+    random
+
+// ===== read.me =====
+select * from users;
+select name, length(name) from users;
+select concat(name, ' (', team, ')') from users;
+select concat(name, ' (', team, ')') as namelabel from users;
+select substring(team, 1, 1) from users;
+select substring(team, 1, 1) as teaminitial from users;
+select random();
+select * from users order by random() limit 1;
+
+
+
+
+
+// ===== video_summary =====
+レコードの更新、削除をするための方法について見ていきます。
+
+
+    update
+    delete
+
+// ===== read.me =====
+select * from users;
+update users set score = 5.8 where name = 'taguchi';
+select * from users;
+update users set score = score + 1 where team = 'red';
+select * from users;
+update users set score = score + 1 where team = 'red' or team = 'green';
+select * from users;
+delete from users where score < 3.0;
+select * from users;
+
+
+
+
+
+// ===== video_summary =====
+フィールドの追加や削除、変更の方法を見たあとに、インデックスの設定方法について説明していきます。
+
+
+    フィールドの変更
+    インデックスの設定
+
+// ===== read.me =====
+\d users
+alter table users add fullname varchar(255);
+\d users
+alter table users drop fullname;
+\d users
+alter table users rename name to myname;
+\d users
+alter table users alter myname type varchar(32);
+\d users
+create index team_index on users(team);
+\d users
+drop index team_index;
+\d users
+
+
+
+
+
+
+// ===== video_summary =====
+複数のテーブルからデータを抽出していく方法について見ていきます。
+
+
+    複数のテーブルの扱い
+
+// ===== read.me =====
+drop table users;
+drop table posts;
+create table users (
+    id serial primary key,
+    name varchar(255),
+    score real,
+    team varchar(255)
+);
+insert into users (name, score, team) values 
+('taguchi', 5.5, 'red'),
+('fkoji', 8.3, 'blue'),
+('dotinstall', 2.2, 'blue'),
+('sasaki', 5.0, 'green'),
+('sakaki', 4.6, 'red'),
+('kimura', 4.7, 'green');
+
+create table posts (
+    id serial primary key,
+    user_id int not null,
+    title varchar(255) not null,
+    body text not null
+);
+insert into posts (user_id, title, body) values 
+(1, 'title1', 'body1'),
+(1, 'title2', 'body2'),
+(2, 'title3', 'body3'),
+(5, 'title4', 'body4'),
+(4, 'title5', 'body5');
+\d
+select * from users;
+select * from posts;
+select users.name, posts.title from users, posts where users.id = posts.user_id;
+select u.name, p.title from users u, posts p where u.id = p.user_id;
+select u.name, p.title from users u, posts p where u.id = p.user_id and u.id=1;
+
+
+
+
+
+
+// ===== video_summary =====
+抽出条件を保存しておくことができるviewについても説明していきます。
+
+
+    viewの設定・確認
+    viewの利用方法
+    viewの削除
+
+// ===== read.me =====
+select u.name, p.title from users u, posts p where u.id = p.user_id and u.id=1;
+create view taguchi_posts as
+select u.name, p.title from users u, posts p where u.id = p.user_id and u.id=1;
+\dv
+select * from taguchi_posts;
+drop view taguchi_posts;
+\dv
+
+
+
+
+
+
+// ===== video_summary =====
+複数の命令を確実にまとめて処理するためのトランザクションについて見ていきます。
+
+
+    トランザクションの概要
+    begin; commit;
+    begin; rollback;
+
+// ===== read.me =====
+select * from users;
+begin;
+update users set score = score - 1.0 where name = 'taguchi';
+update users set score = score + 1.0 where name = 'fkoji';
+commit;
+begin;
+update users set score = score - 1.0 where name = 'taguchi';
+update users set score = score + 1.0 where name = 'fkoji';
+select * from users;
+rollback;
+select * from users;
+
+
+
+
+

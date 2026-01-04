@@ -1,0 +1,889 @@
+// ===== video_summary =====
+公式サイトを確認し、ひな形となるファイルを作成していきます。
+
+
+    公式サイトの確認
+    index.htmlの作成
+    main.jsの作成
+
+// ===== commentBox 1 =====
+補足情報
+事前に受講しておきたいレッスンについて
+
+
+
+
+2018年7月26日
+
+
+
+
+
+このレッスンの前に以下を受講されることをおすすめしておきます。
+
+https://dotinstall.com/lessons/basic_javascript_v2
+
+// ===== /MyMomentJS/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Moment.js Practice</title>
+</head>
+<body>
+  moment.js
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyMomentJS/js/main.js =====
+
+
+
+
+
+
+// ===== video_summary =====
+まずはJavaScriptだけで日時の計算をする準備をしていきます。
+
+
+    要素の取得
+    クリックイベントの設定
+
+// ===== /MyMomentJS/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Moment.js Practice</title>
+</head>
+<body>
+  <input type="text">
+  <button>Go</button>
+  <p></p>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyMomentJS/js/main.js =====
+(() => {
+  'use strict';
+
+  const input = document.querySelector('input');
+  const button = document.querySelector('button');
+  const p = document.querySelector('p');
+
+  button.addEventListener('click', () => {
+    p.textContent = input.value;
+  });
+})();
+
+
+
+
+
+// ===== video_summary =====
+入力した日付を整形する方法について見ていきます。
+
+
+    Dateオブジェクト
+    動作確認
+    getMonth()の注意点
+
+// ===== /MyMomentJS/js/main.js =====
+(() => {
+  'use strict';
+
+  const input = document.querySelector('input');
+  const button = document.querySelector('button');
+  const p = document.querySelector('p');
+
+  button.addEventListener('click', () => {
+    const d = new Date(input.value);
+    p.textContent = `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`;
+  });
+})();
+
+// ===== /MyMomentJS/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Moment.js Practice</title>
+</head>
+<body>
+  <input type="text">
+  <button>Go</button>
+  <p></p>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+前回の処理をMoment.jsで書き換える方法について見ていきます。
+
+
+    Moment.jsの読み込み
+    日本語用ロケールの読み込み
+    Moment.jsでの書き換え
+    入力値のチェック
+
+// ===== /MyMomentJS/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Moment.js Practice</title>
+</head>
+<body>
+  <input type="text">
+  <button>Go</button>
+  <p></p>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/ja.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyMomentJS/js/main.js =====
+(() => {
+  'use strict';
+
+  const input = document.querySelector('input');
+  const button = document.querySelector('button');
+  const p = document.querySelector('p');
+
+  button.addEventListener('click', () => {
+    // const d = new Date(input.value);
+    // p.textContent = `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`;
+    const d = moment(input.value);
+    p.textContent = d.isValid() ? d.format('LL') : '無効な日付です';
+  });
+})();
+
+
+
+
+
+// ===== video_summary =====
+moment()オブジェクトを作成するための、さまざまな方法について確認していきます。
+
+
+    コンソールの表示
+    moment()オブジェクトの作成
+    動作確認
+
+// ===== /MyMomentJS/js/main.js =====
+(() => {
+  'use strict';
+
+  // const d = moment();
+  // const d = moment('2018-01-10');
+  // const d = moment('01-10-2018', 'MM-DD-YYYY');
+  // const d = moment(new Date(2018, 0, 10));
+  const d = moment([2018, 0, 10]);
+  console.log(d.format('LLLL'));
+})();
+
+// ===== /MyMomentJS/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Moment.js Practice</title>
+</head>
+<body>
+  <input type="text">
+  <button>Go</button>
+  <p></p>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/ja.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+公式サイトの参照方法を確認したのちに、一時的にロケールを変更する方法についても見ていきます。
+
+
+    公式サイトの参照方法
+    一時的にロケールを変更する方法
+
+// ===== /MyMomentJS/js/main.js =====
+(() => {
+  'use strict';
+
+  const d = moment('2018-01-10');
+  // January 10th, Wednesday
+  d.locale('en');
+  console.log(d.format('MMMM Do, dddd'));
+})();
+
+// ===== /MyMomentJS/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Moment.js Practice</title>
+</head>
+<body>
+  <input type="text">
+  <button>Go</button>
+  <p></p>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/ja.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+format()を使って、日時の表記を指定する方法について見ていきます。
+
+
+    format()
+    ロケールの変更
+    動作確認
+
+// ===== /MyMomentJS/js/main.js =====
+(() => {
+  'use strict';
+
+  const d = moment('2018-01-10 15:35:24');
+  // 15:35:24
+  // console.log(d.format('HH:mm:ss'));
+  // console.log(d.format('hh:mm:ss a'));
+  d.locale('en');
+  console.log(d.format('l'));
+  console.log(d.format('ll'));
+  console.log(d.format('lll'));
+  console.log(d.format('llll'));
+  console.log(d.format('L'));
+  console.log(d.format('LL'));
+  console.log(d.format('LLL'));
+  console.log(d.format('LLLL'));
+})();
+
+// ===== /MyMomentJS/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Moment.js Practice</title>
+</head>
+<body>
+  <input type="text">
+  <button>Go</button>
+  <p></p>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/ja.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+日時に関する情報を取得したり、配列やオブジェクト形式に整形する方法などについて見ていきます。
+
+
+    daysInMonth()
+    toArray()
+    toObject()
+    []
+
+// ===== /MyMomentJS/js/main.js =====
+(() => {
+  'use strict';
+
+  const d = moment('2018-01-10 15:35:24');
+  // 15:35:24
+  // console.log(d.format('HH:mm:ss'));
+  // console.log(d.format('hh:mm:ss a'));
+  // d.locale('en');
+  // console.log(d.format('l'));
+  // console.log(d.format('ll'));
+  // console.log(d.format('lll'));
+  // console.log(d.format('llll'));
+  // console.log(d.format('L'));
+  // console.log(d.format('LL'));
+  // console.log(d.format('LLL'));
+  // console.log(d.format('LLLL'));
+  // console.log(moment('2018-01').daysInMonth());
+  // console.log(moment('2018-02').daysInMonth());
+  // console.log(d.toArray());
+  // console.log(d.toObject());
+  console.log(d.format('[Today]: L'));
+})();
+
+// ===== /MyMomentJS/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Moment.js Practice</title>
+</head>
+<body>
+  <input type="text">
+  <button>Go</button>
+  <p></p>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/ja.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+get()を使ってオブジェクトから日時情報を取得する方法について見ていきます。
+
+
+    get()
+    キーワードの指定方法
+    メソッドでの取得方法
+
+// ===== /MyMomentJS/js/main.js =====
+(() => {
+  'use strict';
+
+  const d = moment('2018-01-10 15:35:24');
+  // console.log(d.get('year'));
+  // console.log(d.get('month')); // 0-11
+  // console.log(d.get('date'));
+  // console.log(d.get('day')); // 0-6
+  // console.log(d.get('hour'));
+  // console.log(d.get('minute'));
+  // console.log(d.get('second'));
+  // console.log(d.get('millisecond'));
+  // console.log(d.get('y'));
+  // console.log(d.get('M')); // 0-11
+  // console.log(d.get('D'));
+  // console.log(d.get('d')); // 0-6
+  // console.log(d.get('H'));
+  // console.log(d.get('h'));
+  // console.log(d.get('m'));
+  // console.log(d.get('s'));
+  // console.log(d.get('ms'));
+  console.log(d.year());
+  console.log(d.month());
+  console.log(d.date());
+})();
+
+// ===== /MyMomentJS/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Moment.js Practice</title>
+</head>
+<body>
+  <input type="text">
+  <button>Go</button>
+  <p></p>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/ja.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+set()やメソッド、キーワードを用いて日時情報を設定する方法について見ていきます。
+
+
+    set()
+    メソッドをつなげて書く方法
+    動作確認
+
+// ===== /MyMomentJS/js/main.js =====
+(() => {
+  'use strict';
+
+  const d = moment('2018-01-10 15:35:24');
+  // d.set('year', 2020);
+  // d.month(11);
+  // d.hour(1).minute(1);
+  // 2020年12月10日 木曜日 01:01
+  // d.day('土曜日');
+  // d.month('3月');
+  d.locale('en');
+  d.month('March');
+  console.log(d.format('LLLL'));
+})();
+
+// ===== /MyMomentJS/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Moment.js Practice</title>
+</head>
+<body>
+  <input type="text">
+  <button>Go</button>
+  <p></p>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/ja.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+clone()を使って、オブジェクトのコピーを作成する方法について見ていきます。
+
+
+    破壊的変更の確認
+    clone()
+
+// ===== /MyMomentJS/js/main.js =====
+(() => {
+  'use strict';
+
+  const d = moment('2018-01-10 15:35:24');
+  // console.log(d.set('year', 2020).format('LLLL'));
+  // console.log(d.get('year'));
+  console.log(d.clone().set('year', 2020).format('LLLL'));
+  console.log(d.get('year'));
+})();
+
+// ===== /MyMomentJS/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Moment.js Practice</title>
+</head>
+<body>
+  <input type="text">
+  <button>Go</button>
+  <p></p>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/ja.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+日時の引き算、足し算を行う方法について見ていきます。
+
+
+    add()
+    subtract()
+
+// ===== /MyMomentJS/js/main.js =====
+(() => {
+  'use strict';
+
+  const d = moment('2018-01-10 15:35:24');
+  // console.log(d.clone().add(3, 'day').format('LLLL'));
+  // console.log(d.clone().subtract(3, 'year').format('LLLL'));
+  console.log(d.clone().add(1, 'y').add(2, 'M').format('LLLL'));
+  console.log(d.clone().add({year: 1, month: 2}).format('LLLL'));
+  console.log(d.clone().add({y: 1, M: 2}).format('LLLL'));
+})();
+
+// ===== /MyMomentJS/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Moment.js Practice</title>
+</head>
+<body>
+  <input type="text">
+  <button>Go</button>
+  <p></p>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/ja.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+日時の差を計算する方法について見ていきます。
+
+
+    diff()
+    fromNow()
+
+// ===== /MyMomentJS/js/main.js =====
+(() => {
+  'use strict';
+
+  // const start = moment('2018-01-10 08:00:00');
+  // const end = moment('2018-01-10 10:30:00');
+  // // console.log(end.diff(start));
+  // // console.log(end.diff(start, 'hour'));
+  // console.log(end.diff(start, 'hour', true));
+  // const posted = moment('2018-01-10 08:00:00');
+  const posted = moment('2018-07-11 06:50:00');
+  console.log(posted.fromNow());
+})();
+
+// ===== /MyMomentJS/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Moment.js Practice</title>
+</head>
+<body>
+  <input type="text">
+  <button>Go</button>
+  <p></p>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/ja.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+日付が有効なものであるかどうか判定したり、他の日時と比べる方法について見ていきます。
+
+
+    isValid()
+    isBefore()
+    isAfter()
+    isSame()
+    isBetween()
+    isLeapYear()
+
+// ===== /MyMomentJS/js/main.js =====
+(() => {
+  'use strict';
+
+  // const d = moment('2018-02-30');
+  // console.log(d.isValid());
+  const d1 = moment('2018-01-03');
+  const d2 = moment('2018-01-05');
+  const d3 = moment('2018-01-08');
+  // console.log(d1.isBefore(d2)); // true
+  // console.log(d1.isAfter(d2)); // false
+  // console.log(d1.isSame(d2)); // false
+  // console.log(d2.isBetween(d1, d3)); // true
+  console.log(d2.isLeapYear()); // false
+})();
+
+// ===== /MyMomentJS/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Moment.js Practice</title>
+</head>
+<body>
+  <input type="text">
+  <button>Go</button>
+  <p></p>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/ja.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+誕生日を入力すると色々な情報を返してくれるアプリを作成していきます。
+
+
+    要素の取得
+    クリックイベントの設定
+    入力値の判定
+    生後日数の表示
+
+// ===== /MyMomentJS/js/main.js =====
+(() => {
+  'use strict';
+
+  const button = document.querySelector('button');
+  const p = document.querySelector('p');
+
+  function getResult() {
+    const bday = moment(document.querySelector('input').value);
+
+    if (!bday.isValid()) {
+      return '日付が無効です！';
+    }
+
+    const now = moment();
+    const age = now.diff(bday, 'year');
+    const days = now.diff(bday, 'day');
+
+    return `今、${age}歳です！生まれてから${days}日経ちました！`;
+  }
+
+  button.addEventListener('click', () => {
+    p.textContent = getResult();
+  });
+})();
+
+// ===== /MyMomentJS/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Moment.js Practice</title>
+</head>
+<body>
+  <input type="text">
+  <button>Go</button>
+  <p></p>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/ja.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+次の誕生日の求め方について、例を出しながら確認していきます。
+
+
+    次の誕生日の考え方について
+
+// ===== /MyMomentJS/js/main.js =====
+(() => {
+  'use strict';
+
+  const button = document.querySelector('button');
+  const p = document.querySelector('p');
+
+  function getResult() {
+    const bday = moment(document.querySelector('input').value);
+
+    if (!bday.isValid()) {
+      return '日付が無効です！';
+    }
+
+    const now = moment();
+    const age = now.diff(bday, 'year');
+    const days = now.diff(bday, 'day');
+
+    /*
+    now: 2018-07-24
+
+    bday: 2000-07-23 -> this: 2018-07-23 -> next: 2019-07-23
+    bday: 2000-07-24 -> this: 2018-07-24 -> next: 2019-07-24
+    bday: 2000-07-25 -> this: 2018-07-25 -> next: 2018-07-25
+    */
+
+    return `今、${age}歳です！生まれてから${days}日経ちました！`;
+  }
+
+  button.addEventListener('click', () => {
+    p.textContent = getResult();
+  });
+})();
+
+// ===== /MyMomentJS/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Moment.js Practice</title>
+</head>
+<body>
+  <input type="text">
+  <button>Go</button>
+  <p></p>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/ja.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+前回の例を元に次の誕生日を計算する機能を実装し、動作確認をしていきます。
+
+
+    次の誕生日の表示
+    動作確認
+
+// ===== /MyMomentJS/js/main.js =====
+(() => {
+  'use strict';
+
+  const button = document.querySelector('button');
+  const p = document.querySelector('p');
+
+  function getResult() {
+    const bday = moment(document.querySelector('input').value);
+
+    if (!bday.isValid()) {
+      return '日付が無効です！';
+    }
+
+    const now = moment();
+    const age = now.diff(bday, 'year');
+    const days = now.diff(bday, 'day');
+
+    /*
+    now: 2018-07-24
+
+    bday: 2000-07-23 -> this: 2018-07-23 -> next: 2019-07-23
+    bday: 2000-07-24 -> this: 2018-07-24 -> next: 2019-07-24
+    bday: 2000-07-25 -> this: 2018-07-25 -> next: 2018-07-25
+    */
+
+    const thisBirthday = bday.clone().year(now.year());
+    let nextBirthday;
+
+    if (now.isSameOrAfter(thisBirthday)) {
+      nextBirthday = thisBirthday.clone().add(1, 'year');
+    } else {
+      nextBirthday = thisBirthday;
+    }
+
+    return `今、${age}歳です！生まれてから${days}日経ちました！次の誕生日は${nextBirthday.format('LL')}です！`;
+  }
+
+  button.addEventListener('click', () => {
+    p.textContent = getResult();
+  });
+})();
+
+// ===== /MyMomentJS/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Moment.js Practice</title>
+</head>
+<body>
+  <input type="text">
+  <button>Go</button>
+  <p></p>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/ja.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+次の誕生日までの日数を表示させる機能を実装し、アプリを完成させていきます。
+
+
+    次の誕生日と現在日時の差分確認
+    次の誕生日までの日数表示
+
+// ===== /MyMomentJS/js/main.js =====
+(() => {
+  'use strict';
+
+  const button = document.querySelector('button');
+  const p = document.querySelector('p');
+
+  function getResult() {
+    const bday = moment(document.querySelector('input').value);
+
+    if (!bday.isValid()) {
+      return '日付が無効です！';
+    }
+
+    const now = moment();
+    const age = now.diff(bday, 'year');
+    const days = now.diff(bday, 'day');
+
+    /*
+    now: 2018-07-24
+
+    bday: 2000-07-23 -> this: 2018-07-23 -> next: 2019-07-23 -> 364
+    bday: 2000-07-24 -> this: 2018-07-24 -> next: 2019-07-24 -> 365
+    bday: 2000-07-25 -> this: 2018-07-25 -> next: 2018-07-25 -> 1
+    */
+
+    const thisBirthday = bday.clone().year(now.year());
+    let nextBirthday;
+
+    if (now.isSameOrAfter(thisBirthday)) {
+      nextBirthday = thisBirthday.clone().add(1, 'year');
+    } else {
+      nextBirthday = thisBirthday;
+    }
+
+    // console.log(nextBirthday.diff(now, 'day', true));
+    const left = Math.ceil(nextBirthday.diff(now, 'day', true));
+
+    return `今、${age}歳です！生まれてから${days}日経ちました！次の誕生日は${nextBirthday.format('LL')}で、あと${left}日です！`;
+  }
+
+  button.addEventListener('click', () => {
+    p.textContent = getResult();
+  });
+})();
+
+// ===== /MyMomentJS/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Moment.js Practice</title>
+</head>
+<body>
+  <input type="text">
+  <button>Go</button>
+  <p></p>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/ja.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+

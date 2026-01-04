@@ -1,0 +1,1990 @@
+// ===== video_summary =====
+Backbone.jsの概要、レッスンでカバーする範囲を説明したのちに、必要となる知識や公式サイトについて解説していきます。
+
+
+    概要
+    レッスンで作るもの
+    レッスンでカバーする概念
+    公式サイト
+    必要となる知識
+
+// ===== commentBox 1 =====
+補足情報
+Underscore.jsについて
+
+
+
+
+2013年3月12日
+
+
+
+
+
+Backbone.jsを使うのにUnderscore.jsは必須となります。jQueryはDOMの操作などをするために必要ですが必須ではありません（ほとんどの場合、使うとは思いますが）。
+なお、Underscore.jsのレッスンはこちらからどうぞ。
+http://dotinstall.com/lessons/basic_underscorejs
+
+// ===== read.me =====
+Backbone.js
+
+* 概要
+- JavaScriptのアプリケーションフレームワーク
+
+* 目指すもの
+
+* 概念
+- Model
+- View
+- Event
+- Collection
+
+* 公式サイト
+
+* 知識
+- HTML/CSS
+- JavaScript
+- jQuery
+- Underscore.js
+
+
+
+
+// ===== video_summary =====
+まずは必要となるファイルを揃え、雛形となるindex.htmlを作りこんでいきます。
+
+
+    ファイルのコピー
+    index.htmlの作成
+
+// ===== /js/app.js =====
+(function() {
+
+
+
+});
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone.js</title>
+</head>
+<body>
+
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+Backbone.jsでModelを作る方法について解説していきます。デフォルト値の設定方法や、オブジェクトの値を取得する方法も見ていきます。
+
+
+    Modelの作成
+    defaults
+    toJSON()
+
+// ===== /js/app.js =====
+(function() {
+
+// Model
+
+var Task = Backbone.Model.extend({
+    defaults: {
+        title: "do something!",
+        completed: false
+    }
+});
+
+var task1 = new Task({
+    completed: true
+});
+
+console.log(task1.toJSON());
+
+})();
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone.js</title>
+</head>
+<body>
+
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+Modelから属性を取得するget、属性に値を設定するset、そしてModelにメソッドを追加する方法について学びます。
+
+
+    set()
+    get()
+    メソッドの追加
+
+// ===== /js/app.js =====
+(function() {
+
+// Model
+
+var Task = Backbone.Model.extend({
+    defaults: {
+        title: "do something!",
+        completed: false
+    },
+    toggle: function() {
+        this.set('completed', !this.get('completed'));
+    }
+});
+
+var task1 = new Task({
+    completed: true
+});
+
+//task1.set('title', 'newTitle');
+//var title = task1.get('title');
+// console.log(title);
+
+console.log(task1.toJSON());
+task1.toggle();
+console.log(task1.toJSON());
+
+
+})();
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone.js</title>
+</head>
+<body>
+
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+Modelの属性にvalidationを設定する方法について見ていきます。
+
+
+    validate
+
+// ===== commentBox 1 =====
+補足情報
+{validate: true} について
+
+
+
+
+2013年3月12日
+
+
+
+
+
+{validate: true} は最近追加されたオプションになります。以前のバージョンを対象としたチュートリアルやサイトではこのオプションが抜けていたりすることも多いので気をつけましょう。
+
+// ===== /js/app.js =====
+(function() {
+
+// Model
+
+var Task = Backbone.Model.extend({
+    defaults: {
+        title: "do something!",
+        completed: false
+    },
+    validate: function(attrs) {
+        if ( _.isEmpty(attrs.title) ) {
+            return "title must not be empty!";
+        }
+    },
+    toggle: function() {
+        this.set('completed', !this.get('completed'));
+    }
+});
+
+var task1 = new Task({
+    completed: true
+});
+
+//task1.set('title', 'newTitle');
+//var title = task1.get('title');
+// console.log(title);
+
+console.log(task1.toJSON());
+task1.set({title: ''}, {validate: true});
+// task1.toggle();
+console.log(task1.toJSON());
+
+
+})();
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone.js</title>
+</head>
+<body>
+
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+Backbone.jsでViewを作る方法について見ていきます。
+
+
+    Viewの作成
+    tagName
+    el, $el
+
+// ===== commentBox 1 =====
+補足情報
+すでに存在するDOMをViewに設定する方法
+
+
+
+
+2013年3月12日
+
+
+
+
+
+後半のレッスンでも出てきますが、すでにHTML上に存在するDOMをViewに設定する場合、tagNameではなくて、elに直接設定します。詳しくは以下のレッスンを参照してください。
+http://dotinstall.com/lessons/basic_backbonejs/22418
+なお、tagNameを指定しないとdivになります。
+
+// ===== /js/app.js =====
+(function() {
+
+// Model
+
+var Task = Backbone.Model.extend({
+    defaults: {
+        title: "do something!",
+        completed: false
+    }
+});
+var task = new Task();
+
+// View
+
+var TaskView = Backbone.View.extend({
+    tagName: 'li'
+});
+var taskView = new TaskView({ model: task });
+console.log(taskView.$el);
+
+})();
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone.js</title>
+</head>
+<body>
+
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+Viewを出力するためのrenderメソッド、そのためのtemplate機能について見ていきます。
+
+
+    className, id
+    render
+    template
+
+// ===== /js/app.js =====
+(function() {
+
+// Model
+
+var Task = Backbone.Model.extend({
+    defaults: {
+        title: "do something!",
+        completed: false
+    }
+});
+var task = new Task();
+
+// View
+
+var TaskView = Backbone.View.extend({
+    tagName: 'li',
+    // className: 'liClass',
+    // id: 'liId'    
+    template: _.template("<%- title %>"),
+    render: function() {
+        var template = this.template( this.model.toJSON() );
+        this.$el.html(template);
+        return this;
+    }
+});
+var taskView = new TaskView({ model: task });
+console.log(taskView.render().el);
+
+})();
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone.js</title>
+</head>
+<body>
+
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+template部分をhtmlに移し、その内容を取得してオブジェクトの値を埋め込んでいく方法について学びます。
+
+
+    script type="text/template"
+
+// ===== /js/app.js =====
+(function() {
+
+// Model
+
+var Task = Backbone.Model.extend({
+    defaults: {
+        title: "do something!",
+        completed: false
+    }
+});
+var task = new Task();
+
+// View
+
+var TaskView = Backbone.View.extend({
+    tagName: 'li',
+    // className: 'liClass',
+    // id: 'liId'    
+    template: _.template( $('#task-template').html() ),
+    render: function() {
+        var template = this.template( this.model.toJSON() );
+        this.$el.html(template);
+        return this;
+    }
+});
+var taskView = new TaskView({ model: task });
+console.log(taskView.render().el);
+$('body').append(taskView.render().el);
+
+})();
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone.js</title>
+</head>
+<body>
+
+
+    <script type="text/template" id="task-template">
+        <%- title %>
+    </script>
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+Viewにeventsを仕込み、クリックされたときにメソッドを呼び出す方法について学びます。
+
+
+    events
+    clickイベント
+
+// ===== /js/app.js =====
+(function() {
+
+// Model
+
+var Task = Backbone.Model.extend({
+    defaults: {
+        title: "do something!",
+        completed: false
+    }
+});
+var task = new Task();
+
+// View
+
+var TaskView = Backbone.View.extend({
+    tagName: 'li',
+    events: {
+        "click .command": "sayHello"
+    },
+    sayHello: function() {
+        alert('hello!');
+    },
+    template: _.template( $('#task-template').html() ),
+    render: function() {
+        var template = this.template( this.model.toJSON() );
+        this.$el.html(template);
+        return this;
+    }
+});
+var taskView = new TaskView({ model: task });
+console.log(taskView.render().el);
+$('body').append(taskView.render().el);
+
+})();
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone.js</title>
+</head>
+<body>
+
+
+    <script type="text/template" id="task-template">
+        <%- title %> <span class="command">command</span>
+    </script>
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+複数のModelをまとめて扱うことができるCollectionについて解説していきます。
+
+
+    Collection
+
+// ===== /js/app.js =====
+(function() {
+
+// Model
+
+var Task = Backbone.Model.extend({
+    defaults: {
+        title: "do something!",
+        completed: false
+    }
+});
+var task = new Task();
+
+// View
+
+var TaskView = Backbone.View.extend({
+    tagName: 'li',
+    template: _.template( $('#task-template').html() ),
+    render: function() {
+        var template = this.template( this.model.toJSON() );
+        this.$el.html(template);
+        return this;
+    }
+});
+
+// Collection
+
+var Tasks = Backbone.Collection.extend({
+    model: Task
+});
+var tasks = new Tasks([
+    {
+        title: 'task1',
+        completed: true
+    },
+    {
+        title: 'task2'
+    },
+    {
+        title: 'task3'
+    }
+]);
+console.log(tasks.toJSON());
+
+})();
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone.js</title>
+</head>
+<body>
+
+
+    <script type="text/template" id="task-template">
+        <%- title %>
+    </script>
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+ModelのViewを使いつつ、CollectionのViewを作りこんでいきます。
+
+
+    Collection View
+
+// ===== /js/app.js =====
+(function() {
+
+// Model
+
+var Task = Backbone.Model.extend({
+    defaults: {
+        title: "do something!",
+        completed: false
+    }
+});
+var task = new Task();
+
+// View
+
+var TaskView = Backbone.View.extend({
+    tagName: 'li',
+    template: _.template( $('#task-template').html() ),
+    render: function() {
+        var template = this.template( this.model.toJSON() );
+        this.$el.html(template);
+        return this;
+    }
+});
+
+// Collection
+
+var Tasks = Backbone.Collection.extend({
+    model: Task
+});
+
+var TasksView = Backbone.View.extend({
+    tagName: 'ul',
+    render: function() {
+        this.collection.each(function(task) {
+            var taskView = new TaskView({model: task});
+            this.$el.append(taskView.render().el);
+        }, this);
+        return this;
+    }
+});
+
+var tasks = new Tasks([
+    {
+        title: 'task1',
+        completed: true
+    },
+    {
+        title: 'task2'
+    },
+    {
+        title: 'task3'
+    }
+]);
+// console.log(tasks.toJSON());
+var tasksView = new TasksView({collection: tasks});
+$('#tasks').html(tasksView.render().el);
+
+
+})();
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone.js</title>
+</head>
+<body>
+
+    <div id="tasks"></div>
+
+    <script type="text/template" id="task-template">
+        <%- title %>
+    </script>
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+今まで学習した知識を使って簡単なToDoアプリを作ってみます。まずはタスクの一覧を作る準備をしていきます。
+
+
+    タスク一覧表示領域の作成
+    アウトラインの作成
+    初期タスクの設定
+
+// ===== /js/app.js =====
+(function() {
+
+var Task = Backbone.Model.extend({});
+var Tasks = Backbone.Collection.extend({ model: Task });
+
+var TaskView = Backbone.View.extend({});
+var TasksView = Backbone.View.extend({});
+
+var tasks = new Tasks([
+    {
+        title: 'task1',
+        completed: true
+    },
+    {
+        title: 'task2'
+    },
+    {
+        title: 'task3'
+    }
+]);
+
+})();
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone.js</title>
+</head>
+<body>
+
+    <h1>Tasks</h1>
+    <div id="tasks">
+    </div>
+
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+taskのModelを作り、Viewを設定していきます。
+
+
+    Task Modelの設定
+    TaskViewの設定
+
+// ===== /js/app.js =====
+(function() {
+
+var Task = Backbone.Model.extend({
+    defaults: {
+        title: 'do something',
+        completed: false
+    }
+});
+var Tasks = Backbone.Collection.extend({ model: Task });
+
+var TaskView = Backbone.View.extend({
+    tagName: 'li',
+    template: _.template($('#task-template').html());
+    render: function() {
+        var template = this.template(this.model.toJSON());
+        this.$el.html(template);
+        return this;
+    }
+});
+var TasksView = Backbone.View.extend({});
+
+var tasks = new Tasks([
+    {
+        title: 'task1',
+        completed: true
+    },
+    {
+        title: 'task2'
+    },
+    {
+        title: 'task3'
+    }
+]);
+
+})();
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone.js</title>
+</head>
+<body>
+
+    <h1>Tasks</h1>
+    <div id="tasks">
+    </div>
+
+    <script type="text/template" id="task-template">
+        <%- title %>
+    </script>
+
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+taskの一覧であるtasksのViewを作り、動作確認をしていきます。
+
+
+    TasksViewの設定
+    動作確認
+
+// ===== /js/app.js =====
+(function() {
+
+var Task = Backbone.Model.extend({
+    defaults: {
+        title: 'do something',
+        completed: false
+    }
+});
+var Tasks = Backbone.Collection.extend({ model: Task });
+
+var TaskView = Backbone.View.extend({
+    tagName: 'li',
+    template: _.template($('#task-template').html()),
+    render: function() {
+        var template = this.template(this.model.toJSON());
+        this.$el.html(template);
+        return this;
+    }
+});
+var TasksView = Backbone.View.extend({
+    tagName: 'ul',
+    render: function() {
+        this.collection.each(function(task) {
+            var taskView = new TaskView({model: task});
+            this.$el.append(taskView.render().el);
+        }, this);
+        return this;
+    }
+});
+
+var tasks = new Tasks([
+    {
+        title: 'task1',
+        completed: true
+    },
+    {
+        title: 'task2'
+    },
+    {
+        title: 'task3'
+    }
+]);
+
+var tasksView = new TasksView({collection: tasks});
+$('#tasks').html(tasksView.render().el);
+
+
+})();
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone.js</title>
+</head>
+<body>
+
+    <h1>Tasks</h1>
+    <div id="tasks">
+    </div>
+
+    <script type="text/template" id="task-template">
+        <%- title %>
+    </script>
+
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+削除リンクをクリックしたらtaskをdestroyする処理を作りこんでいきます。
+
+
+    クリックイベントの設定
+    taskの削除処理
+
+// ===== /js/app.js =====
+(function() {
+
+var Task = Backbone.Model.extend({
+    defaults: {
+        title: 'do something',
+        completed: false
+    }
+});
+var Tasks = Backbone.Collection.extend({ model: Task });
+
+var TaskView = Backbone.View.extend({
+    tagName: 'li',
+    initialize: function() {
+        this.model.on('destroy', this.remove, this);
+    },
+    events: {
+        'click .delete': 'destroy'
+    },
+    destroy: function() {
+        if (confirm('are you sure?')) {
+            this.model.destroy();
+        }
+    },
+    remove: function() {
+        this.$el.remove();
+    },
+    template: _.template($('#task-template').html()),
+    render: function() {
+        var template = this.template(this.model.toJSON());
+        this.$el.html(template);
+        return this;
+    }
+});
+var TasksView = Backbone.View.extend({
+    tagName: 'ul',
+    render: function() {
+        this.collection.each(function(task) {
+            var taskView = new TaskView({model: task});
+            this.$el.append(taskView.render().el);
+        }, this);
+        return this;
+    }
+});
+
+var tasks = new Tasks([
+    {
+        title: 'task1',
+        completed: true
+    },
+    {
+        title: 'task2'
+    },
+    {
+        title: 'task3'
+    }
+]);
+
+var tasksView = new TasksView({collection: tasks});
+$('#tasks').html(tasksView.render().el);
+
+
+})();
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone.js</title>
+</head>
+<body>
+
+    <h1>Tasks</h1>
+    <div id="tasks">
+    </div>
+
+    <script type="text/template" id="task-template">
+        <%- title %>
+        <span class="delete">[x]</span>
+    </script>
+
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+taskの完了を示すチェックボックスを作り、クリックしたときのイベントを仕込んでいきます。
+
+
+    チェックボックスの作成
+    クリックイベントの設定
+
+// ===== /js/app.js =====
+(function() {
+
+var Task = Backbone.Model.extend({
+    defaults: {
+        title: 'do something',
+        completed: false
+    }
+});
+var Tasks = Backbone.Collection.extend({ model: Task });
+
+var TaskView = Backbone.View.extend({
+    tagName: 'li',
+    initialize: function() {
+        this.model.on('destroy', this.remove, this);
+        this.model.on('change', this.render, this);
+    },
+    events: {
+        'click .delete': 'destroy',
+        'click .toggle': 'toggle'
+    },
+    toggle: function() {
+        this.model.set('completed', !this.model.get('completed'));
+    },
+    destroy: function() {
+        if (confirm('are you sure?')) {
+            this.model.destroy();
+        }
+    },
+    remove: function() {
+        this.$el.remove();
+    },
+    template: _.template($('#task-template').html()),
+    render: function() {
+        var template = this.template(this.model.toJSON());
+        this.$el.html(template);
+        return this;
+    }
+});
+var TasksView = Backbone.View.extend({
+    tagName: 'ul',
+    render: function() {
+        this.collection.each(function(task) {
+            var taskView = new TaskView({model: task});
+            this.$el.append(taskView.render().el);
+        }, this);
+        return this;
+    }
+});
+
+var tasks = new Tasks([
+    {
+        title: 'task1',
+        completed: true
+    },
+    {
+        title: 'task2'
+    },
+    {
+        title: 'task3'
+    }
+]);
+
+var tasksView = new TasksView({collection: tasks});
+$('#tasks').html(tasksView.render().el);
+
+
+})();
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone.js</title>
+</head>
+<body>
+
+    <h1>Tasks</h1>
+    <div id="tasks">
+    </div>
+
+    <script type="text/template" id="task-template">
+        <input type="checkbox" class="toggle" <%= completed ? 'checked': '' %>>
+        <%- title %>
+        <span class="delete">[x]</span>
+    </script>
+
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+taskの完了が分かりやすいように、完了時のスタイルを設定していきます。
+
+
+    完了時のスタイル設定
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone.js</title>
+    <style>
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Tasks</h1>
+    <div id="tasks">
+    </div>
+
+    <script type="text/template" id="task-template">
+        <input type="checkbox" class="toggle" <%= completed ? 'checked': '' %>>
+        <span class="<%= completed ? 'completed' : '' %>">
+            <%- title %>
+        </span>
+        <span class="delete">[x]</span>
+    </script>
+
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+// ===== /js/app.js =====
+(function() {
+
+var Task = Backbone.Model.extend({
+    defaults: {
+        title: 'do something',
+        completed: false
+    }
+});
+var Tasks = Backbone.Collection.extend({ model: Task });
+
+var TaskView = Backbone.View.extend({
+    tagName: 'li',
+    initialize: function() {
+        this.model.on('destroy', this.remove, this);
+        this.model.on('change', this.render, this);
+    },
+    events: {
+        'click .delete': 'destroy',
+        'click .toggle': 'toggle'
+    },
+    toggle: function() {
+        this.model.set('completed', !this.model.get('completed'));
+    },
+    destroy: function() {
+        if (confirm('are you sure?')) {
+            this.model.destroy();
+        }
+    },
+    remove: function() {
+        this.$el.remove();
+    },
+    template: _.template($('#task-template').html()),
+    render: function() {
+        var template = this.template(this.model.toJSON());
+        this.$el.html(template);
+        return this;
+    }
+});
+var TasksView = Backbone.View.extend({
+    tagName: 'ul',
+    render: function() {
+        this.collection.each(function(task) {
+            var taskView = new TaskView({model: task});
+            this.$el.append(taskView.render().el);
+        }, this);
+        return this;
+    }
+});
+
+var tasks = new Tasks([
+    {
+        title: 'task1',
+        completed: true
+    },
+    {
+        title: 'task2'
+    },
+    {
+        title: 'task3'
+    }
+]);
+
+var tasksView = new TasksView({collection: tasks});
+$('#tasks').html(tasksView.render().el);
+
+
+})();
+
+
+
+
+
+// ===== video_summary =====
+taskを追加するためのフォームを作り、そのためのViewを設定していきます。
+
+
+    AddTaskViewの設定
+
+// ===== /js/app.js =====
+(function() {
+
+var Task = Backbone.Model.extend({
+    defaults: {
+        title: 'do something',
+        completed: false
+    }
+});
+var Tasks = Backbone.Collection.extend({ model: Task });
+
+var TaskView = Backbone.View.extend({
+    tagName: 'li',
+    initialize: function() {
+        this.model.on('destroy', this.remove, this);
+        this.model.on('change', this.render, this);
+    },
+    events: {
+        'click .delete': 'destroy',
+        'click .toggle': 'toggle'
+    },
+    toggle: function() {
+        this.model.set('completed', !this.model.get('completed'));
+    },
+    destroy: function() {
+        if (confirm('are you sure?')) {
+            this.model.destroy();
+        }
+    },
+    remove: function() {
+        this.$el.remove();
+    },
+    template: _.template($('#task-template').html()),
+    render: function() {
+        var template = this.template(this.model.toJSON());
+        this.$el.html(template);
+        return this;
+    }
+});
+var TasksView = Backbone.View.extend({
+    tagName: 'ul',
+    render: function() {
+        this.collection.each(function(task) {
+            var taskView = new TaskView({model: task});
+            this.$el.append(taskView.render().el);
+        }, this);
+        return this;
+    }
+});
+
+var AddTaskView = Backbone.View.extend({
+    el: '#addTask',
+    events: {
+        'submit': 'submit'
+    },
+    submit: function(e) {
+        e.preventDefault();
+        var task = new Task({title: $('#title').val()});
+        this.collection.add(task);
+    }
+});
+
+var tasks = new Tasks([
+    {
+        title: 'task1',
+        completed: true
+    },
+    {
+        title: 'task2'
+    },
+    {
+        title: 'task3'
+    }
+]);
+
+var tasksView = new TasksView({collection: tasks});
+$('#tasks').html(tasksView.render().el);
+
+
+})();
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone.js</title>
+    <style>
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Tasks</h1>
+
+    <form id="addTask">
+        <input type="text" id="title">
+        <input type="submit" value="add">
+    </form>
+
+    <div id="tasks">
+    </div>
+
+    <script type="text/template" id="task-template">
+        <input type="checkbox" class="toggle" <%= completed ? 'checked': '' %>>
+        <span class="<%= completed ? 'completed' : '' %>">
+            <%- title %>
+        </span>
+        <span class="delete">[x]</span>
+    </script>
+
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+追加されたtaskをCollectionに追加していきます。
+
+
+    addイベントの監視
+    Collectionへの追加処理
+
+// ===== /js/app.js =====
+(function() {
+
+var Task = Backbone.Model.extend({
+    defaults: {
+        title: 'do something',
+        completed: false
+    }
+});
+var Tasks = Backbone.Collection.extend({ model: Task });
+
+var TaskView = Backbone.View.extend({
+    tagName: 'li',
+    initialize: function() {
+        this.model.on('destroy', this.remove, this);
+        this.model.on('change', this.render, this);
+    },
+    events: {
+        'click .delete': 'destroy',
+        'click .toggle': 'toggle'
+    },
+    toggle: function() {
+        this.model.set('completed', !this.model.get('completed'));
+    },
+    destroy: function() {
+        if (confirm('are you sure?')) {
+            this.model.destroy();
+        }
+    },
+    remove: function() {
+        this.$el.remove();
+    },
+    template: _.template($('#task-template').html()),
+    render: function() {
+        var template = this.template(this.model.toJSON());
+        this.$el.html(template);
+        return this;
+    }
+});
+var TasksView = Backbone.View.extend({
+    tagName: 'ul',
+    initialize: function() {
+        this.collection.on('add', this.addNew, this);
+    },
+    addNew: function(task) {
+        var taskView = new TaskView({model: task});
+        this.$el.append(taskView.render().el);
+    },
+    render: function() {
+        this.collection.each(function(task) {
+            var taskView = new TaskView({model: task});
+            this.$el.append(taskView.render().el);
+        }, this);
+        return this;
+    }
+});
+
+var AddTaskView = Backbone.View.extend({
+    el: '#addTask',
+    events: {
+        'submit': 'submit'
+    },
+    submit: function(e) {
+        e.preventDefault();
+        var task = new Task({title: $('#title').val()});
+        this.collection.add(task);
+    }
+});
+
+var tasks = new Tasks([
+    {
+        title: 'task1',
+        completed: true
+    },
+    {
+        title: 'task2'
+    },
+    {
+        title: 'task3'
+    }
+]);
+
+var tasksView = new TasksView({collection: tasks});
+var addTaskView = new AddTaskView({collection: tasks});
+
+$('#tasks').html(tasksView.render().el);
+
+
+})();
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone.js</title>
+    <style>
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Tasks</h1>
+
+    <form id="addTask">
+        <input type="text" id="title">
+        <input type="submit" value="add">
+    </form>
+
+    <div id="tasks">
+    </div>
+
+    <script type="text/template" id="task-template">
+        <input type="checkbox" class="toggle" <%= completed ? 'checked': '' %>>
+        <span class="<%= completed ? 'completed' : '' %>">
+            <%- title %>
+        </span>
+        <span class="delete">[x]</span>
+    </script>
+
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+// ===== video_summary =====
+追加されたtaskのvalidationを行い、エラーメッセージが表示されるようにしていきます。
+
+
+    validate
+    エラーメッセージの表示
+
+// ===== /js/app.js =====
+(function() {
+
+var Task = Backbone.Model.extend({
+    defaults: {
+        title: 'do something',
+        completed: false
+    },
+    validate: function(attrs) {
+        if ( _.isEmpty(attrs.title) ) {
+            return 'title must not be empty';
+        }
+    },
+    initialize: function() {
+        this.on('invalid', function(model, error) {
+            $('#error').html(error);
+        })
+    }
+});
+var Tasks = Backbone.Collection.extend({ model: Task });
+
+var TaskView = Backbone.View.extend({
+    tagName: 'li',
+    initialize: function() {
+        this.model.on('destroy', this.remove, this);
+        this.model.on('change', this.render, this);
+    },
+    events: {
+        'click .delete': 'destroy',
+        'click .toggle': 'toggle'
+    },
+    toggle: function() {
+        this.model.set('completed', !this.model.get('completed'));
+    },
+    destroy: function() {
+        if (confirm('are you sure?')) {
+            this.model.destroy();
+        }
+    },
+    remove: function() {
+        this.$el.remove();
+    },
+    template: _.template($('#task-template').html()),
+    render: function() {
+        var template = this.template(this.model.toJSON());
+        this.$el.html(template);
+        return this;
+    }
+});
+var TasksView = Backbone.View.extend({
+    tagName: 'ul',
+    initialize: function() {
+        this.collection.on('add', this.addNew, this);
+    },
+    addNew: function(task) {
+        var taskView = new TaskView({model: task});
+        this.$el.append(taskView.render().el);
+    },
+    render: function() {
+        this.collection.each(function(task) {
+            var taskView = new TaskView({model: task});
+            this.$el.append(taskView.render().el);
+        }, this);
+        return this;
+    }
+});
+
+var AddTaskView = Backbone.View.extend({
+    el: '#addTask',
+    events: {
+        'submit': 'submit'
+    },
+    submit: function(e) {
+        e.preventDefault();
+        // var task = new Task({title: $('#title').val()});
+        var task = new Task();
+        if (task.set({title: $('#title').val()}, {validate: true})) {
+            this.collection.add(task);
+        }
+    }
+});
+
+var tasks = new Tasks([
+    {
+        title: 'task1',
+        completed: true
+    },
+    {
+        title: 'task2'
+    },
+    {
+        title: 'task3'
+    }
+]);
+
+var tasksView = new TasksView({collection: tasks});
+var addTaskView = new AddTaskView({collection: tasks});
+
+$('#tasks').html(tasksView.render().el);
+
+
+})();
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone.js</title>
+    <style>
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Tasks</h1>
+
+    <form id="addTask">
+        <input type="text" id="title">
+        <input type="submit" value="add">
+        <span id="error"></span>
+    </form>
+
+    <div id="tasks">
+    </div>
+
+    <script type="text/template" id="task-template">
+        <input type="checkbox" class="toggle" <%= completed ? 'checked': '' %>>
+        <span class="<%= completed ? 'completed' : '' %>">
+            <%- title %>
+        </span>
+        <span class="delete">[x]</span>
+    </script>
+
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+validationの動作確認を行い、次に残タスク数を表示するための処理を行なっていきます。
+
+
+    validationの動作確認
+    残タスク数の表示
+
+// ===== /js/app.js =====
+(function() {
+
+var Task = Backbone.Model.extend({
+    defaults: {
+        title: 'do something',
+        completed: false
+    },
+    validate: function(attrs) {
+        if ( _.isEmpty(attrs.title) ) {
+            return 'title must not be empty';
+        }
+    },
+    initialize: function() {
+        this.on('invalid', function(model, error) {
+            $('#error').html(error);
+        })
+    }
+});
+var Tasks = Backbone.Collection.extend({ model: Task });
+
+var TaskView = Backbone.View.extend({
+    tagName: 'li',
+    initialize: function() {
+        this.model.on('destroy', this.remove, this);
+        this.model.on('change', this.render, this);
+    },
+    events: {
+        'click .delete': 'destroy',
+        'click .toggle': 'toggle'
+    },
+    toggle: function() {
+        this.model.set('completed', !this.model.get('completed'));
+    },
+    destroy: function() {
+        if (confirm('are you sure?')) {
+            this.model.destroy();
+        }
+    },
+    remove: function() {
+        this.$el.remove();
+    },
+    template: _.template($('#task-template').html()),
+    render: function() {
+        var template = this.template(this.model.toJSON());
+        this.$el.html(template);
+        return this;
+    }
+});
+var TasksView = Backbone.View.extend({
+    tagName: 'ul',
+    initialize: function() {
+        this.collection.on('add', this.addNew, this);
+    },
+    addNew: function(task) {
+        var taskView = new TaskView({model: task});
+        this.$el.append(taskView.render().el);
+    },
+    updateCount: function() {
+        var uncompletedTasks = this.collection.filter(function(task) {
+            return !task.get('completed');
+        });
+        $('#count').html(uncompletedTasks.length);
+    },
+    render: function() {
+        this.collection.each(function(task) {
+            var taskView = new TaskView({model: task});
+            this.$el.append(taskView.render().el);
+        }, this);
+        this.updateCount();
+        return this;
+    }
+});
+
+var AddTaskView = Backbone.View.extend({
+    el: '#addTask',
+    events: {
+        'submit': 'submit'
+    },
+    submit: function(e) {
+        e.preventDefault();
+        // var task = new Task({title: $('#title').val()});
+        var task = new Task();
+        if (task.set({title: $('#title').val()}, {validate: true})) {
+            this.collection.add(task);
+        }
+    }
+});
+
+var tasks = new Tasks([
+    {
+        title: 'task1',
+        completed: true
+    },
+    {
+        title: 'task2'
+    },
+    {
+        title: 'task3'
+    }
+]);
+
+var tasksView = new TasksView({collection: tasks});
+var addTaskView = new AddTaskView({collection: tasks});
+
+$('#tasks').html(tasksView.render().el);
+
+
+})();
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone.js</title>
+    <style>
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Tasks</h1>
+
+    <form id="addTask">
+        <input type="text" id="title">
+        <input type="submit" value="add">
+        <span id="error"></span>
+    </form>
+
+    <div id="tasks">
+    </div>
+    <p>Tasks left: <span id="count"></span></p>
+
+    <script type="text/template" id="task-template">
+        <input type="checkbox" class="toggle" <%= completed ? 'checked': '' %>>
+        <span class="<%= completed ? 'completed' : '' %>">
+            <%- title %>
+        </span>
+        <span class="delete">[x]</span>
+    </script>
+
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+残タスク数がtaskの削除、完了によって更新されるようにしていきます。また細かい挙動を調整していきます。
+
+
+    残タスク数の更新
+    エラーメッセージの処理
+    フォームの処理
+
+// ===== /js/app.js =====
+(function() {
+
+var Task = Backbone.Model.extend({
+    defaults: {
+        title: 'do something',
+        completed: false
+    },
+    validate: function(attrs) {
+        if ( _.isEmpty(attrs.title) ) {
+            return 'title must not be empty';
+        }
+    },
+    initialize: function() {
+        this.on('invalid', function(model, error) {
+            $('#error').html(error);
+        })
+    }
+});
+var Tasks = Backbone.Collection.extend({ model: Task });
+
+var TaskView = Backbone.View.extend({
+    tagName: 'li',
+    initialize: function() {
+        this.model.on('destroy', this.remove, this);
+        this.model.on('change', this.render, this);
+    },
+    events: {
+        'click .delete': 'destroy',
+        'click .toggle': 'toggle'
+    },
+    toggle: function() {
+        this.model.set('completed', !this.model.get('completed'));
+    },
+    destroy: function() {
+        if (confirm('are you sure?')) {
+            this.model.destroy();
+        }
+    },
+    remove: function() {
+        this.$el.remove();
+    },
+    template: _.template($('#task-template').html()),
+    render: function() {
+        var template = this.template(this.model.toJSON());
+        this.$el.html(template);
+        return this;
+    }
+});
+var TasksView = Backbone.View.extend({
+    tagName: 'ul',
+    initialize: function() {
+        this.collection.on('add', this.addNew, this);
+        this.collection.on('change', this.updateCount, this);
+        this.collection.on('destroy', this.updateCount, this);
+    },
+    addNew: function(task) {
+        var taskView = new TaskView({model: task});
+        this.$el.append(taskView.render().el);
+        $('#title').val('').focus();
+        this.updateCount();
+    },
+    updateCount: function() {
+        var uncompletedTasks = this.collection.filter(function(task) {
+            return !task.get('completed');
+        });
+        $('#count').html(uncompletedTasks.length);
+    },
+    render: function() {
+        this.collection.each(function(task) {
+            var taskView = new TaskView({model: task});
+            this.$el.append(taskView.render().el);
+        }, this);
+        this.updateCount();
+        return this;
+    }
+});
+
+var AddTaskView = Backbone.View.extend({
+    el: '#addTask',
+    events: {
+        'submit': 'submit'
+    },
+    submit: function(e) {
+        e.preventDefault();
+        // var task = new Task({title: $('#title').val()});
+        var task = new Task();
+        if (task.set({title: $('#title').val()}, {validate: true})) {
+            this.collection.add(task);
+            $('#error').empty();
+        }
+    }
+});
+
+var tasks = new Tasks([
+    {
+        title: 'task1',
+        completed: true
+    },
+    {
+        title: 'task2'
+    },
+    {
+        title: 'task3'
+    }
+]);
+
+var tasksView = new TasksView({collection: tasks});
+var addTaskView = new AddTaskView({collection: tasks});
+
+$('#tasks').html(tasksView.render().el);
+
+
+})();
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone.js</title>
+    <style>
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Tasks</h1>
+
+    <form id="addTask">
+        <input type="text" id="title">
+        <input type="submit" value="add">
+        <span id="error"></span>
+    </form>
+
+    <div id="tasks">
+    </div>
+    <p>Tasks left: <span id="count"></span></p>
+
+    <script type="text/template" id="task-template">
+        <input type="checkbox" class="toggle" <%= completed ? 'checked': '' %>>
+        <span class="<%= completed ? 'completed' : '' %>">
+            <%- title %>
+        </span>
+        <span class="delete">[x]</span>
+    </script>
+
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
+
+
+

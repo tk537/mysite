@@ -1,0 +1,319 @@
+// ===== video_summary =====
+メソッドの構造を説明したのちに、引数や返り値といった用語を紹介していきます。
+
+
+    メソッドの構造
+    引数
+    返り値/戻り値
+
+// ===== main.rb =====
+
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+渡した整数値を3倍にして返してくれるメソッドを実装していきます。
+
+
+    triple()
+    メソッドの定義
+    仮引数/実引数
+
+// ===== main.rb =====
+def triple(num) # 仮引数
+  num * 3
+end
+
+puts triple(10) # 実引数
+puts triple(4) * 3 # 実引数
+
+
+
+
+
+
+
+// ===== video_summary =====
+前回の実装がどのような順序で実行されていくか、図を使って説明していきます。
+
+
+    処理の順序
+    メソッドの呼び出し
+    返り値が戻る箇所
+
+// ===== main.rb =====
+def triple(num) # 仮引数
+  num * 3
+end
+
+puts triple(10) # 実引数
+puts triple(4) * 3 # 実引数
+
+
+
+
+
+
+
+// ===== video_summary =====
+メソッド内でputsしたときに返り値がどうなるか説明していきます。
+
+
+    sum()
+    putsしたときの返り値
+    nil
+
+// ===== main.rb =====
+def sum(a, b)
+  a + b
+end
+
+def show_sum(a, b)
+  puts a + b # nil
+end
+
+# puts sum(3, 7)
+# show_sum(3, 7)
+puts sum(3, 7) * 3
+puts show_sum(3, 7) * 3
+
+
+
+
+
+
+
+// ===== video_summary =====
+コードを見通しをよくするためにメソッドを活用する方法について見ていきます。
+
+
+    構成の把握
+    show_ad
+    show_content
+
+// ===== main.rb =====
+def show_ad
+  puts "---------"
+  puts "SALE! 50% OFF!"
+  puts "---------"
+end
+
+def show_content
+  puts "BREAKING NEWS!"
+  puts "Two baby pandas born at our Zoo!"
+end
+
+show_ad
+show_content
+show_ad
+
+
+
+
+
+
+
+// ===== video_summary =====
+ある整数値が他の整数値で割り切れるかどうかを真偽値で返してくれるメソッドを実装していきます。
+
+
+    真偽値
+    dividable?()
+    0による除算
+
+// ===== commentBox 1 =====
+補足情報
+真偽値について
+
+
+
+
+2024年1月27日
+
+
+
+
+
+真偽値について忘れてしまった人は以下のレッスンを復習してみてください。
+・#13 真偽値の仕組みを理解しよう | Ruby入門 制御構造編
+https://dotinstall.com/lessons/basic_ruby_controls/66013
+・#14 真偽値を使ってみよう | Ruby入門 制御構造編
+https://dotinstall.com/lessons/basic_ruby_controls/66014
+
+// ===== main.rb =====
+def dividable?(a, b)
+  if a % b == 0
+    true
+  else
+    false
+  end
+end
+
+puts dividable?(10, 2) # true
+puts dividable?(10, 3) # false
+puts dividable?(10, 0)
+
+
+
+
+
+
+
+// ===== video_summary =====
+前回のコードを修正して、0で割り算をした場合にも対処できるようにしていきます。
+
+
+    ifによる条件分岐
+    論理演算子の活用
+
+// ===== commentBox 1 =====
+補足情報
+論理演算子について
+
+
+
+
+2024年1月27日
+
+
+
+
+
+動画中で説明している論理演算子について忘れてしまった人は以下のレッスンを復習してみましょう。
+・#12 論理演算子を使ってみよう | Ruby入門 制御構造編
+https://dotinstall.com/lessons/basic_ruby_controls/66012
+
+// ===== main.rb =====
+def dividable?(a, b)
+  # if b != 0
+  #   if a % b == 0
+  #     true
+  #   else
+  #     false
+  #   end
+  # else
+  #   false
+  # end
+
+  if b != 0 && a % b == 0
+    true
+  else
+    false
+  end
+end
+
+puts dividable?(10, 2) # true
+puts dividable?(10, 3) # false
+puts dividable?(10, 0) # false
+
+
+
+
+
+
+// ===== video_summary =====
+条件にあわないものを最初に振り落としてから処理を書いていくテクニックを学びます。
+
+
+    コードの組み換え
+    returnの必要性
+    早期リターン
+
+// ===== main.rb =====
+def dividable?(a, b)
+  # if b != 0 && a % b == 0
+  #   true
+  # else
+  #   false
+  # end
+
+  if b == 0
+    return false
+  end
+
+  if a % b == 0
+    true
+  else
+    false
+  end
+end
+
+puts dividable?(10, 2) # true
+puts dividable?(10, 3) # false
+puts dividable?(10, 0) # false
+
+
+
+
+
+
+// ===== video_summary =====
+仮引数にデフォルト値を設定する方法について見ていきます。
+
+
+    get_total()
+    仮引数のデフォルト値
+    仮引数のデフォルト値に関する注意点
+
+// ===== main.rb =====
+def get_total(price = 100, amount, rate = 1.1)
+  price * amount * rate
+end
+
+puts get_total(100, 10)
+puts get_total(150, 10)
+puts get_total(200, 10)
+puts get_total(120, 10, 1.08)
+
+
+
+
+
+// ===== video_summary =====
+実引数にキーワードを指定してメソッドを実行する方法について見ていきます。
+
+
+    get_area()
+    キーワード引数
+    キーワード引数に関する注意点
+
+// ===== main.rb =====
+def get_area(width:, height: 100)
+  width * height
+end
+
+puts get_area(width: 100, height: 200)
+puts get_area(height: 400, width: 200)
+puts get_area(width: 50)
+
+
+
+
+
+// ===== video_summary =====
+メソッドの仮引数と、メソッド内で値を代入した変数のスコープについて見ていきます。
+
+
+    triple()
+    変数のスコープ
+    スコープがあることの利点
+
+// ===== main.rb =====
+def triple(num)
+  result = num * 3
+  result
+end
+
+num = 20
+puts triple(10)
+puts num
+
+
+
+
+

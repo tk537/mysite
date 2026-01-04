@@ -1,0 +1,1217 @@
+// ===== video_summary =====
+まずは概要を説明したあとに、公式サイト、必要となる知識、レッスンにおける環境について説明していきます。またgruntコマンドもインストールしておきます。
+
+
+    概要
+    公式サイト
+    必要となる知識
+    レッスンにおける環境
+    sudo npm install -g grunt-cli
+
+// ===== commentBox 1 =====
+補足情報
+学習を進めるには Node.js のバージョンアップが必要です
+
+
+
+
+2018年9月18日
+
+
+
+
+
+レッスンで使用している Grunt v0.4.2 はすでに配布が終了しているため、最新版の Grunt を導入する必要があります。また、その場合はローカル開発環境の Node.js もアップデートが必要です。
+
+node -v
+
+
+と実行して Node.js 0.10 系がインストールされている場合は、以下の手順に従って Node.js を更新してください。
+
+Node.js の更新方法
+
+まずは以下のコマンドで Node.js 8 系をインストールします。
+
+sudo yum -y remove nodejs
+sudo rm -f /etc/yum.repos.d/nodesource-el.repo
+curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
+sudo yum clean all
+sudo yum -y install nodejs
+
+
+次に less と grunt-cli の最新版をインストールします。
+
+sudo npm install -g less
+sudo npm install -g grunt-cli
+
+
+この状態からレッスンを開始してください。
+
+// ===== read.me =====
+Grunt
+
+* 概要
+- Node.jsを利用したタスク自動化ツール
+- スクリプト化
+
+* 公式サイト
+
+* 知識
+- Node.js / JavaScript
+- HTML / CSS
+- LESS 
+- Unixコマンド
+
+* 環境
+- ローカル開発環境
+
+* gruntコマンド
+
+
+
+
+
+// ===== video_summary =====
+package.jsonを作ってgrunt本体をインストールしていきます。
+
+
+    プロジェクトフォルダの作成
+    npm init
+    npm install grunt --save-dev
+    npm install
+
+// ===== package.json =====
+{
+  "name": "mysite",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD",
+  "devDependencies": {
+    "grunt": "~0.4.2"
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+Gruntfile.jsを作った後に、プラグインの探し方について説明していきます。
+
+
+    Gruntfile.jsの作成
+    プラグインの検索方法
+
+// ===== Gruntfile.js =====
+module.exports = function(grunt) {
+
+    // config
+    grunt.initConfig({
+
+    });
+
+    // plugin
+
+    // tasks
+
+};
+
+// ===== package.json =====
+{
+  "name": "mysite",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD",
+  "devDependencies": {
+    "grunt": "~0.4.2"
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+lessファイルをcssファイルに変換するlessプラグインを使っていきます。
+
+
+    作業用フォルダ・ファイルの準備
+    npm install grunt-contrib-less --save-dev
+    Grunfile.jsの設定
+    動作確認
+
+// ===== /build/styles.css =====
+h1{color:#6c94be}h2{color:#6cb7e0}
+
+// ===== /src/style1.less =====
+/* style 1 */
+
+@color1: #6c94be;
+@color2: @color1 + #002322;
+ 
+h1 {
+    color: @color1;
+}
+ 
+h2 {
+    color: @color2;
+}
+
+// ===== /src/style2.less =====
+/* style 2 */
+
+body {
+    background: #eee;
+
+    p {
+        margin-left: 10px;
+    }
+}
+
+// ===== Gruntfile.js =====
+module.exports = function(grunt) {
+
+    // config
+    grunt.initConfig({
+
+        less: {
+            build: {
+                src: 'src/style1.less',
+                dest: 'build/styles.css'
+            }
+        }
+
+    });
+
+    // plugin
+    grunt.loadNpmTasks('grunt-contrib-less');
+
+    // tasks
+    grunt.registerTask('default', 'less');
+
+};
+
+// ===== package.json =====
+{
+  "name": "mysite",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-less": "~0.9.0"
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+プロジェクトを設定する際のターゲットについて説明していきます。
+
+
+    ターゲットの書き方
+
+// ===== /build/styles1.css =====
+/* style 1 */
+h1 {
+  color: #6c94be;
+}
+h2 {
+  color: #6cb7e0;
+}
+
+// ===== /build/styles2.css =====
+/* style 2 */
+body {
+  background: #eee;
+}
+body p {
+  margin-left: 10px;
+}
+
+// ===== Gruntfile.js =====
+module.exports = function(grunt) {
+
+    // config
+    grunt.initConfig({
+
+        /*
+        task: {
+            target1: {
+                設定
+            },
+            target2: {
+                設定
+            }
+        }
+        */
+
+        less: {
+            build1: {
+                src: 'src/style1.less',
+                dest: 'build/styles1.css'
+            },
+            build2: {
+                src: 'src/style2.less',
+                dest: 'build/styles2.css'
+            }
+        }
+
+    });
+
+    // plugin
+    grunt.loadNpmTasks('grunt-contrib-less');
+
+    // tasks
+    grunt.registerTask('default', 'less');
+    grunt.registerTask('task1', 'less:build1');
+    grunt.registerTask('task2', 'less:build2');
+
+};
+
+// ===== /build/styles.css =====
+h1{color:#6c94be}h2{color:#6cb7e0}
+
+// ===== /src/style1.less =====
+/* style 1 */
+
+@color1: #6c94be;
+@color2: @color1 + #002322;
+ 
+h1 {
+    color: @color1;
+}
+ 
+h2 {
+    color: @color2;
+}
+
+// ===== /src/style2.less =====
+/* style 2 */
+
+body {
+    background: #eee;
+
+    p {
+        margin-left: 10px;
+    }
+}
+
+// ===== package.json =====
+{
+  "name": "mysite",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-less": "~0.9.0"
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+入力ファイルであるsrcと、出力ファイルであるdestの書き方について説明していきます。
+
+
+    src､dest
+    ワイルドカード
+
+// ===== Gruntfile.js =====
+module.exports = function(grunt) {
+
+    // config
+    grunt.initConfig({
+
+        /*
+        task: {
+            target: {
+                src: ...,
+                dest: ....
+            }
+        }
+        task: {
+            target: {
+                files: {
+                    dest: src
+                }
+            }
+        }
+        */
+
+        less: {
+            build: {
+                /*
+                src: 'src/style1.less',
+                dest: 'build/styles.css'
+                */
+                files: {
+                    // 'build/styles.css': 'src/style1.less'
+                    // 'build/styles.css': ['src/style1.less', 'src/style2.less']
+                    // 'build/styles.css': 'src/*.less'
+                    'build/styles.css': 'src/**/*.less'
+                }
+            }
+        }
+
+    });
+
+    // plugin
+    grunt.loadNpmTasks('grunt-contrib-less');
+
+    // tasks
+    grunt.registerTask('default', 'less');
+
+};
+
+// ===== /src/style1.less =====
+/* style 1 */
+
+@color1: #6c94be;
+@color2: @color1 + #002322;
+ 
+h1 {
+    color: @color1;
+}
+ 
+h2 {
+    color: @color2;
+}
+
+// ===== /src/style2.less =====
+/* style 2 */
+
+body {
+    background: #eee;
+
+    p {
+        margin-left: 10px;
+    }
+}
+
+// ===== package.json =====
+{
+  "name": "mysite",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-less": "~0.9.0"
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+プラグインのオプションを設定する方法について説明していきます。
+
+
+    options
+    /*! ... */
+
+// ===== /build/styles.css =====
+/*! style 1 */h1{color:#6c94be}h2{color:#6cb7e0}
+
+// ===== /src/style1.less =====
+/*! style 1 */
+
+@color1: #6c94be;
+@color2: @color1 + #002322;
+ 
+h1 {
+    color: @color1;
+}
+ 
+h2 {
+    color: @color2;
+}
+
+// ===== Gruntfile.js =====
+module.exports = function(grunt) {
+
+    // config
+    grunt.initConfig({
+
+        /*
+        task: {
+            target1: {
+                options: {
+                    compress: true
+                },
+                src: ...,
+                dest: ....
+            },
+            target2: {
+                src: ...,
+                dest: ....
+            }
+        }
+        */
+
+        less: {
+            options: {
+                compress: true
+            },
+            build: {
+                src: 'src/style1.less',
+                dest: 'build/styles.css'
+            }
+        }
+
+    });
+
+    // plugin
+    grunt.loadNpmTasks('grunt-contrib-less');
+
+    // tasks
+    grunt.registerTask('default', 'less');
+
+};
+
+// ===== /src/style2.less =====
+/* style 2 */
+
+body {
+    background: #eee;
+
+    p {
+        margin-left: 10px;
+    }
+}
+
+// ===== package.json =====
+{
+  "name": "mysite",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-less": "~0.9.0"
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+CSSの妥当性をチェックするためのcsslintプラグインを導入していきます。
+
+
+    npm install grunt-contrib-csslint --save-dev
+    <%= ... %>
+    動作確認
+
+// ===== /build/styles.css =====
+/*! style 1 */
+h1 {
+  color: #6c94be;
+}
+h2 {
+  color: #6cb7e0;
+}
+
+/* style 2 */
+body {
+  background: #eee;
+}
+body p {
+  margin-left: 0;
+}
+
+// ===== /src/style2.less =====
+/* style 2 */
+
+body {
+    background: #eee;
+
+    p {
+        margin-left: 0;
+    }
+}
+
+// ===== Gruntfile.js =====
+module.exports = function(grunt) {
+
+    // config
+    grunt.initConfig({
+
+        less: {
+            build: {
+                src: ['src/style1.less', 'src/style2.less'],
+                dest: 'build/styles.css'
+            }
+        }, 
+
+        csslint: {
+            check: {
+                // src: 'build/styles.css'
+                src: '<%= less.build.dest %>'
+            }
+        }
+
+    });
+
+    // plugin
+    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-csslint');
+
+    // tasks
+    grunt.registerTask('default', ['less', 'csslint']);
+
+};
+
+// ===== package.json =====
+{
+  "name": "mysite",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-less": "~0.9.0",
+    "grunt-contrib-csslint": "~0.2.0"
+  }
+}
+
+// ===== /src/style1.less =====
+/*! style 1 */
+
+@color1: #6c94be;
+@color2: @color1 + #002322;
+ 
+h1 {
+    color: @color1;
+}
+ 
+h2 {
+    color: @color2;
+}
+
+
+
+
+
+// ===== video_summary =====
+CSSファイルを圧縮するためのcssminプラグインを使っていきます。
+
+
+    npm install grunt-contrib-cssmin --save-dev
+    package.jsonの読み込み
+
+// ===== commentBox 1 =====
+補足情報
+banner オプションは廃止されました
+
+
+
+
+2016年9月6日
+
+
+
+
+
+banner オプションは 2014年12月24日に廃止されました（ユーザーの方にご指摘いただきました。ありがとうございました！）。より詳しくは下記をご確認ください。
+・gruntjs/grunt-contrib-cssmin: Compress CSS files.
+https://github.com/gruntjs/grunt-contrib-cssmin
+
+// ===== Gruntfile.js =====
+module.exports = function(grunt) {
+
+    // config
+    grunt.initConfig({
+
+        pkg: grunt.file.readJSON('package.json'),
+
+        less: {
+            build: {
+                src: ['src/style1.less', 'src/style2.less'],
+                dest: 'build/styles.css'
+            }
+        }, 
+
+        csslint: {
+            check: {
+                // src: 'build/styles.css'
+                src: '<%= less.build.dest %>'
+            }
+        }, 
+
+        cssmin: {
+            minimize: {
+                options: {
+                    banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */'
+                },
+                files: {
+                    'build/styles.min.css': '<%= less.build.dest %>'
+                }
+            }
+        }
+
+    });
+
+    // plugin
+    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-csslint');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    // tasks
+    grunt.registerTask('default', ['less', 'csslint', 'cssmin']);
+
+};
+
+// ===== package.json =====
+{
+  "name": "mysite",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-less": "~0.9.0",
+    "grunt-contrib-csslint": "~0.2.0",
+    "grunt-contrib-cssmin": "~0.8.0"
+  }
+}
+
+// ===== /build/styles.css =====
+/*! style 1 */
+h1 {
+  color: #6c94be;
+}
+h2 {
+  color: #6cb7e0;
+}
+
+/* style 2 */
+body {
+  background: #eee;
+}
+body p {
+  margin-left: 0;
+}
+
+// ===== /src/style1.less =====
+/*! style 1 */
+
+@color1: #6c94be;
+@color2: @color1 + #002322;
+ 
+h1 {
+    color: @color1;
+}
+ 
+h2 {
+    color: @color2;
+}
+
+// ===== /src/style2.less =====
+/* style 2 */
+
+body {
+    background: #eee;
+
+    p {
+        margin-left: 0;
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+ファイルの変更監視をするためのwatchプラグインを導入していきます。
+
+
+    npm install grunt-contrib-watch --save-dev
+    動作確認
+
+// ===== /build/styles.css =====
+/*! style 1 */
+h1 {
+  color: #6c94be;
+}
+h2 {
+  color: #6cb7e0;
+}
+
+/* style 2 */
+body {
+  background: #eee;
+}
+body p {
+  margin-left: 10px;
+}
+
+// ===== /build/styles.min.css =====
+/*! mysite 2014-02-19 */
+/*! style 1 */h1{color:#6c94be}h2{color:#6cb7e0}body{background:#eee}body p{margin-left:10px}
+
+// ===== /src/style2.less =====
+/* style 2 */
+
+body {
+    background: #eee;
+
+    p {
+        margin-left: 10px;
+    }
+}
+
+// ===== Gruntfile.js =====
+module.exports = function(grunt) {
+
+    // config
+    grunt.initConfig({
+
+        pkg: grunt.file.readJSON('package.json'),
+
+        less: {
+            build: {
+                src: ['src/style1.less', 'src/style2.less'],
+                dest: 'build/styles.css'
+            }
+        }, 
+
+        csslint: {
+            check: {
+                // src: 'build/styles.css'
+                src: '<%= less.build.dest %>'
+            }
+        }, 
+
+        cssmin: {
+            minimize: {
+                options: {
+                    banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */'
+                },
+                files: {
+                    'build/styles.min.css': '<%= less.build.dest %>'
+                }
+            }
+        },
+
+        watch: {
+            files: 'src/*.less',
+            tasks: ['less', 'csslint', 'cssmin']
+        }
+
+    });
+
+    // plugin
+    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-csslint');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+
+    // tasks
+    grunt.registerTask('default', ['less', 'csslint', 'cssmin', 'watch']);
+
+};
+
+// ===== package.json =====
+{
+  "name": "mysite",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-less": "~0.9.0",
+    "grunt-contrib-csslint": "~0.2.0",
+    "grunt-contrib-cssmin": "~0.8.0",
+    "grunt-contrib-watch": "~0.5.3"
+  }
+}
+
+// ===== /src/style1.less =====
+/*! style 1 */
+
+@color1: #6c94be;
+@color2: @color1 + #002322;
+ 
+h1 {
+    color: @color1;
+}
+ 
+h2 {
+    color: @color2;
+}
+
+
+
+
+
+// ===== video_summary =====
+簡易的なWebサーバーを立ち上げることができるconnectプラグインについて説明していきます。
+
+
+    npm install grunt-contrib-connect --save-dev
+    index.html
+    動作確認
+
+// ===== /build/styles.css =====
+/*! style 1 */
+h1 {
+  color: #6c94be;
+}
+h2 {
+  color: #6cb7e0;
+}
+
+/* style 2 */
+body {
+  background: #eee;
+}
+body p {
+  margin-left: 50px;
+}
+
+// ===== /build/styles.min.css =====
+/*! mysite 2014-02-19 */
+/*! style 1 */h1{color:#6c94be}h2{color:#6cb7e0}body{background:#eee}body p{margin-left:50px}
+
+// ===== /src/style2.less =====
+/* style 2 */
+
+body {
+    background: #eee;
+
+    p {
+        margin-left: 50px;
+    }
+}
+
+// ===== Gruntfile.js =====
+module.exports = function(grunt) {
+
+    // config
+    grunt.initConfig({
+
+        pkg: grunt.file.readJSON('package.json'),
+
+        less: {
+            build: {
+                src: ['src/style1.less', 'src/style2.less'],
+                dest: 'build/styles.css'
+            }
+        }, 
+
+        csslint: {
+            check: {
+                // src: 'build/styles.css'
+                src: '<%= less.build.dest %>'
+            }
+        }, 
+
+        cssmin: {
+            minimize: {
+                options: {
+                    banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */'
+                },
+                files: {
+                    'build/styles.min.css': '<%= less.build.dest %>'
+                }
+            }
+        },
+
+        watch: {
+            files: 'src/*.less',
+            tasks: ['less', 'csslint', 'cssmin']
+        }, 
+
+        connect: {
+            server: {
+                options: {
+                    port: 8080,
+                    hostname: '192.168.33.76'
+                }
+            }
+        }
+
+    });
+
+    // plugin
+    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-csslint');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-connect');
+
+    // tasks
+    grunt.registerTask('default', ['less', 'csslint', 'cssmin', 'connect', 'watch']);
+
+};
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>Grunt Sample</title>
+        <link rel="stylesheet" href="build/styles.min.css">
+    </head>
+    <body>
+        <h1>大見出し</h1>
+        <p>こんにちは。</p>
+        <h2>中見出し</h2>
+        <p>こんにちは。</p>
+    </body>
+</html>
+
+// ===== package.json =====
+{
+  "name": "mysite",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-less": "~0.9.0",
+    "grunt-contrib-csslint": "~0.2.0",
+    "grunt-contrib-cssmin": "~0.8.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-connect": "~0.6.0"
+  }
+}
+
+// ===== /src/style1.less =====
+/*! style 1 */
+
+@color1: #6c94be;
+@color2: @color1 + #002322;
+ 
+h1 {
+    color: @color1;
+}
+ 
+h2 {
+    color: @color2;
+}
+
+
+
+
+
+// ===== video_summary =====
+ファイルを監視し、修正があったらブラウザを自動再読み込みするlivereloadを導入していきます。
+
+
+    livereloadの設定
+    動作確認
+
+// ===== /build/styles.css =====
+/*! style 1 */
+h1 {
+  color: #6c94be;
+}
+h2 {
+  color: #6cb7e0;
+}
+
+/* style 2 */
+body {
+  background: #eee;
+}
+body p {
+  margin-left: 100px;
+}
+
+// ===== /build/styles.min.css =====
+/*! mysite 2014-02-19 */
+/*! style 1 */h1{color:#6c94be}h2{color:#6cb7e0}body{background:#eee}body p{margin-left:100px}
+
+// ===== /src/style2.less =====
+/* style 2 */
+
+body {
+    background: #eee;
+
+    p {
+        margin-left: 100px;
+    }
+}
+
+// ===== Gruntfile.js =====
+module.exports = function(grunt) {
+
+    // config
+    grunt.initConfig({
+
+        pkg: grunt.file.readJSON('package.json'),
+
+        less: {
+            build: {
+                src: ['src/style1.less', 'src/style2.less'],
+                dest: 'build/styles.css'
+            }
+        }, 
+
+        csslint: {
+            check: {
+                // src: 'build/styles.css'
+                src: '<%= less.build.dest %>'
+            }
+        }, 
+
+        cssmin: {
+            minimize: {
+                options: {
+                    banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */'
+                },
+                files: {
+                    'build/styles.min.css': '<%= less.build.dest %>'
+                }
+            }
+        },
+
+        watch: {
+            options: {
+                livereload: true
+            },
+            files: 'src/*.less',
+            tasks: ['less', 'csslint', 'cssmin']
+        }, 
+
+        connect: {
+            server: {
+                options: {
+                    port: 8080,
+                    hostname: '192.168.33.76'
+                }
+            }
+        }
+
+    });
+
+    // plugin
+    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-csslint');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-connect');
+
+    // tasks
+    grunt.registerTask('default', ['less', 'csslint', 'cssmin', 'connect', 'watch']);
+
+};
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>Grunt Sample</title>
+        <link rel="stylesheet" href="build/styles.min.css">
+    </head>
+    <body>
+        <h1>大見出し</h1>
+        <p>こんにちは。</p>
+        <h2>中見出し</h2>
+        <p>こんにちは。</p>
+        <script src="http://192.168.33.76:35729/livereload.js"></script>
+    </body>
+</html>
+
+// ===== /src/style1.less =====
+/*! style 1 */
+
+@color1: #6c94be;
+@color2: @color1 + #002322;
+ 
+h1 {
+    color: @color1;
+}
+ 
+h2 {
+    color: @color2;
+}
+
+// ===== package.json =====
+{
+  "name": "mysite",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-less": "~0.9.0",
+    "grunt-contrib-csslint": "~0.2.0",
+    "grunt-contrib-cssmin": "~0.8.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-connect": "~0.6.0"
+  }
+}
+
+
+
+
+

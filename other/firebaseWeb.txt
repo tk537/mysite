@@ -1,0 +1,2752 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre><code>
+    // ===== video_summary =====
+今回公開するサイトとFirebaseの公式サイトを確認し、Googleアカウントでログインしていきます。
+
+
+    公開するサイトの確認
+    公式サイトの確認
+    Googleアカウントでのログイン
+
+// ===== commentBox 1 =====
+補足情報
+事前に受講しておきたいレッスンについて
+
+
+
+
+2018年12月27日
+
+
+
+
+
+このレッスンの前に以下を受講されることをおすすめしておきます。
+
+・はじめてのHTML (全15回)
+https://dotinstall.com/lessons/basic_html_v4
+・はじめてのCSS (全17回)
+https://dotinstall.com/lessons/basic_css_v4
+
+// ===== /MyPortfolio/about.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>山田太郎について</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="山田太郎について。">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <a href="index.html">
+            HOME
+          </a>
+        </li>
+        <li class="current">
+          <a href="about.html">
+            ABOUT
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="about">
+    <img src="img/taro.png" width="140" height="140" alt="太郎のアイコン" class="icon">
+    <h1>山田太郎</h1>
+    <p>山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山
+田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹
+介です。</p>
+  </section>
+
+  <footer>
+    <ul>
+      <li>
+        <a href="mailto:taguchi@gmail.com" target="_blank">
+          <img src="img/mail.png" width="20" height="20" alt="メール送信">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/blog.png" width="20" height="20" alt="ブログサイトへ">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/photos.png" width="20" height="20" alt="写真サイトへ">
+        </a>
+      </li>
+    </ul>
+    <p>(c) Taro Yamada</p>
+  </footer>
+</body>
+</html>
+
+// ===== /MyPortfolio/css/styles.css =====
+body {
+  color: #333;
+  font-family: Verdana, sans-serif;
+  margin: 0;
+}
+
+header {
+  text-align: right;
+  padding: 10px;
+  background-image: url(../img/header.png);
+  height: 240px;
+  background-size: cover;
+  background-position: 50% 50%;
+  margin-bottom: 60px;
+}
+
+header ul {
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+header li {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+header li > a {
+  text-decoration: none;
+  color: inherit;
+}
+
+header li > a:hover {
+  color: royalblue;
+}
+
+.current {
+  border-bottom: 4px solid royalblue;
+}
+
+section {
+  text-align: center;
+}
+
+section h1 {
+  font-weight: normal;
+  margin-bottom: 8px;
+}
+
+section p {
+  margin-top: 0;
+  font-size: 14px;
+}
+
+.icon {
+  border-radius: 50%;
+  border: 5px solid white;
+  box-shadow: 0 0 5px gray;
+}
+
+.works {
+  width: 400px;
+  margin: 60px auto;
+  border-bottom: 1px solid gray;
+}
+
+.works > section {
+  margin-bottom: 40px;
+}
+
+.works h1,
+.works p {
+  text-align: left;
+}
+
+footer {
+  width: 400px;
+  margin: 0 auto 60px;
+}
+
+footer ul {
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0;
+  float: left;
+}
+
+footer li {
+  display: inline-block;
+}
+
+footer li > a:hover {
+  opacity: 0.6;
+}
+
+footer p {
+  color: lightgray;
+  font-size: 14px;
+  text-align: right;
+}
+
+.about {
+  width: 400px;
+  margin: 0 auto 60px;
+}
+
+.about p {
+  text-align: left;
+}
+
+// ===== /MyPortfolio/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>太郎のポートフォリオサイト</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="太郎のポートフォリオサイトです。">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li class="current">
+          <a href="index.html">
+            HOME
+          </a>
+        </li>
+        <li>
+          <a href="about.html">
+            ABOUT
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section>
+    <img src="img/taro.png" width="140" height="140" alt="太郎のアイコン" class="icon">
+    <h1>山田太郎</h1>
+    <p>UI/UXデザイナー見習いです</p>
+
+    <div class="works">
+      <section>
+        <img src="img/work1.png" width="400" height="260" alt="勇者ゲーム">
+        <h1>勇者ゲーム</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+
+      <section>
+        <img src="img/work2.png" width="400" height="260" alt="宝探しゲーム">
+        <h1>宝探しゲーム</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+
+      <section>
+        <img src="img/work3.png" width="400" height="260" alt="神経衰弱">
+        <h1>神経衰弱</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+    </div>
+  </section>
+
+  <footer>
+    <ul>
+      <li>
+        <a href="mailto:taguchi@gmail.com" target="_blank">
+          <img src="img/mail.png" width="20" height="20" alt="メール送信">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/blog.png" width="20" height="20" alt="ブログサイトへ">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/photos.png" width="20" height="20" alt="写真サイトへ">
+        </a>
+      </li>
+    </ul>
+    <p>(c) Taro Yamada</p>
+  </footer>
+</body>
+</html>
+
+// ===== video_summary =====
+サイトを管理するためのプロジェクトを作成したあとに、PC側でファイルの整理をしていきます。
+
+
+    プロジェクトの作成
+    publicフォルダの作成
+
+// ===== commentBox 1 =====
+補足情報
+ロケーションはどれを選べば良いですか？
+
+
+
+
+2019年3月25日
+
+
+
+
+
+動画には選択画面が表示されていませんが、ロケーションは初期値である nam5 (us-central) のままで OK です。
+
+// ===== /MyPortfolioProject/public/about.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>山田太郎について</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="山田太郎について。">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <a href="index.html">
+            HOME
+          </a>
+        </li>
+        <li class="current">
+          <a href="about.html">
+            ABOUT
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="about">
+    <img src="img/taro.png" width="140" height="140" alt="太郎のアイコン" class="icon">
+    <h1>山田太郎</h1>
+    <p>山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山
+田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹
+介です。</p>
+  </section>
+
+  <footer>
+    <ul>
+      <li>
+        <a href="mailto:taguchi@gmail.com" target="_blank">
+          <img src="img/mail.png" width="20" height="20" alt="メール送信">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/blog.png" width="20" height="20" alt="ブログサイトへ">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/photos.png" width="20" height="20" alt="写真サイトへ">
+        </a>
+      </li>
+    </ul>
+    <p>(c) Taro Yamada</p>
+  </footer>
+</body>
+</html>
+
+// ===== /MyPortfolioProject/public/css/styles.css =====
+body {
+  color: #333;
+  font-family: Verdana, sans-serif;
+  margin: 0;
+}
+
+header {
+  text-align: right;
+  padding: 10px;
+  background-image: url(../img/header.png);
+  height: 240px;
+  background-size: cover;
+  background-position: 50% 50%;
+  margin-bottom: 60px;
+}
+
+header ul {
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+header li {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+header li > a {
+  text-decoration: none;
+  color: inherit;
+}
+
+header li > a:hover {
+  color: royalblue;
+}
+
+.current {
+  border-bottom: 4px solid royalblue;
+}
+
+section {
+  text-align: center;
+}
+
+section h1 {
+  font-weight: normal;
+  margin-bottom: 8px;
+}
+
+section p {
+  margin-top: 0;
+  font-size: 14px;
+}
+
+.icon {
+  border-radius: 50%;
+  border: 5px solid white;
+  box-shadow: 0 0 5px gray;
+}
+
+.works {
+  width: 400px;
+  margin: 60px auto;
+  border-bottom: 1px solid gray;
+}
+
+.works > section {
+  margin-bottom: 40px;
+}
+
+.works h1,
+.works p {
+  text-align: left;
+}
+
+footer {
+  width: 400px;
+  margin: 0 auto 60px;
+}
+
+footer ul {
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0;
+  float: left;
+}
+
+footer li {
+  display: inline-block;
+}
+
+footer li > a:hover {
+  opacity: 0.6;
+}
+
+footer p {
+  color: lightgray;
+  font-size: 14px;
+  text-align: right;
+}
+
+.about {
+  width: 400px;
+  margin: 0 auto 60px;
+}
+
+.about p {
+  text-align: left;
+}
+
+// ===== /MyPortfolioProject/public/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>太郎のポートフォリオサイト</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="太郎のポートフォリオサイトです。">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li class="current">
+          <a href="index.html">
+            HOME
+          </a>
+        </li>
+        <li>
+          <a href="about.html">
+            ABOUT
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section>
+    <img src="img/taro.png" width="140" height="140" alt="太郎のアイコン" class="icon">
+    <h1>山田太郎</h1>
+    <p>UI/UXデザイナー見習いです</p>
+
+    <div class="works">
+      <section>
+        <img src="img/work1.png" width="400" height="260" alt="勇者ゲーム">
+        <h1>勇者ゲーム</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+
+      <section>
+        <img src="img/work2.png" width="400" height="260" alt="宝探しゲーム">
+        <h1>宝探しゲーム</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+
+      <section>
+        <img src="img/work3.png" width="400" height="260" alt="神経衰弱">
+        <h1>神経衰弱</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+    </div>
+  </section>
+
+  <footer>
+    <ul>
+      <li>
+        <a href="mailto:taguchi@gmail.com" target="_blank">
+          <img src="img/mail.png" width="20" height="20" alt="メール送信">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/blog.png" width="20" height="20" alt="ブログサイトへ">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/photos.png" width="20" height="20" alt="写真サイトへ">
+        </a>
+      </li>
+    </ul>
+    <p>(c) Taro Yamada</p>
+  </footer>
+</body>
+</html>
+
+// ===== video_summary =====
+Node.jsを導入したのちに、terminalを使ってインストールができたか確認していきます。
+
+
+    Node.jsのインストール
+    バージョンの確認（node -v、npm -v）
+    terminalの画面クリア
+
+// ===== /MyPortfolioProject/public/about.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>山田太郎について</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="山田太郎について。">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <a href="index.html">
+            HOME
+          </a>
+        </li>
+        <li class="current">
+          <a href="about.html">
+            ABOUT
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="about">
+    <img src="img/taro.png" width="140" height="140" alt="太郎のアイコン" class="icon">
+    <h1>山田太郎</h1>
+    <p>山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山
+田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹
+介です。</p>
+  </section>
+
+  <footer>
+    <ul>
+      <li>
+        <a href="mailto:taguchi@gmail.com" target="_blank">
+          <img src="img/mail.png" width="20" height="20" alt="メール送信">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/blog.png" width="20" height="20" alt="ブログサイトへ">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/photos.png" width="20" height="20" alt="写真サイトへ">
+        </a>
+      </li>
+    </ul>
+    <p>(c) Taro Yamada</p>
+  </footer>
+</body>
+</html>
+
+// ===== /MyPortfolioProject/public/css/styles.css =====
+body {
+  color: #333;
+  font-family: Verdana, sans-serif;
+  margin: 0;
+}
+
+header {
+  text-align: right;
+  padding: 10px;
+  background-image: url(../img/header.png);
+  height: 240px;
+  background-size: cover;
+  background-position: 50% 50%;
+  margin-bottom: 60px;
+}
+
+header ul {
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+header li {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+header li > a {
+  text-decoration: none;
+  color: inherit;
+}
+
+header li > a:hover {
+  color: royalblue;
+}
+
+.current {
+  border-bottom: 4px solid royalblue;
+}
+
+section {
+  text-align: center;
+}
+
+section h1 {
+  font-weight: normal;
+  margin-bottom: 8px;
+}
+
+section p {
+  margin-top: 0;
+  font-size: 14px;
+}
+
+.icon {
+  border-radius: 50%;
+  border: 5px solid white;
+  box-shadow: 0 0 5px gray;
+}
+
+.works {
+  width: 400px;
+  margin: 60px auto;
+  border-bottom: 1px solid gray;
+}
+
+.works > section {
+  margin-bottom: 40px;
+}
+
+.works h1,
+.works p {
+  text-align: left;
+}
+
+footer {
+  width: 400px;
+  margin: 0 auto 60px;
+}
+
+footer ul {
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0;
+  float: left;
+}
+
+footer li {
+  display: inline-block;
+}
+
+footer li > a:hover {
+  opacity: 0.6;
+}
+
+footer p {
+  color: lightgray;
+  font-size: 14px;
+  text-align: right;
+}
+
+.about {
+  width: 400px;
+  margin: 0 auto 60px;
+}
+
+.about p {
+  text-align: left;
+}
+
+// ===== /MyPortfolioProject/public/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>太郎のポートフォリオサイト</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="太郎のポートフォリオサイトです。">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li class="current">
+          <a href="index.html">
+            HOME
+          </a>
+        </li>
+        <li>
+          <a href="about.html">
+            ABOUT
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section>
+    <img src="img/taro.png" width="140" height="140" alt="太郎のアイコン" class="icon">
+    <h1>山田太郎</h1>
+    <p>UI/UXデザイナー見習いです</p>
+
+    <div class="works">
+      <section>
+        <img src="img/work1.png" width="400" height="260" alt="勇者ゲーム">
+        <h1>勇者ゲーム</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+
+      <section>
+        <img src="img/work2.png" width="400" height="260" alt="宝探しゲーム">
+        <h1>宝探しゲーム</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+
+      <section>
+        <img src="img/work3.png" width="400" height="260" alt="神経衰弱">
+        <h1>神経衰弱</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+    </div>
+  </section>
+
+  <footer>
+    <ul>
+      <li>
+        <a href="mailto:taguchi@gmail.com" target="_blank">
+          <img src="img/mail.png" width="20" height="20" alt="メール送信">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/blog.png" width="20" height="20" alt="ブログサイトへ">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/photos.png" width="20" height="20" alt="写真サイトへ">
+        </a>
+      </li>
+    </ul>
+    <p>(c) Taro Yamada</p>
+  </footer>
+</body>
+</html>
+
+// ===== video_summary =====
+firebase-toolsをインストールしたのちに、Firebaseにログインしていきます。
+
+
+    firebase-toolsのインストール
+    Firebaseへのログイン
+
+// ===== commentBox 1 =====
+補足情報
+Mac で「firebase -V」を実行するとエラーが出る場合
+
+
+
+
+2018年9月22日
+
+
+
+
+
+ツールの利用するフォルダのアクセス権限の問題で、以下のようなエラーが出ることがあります。
+
+[/usr/local/lib/node modules/firebase-tools/node_modules/configstore/index.js:53
+throw err;
+
+Error EACCES: permission denied, open/Users/***/.config/configstore/update-notifier-fir
+ebase-tools.json'
+You don't have access to this file
+
+
+このエラーが出た際には以下のコマンドを実行してください。（sudo で実行するため管理者パスワードを尋ねられます。）
+
+sudo chown -R ${USER} ~/.config
+
+
+実行できたらもう一度 firebase -V の実行して上手くいくかどうか確認してみてください。
+
+// ===== commentBox 2 =====
+補足情報
+Windowsでは管理者パスワードは不要です
+
+
+
+
+2018年8月30日
+
+
+
+
+
+動画34秒あたりで管理者パスワードを尋ねられるのは Mac を使用している場合のみです。
+
+Windows ではパスワードを聞かれませんのでそのまま続けてください。
+
+// ===== /MyPortfolioProject/public/about.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>山田太郎について</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="山田太郎について。">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <a href="index.html">
+            HOME
+          </a>
+        </li>
+        <li class="current">
+          <a href="about.html">
+            ABOUT
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="about">
+    <img src="img/taro.png" width="140" height="140" alt="太郎のアイコン" class="icon">
+    <h1>山田太郎</h1>
+    <p>山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山
+田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹
+介です。</p>
+  </section>
+
+  <footer>
+    <ul>
+      <li>
+        <a href="mailto:taguchi@gmail.com" target="_blank">
+          <img src="img/mail.png" width="20" height="20" alt="メール送信">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/blog.png" width="20" height="20" alt="ブログサイトへ">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/photos.png" width="20" height="20" alt="写真サイトへ">
+        </a>
+      </li>
+    </ul>
+    <p>(c) Taro Yamada</p>
+  </footer>
+</body>
+</html>
+
+// ===== /MyPortfolioProject/public/css/styles.css =====
+body {
+  color: #333;
+  font-family: Verdana, sans-serif;
+  margin: 0;
+}
+
+header {
+  text-align: right;
+  padding: 10px;
+  background-image: url(../img/header.png);
+  height: 240px;
+  background-size: cover;
+  background-position: 50% 50%;
+  margin-bottom: 60px;
+}
+
+header ul {
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+header li {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+header li > a {
+  text-decoration: none;
+  color: inherit;
+}
+
+header li > a:hover {
+  color: royalblue;
+}
+
+.current {
+  border-bottom: 4px solid royalblue;
+}
+
+section {
+  text-align: center;
+}
+
+section h1 {
+  font-weight: normal;
+  margin-bottom: 8px;
+}
+
+section p {
+  margin-top: 0;
+  font-size: 14px;
+}
+
+.icon {
+  border-radius: 50%;
+  border: 5px solid white;
+  box-shadow: 0 0 5px gray;
+}
+
+.works {
+  width: 400px;
+  margin: 60px auto;
+  border-bottom: 1px solid gray;
+}
+
+.works > section {
+  margin-bottom: 40px;
+}
+
+.works h1,
+.works p {
+  text-align: left;
+}
+
+footer {
+  width: 400px;
+  margin: 0 auto 60px;
+}
+
+footer ul {
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0;
+  float: left;
+}
+
+footer li {
+  display: inline-block;
+}
+
+footer li > a:hover {
+  opacity: 0.6;
+}
+
+footer p {
+  color: lightgray;
+  font-size: 14px;
+  text-align: right;
+}
+
+.about {
+  width: 400px;
+  margin: 0 auto 60px;
+}
+
+.about p {
+  text-align: left;
+}
+
+// ===== /MyPortfolioProject/public/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>太郎のポートフォリオサイト</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="太郎のポートフォリオサイトです。">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li class="current">
+          <a href="index.html">
+            HOME
+          </a>
+        </li>
+        <li>
+          <a href="about.html">
+            ABOUT
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section>
+    <img src="img/taro.png" width="140" height="140" alt="太郎のアイコン" class="icon">
+    <h1>山田太郎</h1>
+    <p>UI/UXデザイナー見習いです</p>
+
+    <div class="works">
+      <section>
+        <img src="img/work1.png" width="400" height="260" alt="勇者ゲーム">
+        <h1>勇者ゲーム</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+
+      <section>
+        <img src="img/work2.png" width="400" height="260" alt="宝探しゲーム">
+        <h1>宝探しゲーム</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+
+      <section>
+        <img src="img/work3.png" width="400" height="260" alt="神経衰弱">
+        <h1>神経衰弱</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+    </div>
+  </section>
+
+  <footer>
+    <ul>
+      <li>
+        <a href="mailto:taguchi@gmail.com" target="_blank">
+          <img src="img/mail.png" width="20" height="20" alt="メール送信">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/blog.png" width="20" height="20" alt="ブログサイトへ">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/photos.png" width="20" height="20" alt="写真サイトへ">
+        </a>
+      </li>
+    </ul>
+    <p>(c) Taro Yamada</p>
+  </footer>
+</body>
+</html>
+
+// ===== video_summary =====
+プロジェクトフォルダをFirebase用に初期化する方法について見ていきます。
+
+
+    フォルダの移動（cd）
+    フォルダ名の補完
+    firebase init
+
+// ===== commentBox 1 =====
+補足情報
+firebase listコマンドが変更されました
+
+
+
+
+2020年1月21日
+
+
+
+
+
+1:02〜より実行されているコマンドですが、firebase listではなくて、
+firebase projects:list
+に変更されました。そちらをご利用ください。
+
+// ===== commentBox 2 =====
+補足情報
+作成したプロジェクト名が firebase list で表示されない場合
+
+
+
+
+2019年1月24日
+
+
+
+
+
+firebase login でログインした Google アカウントと、Firebase コンソールにログインしている Google アカウントが異なっている可能性があります。
+
+firebase logout を実行してログアウトしてから、 Firebase コンソールのほうの Google アカウントを確認してもう一度 firebase login でログインし直してみてください。
+
+// ===== /MyPortfolioProject/firebase.json =====
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
+
+// ===== /MyPortfolioProject/public/404.html =====
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page Not Found</title>
+
+    <style media="screen">
+      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px 16px; border-radius: 3px; }
+      #message h3 { color: #888; font-weight: normal; font-size: 16px; margin: 16px 0 12px; }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 600px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="message">
+      <h2>404</h2>
+      <h1>Page Not Found</h1>
+      <p>The specified file was not found on this website. Please check the URL for mistakes and try again.</p>
+      <h3>Why am I seeing this?</h3>
+      <p>This page was generated by the Firebase Command-Line Interface. To modify it, edit the <code>404.html</code> file in your project's configured <code>public</code> directory.</p>
+    </div>
+  </body>
+</html>
+
+// ===== /MyPortfolioProject/public/about.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>山田太郎について</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="山田太郎について。">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <a href="index.html">
+            HOME
+          </a>
+        </li>
+        <li class="current">
+          <a href="about.html">
+            ABOUT
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="about">
+    <img src="img/taro.png" width="140" height="140" alt="太郎のアイコン" class="icon">
+    <h1>山田太郎</h1>
+    <p>山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山
+田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹
+介です。</p>
+  </section>
+
+  <footer>
+    <ul>
+      <li>
+        <a href="mailto:taguchi@gmail.com" target="_blank">
+          <img src="img/mail.png" width="20" height="20" alt="メール送信">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/blog.png" width="20" height="20" alt="ブログサイトへ">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/photos.png" width="20" height="20" alt="写真サイトへ">
+        </a>
+      </li>
+    </ul>
+    <p>(c) Taro Yamada</p>
+  </footer>
+</body>
+</html>
+
+// ===== /MyPortfolioProject/public/css/styles.css =====
+body {
+  color: #333;
+  font-family: Verdana, sans-serif;
+  margin: 0;
+}
+
+header {
+  text-align: right;
+  padding: 10px;
+  background-image: url(../img/header.png);
+  height: 240px;
+  background-size: cover;
+  background-position: 50% 50%;
+  margin-bottom: 60px;
+}
+
+header ul {
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+header li {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+header li > a {
+  text-decoration: none;
+  color: inherit;
+}
+
+header li > a:hover {
+  color: royalblue;
+}
+
+.current {
+  border-bottom: 4px solid royalblue;
+}
+
+section {
+  text-align: center;
+}
+
+section h1 {
+  font-weight: normal;
+  margin-bottom: 8px;
+}
+
+section p {
+  margin-top: 0;
+  font-size: 14px;
+}
+
+.icon {
+  border-radius: 50%;
+  border: 5px solid white;
+  box-shadow: 0 0 5px gray;
+}
+
+.works {
+  width: 400px;
+  margin: 60px auto;
+  border-bottom: 1px solid gray;
+}
+
+.works > section {
+  margin-bottom: 40px;
+}
+
+.works h1,
+.works p {
+  text-align: left;
+}
+
+footer {
+  width: 400px;
+  margin: 0 auto 60px;
+}
+
+footer ul {
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0;
+  float: left;
+}
+
+footer li {
+  display: inline-block;
+}
+
+footer li > a:hover {
+  opacity: 0.6;
+}
+
+footer p {
+  color: lightgray;
+  font-size: 14px;
+  text-align: right;
+}
+
+.about {
+  width: 400px;
+  margin: 0 auto 60px;
+}
+
+.about p {
+  text-align: left;
+}
+
+// ===== /MyPortfolioProject/public/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>太郎のポートフォリオサイト</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="太郎のポートフォリオサイトです。">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li class="current">
+          <a href="index.html">
+            HOME
+          </a>
+        </li>
+        <li>
+          <a href="about.html">
+            ABOUT
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section>
+    <img src="img/taro.png" width="140" height="140" alt="太郎のアイコン" class="icon">
+    <h1>山田太郎</h1>
+    <p>UI/UXデザイナー見習いです</p>
+
+    <div class="works">
+      <section>
+        <img src="img/work1.png" width="400" height="260" alt="勇者ゲーム">
+        <h1>勇者ゲーム</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+
+      <section>
+        <img src="img/work2.png" width="400" height="260" alt="宝探しゲーム">
+        <h1>宝探しゲーム</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+
+      <section>
+        <img src="img/work3.png" width="400" height="260" alt="神経衰弱">
+        <h1>神経衰弱</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+    </div>
+  </section>
+
+  <footer>
+    <ul>
+      <li>
+        <a href="mailto:taguchi@gmail.com" target="_blank">
+          <img src="img/mail.png" width="20" height="20" alt="メール送信">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/blog.png" width="20" height="20" alt="ブログサイトへ">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/photos.png" width="20" height="20" alt="写真サイトへ">
+        </a>
+      </li>
+    </ul>
+    <p>(c) Taro Yamada</p>
+  </footer>
+</body>
+</html>
+
+// ===== video_summary =====
+ファイルをアップロードして、インターネット上にサイトを公開していきます。
+
+
+    firebase deploy
+    動作確認
+
+// ===== /MyPortfolioProject/firebase.json =====
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
+
+// ===== /MyPortfolioProject/public/404.html =====
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page Not Found</title>
+
+    <style media="screen">
+      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px 16px; border-radius: 3px; }
+      #message h3 { color: #888; font-weight: normal; font-size: 16px; margin: 16px 0 12px; }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 600px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="message">
+      <h2>404</h2>
+      <h1>Page Not Found</h1>
+      <p>The specified file was not found on this website. Please check the URL for mistakes and try again.</p>
+      <h3>Why am I seeing this?</h3>
+      <p>This page was generated by the Firebase Command-Line Interface. To modify it, edit the <code>404.html</code> file in your project's configured <code>public</code> directory.</p>
+    </div>
+  </body>
+</html>
+
+// ===== /MyPortfolioProject/public/about.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>山田太郎について</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="山田太郎について。">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <a href="index.html">
+            HOME
+          </a>
+        </li>
+        <li class="current">
+          <a href="about.html">
+            ABOUT
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="about">
+    <img src="img/taro.png" width="140" height="140" alt="太郎のアイコン" class="icon">
+    <h1>山田太郎</h1>
+    <p>山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山
+田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹
+介です。</p>
+  </section>
+
+  <footer>
+    <ul>
+      <li>
+        <a href="mailto:taguchi@gmail.com" target="_blank">
+          <img src="img/mail.png" width="20" height="20" alt="メール送信">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/blog.png" width="20" height="20" alt="ブログサイトへ">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/photos.png" width="20" height="20" alt="写真サイトへ">
+        </a>
+      </li>
+    </ul>
+    <p>(c) Taro Yamada</p>
+  </footer>
+</body>
+</html>
+
+// ===== /MyPortfolioProject/public/css/styles.css =====
+body {
+  color: #333;
+  font-family: Verdana, sans-serif;
+  margin: 0;
+}
+
+header {
+  text-align: right;
+  padding: 10px;
+  background-image: url(../img/header.png);
+  height: 240px;
+  background-size: cover;
+  background-position: 50% 50%;
+  margin-bottom: 60px;
+}
+
+header ul {
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+header li {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+header li > a {
+  text-decoration: none;
+  color: inherit;
+}
+
+header li > a:hover {
+  color: royalblue;
+}
+
+.current {
+  border-bottom: 4px solid royalblue;
+}
+
+section {
+  text-align: center;
+}
+
+section h1 {
+  font-weight: normal;
+  margin-bottom: 8px;
+}
+
+section p {
+  margin-top: 0;
+  font-size: 14px;
+}
+
+.icon {
+  border-radius: 50%;
+  border: 5px solid white;
+  box-shadow: 0 0 5px gray;
+}
+
+.works {
+  width: 400px;
+  margin: 60px auto;
+  border-bottom: 1px solid gray;
+}
+
+.works > section {
+  margin-bottom: 40px;
+}
+
+.works h1,
+.works p {
+  text-align: left;
+}
+
+footer {
+  width: 400px;
+  margin: 0 auto 60px;
+}
+
+footer ul {
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0;
+  float: left;
+}
+
+footer li {
+  display: inline-block;
+}
+
+footer li > a:hover {
+  opacity: 0.6;
+}
+
+footer p {
+  color: lightgray;
+  font-size: 14px;
+  text-align: right;
+}
+
+.about {
+  width: 400px;
+  margin: 0 auto 60px;
+}
+
+.about p {
+  text-align: left;
+}
+
+// ===== /MyPortfolioProject/public/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>太郎のポートフォリオサイト</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="太郎のポートフォリオサイトです。">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li class="current">
+          <a href="index.html">
+            HOME
+          </a>
+        </li>
+        <li>
+          <a href="about.html">
+            ABOUT
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section>
+    <img src="img/taro.png" width="140" height="140" alt="太郎のアイコン" class="icon">
+    <h1>山田太郎</h1>
+    <p>UI/UXデザイナー見習いです</p>
+
+    <div class="works">
+      <section>
+        <img src="img/work1.png" width="400" height="260" alt="勇者ゲーム">
+        <h1>勇者ゲーム</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+
+      <section>
+        <img src="img/work2.png" width="400" height="260" alt="宝探しゲーム">
+        <h1>宝探しゲーム</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+
+      <section>
+        <img src="img/work3.png" width="400" height="260" alt="神経衰弱">
+        <h1>神経衰弱</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+    </div>
+  </section>
+
+  <footer>
+    <ul>
+      <li>
+        <a href="mailto:taguchi@gmail.com" target="_blank">
+          <img src="img/mail.png" width="20" height="20" alt="メール送信">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/blog.png" width="20" height="20" alt="ブログサイトへ">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/photos.png" width="20" height="20" alt="写真サイトへ">
+        </a>
+      </li>
+    </ul>
+    <p>(c) Taro Yamada</p>
+  </footer>
+</body>
+</html>
+
+// ===== video_summary =====
+ファイルを変更して再度公開したり、過去のバージョンに戻したりする手順について見ていきます。
+
+
+    index.htmlの編集
+    terminalの履歴表示
+    firebase deploy
+    ロールバック
+
+// ===== commentBox 1 =====
+補足情報
+VS Code対応版は後日リリース予定です
+
+
+
+
+2020年1月3日
+
+
+
+
+
+このレッスンは収録時期が古いためAtomエディタを使っていますが、後日VS Code対応版をリリース予定です。ここまでのレッスンでVS Codeをお使いいただいていた方はそのままご利用ください。別途Atomエディタの使い方を覚える必要はありません。
+
+// ===== /MyPortfolioProject/public/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>太郎のポートフォリオサイト</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="太郎のポートフォリオサイトです。">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li class="current">
+          <a href="index.html">
+            HOME
+          </a>
+        </li>
+        <li>
+          <a href="about.html">
+            ABOUT
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section>
+    <img src="img/taro.png" width="140" height="140" alt="太郎のアイコン" class="icon">
+    <h1>山田次郎</h1>
+    <p>UI/UXデザイナー見習いです</p>
+
+    <div class="works">
+      <section>
+        <img src="img/work1.png" width="400" height="260" alt="勇者ゲーム">
+        <h1>勇者ゲーム</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+
+      <section>
+        <img src="img/work2.png" width="400" height="260" alt="宝探しゲーム">
+        <h1>宝探しゲーム</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+
+      <section>
+        <img src="img/work3.png" width="400" height="260" alt="神経衰弱">
+        <h1>神経衰弱</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+    </div>
+  </section>
+
+  <footer>
+    <ul>
+      <li>
+        <a href="mailto:taguchi@gmail.com" target="_blank">
+          <img src="img/mail.png" width="20" height="20" alt="メール送信">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/blog.png" width="20" height="20" alt="ブログサイトへ">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/photos.png" width="20" height="20" alt="写真サイトへ">
+        </a>
+      </li>
+    </ul>
+    <p>(c) Taro Yamada</p>
+  </footer>
+</body>
+</html>
+
+// ===== /MyPortfolioProject/firebase.json =====
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
+
+// ===== /MyPortfolioProject/public/404.html =====
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page Not Found</title>
+
+    <style media="screen">
+      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px 16px; border-radius: 3px; }
+      #message h3 { color: #888; font-weight: normal; font-size: 16px; margin: 16px 0 12px; }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 600px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="message">
+      <h2>404</h2>
+      <h1>Page Not Found</h1>
+      <p>The specified file was not found on this website. Please check the URL for mistakes and try again.</p>
+      <h3>Why am I seeing this?</h3>
+      <p>This page was generated by the Firebase Command-Line Interface. To modify it, edit the <code>404.html</code> file in your project's configured <code>public</code> directory.</p>
+    </div>
+  </body>
+</html>
+
+// ===== /MyPortfolioProject/public/about.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>山田太郎について</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="山田太郎について。">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <a href="index.html">
+            HOME
+          </a>
+        </li>
+        <li class="current">
+          <a href="about.html">
+            ABOUT
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="about">
+    <img src="img/taro.png" width="140" height="140" alt="太郎のアイコン" class="icon">
+    <h1>山田太郎</h1>
+    <p>山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山
+田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹
+介です。</p>
+  </section>
+
+  <footer>
+    <ul>
+      <li>
+        <a href="mailto:taguchi@gmail.com" target="_blank">
+          <img src="img/mail.png" width="20" height="20" alt="メール送信">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/blog.png" width="20" height="20" alt="ブログサイトへ">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/photos.png" width="20" height="20" alt="写真サイトへ">
+        </a>
+      </li>
+    </ul>
+    <p>(c) Taro Yamada</p>
+  </footer>
+</body>
+</html>
+
+// ===== /MyPortfolioProject/public/css/styles.css =====
+body {
+  color: #333;
+  font-family: Verdana, sans-serif;
+  margin: 0;
+}
+
+header {
+  text-align: right;
+  padding: 10px;
+  background-image: url(../img/header.png);
+  height: 240px;
+  background-size: cover;
+  background-position: 50% 50%;
+  margin-bottom: 60px;
+}
+
+header ul {
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+header li {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+header li > a {
+  text-decoration: none;
+  color: inherit;
+}
+
+header li > a:hover {
+  color: royalblue;
+}
+
+.current {
+  border-bottom: 4px solid royalblue;
+}
+
+section {
+  text-align: center;
+}
+
+section h1 {
+  font-weight: normal;
+  margin-bottom: 8px;
+}
+
+section p {
+  margin-top: 0;
+  font-size: 14px;
+}
+
+.icon {
+  border-radius: 50%;
+  border: 5px solid white;
+  box-shadow: 0 0 5px gray;
+}
+
+.works {
+  width: 400px;
+  margin: 60px auto;
+  border-bottom: 1px solid gray;
+}
+
+.works > section {
+  margin-bottom: 40px;
+}
+
+.works h1,
+.works p {
+  text-align: left;
+}
+
+footer {
+  width: 400px;
+  margin: 0 auto 60px;
+}
+
+footer ul {
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0;
+  float: left;
+}
+
+footer li {
+  display: inline-block;
+}
+
+footer li > a:hover {
+  opacity: 0.6;
+}
+
+footer p {
+  color: lightgray;
+  font-size: 14px;
+  text-align: right;
+}
+
+.about {
+  width: 400px;
+  margin: 0 auto 60px;
+}
+
+.about p {
+  text-align: left;
+}
+
+// ===== video_summary =====
+別のサイトを公開するために、必要なファイルを作成していきます。
+
+
+    MySecondWebsiteProjectの作成
+    publicフォルダの作成
+    index.htmlの作成
+
+// ===== /MySecondWebsiteProject/public/index.html =====
+<h1>Hello from Firebase!</h1>
+
+// ===== /MyPortfolioProject/firebase.json =====
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
+
+// ===== /MyPortfolioProject/public/404.html =====
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page Not Found</title>
+
+    <style media="screen">
+      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px 16px; border-radius: 3px; }
+      #message h3 { color: #888; font-weight: normal; font-size: 16px; margin: 16px 0 12px; }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 600px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="message">
+      <h2>404</h2>
+      <h1>Page Not Found</h1>
+      <p>The specified file was not found on this website. Please check the URL for mistakes and try again.</p>
+      <h3>Why am I seeing this?</h3>
+      <p>This page was generated by the Firebase Command-Line Interface. To modify it, edit the <code>404.html</code> file in your project's configured <code>public</code> directory.</p>
+    </div>
+  </body>
+</html>
+
+// ===== /MyPortfolioProject/public/about.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>山田太郎について</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="山田太郎について。">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <a href="index.html">
+            HOME
+          </a>
+        </li>
+        <li class="current">
+          <a href="about.html">
+            ABOUT
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="about">
+    <img src="img/taro.png" width="140" height="140" alt="太郎のアイコン" class="icon">
+    <h1>山田太郎</h1>
+    <p>山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山
+田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹
+介です。</p>
+  </section>
+
+  <footer>
+    <ul>
+      <li>
+        <a href="mailto:taguchi@gmail.com" target="_blank">
+          <img src="img/mail.png" width="20" height="20" alt="メール送信">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/blog.png" width="20" height="20" alt="ブログサイトへ">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/photos.png" width="20" height="20" alt="写真サイトへ">
+        </a>
+      </li>
+    </ul>
+    <p>(c) Taro Yamada</p>
+  </footer>
+</body>
+</html>
+
+// ===== /MyPortfolioProject/public/css/styles.css =====
+body {
+  color: #333;
+  font-family: Verdana, sans-serif;
+  margin: 0;
+}
+
+header {
+  text-align: right;
+  padding: 10px;
+  background-image: url(../img/header.png);
+  height: 240px;
+  background-size: cover;
+  background-position: 50% 50%;
+  margin-bottom: 60px;
+}
+
+header ul {
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+header li {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+header li > a {
+  text-decoration: none;
+  color: inherit;
+}
+
+header li > a:hover {
+  color: royalblue;
+}
+
+.current {
+  border-bottom: 4px solid royalblue;
+}
+
+section {
+  text-align: center;
+}
+
+section h1 {
+  font-weight: normal;
+  margin-bottom: 8px;
+}
+
+section p {
+  margin-top: 0;
+  font-size: 14px;
+}
+
+.icon {
+  border-radius: 50%;
+  border: 5px solid white;
+  box-shadow: 0 0 5px gray;
+}
+
+.works {
+  width: 400px;
+  margin: 60px auto;
+  border-bottom: 1px solid gray;
+}
+
+.works > section {
+  margin-bottom: 40px;
+}
+
+.works h1,
+.works p {
+  text-align: left;
+}
+
+footer {
+  width: 400px;
+  margin: 0 auto 60px;
+}
+
+footer ul {
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0;
+  float: left;
+}
+
+footer li {
+  display: inline-block;
+}
+
+footer li > a:hover {
+  opacity: 0.6;
+}
+
+footer p {
+  color: lightgray;
+  font-size: 14px;
+  text-align: right;
+}
+
+.about {
+  width: 400px;
+  margin: 0 auto 60px;
+}
+
+.about p {
+  text-align: left;
+}
+
+// ===== /MyPortfolioProject/public/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>太郎のポートフォリオサイト</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="太郎のポートフォリオサイトです。">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li class="current">
+          <a href="index.html">
+            HOME
+          </a>
+        </li>
+        <li>
+          <a href="about.html">
+            ABOUT
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section>
+    <img src="img/taro.png" width="140" height="140" alt="太郎のアイコン" class="icon">
+    <h1>山田次郎</h1>
+    <p>UI/UXデザイナー見習いです</p>
+
+    <div class="works">
+      <section>
+        <img src="img/work1.png" width="400" height="260" alt="勇者ゲーム">
+        <h1>勇者ゲーム</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+
+      <section>
+        <img src="img/work2.png" width="400" height="260" alt="宝探しゲーム">
+        <h1>宝探しゲーム</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+
+      <section>
+        <img src="img/work3.png" width="400" height="260" alt="神経衰弱">
+        <h1>神経衰弱</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+    </div>
+  </section>
+
+  <footer>
+    <ul>
+      <li>
+        <a href="mailto:taguchi@gmail.com" target="_blank">
+          <img src="img/mail.png" width="20" height="20" alt="メール送信">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/blog.png" width="20" height="20" alt="ブログサイトへ">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/photos.png" width="20" height="20" alt="写真サイトへ">
+        </a>
+      </li>
+    </ul>
+    <p>(c) Taro Yamada</p>
+  </footer>
+</body>
+</html>
+
+
+
+// ===== video_summary =====
+前回作ったファイルをアップロードする方法について見ていきます。
+
+
+    サイトの公開
+    動作確認
+
+// ===== commentBox 1 =====
+補足情報
+作成したプロジェクト名が firebase list で表示されない場合
+
+
+
+
+2019年1月24日
+
+
+
+
+
+firebase login でログインした Google アカウントと、Firebase コンソールにログインしている Google アカウントが異なっている可能性があります。
+
+firebase logout を実行してログアウトしてから、 Firebase コンソールのほうの Google アカウントを確認してもう一度 firebase login でログインし直してみてください。
+
+// ===== /MySecondWebsiteProject/firebase.json =====
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
+
+// ===== /MySecondWebsiteProject/public/404.html =====
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page Not Found</title>
+
+    <style media="screen">
+      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px 16px; border-radius: 3px; }
+      #message h3 { color: #888; font-weight: normal; font-size: 16px; margin: 16px 0 12px; }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 600px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="message">
+      <h2>404</h2>
+      <h1>Page Not Found</h1>
+      <p>The specified file was not found on this website. Please check the URL for mistakes and try again.</p>
+      <h3>Why am I seeing this?</h3>
+      <p>This page was generated by the Firebase Command-Line Interface. To modify it, edit the <code>404.html</code> file in your project's configured <code>public</code> directory.</p>
+    </div>
+  </body>
+</html>
+
+// ===== /MyPortfolioProject/firebase.json =====
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
+
+// ===== /MyPortfolioProject/public/404.html =====
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page Not Found</title>
+
+    <style media="screen">
+      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px 16px; border-radius: 3px; }
+      #message h3 { color: #888; font-weight: normal; font-size: 16px; margin: 16px 0 12px; }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 600px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="message">
+      <h2>404</h2>
+      <h1>Page Not Found</h1>
+      <p>The specified file was not found on this website. Please check the URL for mistakes and try again.</p>
+      <h3>Why am I seeing this?</h3>
+      <p>This page was generated by the Firebase Command-Line Interface. To modify it, edit the <code>404.html</code> file in your project's configured <code>public</code> directory.</p>
+    </div>
+  </body>
+</html>
+
+// ===== /MyPortfolioProject/public/about.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>山田太郎について</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="山田太郎について。">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <a href="index.html">
+            HOME
+          </a>
+        </li>
+        <li class="current">
+          <a href="about.html">
+            ABOUT
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="about">
+    <img src="img/taro.png" width="140" height="140" alt="太郎のアイコン" class="icon">
+    <h1>山田太郎</h1>
+    <p>山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山
+田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹介です。山田太郎の紹
+介です。</p>
+  </section>
+
+  <footer>
+    <ul>
+      <li>
+        <a href="mailto:taguchi@gmail.com" target="_blank">
+          <img src="img/mail.png" width="20" height="20" alt="メール送信">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/blog.png" width="20" height="20" alt="ブログサイトへ">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/photos.png" width="20" height="20" alt="写真サイトへ">
+        </a>
+      </li>
+    </ul>
+    <p>(c) Taro Yamada</p>
+  </footer>
+</body>
+</html>
+
+// ===== /MyPortfolioProject/public/css/styles.css =====
+body {
+  color: #333;
+  font-family: Verdana, sans-serif;
+  margin: 0;
+}
+
+header {
+  text-align: right;
+  padding: 10px;
+  background-image: url(../img/header.png);
+  height: 240px;
+  background-size: cover;
+  background-position: 50% 50%;
+  margin-bottom: 60px;
+}
+
+header ul {
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+header li {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+header li > a {
+  text-decoration: none;
+  color: inherit;
+}
+
+header li > a:hover {
+  color: royalblue;
+}
+
+.current {
+  border-bottom: 4px solid royalblue;
+}
+
+section {
+  text-align: center;
+}
+
+section h1 {
+  font-weight: normal;
+  margin-bottom: 8px;
+}
+
+section p {
+  margin-top: 0;
+  font-size: 14px;
+}
+
+.icon {
+  border-radius: 50%;
+  border: 5px solid white;
+  box-shadow: 0 0 5px gray;
+}
+
+.works {
+  width: 400px;
+  margin: 60px auto;
+  border-bottom: 1px solid gray;
+}
+
+.works > section {
+  margin-bottom: 40px;
+}
+
+.works h1,
+.works p {
+  text-align: left;
+}
+
+footer {
+  width: 400px;
+  margin: 0 auto 60px;
+}
+
+footer ul {
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0;
+  float: left;
+}
+
+footer li {
+  display: inline-block;
+}
+
+footer li > a:hover {
+  opacity: 0.6;
+}
+
+footer p {
+  color: lightgray;
+  font-size: 14px;
+  text-align: right;
+}
+
+.about {
+  width: 400px;
+  margin: 0 auto 60px;
+}
+
+.about p {
+  text-align: left;
+}
+
+// ===== /MyPortfolioProject/public/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>太郎のポートフォリオサイト</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="太郎のポートフォリオサイトです。">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li class="current">
+          <a href="index.html">
+            HOME
+          </a>
+        </li>
+        <li>
+          <a href="about.html">
+            ABOUT
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section>
+    <img src="img/taro.png" width="140" height="140" alt="太郎のアイコン" class="icon">
+    <h1>山田次郎</h1>
+    <p>UI/UXデザイナー見習いです</p>
+
+    <div class="works">
+      <section>
+        <img src="img/work1.png" width="400" height="260" alt="勇者ゲーム">
+        <h1>勇者ゲーム</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+
+      <section>
+        <img src="img/work2.png" width="400" height="260" alt="宝探しゲーム">
+        <h1>宝探しゲーム</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+
+      <section>
+        <img src="img/work3.png" width="400" height="260" alt="神経衰弱">
+        <h1>神経衰弱</h1>
+        <p>楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。楽しいアプリです。</p>
+      </section>
+    </div>
+  </section>
+
+  <footer>
+    <ul>
+      <li>
+        <a href="mailto:taguchi@gmail.com" target="_blank">
+          <img src="img/mail.png" width="20" height="20" alt="メール送信">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/blog.png" width="20" height="20" alt="ブログサイトへ">
+        </a>
+      </li>
+      <li>
+        <a href="https://dotinstall.com" target="_blank">
+          <img src="img/photos.png" width="20" height="20" alt="写真サイトへ">
+        </a>
+      </li>
+    </ul>
+    <p>(c) Taro Yamada</p>
+  </footer>
+</body>
+</html>
+
+// ===== /MySecondWebsiteProject/public/index.html =====
+<h1>Hello from Firebase!</h1>
+
+
+  </code></pre>
+</body>
+</html>

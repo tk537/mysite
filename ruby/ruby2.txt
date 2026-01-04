@@ -1,0 +1,348 @@
+// ===== video_summary =====
+制御構造について確認したのちに、条件分岐で使えるifの構文について説明していきます。
+
+
+    制御構造
+    条件分岐のパターン
+    ifの構文
+
+// ===== main.rb =====
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+ifを使って条件分岐をする方法について見ていきます。
+
+
+    ユーザーからの入力受付
+    if
+    to_i
+    後置のif
+
+// ===== commentBox 1 =====
+補足情報
+ユーザーから入力を受け取る処理について
+
+
+
+
+2024年1月22日
+
+
+
+
+
+動画内で紹介されている、ユーザーから入力を受け取る処理について忘れてしまった人は以下のレッスンを復習してみましょう。
+・print、getsの使い方
+https://dotinstall.com/lessons/basic_ruby_grammar/65911
+・to_iの使い方
+https://dotinstall.com/lessons/basic_ruby_grammar/65915
+
+// ===== main.rb =====
+print "Score? "
+score = gets.to_i
+
+# if score >= 90
+#   puts "A"
+# end
+
+puts "A" if score >= 90
+
+
+
+
+
+
+// ===== video_summary =====
+ifとelseを使って条件分岐をする方法について見ていきます。
+
+
+    if .. else ... end
+    動作確認
+
+// ===== main.rb =====
+print "Score? "
+score = gets.to_i
+
+if score >= 90
+  puts "A"
+else 
+  puts "Not A"
+end
+
+
+
+
+
+
+// ===== video_summary =====
+elsifを使って、さらに条件をつなげていく方法について見ていきます。
+
+
+    if ... elsif ... else ... end
+    条件判定の順序
+
+// ===== main.rb =====
+print "Score? "
+score = gets.to_i
+
+if score >= 90
+  puts "A"
+elsif score >= 70
+  puts "B"
+else 
+  puts "C"
+end
+
+
+
+
+
+
+// ===== video_summary =====
+caseを使って条件分岐をする方法について見ていきます。
+
+
+    case
+    when
+    ..記法
+    条件判定の順序
+
+// ===== main.rb =====
+print "Score? "
+score = gets.to_i
+
+case score
+when 100
+  puts "Super"
+when 90..99
+  puts "A"
+when 70..89
+  puts "B"
+else
+  puts "C"
+end
+
+
+
+
+
+// ===== video_summary =====
+forを使った反復処理がどう行われるかについて図で説明していきます。
+
+
+    forの構文
+    forの挙動
+
+// ===== main.rb =====
+print "Score? "
+score = gets.to_i
+
+case score
+when 100
+  puts "Super"
+when 90..99
+  puts "A"
+when 70..89
+  puts "B"
+else
+  puts "C"
+end
+
+
+
+
+
+
+// ===== video_summary =====
+forを使った反復処理の挙動を確認していきます。
+
+
+    for ... in ... end
+    九九の実装
+
+// ===== main.rb =====
+# for i in 1..3
+#   puts "#{i} Hello"
+# end
+
+# puts 4 * 1
+# puts 4 * 2
+# puts 4 * 3
+# ...
+# puts 4 * 9
+
+for i in 1..9
+  puts 4 * i
+end
+
+
+
+
+
+// ===== video_summary =====
+反復する回数があらかじめ決まっていない場合に使えるwhileについて見ていきます。
+
+
+    whileの構文
+    whileの挙動
+    whileの特徴
+
+// ===== main.rb =====
+money = 500
+while money < 1000
+  money *= 1.1
+  puts money
+end
+
+
+
+
+
+// ===== video_summary =====
+forを使った反復処理の別の例を見ていきます。
+
+
+    for
+    変数の命名
+    動作確認
+
+// ===== main.rb =====
+money = 100
+for year in 1..30
+  money *= 1.05
+  puts "Year #{year}: #{money}"
+end
+
+
+
+
+
+
+// ===== video_summary =====
+ループを途中で終了させたり、以降の処理をスキップして次の反復処理に移るための命令について見ていきます。
+
+
+    break
+    next
+    breakとnextの違い
+
+// ===== main.rb =====
+money = 100
+for year in 1..30
+  money *= 1.05
+  # if money > 300
+  #   break
+  # end
+  break if money > 300
+  next if money < 200
+  puts "Year #{year}: #{money}"
+end
+
+
+
+
+
+
+// ===== video_summary =====
+?と:を使った、条件演算子と呼ばれる構文について見ていきます。
+
+
+    条件演算子の構文
+    条件演算子の注意点
+
+// ===== main.rb =====
+print "Score? "
+score = gets.to_i
+
+result = score > 80 ? "A" : "B"
+puts result
+
+
+
+
+
+
+// ===== video_summary =====
+より複雑な条件を作ることができる論理演算子について見ていきます。
+
+
+    &&
+    ||
+    !
+
+// ===== main.rb =====
+print "English? "
+english = gets.to_i
+print "Math? "
+math = gets.to_i
+
+if english >= 80 && math >= 90
+if english >= 80 || math >= 90
+if !(english >= 80 && math >= 90)
+  puts "A"
+else
+  puts "B"
+end
+
+
+
+
+
+// ===== video_summary =====
+二択の値を表現するために使われる真偽値について説明していきます。
+
+
+    真偽値
+    true false
+    trueになる値、falseになる値
+
+// ===== main.rb =====
+print "English? "
+english = gets.to_i
+print "Math? "
+math = gets.to_i
+
+if english >= 80 && math >= 90
+if english >= 80 || math >= 90
+if !(english >= 80 && math >= 90)
+  puts "A"
+else
+  puts "B"
+end
+
+
+
+
+
+// ===== video_summary =====
+真偽値の挙動をコードで確認していきます。
+
+
+    条件式の値
+    真偽値の利用
+    trueになる値、falseになる値
+
+// ===== main.rb =====
+puts 90 > 80
+puts 40 > 80
+
+# is_logged_in = false
+# is_logged_in = "yes"
+is_logged_in = 0
+
+if is_logged_in
+  puts "User logged in"
+else
+  puts "User not logged in"
+end
+
+
+
+
+

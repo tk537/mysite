@@ -1,0 +1,486 @@
+// ===== video_summary =====
+まずは概要を確認したのちに公式サイト、必要となる知識、レッスンにおける環境について見ていきます。
+
+
+    概要
+    公式サイト
+    知識
+    環境
+
+// ===== commentBox 1 =====
+補足情報
+必要となる知識について
+
+
+
+
+2016年11月21日
+
+
+
+
+
+今回のレッスンについては以下も参考にしてみてください。
+
+・ローカル開発環境の構築 [macOS編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_mac_v2
+・ローカル開発環境の構築 [Windows編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_win_v2
+・vim入門 (全18回)
+http://dotinstall.com/lessons/basic_vim
+・UNIXコマンド入門 (一般ユーザー編) (全16回)
+http://dotinstall.com/lessons/basic_unix
+・JavaScript入門 (全24回)
+http://dotinstall.com/lessons/basic_javascript_v2
+
+// ===== read.me =====
+MongoDB
+
+* 概要
+- ドキュメント指向
+- MySQL (RDBMS) <> NoSQL
+- NoSQL: スキーマレス
+
+* 公式サイト
+
+* 知識
+- JavaScript
+
+* 環境
+- ローカル開発環境
+
+
+
+// ===== video_summary =====
+公式サイトの手順通りにローカル開発環境にMongoDBをインストールしていきます。
+
+
+    MongoDBのインストール
+
+// ===== read.me =====
+sudo vi /etc/yum.repos.d/mongodb-org-3.0.repo
+
+--- 編集開始
+[mongodb-org-3.0]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.0/x86_64/
+gpgcheck=0
+enabled=1
+--- 編集終了
+
+sudo yum install -y mongodb-org
+sudo service mongod start
+sudo chkconfig mongod on
+mongo --version
+
+
+// ===== video_summary =====
+よく使う用語とその関係について図解していきます。
+
+データベース
+コレクション
+ドキュメント
+
+// ===== video_summary =====
+MongoDBに接続してデータベースを操作していきます。
+
+
+    MongoDBへの接続
+    データベースの一覧
+    データベースの作成・切り替え
+    コレクションの作成
+    データベースの情報表示
+    データベースの削除
+
+// ===== read.me =====
+// MongoDBへの接続
+mongo 
+
+// ヘルプ
+help 
+
+// 接続の終了
+exit 
+
+mongo
+
+// データベースの一覧
+show dbs; 
+
+// データベースの作成・切り替え
+use mydb; 
+
+// コレクションの作成
+db.createCollection("users"); 
+
+show dbs; 
+
+// データベースの情報表示
+db.stats(); 
+
+// データベースの削除
+db.dropDatabase(); 
+
+show dbs;
+
+
+// ===== video_summary =====
+コレクションを操作していくコマンドについて見ていきます。
+
+
+    コレクションの作成
+    コレクションの名前変更
+    コレクションの削除
+
+// ===== read.me =====
+use mydb;
+
+// コレクションの作成
+db.createCollection("users"); 
+
+// コレクションの一覧
+show collections; 
+
+// コレクションの名前変更
+db.users.renameCollection("customers");
+
+show collections;
+
+// コレクションの削除
+db.customers.drop(); 
+
+show collections;
+
+db.dropDatabase();
+
+
+// ===== video_summary =====
+ドキュメントを操作していく基本的なコマンドについて見ていきます。
+
+
+    ドキュメントの挿入
+    ドキュメントの個数表示
+    ドキュメントの全件抽出
+    ドキュメントの全削除
+
+// ===== read.me =====
+use mydb;
+
+// ドキュメントの挿入
+db.users.insert({
+    name: "taguchi",
+    score: 30
+});
+
+show collections;
+
+db.users.insert({
+    name: "fkoji",
+    score: 50,
+    tags: ["web", "mobile"]
+});
+
+for (var i = 0; i < 10; i++) {
+    db.users.insert({
+        score: Math.random()
+    });
+}
+
+// ドキュメントの個数表示
+db.users.count();
+
+// ドキュメントの全件抽出
+db.users.find();
+
+// ドキュメントの全削除
+db.users.remove({});
+
+db.users.find();
+
+
+// ===== video_summary =====
+条件付きでドキュメントを抽出する方法について見ていきます。
+
+
+    ドキュメントの抽出
+    フィールドに含まれる値を抽出
+
+// ===== read.me =====
+// テストデータ作成用コマンドはこちらをご利用ください
+db.users.insert({name: "taguchi", score: 52, team: "team-1"});
+db.users.insert({name: "fkoji", score: 82, team: "team-2"});
+db.users.insert({name: "dotinstall", score: 66, team: "team-3"});
+db.users.insert({name: "yamada", score: 26, team: "team-1"});
+db.users.insert({name: "kimura", score: 29, team: "team-2"});
+
+db.users.find();
+
+// team が team-1 のドキュメントを抽出
+db.users.find({team: "team-1"});
+
+// score が 50 以上のドキュメントを抽出
+db.users.find({score: {$gte: 50}});
+
+// $gte $gt $lte $lt
+// $eq $ne
+
+// team が team-1 のドキュメントを抽出
+db.users.find({team: {$eq: "team-1"}});
+
+// name に t を含むドキュメントを抽出
+db.users.find({name: /t/});
+
+// name が t で始まるドキュメントを抽出
+db.users.find({name: /^t/});
+
+// team に存在する値を抽出
+db.users.distinct("team");
+
+
+// ===== video_summary =====
+より複雑な条件でドキュメントを抽出する方法をみていきます。
+
+
+    複数の条件による抽出
+    $or
+    $in
+    $exists
+
+// ===== read.me =====
+// 名前に i を含む、なおかつ、score が 50 以上のドキュメントを抽出
+db.users.find({name:/i/, score:{$gte:50}});
+
+// 名前に i を含む、もしくは、score が 50 以上のドキュメントを抽出
+db.users.find({$or: [{name:/i/}, {score:{$gte:50}}]});
+
+// score が 52、もしくは 66 のドキュメントを抽出
+db.users.find({score: {$in: [52, 66]}});
+
+// データ構造の異なるドキュメントを挿入
+db.users.insert({name:"tanaka", score:52, age:23});
+
+// age フィールドが存在するドキュメントを抽出
+db.users.find({age: {$exists: true}});
+
+
+// ===== video_summary =====
+ドキュメントを抽出したあとに表示するフィールドを指定する方法について見ていきます。
+
+
+    表示フィールドの指定
+    非表示フィールドの指定
+    _idに関する注意点
+
+// ===== read.me =====
+// 全件抽出だが、name と score のみ表示
+db.users.find({}, {name: true, score: 1});
+
+// 全件抽出だが、score を非表示
+db.users.find({}, {score: 0});
+
+// エラー
+db.users.find({}, {score: 0, name: 1});
+
+// score は表示するが、_id は表示しない
+db.users.find({}, {score: 1, _id: 0});
+
+
+// ===== video_summary =====
+抽出結果を変更するためのコマンドについて見ていきます。
+
+
+    sort()
+    limit()
+    findOne()
+    skip()
+
+// ===== read.me =====
+// score が小さい順に抽出
+db.users.find({}, {_id: 0}).sort({score: 1});
+
+// score が大きい順に抽出
+db.users.find({}, {_id: 0}).sort({score: -1});
+
+// 3 件のみ抽出
+db.users.find({}, {_id: 0}).limit(3);
+
+// score が高い 3 件のみ抽出
+db.users.find({}, {_id: 0}).sort({score: -1}).limit(3);
+
+// 1 件のみ抽出
+db.users.findOne({}, {_id: 0});
+
+// 全件抽出
+db.users.find({}, {_id: 0});
+
+// 2 件目から表示（0 から開始）
+db.users.find({}, {_id: 0}).skip(2);
+
+
+// ===== video_summary =====
+ドキュメントを更新するためのコマンドについて見ていきます。
+
+
+    update()
+    multi
+
+// ===== read.me =====
+db.users.find({name:"taguchi"}, {_id:0});
+
+// score を 80 に更新
+db.users.update({name: "taguchi"}, {$set: {score: 80}});
+
+db.users.find({name:"taguchi"}, {_id:0});
+
+// score を 90、team を team-2 に更新
+db.users.update({name: "taguchi"}, {$set: {score: 90 ,team: "team-2"}});
+
+db.users.find({name:"taguchi"}, {_id:0});
+
+// name が taguchi のドキュメントを、name が taguchi、score を 40 に置き換え
+db.users.update({name: "taguchi"}, {name: "taguchi", score: 40});
+
+db.users.find({name:"taguchi"}, {_id:0});
+
+db.users.find();
+
+// team が team-2 のドキュメントの score を 100 に更新（最初の1件のみ）
+db.users.update({team:"team-2"}, {$set: {score: 100}});
+
+db.users.find();
+
+// team が team-2 のドキュメントの score を 0 に更新（すべて）
+db.users.update({team:"team-2"}, {$set: {score: 0}}, {multi: true});
+
+
+// ===== video_summary =====
+ドキュメントを変更するためのさまざまなコマンドについて見ていきます。
+
+
+    $inc
+    $mul
+    $rename
+    $set
+    $unset
+
+// ===== read.me =====
+db.users.find({name: "taguchi"}, {_id:0});
+
+// score に 5 を加える
+db.users.update({name: "taguchi"}, {$inc: {score: 5}});
+
+db.users.find({name: "taguchi"}, {_id:0});
+
+// score を 2 倍する
+db.users.update({name: "taguchi"}, {$mul: {score: 2}});
+
+db.users.find({name: "taguchi"}, {_id:0});
+
+// score を point に変更
+db.users.update({name: "taguchi"}, {$rename: {score: "point"}});
+
+db.users.find({name: "taguchi"}, {_id:0});
+
+// team を追加
+db.users.update({name: "taguchi"}, {$set: {team: "team-4"}});
+
+db.users.find({name: "taguchi"}, {_id:0});
+
+// team を削除
+db.users.update({name: "taguchi"}, {$unset: {team: ""}});
+
+db.users.find({name: "taguchi"}, {_id:0});
+
+
+// ===== video_summary =====
+ドキュメントが存在していたら更新、そうでなければ新規作成してくれるupsert、それから条件付きでドキュメントを削除する方法について見ていきます。
+
+
+    upsert
+    remove()
+
+// ===== read.me =====
+db.users.find();
+
+// name が kato のドキュメントを更新（変更なし）
+db.users.update({name: "kato"}, {name: "kato", score: 48});
+
+db.users.find();
+
+// name が kato のドキュメントを作成
+db.users.update({name: "kato"}, {name: "kato", score: 48}, {upsert: true});
+
+db.users.find();
+
+// name が kato のドキュメントを更新
+db.users.update({name: "kato"}, {name: "kato", score: 99}, {upsert: true});
+
+db.users.find();
+
+db.users.remove({name: "kato"});
+
+db.users.find();
+
+
+// ===== video_summary =====
+データの検索を高速化することができる索引の操作についてみていきます。
+
+
+    getIndexes()
+    createIndex()
+    dropIndex()
+    unique
+
+// ===== read.me =====
+// index の一覧
+db.users.getIndexes();
+
+// index の作成
+db.users.createIndex({score: -1});
+
+db.users.getIndexes();
+
+// index の削除
+db.users.dropIndex("score_-1");
+
+db.users.getIndexes();
+
+// unique の設定
+db.users.createIndex({name: 1}, {unique: true});
+
+db.users.getIndexes();
+
+// ドキュメントの挿入（エラー）
+db.users.insert({name: "taguchi"});
+
+
+// ===== video_summary =====
+データベースのバックアップ、復元をするためのコマンドについて学びます。
+
+
+    mongodump
+    mongorestore
+
+// ===== read.me =====
+show dbs;
+exit
+
+# db のバックアップ
+ls
+mongodump -d mydb
+ls
+
+mongo mydb
+db.users.find();
+db.users.remove({name: "taguchi"});
+db.users.find();
+exit
+
+# db の復元
+mongorestore --drop
+
+mongo mydb
+db.users.find();
+exit
+
+mongodump --help

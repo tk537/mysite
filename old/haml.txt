@@ -1,0 +1,382 @@
+// ===== video_summary =====
+HTMLのテンプレートエンジンであるHamlについてその概要、公式サイト、必要となる知識などについて学んでいきます。
+
+
+    Hamlの概要
+    公式サイト
+    必要となる知識
+    必要となる準備
+    レッスンでの環境
+
+// ===== commentBox 1 =====
+補足情報
+あわせて見ておきたいサイトについて
+
+
+
+
+2012年11月21日
+
+
+
+
+
+Hamlの公式サイトはこちらです。
+http://haml.info/
+より詳細なリファレンスはこちらから。
+http://haml.info/docs/yardoc/
+
+// ===== read.me =====
+haml(HTML Abstraction Markup Language)
+
+* 概要
+- HTML template engine
+- HTMLをすっきり＆美しく
+- Ruby / Ruby on Rails
+
+* 公式サイト
+
+* 知識
+- HTML
+- Ruby
+- Ruby on Rails
+- Unix
+
+* 環境
+
+
+
+
+
+// ===== video_summary =====
+基本的な動作を確認したのちに、簡単なHamlを書いてHTMLに変換してみます。
+
+
+    基本動作
+    動作確認
+    コマンドラインオプション（-q -f html5）
+
+// ===== index.haml =====
+!!!
+%html
+  %body
+    hello world!
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html>
+  <body>
+    hello world!
+  </body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+Hamlの基本的な記法についてひとつずつ説明していきます。
+
+
+    !!!
+    タグの生成（%）
+    字下げ
+    属性の記述方法 {} ()
+
+// ===== commentBox 1 =====
+補足情報
+DOCTYPEとオプション
+
+
+
+
+2012年12月12日
+
+
+
+
+
+DOCTYPE については「!!! 5」と記述して HTML5 の DOCTYPE 宣言を生成させることもできます。こう書いた場合にはコンパイル時に「-f html5」をつける必要はありません。
+
+// ===== index.haml =====
+!!!
+%html{:lang => "ja"}
+  %head
+    %meta(charset="UTF-8")
+  %body
+    hello world!
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    hello world!
+  </body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+Haml内に記述できるHTMLのコメント、Hamlのコメントについて説明してきます。
+
+
+    /
+    -#
+
+// ===== index.haml =====
+!!!
+%html{:lang => "ja"}
+  %head
+    /
+      %meta(charset="UTF-8")
+  %body
+    hello world!
+  / bodyの終わり
+  / 
+    comment
+    comment
+    comment
+  -# コメント
+  -#
+    コメント
+    コメント
+    コメント
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <!--
+      <meta charset="UTF-8">
+    -->
+  </head>
+  <body>
+    hello world!
+  </body>
+  <!-- bodyの終わり -->
+  <!--
+    comment
+    comment
+    comment
+  -->
+</html>
+
+
+
+
+
+// ===== video_summary =====
+HTMLに変換したときの改行をコントロールする手法を学びます。
+
+
+    一行で書く
+    <
+    >
+
+// ===== index.haml =====
+!!!
+%html{:lang => "ja"}
+  %head
+    %meta(charset="UTF-8")
+  %body
+    %p hello
+    %ul
+      %li<>
+        item
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <p>hello</p>
+    <ul><li>item</li></ul>
+  </body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+HTML属性の記述方法について詳しく見ていきます。
+
+
+    複数の属性を記述する
+    #id
+    .class
+    %divの省略
+
+// ===== index.haml =====
+!!!
+%html{:lang => "ja"}
+  %head
+    %meta(charset="UTF-8")
+  %body
+    %div{:id => "main", :class => "myClass"}
+    %div(id="main" class="myClass")
+    %div#main.myClass
+    #main.myClass
+    
+    #main
+      .subMenu
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <div class="myClass" id="main"></div>
+    <div class="myClass" id="main"></div>
+    <div class="myClass" id="main"></div>
+    <div class="myClass" id="main"></div>
+    <div id="main">
+      <div class="subMenu"></div>
+    </div>
+  </body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+CSSやJavaScriptをHaml内に記述するためのフィルター機能について見ていきます。
+
+
+    :css
+    :javascript
+    :escaped
+
+// ===== commentBox 1 =====
+補足情報
+フィルタの一覧について
+
+
+
+
+2013年9月9日
+
+
+
+
+
+:cssや:javascript以外のフィルタの一覧はこちらで見ることができます。CoffeescriptやSassと組み合わせることもできますよ。
+http://haml.info/docs/yardoc/file.REFERENCE.html#filters
+
+// ===== index.haml =====
+!!!
+%html{:lang => "ja"}
+  %head
+    %meta(charset="UTF-8")
+  %body
+    :css
+      .myStyle {
+        color: red;
+      }
+    :javascript
+      alert(1);
+      if (1) {
+        alert(2);
+      }
+    %div
+      :escaped
+        <html>
+        </html>
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <style>
+      /*<![CDATA[*/
+        .myStyle {
+          color: red;
+        }
+      /*]]>*/
+    </style>
+    <script>
+      //<![CDATA[
+        alert(1);
+        if (1) {
+          alert(2);
+        }
+      //]]>
+    </script>
+    <div>
+      &lt;html&gt;
+      &lt;/html&gt;
+    </div>
+  </body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+Haml内にRubyのコードを記述して評価していく方法について見ていきます。
+
+
+    #{}
+    %p=
+    -
+
+// ===== index.haml =====
+!!!
+%html{:lang => "ja"}
+  %head
+    %meta(charset="UTF-8")
+  %body
+    %p total is #{5 * 3}
+    %p= Time.now
+    - x = 5
+    %p= x
+    
+    - (1..10).each do |i|
+      -# %p= i
+      %p{:id => "item_#{i}"} #{i}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <p>total is 15</p>
+    <p>2012-11-14 19:47:53 +0900</p>
+    <p>5</p>
+    <p id="item_1">1</p>
+    <p id="item_2">2</p>
+    <p id="item_3">3</p>
+    <p id="item_4">4</p>
+    <p id="item_5">5</p>
+    <p id="item_6">6</p>
+    <p id="item_7">7</p>
+    <p id="item_8">8</p>
+    <p id="item_9">9</p>
+    <p id="item_10">10</p>
+  </body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,4914 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre><code>
+    // ===== video_summary =====
+これまでの実装について振り返ったのち、アソシエーションの概要について説明していきます。
+
+これまでの実装
+今回の実装
+アソシエーション
+
+// ===== video_summary =====
+開発環境について確認したのちに、いったん初期データに戻していきます。
+
+
+    開発環境の確認
+    初期データの復元
+
+// ===== commentBox 1 =====
+補足情報
+今回使ったコマンドについて
+
+
+
+
+2024年3月23日
+
+
+
+
+
+今回の動画で使ったコマンドは以下のとおりです。
+bin/rails db:migrate:reset
+bin/rails db:seed 
+clear
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.delete-form {
+  display: inline;
+}
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+    @posts = Post.all
+  end
+
+  def show
+    @post = Post.find(params[:id])
+  end
+
+  def new
+    @post = Post.new
+  end
+
+  def create
+    @post = Post.new(post_params)
+    if @post.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to root_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to root_path
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
+end
+
+// ===== /app/model/post.rb =====
+class Post < ApplicationRecord
+  validates :title, presence: true
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /app/views/posts/_form.html.erb =====
+<%= form_with model: post do |form| %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+    <% if post.errors.full_messages_for(:title).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:title).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+    <% if post.errors.full_messages_for(:body).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:body).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.submit %>
+  </div>
+  
+  <% end %>
+
+// ===== /app/views/posts/edit.html.erb =====
+<h1>Edit post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>
+  Posts
+  <%= link_to "Add new", new_post_path %>
+</h1>
+
+<ul>
+  <% @posts.each do |post| %>
+  <li>
+    <%= link_to post.title, post_path(post) %>
+    <%= link_to "Edit", edit_post_path(post) %>
+    <%= button_to "Delete", 
+      post_path(post), 
+      method: :delete, 
+      form: { class: "delete-form" },
+      data: { turbo_confirm: "Sure?" }
+    %>
+  </li>
+  <% end %>
+</ul>
+
+// ===== /app/views/posts/new.html.erb =====
+<h1>New post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/show.html.erb =====
+<h1><%= @post.title %></h1>
+<%= simple_format(@post.body) %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "posts#index"
+  
+  resources :posts
+end
+
+// ===== /db/migrate/20240228170543_create_posts.rb =====
+class CreatePosts < ActiveRecord::Migration[7.1]
+  def change
+    create_table :posts do |t|
+      t.string :title
+      t.text :body
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/seeds.rb =====
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+#   Character.create(name: "Luke", movie: movies.first)
+
+for i in 1..5
+  Post.create(title: "Title #{i}", body: "Body #{i}")
+end
+
+// ===== video_summary =====
+Commentモデルを作成したのちに、変更をデータベースに反映させていきます。
+
+
+    Commentモデル
+    データベースへの反映
+
+// ===== commentBox 1 =====
+補足情報
+今回使ったコマンドについて
+
+
+
+
+2024年3月23日
+
+
+
+
+
+今回の動画で使ったコマンドは以下のとおりです。
+bin/rails generate model Comment body:string post:references
+bin/rails db:migrate
+clear
+
+// ===== /app/model/comment.rb =====
+class Comment < ApplicationRecord
+  belongs_to :post
+end
+
+// ===== /db/migrate/20240320044513_create_comments.rb =====
+class CreateComments < ActiveRecord::Migration[7.1]
+  def change
+    create_table :comments do |t|
+      t.string :body
+      t.references :post, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.delete-form {
+  display: inline;
+}
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+    @posts = Post.all
+  end
+
+  def show
+    @post = Post.find(params[:id])
+  end
+
+  def new
+    @post = Post.new
+  end
+
+  def create
+   @post = Post.new(post_params)
+    if @post.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to root_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to root_path
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
+end
+
+// ===== /app/model/post.rb =====
+class Post < ApplicationRecord
+  validates :title, presence: true
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /app/views/posts/_form.html.erb =====
+<%= form_with model: post do |form| %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+    <% if post.errors.full_messages_for(:title).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:title).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+    <% if post.errors.full_messages_for(:body).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:body).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.submit %>
+  </div>
+  
+  <% end %>
+
+// ===== /app/views/posts/edit.html.erb =====
+<h1>Edit post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>
+  Posts
+  <%= link_to "Add new", new_post_path %>
+</h1>
+
+<ul>
+  <% @posts.each do |post| %>
+  <li>
+    <%= link_to post.title, post_path(post) %>
+    <%= link_to "Edit", edit_post_path(post) %>
+    <%= button_to "Delete", 
+      post_path(post), 
+      method: :delete, 
+      form: { class: "delete-form" },
+      data: { turbo_confirm: "Sure?" }
+    %>
+  </li>
+  <% end %>
+</ul>
+
+// ===== /app/views/posts/new.html.erb =====
+<h1>New post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/show.html.erb =====
+<h1><%= @post.title %></h1>
+<%= simple_format(@post.body) %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "posts#index"
+  
+  resources :posts
+end
+
+// ===== /db/migrate/20240228170543_create_posts.rb =====
+class CreatePosts < ActiveRecord::Migration[7.1]
+  def change
+    create_table :posts do |t|
+      t.string :title
+      t.text :body
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/seeds.rb =====
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+#   Character.create(name: "Luke", movie: movies.first)
+
+for i in 1..5
+  Post.create(title: "Title #{i}", body: "Body #{i}")
+end
+
+// ===== video_summary =====
+PostモデルとCommentモデルで、1:nのアソシエーションを設定していきます。
+
+
+    belongs_to :post
+    has_many :comments
+    バリデーションの設定
+
+// ===== /app/model/comment.rb =====
+class Comment < ApplicationRecord
+  belongs_to :post
+
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/model/post.rb =====
+class Post < ApplicationRecord
+  has_many :comments
+
+  validates :title, presence: true
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.delete-form {
+  display: inline;
+}
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+    @posts = Post.all
+  end
+
+  def show
+    @post = Post.find(params[:id])
+  end
+
+  def new
+    @post = Post.new
+  end
+
+  def create
+    @post = Post.new(post_params)
+    if @post.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to root_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to root_path
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /app/views/posts/_form.html.erb =====
+<%= form_with model: post do |form| %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+    <% if post.errors.full_messages_for(:title).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:title).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+    <% if post.errors.full_messages_for(:body).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:body).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.submit %>
+  </div>
+  
+  <% end %>
+
+// ===== /app/views/posts/edit.html.erb =====
+<h1>Edit post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>
+  Posts
+  <%= link_to "Add new", new_post_path %>
+</h1>
+
+<ul>
+  <% @posts.each do |post| %>
+  <li>
+    <%= link_to post.title, post_path(post) %>
+    <%= link_to "Edit", edit_post_path(post) %>
+    <%= button_to "Delete", 
+      post_path(post), 
+      method: :delete, 
+      form: { class: "delete-form" },
+      data: { turbo_confirm: "Sure?" }
+    %>
+  </li>
+  <% end %>
+</ul>
+
+// ===== /app/views/posts/new.html.erb =====
+<h1>New post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/show.html.erb =====
+<h1><%= @post.title %></h1>
+<%= simple_format(@post.body) %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "posts#index"
+  
+  resources :posts
+end
+
+// ===== /db/migrate/20240228170543_create_posts.rb =====
+class CreatePosts < ActiveRecord::Migration[7.1]
+  def change
+    create_table :posts do |t|
+      t.string :title
+      t.text :body
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/20240320044513_create_comments.rb =====
+class CreateComments < ActiveRecord::Migration[7.1]
+  def change
+    create_table :comments do |t|
+      t.string :body
+      t.references :post, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/seeds.rb =====
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+#   Character.create(name: "Luke", movie: movies.first)
+
+for i in 1..5
+  Post.create(title: "Title #{i}", body: "Body #{i}")
+end
+
+// ===== video_summary =====
+Railsのコンソールからいくつかコメントのデータを追加していきます。
+
+
+    Railsコンソールの起動
+    build, saveによるコメントの追加
+    createによるコメントの追加
+
+// ===== commentBox 1 =====
+補足情報
+今回使ったコマンドについて
+
+
+
+
+2024年3月23日
+
+
+
+
+
+今回の動画で使ったコマンドは以下のとおりです。
+bin/rails console
+post = Post.find(1)
+comment = post.comments.build(body: "Comment 1 for post 1")
+comment.save
+post.comments.create(body: "Comment 2 for post 1")
+post.comments.create(body: "Comment 3 for post 1")
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.delete-form {
+  display: inline;
+}
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+    @posts = Post.all
+  end
+
+  def show
+    @post = Post.find(params[:id])
+  end
+
+  def new
+    @post = Post.new
+  end
+
+  def create
+    @post = Post.new(post_params)
+    if @post.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to root_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to root_path
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
+end
+
+// ===== /app/model/comment.rb =====
+class Comment < ApplicationRecord
+  belongs_to :post
+
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/model/post.rb =====
+class Post < ApplicationRecord
+  has_many :comments
+
+  validates :title, presence: true
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /app/views/posts/_form.html.erb =====
+<%= form_with model: post do |form| %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+    <% if post.errors.full_messages_for(:title).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:title).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+    <% if post.errors.full_messages_for(:body).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:body).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.submit %>
+  </div>
+  
+  <% end %>
+
+// ===== /app/views/posts/edit.html.erb =====
+<h1>Edit post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>
+  Posts
+  <%= link_to "Add new", new_post_path %>
+</h1>
+
+<ul>
+  <% @posts.each do |post| %>
+  <li>
+    <%= link_to post.title, post_path(post) %>
+    <%= link_to "Edit", edit_post_path(post) %>
+    <%= button_to "Delete", 
+      post_path(post), 
+      method: :delete, 
+      form: { class: "delete-form" },
+      data: { turbo_confirm: "Sure?" }
+    %>
+  </li>
+  <% end %>
+</ul>
+
+// ===== /app/views/posts/new.html.erb =====
+<h1>New post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/show.html.erb =====
+<h1><%= @post.title %></h1>
+<%= simple_format(@post.body) %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "posts#index"
+  
+  resources :posts
+end
+
+// ===== /db/migrate/20240228170543_create_posts.rb =====
+class CreatePosts < ActiveRecord::Migration[7.1]
+  def change
+    create_table :posts do |t|
+      t.string :title
+      t.text :body
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/20240320044513_create_comments.rb =====
+class CreateComments < ActiveRecord::Migration[7.1]
+  def change
+    create_table :comments do |t|
+      t.string :body
+      t.references :post, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/seeds.rb =====
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+#   Character.create(name: "Luke", movie: movies.first)
+
+for i in 1..5
+  Post.create(title: "Title #{i}", body: "Body #{i}")
+end
+
+// ===== video_summary =====
+Active Recordを使ってコメントの一覧を表示する方法、コメントを削除する方法を確認していきます。
+
+
+    コメント一覧の表示
+    コメントの削除
+
+// ===== commentBox 1 =====
+補足情報
+今回使ったコマンドについて
+
+
+
+
+2024年3月23日
+
+
+
+
+
+今回の動画で使ったコマンドは以下のとおりです。
+post.comments
+post.comments.find(3).destroy
+post.comments
+quit
+clear
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.delete-form {
+  display: inline;
+}
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+    @posts = Post.all
+  end
+
+  def show
+    @post = Post.find(params[:id])
+  end
+
+  def new
+    @post = Post.new
+  end
+
+  def create
+    @post = Post.new(post_params)
+    if @post.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to root_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to root_path
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
+end
+
+// ===== /app/model/comment.rb =====
+class Comment < ApplicationRecord
+  belongs_to :post
+
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/model/post.rb =====
+class Post < ApplicationRecord
+  has_many :comments
+
+  validates :title, presence: true
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /app/views/posts/_form.html.erb =====
+<%= form_with model: post do |form| %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+    <% if post.errors.full_messages_for(:title).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:title).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+    <% if post.errors.full_messages_for(:body).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:body).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.submit %>
+  </div>
+  
+  <% end %>
+
+// ===== /app/views/posts/edit.html.erb =====
+<h1>Edit post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>
+  Posts
+  <%= link_to "Add new", new_post_path %>
+</h1>
+
+<ul>
+  <% @posts.each do |post| %>
+  <li>
+    <%= link_to post.title, post_path(post) %>
+    <%= link_to "Edit", edit_post_path(post) %>
+    <%= button_to "Delete", 
+      post_path(post), 
+      method: :delete, 
+      form: { class: "delete-form" },
+      data: { turbo_confirm: "Sure?" }
+    %>
+  </li>
+  <% end %>
+</ul>
+
+// ===== /app/views/posts/new.html.erb =====
+<h1>New post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/show.html.erb =====
+<h1><%= @post.title %></h1>
+<%= simple_format(@post.body) %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "posts#index"
+  
+  resources :posts
+end
+
+// ===== /db/migrate/20240228170543_create_posts.rb =====
+class CreatePosts < ActiveRecord::Migration[7.1]
+  def change
+    create_table :posts do |t|
+      t.string :title
+      t.text :body
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/20240320044513_create_comments.rb =====
+class CreateComments < ActiveRecord::Migration[7.1]
+  def change
+    create_table :comments do |t|
+      t.string :body
+      t.references :post, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/seeds.rb =====
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+#   Character.create(name: "Luke", movie: movies.first)
+
+for i in 1..5
+  Post.create(title: "Title #{i}", body: "Body #{i}")
+end
+
+// ===== video_summary =====
+追加したコメントをビューに表示させる方法について見ていきます。
+
+
+    コメントの表示
+    動作確認
+
+// ===== /app/views/posts/show.html.erb =====
+<h1><%= @post.title %></h1>
+<%= simple_format(@post.body) %>
+
+<% if @post.comments.any? %>
+<h2>Comments</h2>
+<ul>
+  <% @post.comments.each do |comment| %>
+  <li><%= comment.body %></li>
+  <% end %>
+</ul>
+<% end %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.delete-form {
+  display: inline;
+}
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+    @posts = Post.all
+  end
+
+  def show
+    @post = Post.find(params[:id])
+  end
+
+  def new
+    @post = Post.new
+  end
+
+  def create
+    @post = Post.new(post_params)
+    if @post.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to root_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to root_path
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
+end
+
+// ===== /app/model/comment.rb =====
+class Comment < ApplicationRecord
+  belongs_to :post
+
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/model/post.rb =====
+class Post < ApplicationRecord
+  has_many :comments
+
+  validates :title, presence: true
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /app/views/posts/_form.html.erb =====
+<%= form_with model: post do |form| %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+    <% if post.errors.full_messages_for(:title).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:title).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+    <% if post.errors.full_messages_for(:body).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:body).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.submit %>
+  </div>
+  
+  <% end %>
+
+// ===== /app/views/posts/edit.html.erb =====
+<h1>Edit post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>
+  Posts
+  <%= link_to "Add new", new_post_path %>
+</h1>
+
+<ul>
+  <% @posts.each do |post| %>
+  <li>
+    <%= link_to post.title, post_path(post) %>
+    <%= link_to "Edit", edit_post_path(post) %>
+    <%= button_to "Delete", 
+      post_path(post), 
+      method: :delete, 
+      form: { class: "delete-form" },
+      data: { turbo_confirm: "Sure?" }
+    %>
+  </li>
+  <% end %>
+</ul>
+
+// ===== /app/views/posts/new.html.erb =====
+<h1>New post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "posts#index"
+  
+  resources :posts
+end
+
+// ===== /db/migrate/20240228170543_create_posts.rb =====
+class CreatePosts < ActiveRecord::Migration[7.1]
+  def change
+    create_table :posts do |t|
+      t.string :title
+      t.text :body
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/20240320044513_create_comments.rb =====
+class CreateComments < ActiveRecord::Migration[7.1]
+  def change
+    create_table :comments do |t|
+      t.string :body
+      t.references :post, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/seeds.rb =====
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+#   Character.create(name: "Luke", movie: movies.first)
+
+for i in 1..5
+  Post.create(title: "Title #{i}", body: "Body #{i}")
+end
+
+// ===== video_summary =====
+見出しのスタイルを設定したのちに、コメントがない場合の表示を調整していきます。
+
+
+    h2のスタイリング
+    コメントがない場合の表示
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.delete-form {
+  display: inline;
+}
+
+// ===== /app/views/posts/show.html.erb =====
+<h1><%= @post.title %></h1>
+<%= simple_format(@post.body) %>
+
+<h2>Comments</h2>
+<ul>
+  <% @post.comments.each do |comment| %>
+  <li><%= comment.body %></li>
+  <% end %>
+</ul>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+    @posts = Post.all
+  end
+
+  def show
+    @post = Post.find(params[:id])
+  end
+
+  def new
+    @post = Post.new
+  end
+
+  def create
+    @post = Post.new(post_params)
+    if @post.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to root_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to root_path
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
+end
+
+// ===== /app/model/comment.rb =====
+class Comment < ApplicationRecord
+  belongs_to :post
+
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/model/post.rb =====
+class Post < ApplicationRecord
+  has_many :comments
+
+  validates :title, presence: true
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /app/views/posts/_form.html.erb =====
+<%= form_with model: post do |form| %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+    <% if post.errors.full_messages_for(:title).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:title).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+    <% if post.errors.full_messages_for(:body).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:body).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.submit %>
+  </div>
+  
+  <% end %>
+
+// ===== /app/views/posts/edit.html.erb =====
+<h1>Edit post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>
+  Posts
+  <%= link_to "Add new", new_post_path %>
+</h1>
+
+<ul>
+  <% @posts.each do |post| %>
+  <li>
+    <%= link_to post.title, post_path(post) %>
+    <%= link_to "Edit", edit_post_path(post) %>
+    <%= button_to "Delete", 
+      post_path(post), 
+      method: :delete, 
+      form: { class: "delete-form" },
+      data: { turbo_confirm: "Sure?" }
+    %>
+  </li>
+  <% end %>
+</ul>
+
+// ===== /app/views/posts/new.html.erb =====
+<h1>New post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "posts#index"
+  
+  resources :posts
+end
+
+// ===== /db/migrate/20240228170543_create_posts.rb =====
+class CreatePosts < ActiveRecord::Migration[7.1]
+  def change
+    create_table :posts do |t|
+      t.string :title
+      t.text :body
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/20240320044513_create_comments.rb =====
+class CreateComments < ActiveRecord::Migration[7.1]
+  def change
+    create_table :comments do |t|
+      t.string :body
+      t.references :post, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/seeds.rb =====
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+#   Character.create(name: "Luke", movie: movies.first)
+
+for i in 1..5
+  Post.create(title: "Title #{i}", body: "Body #{i}")
+end
+
+// ===== video_summary =====
+コメントに必要なラウティングを確認して設定していきます。
+
+
+    resources :comments
+    ラウティングの確認
+    onlyオプション
+
+// ===== commentBox 1 =====
+補足情報
+今回使ったコマンドについて
+
+
+
+
+2024年3月23日
+
+
+
+
+
+今回の動画で使ったコマンドは以下のとおりです。
+bin/rails routes -c comments
+bin/rails routes -c comments
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "posts#index"
+  
+  resources :posts do
+    resources :comments, only: [:create, :destroy]
+  end
+end
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.delete-form {
+  display: inline;
+}
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+    @posts = Post.all
+  end
+
+  def show
+    @post = Post.find(params[:id])
+  end
+
+  def new
+    @post = Post.new
+  end
+
+  def create
+    @post = Post.new(post_params)
+    if @post.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to root_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to root_path
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
+end
+
+// ===== /app/model/comment.rb =====
+class Comment < ApplicationRecord
+  belongs_to :post
+
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/model/post.rb =====
+class Post < ApplicationRecord
+  has_many :comments
+
+  validates :title, presence: true
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /app/views/posts/_form.html.erb =====
+<%= form_with model: post do |form| %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+    <% if post.errors.full_messages_for(:title).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:title).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+    <% if post.errors.full_messages_for(:body).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:body).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.submit %>
+  </div>
+  
+  <% end %>
+
+// ===== /app/views/posts/edit.html.erb =====
+<h1>Edit post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>
+  Posts
+  <%= link_to "Add new", new_post_path %>
+</h1>
+
+<ul>
+  <% @posts.each do |post| %>
+  <li>
+    <%= link_to post.title, post_path(post) %>
+    <%= link_to "Edit", edit_post_path(post) %>
+    <%= button_to "Delete", 
+      post_path(post), 
+      method: :delete, 
+      form: { class: "delete-form" },
+      data: { turbo_confirm: "Sure?" }
+    %>
+  </li>
+  <% end %>
+</ul>
+
+// ===== /app/views/posts/new.html.erb =====
+<h1>New post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/show.html.erb =====
+<h1><%= @post.title %></h1>
+<%= simple_format(@post.body) %>
+
+<h2>Comments</h2>
+<ul>
+  <% @post.comments.each do |comment| %>
+  <li><%= comment.body %></li>
+  <% end %>
+</ul>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /db/migrate/20240228170543_create_posts.rb =====
+class CreatePosts < ActiveRecord::Migration[7.1]
+  def change
+    create_table :posts do |t|
+      t.string :title
+      t.text :body
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/20240320044513_create_comments.rb =====
+class CreateComments < ActiveRecord::Migration[7.1]
+  def change
+    create_table :comments do |t|
+      t.string :body
+      t.references :post, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/seeds.rb =====
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+#   Character.create(name: "Luke", movie: movies.first)
+
+for i in 1..5
+  Post.create(title: "Title #{i}", body: "Body #{i}")
+end
+
+// ===== video_summary =====
+フォームビルダーを使ってコメントを追加するためのフォームを作成していきます。
+
+
+    フォームの設置
+    動作確認
+
+// ===== commentBox 1 =====
+補足情報
+今回使ったコマンドについて
+
+
+
+
+2024年3月23日
+
+
+
+
+
+今回の動画で使ったコマンドは以下のとおりです。
+clear
+
+// ===== /app/views/posts/show.html.erb =====
+<h1><%= @post.title %></h1>
+<%= simple_format(@post.body) %>
+
+<h2>Comments</h2>
+<ul>
+  <% @post.comments.each do |comment| %>
+  <li><%= comment.body %></li>
+  <% end %>
+</ul>
+
+<h2>Add a comment</h2>
+<%= form_with model: [@post, @post.comments.build] do |form| %>
+<div>
+  <%= form.text_field :body %>
+</div>
+<div>
+  <%= form.submit %>
+</div>
+<% end %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.delete-form {
+  display: inline;
+}
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+    @posts = Post.all
+  end
+
+  def show
+    @post = Post.find(params[:id])
+  end
+
+  def new
+    @post = Post.new
+  end
+
+  def create
+    @post = Post.new(post_params)
+    if @post.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to root_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to root_path
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
+end
+
+// ===== /app/model/comment.rb =====
+class Comment < ApplicationRecord
+  belongs_to :post
+
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/model/post.rb =====
+class Post < ApplicationRecord
+  has_many :comments
+
+  validates :title, presence: true
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /app/views/posts/_form.html.erb =====
+<%= form_with model: post do |form| %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+    <% if post.errors.full_messages_for(:title).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:title).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+    <% if post.errors.full_messages_for(:body).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:body).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.submit %>
+  </div>
+  
+  <% end %>
+
+// ===== /app/views/posts/edit.html.erb =====
+<h1>Edit post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>
+  Posts
+  <%= link_to "Add new", new_post_path %>
+</h1>
+
+<ul>
+  <% @posts.each do |post| %>
+  <li>
+    <%= link_to post.title, post_path(post) %>
+    <%= link_to "Edit", edit_post_path(post) %>
+    <%= button_to "Delete", 
+      post_path(post), 
+      method: :delete, 
+      form: { class: "delete-form" },
+      data: { turbo_confirm: "Sure?" }
+    %>
+  </li>
+  <% end %>
+</ul>
+
+// ===== /app/views/posts/new.html.erb =====
+<h1>New post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "posts#index"
+  
+  resources :posts do
+    resources :comments, only: [:create, :destroy]
+  end
+end
+
+// ===== /db/migrate/20240228170543_create_posts.rb =====
+class CreatePosts < ActiveRecord::Migration[7.1]
+  def change
+    create_table :posts do |t|
+      t.string :title
+      t.text :body
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/20240320044513_create_comments.rb =====
+class CreateComments < ActiveRecord::Migration[7.1]
+  def change
+    create_table :comments do |t|
+      t.string :body
+      t.references :post, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/seeds.rb =====
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+#   Character.create(name: "Luke", movie: movies.first)
+
+for i in 1..5
+  Post.create(title: "Title #{i}", body: "Body #{i}")
+end
+
+// ===== video_summary =====
+Commentsコントローラーにcreateアクションを実装していきます。
+
+
+    Commentsコントローラーの作成
+    createアクションの定義
+
+// ===== commentBox 1 =====
+補足情報
+今回使ったコマンドについて
+
+
+
+
+2024年3月23日
+
+
+
+
+
+今回の動画で使ったコマンドは以下のとおりです。
+bin/rails routes -c comments
+bin/rails generate controller Comments create --skip-routes
+clear
+
+// ===== /app/controllers/comments_controller.rb =====
+class CommentsController < ApplicationController
+  def create
+    @post = Post.find(params[:post_id])
+  end
+end
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.delete-form {
+  display: inline;
+}
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+    @posts = Post.all
+  end
+
+  def show
+    @post = Post.find(params[:id])
+  end
+
+  def new
+    @post = Post.new
+  end
+
+  def create
+    @post = Post.new(post_params)
+    if @post.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to root_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to root_path
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
+end
+
+// ===== /app/model/comment.rb =====
+class Comment < ApplicationRecord
+  belongs_to :post
+
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/model/post.rb =====
+class Post < ApplicationRecord
+  has_many :comments
+
+  validates :title, presence: true
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /app/views/posts/_form.html.erb =====
+<%= form_with model: post do |form| %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+    <% if post.errors.full_messages_for(:title).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:title).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+    <% if post.errors.full_messages_for(:body).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:body).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.submit %>
+  </div>
+  
+  <% end %>
+
+// ===== /app/views/posts/edit.html.erb =====
+<h1>Edit post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>
+  Posts
+  <%= link_to "Add new", new_post_path %>
+</h1>
+
+<ul>
+  <% @posts.each do |post| %>
+  <li>
+    <%= link_to post.title, post_path(post) %>
+    <%= link_to "Edit", edit_post_path(post) %>
+    <%= button_to "Delete", 
+      post_path(post), 
+      method: :delete, 
+      form: { class: "delete-form" },
+      data: { turbo_confirm: "Sure?" }
+    %>
+  </li>
+  <% end %>
+</ul>
+
+// ===== /app/views/posts/new.html.erb =====
+<h1>New post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/show.html.erb =====
+<h1><%= @post.title %></h1>
+<%= simple_format(@post.body) %>
+
+<h2>Comments</h2>
+<ul>
+  <% @post.comments.each do |comment| %>
+  <li><%= comment.body %></li>
+  <% end %>
+</ul>
+
+<h2>Add a comment</h2>
+<%= form_with model: [@post, @post.comments.build] do |form| %>
+<div>
+  <%= form.text_field :body %>
+</div>
+<div>
+  <%= form.submit %>
+</div>
+<% end %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "posts#index"
+  
+  resources :posts do
+    resources :comments, only: [:create, :destroy]
+  end
+end
+
+// ===== /db/migrate/20240228170543_create_posts.rb =====
+class CreatePosts < ActiveRecord::Migration[7.1]
+  def change
+    create_table :posts do |t|
+      t.string :title
+      t.text :body
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/20240320044513_create_comments.rb =====
+class CreateComments < ActiveRecord::Migration[7.1]
+  def change
+    create_table :comments do |t|
+      t.string :body
+      t.references :post, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/seeds.rb =====
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+#   Character.create(name: "Luke", movie: movies.first)
+
+for i in 1..5
+  Post.create(title: "Title #{i}", body: "Body #{i}")
+end
+
+// ===== video_summary =====
+投稿されたデータをもとにコメントを保存する処理を実装していきます。
+
+
+    createアクションの実装
+    comment_paramsメソッドの定義
+    条件分岐
+
+// ===== /app/controllers/comments_controller.rb =====
+class CommentsController < ApplicationController
+  def create
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.build(comment_params)
+    if @comment.save
+      redirect_to @post
+    else
+      render 'posts/show', status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def comment_params
+    params.require(:comment).permit(:body)
+  end
+end
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.delete-form {
+  display: inline;
+}
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+    @posts = Post.all
+  end
+
+  def show
+    @post = Post.find(params[:id])
+  end
+
+  def new
+    @post = Post.new
+  end
+
+  def create
+    @post = Post.new(post_params)
+    if @post.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to root_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to root_path
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
+end
+
+// ===== /app/model/comment.rb =====
+class Comment < ApplicationRecord
+  belongs_to :post
+
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/model/post.rb =====
+class Post < ApplicationRecord
+  has_many :comments
+
+  validates :title, presence: true
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /app/views/posts/_form.html.erb =====
+<%= form_with model: post do |form| %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+    <% if post.errors.full_messages_for(:title).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:title).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+    <% if post.errors.full_messages_for(:body).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:body).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.submit %>
+  </div>
+  
+  <% end %>
+
+// ===== /app/views/posts/edit.html.erb =====
+<h1>Edit post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>
+  Posts
+  <%= link_to "Add new", new_post_path %>
+</h1>
+
+<ul>
+  <% @posts.each do |post| %>
+  <li>
+    <%= link_to post.title, post_path(post) %>
+    <%= link_to "Edit", edit_post_path(post) %>
+    <%= button_to "Delete", 
+      post_path(post), 
+      method: :delete, 
+      form: { class: "delete-form" },
+      data: { turbo_confirm: "Sure?" }
+    %>
+  </li>
+  <% end %>
+</ul>
+
+// ===== /app/views/posts/new.html.erb =====
+<h1>New post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/show.html.erb =====
+<h1><%= @post.title %></h1>
+<%= simple_format(@post.body) %>
+
+<h2>Comments</h2>
+<ul>
+  <% @post.comments.each do |comment| %>
+  <li><%= comment.body %></li>
+  <% end %>
+</ul>
+
+<h2>Add a comment</h2>
+<%= form_with model: [@post, @post.comments.build] do |form| %>
+<div>
+  <%= form.text_field :body %>
+</div>
+<div>
+  <%= form.submit %>
+</div>
+<% end %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "posts#index"
+  
+  resources :posts do
+    resources :comments, only: [:create, :destroy]
+  end
+end
+
+// ===== /db/migrate/20240228170543_create_posts.rb =====
+class CreatePosts < ActiveRecord::Migration[7.1]
+  def change
+    create_table :posts do |t|
+      t.string :title
+      t.text :body
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/20240320044513_create_comments.rb =====
+class CreateComments < ActiveRecord::Migration[7.1]
+  def change
+    create_table :comments do |t|
+      t.string :body
+      t.references :post, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/seeds.rb =====
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+#   Character.create(name: "Luke", movie: movies.first)
+
+for i in 1..5
+  Post.create(title: "Title #{i}", body: "Body #{i}")
+end
+
+// ===== video_summary =====
+コメントの保存に失敗したときのエラーメッセージをビューに表示していきます。
+
+
+    条件分岐
+    エラーメッセージの表示
+    エラーの修正
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+    @posts = Post.all
+  end
+
+  def show
+    @post = Post.find(params[:id])
+    @comment = @post.comments.build
+  end
+
+  def new
+    @post = Post.new
+    @comment = @post.comments.build
+  end
+
+  def create
+    @post = Post.new(post_params)
+    if @post.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to root_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to root_path
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
+end
+
+// ===== /app/views/posts/show.html.erb =====
+<h1><%= @post.title %></h1>
+<%= simple_format(@post.body) %>
+
+<h2>Comments</h2>
+<ul>
+  <% @post.comments.each do |comment| %>
+  <li><%= comment.body %></li>
+  <% end %>
+</ul>
+
+<h2>Add a comment</h2>
+<%= form_with model: [@post, @comment] do |form| %>
+<div>
+  <%= form.text_field :body %>
+  <% if @comment.errors.any? %>
+  <ul>
+    <% @comment.errors.full_messages_for(:body).each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+  <% end %>
+</div>
+<div>
+  <%= form.submit %>
+</div>
+<% end %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.delete-form {
+  display: inline;
+}
+
+// ===== /app/controllers/comments_controller.rb =====
+class CommentsController < ApplicationController
+  def create
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.build(comment_params)
+    if @comment.save
+      redirect_to @post
+    else
+      render 'posts/show', status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def comment_params
+    params.require(:comment).permit(:body)
+  end
+end
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/model/comment.rb =====
+class Comment < ApplicationRecord
+  belongs_to :post
+
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/model/post.rb =====
+class Post < ApplicationRecord
+  has_many :comments
+
+  validates :title, presence: true
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /app/views/posts/_form.html.erb =====
+<%= form_with model: post do |form| %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+    <% if post.errors.full_messages_for(:title).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:title).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+    <% if post.errors.full_messages_for(:body).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:body).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.submit %>
+  </div>
+  
+  <% end %>
+
+// ===== /app/views/posts/edit.html.erb =====
+<h1>Edit post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>
+  Posts
+  <%= link_to "Add new", new_post_path %>
+</h1>
+
+<ul>
+  <% @posts.each do |post| %>
+  <li>
+    <%= link_to post.title, post_path(post) %>
+    <%= link_to "Edit", edit_post_path(post) %>
+    <%= button_to "Delete", 
+      post_path(post), 
+      method: :delete, 
+      form: { class: "delete-form" },
+      data: { turbo_confirm: "Sure?" }
+    %>
+  </li>
+  <% end %>
+</ul>
+
+// ===== /app/views/posts/new.html.erb =====
+<h1>New post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "posts#index"
+  
+  resources :posts do
+    resources :comments, only: [:create, :destroy]
+  end
+end
+
+// ===== /db/migrate/20240228170543_create_posts.rb =====
+class CreatePosts < ActiveRecord::Migration[7.1]
+  def change
+    create_table :posts do |t|
+      t.string :title
+      t.text :body
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/20240320044513_create_comments.rb =====
+class CreateComments < ActiveRecord::Migration[7.1]
+  def change
+    create_table :comments do |t|
+      t.string :body
+      t.references :post, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/seeds.rb =====
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+#   Character.create(name: "Luke", movie: movies.first)
+
+for i in 1..5
+  Post.create(title: "Title #{i}", body: "Body #{i}")
+end
+
+// ===== video_summary =====
+コメントの一覧に空の要素が表示されてしまう問題を修正していきます。
+
+
+    原因の究明
+    persisted?
+    動作確認
+
+// ===== /app/views/posts/show.html.erb =====
+<h1><%= @post.title %></h1>
+<%= simple_format(@post.body) %>
+
+<h2>Comments</h2>
+<ul>
+  <% @post.comments.each do |comment| %>
+  <% if comment.persisted? %>
+  <li><%= comment.body %></li>
+  <% end %>
+  <% end %>
+</ul>
+
+<h2>Add a comment</h2>
+<%= form_with model: [@post, @comment] do |form| %>
+<div>
+  <%= form.text_field :body %>
+  <% if @comment.errors.any? %>
+  <ul>
+    <% @comment.errors.full_messages_for(:body).each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+  <% end %>
+</div>
+<div>
+  <%= form.submit %>
+</div>
+<% end %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.delete-form {
+  display: inline;
+}
+
+// ===== /app/controllers/comments_controller.rb =====
+class CommentsController < ApplicationController
+  def create
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.build(comment_params)
+    if @comment.save
+      redirect_to @post
+    else
+      render 'posts/show', status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def comment_params
+    params.require(:comment).permit(:body)
+  end
+end
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+    @posts = Post.all
+  end
+
+  def show
+    @post = Post.find(params[:id])
+    @comment = @post.comments.build
+  end
+
+  def new
+    @post = Post.new
+    @comment = @post.comments.build
+  end
+
+  def create
+    @post = Post.new(post_params)
+    if @post.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to root_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to root_path
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
+end
+
+// ===== /app/model/comment.rb =====
+class Comment < ApplicationRecord
+  belongs_to :post
+
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/model/post.rb =====
+class Post < ApplicationRecord
+  has_many :comments
+
+  validates :title, presence: true
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /app/views/posts/_form.html.erb =====
+<%= form_with model: post do |form| %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+    <% if post.errors.full_messages_for(:title).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:title).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+    <% if post.errors.full_messages_for(:body).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:body).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.submit %>
+  </div>
+  
+  <% end %>
+
+// ===== /app/views/posts/edit.html.erb =====
+<h1>Edit post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>
+  Posts
+  <%= link_to "Add new", new_post_path %>
+</h1>
+
+<ul>
+  <% @posts.each do |post| %>
+  <li>
+    <%= link_to post.title, post_path(post) %>
+    <%= link_to "Edit", edit_post_path(post) %>
+    <%= button_to "Delete", 
+      post_path(post), 
+      method: :delete, 
+      form: { class: "delete-form" },
+      data: { turbo_confirm: "Sure?" }
+    %>
+  </li>
+  <% end %>
+</ul>
+
+// ===== /app/views/posts/new.html.erb =====
+<h1>New post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "posts#index"
+  
+  resources :posts do
+    resources :comments, only: [:create, :destroy]
+  end
+end
+
+// ===== /db/migrate/20240228170543_create_posts.rb =====
+class CreatePosts < ActiveRecord::Migration[7.1]
+  def change
+    create_table :posts do |t|
+      t.string :title
+      t.text :body
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/20240320044513_create_comments.rb =====
+class CreateComments < ActiveRecord::Migration[7.1]
+  def change
+    create_table :comments do |t|
+      t.string :body
+      t.references :post, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/seeds.rb =====
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+#   Character.create(name: "Luke", movie: movies.first)
+
+for i in 1..5
+  Post.create(title: "Title #{i}", body: "Body #{i}")
+end
+
+// ===== video_summary =====
+ラウティングを確認したのちに、コメントを削除するためのボタンを設置していきます。
+
+
+    ラウティングの確認
+    削除ボタンの設置
+
+// ===== commentBox 1 =====
+補足情報
+今回使ったコマンドについて
+
+
+
+
+2024年3月23日
+
+
+
+
+
+今回の動画で使ったコマンドは以下のとおりです。
+bin/rails routes -c comments
+clear
+
+// ===== /app/views/posts/show.html.erb =====
+<h1><%= @post.title %></h1>
+<%= simple_format(@post.body) %>
+
+<% if @post.comments.any? %>
+<h2>Comments</h2>
+<ul>
+  <% @post.comments.each do |comment| %>
+  <% if comment.persisted? %>
+  <li>
+    <%= comment.body %>
+    <%= button_to "Delete", 
+      post_comment_path(post_id: @post.id, id: comment.id), 
+      method: :delete,
+      form: { class: "delete-form" }
+    %>
+  </li>
+  <% end %>
+  <% end %>
+</ul>
+<% end %>
+
+<h2>Add a comment</h2>
+<%= form_with model: [@post, @comment] do |form| %>
+<div>
+  <%= form.text_field :body %>
+  <% if @comment.errors.any? %>
+  <ul>
+    <% @comment.errors.full_messages_for(:body).each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+  <% end %>
+</div>
+<div>
+  <%= form.submit %>
+</div>
+<% end %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.delete-form {
+  display: inline;
+}
+
+// ===== /app/controllers/comments_controller.rb =====
+class CommentsController < ApplicationController
+  def create
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.build(comment_params)
+    if @comment.save
+      redirect_to @post
+    else
+      render 'posts/show', status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def comment_params
+    params.require(:comment).permit(:body)
+  end
+end
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+    @posts = Post.all
+  end
+
+  def show
+    @post = Post.find(params[:id])
+    @comment = @post.comments.build
+  end
+
+  def new
+    @post = Post.new
+    @comment = @post.comments.build
+  end
+
+  def create
+    @post = Post.new(post_params)
+    if @post.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to root_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to root_path
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
+end
+
+// ===== /app/model/comment.rb =====
+class Comment < ApplicationRecord
+  belongs_to :post
+
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/model/post.rb =====
+class Post < ApplicationRecord
+  has_many :comments
+
+  validates :title, presence: true
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /app/views/posts/_form.html.erb =====
+<%= form_with model: post do |form| %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+    <% if post.errors.full_messages_for(:title).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:title).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+    <% if post.errors.full_messages_for(:body).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:body).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.submit %>
+  </div>
+  
+  <% end %>
+
+// ===== /app/views/posts/edit.html.erb =====
+<h1>Edit post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>
+  Posts
+  <%= link_to "Add new", new_post_path %>
+</h1>
+
+<ul>
+  <% @posts.each do |post| %>
+  <li>
+    <%= link_to post.title, post_path(post) %>
+    <%= link_to "Edit", edit_post_path(post) %>
+    <%= button_to "Delete", 
+      post_path(post), 
+      method: :delete, 
+      form: { class: "delete-form" },
+      data: { turbo_confirm: "Sure?" }
+    %>
+  </li>
+  <% end %>
+</ul>
+
+// ===== /app/views/posts/new.html.erb =====
+<h1>New post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "posts#index"
+  
+  resources :posts do
+    resources :comments, only: [:create, :destroy]
+  end
+end
+
+// ===== /db/migrate/20240228170543_create_posts.rb =====
+class CreatePosts < ActiveRecord::Migration[7.1]
+  def change
+    create_table :posts do |t|
+      t.string :title
+      t.text :body
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/20240320044513_create_comments.rb =====
+class CreateComments < ActiveRecord::Migration[7.1]
+  def change
+    create_table :comments do |t|
+      t.string :body
+      t.references :post, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/seeds.rb =====
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+#   Character.create(name: "Luke", movie: movies.first)
+
+for i in 1..5
+  Post.create(title: "Title #{i}", body: "Body #{i}")
+end
+
+// ===== video_summary =====
+Commentsコントローラーにdestroyアクションを実装していきます。
+
+
+    destroyアクションの定義
+    動作確認
+
+// ===== /app/controllers/comments_controller.rb =====
+class CommentsController < ApplicationController
+  def create
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.build(comment_params)
+    if @comment.save
+      redirect_to @post
+    else
+      render 'posts/show', status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:post_id])
+    @post.comments.find(params[:id]).destroy
+    redirect_to @post
+  end
+
+  private
+
+  def comment_params
+    params.require(:comment).permit(:body)
+  end
+end
+
+// ===== /app/views/posts/show.html.erb =====
+<h1><%= @post.title %></h1>
+<%= simple_format(@post.body) %>
+
+<% if @post.comments.any? %>
+<h2>Comments</h2>
+<ul>
+  <% @post.comments.each do |comment| %>
+  <% if comment.persisted? %>
+  <li>
+    <%= comment.body %>
+    <%= button_to "Delete", 
+      post_comment_path(post_id: @post.id, id: comment.id), 
+      method: :delete,
+      form: { class: "delete-form" },
+      data: { turbo_confirm: "Sure?" }
+    %>
+  </li>
+  <% end %>
+  <% end %>
+</ul>
+<% end %>
+
+<h2>Add a comment</h2>
+<%= form_with model: [@post, @comment] do |form| %>
+<div>
+  <%= form.text_field :body %>
+  <% if @comment.errors.any? %>
+  <ul>
+    <% @comment.errors.full_messages_for(:body).each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+  <% end %>
+</div>
+<div>
+  <%= form.submit %>
+</div>
+<% end %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.delete-form {
+  display: inline;
+}
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+    @posts = Post.all
+  end
+
+  def show
+    @post = Post.find(params[:id])
+    @comment = @post.comments.build
+  end
+
+  def new
+    @post = Post.new
+    @comment = @post.comments.build
+  end
+
+  def create
+    @post = Post.new(post_params)
+    if @post.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to root_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to root_path
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
+end
+
+// ===== /app/model/comment.rb =====
+class Comment < ApplicationRecord
+  belongs_to :post
+
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/model/post.rb =====
+class Post < ApplicationRecord
+  has_many :comments
+
+  validates :title, presence: true
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /app/views/posts/_form.html.erb =====
+<%= form_with model: post do |form| %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+    <% if post.errors.full_messages_for(:title).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:title).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+    <% if post.errors.full_messages_for(:body).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:body).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.submit %>
+  </div>
+  
+  <% end %>
+
+// ===== /app/views/posts/edit.html.erb =====
+<h1>Edit post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>
+  Posts
+  <%= link_to "Add new", new_post_path %>
+</h1>
+
+<ul>
+  <% @posts.each do |post| %>
+  <li>
+    <%= link_to post.title, post_path(post) %>
+    <%= link_to "Edit", edit_post_path(post) %>
+    <%= button_to "Delete", 
+      post_path(post), 
+      method: :delete, 
+      form: { class: "delete-form" },
+      data: { turbo_confirm: "Sure?" }
+    %>
+  </li>
+  <% end %>
+</ul>
+
+// ===== /app/views/posts/new.html.erb =====
+<h1>New post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "posts#index"
+  
+  resources :posts do
+    resources :comments, only: [:create, :destroy]
+  end
+end
+
+// ===== /db/migrate/20240228170543_create_posts.rb =====
+class CreatePosts < ActiveRecord::Migration[7.1]
+  def change
+    create_table :posts do |t|
+      t.string :title
+      t.text :body
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/20240320044513_create_comments.rb =====
+class CreateComments < ActiveRecord::Migration[7.1]
+  def change
+    create_table :comments do |t|
+      t.string :body
+      t.references :post, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/seeds.rb =====
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+#   Character.create(name: "Luke", movie: movies.first)
+
+for i in 1..5
+  Post.create(title: "Title #{i}", body: "Body #{i}")
+end
+
+// ===== video_summary =====
+コメントがある状態で投稿を削除したときに発生するエラーを修正していきます。
+
+
+    挙動の確認
+    エラーの修正
+
+// ===== /app/model/post.rb =====
+class Post < ApplicationRecord
+  has_many :comments, dependent: :destroy
+
+  validates :title, presence: true
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.delete-form {
+  display: inline;
+}
+
+// ===== /app/controllers/comments_controller.rb =====
+class CommentsController < ApplicationController
+  def create
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.build(comment_params)
+    if @comment.save
+      redirect_to @post
+    else
+      render 'posts/show', status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:post_id])
+    @post.comments.find(params[:id]).destroy
+    redirect_to @post
+  end
+
+  private
+
+  def comment_params
+    params.require(:comment).permit(:body)
+  end
+end
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+    @posts = Post.all
+  end
+
+  def show
+    @post = Post.find(params[:id])
+    @comment = @post.comments.build
+  end
+
+  def new
+    @post = Post.new
+    @comment = @post.comments.build
+  end
+
+  def create
+    @post = Post.new(post_params)
+    if @post.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to root_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to root_path
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
+end
+
+// ===== /app/model/comment.rb =====
+class Comment < ApplicationRecord
+  belongs_to :post
+
+  validates :body, presence: true, length: { minimum: 5 }
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /app/views/posts/_form.html.erb =====
+<%= form_with model: post do |form| %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+    <% if post.errors.full_messages_for(:title).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:title).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+    <% if post.errors.full_messages_for(:body).any? %>
+    <ul>
+      <% post.errors.full_messages_for(:body).each do |message| %>
+      <li><%= message %>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.submit %>
+  </div>
+  
+  <% end %>
+
+// ===== /app/views/posts/edit.html.erb =====
+<h1>Edit post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>
+  Posts
+  <%= link_to "Add new", new_post_path %>
+</h1>
+
+<ul>
+  <% @posts.each do |post| %>
+  <li>
+    <%= link_to post.title, post_path(post) %>
+    <%= link_to "Edit", edit_post_path(post) %>
+    <%= button_to "Delete", 
+      post_path(post), 
+      method: :delete, 
+      form: { class: "delete-form" },
+      data: { turbo_confirm: "Sure?" }
+    %>
+  </li>
+  <% end %>
+</ul>
+
+// ===== /app/views/posts/new.html.erb =====
+<h1>New post</h1>
+
+<%= render "form", post: @post %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /app/views/posts/show.html.erb =====
+<h1><%= @post.title %></h1>
+<%= simple_format(@post.body) %>
+
+<% if @post.comments.any? %>
+<h2>Comments</h2>
+<ul>
+  <% @post.comments.each do |comment| %>
+  <% if comment.persisted? %>
+  <li>
+    <%= comment.body %>
+    <%= button_to "Delete", 
+      post_comment_path(post_id: @post.id, id: comment.id), 
+      method: :delete,
+      form: { class: "delete-form" },
+      data: { turbo_confirm: "Sure?" }
+    %>
+  </li>
+  <% end %>
+  <% end %>
+</ul>
+<% end %>
+
+<h2>Add a comment</h2>
+<%= form_with model: [@post, @comment] do |form| %>
+<div>
+  <%= form.text_field :body %>
+  <% if @comment.errors.any? %>
+  <ul>
+    <% @comment.errors.full_messages_for(:body).each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+  <% end %>
+</div>
+<div>
+  <%= form.submit %>
+</div>
+<% end %>
+
+<p class="back-link"><%= link_to "Back", root_path %></p>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "posts#index"
+  
+  resources :posts do
+    resources :comments, only: [:create, :destroy]
+  end
+end
+
+// ===== /db/migrate/20240228170543_create_posts.rb =====
+class CreatePosts < ActiveRecord::Migration[7.1]
+  def change
+    create_table :posts do |t|
+      t.string :title
+      t.text :body
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/20240320044513_create_comments.rb =====
+class CreateComments < ActiveRecord::Migration[7.1]
+  def change
+    create_table :comments do |t|
+      t.string :body
+      t.references :post, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+
+// ===== /db/migrate/seeds.rb =====
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+#   Character.create(name: "Luke", movie: movies.first)
+
+for i in 1..5
+  Post.create(title: "Title #{i}", body: "Body #{i}")
+end
+
+
+  </code></pre>
+</body>
+</html>

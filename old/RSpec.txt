@@ -1,0 +1,466 @@
+// ===== video_summary =====
+概要を説明したのちに、公式サイト、必要となる知識、レッスンにおける環境などについて説明していきます。
+
+
+    概要
+    公式サイト
+    必要となる知識
+    レッスンにおける環境
+
+// ===== read.me =====
+RSpec
+
+* 概要
+- TDD → BDD
+- テストフレームワーク
+- Test Driven Development
+- Behavior Driven Development
+
+* 公式サイト
+
+* 知識
+- Ruby
+- Unixコマンド
+- ローカル開発環境（Vagrant）
+
+* 環境
+- ローカル開発環境（Vagrant）
+
+
+// ===== video_summary =====
+TDD/BDDの開発サイクルで使う3つのステップについて解説していきます。
+
+
+    TDD/BDDの3つのステップ
+
+// ===== read.me =====
+TDD/BDD 開発サイクル
+
+1. 失敗するテストを書く（Red）
+
+2. 最小限のコードを書いてテストをパスさせる（Green）
+
+3. リファクタリング
+
+
+// ===== video_summary =====
+rspec --initを使いつつ、必要なファイルを用意していきます。
+
+
+    rspec --init
+    必要なファイルの準備
+
+// ===== /lib/calc.rb =====
+
+
+// ===== /spec/calc_spec.rb =====
+
+
+
+
+// ===== video_summary =====
+まずは1番目のステップである、失敗するテストを書いていきます。
+
+
+    失敗するテスト
+    実行結果の見方
+
+// ===== /spec/calc_spec.rb =====
+RSpec.describe "A calc" do 
+  it "given 2 and 3, returns 5" do
+    calc = Calc.new
+    expect(calc.add(2, 3)).to eq(5)
+  end
+end
+
+// ===== /lib/calc.rb =====
+
+
+
+// ===== video_summary =====
+テストをパスするための仮実装を行っていきます。
+
+
+    仮実装
+    テスト
+
+// ===== /lib/calc.rb =====
+class Calc
+  def add(a, b)
+    5 # 仮実装
+  end
+end
+
+// ===== /spec/calc_spec.rb =====
+require 'calc'
+
+RSpec.describe "A calc" do 
+  it "given 2 and 3, returns 5" do
+    calc = Calc.new
+    expect(calc.add(2, 3)).to eq(5)
+  end
+end
+
+
+
+
+// ===== video_summary =====
+別のテストを追加しつつ、さらに開発を進めていきます。
+
+
+    三角測量
+    明らかな実装
+    テスト
+
+// ===== commentBox 1 =====
+補足情報
+:context と :example は :all と :each のエイリアス
+
+
+
+
+2014年6月2日
+
+
+
+
+
+before に与えるオプションの :context や :example はそれぞれ :all と :each のエイリアスであり、RSpec 2 以前ではそれらが使用されています。
+
+// ===== /lib/calc.rb =====
+class Calc
+  def add(a, b)
+    # 5 # 仮実装
+    a + b # 明らかな実装
+  end
+end
+
+// ===== /spec/calc_spec.rb =====
+require 'calc'
+
+RSpec.describe "A calc" do 
+  before do 
+    @calc = Calc.new
+  end
+  it "given 2 and 3, returns 5" do
+    expect(@calc.add(2, 3)).to eq(5)
+  end
+  # 三角測量
+  it "given 5 and 8, returns 13" do
+    expect(@calc.add(5, 8)).to eq(13)
+  end
+end
+
+
+
+
+// ===== video_summary =====
+describe、contextの使い方について説明していきます。
+
+
+    describe
+    context
+    -fdオプション
+
+// ===== /spec/calc_spec.rb =====
+require 'calc'
+
+RSpec.describe Calc do
+  context "when normal mode" do
+    it "given 2 and 3, returns 5" do
+      calc = Calc.new
+      expect(calc.add(2, 3)).to eq(5)
+    end
+  end
+  context "when graph mode" do
+    it "draws grapht" do
+    end
+  end
+end
+
+// ===== /lib/calc.rb =====
+class Calc
+  def add(a, b)
+    # 5 # 仮実装
+    a + b # 明らかな実装
+  end
+end
+
+
+
+
+// ===== video_summary =====
+exampleの書き方について詳しく説明していきます。
+
+
+    it/example/specify
+    文字列の省略
+    ブロックの記法
+    pending example
+
+// ===== /spec/calc_spec.rb =====
+require 'calc'
+
+RSpec.describe Calc do 
+  # example / specify
+  it {
+    calc = Calc.new
+    expect(calc.add(2, 3)).to eq(5)
+  }
+  it "draws graph" # pending
+end
+
+// ===== /lib/calc.rb =====
+class Calc
+  def add(a, b)
+    # 5 # 仮実装
+    a + b # 明らかな実装
+  end
+end
+
+
+
+
+
+// ===== video_summary =====
+期待する振舞いを記述する際に使えるmatcherについて見ていきます。
+
+
+    matcher
+    公式サイトの紹介
+
+// ===== /spec/calc_spec.rb =====
+require 'calc'
+
+RSpec.describe Calc do
+  it {
+    calc = Calc.new
+    expect(calc.add(2, 3)).to eq(5) # matcher
+    expect(calc.add(2, 3)).not_to eq(5)
+    expect(calc.add(2, 3)).to be true
+    expect(calc.add(2, 3)).to be false
+    expect(calc.add(2, 3)).to be > 10
+    expect(calc.add(2, 3)).to be_between(1, 10).inclusive
+    expect(calc).to respond_to(:add)
+    expect(calc.add(2, 3).integer?).to be true #integer? empty?
+    expect(calc.add(2, 3)).to be_integer
+  }
+end
+
+// ===== /lib/calc.rb =====
+class Calc
+  def add(a, b)
+    # 5 # 仮実装
+    a + b # 明らかな実装
+  end
+end
+
+
+
+
+
+// ===== video_summary =====
+テストの主対象を指定するためのSubjectについて、その使い方を見ていきます。
+
+
+    subject
+    名前付きsubject
+
+// ===== /spec/calc_spec.rb =====
+require 'calc'
+
+RSpec.describe Calc do 
+  # before { @calc = Calc.new }
+  subject(:calc) { Calc.new }
+  it { 
+    # calc = Calc.new
+    expect(calc.add(2, 3)).to eq(5)
+  }
+end
+
+// ===== /lib/calc.rb =====
+class Calc
+  def add(a, b)
+    # 5 # 仮実装
+    a + b # 明らかな実装
+  end
+end
+
+
+
+
+
+// ===== video_summary =====
+変数のように使えるletについて、その使い方を見ていきます。
+
+
+    let
+    動作確認
+
+// ===== /lib/calc.rb =====
+class Calc
+  def add(a, b)
+    a + b
+  end
+  def price(x, tax) 
+    x * (1 + tax)
+  end
+end
+
+// ===== /spec/calc_spec.rb =====
+require 'calc'
+
+RSpec.describe Calc do 
+  subject(:calc) { Calc.new }
+  # let
+  context "tax 5%" do 
+    let(:tax) { 0.05 }
+    it { expect(calc.price(100, tax)).to eq(105)}
+  end
+  context "tax 8%" do 
+    let(:tax) { 0.08 }
+    it { expect(calc.price(100, tax)).to eq(108)}
+  end
+end
+
+
+
+
+// ===== video_summary =====
+letについて気をつけるべき点を説明したのちに、let!との違いについても触れていきます。
+
+
+    letの注意点
+    let!との違い
+
+// ===== /lib/calc.rb =====
+class Calc
+  attr_accessor :tax
+  def initialize
+    @tax = 0
+  end
+  def price(x) 
+    x * (1 + tax)
+  end
+end
+
+// ===== /spec/calc_spec.rb =====
+require 'calc'
+
+RSpec.describe Calc do 
+  subject(:calc) { Calc.new }
+  # let
+  # 1. exampleごとに結果がキャッシュされる
+  # 2. 遅延評価
+  let!(:tax) { 
+    calc.tax = 0.05
+  }
+  it { expect(tax).to eq(0.05) }
+  it { expect(calc.price(100)).to eq(105) }
+end
+
+
+
+
+// ===== video_summary =====
+test double、method stubの使い方について説明していきます。
+
+
+    test double
+    method stub
+
+// ===== /lib/calc.rb =====
+class Calc
+
+  def add(a, b, name)
+    (a + b).to_s + ' by ' + name
+  end
+
+end
+
+// ===== /spec/calc_spec.rb =====
+require 'calc'
+
+# test double: 代役オブジェクト
+# method stub
+
+RSpec.describe Calc do 
+  it { 
+    user = double('user')
+    allow(user).to receive(:name).and_return('taguchi')
+    # user.name -> taguchi
+    calc = Calc.new
+    expect(calc.add(5, 2, user.name)).to eq('7 by taguchi')
+  }
+end
+
+
+
+
+// ===== video_summary =====
+message expectationの使い方について説明していきます。
+
+
+    message expectation
+
+// ===== /lib/calc.rb =====
+class Calc
+
+  def initialize(logger)
+    @logger = logger
+  end
+
+  def add(a, b)
+    @logger.log
+    a + b
+  end
+
+end
+
+// ===== /spec/calc_spec.rb =====
+require 'calc'
+
+# test double: 代役オブジェクト
+# message expectation: 呼ばれなかったらfail
+
+RSpec.describe Calc do 
+  it { 
+    logger = double('logger')
+    expect(logger).to receive(:log)
+    calc = Calc.new(logger)
+    expect(calc.add(5, 2)).to eq(7)
+  }
+end
+
+
+
+
+// ===== video_summary =====
+examplesを部品化して共有化できる仕組みについて学びます。
+
+
+    shared_examples
+
+// ===== /spec/calc_spec.rb =====
+require 'calc'
+
+RSpec.shared_examples "basic functions" do 
+  it "can add"
+  it "can subtrace"
+  it "can multiply"
+  it "can divide"
+end
+
+RSpec.describe Calc do 
+  context "normal mode" do 
+    include_examples "basic functions"
+  end
+  context "expert mode" do 
+    include_examples "basic functions"
+    it "can draw graph"
+  end
+end
+
+
+
+

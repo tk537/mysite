@@ -1,0 +1,538 @@
+// ===== video_summary =====
+jqの概要について触れたあとに、ブラウザ実行環境について説明していきます。
+
+
+    概要
+    ブラウザ実行環境の使い方
+
+// ===== data.json =====
+[
+  {
+      "id": 32,
+      "name": "taguchi",
+      "scores": [52, 33, 84],
+      "skills": [
+          {"area": "html", "level": 4},
+          {"area": "css", "level": 5},
+          {"area": "javascript", "level": 3}
+      ]
+  },
+  {
+      "id": 34,
+      "name": "hayashi",
+      "scores": [80, 32, 38],
+      "skills": [
+          {"area": "html", "level": 4},
+          {"area": "css", "level": 4},
+          {"area": "javascript", "level": 4},
+          {"area": "php", "level": 2}
+      ]
+  },
+  {
+      "id": 42,
+      "name": "kikuchi",
+      "scores": [91, 42, 33],
+      "skills": [
+          {"area": "html", "level": 4},
+          {"area": "css", "level": 5}
+      ]
+  },
+  {
+      "id": 48,
+      "name": "kobayashi",
+      "scores": [95, 22],
+      "skills": [
+          {"area": "html", "level": 3},
+          {"area": "css", "level": 4},
+          {"area": "javascript", "level": 3}
+      ]
+  },
+  {
+      "id": 48,
+      "name": "kojima",
+      "scores": [24, 32, 22, 25],
+      "skills": [
+          {"area": "html", "level": 3},
+          {"area": "css", "level": 2},
+          {"area": "php", "level": 5}
+      ]
+  }
+]
+
+// ===== main.jq =====
+.[0].name
+
+// ===== unknown =====
+¶
+
+// ===== unknown =====
+
+
+
+// ===== video_summary =====
+シンプルな処理を例に、jqがどう動作するかのイメージをつかんでいきます。
+
+
+    入力、フィルター、出力
+    動作イメージ
+
+// ===== data.json =====
+
+
+// ===== main.jq =====
+
+
+// ===== unknown =====
+¶
+
+// ===== unknown =====
+
+
+
+
+// ===== video_summary =====
+JSONデータの配列を処理するためのフィルタについて見ていきます。
+
+
+    .
+    .[]
+    .[m, n]
+    .[m:n]
+
+// ===== data.json =====
+[1, 21, 3, 8, 20, 3, 21]
+
+// ===== main.jq =====
+# .[]
+
+# .[0, 3]
+
+# [ .[0, 3] ]
+
+.[1:5]
+
+// ===== unknown =====
+¶
+
+// ===== unknown =====
+
+
+
+// ===== video_summary =====
+パイプを使って複数のフィルタをつなげて処理する方法について見ていきます。
+
+
+    |
+    select()
+    文字列への埋め込み
+
+// ===== main.jq =====
+# .[] | . + 100
+
+# .[] | . >= 10
+
+# .[] | select(. >= 10)
+
+.[] | "Value: \(.)"
+
+// ===== data.json =====
+[1, 21, 3, 8, 20, 3, 21]
+
+// ===== unknown =====
+¶
+
+// ===== unknown =====
+
+
+
+
+
+
+// ===== video_summary =====
+jqが用意している関数の使い方について、例を出しながら見ていきます。
+
+
+    map()
+    add
+    length
+    @csv
+
+// ===== main.jq =====
+# [ .[] | . * 2 ]
+
+# . | map(. * 2)
+
+# add 
+
+# length
+
+# add / length
+
+# sort max min unique reverse
+
+@csv
+
+// ===== data.json =====
+[1, 21, 3, 8, 20, 3, 21]
+
+// ===== unknown =====
+¶
+
+// ===== unknown =====
+
+
+
+
+
+// ===== video_summary =====
+キーと値のペアを持つオブジェクトの処理方法について見ていきます。
+
+
+    .[]
+    .["prop"]
+    .prop
+    .prop1, .prop2
+    オブジェクトの生成
+    keys
+    has()
+
+// ===== data.json =====
+{
+    "id": 32,
+    "name": "taguchi",
+    "scores": 88
+}
+
+// ===== main.jq =====
+# .[]
+
+# .["name"]
+# .name
+
+# .id, .name
+
+# { myid: .id, name, title: "Engineer" }
+
+# keys
+
+has("name")
+
+// ===== unknown =====
+¶
+
+// ===== unknown =====
+
+
+
+
+
+// ===== video_summary =====
+比較的大きなデータを例に出しながら、必要となる値を抽出する方法について見ていきます。
+
+
+    |
+    round
+
+// ===== data.json =====
+[
+  {
+      "id": 32,
+      "name": "taguchi",
+      "scores": [52, 33, 84],
+      "skills": [
+          {"area": "html", "level": 4},
+          {"area": "css", "level": 5},
+          {"area": "javascript", "level": 3}
+      ]
+  },
+  {
+      "id": 34,
+      "name": "hayashi",
+      "scores": [80, 32, 38],
+      "skills": [
+          {"area": "html", "level": 4},
+          {"area": "css", "level": 4},
+          {"area": "javascript", "level": 4},
+          {"area": "php", "level": 2}
+      ]
+  },
+  {
+      "id": 42,
+      "name": "kikuchi",
+      "scores": [91, 42, 33],
+      "skills": [
+          {"area": "html", "level": 4},
+          {"area": "css", "level": 5}
+      ]
+  },
+  {
+      "id": 48,
+      "name": "kobayashi",
+      "scores": [95, 22],
+      "skills": [
+          {"area": "html", "level": 3},
+          {"area": "css", "level": 4},
+          {"area": "javascript", "level": 3}
+      ]
+  },
+  {
+      "id": 48,
+      "name": "kojima",
+      "scores": [24, 32, 22, 25],
+      "skills": [
+          {"area": "html", "level": 3},
+          {"area": "css", "level": 2},
+          {"area": "php", "level": 5}
+      ]
+  }
+]
+
+// ===== main.jq =====
+# length
+
+.[] | .scores | add / length | round
+
+// ===== unknown =====
+¶
+
+// ===== unknown =====
+
+
+
+
+
+// ===== video_summary =====
+前回抽出した値を他のプロパティとあわせて抽出する方法について見ていきます。
+
+
+    オブジェクトの生成
+    sort_by
+    reverse
+    map()
+
+// ===== main.jq =====
+# .[] | .scores | add / length | round
+
+# .[] | { name, avg: (.scores | add / length | round) }
+
+# .[] | { name, avg: (.scores | add / length | round) } | select(.avg >= 50)
+
+# [ .[] | { name, avg: (.scores | add / length | round) } | select(.avg >= 50) ] | sort_by(.avg) | reverse
+
+map({ name, avg: (.scores | add / length | round) } | select(.avg >= 50)) | sort_by(.avg) | reverse
+
+// ===== data.json =====
+[
+  {
+      "id": 32,
+      "name": "taguchi",
+      "scores": [52, 33, 84],
+      "skills": [
+          {"area": "html", "level": 4},
+          {"area": "css", "level": 5},
+          {"area": "javascript", "level": 3}
+      ]
+  },
+  {
+      "id": 34,
+      "name": "hayashi",
+      "scores": [80, 32, 38],
+      "skills": [
+          {"area": "html", "level": 4},
+          {"area": "css", "level": 4},
+          {"area": "javascript", "level": 4},
+          {"area": "php", "level": 2}
+      ]
+  },
+  {
+      "id": 42,
+      "name": "kikuchi",
+      "scores": [91, 42, 33],
+      "skills": [
+          {"area": "html", "level": 4},
+          {"area": "css", "level": 5}
+      ]
+  },
+  {
+      "id": 48,
+      "name": "kobayashi",
+      "scores": [95, 22],
+      "skills": [
+          {"area": "html", "level": 3},
+          {"area": "css", "level": 4},
+          {"area": "javascript", "level": 3}
+      ]
+  },
+  {
+      "id": 48,
+      "name": "kojima",
+      "scores": [24, 32, 22, 25],
+      "skills": [
+          {"area": "html", "level": 3},
+          {"area": "css", "level": 2},
+          {"area": "php", "level": 5}
+      ]
+  }
+]
+
+// ===== unknown =====
+.[]·|·.scores·|·add·/·length·|·round¬
+¶
+
+// ===== unknown =====
+
+
+
+
+
+// ===== video_summary =====
+オブジェクトと配列が組み合わさったJSONデータから、必要となる情報を抽出していきます。
+
+
+    .prop[]
+    オブジェクトの生成
+
+// ===== main.jq =====
+# .[] | .skills
+
+# .[] | .skills[]
+
+# .[] | .skills[] | .level
+
+# .[] | [ .skills[] | .level ]
+
+# .[] | [ .skills[] | .level ] | add / length | round
+
+.[] | { name, skill: ([ .skills[] | .level ] | add / length | round) }
+
+// ===== data.json =====
+[
+  {
+      "id": 32,
+      "name": "taguchi",
+      "scores": [52, 33, 84],
+      "skills": [
+          {"area": "html", "level": 4},
+          {"area": "css", "level": 5},
+          {"area": "javascript", "level": 3}
+      ]
+  },
+  {
+      "id": 34,
+      "name": "hayashi",
+      "scores": [80, 32, 38],
+      "skills": [
+          {"area": "html", "level": 4},
+          {"area": "css", "level": 4},
+          {"area": "javascript", "level": 4},
+          {"area": "php", "level": 2}
+      ]
+  },
+  {
+      "id": 42,
+      "name": "kikuchi",
+      "scores": [91, 42, 33],
+      "skills": [
+          {"area": "html", "level": 4},
+          {"area": "css", "level": 5}
+      ]
+  },
+  {
+      "id": 48,
+      "name": "kobayashi",
+      "scores": [95, 22],
+      "skills": [
+          {"area": "html", "level": 3},
+          {"area": "css", "level": 4},
+          {"area": "javascript", "level": 3}
+      ]
+  },
+  {
+      "id": 48,
+      "name": "kojima",
+      "scores": [24, 32, 22, 25],
+      "skills": [
+          {"area": "html", "level": 3},
+          {"area": "css", "level": 2},
+          {"area": "php", "level": 5}
+      ]
+  }
+]
+
+// ===== unknown =====
+¶
+
+// ===== unknown =====
+
+
+
+
+
+// ===== video_summary =====
+selectを使って特定のスキルを持つメンバーを抽出してみます。
+
+
+    select()
+    オブジェクトの生成
+
+// ===== main.jq =====
+.[] | { name, js: (.skills[] | select(.area == "javascript") | .level) }
+
+// ===== data.json =====
+[
+  {
+      "id": 32,
+      "name": "taguchi",
+      "scores": [52, 33, 84],
+      "skills": [
+          {"area": "html", "level": 4},
+          {"area": "css", "level": 5},
+          {"area": "javascript", "level": 3}
+      ]
+  },
+  {
+      "id": 34,
+      "name": "hayashi",
+      "scores": [80, 32, 38],
+      "skills": [
+          {"area": "html", "level": 4},
+          {"area": "css", "level": 4},
+          {"area": "javascript", "level": 4},
+          {"area": "php", "level": 2}
+      ]
+  },
+  {
+      "id": 42,
+      "name": "kikuchi",
+      "scores": [91, 42, 33],
+      "skills": [
+          {"area": "html", "level": 4},
+          {"area": "css", "level": 5}
+      ]
+  },
+  {
+      "id": 48,
+      "name": "kobayashi",
+      "scores": [95, 22],
+      "skills": [
+          {"area": "html", "level": 3},
+          {"area": "css", "level": 4},
+          {"area": "javascript", "level": 3}
+      ]
+  },
+  {
+      "id": 48,
+      "name": "kojima",
+      "scores": [24, 32, 22, 25],
+      "skills": [
+          {"area": "html", "level": 3},
+          {"area": "css", "level": 2},
+          {"area": "php", "level": 5}
+      ]
+  }
+]
+
+// ===== unknown =====
+¶
+
+// ===== unknown =====

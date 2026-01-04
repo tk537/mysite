@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre><code>
+    
+Expressの概要を説明したあとに公式サイト、必要となる知識、レッスンにおける環境について解説していきます。
+
+概要
+公式サイト
+必要となる知識
+レッスンにおける環境
+Expressのインストール
+補足情報 Express 4 では多くの変更点があります
+2015年6月22日
+レッスンでは Express 3.4.8 時点での使い方を解説していますが、Express 4 から変わっている箇所が多くあります。
+
+#10 までのレッスンでは変更点を補足情報に記載しています。#11 以降は応用編となりますので、それまでの情報及び以下の公式サイトの情報、ネット上の情報などを参考にご自身で解決してみてください。
+
+Migrating to Express 4
+http://expressjs.com/guide/migrating-4.html
+補足情報 Express 4 での変更点
+2015年6月22日
+Express 4 を利用する場合、「npm install -g express」は「npm install express-generator -g」に変更されています。
+
+また、すでに「sudo npm install -g express」でグローバル環境に Express 3 をインストールしている場合は「sudo npm uninstall -g express」で Express 3 をアンインストールしておいてください。
+
+参考: http://expressjs.com/guide/migrating-4.html#app-gen
+
+
+Express
+
+* 概要
+- Node.js用のWebアプリケーションフレームワーク
+
+* 公式サイト
+
+* 知識
+- Node.js
+- Unixコマンド
+
+* 環境
+
+
+
+
+
+expressコマンドを使ってアプリケーションのひな形を作成したのち、動作確認をしていきます。
+
+expressコマンドの使い方
+ひな形の作成
+アプリケーションの起動
+myappフォルダの作成
+補足情報 Express 4 での変更点
+2015年6月22日
+Express 4 を利用する場合、ジェネレータで生成されたアプリケーションを起動するには「node app」ではなく「npm start」を使用します。
+
+参考: http://expressjs.com/guide/migrating-4.html#app-gen
+
+
+
+
+
+Expressのアプリケーションをゼロから作っていく方法について学びます。
+
+expressのインストール
+app.jsの作成
+動作確認
+補足情報 Express 4.x系での記述について
+2015年5月2日
+Express 4.x系では以下のコードは不要になりますのでご注意ください（ユーザーの方よりご指摘いただきました。ありがとうございます！）。
+app.use(app.router);
+
+app.js
+var express = require('express'),
+    app = express();
+
+app.use(app.router);
+
+app.get('/', function(req, res) {
+    res.send('hello world');
+});
+app.get('/about', function(req, res) {
+    res.send('about this page!');
+});
+
+app.listen(3000);
+console.log("server starting...");
+
+
+
+
+
+
+
+
+URLのパラメータを取得するためのプレースホルダーについて学びます。
+
+プレースホルダーの利用
+req.params
+?
+正規表現の利用
+
+app.js
+var express = require('express'),
+    app = express();
+
+app.use(app.router);
+
+app.get('/users/:name?', function(req, res) {
+    if (req.params.name) {
+        res.send('hello, ' + req.params.name);
+    } else {
+        res.send('hello, nobody!');
+    }
+});
+app.get('/items/:id([0-9]+)', function(req, res) {
+    res.send('item no: ' + req.params.id);
+});
+
+app.listen(3000);
+console.log("server starting...");
+
+
+
+
+
+
+ファイルを読み込んで表示させていく方法について学びます。
+
+res.sendfile
+express.static
+
+app.js
+var express = require('express'),
+    app = express();
+
+app.use(app.router);
+app.use(express.static(__dirname + '/public'));
+
+app.get('/hello.txt', function(req, res) {
+    res.sendfile(__dirname + '/public/hello.txt');
+});
+
+app.listen(3000);
+console.log("server starting...");
+
+
+
+
+middlewareを使う際に重要となるポイントについて説明していきます。
+
+middlewareについて
+補足情報 Express 4 での変更点
+2015年6月22日
+#03 の補足情報にも記載していますが、「app.router」は廃止されています。
+
+app.js
+var express = require('express'),
+    app = express();
+
+// middleware
+app.use(app.router);
+app.use(express.static(__dirname + '/public'));
+
+app.get('/hello.txt', function(req, res) {
+    res.send('hello from app.js');
+});
+
+app.listen(3000);
+console.log("server starting...");
+
+
+
+
+
+
+middlewareはあらかじめ用意されたものを使うことも、自分で作ることもできます。まだサーバーの再起動を不要にするnodemonも導入していきます。
+
+express.logger()
+middlewareの自作
+nodemonの導入
+補足情報 「nodemon app」ではなく「nodemon app.js」
+2015年6月22日
+レッスンでは「nodemon app.js」の「.js」は省略できると説明していますが、最新版の nodemon では省略できません。
+補足情報 Express 4 での変更点
+2015年6月22日
+Express 4 を利用する場合、express.logger は morgan という別パッケージを利用するように変更されています。
+npm install morgan
+
+で morgan をインストールしたら app.js にて、
+var logger = require('morgan');
+
+として morgan をロードします。あとは「app.use(express.logger('dev'));」を「app.use(logger('dev'));」に変更してください。
+
+参考: http://expressjs.com/guide/migrating-4.html#example-migration
+
+app.js
+var express = require('express'),
+    app = express();
+
+// middleware
+app.use(express.logger('dev'));
+app.use(app.router);
+app.use(express.static(__dirname + '/public'));
+app.use(function(req, res, next) {
+    console.log('my custom middleware !');
+    next();
+});
+
+app.get('/hello.txt', function(req, res) {
+    res.send('hello from app.js');
+});
+
+app.listen(3000);
+console.log("server starting...");
+
+
+
+
+ejsテンプレートを使って値を埋め込んでいく方法について学びます。
+
+ejsテンプレートの導入
+値の埋め込み
+
+
+app.js
+var express = require('express'),
+    app = express();
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+// middleware
+app.use(express.logger('dev'));
+app.use(app.router);
+app.use(express.static(__dirname + '/public'));
+
+app.get('/', function(req, res) {
+    res.render('index', {title: 'title'});
+});
+
+app.listen(3000);
+console.log("server starting...");
+
+/views/index.ejs
+<html>
+<h1><%= title %></h1>
+hello from index.ejs!
+</html>
+
+
+
+
+パラメータに関する共通処理を行うことができるapp.paramを使ってみます。
+
+app.param
+動作確認
+
+
+app.js
+var express = require('express'),
+    app = express();
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+// middleware
+app.use(express.logger('dev'));
+app.use(app.router);
+app.use(express.static(__dirname + '/public'));
+
+app.param('id', function(req, res, next, id) {
+    var users = ['taguchi', 'fkoji', 'dotinstall'];
+    req.params.name = users[id];
+    next();
+});
+app.get('/hello/:id', function(req, res) {
+    res.send('hello ' + req.params.name);
+});
+app.get('/bye/:id', function(req, res) {
+    res.send('bye ' + req.params.name);
+});
+
+app.listen(3000);
+console.log("server starting...");
+
+/views/index.ejs
+<html>
+<h1><%= title %></h1>
+hello from index.ejs!
+</html>
+
+
+
+
+
+フォームからPOSTされたデータを受け取る方法について見ていきます。
+
+app.post
+middlewareの導入
+req.body
+動作確認
+補足情報 express.json, express.urlencoded は body-parser を使う
+2015年6月22日
+express.json, express.urlencoded は body-parser という別パッケージを使うように変更されています。
+npm install body-parser
+
+で body-parser をインストールしたら app.js にて、
+var bodyParser = require('body-parser');
+
+として body-parser をロードします。あとは、
+
+・「app.use(express.json());」を「app.use(bodyParser.json());」に変更
+・「app.use(express.urlencoded());」を「app.use(bodyParser.urlencoded({extended: true}));」に変更
+
+とすればOKです。
+
+なお、urlencoded に与える extended パラメータの値については公式サイト等を参照してください。
+
+参考: https://www.npmjs.com/package/body-parser
+
+app.js
+var express = require('express'),
+    app = express();
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+// middleware
+app.use(express.json());
+app.use(express.urlencoded());
+
+app.use(express.logger('dev'));
+app.use(app.router);
+app.use(express.static(__dirname + '/public'));
+
+app.get('/new', function(req, res) {
+    res.render('new');
+});
+app.post('/create', function(req, res) {
+    res.send(req.body.name);
+});
+
+app.listen(3000);
+console.log("server starting...");
+
+/views/index.ejs
+<html>
+<h1><%= title %></h1>
+hello from index.ejs!
+</html>
+
+/views/new.ejs
+<html>
+<form method="post" action="/create">
+<input type="text" name="name">
+<input type="submit" value="create!">
+</form>
+</html>
+
+
+今まで習ったことを使ってBlogアプリを作り始めます。
+
+フォルダの作成
+express/ejsのインストール
+app.js
+フォルダ/ファイルの作成
+
+app.js
+var express = require('express'),
+    app = express(),
+    post = require('./routes/post');
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+// middleware
+app.use(express.json());
+app.use(express.urlencoded());
+
+app.use(express.logger('dev'));
+app.use(app.router);
+
+// routing
+
+app.get('/new', function(req, res) {
+    res.render('new');
+});
+
+app.listen(3000);
+console.log("server starting...");
+
+
+
+
+今回作るアプリのルーティングを確認していきます。
+
+ルーティングの確認
+express.methodOverride()
+
+
+app.js
+var express = require('express'),
+    app = express(),
+    post = require('./routes/post');
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+// middleware
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.methodOverride());
+
+app.use(express.logger('dev'));
+app.use(app.router);
+
+// routing
+
+app.get('/', post.index);
+app.get('/posts/new', post.new);
+app.post('/posts/create', post.create);
+app.get('/posts/:id', post.show);
+app.get('/posts/:id/edit', post.edit);
+app.put('/posts/:id', post.update);
+app.delete('/posts/:id', post.destroy);
+
+app.listen(3000);
+console.log("server starting...");
+
+
+
+
+まずは記事の一覧を表示するための実装を進めていきます。
+
+app.js
+post.js
+index.ejs
+
+
+/routes/post.js
+var posts = [
+    {title: 'title0', body: 'body0'},
+    {title: 'title1', body: 'body1'},
+    {title: 'title2', body: 'body2'}
+];
+
+exports.index = function(req, res) {
+    res.render('posts/index');
+};
+
+app.js
+var express = require('express'),
+    app = express(),
+    post = require('./routes/post');
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+// middleware
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.methodOverride());
+
+app.use(express.logger('dev'));
+app.use(app.router);
+
+// routing
+
+app.get('/', post.index);
+/*
+app.get('/posts/new', post.new);
+app.post('/posts/create', post.create);
+app.get('/posts/:id', post.show);
+app.get('/posts/:id/edit', post.edit);
+app.put('/posts/:id', post.update);
+app.delete('/posts/:id', post.destroy);
+*/
+
+app.listen(3000);
+console.log("server starting...");
+
+
+/views/index.ejs
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Blog</title>
+</head>
+<body>
+</body>
+</html>
+
+
+
+記事の一覧をejsテンプレートを使って表示していきます。
+
+index.ejs
+動作確認
+
+app.js
+var express = require('express'),
+    app = express(),
+    post = require('./routes/post');
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+// middleware
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.methodOverride());
+
+app.use(express.logger('dev'));
+app.use(app.router);
+
+// routing
+
+app.get('/', post.index);
+app.get('/posts/:id', post.show);
+/*
+app.get('/posts/new', post.new);
+app.post('/posts/create', post.create);
+app.get('/posts/:id/edit', post.edit);
+app.put('/posts/:id', post.update);
+app.delete('/posts/:id', post.destroy);
+*/
+
+app.listen(3000);
+console.log("server starting...");
+
+/views/index.ejs
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Blog</title>
+</head>
+<body>
+<h1>Posts</h1>
+<ul>
+<% for (var i=0; i<posts.length; i++) { %>
+<li>
+    <a href="/posts/<%= i %>"><%= posts[i].title %></a>
+</li>
+<% } %>
+</ul>
+</body>
+</html>
+
+/views/new.ejs
+/routes/post.js
+var posts = [
+    {title: 'title0', body: 'body0'},
+    {title: 'title1', body: 'body1'},
+    {title: 'title2', body: 'body2'}
+];
+
+exports.index = function(req, res) {
+    res.render('posts/index', {posts: posts});
+};
+exports.show = function(req, res) {
+    res.render('posts/show', {post: posts[req.params.id]});
+};
+
+
+
+show.ejsを使って記事の詳細を表示していきます。またテンプレートを部品化する方法についても学びます。
+
+テンプレートの部品化（include）
+show.ejs
+動作確認
+
+/views/footer.ejs 
+</body>
+</html>
+
+/views/header.ejs
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Blog</title>
+</head>
+<body>
+
+/views/posts/show.ejs
+<% include ../header %>
+<h1><%= post.title %></h1>
+<p><%= post.body %></p>
+<p><a href="/">Go Back</a></p>
+<% include ../footer %>
+
+app.js
+var express = require('express'),
+    app = express(),
+    post = require('./routes/post');
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+// middleware
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.methodOverride());
+
+app.use(express.logger('dev'));
+app.use(app.router);
+
+// routing
+
+app.get('/', post.index);
+app.get('/posts/:id', post.show);
+/*
+app.get('/posts/new', post.new);
+app.post('/posts/create', post.create);
+app.get('/posts/:id/edit', post.edit);
+app.put('/posts/:id', post.update);
+app.delete('/posts/:id', post.destroy);
+*/
+
+app.listen(3000);
+console.log("server starting...");
+
+/views/index.ejs
+
+/views/posts/index.ejs
+<% include ../header %>
+<h1>Posts</h1>
+<ul>
+<% for (var i=0; i<posts.length; i++) { %>
+<li>
+    <a href="/posts/<%= i %>"><%= posts[i].title %></a>
+</li>
+<% } %>
+</ul>
+<% include ../footer %>
+
+/routes/post.js
+var posts = [
+    {title: 'title0', body: 'body0'},
+    {title: 'title1', body: 'body1'},
+    {title: 'title2', body: 'body2'}
+];
+
+exports.index = function(req, res) {
+    res.render('posts/index', {posts: posts});
+};
+exports.show = function(req, res) {
+    res.render('posts/show', {post: posts[req.params.id]});
+};
+
+
+
+
+記事を新規作成するためのフォームを作りこんでいきます。
+
+new.ejsの作成
+動作確認
+フォームの作成
+
+/views/new.ejs
+<% include ../header %>
+<h1>Add new</h1>
+<form method="post" action="/posts/create">
+<input type="text" name="title">
+<input type="text" name="body">
+<input type="submit" value="add!">
+</form>
+
+<p><a href="/">Go Back</a></p>
+<% include ../footer %>
+
+/views/footer.ejs 
+</body>
+</html>
+
+/views/header.ejs
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Blog</title>
+</head>
+<body>
+
+/views/posts/show.ejs
+<% include ../header %>
+<h1><%= post.title %></h1>
+<p><%= post.body %></p>
+<p><a href="/">Go Back</a></p>
+<% include ../footer %>
+
+/views/posts/index.ejs
+<% include ../header %>
+<h1>Posts</h1>
+<ul>
+<% for (var i=0; i<posts.length; i++) { %>
+<li>
+    <a href="/posts/<%= i %>"><%= posts[i].title %></a>
+</li>
+<% } %>
+</ul>
+<p><a href="/posts/new">Add new</a></p>
+<% include ../footer %>
+
+/routes/post.js
+var posts = [
+    {title: 'title0', body: 'body0'},
+    {title: 'title1', body: 'body1'},
+    {title: 'title2', body: 'body2'}
+];
+
+exports.index = function(req, res) {
+    res.render('posts/index', {posts: posts});
+};
+exports.show = function(req, res) {
+    res.render('posts/show', {post: posts[req.params.id]});
+};
+exports.new = function(req, res) {
+    res.render('posts/new');
+};
+
+app.js
+var express = require('express'),
+    app = express(),
+    post = require('./routes/post');
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+// middleware
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.methodOverride());
+
+app.use(express.logger('dev'));
+app.use(app.router);
+
+// routing
+
+app.get('/', post.index);
+app.get('/posts/:id([0-9]+)', post.show);
+app.get('/posts/new', post.new);
+/*
+app.post('/posts/create', post.create);
+app.get('/posts/:id/edit', post.edit);
+app.put('/posts/:id', post.update);
+app.delete('/posts/:id', post.destroy);
+*/
+
+app.listen(3000);
+console.log("server starting...");
+
+
+
+
+
+フォームから受け取ったデータをもとに記事を追加していきます。また編集、削除のためのリンク/ボタンも作っていきます。
+
+データの追加
+動作確認
+編集リンクの作成
+削除ボタンの作成
+
+/views/posts/index.ejs
+<% include ../header %>
+<h1>Posts</h1>
+<ul>
+<% for (var i=0; i<posts.length; i++) { %>
+<li>
+    <a href="/posts/<%= i %>"><%= posts[i].title %></a>
+    <a href="/posts/<%= i %>/edit">[Edit]</a>
+    <form method="post" action="/posts/<%= i %>">
+    <input type="submit" value="del">
+    <input type="hidden" name="_method" value="delete">
+    <input type="hidden" name="id" value="<%= i %>">
+    </form>
+</li>
+<% } %>
+</ul>
+<p><a href="/posts/new">Add new</a></p>
+<% include ../footer %>
+
+app.js
+var express = require('express'),
+    app = express(),
+    post = require('./routes/post');
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+// middleware
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.methodOverride());
+
+app.use(express.logger('dev'));
+app.use(app.router);
+
+// routing
+
+app.get('/', post.index);
+app.get('/posts/:id([0-9]+)', post.show);
+app.get('/posts/new', post.new);
+app.post('/posts/create', post.create);
+/*
+app.get('/posts/:id/edit', post.edit);
+app.put('/posts/:id', post.update);
+app.delete('/posts/:id', post.destroy);
+*/
+
+app.listen(3000);
+console.log("server starting...");
+
+/views/new.ejs
+<% include ../header %>
+<h1>Add new</h1>
+<form method="post" action="/posts/create">
+<input type="text" name="title">
+<input type="text" name="body">
+<input type="submit" value="add!">
+</form>
+
+<p><a href="/">Go Back</a></p>
+<% include ../footer %>
+
+/views/footer.ejs 
+</body>
+</html>
+
+/views/header.ejs
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Blog</title>
+</head>
+<body>
+
+/views/posts/show.ejs
+<% include ../header %>
+<h1><%= post.title %></h1>
+<p><%= post.body %></p>
+<p><a href="/">Go Back</a></p>
+<% include ../footer %>
+
+/routes/post.js
+var posts = [
+    {title: 'title0', body: 'body0'},
+    {title: 'title1', body: 'body1'},
+    {title: 'title2', body: 'body2'}
+];
+
+exports.index = function(req, res) {
+    res.render('posts/index', {posts: posts});
+};
+exports.show = function(req, res) {
+    res.render('posts/show', {post: posts[req.params.id]});
+};
+exports.new = function(req, res) {
+    res.render('posts/new');
+};
+exports.create = function(req, res) {
+    var post = {
+        title: req.body.title,
+        body: req.body.body
+    };
+    posts.push(post);
+    res.redirect('/');
+};
+
+
+
+
+記事の編集をするためのフォームを作っていきます。
+
+edit.ejs
+動作確認
+
+app.js
+/views/new.ejs
+/views/footer.ejs 
+</body>
+</html>
+
+/views/header.ejs
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Blog</title>
+</head>
+<body>
+
+/views/posts/show.ejs
+<% include ../header %>
+<h1><%= post.title %></h1>
+<p><%= post.body %></p>
+<p><a href="/">Go Back</a></p>
+<% include ../footer %>
+
+/routes/post.js
+var posts = [
+    {title: 'title0', body: 'body0'},
+    {title: 'title1', body: 'body1'},
+    {title: 'title2', body: 'body2'}
+];
+
+exports.index = function(req, res) {
+    res.render('posts/index', {posts: posts});
+};
+exports.show = function(req, res) {
+    res.render('posts/show', {post: posts[req.params.id]});
+};
+exports.new = function(req, res) {
+    res.render('posts/new');
+};
+exports.edit = function(req, res) {
+    res.render('posts/edit', {post: posts[req.params.id], id: req.params.id});
+};
+exports.create = function(req, res) {
+    var post = {
+        title: req.body.title,
+        body: req.body.body
+    };
+    posts.push(post);
+    res.redirect('/');
+
+/views/posts/edit.ejs    
+<% include ../header %>
+<h1>Edit</h1>
+<form method="post" action="/posts/<%= id %>">
+<input type="text" name="title" value="<%= post.title %>">
+<input type="text" name="body" value="<%= post.body %>">
+<input type="hidden" name="id" value="<%= id %>">
+<input type="hidden" name="_method" value="put">
+<input type="submit" value="Update">
+</form>
+
+<p><a href="/">Go Back</a></p>
+<% include ../footer %>
+
+app.js
+var express = require('express'),
+    app = express(),
+    post = require('./routes/post');
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+// middleware
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.methodOverride());
+
+app.use(express.logger('dev'));
+app.use(app.router);
+
+// routing
+
+app.get('/', post.index);
+app.get('/posts/:id([0-9]+)', post.show);
+app.get('/posts/new', post.new);
+app.post('/posts/create', post.create);
+app.get('/posts/:id/edit', post.edit);
+/*
+app.put('/posts/:id', post.update);
+app.delete('/posts/:id', post.destroy);
+*/
+
+app.listen(3000);
+console.log("server starting...");
+
+/views/posts/index.ejs
+<% include ../header %>
+<h1>Posts</h1>
+<ul>
+<% for (var i=0; i<posts.length; i++) { %>
+<li>
+    <a href="/posts/<%= i %>"><%= posts[i].title %></a>
+    <a href="/posts/<%= i %>/edit">[Edit]</a>
+    <form method="post" action="/posts/<%= i %>">
+    <input type="submit" value="del">
+    <input type="hidden" name="_method" value="delete">
+    <input type="hidden" name="id" value="<%= i %>">
+    </form>
+</li>
+<% } %>
+</ul>
+<p><a href="/posts/new">Add new</a></p>
+<% include ../footer %>
+
+/views/posts/new.ejs
+<% include ../header %>
+<h1>Add new</h1>
+<form method="post" action="/posts/create">
+<input type="text" name="title">
+<input type="text" name="body">
+<input type="submit" value="add!">
+</form>
+
+<p><a href="/">Go Back</a></p>
+<% include ../footer %>
+
+
+フォームからのデータをもとに記事を更新し、さらに削除する方法についても見ていきます。
+
+記事の更新
+記事の削除
+
+/views/new.ejs
+<% include ../header %>
+<h1>Add new</h1>
+<form method="post" action="/posts/create">
+<input type="text" name="title">
+<input type="text" name="body">
+<input type="submit" value="add!">
+</form>
+
+<p><a href="/">Go Back</a></p>
+<% include ../footer %>
+
+/views/footer.ejs
+</body>
+</html>
+
+/views/header.ejs
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Blog</title>
+</head>
+<body>
+
+/views/posts/show.ejs
+<% include ../header %>
+<h1><%= post.title %></h1>
+<p><%= post.body %></p>
+<p><a href="/">Go Back</a></p>
+<% include ../footer %>
+
+/routes/post.js
+var posts = [
+    {title: 'title0', body: 'body0'},
+    {title: 'title1', body: 'body1'},
+    {title: 'title2', body: 'body2'}
+];
+
+exports.index = function(req, res) {
+    res.render('posts/index', {posts: posts});
+};
+exports.show = function(req, res) {
+    res.render('posts/show', {post: posts[req.params.id]});
+};
+exports.new = function(req, res) {
+    res.render('posts/new');
+};
+exports.edit = function(req, res) {
+    res.render('posts/edit', {post: posts[req.params.id], id: req.params.id});
+};
+exports.update = function(req, res) {
+    posts[req.body.id] = {
+        title: req.body.title,
+        body: req.body.body
+    };
+    res.redirect('/');
+};
+exports.destroy = function(req, res) {
+    posts.splice(req.body.id, 1);
+    res.redirect('/');
+};
+exports.create = function(req, res) {
+    var post = {
+        title: req.body.title,
+        body: req.body.body
+    };
+    posts.push(post);
+    res.redirect('/');
+};
+
+/views/posts/index.ejs
+<% include ../header %>
+<h1>Posts</h1>
+<ul>
+<% for (var i=0; i<posts.length; i++) { %>
+<li>
+    <a href="/posts/<%= i %>"><%= posts[i].title %></a>
+    <a href="/posts/<%= i %>/edit">[Edit]</a>
+    <form method="post" action="/posts/<%= i %>">
+    <input type="submit" value="del">
+    <input type="hidden" name="_method" value="delete">
+    <input type="hidden" name="id" value="<%= i %>">
+    </form>
+</li>
+<% } %>
+</ul>
+<p><a href="/posts/new">Add new</a></p>
+<% include ../footer %>
+
+/views/posts/edit.ejs
+<% include ../header %>
+<h1>Edit</h1>
+<form method="post" action="/posts/<%= id %>">
+<input type="text" name="title" value="<%= post.title %>">
+<input type="text" name="body" value="<%= post.body %>">
+<input type="hidden" name="id" value="<%= id %>">
+<input type="hidden" name="_method" value="put">
+<input type="submit" value="Update">
+</form>
+
+<p><a href="/">Go Back</a></p>
+<% include ../footer %>
+
+app.js
+var express = require('express'),
+    app = express(),
+    post = require('./routes/post');
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+// middleware
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.methodOverride());
+
+app.use(express.logger('dev'));
+app.use(app.router);
+
+// routing
+
+app.get('/', post.index);
+app.get('/posts/:id([0-9]+)', post.show);
+app.get('/posts/new', post.new);
+app.post('/posts/create', post.create);
+app.get('/posts/:id/edit', post.edit);
+app.put('/posts/:id', post.update);
+app.delete('/posts/:id', post.destroy);
+
+app.listen(3000);
+console.log("server starting...");
+
+
+
+セキュリティを高めるためにCSRF対策を施していきます。
+
+CSRF middleware
+動作確認
+/views/posts/edit.ejs
+<% include ../header %>
+<h1>Edit</h1>
+<form method="post" action="/posts/<%= id %>">
+<input type="text" name="title" value="<%= post.title %>">
+<input type="text" name="body" value="<%= post.body %>">
+<input type="hidden" name="id" value="<%= id %>">
+<input type="hidden" name="_csrf" value="<%= csrftoken %>">
+<input type="hidden" name="_method" value="put">
+<input type="submit" value="Update">
+</form>
+
+<p><a href="/">Go Back</a></p>
+<% include ../footer %>
+
+/views/new.ejs
+<% include ../header %>
+<h1>Add new</h1>
+<form method="post" action="/posts/create">
+<input type="text" name="title">
+<input type="text" name="body">
+<input type="hidden" name="_csrf" value="<%= csrftoken %>">
+<input type="submit" value="add!">
+</form>
+
+<p><a href="/">Go Back</a></p>
+<% include ../footer %>
+
+/views/footer.ejs
+</body>
+</html>
+
+/views/header.ejs
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Blog</title>
+</head>
+<body>
+
+/views/posts/show.ejs
+<h1><%= post.title %></h1>
+<p><%= post.body %></p>
+<p><a href="/">Go Back</a></p>
+<% include ../footer %>
+
+/views/posts/index.ejs
+<% include ../header %>
+<h1>Posts</h1>
+<ul>
+<% for (var i=0; i<posts.length; i++) { %>
+<li>
+    <a href="/posts/<%= i %>"><%= posts[i].title %></a>
+    <a href="/posts/<%= i %>/edit">[Edit]</a>
+    <form method="post" action="/posts/<%= i %>">
+    <input type="submit" value="del">
+    <input type="hidden" name="_csrf" value="<%= csrftoken %>">
+    <input type="hidden" name="_method" value="delete">
+    <input type="hidden" name="id" value="<%= i %>">
+    </form>
+</li>
+<% } %>
+</ul>
+<p><a href="/posts/new">Add new</a></p>
+<% include ../footer %>
+
+/routes/post.js
+var posts = [
+    {title: 'title0', body: 'body0'},
+    {title: 'title1', body: 'body1'},
+    {title: 'title2', body: 'body2'}
+];
+
+exports.index = function(req, res) {
+    res.render('posts/index', {posts: posts});
+};
+exports.show = function(req, res) {
+    res.render('posts/show', {post: posts[req.params.id]});
+};
+exports.new = function(req, res) {
+    res.render('posts/new');
+};
+exports.edit = function(req, res) {
+    res.render('posts/edit', {post: posts[req.params.id], id: req.params.id});
+};
+exports.update = function(req, res) {
+    posts[req.body.id] = {
+        title: req.body.title,
+        body: req.body.body
+    };
+    res.redirect('/');
+};
+exports.destroy = function(req, res) {
+    posts.splice(req.body.id, 1);
+    res.redirect('/');
+};
+exports.create = function(req, res) {
+    var post = {
+        title: req.body.title,
+        body: req.body.body
+    };
+    posts.push(post);
+    res.redirect('/');
+};
+
+app.js
+var express = require('express'),
+    app = express(),
+    post = require('./routes/post');
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+// middleware
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.methodOverride());
+
+// csrf対策
+app.use(express.cookieParser());
+app.use(express.session({secret: '***********'}));
+app.use(express.csrf());
+app.use(function(req, res, next) {
+    res.locals.csrftoken = req.csrfToken();
+    next();
+});
+
+app.use(express.logger('dev'));
+app.use(app.router);
+
+// routing
+
+app.get('/', post.index);
+app.get('/posts/:id([0-9]+)', post.show);
+app.get('/posts/new', post.new);
+app.post('/posts/create', post.create);
+app.get('/posts/:id/edit', post.edit);
+app.put('/posts/:id', post.update);
+app.delete('/posts/:id', post.destroy);
+
+app.listen(3000);
+console.log("server starting...");
+
+
+
+
+Expressにおけるエラー処理についてみていきます。
+
+idのチェック
+next(new Error())
+middlewareの作成
+動作確認
+
+/views/posts/index.ejs
+<% include ../header %>
+<h1>Posts</h1>
+<ul>
+<% for (var i=0; i<posts.length; i++) { %>
+<li>
+    <a href="/posts/<%= i %>"><%= posts[i].title %></a>
+    <a href="/posts/<%= i %>/edit">[Edit]</a>
+    <form method="post" action="/posts/<%= i %>">
+    <input type="submit" value="del">
+    <input type="hidden" name="_csrf" value="<%= csrftoken %>">
+    <input type="hidden" name="_method" value="delete">
+    <input type="hidden" name="id" value="<%= i %>">
+    </form>
+</li>
+<% } %>
+</ul>
+<p><a href="/posts/new">Add new</a></p>
+<% include ../footer %>
+
+/views/posts/edit.ejs
+<% include ../header %>
+<h1>Edit</h1>
+<form method="post" action="/posts/<%= id %>">
+<input type="text" name="title" value="<%= post.title %>">
+<input type="text" name="body" value="<%= post.body %>">
+<input type="hidden" name="id" value="<%= id %>">
+<input type="hidden" name="_csrf" value="<%= csrftoken %>">
+<input type="hidden" name="_method" value="put">
+<input type="submit" value="Update">
+</form>
+
+<p><a href="/">Go Back</a></p>
+<% include ../footer %>
+
+/views/new.ejs
+<% include ../header %>
+<h1>Add new</h1>
+<form method="post" action="/posts/create">
+<input type="text" name="title">
+<input type="text" name="body">
+<input type="hidden" name="_csrf" value="<%= csrftoken %>">
+<input type="submit" value="add!">
+</form>
+
+<p><a href="/">Go Back</a></p>
+<% include ../footer %>
+
+/views/footer.ejs
+</body>
+</html>
+
+/views/header.ejs
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Blog</title>
+</head>
+<body>
+
+/views/posts/show.ejs
+<% include ../header %>
+<h1><%= post.title %></h1>
+<p><%= post.body %></p>
+<p><a href="/">Go Back</a></p>
+<% include ../footer %>
+
+/routes/post.js
+var posts = [
+    {title: 'title0', body: 'body0'},
+    {title: 'title1', body: 'body1'},
+    {title: 'title2', body: 'body2'}
+];
+
+exports.index = function(req, res) {
+    res.render('posts/index', {posts: posts});
+};
+exports.show = function(req, res) {
+    res.render('posts/show', {post: posts[req.params.id]});
+};
+exports.new = function(req, res) {
+    res.render('posts/new');
+};
+exports.edit = function(req, res) {
+    res.render('posts/edit', {post: posts[req.params.id], id: req.params.id});
+};
+exports.update = function(req, res, next) {
+    if (req.body.id !== req.params.id) {
+        next(new Error('ID not valid'));
+    } else {
+        posts[req.body.id] = {
+            title: req.body.title,
+            body: req.body.body
+        };
+        res.redirect('/');
+    }
+};
+exports.destroy = function(req, res, next) {
+    if (req.body.id !== req.params.id) {
+        next(new Error('ID not valid'));
+    } else {
+        posts.splice(req.body.id, 1);
+        res.redirect('/');
+    }
+};
+exports.create = function(req, res) {
+    var post = {
+        title: req.body.title,
+        body: req.body.body
+    };
+    posts.push(post);
+    res.redirect('/');
+};
+
+app.js
+var express = require('express'),
+    app = express(),
+    post = require('./routes/post');
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+// middleware
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.methodOverride());
+
+// csrf対策
+app.use(express.cookieParser());
+app.use(express.session({secret: '***********'}));
+app.use(express.csrf());
+app.use(function(req, res, next) {
+    res.locals.csrftoken = req.csrfToken();
+    next();
+});
+
+app.use(express.logger('dev'));
+app.use(app.router);
+app.use(function(err, req, res, next) {
+    res.send(err.message);
+});
+
+// routing
+
+app.get('/', post.index);
+app.get('/posts/:id([0-9]+)', post.show);
+app.get('/posts/new', post.new);
+app.post('/posts/create', post.create);
+app.get('/posts/:id/edit', post.edit);
+app.put('/posts/:id', post.update);
+app.delete('/posts/:id', post.destroy);
+
+app.listen(3000);
+console.log("server starting...");
+
+
+

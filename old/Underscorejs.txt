@@ -1,0 +1,459 @@
+// ===== video_summary =====
+Underscore.jsの概要を説明したのちに、公式サイト、必要となる知識を紹介していきます。またレッスンの準備も整えていきます。
+
+
+    概要
+    公式サイト
+    必要となる知識
+    レッスンの準備
+
+// ===== read.me =====
+Underscore.js
+
+* 概要
+- JavaScriptの便利なライブラリ
+
+* 公式サイト
+
+* 知識
+- JavaScript
+
+* 準備
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>underscore.js</title>
+</head>
+<body>
+    <script src="underscore-min.js"></script>
+</body>
+</html>
+
+
+
+
+// ===== video_summary =====
+Underscore.jsの記法について確認していきます。
+
+
+    即時関数
+    shuffleメソッド
+    2つの記法について
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>underscore.js</title>
+</head>
+<body>
+    <script src="underscore-min.js"></script>
+    <script>
+        (function() {
+
+            var x;
+
+            // x = _.shuffle([2, 8 , 10, 3]);
+            x = _([2, 8, 10, 3]).shuffle();
+            
+            console.log(x);
+
+        })();
+    </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+集合要素のすべての要素に対して処理を施していくeach、mapメソッドについて見ていきます。
+
+
+    each
+    map
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>underscore.js</title>
+</head>
+<body>
+    <script src="underscore-min.js"></script>
+    <script>
+        (function() {
+
+            // each, map
+            /*
+            _.each([2, 5, 8], function(num) {
+                console.log(num * 2);
+            });
+            */
+
+            var x = _.map([2, 5, 8], function(num) {
+                return num * 2;
+            });
+            console.log(x);
+
+
+        })();
+    </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+集合要素に関してある条件判定をしたい場合に使えるfind、filter、containsメソッドについて見ていきます。
+
+
+    find
+    filter
+    contains
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>underscore.js</title>
+</head>
+<body>
+    <script src="underscore-min.js"></script>
+    <script>
+        (function() {
+
+            var a = [2, 5, 8, 42, 12];
+            var x;
+
+            /*
+            x = _.find(a, function(num) {
+                return num > 5;
+            });
+            */
+            /*
+            x = _.filter(a, function(num) {
+                return num > 5;
+            });
+            */
+            x = _.contains(a, 5);
+
+            console.log(x);
+
+        })();
+    </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+集合要素に対して集計処理をしたい場合に使えるgroupBy、countBy、sortByについて解説していきます。
+
+
+    groupBy
+    countBy
+    sortBy
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>underscore.js</title>
+</head>
+<body>
+    <script src="underscore-min.js"></script>
+    <script>
+        (function() {
+
+            var a = [1, 2, 5, 8, 42, 12];
+            var x;
+
+            /*
+            x = _.groupBy(a, function(num) {
+                return num % 3;
+            });
+            */
+
+            /*
+            x = _.countBy(a, function(num){
+                return num % 2 == 0 ? 'even' : 'odd';
+            });
+            */
+
+            /*
+            x = _.sortBy(a, function(num) {
+                return Math.sin(num);
+            });
+            */
+
+            x = _.sortBy(["me", "i", "and"], 'length');
+
+            console.log(x);
+
+        })();
+    </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+union、intersection、difference、uniqといった、集合に関する演算を行うメソッドについて見ていきます。
+
+
+    union
+    intersection
+    difference
+    uniq
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>underscore.js</title>
+</head>
+<body>
+    <script src="underscore-min.js"></script>
+    <script>
+        (function() {
+
+            var a = [1, 2, 5];
+            var b = [5, 2, 8];
+            var x;
+
+            // x = _.union(a, b);
+            // x = _.intersection(a, b);
+            // x = _.difference(a, b);
+
+            x = _.uniq([2, 5, 2, 10, 5]);
+
+            console.log(x);
+
+        })();
+    </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+keys, values, has, isEmptyなどのオブジェクトに対して使えるメソッドについて見ていきます。
+
+
+    keys
+    values
+    has
+    isEmpty/isString/isNull/isNumber
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>underscore.js</title>
+</head>
+<body>
+    <script src="underscore-min.js"></script>
+    <script>
+        (function() {
+
+            var x;
+            var user = {
+                name: 'taguchi',
+                score: 80,
+                web: 'http://dotinstall.com'
+            };
+
+            // x = _.keys(user);
+            // x = _.values(user);
+            // x = _.invert(user);
+            // x = _.has(user, "name");
+
+            // isEmpty, isString, isNull, isNumber
+            x = _.isString(user.score);
+
+            console.log(x);
+
+        })();
+    </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+range、random、escape、timesといったデータを生成するためのメソッドについて見ていきます。
+
+
+    range
+    random
+    escape
+    times
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>underscore.js</title>
+</head>
+<body>
+    <script src="underscore-min.js"></script>
+    <script>
+        (function() {
+
+            var x;
+
+            // x = _.range(1, 11, 2);
+            // x = _.random(3, 10);
+
+            // x = _.escape('<script>');
+
+            _.times(5, function() {
+                console.log('hello');
+            });
+            _(5).times(function() {
+                console.log('hello');
+            });
+
+            // console.log(x);
+
+        })();
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+複数のメソッドをつなげて実行できるchain、valueについて解説していきます。
+
+
+    chain
+    value
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>underscore.js</title>
+</head>
+<body>
+    <script src="underscore-min.js"></script>
+    <script>
+        (function() {
+
+            var x;
+            var a = [2, 5, 10, 8];
+
+            x = _.chain(a)
+                 .shuffle()
+                 .map(function (num) {
+                     return num * 2;
+                 })
+                 .value();
+
+            console.log(x);
+
+        })();
+    </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+オブジェクトの内容をはめ込んでいくことができるテンプレート機能について説明していきます。
+
+
+    template
+    <% %>
+    <%- %>
+    <%= %>
+
+// ===== commentBox 1 =====
+補足情報
+template機能の引数について
+
+
+
+
+2015年1月20日
+
+
+
+
+
+Underscore.js 1.7.0ではtemplateの引数の取り方が変更されたため、動画内のコードでは動作いたしません。以下のように修正すれば動作しますので参考にしてください（ユーザー様にご指摘いただきました。ありがとうございます！）。
+
+【誤】
+var tpl = "<% console.log('hello from tpl'); %><li><%- name %> (<%- score %>)</li>";
+x = _.template(tpl, user);
+【正】
+var tpl = "<% console.log('hello from tpl'); %><li><%- name %> (<%- score %>)</li>";
+var msg = _.template(tpl);
+x = msg(user);
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>underscore.js</title>
+</head>
+<body>
+    <script src="underscore-min.js"></script>
+    <script>
+        (function() {
+
+            var x;
+            var user = {
+                name: 'taguchi',
+                score: 50,
+                web: 'http://dotinstall.com'
+            };
+
+            // <% %>
+            // <%= %>
+            // <%- %>
+            var tpl = "<% console.log('hello from tpl'); %><li><%- name %> (<%- score %>)</li>";
+            x = _.template(tpl, user);
+
+            console.log(x);
+
+        })();
+    </script>
+</body>
+</html>
+
+
+
+
+
+

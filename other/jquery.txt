@@ -1,0 +1,650 @@
+// ===== video_summary =====
+jQueryの概要や、学習における注意点について説明していきます。
+
+jQueryの歴史
+jQueryの注意点
+
+// ===== video_summary =====
+学習を進めていくためのフォルダやファイルを設定していきます。
+
+
+    プロジェクトフォルダの設定
+    index.htmlの作成
+
+// ===== commentBox 1 =====
+補足情報
+VS Codeでファイルのドラッグ＆ドロップができない場合
+
+
+
+
+2024年2月16日
+
+
+
+
+
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、WindowsならCtrlキー、macOSならcommandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+// ===== commentBox 2 =====
+補足情報
+!でHTMLの雛形がでない場合
+
+
+
+
+2022年7月12日
+
+
+
+
+
+VS CodeのVersion: 1.69.0以降にて「!」によるHTMLの雛形が入力できなくなったようです。かわりに「html:5」と打ってからタブキーで入力するようにしてください。
+
+// ===== /MyjQuery/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jQueryの練習</title>
+</head>
+<body>
+  
+</body>
+</html>
+
+// ===== video_summary =====
+CDNという仕組みを使ってjQueryのスクリプトを読み込んでいきます。
+
+
+    jQueryスクリプトの読み込み
+    main.jsの作成
+
+// ===== /MyjQuery/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jQueryの練習</title>
+</head>
+<body>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyjQuery/js/main.js =====
+'use strict';
+
+$(() => {
+  
+});
+// ===== video_summary =====
+JavaScriptとの比較をしながら、jQueryの書き方について見ていきます。
+
+JavaScriptとの対比
+jQueryの文法
+
+
+// ===== video_summary =====
+jQueryで要素を取得したのち、クリックイベントを設定します。
+
+
+    $()
+    click()
+    text()
+
+// ===== /MyjQuery/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jQueryの練習</title>
+</head>
+<body>
+  <button>Go!</button>
+  <p>こんにちは</p>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyjQuery/js/main.js =====
+'use strict';
+
+$(() => {
+  $('button').click(() => {
+    $('p').text('おはよう！');
+  });
+});
+
+
+
+
+// ===== video_summary =====
+ボタンをクリックしたときに要素のスタイルが変わるように設定していきます。
+
+
+    スタイルの設定
+    addClass()
+    メソッドチェーン
+
+// ===== /MyjQuery/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jQueryの練習</title>
+  <style>
+    .red-text {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <button>Go!</button>
+  <p>こんにちは！</p>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyjQuery/js/main.js =====
+'use strict';
+
+$(() => {
+  $('button').click(() => {
+    // $('p').text('おはよう！');
+    // $('p').addClass('red-text');
+
+    $('p')
+      .text('おはよう！')
+      .addClass('red-text');
+  });
+});
+
+
+
+// ===== video_summary =====
+ボタンをクリックしたときに要素のスタイルが変わるように設定していきます。
+
+
+    スタイルの設定
+    addClass()
+    メソッドチェーン
+
+// ===== /MyjQuery/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jQueryの練習</title>
+  <style>
+    .red-text {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <button>Go!</button>
+  <p>こんにちは！</p>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyjQuery/js/main.js =====
+'use strict';
+
+$(() => {
+  $('button').click(() => {
+    // $('p').text('おはよう！');
+    // $('p').addClass('red-text');
+
+    $('p')
+      .text('おはよう！')
+      .addClass('red-text');
+  });
+});
+
+
+
+// ===== video_summary =====
+ページ内にリストを追加し、任意の要素を操作する方法について見ていきます。
+
+
+    リストの設置
+    eq()
+    擬似クラスによる表現
+
+// ===== /MyjQuery/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jQueryの練習</title>
+  <style>
+    .red-text {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <button>Go!</button>
+  <ul>
+    <li>Item 0</li>
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+    <li>Item 4</li>
+    <li>Item 5</li>
+  </ul>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyjQuery/js/main.js =====
+'use strict';
+
+$(() => {
+  $('button').click(() => {
+    // $('li')
+    //   .eq(2)
+    //   .addClass('red-text');
+
+    $('li:nth-child(odd), li:last-child')
+      .addClass('red-text');
+  });
+});
+
+
+// ===== video_summary =====
+新しい要素を作成してページ内に追加していく方法について見ていきます。
+
+
+    $('<li>')
+    appendTo()
+
+// ===== /MyjQuery/js/main.js =====
+'use strict';
+
+$(() => {
+  $('button').click(() => {
+    $('<li>')
+      .text('New Item')
+      .appendTo('ul');
+  });
+});
+
+// ===== /MyjQuery/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jQueryの練習</title>
+  <style>
+    .red-text {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <button>Go!</button>
+  <ul>
+    <li>Item 0</li>
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+    <li>Item 4</li>
+    <li>Item 5</li>
+  </ul>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+// ===== video_summary =====
+入力フォームの値を使って要素を追加していく方法について見ていきます。
+
+
+    val()
+    val('')
+    focus()
+
+// ===== /MyjQuery/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jQueryの練習</title>
+  <style>
+    .red-text {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <input type="text">
+  <button>Add</button>
+  <ul>
+  </ul>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyjQuery/js/main.js =====
+'use strict';
+
+$(() => {
+  $('button').click(() => {
+    $('<li>')
+      .text($('input').val())
+      .appendTo('ul');
+    $('input')
+      .val('')
+      .focus();
+  });
+});
+
+
+
+// ===== video_summary =====
+定数を使ってコードを書き換えていきます。
+
+
+    定数の導入
+    $を使った定数の表現
+
+// ===== /MyjQuery/js/main.js =====
+'use strict';
+
+$(() => {
+  const $input = $('input');
+  $input.focus();
+
+  $('button').click(() => {
+    $('<li>')
+      .text($input.val())
+      .appendTo('ul');
+    $input
+      .val('')
+      .focus();
+  });
+});
+
+// ===== /MyjQuery/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jQueryの練習</title>
+  <style>
+    .red-text {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <input type="text">
+  <button>Add</button>
+  <ul>
+  </ul>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+// ===== video_summary =====
+削除できることがわかりやすいように、マウスホバーしたときのスタイルを設定していきます。
+
+
+    liのスタイル設定
+    マウスホバー時のスタイル設定
+
+// ===== /MyjQuery/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jQueryの練習</title>
+  <style>
+    .red-text {
+      color: red;
+      font-weight: bold;
+    }
+    li {
+      cursor: pointer;
+    }
+    li:hover::after {
+      content: '[x]';
+      font-size: 14px;
+      color: #aaa;
+      margin-left: 4px;
+    }
+  </style>
+</head>
+<body>
+  <input type="text">
+  <button>Add</button>
+  <ul>
+  </ul>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /MyjQuery/js/main.js =====
+'use strict';
+
+$(() => {
+  const $input = $('input');
+  $input.focus();
+
+  $('button').click(() => {
+    $('<li>')
+      .text($input.val())
+      .appendTo('ul');
+    $input
+      .val('')
+      .focus();
+  });
+});
+
+
+// ===== video_summary =====
+イベントを設定して、li要素がクリックされたときに要素が削除されるようにしていきます。
+
+
+    nodeName
+    早期リターン
+    confirm()
+    remove()
+
+// ===== commentBox 1 =====
+補足情報
+イベントの伝播について
+
+
+
+
+2021年8月12日
+
+
+
+
+
+レッスンで扱っている e.target については、以下のレッスンも参考にしてみてください。
+
+#21 イベントの伝播を理解しよう | 詳解JavaScript DOM編
+https://dotinstall.com/lessons/basic_javascript_dom_v2/52921
+
+// ===== /MyjQuery/js/main.js =====
+'use strict';
+
+$(() => {
+  const $input = $('input');
+  $input.focus();
+
+  $('button').click(() => {
+    $('<li>')
+      .text($input.val())
+      .appendTo('ul');
+    $input
+      .val('')
+      .focus();
+  });
+
+  $('ul').click(e => {
+    if (e.target.nodeName !== 'LI' || !confirm('Are you sure?')) {
+      return;
+    }
+    e.target.remove();
+  });
+});
+
+// ===== /MyjQuery/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jQueryの練習</title>
+  <style>
+    .red-text {
+      color: red;
+      font-weight: bold;
+    }
+    li {
+      cursor: pointer;
+    }
+    li:hover::after {
+      content: '[x]';
+      font-size: 14px;
+      color: #aaa;
+      margin-left: 4px;
+    }
+  </style>
+</head>
+<body>
+  <input type="text">
+  <button>Add</button>
+  <ul>
+  </ul>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+// ===== video_summary =====
+要素が削除されるときに、ふわっと消えるようにしていきます。
+
+
+    fadeOut()
+    $()
+
+// ===== /MyjQuery/js/main.js =====
+'use strict';
+
+$(() => {
+  const $input = $('input');
+  $input.focus();
+
+  $('button').click(() => {
+    $('<li>')
+      .text($input.val())
+      .appendTo('ul');
+    $input
+      .val('')
+      .focus();
+  });
+
+  $('ul').click(e => {
+    if (e.target.nodeName !== 'LI' || !confirm('Are you sure?')) {
+      return;
+    }
+    $(e.target).fadeOut();
+  });
+});
+
+// ===== /MyjQuery/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jQueryの練習</title>
+  <style>
+    .red-text {
+      color: red;
+      font-weight: bold;
+    }
+    li {
+      cursor: pointer;
+    }
+    li:hover::after {
+      content: '[x]';
+      font-size: 14px;
+      color: #aaa;
+      margin-left: 4px;
+    }
+  </style>
+</head>
+<body>
+  <input type="text">
+  <button>Add</button>
+  <ul>
+  </ul>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+

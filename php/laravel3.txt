@@ -1,0 +1,4666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+
+
+/app/Http/Controllers/CommentController.php
+/resources/views/posts/show.blade.php
+/app/Http/Controllers/PostController.php
+/app/Http/Requests/PostRequest.php
+/app/Models/Comment.php
+/app/Models/Post.php
+/database/migrations/2024_ ... 246_create_posts_table.php
+/database/migrations/2024_ ... _create_comments_table.php
+/public/style.css
+/resources/views/components/layout.blade.php
+/resources/views/index.blade.php
+/resources/views/posts/create.blade.php
+/resources/views/posts/edit.blade.php
+/routes/web.php
+
+
+
+
+
+
+
+CRUDについて説明したのちに、一般的なルーティングを一気に設定する方法について見ていきます。
+
+CRUDの概要
+ルーティングの確認
+Route::resource()
+
+
+
+
+学習環境を確認したのちに、CRUDに関するルーティングを設定していきます。
+
+学習環境の確認
+ルーティングの確認
+Route::resource()
+except()
+補足情報 動画内で実行したコマンドについて
+2024年7月9日
+今回の動画で使ったコマンドは以下のとおりです。
+
+php artisan route:list --name=posts
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+}
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>{{ $post->title }}</h1>
+    <p>{{ $post->body }}</p>
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>Posts</h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+.back-link {
+  text-align: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+投稿フォームへのリンクを設置し、スタイルを整えていきます。
+
+投稿フォームへのリンク設置
+リンクのスタイリング
+補足情報 動画内で実行したコマンドについて
+2024年7月9日
+今回の動画で使ったコマンドは以下のとおりです。
+
+clear
+
+補足情報 セレクターの書き方について
+2024年7月9日
+この動画で紹介したセレクターの詳細については以下の動画を復習してみましょう。
+
+・半角空白でセレクターを区切った表現（子孫結合子）について
+https://dotinstall.com/lessons/basic_css_selectors_v2/62111
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+}
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>{{ $post->title }}</h1>
+    <p>{{ $post->body }}</p>
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+createメソッドを実装したのちに、対応するビューも作成していきます。
+
+create()
+create.blade.php
+
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+}
+
+create.blade.php
+<x-layout>
+    <x-slot:title>
+        Add new post | My Laravel App
+    </x-slot>
+
+    <h1>Add new post</h1>
+    <form>
+        <label>
+            Title
+            <input type="text">
+        </label>
+        <label>
+            Body
+            <textarea></textarea>
+        </label>
+        <button>Add</button>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>{{ $post->title }}</h1>
+    <p>{{ $post->body }}</p>
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+フォームのスタイルをCSSで整えていきます。
+
+divの追加
+CSSによるスタイリング
+補足情報 セレクターの書き方について
+2024年7月9日
+この動画で紹介したセレクターの詳細については以下の動画を復習してみましょう。
+
+・+（隣接兄弟結合子）について
+https://dotinstall.com/lessons/basic_css_selectors_v2/62112
+・[]（属性セレクター）について
+https://dotinstall.com/lessons/basic_css_selectors_v2/62107
+・,（セレクターリスト）について
+https://dotinstall.com/lessons/basic_css_selectors_v2/62109
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+}
+
+create.blade.php
+<x-layout>
+    <x-slot:title>
+        Add new post | My Laravel App
+    </x-slot>
+
+    <h1>Add new post</h1>
+    <form>
+        <div>
+            <label>
+                Title
+                <input type="text">
+            </label>
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea></textarea>
+            </label>
+        </div>
+        <div>
+            <button>Add</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>{{ $post->title }}</h1>
+    <p>{{ $post->body }}</p>
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ルーティングを確認したのちに、フォームの設定を進めていきます。
+
+ルーティングの確認
+formタグの設定
+name属性の設定
+store()
+補足情報 動画内で実行したコマンドについて
+2024年7月9日
+今回の動画で使ったコマンドは以下のとおりです。
+
+php artisan route:list --name=posts
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    public function store(Request $request)
+    {
+
+    }
+}
+
+create.blade.php
+<x-layout>
+    <x-slot:title>
+        Add new post | My Laravel App
+    </x-slot>
+
+    <h1>Add new post</h1>
+    <form method="post" action="{{ route('posts.store') }}">
+        <div>
+            <label>
+                Title
+                <input type="text" name="title">
+            </label>
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body"></textarea>
+            </label>
+        </div>
+        <div>
+            <button>Add</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>{{ $post->title }}</h1>
+    <p>{{ $post->body }}</p>
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+storeメソッドを実装したのち、フォームにCSRF対策を施していきます。
+
+store()の実装
+@csrf
+補足情報 CSRFについて
+2024年7月12日
+少し古いレッスンになりますが、CSRFについて詳しく知りたい方は以下も参考にしてみてください。
+
+https://dotinstall.com/lessons/basic_php_webdev/54331
+https://dotinstall.com/lessons/basic_php_webdev/54332
+
+layout.blade.php
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostController.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    public function store(Request $request)
+    {
+        $post = new Post();
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()->route('posts.index');
+    }
+}
+
+create.blade.php
+<x-layout>
+    <x-slot:title>
+        Add new post | My Laravel App
+    </x-slot>
+
+    <h1>Add new post</h1>
+    <form method="post" action="{{ route('posts.store') }}">
+        @csrf
+        
+        <div>
+            <label>
+                Title
+                <input type="text" name="title">
+            </label>
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body"></textarea>
+            </label>
+        </div>
+        <div>
+            <button>Add</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>{{ $post->title }}</h1>
+    <p>{{ $post->body }}</p>
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+
+
+
+入力された値を検証し、必要に応じてエラーメッセージを表示していきます。
+
+validate()
+@error() ... @enderror
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required|min:5',
+        ]);
+
+        $post = new Post();
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()->route('posts.index');
+    }
+}
+
+create.blade.php
+<x-layout>
+    <x-slot:title>
+        Add new post | My Laravel App
+    </x-slot>
+
+    <h1>Add new post</h1>
+    <form method="post" action="{{ route('posts.store') }}">
+        @csrf
+
+        <div>
+            <label>
+                Title
+                <input type="text" name="title">
+            </label>
+            @error('title')
+                <p>{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body"></textarea>
+            </label>
+            @error('body')
+                <p>{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <button>Add</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>{{ $post->title }}</h1>
+    <p>{{ $post->body }}</p>
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+
+
+
+エラーメッセージのスタイルを整えた後に、ユーザーが入力した値を保持しておく方法について見ていきます。
+
+.errorのスタイリング
+old()
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required|min:5',
+        ]);
+
+        $post = new Post();
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()->route('posts.index');
+    }
+}
+
+create.blade.php
+<x-layout>
+    <x-slot:title>
+        Add new post | My Laravel App
+    </x-slot>
+
+    <h1>Add new post</h1>
+    <form method="post" action="{{ route('posts.store') }}">
+        @csrf
+
+        <div>
+            <label>
+                Title
+                <input type="text" name="title" value="{{ old('title') }}">
+            </label>
+            @error('title')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body">{{ old('body') }}</textarea>
+            </label>
+            @error('body')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <button>Add</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>{{ $post->title }}</h1>
+    <p>{{ $post->body }}</p>
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.error {
+  margin: 4px 0 0;
+  color: red;
+}
+
+
+
+
+
+記事詳細ページで改行が反映されるようにnl2br()を使っていきます。
+
+nl2br()
+{!! !!}
+補足情報 文字参照について
+2024年7月12日
+動画内で説明している文字参照について復習したい方は以下を参考にしてみてください。
+
+・#24 文字参照､codeタグを使ってみよう | HTML入門 基本タグ編
+https://dotinstall.com/lessons/basic_html_tags_v3/60524
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required|min:5',
+        ]);
+
+        $post = new Post();
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()->route('posts.index');
+    }
+}
+
+create.blade.php
+<x-layout>
+    <x-slot:title>
+        Add new post | My Laravel App
+    </x-slot>
+
+    <h1>Add new post</h1>
+    <form method="post" action="{{ route('posts.store') }}">
+        @csrf
+
+        <div>
+            <label>
+                Title
+                <input type="text" name="title" value="{{ old('title') }}">
+            </label>
+            @error('title')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body">{{ old('body') }}</textarea>
+            </label>
+            @error('body')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <button>Add</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>{{ $post->title }}</h1>
+    <p>{!! nl2br($post->body) !!}</p>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.error {
+  margin: 4px 0 0;
+  color: red;
+}
+
+
+
+
+
+e()
+動作確認
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required|min:5',
+        ]);
+
+        $post = new Post();
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()->route('posts.index');
+    }
+}
+
+create.blade.php
+<x-layout>
+    <x-slot:title>
+        Add new post | My Laravel App
+    </x-slot>
+
+    <h1>Add new post</h1>
+    <form method="post" action="{{ route('posts.store') }}">
+        @csrf
+
+        <div>
+            <label>
+                Title
+                <input type="text" name="title" value="{{ old('title') }}">
+            </label>
+            @error('title')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body">{{ old('body') }}</textarea>
+            </label>
+            @error('body')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <button>Add</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>{{ $post->title }}</h1>
+    <p>{!! nl2br($post->body) !!}</p>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.error {
+  margin: 4px 0 0;
+  color: red;
+}
+
+
+
+
+
+ルーティングを確認したのちに、編集フォームへのリンクを設定していきます。
+
+ルーティングの確認
+編集フォームへのリンク
+edit()
+補足情報 動画内で実行したコマンドについて
+2024年7月9日
+今回の動画で使ったコマンドは以下のとおりです。
+
+php artisan route:list --name=posts
+clear
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required|min:5',
+        ]);
+
+        $post = new Post();
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()->route('posts.index');
+    }
+
+    public function edit(Post $post)
+    {
+        return view('posts.edit')->with(['post' => $post]);
+    }
+}
+
+create.blade.php
+<x-layout>
+    <x-slot:title>
+        Add new post | My Laravel App
+    </x-slot>
+
+    <h1>Add new post</h1>
+    <form method="post" action="{{ route('posts.store') }}">
+        @csrf
+
+        <div>
+            <label>
+                Title
+                <input type="text" name="title" value="{{ old('title') }}">
+            </label>
+            @error('title')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body">{{ old('body') }}</textarea>
+            </label>
+            @error('body')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <button>Add</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>
+        {{ $post->title }}
+        <a href="{{ route('posts.edit', $post) }}">Edit</a>
+    </h1>
+    <p>{!! nl2br(e($post->body)) !!}</p>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.error {
+  margin: 4px 0 0;
+  color: red;
+}
+
+
+
+
+
+
+編集フォームを作ったのち、フォームに値がセットされるようにしていきます。
+
+edit.blade.php
+値のセット
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required|min:5',
+        ]);
+
+        $post = new Post();
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()->route('posts.index');
+    }
+
+    public function edit(Post $post)
+    {
+        return view('posts.edit')->with(['post' => $post]);
+    }
+}
+
+create.blade.php
+<x-layout>
+    <x-slot:title>
+        Add new post | My Laravel App
+    </x-slot>
+
+    <h1>Add new post</h1>
+    <form method="post" action="{{ route('posts.store') }}">
+        @csrf
+
+        <div>
+            <label>
+                Title
+                <input type="text" name="title" value="{{ old('title') }}">
+            </label>
+            @error('title')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body">{{ old('body') }}</textarea>
+            </label>
+            @error('body')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <button>Add</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>
+        {{ $post->title }}
+        <a href="{{ route('posts.edit', $post) }}">Edit</a>
+    </h1>
+    <p>{!! nl2br(e($post->body)) !!}</p>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+edit.blade.php
+<x-layout>
+    <x-slot:title>
+        Edit post | My Laravel App
+    </x-slot>
+
+    <h1>Edit post</h1>
+    <form>
+        @csrf
+
+        <div>
+            <label>
+                Title
+                <input type="text" name="title" value="{{ old('title', $post->title) }}">
+            </label>
+            @error('title')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body">{{ old('body', $post->body) }}</textarea>
+            </label>
+            @error('body')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <button>Update</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.show', $post) }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.error {
+  margin: 4px 0 0;
+  color: red;
+}
+
+
+
+
+データを更新するためのメソッドを実装し、編集機能を完成させます。
+
+update()
+動作確認
+補足情報 動画内で実行したコマンドについて
+2024年7月9日
+今回の動画で使ったコマンドは以下のとおりです。
+
+php artisan route:list --name=posts
+clear
+
+edit.blade.php
+<x-layout>
+    <x-slot:title>
+        Edit post | My Laravel App
+    </x-slot>
+
+    <h1>Edit post</h1>
+    <form method="post" action="{{ route('posts.update', $post) }}">
+        @method('PATCH')
+        @csrf
+
+        <div>
+            <label>
+                Title
+                <input type="text" name="title" value="{{ old('title', $post->title) }}">
+            </label>
+            @error('title')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body">{{ old('body', $post->body) }}</textarea>
+            </label>
+            @error('body')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <button>Update</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.show', $post) }}">Back</a></p>
+</x-layout>
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required|min:5',
+        ]);
+
+        $post = new Post();
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()->route('posts.index');
+    }
+
+    public function edit(Post $post)
+    {
+        return view('posts.edit')->with(['post' => $post]);
+    }
+
+    public function update(Request $request, Post $post)
+    {
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required|min:5',
+        ]);
+
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()->route('posts.show', $post);
+    }
+}
+
+create.blade.php
+<x-layout>
+    <x-slot:title>
+        Add new post | My Laravel App
+    </x-slot>
+
+    <h1>Add new post</h1>
+    <form method="post" action="{{ route('posts.store') }}">
+        @csrf
+
+        <div>
+            <label>
+                Title
+                <input type="text" name="title" value="{{ old('title') }}">
+            </label>
+            @error('title')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body">{{ old('body') }}</textarea>
+            </label>
+            @error('body')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <button>Add</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+create_posts_table.php
+
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>
+        {{ $post->title }}
+        <a href="{{ route('posts.edit', $post) }}">Edit</a>
+    </h1>
+    <p>{!! nl2br(e($post->body)) !!}</p>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.error {
+  margin: 4px 0 0;
+  color: red;
+}
+
+
+
+
+
+
+
+独自のRequestクラスを作成し、バリデーション処理をまとめていきます。
+
+PostRequestクラスの作成
+authorize()
+rules()
+補足情報 動画内で実行したコマンドについて
+2024年7月9日
+今回の動画で使ったコマンドは以下のとおりです。
+
+php artisan make:request PostRequest
+clear
+
+edit.blade.php
+<x-layout>
+    <x-slot:title>
+        Edit post | My Laravel App
+    </x-slot>
+
+    <h1>Edit post</h1>
+    <form method="post" action="{{ route('posts.update', $post) }}">
+        @method('PATCH')
+        @csrf
+
+        <div>
+            <label>
+                Title
+                <input type="text" name="title" value="{{ old('title', $post->title) }}">
+            </label>
+            @error('title')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body">{{ old('body', $post->body) }}</textarea>
+            </label>
+            @error('body')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <button>Update</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.show', $post) }}">Back</a></p>
+</x-layout>
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostRequestController.php
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class PostRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return false;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            //
+        ];
+    }
+}
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required|min:5',
+        ]);
+
+        $post = new Post();
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()->route('posts.index');
+    }
+
+    public function edit(Post $post)
+    {
+        return view('posts.edit')->with(['post' => $post]);
+    }
+
+    public function update(Request $request, Post $post)
+    {
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required|min:5',
+        ]);
+
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()->route('posts.show', $post);
+    }
+}
+
+create.blade.php
+<x-layout>
+    <x-slot:title>
+        Add new post | My Laravel App
+    </x-slot>
+
+    <h1>Add new post</h1>
+    <form method="post" action="{{ route('posts.store') }}">
+        @csrf
+
+        <div>
+            <label>
+                Title
+                <input type="text" name="title" value="{{ old('title') }}">
+            </label>
+            @error('title')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body">{{ old('body') }}</textarea>
+            </label>
+            @error('body')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <button>Add</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>
+        {{ $post->title }}
+        <a href="{{ route('posts.edit', $post) }}">Edit</a>
+    </h1>
+    <p>{!! nl2br(e($post->body)) !!}</p>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.error {
+  margin: 4px 0 0;
+  color: red;
+}
+
+
+
+
+
+
+
+
+PostControllerで使っているRequestを、PostRequestクラスに書き換えていきます。
+
+PostControllerの書き換え
+動作確認
+
+edit.blade.php
+    <x-slot:title>
+        Edit post | My Laravel App
+    </x-slot>
+
+    <h1>Edit post</h1>
+    <form method="post" action="{{ route('posts.update', $post) }}">
+        @method('PATCH')
+        @csrf
+
+        <div>
+            <label>
+                Title
+                <input type="text" name="title" value="{{ old('title', $post->title) }}">
+            </label>
+            @error('title')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body">{{ old('body', $post->body) }}</textarea>
+            </label>
+            @error('body')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <button>Update</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.show', $post) }}">Back</a></p>
+</x-layout>
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostRequest.php
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class PostRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'title' => 'required',
+            'body' => 'required|min:5',
+        ];
+    }
+}
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Http\Requests\PostRequest;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    public function store(PostRequest $request)
+    {
+        $post = new Post();
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()->route('posts.index');
+    }
+
+    public function edit(Post $post)
+    {
+        return view('posts.edit')->with(['post' => $post]);
+    }
+
+    public function update(PostRequest $request, Post $post)
+    {
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()->route('posts.show', $post);
+    }
+}
+
+create.blade.php
+<x-layout>
+    <x-slot:title>
+        Add new post | My Laravel App
+    </x-slot>
+
+    <h1>Add new post</h1>
+    <form method="post" action="{{ route('posts.store') }}">
+        @csrf
+
+        <div>
+            <label>
+                Title
+                <input type="text" name="title" value="{{ old('title') }}">
+            </label>
+            @error('title')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body">{{ old('body') }}</textarea>
+            </label>
+            @error('body')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <button>Add</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>
+        {{ $post->title }}
+        <a href="{{ route('posts.edit', $post) }}">Edit</a>
+    </h1>
+    <p>{!! nl2br(e($post->body)) !!}</p>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.error {
+  margin: 4px 0 0;
+  color: red;
+}
+
+
+
+
+投稿を削除するためのフォームとボタンを設置したのちにルーティングを確認していきます。
+
+フォーム、ボタンの設置
+ルーティングの確認
+@method()
+補足情報 動画内で実行したコマンドについて
+2024年7月9日
+今回の動画で使ったコマンドは以下のとおりです。
+
+php artisan route:list --name=posts
+clear
+
+edit.blade.php
+<x-layout>
+    <x-slot:title>
+        Edit post | My Laravel App
+    </x-slot>
+
+    <h1>Edit post</h1>
+    <form method="post" action="{{ route('posts.update', $post) }}">
+        @method('PATCH')
+        @csrf
+
+        <div>
+            <label>
+                Title
+                <input type="text" name="title" value="{{ old('title', $post->title) }}">
+            </label>
+            @error('title')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body">{{ old('body', $post->body) }}</textarea>
+            </label>
+            @error('body')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <button>Update</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.show', $post) }}">Back</a></p>
+</x-layout>
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostRequest.php
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class PostRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'title' => 'required',
+            'body' => 'required|min:5',
+        ];
+    }
+}
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Http\Requests\PostRequest;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    public function store(PostRequest $request)
+    {
+        $post = new Post();
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()->route('posts.index');
+    }
+
+    public function edit(Post $post)
+    {
+        return view('posts.edit')->with(['post' => $post]);
+    }
+
+    public function update(PostRequest $request, Post $post)
+    {
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()->route('posts.show', $post);
+    }
+}
+
+create.blade.php
+<x-layout>
+    <x-slot:title>
+        Add new post | My Laravel App
+    </x-slot>
+
+    <h1>Add new post</h1>
+    <form method="post" action="{{ route('posts.store') }}">
+        @csrf
+
+        <div>
+            <label>
+                Title
+                <input type="text" name="title" value="{{ old('title') }}">
+            </label>
+            @error('title')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body">{{ old('body') }}</textarea>
+            </label>
+            @error('body')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <button>Add</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>
+        {{ $post->title }}
+        <a href="{{ route('posts.edit', $post) }}">Edit</a>
+        <form method="post" action="{{ route('posts.destroy', $post) }}">
+            @method('DELETE')
+            @csrf
+            <button>Delete</button>
+        </form>
+    </h1>
+    <p>{!! nl2br(e($post->body)) !!}</p>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div + div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.error {
+  margin: 4px 0 0;
+  color: red;
+}
+
+
+
+
+投稿データを削除するためのdestroyメソッドを実装していきます。
+
+destroy()
+フォームのスタイリング
+
+edit.blade.php
+<x-layout>
+    <x-slot:title>
+        Edit post | My Laravel App
+    </x-slot>
+
+    <h1>Edit post</h1>
+    <form method="post" action="{{ route('posts.update', $post) }}">
+        @method('PATCH')
+        @csrf
+
+        <div>
+            <label>
+                Title
+                <input type="text" name="title" value="{{ old('title', $post->title) }}">
+            </label>
+            @error('title')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body">{{ old('body', $post->body) }}</textarea>
+            </label>
+            @error('body')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <button>Update</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.show', $post) }}">Back</a></p>
+</x-layout>
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostRequest.php
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class PostRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'title' => 'required',
+            'body' => 'required|min:5',
+        ];
+    }
+}
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Http\Requests\PostRequest;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    public function store(PostRequest $request)
+    {
+        $post = new Post();
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()->route('posts.index');
+    }
+
+    public function edit(Post $post)
+    {
+        return view('posts.edit')->with(['post' => $post]);
+    }
+
+    public function update(PostRequest $request, Post $post)
+    {
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()->route('posts.show', $post);
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+
+        return redirect()->route('posts.index');
+    }
+}
+
+create.blade.php
+<x-layout>
+    <x-slot:title>
+        Add new post | My Laravel App
+    </x-slot>
+
+    <h1>Add new post</h1>
+    <form method="post" action="{{ route('posts.store') }}">
+        @csrf
+
+        <div>
+            <label>
+                Title
+                <input type="text" name="title" value="{{ old('title') }}">
+            </label>
+            @error('title')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body">{{ old('body') }}</textarea>
+            </label>
+            @error('body')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <button>Add</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>
+        {{ $post->title }}
+        <a href="{{ route('posts.edit', $post) }}">Edit</a>
+        <form method="post" action="{{ route('posts.destroy', $post) }}">
+            @method('DELETE')
+            @csrf
+            <button>Delete</button>
+        </form>
+    </h1>
+    <p>{!! nl2br(e($post->body)) !!}</p>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+h1 form {
+  display: inline-block;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div+div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.error {
+  margin: 4px 0 0;
+  color: red;
+}
+
+
+
+
+
+投稿を削除する前にダイアログが表示されるように修正していきます。
+
+submitイベントの実装
+動作確認
+補足情報 JavaScriptでの実装について
+2024年7月9日
+動画内で紹介しているJavaScriptの実装について忘れてしまった人は以下のレッスンを復習してみましょう。
+
+・querySelector()、addEventListener()について
+https://dotinstall.com/lessons/basic_javascript_dom_v3/63802
+・preventDefault()、submitイベントについて
+https://dotinstall.com/lessons/basic_javascript_dom_v3/63819
+
+edit.blade.php
+<x-layout>
+    <x-slot:title>
+        Edit post | My Laravel App
+    </x-slot>
+
+    <h1>Edit post</h1>
+    <form method="post" action="{{ route('posts.update', $post) }}">
+        @method('PATCH')
+        @csrf
+
+        <div>
+            <label>
+                Title
+                <input type="text" name="title" value="{{ old('title', $post->title) }}">
+            </label>
+            @error('title')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body">{{ old('body', $post->body) }}</textarea>
+            </label>
+            @error('body')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <button>Update</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.show', $post) }}">Back</a></p>
+</x-layout>
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+Post.php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+}
+
+PostRequest.php
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class PostRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'title' => 'required',
+            'body' => 'required|min:5',
+        ];
+    }
+}
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Http\Requests\PostRequest;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        return view('index')->with(['posts' => $posts]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show')->with(['post' => $post]);
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    public function store(PostRequest $request)
+    {
+        $post = new Post();
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()->route('posts.index');
+    }
+
+    public function edit(Post $post)
+    {
+        return view('posts.edit')->with(['post' => $post]);
+    }
+
+    public function update(PostRequest $request, Post $post)
+    {
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()->route('posts.show', $post);
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+
+        return redirect()->route('posts.index');
+    }
+}
+
+create.blade.php
+<x-layout>
+    <x-slot:title>
+        Add new post | My Laravel App
+    </x-slot>
+
+    <h1>Add new post</h1>
+    <form method="post" action="{{ route('posts.store') }}">
+        @csrf
+
+        <div>
+            <label>
+                Title
+                <input type="text" name="title" value="{{ old('title') }}">
+            </label>
+            @error('title')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <label>
+                Body
+                <textarea name="body">{{ old('body') }}</textarea>
+            </label>
+            @error('body')
+                <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
+            <button>Add</button>
+        </div>
+    </form>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+create_posts_table.php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            // $table->string('title')->nullable();
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post->title }} | My Laravel App
+    </x-slot>
+
+    <h1>
+        {{ $post->title }}
+        <a href="{{ route('posts.edit', $post) }}">Edit</a>
+        <form method="post" action="{{ route('posts.destroy', $post) }}" id="delete-form">
+            @method('DELETE')
+            @csrf
+            <button>Delete</button>
+        </form>
+    </h1>
+    <p>{!! nl2br(e($post->body)) !!}</p>
+
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+
+    <script>
+        'use strict';
+
+        {
+            const form = document.querySelector('#delete-form');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                if (confirm('Sure?') === false) {
+                    return;
+                }
+
+                form.submit();
+            });
+
+        }
+    </script>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>
+        Posts
+        <a href="{{ route('posts.create') }}">Add new</a>
+    </h1>
+    <ul>
+    @forelse ($posts as $post)
+        <li>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::resource('posts', PostController::class)->except(['index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h1 a {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+h1 form {
+  display: inline-block;
+}
+
+.back-link {
+  text-align: right;
+}
+
+form div+div {
+  margin-top: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.error {
+  margin: 4px 0 0;
+  color: red;
+}
+
+
+
+  </pre>
+
+</body>
+</html>

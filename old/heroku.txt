@@ -1,0 +1,380 @@
+// ===== video_summary =====
+まずは概要を説明したあとに公式サイト、必要となる知識、レッスンにおける環境、必要となる準備について説明していきます。
+
+
+    概要
+    公式サイト
+    必要となる知識
+    レッスンにおける環境
+    必要となる準備
+
+// ===== read.me =====
+Heroku
+
+# 概要
+-アプリケーションを稼働させるためのプラットフォーム
+-PaaS (Platform as a Service)
+
+# 公式サイト
+
+# 知識
+- Ruby on Rails / Ruby
+- Unixコマンド / vim
+- git
+- PostgreSQL
+
+# 環境
+-ローカル揮発環境（Vagrant）
+
+# 準備
+
+
+
+
+
+// ===== video_summary =====
+Herokuに代表されるPaaSがどういったものかを説明していきます。
+
+PaaS以前の開発フロー
+PaaSを使った開発フロー
+
+
+
+
+
+// ===== video_summary =====
+Herokuがどのように動いているかをいくつかの用語とともに説明していきます。
+
+Herokuの仕組み
+Procfile
+Slug
+Dyno
+Addons
+
+
+
+
+
+
+// ===== video_summary =====
+herokuコマンドを使えるようにするHeroku Toolbeltをインストールしていきます。
+
+
+    Heroku Toolbeltのインストール
+    heroku login
+
+// ===== commentBox 1 =====
+補足情報
+Toolbeltのインストールについて
+
+
+
+
+2017年4月2日
+
+
+
+
+
+2017年1月現在、Toolbeltは廃止されてコマンドラインツールをインストールするようになっています。詳細は以下のページで確認することができます。
+
+https://devcenter.heroku.com/articles/heroku-cli
+
+ローカル開発環境のレッスンどおりに環境を構築している場合は、こちらのページにあるStandalone versionをインストールしてください。実際に打ち込むコマンドは以下のとおりとなります。
+
+wget https://cli-assets.heroku.com/branches/stable/heroku-linux-amd64.tar.gz -O heroku.tar.gz
+mkdir -p /usr/local/lib
+sudo tar -xvzf heroku.tar.gz -C /usr/local/lib
+sudo /usr/local/lib/heroku/install
+
+// ===== read.me =====
+wget -qO- https://toolbelt.heroku.com/install.sh | sh
+echo 'PATH="/usr/local/heroku/bin:$PATH"' >> ~/.bash_profile
+exit
+vagrant ssh
+heroku --version
+cd .ssh
+ls
+cd ..
+heroku login
+
+
+
+
+
+
+// ===== video_summary =====
+Herokuにて稼働させるアプリケーションをRailsを使って作っていきます。
+
+
+    Railsアプリケーションの作成
+    gitの設定
+
+// ===== commentBox 1 =====
+補足情報
+gem install pg でエラーになる場合
+
+
+
+
+2017年2月6日
+
+
+
+
+
+Rails から PostgreSQL を利用するには gem で pg を導入する必要があります。ただ、PostgreSQL入門 の補足情報に従って PostgreSQL 9.3 を導入している場合、gem install pg だけでは上手くインストールできません。
+
+その際には、
+
+sudo yum install postgresql93-devel
+
+
+で postgresql93-devel をインストール後、
+
+gem install pg -- --with-pg-config=/usr/pgsql-9.3/bin/pg_config
+
+
+として pg_config へのパスを指定するようにしてみてください。
+
+※ なお、PostgreSQL 9.3 ではなく 9.4 や 9.5 を導入している場合は、それにあわせて「93」や「9.3」の部分を変更してください。
+
+// ===== read.me =====
+rails new mymemo -d postgresql
+cd mymemo/
+vi Gemfile
+--- 編集開始 ---
+gem 'therubyracer', platforms: ruby
+--- 編集終了 ---
+rails s
+rails g scaffold Memo title:string body:text
+rake db:migrate 
+rails s
+git init
+git add .
+git commit -m "initial commit"
+
+
+
+
+
+// ===== video_summary =====
+必要なファイルを作成したあとに、Heroku側でアプリケーションを作成していきます。
+
+
+    Gemfileの設定
+    Procfileの作成
+    heroku create
+
+// ===== read.me =====
+ls
+vi Gemfile
+--- 編集開始 ---
+gem 'rails_12factor', group: :production
+--- 編集終了 ---
+vi Procfile
+--- 編集開始 ---
+web: bundle exec rails server -p $PORT
+--- 編集終了 ---
+git add .
+git commit -m "Gemfile updated, Procfile added"
+heroku create
+
+
+
+
+
+
+// ===== video_summary =====
+作ったアプリケーションをHeroku上で確認していきます。
+
+
+    Databaseの設定
+    動作確認
+
+// ===== read.me =====
+git push heroku master
+heroku addons:add heroku-postgresql
+heroku run rake db:migrate
+heroku apps:info
+
+
+
+
+
+// ===== video_summary =====
+Heroku上のアプリケーションを操作するためのいくつかのコマンドについて説明していきます。
+
+
+    heroku ps
+    heroku logs
+    heroku maintenance
+
+// ===== read.me =====
+heroku ps
+heroku ps:scale web=2
+heroku logs 
+heroku logs --tail
+heroku maintenance:on
+heroku maintenance
+heroku maintenance:off
+
+
+
+
+
+
+// ===== video_summary =====
+One-off Dynoを使って一時的なコマンドを発行する方法をみていきます。
+
+
+    heroku run bash
+    heroku run rails console
+
+// ===== read.me =====
+# One-off Dyno
+heroku run bash
+ls
+exit
+heroku run rails console
+m = Memo.new({title:"hoge", body:"hogehoge"})
+m.save
+quit
+
+
+
+
+
+
+// ===== video_summary =====
+リリースの管理をするためのコマンドについて見ていきます。
+
+
+    アプリケーションの更新
+    heroku releases
+    heroku releases:rollback
+
+// ===== read.me =====
+vi app/views/memos/index.html.erb
+--- 編集開始 ---
+<p>hello world</p>
+--- 編集終了 ---
+rails s
+git add .
+git commit -m  "added hello workd"
+git push heroku master
+heroku releases
+heroku releases:rollback
+heroku releases:rollback
+
+
+
+
+
+
+// ===== video_summary =====
+環境ごとに値が変わる変数を管理していく方法についてみていきます。
+
+
+    heroku config
+
+// ===== commentBox 1 =====
+補足情報
+heroku configで表示される情報
+
+
+
+
+2014年8月5日
+
+
+
+
+
+heroku configで表示される情報にはセキュリティ上、他の人に教えるべきではないものが含まれるので気をつけましょう。
+
+// ===== read.me =====
+heroku config:set mykey=myvalue
+heroku config:get mykey=myvalue
+heroku config
+heroku config:unset mykey
+heroku config:set mykey=myvalue
+vi app/views/memos/index.html.erb
+--- 編集開始 ---
+<p><%= ENV['mykey'] %></p>
+--- 編集終了 ---
+git add .
+git commit -m "mykey added"
+git push heroku master
+rails s
+
+
+
+
+
+
+// ===== video_summary =====
+環境ごとに値が変わる変数を管理していく方法についてみていきます。
+
+
+    heroku config
+
+// ===== commentBox 1 =====
+補足情報
+heroku configで表示される情報
+
+
+
+
+2014年8月5日
+
+
+
+
+
+heroku configで表示される情報にはセキュリティ上、他の人に教えるべきではないものが含まれるので気をつけましょう。
+
+// ===== read.me =====
+heroku config:set mykey=myvalue
+heroku config:get mykey=myvalue
+heroku config
+heroku config:unset mykey
+heroku config:set mykey=myvalue
+vi app/views/memos/index.html.erb
+--- 編集開始 ---
+<p><%= ENV['mykey'] %></p>
+--- 編集終了 ---
+git add .
+git commit -m "mykey added"
+git push heroku master
+rails s
+
+
+
+
+
+
+// ===== video_summary =====
+ローカル環境でデプロイするためのforemanコマンドについて見ていきます。
+
+
+    .env
+    foreman start
+    動作確認
+
+// ===== read.me =====
+ls
+vi .env
+--- 編集開始 ---
+mykey=mylocalvalue
+--- 編集終了 ---
+foreman start
+vi .gitignore
+--- 編集開始 ---
+.env
+--- 編集終了 ---
+
+
+
+
+

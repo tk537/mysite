@@ -1,0 +1,349 @@
+// ===== video_summary =====
+Rubyの概要に触れたのち、レッスンの構成、学習のコツについて見ていきます。
+
+
+    概要
+    レッスンの構成
+    学習のコツ
+
+// ===== main.rb =====
+
+
+
+
+
+
+
+// ===== video_summary =====
+Rubyで数値を表示するコードを試しながら、ブラウザ実行環境の使い方について学んでいきます。
+
+
+    puts
+    命令の区切り
+    ブラウザ実行環境の使い方
+
+// ===== main.rb =====
+puts 10
+
+
+
+
+
+// ===== video_summary =====
+数値のさまざまな表現方法について、例を出しながら学んでいきます。
+
+
+    マイナスの数値
+    小数点を含む数値
+    プログラムの実行順
+    _による区切り
+    eを使った表現
+
+// ===== commentBox 1 =====
+補足情報
+1.2e3について
+
+
+
+
+2025年5月30日
+
+
+
+
+
+動画中で「1.2e3」について「1.2 に 10 の 3 乗をかけたものという意味なので、1.2 × 1000 で 12000 になります」と発話していますが、「12000」ではなくて、「1200」となります。訂正してお詫び申し上げます。
+
+// ===== main.rb =====
+puts 10
+puts -8
+puts 2.5
+puts 1_000_000
+puts 1.2e3
+puts 1.2e-3
+
+
+
+
+
+
+// ===== video_summary =====
+コード内にメモ書きとしてコメントを入れる方法、コメントを使って命令を無効化する方法について学びます。
+
+
+    コメントの記法
+    空行の扱い
+    命令の無効化
+    コメントのショートカットキー
+
+// ===== main.rb =====
+# puts 10
+# puts -8
+# puts 2.5
+# puts 1_000_000
+
+# e を使った表現
+puts 1.2e3 # 1.2かける10の3乗
+puts 1.2e-3 # 1.2かける10の-3乗
+
+
+
+
+
+
+// ===== video_summary =====
+数値に対して使える、さまざまな演算子について見ていきます。
+
+
+    + - * ** / %
+    割り算の方法
+    小数点を含む数値に関する注意点
+    演算子の優先度
+
+// ===== main.rb =====
+puts 10 + 3
+puts 10 - 3
+puts 10 * 3
+puts 10 ** 3
+puts 10 / 3
+puts 10.0 / 3
+puts 10 % 3
+puts 10 + 2 * 3
+puts (10 + 2) * 3
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+変数を使って値にわかりやすい名前をつける方法について見ていきます。
+
+
+    変数の利用
+    代入演算子
+    変数を使うメリット
+
+// ===== main.rb =====
+# puts 150 * 120
+# puts 150 * 130
+# puts 150 * 140
+
+price = 150
+puts price * 120
+puts price * 130
+puts price * 140
+
+
+
+
+
+// ===== video_summary =====
+値を更新して再代入する際の表現について学びます。
+
+
+    値の再代入
+    += -=
+
+// ===== main.rb =====
+price = 150
+puts price * 120
+puts price * 130
+puts price * 140
+
+# price = 151
+# price = price + 1
+price += 1
+# price -= 1
+puts price * 120
+puts price * 130
+puts price * 140
+
+
+
+
+
+// ===== video_summary =====
+値を再代入してほしくない場合に使える、定数の表現について見ていきます。
+
+
+    定数の表現
+    再代入した場合の注意点
+
+// ===== main.rb =====
+price = 150
+RATE = 1.1
+puts price * 120 * RATE
+puts price * 130 * RATE
+puts price * 140 * RATE
+
+price += 1
+RATE = 1.08
+puts price * 120 * RATE
+puts price * 130 * RATE
+puts price * 140 * RATE
+
+
+
+
+
+// ===== video_summary =====
+変数や定数に名前をつける際のいくつかのルールについて見ていきます。
+
+
+    リテラル表現
+    使える文字
+    数値から始まる名前
+    予約語
+
+// ===== main.rb =====
+price = 150
+RATE = 1.1
+puts price * 120 * RATE
+puts price * 130 * RATE
+puts price * 140 * RATE
+
+price += 1
+RATE = 1.08
+puts price * 120 * RATE
+puts price * 130 * RATE
+puts price * 140 * RATE
+
+
+
+
+
+
+// ===== video_summary =====
+文字列を表現するためのいくつかの方法について見ていきます。
+
+
+    文字列の表現
+    改行の表現
+    変数の埋め込み
+
+// ===== commentBox 1 =====
+補足情報
+\（バックスラッシュ）の入力方法について
+
+
+
+
+2024年1月14日
+
+
+
+
+
+Windowsだったら「Alt」キーを押しながら、「￥」キーを押してください。macOSの場合は「Option」キーを押しながら「￥」キーを押してください。
+
+// ===== main.rb =====
+# puts 'Hello Taro'
+# puts "Hello Jiro"
+# puts "Hello\nSaburo"
+name = "Shiro"
+puts "Hello #{name}"
+
+
+
+
+
+
+// ===== video_summary =====
+ユーザーに文字列を入力してもらう方法について見ていきます。
+
+
+    gets
+    print
+
+// ===== main.rb =====
+print "Your name? "
+name = gets
+puts name
+
+
+
+
+
+
+// ===== video_summary =====
+文字列を連結する方法、繰り返す方法について見ていきます。
+
+
+    +
+    *
+
+// ===== main.rb =====
+print "Your name? "
+name = gets
+puts "*" * 10
+puts "Hello #{name}"
+puts "Hello " + name
+puts "*" * 10
+
+
+
+
+
+
+// ===== video_summary =====
+特定の位置にある文字にアクセスする方法について見ていきます。
+
+
+    []
+    インデックス
+
+// ===== main.rb =====
+print "Your name? "
+name = gets
+# puts name[0]
+# puts name[1]
+# puts name[2]
+name[0] = "*"
+name[1] = "*"
+name[2] = "*"
+puts name
+
+
+
+
+
+
+// ===== video_summary =====
+文字列に使えるさまざまな命令について見ていきます。
+
+
+    length
+    size
+    p
+    strip
+
+// ===== main.rb =====
+print "Your name? "
+name = gets.strip
+p name
+puts name.length
+puts name.size
+
+
+
+
+
+// ===== video_summary =====
+文字列を整数値に変換するための命令について見ていきます。
+
+
+    文字列と数値の演算
+    to_i
+
+// ===== main.rb =====
+print "Number? "
+num = gets.to_i
+puts num + 5
+
+
+
+
+

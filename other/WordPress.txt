@@ -1,0 +1,3994 @@
+// ===== video_summary =====
+WordPressの概要を説明したのち、公式サイト、必要となる知識、レッスンにおける範囲などについて解説していきます。
+
+
+    概要
+    公式サイト
+    必要となる知識
+    レッスンにおける環境
+    レッスンの範囲
+
+// ===== commentBox 1 =====
+補足情報
+必要となる知識について
+
+
+
+
+2018年12月27日
+
+
+
+
+
+今回のレッスンについては以下も参考にしてみてください。
+
+・ローカル開発環境の構築 [macOS編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_mac_v2
+・ローカル開発環境の構築 [Windows編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_win_v2
+・はじめてのHTML (全15回) 
+http://dotinstall.com/lessons/basic_html_v4
+・はじめてのCSS (全17回) 
+http://dotinstall.com/lessons/basic_css_v4
+・PHP入門 (全30回) 
+http://dotinstall.com/lessons/basic_php_v2
+・MySQL入門 (全19回) 
+http://dotinstall.com/lessons/basic_mysql_v2
+
+// ===== commentBox 2 =====
+補足情報
+ローカル開発環境ではWordPressの自動更新やプラグインの自動インストールはできません
+
+
+
+
+2018年4月14日
+
+
+
+
+
+ローカル開発環境では FTP を利用できないため WordPress の自動更新やプラグインの自動インストールには対応していません。
+
+
+レンタルサーバーなど実際の環境を利用する
+手動更新、手動インストールの方法を調べてみる
+
+
+など別の方法をお試しください。
+
+// ===== commentBox 3 =====
+補足情報
+Automattic社について
+
+
+
+
+2013年4月9日
+
+
+
+
+
+なお、WordPressを開発しているのはAutomattic社となります。
+http://automattic.com/
+同社ではWordPressのホスティングサイト、WordPress.comを運営しています。こちらではサーバーへのインストールなしに、ユーザー登録だけで基本的な機能を有したWordPressブログを持つことができます。
+http://wordpress.com/
+
+// ===== commentBox 4 =====
+補足情報
+オンラインマニュアルについて
+
+
+
+
+2013年4月9日
+
+
+
+
+
+WordPressの日本語サイトはこちらです。
+http://ja.wordpress.org/
+またオンラインマニュアルのCodexはこちらです。
+http://wpdocs.sourceforge.jp/
+なお、WordPressには公式のドキュメントは存在せず、Codexはコミュニティメンバーによって随時、更新されています（英語版も日本語版も）。
+
+// ===== read.me =====
+WordPress
+
+* 概要
+- ブログシステム
+
+* 公式サイト
+
+* 知識
+HTML/CSS
+PHP/MySQL
+
+* 環境
+http://dev.dotinstall.com/wordpress
+
+* 範囲
+- Setup
+- 管理画面の使い方
+- 基本的な使い方
+- シンプルなテーマの作り方
+
+
+// ===== video_summary =====
+データベースの設定をしたのちに、ダウンロードしたWordPressをローカル開発環境にインストールしていきます。
+
+
+    データベースの設定
+    設定ファイルの作成
+    WordPressのインストール
+    ログイン
+
+// ===== commentBox 1 =====
+補足情報
+wordpress フォルダの作成場所について
+
+
+
+
+2018年2月22日
+
+
+
+
+
+このレッスンは旧版のローカル開発環境を元に作成されています。現行のローカル開発環境でインストールするには wordpress フォルダを「/var/www/html」の下に作成するようにしてください。
+
+
+まずは Cyberduck でローカル開発環境に接続してください。
+次に Cyberduck で現在のディレクトリを示すプルダウンをクリックし、一番下にある「/」を選択してください。
+
+
+
+
+
+そうすると最上位のディレクトリに移動でき、フォルダの一覧が表示されます。
+その一覧から「var」-「www」-「html」とフォルダをクリックしてたどっていけば、「/var/www/html」に行き着きます。
+そこに wordpress フォルダを作成し、WordPress のファイル群を入れてみてください。
+
+// ===== wp-config.php =====
+<?php
+/**
+ * The base configurations of the WordPress.
+ *
+ * このファイルは、MySQL、テーブル接頭辞、秘密鍵、言語、ABSPATH の設定を含みます。
+ * より詳しい情報は {@link http://wpdocs.sourceforge.jp/wp-config.php_%E3%81%AE%E7%B7%A8%E9%9B%86 
+ * wp-config.php の編集} を参照してください。MySQL の設定情報はホスティング先より入手できます。
+ *
+ * このファイルはインストール時に wp-config.php 作成ウィザードが利用します。
+ * ウィザードを介さず、このファイルを "wp-config.php" という名前でコピーして直接編集し値を
+ * 入力してもかまいません。
+ *
+ * @package WordPress
+ */
+
+// 注意: 
+// Windows の "メモ帳" でこのファイルを編集しないでください !
+// 問題なく使えるテキストエディタ
+// (http://wpdocs.sourceforge.jp/Codex:%E8%AB%87%E8%A9%B1%E5%AE%A4 参照)
+// を使用し、必ず UTF-8 の BOM なし (UTF-8N) で保存してください。
+
+// ** MySQL 設定 - こちらの情報はホスティング先から入手してください。 ** //
+/** WordPress のためのデータベース名 */
+define('DB_NAME', 'dotinstall_wordpress');
+
+/** MySQL データベースのユーザー名 */
+define('DB_USER', 'dbuser');
+
+/** MySQL データベースのパスワード */
+define('DB_PASSWORD', '**************');
+
+/** MySQL のホスト名 */
+define('DB_HOST', 'localhost');
+
+/** データベースのテーブルを作成する際のデータベースのキャラクターセット */
+define('DB_CHARSET', 'utf8');
+
+/** データベースの照合順序 (ほとんどの場合変更する必要はありません) */
+define('DB_COLLATE', '');
+
+/**#@+
+ * 認証用ユニークキー
+ *
+ * それぞれを異なるユニーク (一意) な文字列に変更してください。
+ * {@link https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org の秘密鍵サービス} で自動生成することもできます。
+ * 後でいつでも変更して、既存のすべての cookie を無効にできます。これにより、すべてのユーザーを強制的に再ログインさせることになります。
+ *
+ * @since 2.6.0
+ */
+define('AUTH_KEY',         '****************************************************************');
+define('SECURE_AUTH_KEY',  '****************************************************************');
+define('LOGGED_IN_KEY',    '****************************************************************');
+define('NONCE_KEY',        '****************************************************************');
+define('AUTH_SALT',        '****************************************************************');
+define('SECURE_AUTH_SALT', '****************************************************************');
+define('LOGGED_IN_SALT',   '****************************************************************');
+define('NONCE_SALT',       '****************************************************************');
+/**#@-*/
+
+/**
+ * WordPress データベーステーブルの接頭辞
+ *
+ * それぞれにユニーク (一意) な接頭辞を与えることで一つのデータベースに複数の WordPress を
+ * インストールすることができます。半角英数字と下線のみを使用してください。
+ */
+$table_prefix  = 'wp_';
+
+/**
+ * ローカル言語 - このパッケージでは初期値として 'ja' (日本語 UTF-8) が設定されています。
+ *
+ * WordPress のローカル言語を設定します。設定した言語に対応する MO ファイルが
+ * wp-content/languages にインストールされている必要があります。例えば de_DE.mo を
+ * wp-content/languages にインストールし WPLANG を 'de_DE' に設定することでドイツ語がサポートされます。
+ */
+define('WPLANG', 'ja');
+
+/**
+ * 開発者へ: WordPress デバッグモード
+ *
+ * この値を true にすると、開発中に注意 (notice) を表示します。
+ * テーマおよびプラグインの開発者には、その開発環境においてこの WP_DEBUG を使用することを強く推奨します。
+ */
+define('WP_DEBUG', false);
+
+/* 編集が必要なのはここまでです ! WordPress でブログをお楽しみください。 */
+
+/** Absolute path to the WordPress directory. */
+if ( !defined('ABSPATH') )
+    define('ABSPATH', dirname(__FILE__) . '/');
+
+/** Sets up WordPress vars and included files. */
+require_once(ABSPATH . 'wp-settings.php');
+
+
+// ===== video_summary =====
+まずは管理画面であるダッシュボードについて主なメニューを見ていきます。
+
+投稿の管理
+メディアの管理
+固定ページの管理
+テーマの管理
+ウィジェットの管理
+プラグインの管理
+
+
+// ===== video_summary =====
+一般的な設定項目について解説したあとにパーマリンクの設定、カテゴリーの設定を行なっていきます。
+
+設定項目
+パーマリンク
+.htaccessの設置
+カテゴリーの作成
+
+
+
+// ===== video_summary =====
+WordPressで記事を投稿する手順について見ていきます。画像をアップロードしたり、スラッグを設定する方法について解説していきます。
+
+記事の投稿
+画面の表示オプション（スラッグの設定）
+画像のアップロード
+
+
+// ===== video_summary =====
+一般的な記事とは別に、時系列に左右されない固定ページを作る方法について解説していきます。
+
+固定ページの作成方法
+
+
+
+
+// ===== video_summary =====
+WordPressテーマの構造を知るためにゼロからテーマを作っていきます。まずは作業の流れを確認します。
+
+
+    作業の流れ
+    ファイルの構成
+
+// ===== commentBox 1 =====
+補足情報
+スクリーンショット画像の仕様について
+
+
+
+
+2013年4月9日
+
+
+
+
+
+テーマのスクリーンショットは screenshot.png 、もしくは screenshot.jpg で、サイズは 600 x 450 が推奨されています。
+
+// ===== read.me =====
+- index.html/CSS
+- WPのテーマに変換
+- index.phpを完成させる
+- single.php（個別ページ）
+- page.php（固定ページ）
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html>
+</html>
+
+// ===== style.css =====
+
+
+
+// ===== video_summary =====
+今回は一般的な2カラムのテーマを作っていきます。まずはindex.htmlで文書の構造を書いていきます。
+
+
+    index.htmlの作成
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>はじめてのWordPress</title>
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.9.1/build/cssreset/cssreset-min.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <did id="header" class="container">
+            header
+        </div><!-- /header -->
+        <div id="main" class="container">
+            <div id="posts">
+                posts
+            </div><!-- /posts -->
+            <div id="sidebar">
+                sidebar
+            </div><!-- /sidebar -->
+        </div><!-- /main -->
+        <did id="footer" class="container">
+            footer
+        </div><!-- /footer -->
+    </body>
+</html>
+
+// ===== style.css =====
+body {
+    font-size: 14px;
+    font-family: Arial;
+}
+
+
+
+// ===== video_summary =====
+まずはヘッダー部分を作りこんでいきます。ブログのタイトルやヘッダーメニューにスタイルをあてていきます。
+
+
+    ヘッダーのスタイル
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>はじめてのWordPress</title>
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.9.1/build/cssreset/cssreset-min.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div id="header" class="container">
+            <h1><a href="">はじめてのWordPress</a></h1>
+            <ul class="menu">
+                <li><a href="">menu</a></li>
+                <li><a href="">menu</a></li>
+                <li><a href="">menu</a></li>
+            </ul>
+        </div><!-- /header -->
+        <div id="main" class="container">
+            <div id="posts">
+                posts
+            </div><!-- /posts -->
+            <div id="sidebar">
+                sidebar
+            </div><!-- /sidebar -->
+        </div><!-- /main -->
+        <div id="footer" class="container">
+            footer
+        </div><!-- /footer -->
+    </body>
+</html>
+
+// ===== style.css =====
+body {
+    font-size: 14px;
+    font-family: Arial, Verdana;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    padding-bottom: 14px;
+    margin: 0;
+    line-height: 1.8;
+}
+
+.container {
+    width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* header */
+
+#header {
+
+}
+
+    h1 {
+        font-weight: bold;
+        font-size: 18px;
+        padding: 15px 0;
+    }
+
+    .menu {
+        background: #f39800;
+        margin-bottom: 30px;
+        
+    }
+
+
+
+
+    // ===== video_summary =====
+引き続きヘッダー部分を作りこんでいきます。ヘッダーメニューをつくり結果を確認していきましょう。
+
+
+    ヘッダーメニューのスタイル
+    表示の確認
+
+// ===== style.css =====
+body {
+    font-size: 14px;
+    font-family: Arial, Verdana;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    padding-bottom: 14px;
+    margin: 0;
+    line-height: 1.8;
+}
+
+.container {
+    width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* header */
+
+#header {
+
+}
+
+    h1 {
+        font-weight: bold;
+        font-size: 18px;
+        padding: 15px 0;
+    }
+
+    .menu {
+        background: #f39800;
+        margin-bottom: 30px;
+        font-size: 12px;
+        list-style: none;
+        overflow: hidden;
+        padding: 0;
+    }
+
+        .menu > li {
+            float: left;
+            width: 150px;
+            text-align: center;
+        }
+
+        .menu a {
+            padding: 10px 0;
+            color: #fff;
+            display: block;
+        }
+
+        .menu a:hover {
+            background: #ffc35c;
+        }
+
+/* posts */
+
+#posts {
+    float: left;
+    width: 435px;
+}
+
+/* sidebar */
+
+#sidebar {
+    float: right;
+    width: 150px;
+}
+
+/* footer */
+
+#footer {
+    padding: 15px 0;
+    font-size: 12px;
+    color: #aaa;
+    border-top: 1px solid #ccc;
+
+}
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>はじめてのWordPress</title>
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.9.1/build/cssreset/cssreset-min.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div id="header" class="container">
+            <h1><a href="">はじめてのWordPress</a></h1>
+            <ul class="menu">
+                <li><a href="">menu</a></li>
+                <li><a href="">menu</a></li>
+                <li><a href="">menu</a></li>
+            </ul>
+        </div><!-- /header -->
+        <div id="main" class="container">
+            <div id="posts">
+                posts
+            </div><!-- /posts -->
+            <div id="sidebar">
+                sidebar
+            </div><!-- /sidebar -->
+        </div><!-- /main -->
+        <div id="footer" class="container">
+            footer
+        </div><!-- /footer -->
+    </body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+記事部分のスタイルを作りこんでいきます。
+
+
+    記事スタイルの設定
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>はじめてのWordPress</title>
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.9.1/build/cssreset/cssreset-min.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div id="header" class="container">
+            <h1><a href="">はじめてのWordPress</a></h1>
+            <ul class="menu">
+                <li><a href="">menu</a></li>
+                <li><a href="">menu</a></li>
+                <li><a href="">menu</a></li>
+            </ul>
+        </div><!-- /header -->
+        <div id="main" class="container">
+            <div id="posts">
+                <div id="post">
+                    <div class="post-header">
+                        <h2>
+                            <a href="">タイトル</a>
+                        </h2>
+                        <div class="post-meta">
+                            2013年4月3日 【カテゴリ】
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-image">
+                            <img src="img/noimage.png" width="100" height="100">
+                        </div>
+                        <div class="post-body">
+                            <p>本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。<p>
+                        </div>
+                    </div>
+                </div><!-- /post -->
+            </div><!-- /posts -->
+            <div id="sidebar">
+                sidebar
+            </div><!-- /sidebar -->
+        </div><!-- /main -->
+        <div id="footer" class="container">
+            footer
+        </div><!-- /footer -->
+    </body>
+</html>
+
+// ===== style.css =====
+body {
+    font-size: 14px;
+    font-family: Arial, Verdana;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    padding-bottom: 14px;
+    margin: 0;
+    line-height: 1.8;
+}
+
+.container {
+    width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* header */
+
+#header {
+
+}
+
+    h1 {
+        font-weight: bold;
+        font-size: 18px;
+        padding: 15px 0;
+    }
+
+    .menu {
+        background: #f39800;
+        margin-bottom: 30px;
+        font-size: 12px;
+        list-style: none;
+        overflow: hidden;
+        padding: 0;
+    }
+
+        .menu > li {
+            float: left;
+            width: 150px;
+            text-align: center;
+        }
+
+        .menu a {
+            padding: 10px 0;
+            color: #fff;
+            display: block;
+        }
+
+        .menu a:hover {
+            background: #ffc35c;
+        }
+
+/* posts */
+
+#posts {
+    float: left;
+    width: 435px;
+}
+
+    .post {
+
+    }
+
+        .post-header {
+
+        }
+
+            .post-header h2 {
+
+            }
+
+            .post-meta {
+                
+            }
+
+        .post-content {
+
+
+        }
+
+/* sidebar */
+
+#sidebar {
+    float: right;
+    width: 150px;
+}
+
+/* footer */
+
+#footer {
+    padding: 15px 0;
+    font-size: 12px;
+    color: #aaa;
+    border-top: 1px solid #ccc;
+
+}
+
+
+
+
+
+// ===== video_summary =====
+記事部分のスタイルを完成させ、サイドバーのスタイルを設定しきます。
+
+
+    記事スタイルの完成
+    サイドバーの設定
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>はじめてのWordPress</title>
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.9.1/build/cssreset/cssreset-min.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div id="header" class="container">
+            <h1><a href="">はじめてのWordPress</a></h1>
+            <ul class="menu">
+                <li><a href="">menu</a></li>
+                <li><a href="">menu</a></li>
+                <li><a href="">menu</a></li>
+            </ul>
+        </div><!-- /header -->
+        <div id="main" class="container">
+            <div id="posts">
+                <div class="post">
+                    <div class="post-header">
+                        <h2>
+                            <a href="">タイトル</a>
+                        </h2>
+                        <div class="post-meta">
+                            2013年4月3日 【カテゴリ】
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-image">
+                            <img src="img/noimage.png" width="100" height="100">
+                        </div>
+                        <div class="post-body">
+                            <p>本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。<p>
+                        </div>
+                    </div>
+                </div><!-- /post -->
+            </div><!-- /posts -->
+            <div id="sidebar">
+                <div class="widget">
+                    <h3>カテゴリー</h3>
+                    <ul>
+                        <li><a href="">item</a></li>
+                        <li><a href="">item</a></li>
+                        <li><a href="">item</a></li>
+                    </ul>
+                </div>
+            </div><!-- /sidebar -->
+        </div><!-- /main -->
+        <div id="footer" class="container">
+            footer
+        </div><!-- /footer -->
+    </body>
+</html>
+
+// ===== style.css =====
+body {
+    font-size: 14px;
+    font-family: Arial, Verdana;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    padding-bottom: 14px;
+    margin: 0;
+    line-height: 1.8;
+}
+
+.container {
+    width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* header */
+
+#header {
+
+}
+
+    h1 {
+        font-weight: bold;
+        font-size: 18px;
+        padding: 15px 0;
+    }
+
+    .menu {
+        background: #f39800;
+        margin-bottom: 30px;
+        font-size: 12px;
+        list-style: none;
+        overflow: hidden;
+        padding: 0;
+    }
+
+        .menu > li {
+            float: left;
+            width: 150px;
+            text-align: center;
+        }
+
+        .menu a {
+            padding: 10px 0;
+            color: #fff;
+            display: block;
+        }
+
+        .menu a:hover {
+            background: #ffc35c;
+        }
+
+/* posts */
+
+#posts {
+    float: left;
+    width: 435px;
+}
+
+    .post {
+        margin-bottom: 30px;
+    }
+
+        .post-header {
+            margin-bottom: 15px;
+        }
+
+            .post-header h2 {
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .post-meta {
+                font-size: 12px;
+                padding: 7px 0;
+                color: #555;
+            }
+
+        .post-content {
+            overflow: hidden;
+        }
+
+            .post-image {
+                float: left;
+                width: 115px;
+            }
+
+            .post-body {
+                margin-left: 115px;
+            }
+
+/* sidebar */
+
+#sidebar {
+    float: right;
+    width: 150px;
+}
+
+    .widget {
+
+    }
+
+        .widget h3 {
+            font-weight: bold;
+        }
+
+        .widget li {
+            line-height: 1.8;
+        }
+/* footer */
+
+#footer {
+    padding: 15px 0;
+    font-size: 12px;
+    color: #aaa;
+    border-top: 1px solid #ccc;
+
+}
+
+
+
+
+// ===== video_summary =====
+ナビゲーション部分、フッター部分を完成させていきます。
+
+
+    ナビゲーションのスタイル
+    フッターのスタイル
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>はじめてのWordPress</title>
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.9.1/build/cssreset/cssreset-min.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div id="header" class="container">
+            <h1><a href="">はじめてのWordPress</a></h1>
+            <ul class="menu">
+                <li><a href="">menu</a></li>
+                <li><a href="">menu</a></li>
+                <li><a href="">menu</a></li>
+            </ul>
+        </div><!-- /header -->
+        <div id="main" class="container">
+            <div id="posts">
+                <div class="post">
+                    <div class="post-header">
+                        <h2>
+                            <a href="">タイトル</a>
+                        </h2>
+                        <div class="post-meta">
+                            2013年4月3日 【カテゴリ】
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-image">
+                            <img src="img/noimage.png" width="100" height="100">
+                        </div>
+                        <div class="post-body">
+                            <p>本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。<p>
+                        </div>
+                    </div>
+                </div><!-- /post -->
+                <div class="navigation">
+                    <div class="prev">prev</div>
+                    <div class="next">next</div>
+                </div>
+            </div><!-- /posts -->
+            <div id="sidebar">
+                <div class="widget">
+                    <h3>カテゴリー</h3>
+                    <ul>
+                        <li><a href="">item</a></li>
+                        <li><a href="">item</a></li>
+                        <li><a href="">item</a></li>
+                    </ul>
+                </div>
+            </div><!-- /sidebar -->
+        </div><!-- /main -->
+        <div id="footer" class="container">
+            footer
+        </div><!-- /footer -->
+    </body>
+</html>
+
+// ===== style.css =====
+body {
+    font-size: 14px;
+    font-family: Arial, Verdana;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    padding-bottom: 14px;
+    margin: 0;
+    line-height: 1.8;
+}
+
+.container {
+    width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* header */
+
+#header {
+
+}
+
+    h1 {
+        font-weight: bold;
+        font-size: 18px;
+        padding: 15px 0;
+    }
+
+    .menu {
+        background: #f39800;
+        margin-bottom: 30px;
+        font-size: 12px;
+        list-style: none;
+        overflow: hidden;
+        padding: 0;
+    }
+
+        .menu > li {
+            float: left;
+            width: 150px;
+            text-align: center;
+        }
+
+        .menu a {
+            padding: 10px 0;
+            color: #fff;
+            display: block;
+        }
+
+        .menu a:hover {
+            background: #ffc35c;
+        }
+
+/* posts */
+
+#posts {
+    float: left;
+    width: 435px;
+}
+
+    .post {
+        margin-bottom: 30px;
+    }
+
+        .post-header {
+            margin-bottom: 15px;
+        }
+
+            .post-header h2 {
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .post-meta {
+                font-size: 12px;
+                padding: 7px 0;
+                color: #555;
+            }
+
+        .post-content {
+            overflow: hidden;
+        }
+
+            .post-image {
+                float: left;
+                width: 115px;
+            }
+
+            .post-body {
+                margin-left: 115px;
+            }
+
+/* navigation */
+
+.navigation {
+    overflow: hidden;
+    padding: 10px 0;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+    .prev {
+        float: left;
+        width: 200px;
+    }
+
+    .next {
+        float: right;
+        width: 200px;
+        text-align: right;
+    }
+
+/* sidebar */
+
+#sidebar {
+    float: right;
+    width: 150px;
+}
+
+    .widget {
+        margin-bottom: 25px;
+    }
+
+        .widget h3 {
+            font-weight: bold;
+            padding-bottom: 7px;
+        }
+
+        .widget li {
+            line-height: 1.8;
+        }
+/* footer */
+
+#footer {
+    padding: 15px 0;
+    font-size: 12px;
+    color: #aaa;
+    border-top: 1px solid #ccc;
+
+}
+
+
+
+
+
+// ===== video_summary =====
+作ったindex.hmlt/sytle.cssをWordPressテーマに変換していく方法について解説していきます。
+
+
+    テーマフォルダの作成
+    style.cssのヘッダー情報
+    必要なファイルの作成
+
+// ===== commentBox 1 =====
+補足情報
+画面が真っ白になってしまった場合は？
+
+
+
+
+2013年4月9日
+
+
+
+
+
+WordPressの設定中に画面が真っ白になったり、予期せぬことが起きた場合はコード内に間違いがある可能性が高いです。そうした間違いを見つけやすくするには wp-config.php でデバッグモードを有効にすると良いでしょう。
+define('WP_DEBUG', true); // 先頭にこのように記述します。
+
+なお、デバッグモードを一時的に無効にしたい場合はつぎのようにします。
+define('WP_DEBUG', false);
+
+// ===== footer.php =====
+
+
+// ===== functions.php =====
+
+
+// ===== header.php =====
+
+
+// ===== index.php =====
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>はじめてのWordPress</title>
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.9.1/build/cssreset/cssreset-min.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div id="header" class="container">
+            <h1><a href="">はじめてのWordPress</a></h1>
+            <ul class="menu">
+                <li><a href="">menu</a></li>
+                <li><a href="">menu</a></li>
+                <li><a href="">menu</a></li>
+            </ul>
+        </div><!-- /header -->
+        <div id="main" class="container">
+            <div id="posts">
+                <div class="post">
+                    <div class="post-header">
+                        <h2>
+                            <a href="">タイトル</a>
+                        </h2>
+                        <div class="post-meta">
+                            2013年4月3日 【カテゴリ】
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-image">
+                            <img src="img/noimage.png" width="100" height="100">
+                        </div>
+                        <div class="post-body">
+                            <p>本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。<p>
+                        </div>
+                    </div>
+                </div><!-- /post -->
+                <div class="navigation">
+                    <div class="prev">prev</div>
+                    <div class="next">next</div>
+                </div>
+            </div><!-- /posts -->
+            <div id="sidebar">
+                <div class="widget">
+                    <h3>カテゴリー</h3>
+                    <ul>
+                        <li><a href="">item</a></li>
+                        <li><a href="">item</a></li>
+                        <li><a href="">item</a></li>
+                    </ul>
+                </div>
+            </div><!-- /sidebar -->
+        </div><!-- /main -->
+        <div id="footer" class="container">
+            footer
+        </div><!-- /footer -->
+    </body>
+</html>
+
+// ===== sidebar.php =====
+
+
+// ===== style.css =====
+/*
+Theme Name: Dotinstall
+Theme URI: http://dotinstall.com/
+Description: Dotinstall
+Author: Gen Taguchi
+Author URI: http://dotinstall.com/
+Version: 1.0
+
+*/
+
+body {
+    font-size: 14px;
+    font-family: Arial, Verdana;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    padding-bottom: 14px;
+    margin: 0;
+    line-height: 1.8;
+}
+
+.container {
+    width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* header */
+
+#header {
+
+}
+
+    h1 {
+        font-weight: bold;
+        font-size: 18px;
+        padding: 15px 0;
+    }
+
+    .menu {
+        background: #f39800;
+        margin-bottom: 30px;
+        font-size: 12px;
+        list-style: none;
+        overflow: hidden;
+        padding: 0;
+    }
+
+        .menu > li {
+            float: left;
+            width: 150px;
+            text-align: center;
+        }
+
+        .menu a {
+            padding: 10px 0;
+            color: #fff;
+            display: block;
+        }
+
+        .menu a:hover {
+            background: #ffc35c;
+        }
+
+/* posts */
+
+#posts {
+    float: left;
+    width: 435px;
+}
+
+    .post {
+        margin-bottom: 30px;
+    }
+
+        .post-header {
+            margin-bottom: 15px;
+        }
+
+            .post-header h2 {
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .post-meta {
+                font-size: 12px;
+                padding: 7px 0;
+                color: #555;
+            }
+
+        .post-content {
+            overflow: hidden;
+        }
+
+            .post-image {
+                float: left;
+                width: 115px;
+            }
+
+            .post-body {
+                margin-left: 115px;
+            }
+
+/* navigation */
+
+.navigation {
+    overflow: hidden;
+    padding: 10px 0;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+    .prev {
+        float: left;
+        width: 200px;
+    }
+
+    .next {
+        float: right;
+        width: 200px;
+        text-align: right;
+    }
+
+/* sidebar */
+
+#sidebar {
+    float: right;
+    width: 150px;
+}
+
+    .widget {
+        margin-bottom: 25px;
+    }
+
+        .widget h3 {
+            font-weight: bold;
+            padding-bottom: 7px;
+        }
+
+        .widget li {
+            line-height: 1.8;
+        }
+/* footer */
+
+#footer {
+    padding: 15px 0;
+    font-size: 12px;
+    color: #aaa;
+    border-top: 1px solid #ccc;
+
+}
+
+
+
+
+// ===== video_summary =====
+index.phpをheader.php、footer.php、sidebar.phpに分割していきます。またheader.phpで使うテンプレートタグについても解説していきます。
+
+
+    header.php / get_header()
+    footer.php / get_footer()
+    sidebar.php / get_sidebar()
+    header.phpの設定
+
+// ===== footer.php =====
+        <div id="footer" class="container">
+            footer
+        </div><!-- /footer -->
+    </body>
+</html>
+
+// ===== header.php =====
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title><?php wp_title('|', true, 'right'); bloginfo('name'); ?></title>
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.9.1/build/cssreset/cssreset-min.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_uri(); ?>">
+    </head>
+    <body>
+        <div id="header" class="container">
+            <h1><a href="">はじめてのWordPress</a></h1>
+            <ul class="menu">
+                <li><a href="">menu</a></li>
+                <li><a href="">menu</a></li>
+                <li><a href="">menu</a></li>
+            </ul>
+        </div><!-- /header -->
+
+// ===== index.php =====
+<?php get_header(); ?>
+        <div id="main" class="container">
+            <div id="posts">
+                <div class="post">
+                    <div class="post-header">
+                        <h2>
+                            <a href="">タイトル</a>
+                        </h2>
+                        <div class="post-meta">
+                            2013年4月3日 【カテゴリ】
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-image">
+                            <img src="img/noimage.png" width="100" height="100">
+                        </div>
+                        <div class="post-body">
+                            <p>本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。<p>
+                        </div>
+                    </div>
+                </div><!-- /post -->
+                <div class="navigation">
+                    <div class="prev">prev</div>
+                    <div class="next">next</div>
+                </div>
+            </div><!-- /posts -->
+            <?php get_sidebar(); ?>
+        </div><!-- /main -->
+<?php get_footer(); ?>
+
+// ===== sidebar.php =====
+            <div id="sidebar">
+                <div class="widget">
+                    <h3>カテゴリー</h3>
+                    <ul>
+                        <li><a href="">item</a></li>
+                        <li><a href="">item</a></li>
+                        <li><a href="">item</a></li>
+                    </ul>
+                </div>
+            </div><!-- /sidebar -->
+
+// ===== functions.php =====
+
+
+// ===== style.css =====
+/*
+Theme Name: Dotinstall
+Theme URI: http://dotinstall.com/
+Description: Dotinstall
+Author: Gen Taguchi
+Author URI: http://dotinstall.com/
+Version: 1.0
+
+*/
+
+body {
+    font-size: 14px;
+    font-family: Arial, Verdana;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    padding-bottom: 14px;
+    margin: 0;
+    line-height: 1.8;
+}
+
+.container {
+    width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* header */
+
+#header {
+
+}
+
+    h1 {
+        font-weight: bold;
+        font-size: 18px;
+        padding: 15px 0;
+    }
+
+    .menu {
+        background: #f39800;
+        margin-bottom: 30px;
+        font-size: 12px;
+        list-style: none;
+        overflow: hidden;
+        padding: 0;
+    }
+
+        .menu > li {
+            float: left;
+            width: 150px;
+            text-align: center;
+        }
+
+        .menu a {
+            padding: 10px 0;
+            color: #fff;
+            display: block;
+        }
+
+        .menu a:hover {
+            background: #ffc35c;
+        }
+
+/* posts */
+
+#posts {
+    float: left;
+    width: 435px;
+}
+
+    .post {
+        margin-bottom: 30px;
+    }
+
+        .post-header {
+            margin-bottom: 15px;
+        }
+
+            .post-header h2 {
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .post-meta {
+                font-size: 12px;
+                padding: 7px 0;
+                color: #555;
+            }
+
+        .post-content {
+            overflow: hidden;
+        }
+
+            .post-image {
+                float: left;
+                width: 115px;
+            }
+
+            .post-body {
+                margin-left: 115px;
+            }
+
+/* navigation */
+
+.navigation {
+    overflow: hidden;
+    padding: 10px 0;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+    .prev {
+        float: left;
+        width: 200px;
+    }
+
+    .next {
+        float: right;
+        width: 200px;
+        text-align: right;
+    }
+
+/* sidebar */
+
+#sidebar {
+    float: right;
+    width: 150px;
+}
+
+    .widget {
+        margin-bottom: 25px;
+    }
+
+        .widget h3 {
+            font-weight: bold;
+            padding-bottom: 7px;
+        }
+
+        .widget li {
+            line-height: 1.8;
+        }
+/* footer */
+
+#footer {
+    padding: 15px 0;
+    font-size: 12px;
+    color: #aaa;
+    border-top: 1px solid #ccc;
+
+}
+
+
+
+
+
+// ===== video_summary =====
+header.phpに必要なテンプレートタグを設置し、メニューの設定を行なっていきます。
+
+
+    テンプレートタグ
+    メニューの設定
+    wp_head()
+
+// ===== commentBox 1 =====
+補足情報
+wp_head() の記述場所について
+
+
+
+
+2016年12月12日
+
+
+
+
+
+動画中では body タグ内に記述してしまっていますが、正しくは head タグ内に記述します。
+
+        <?php wp_head(); ?>
+    </head>
+
+
+のように </head> の直前に記述するといいでしょう。
+
+// ===== functions.php =====
+<?php
+
+add_theme_support('menus');
+
+// ===== header.php =====
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title><?php wp_title('|', true, 'right'); bloginfo('name'); ?></title>
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.9.1/build/cssreset/cssreset-min.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_uri(); ?>">
+        <?php wp_head(); ?>
+    </head>
+    <body>
+        <div id="header" class="container">
+            <h1><a href="<?php echo home_url('/'); ?>"><?php bloginfo('name'); ?></a></h1>
+            <?php wp_nav_menu(); ?>
+        </div><!-- /header -->
+
+// ===== footer.php =====
+        <div id="footer" class="container">
+            footer
+        </div><!-- /footer -->
+    </body>
+</html>
+
+// ===== index.php =====
+<?php get_header(); ?>
+        <div id="main" class="container">
+            <div id="posts">
+                <div class="post">
+                    <div class="post-header">
+                        <h2>
+                            <a href="">タイトル</a>
+                        </h2>
+                        <div class="post-meta">
+                            2013年4月3日 【カテゴリ】
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-image">
+                            <img src="img/noimage.png" width="100" height="100">
+                        </div>
+                        <div class="post-body">
+                            <p>本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。<p>
+                        </div>
+                    </div>
+                </div><!-- /post -->
+                <div class="navigation">
+                    <div class="prev">prev</div>
+                    <div class="next">next</div>
+                </div>
+            </div><!-- /posts -->
+            <?php get_sidebar(); ?>
+        </div><!-- /main -->
+<?php get_footer(); ?>
+
+// ===== sidebar.php =====
+            <div id="sidebar">
+                <div class="widget">
+                    <h3>カテゴリー</h3>
+                    <ul>
+                        <li><a href="">item</a></li>
+                        <li><a href="">item</a></li>
+                        <li><a href="">item</a></li>
+                    </ul>
+                </div>
+            </div><!-- /sidebar -->
+
+// ===== style.css =====
+/*
+Theme Name: Dotinstall
+Theme URI: http://dotinstall.com/
+Description: Dotinstall
+Author: Gen Taguchi
+Author URI: http://dotinstall.com/
+Version: 1.0
+
+*/
+
+body {
+    font-size: 14px;
+    font-family: Arial, Verdana;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    padding-bottom: 14px;
+    margin: 0;
+    line-height: 1.8;
+}
+
+.container {
+    width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* header */
+
+#header {
+
+}
+
+    h1 {
+        font-weight: bold;
+        font-size: 18px;
+        padding: 15px 0;
+    }
+
+    .menu {
+        background: #f39800;
+        margin-bottom: 30px;
+        font-size: 12px;
+        list-style: none;
+        overflow: hidden;
+        padding: 0;
+    }
+
+        .menu > li {
+            float: left;
+            width: 150px;
+            text-align: center;
+        }
+
+        .menu a {
+            padding: 10px 0;
+            color: #fff;
+            display: block;
+        }
+
+        .menu a:hover {
+            background: #ffc35c;
+        }
+
+/* posts */
+
+#posts {
+    float: left;
+    width: 435px;
+}
+
+    .post {
+        margin-bottom: 30px;
+    }
+
+        .post-header {
+            margin-bottom: 15px;
+        }
+
+            .post-header h2 {
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .post-meta {
+                font-size: 12px;
+                padding: 7px 0;
+                color: #555;
+            }
+
+        .post-content {
+            overflow: hidden;
+        }
+
+            .post-image {
+                float: left;
+                width: 115px;
+            }
+
+            .post-body {
+                margin-left: 115px;
+            }
+
+/* navigation */
+
+.navigation {
+    overflow: hidden;
+    padding: 10px 0;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+    .prev {
+        float: left;
+        width: 200px;
+    }
+
+    .next {
+        float: right;
+        width: 200px;
+        text-align: right;
+    }
+
+/* sidebar */
+
+#sidebar {
+    float: right;
+    width: 150px;
+}
+
+    .widget {
+        margin-bottom: 25px;
+    }
+
+        .widget h3 {
+            font-weight: bold;
+            padding-bottom: 7px;
+        }
+
+        .widget li {
+            line-height: 1.8;
+        }
+/* footer */
+
+#footer {
+    padding: 15px 0;
+    font-size: 12px;
+    color: #aaa;
+    border-top: 1px solid #ccc;
+
+}
+
+
+
+
+
+// ===== video_summary =====
+サイドバーをウィジェットに対応させる方法について解説し、表示結果を確認していきます。
+
+
+    functions.phpの設定
+    sidebar.phpの設定
+    ウィジェットの設定
+    表示結果の確認
+
+// ===== functions.php =====
+<?php
+
+add_theme_support('menus');
+
+register_sidebar(
+    array(
+        'before_widget' => '<div class="widget">',
+        'after_widget' => '</div>',
+        'before_title' => '<h3>',
+        'after_title' => '</h3>',
+    )
+);
+
+// ===== header.php =====
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title><?php wp_title('|', true, 'right'); bloginfo('name'); ?></title>
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.9.1/build/cssreset/cssreset-min.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_uri(); ?>">
+        <?php wp_head(); ?>
+    </head>
+    <body>
+        <div id="header" class="container">
+            <h1><a href="<?php echo home_url('/'); ?>"><?php bloginfo('name'); ?></a></h1>
+            <?php wp_nav_menu(); ?>
+        </div><!-- /header -->
+
+// ===== sidebar.php =====
+            <div id="sidebar">
+                <?php dynamic_sidebar(); ?>
+            </div><!-- /sidebar -->
+
+// ===== footer.php =====
+        <div id="footer" class="container">
+            footer
+        </div><!-- /footer -->
+    </body>
+</html>
+
+// ===== index.php =====
+<?php get_header(); ?>
+        <div id="main" class="container">
+            <div id="posts">
+                <div class="post">
+                    <div class="post-header">
+                        <h2>
+                            <a href="">タイトル</a>
+                        </h2>
+                        <div class="post-meta">
+                            2013年4月3日 【カテゴリ】
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-image">
+                            <img src="img/noimage.png" width="100" height="100">
+                        </div>
+                        <div class="post-body">
+                            <p>本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。本文。<p>
+                        </div>
+                    </div>
+                </div><!-- /post -->
+                <div class="navigation">
+                    <div class="prev">prev</div>
+                    <div class="next">next</div>
+                </div>
+            </div><!-- /posts -->
+            <?php get_sidebar(); ?>
+        </div><!-- /main -->
+<?php get_footer(); ?>
+
+// ===== style.css =====
+/*
+Theme Name: Dotinstall
+Theme URI: http://dotinstall.com/
+Description: Dotinstall
+Author: Gen Taguchi
+Author URI: http://dotinstall.com/
+Version: 1.0
+
+*/
+
+body {
+    font-size: 14px;
+    font-family: Arial, Verdana;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    padding-bottom: 14px;
+    margin: 0;
+    line-height: 1.8;
+}
+
+.container {
+    width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* header */
+
+#header {
+
+}
+
+    h1 {
+        font-weight: bold;
+        font-size: 18px;
+        padding: 15px 0;
+    }
+
+    .menu {
+        background: #f39800;
+        margin-bottom: 30px;
+        font-size: 12px;
+        list-style: none;
+        overflow: hidden;
+        padding: 0;
+    }
+
+        .menu > li {
+            float: left;
+            width: 150px;
+            text-align: center;
+        }
+
+        .menu a {
+            padding: 10px 0;
+            color: #fff;
+            display: block;
+        }
+
+        .menu a:hover {
+            background: #ffc35c;
+        }
+
+/* posts */
+
+#posts {
+    float: left;
+    width: 435px;
+}
+
+    .post {
+        margin-bottom: 30px;
+    }
+
+        .post-header {
+            margin-bottom: 15px;
+        }
+
+            .post-header h2 {
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .post-meta {
+                font-size: 12px;
+                padding: 7px 0;
+                color: #555;
+            }
+
+        .post-content {
+            overflow: hidden;
+        }
+
+            .post-image {
+                float: left;
+                width: 115px;
+            }
+
+            .post-body {
+                margin-left: 115px;
+            }
+
+/* navigation */
+
+.navigation {
+    overflow: hidden;
+    padding: 10px 0;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+    .prev {
+        float: left;
+        width: 200px;
+    }
+
+    .next {
+        float: right;
+        width: 200px;
+        text-align: right;
+    }
+
+/* sidebar */
+
+#sidebar {
+    float: right;
+    width: 150px;
+}
+
+    .widget {
+        margin-bottom: 25px;
+    }
+
+        .widget h3 {
+            font-weight: bold;
+            padding-bottom: 7px;
+        }
+
+        .widget li {
+            line-height: 1.8;
+        }
+/* footer */
+
+#footer {
+    padding: 15px 0;
+    font-size: 12px;
+    color: #aaa;
+    border-top: 1px solid #ccc;
+
+}
+
+
+
+
+// ===== video_summary =====
+WordPressのループを使い、記事の一覧を表示させていきます。またループ内で使えるテンプレートタグについても解説していきます。
+
+
+    ループの設定
+    テンプレートタグの設定
+
+// ===== index.php =====
+<?php get_header(); ?>
+        <div id="main" class="container">
+            <div id="posts">
+
+                <?php
+                if (have_posts()) :
+                    while (have_posts()) :
+                        the_post();
+                ?>
+
+                <div class="post">
+                    <div class="post-header">
+                        <h2>
+                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                        </h2>
+                        <div class="post-meta">
+                            <?php echo get_the_date(); ?> 【<?php the_category(', '); ?>】
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-image">
+                            <img src="img/noimage.png" width="100" height="100">
+                        </div>
+                        <div class="post-body">
+                            <?php the_excerpt(); ?>
+                        </div>
+                    </div>
+                </div><!-- /post -->
+
+                <?php
+                    endwhile;
+                else:
+                ?>
+
+                <p>記事はありません！</p>
+
+                <?php
+                endif;
+                ?>
+
+                <div class="navigation">
+                    <div class="prev">prev</div>
+                    <div class="next">next</div>
+                </div>
+            </div><!-- /posts -->
+            <?php get_sidebar(); ?>
+        </div><!-- /main -->
+<?php get_footer(); ?>
+
+// ===== footer.php =====
+        <div id="footer" class="container">
+            footer
+        </div><!-- /footer -->
+    </body>
+</html>
+
+// ===== functions.php =====
+<?php
+
+add_theme_support('menus');
+
+register_sidebar(
+    array(
+        'before_widget' => '<div class="widget">',
+        'after_widget' => '</div>',
+        'before_title' => '<h3>',
+        'after_title' => '</h3>',
+    )
+);
+
+// ===== header.php =====
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title><?php wp_title('|', true, 'right'); bloginfo('name'); ?></title>
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.9.1/build/cssreset/cssreset-min.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_uri(); ?>">
+        <?php wp_head(); ?>
+    </head>
+    <body>
+        <div id="header" class="container">
+            <h1><a href="<?php echo home_url('/'); ?>"><?php bloginfo('name'); ?></a></h1>
+            <?php wp_nav_menu(); ?>
+        </div><!-- /header -->
+
+// ===== sidebar.php =====
+            <div id="sidebar">
+                <?php dynamic_sidebar(); ?>
+            </div><!-- /sidebar -->
+
+// ===== style.css =====
+/*
+Theme Name: Dotinstall
+Theme URI: http://dotinstall.com/
+Description: Dotinstall
+Author: Gen Taguchi
+Author URI: http://dotinstall.com/
+Version: 1.0
+
+*/
+
+body {
+    font-size: 14px;
+    font-family: Arial, Verdana;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    padding-bottom: 14px;
+    margin: 0;
+    line-height: 1.8;
+}
+
+.container {
+    width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* header */
+
+#header {
+
+}
+
+    h1 {
+        font-weight: bold;
+        font-size: 18px;
+        padding: 15px 0;
+    }
+
+    .menu {
+        background: #f39800;
+        margin-bottom: 30px;
+        font-size: 12px;
+        list-style: none;
+        overflow: hidden;
+        padding: 0;
+    }
+
+        .menu > li {
+            float: left;
+            width: 150px;
+            text-align: center;
+        }
+
+        .menu a {
+            padding: 10px 0;
+            color: #fff;
+            display: block;
+        }
+
+        .menu a:hover {
+            background: #ffc35c;
+        }
+
+/* posts */
+
+#posts {
+    float: left;
+    width: 435px;
+}
+
+    .post {
+        margin-bottom: 30px;
+    }
+
+        .post-header {
+            margin-bottom: 15px;
+        }
+
+            .post-header h2 {
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .post-meta {
+                font-size: 12px;
+                padding: 7px 0;
+                color: #555;
+            }
+
+        .post-content {
+            overflow: hidden;
+        }
+
+            .post-image {
+                float: left;
+                width: 115px;
+            }
+
+            .post-body {
+                margin-left: 115px;
+            }
+
+/* navigation */
+
+.navigation {
+    overflow: hidden;
+    padding: 10px 0;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+    .prev {
+        float: left;
+        width: 200px;
+    }
+
+    .next {
+        float: right;
+        width: 200px;
+        text-align: right;
+    }
+
+/* sidebar */
+
+#sidebar {
+    float: right;
+    width: 150px;
+}
+
+    .widget {
+        margin-bottom: 25px;
+    }
+
+        .widget h3 {
+            font-weight: bold;
+            padding-bottom: 7px;
+        }
+
+        .widget li {
+            line-height: 1.8;
+        }
+/* footer */
+
+#footer {
+    padding: 15px 0;
+    font-size: 12px;
+    color: #aaa;
+    border-top: 1px solid #ccc;
+
+}
+
+
+
+// ===== video_summary =====
+記事の一覧でアイキャッチ画像を表示させる方法について学びます。
+
+
+    functions.phpの設定
+    アイキャッチの設定
+    テンプレートタグの設定
+    表示結果の確認
+
+// ===== functions.php =====
+<?php
+
+add_theme_support('menus');
+
+register_sidebar(
+    array(
+        'before_widget' => '<div class="widget">',
+        'after_widget' => '</div>',
+        'before_title' => '<h3>',
+        'after_title' => '</h3>',
+    )
+);
+
+add_theme_support('post-thumbnails');
+
+// ===== index.php =====
+<?php get_header(); ?>
+        <div id="main" class="container">
+            <div id="posts">
+
+                <?php
+                if (have_posts()) :
+                    while (have_posts()) :
+                        the_post();
+                ?>
+
+                <div class="post">
+                    <div class="post-header">
+                        <h2>
+                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                        </h2>
+                        <div class="post-meta">
+                            <?php echo get_the_date(); ?> 【<?php the_category(', '); ?>】
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-image">
+
+                        <?php if (has_post_thumbnail()) : ?>
+                        <?php the_post_thumbnail(array(100, 100)); ?>
+                        <?php else: ?>
+                        <img src="<?php echo get_template_directory_uri(); ?>/img/noimage.png" width="100" height="100">
+                        <?php endif; ?>
+
+                        </div>
+                        <div class="post-body">
+                            <?php the_excerpt(); ?>
+                        </div>
+                    </div>
+                </div><!-- /post -->
+
+                <?php
+                    endwhile;
+                else:
+                ?>
+
+                <p>記事はありません！</p>
+
+                <?php
+                endif;
+                ?>
+
+                <div class="navigation">
+                    <div class="prev">prev</div>
+                    <div class="next">next</div>
+                </div>
+            </div><!-- /posts -->
+            <?php get_sidebar(); ?>
+        </div><!-- /main -->
+<?php get_footer(); ?>
+
+// ===== footer.php =====
+        <div id="footer" class="container">
+            footer
+        </div><!-- /footer -->
+    </body>
+</html>
+
+// ===== header.php =====
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title><?php wp_title('|', true, 'right'); bloginfo('name'); ?></title>
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.9.1/build/cssreset/cssreset-min.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_uri(); ?>">
+        <?php wp_head(); ?>
+    </head>
+    <body>
+        <div id="header" class="container">
+            <h1><a href="<?php echo home_url('/'); ?>"><?php bloginfo('name'); ?></a></h1>
+            <?php wp_nav_menu(); ?>
+        </div><!-- /header -->
+
+// ===== sidebar.php =====
+            <div id="sidebar">
+                <?php dynamic_sidebar(); ?>
+            </div><!-- /sidebar -->
+
+// ===== style.css =====
+/*
+Theme Name: Dotinstall
+Theme URI: http://dotinstall.com/
+Description: Dotinstall
+Author: Gen Taguchi
+Author URI: http://dotinstall.com/
+Version: 1.0
+
+*/
+
+body {
+    font-size: 14px;
+    font-family: Arial, Verdana;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    padding-bottom: 14px;
+    margin: 0;
+    line-height: 1.8;
+}
+
+.container {
+    width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* header */
+
+#header {
+
+}
+
+    h1 {
+        font-weight: bold;
+        font-size: 18px;
+        padding: 15px 0;
+    }
+
+    .menu {
+        background: #f39800;
+        margin-bottom: 30px;
+        font-size: 12px;
+        list-style: none;
+        overflow: hidden;
+        padding: 0;
+    }
+
+        .menu > li {
+            float: left;
+            width: 150px;
+            text-align: center;
+        }
+
+        .menu a {
+            padding: 10px 0;
+            color: #fff;
+            display: block;
+        }
+
+        .menu a:hover {
+            background: #ffc35c;
+        }
+
+/* posts */
+
+#posts {
+    float: left;
+    width: 435px;
+}
+
+    .post {
+        margin-bottom: 30px;
+    }
+
+        .post-header {
+            margin-bottom: 15px;
+        }
+
+            .post-header h2 {
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .post-meta {
+                font-size: 12px;
+                padding: 7px 0;
+                color: #555;
+            }
+
+        .post-content {
+            overflow: hidden;
+        }
+
+            .post-image {
+                float: left;
+                width: 115px;
+            }
+
+            .post-body {
+                margin-left: 115px;
+            }
+
+/* navigation */
+
+.navigation {
+    overflow: hidden;
+    padding: 10px 0;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+    .prev {
+        float: left;
+        width: 200px;
+    }
+
+    .next {
+        float: right;
+        width: 200px;
+        text-align: right;
+    }
+
+/* sidebar */
+
+#sidebar {
+    float: right;
+    width: 150px;
+}
+
+    .widget {
+        margin-bottom: 25px;
+    }
+
+        .widget h3 {
+            font-weight: bold;
+            padding-bottom: 7px;
+        }
+
+        .widget li {
+            line-height: 1.8;
+        }
+/* footer */
+
+#footer {
+    padding: 15px 0;
+    font-size: 12px;
+    color: #aaa;
+    border-top: 1px solid #ccc;
+
+}
+
+
+// ===== video_summary =====
+ナビゲーションやフッターを動作させるためのテンプレートタグについて説明し、index.phpを完成させていきます。
+
+
+    ナビゲーション関連のタグの設定
+    フッターの設定
+
+// ===== footer.php =====
+        <div id="footer" class="container">
+            Copyright 2012<?php if (date("Y")!=2012) echo date("-Y"); ?> All rights reserved, dotinstall.com
+        </div><!-- /footer -->
+    <?php wp_footer(); ?>
+    </body>
+</html>
+
+// ===== index.php =====
+<?php get_header(); ?>
+        <div id="main" class="container">
+            <div id="posts">
+
+                <?php
+                if (have_posts()) :
+                    while (have_posts()) :
+                        the_post();
+                ?>
+
+                <div class="post">
+                    <div class="post-header">
+                        <h2>
+                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                        </h2>
+                        <div class="post-meta">
+                            <?php echo get_the_date(); ?> 【<?php the_category(', '); ?>】
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-image">
+
+                        <?php if (has_post_thumbnail()) : ?>
+                        <?php the_post_thumbnail(array(100, 100)); ?>
+                        <?php else: ?>
+                        <img src="<?php echo get_template_directory_uri(); ?>/img/noimage.png" width="100" height="100">
+                        <?php endif; ?>
+
+                        </div>
+                        <div class="post-body">
+                            <?php the_excerpt(); ?>
+                        </div>
+                    </div>
+                </div><!-- /post -->
+
+                <?php
+                    endwhile;
+                else:
+                ?>
+
+                <p>記事はありません！</p>
+
+                <?php
+                endif;
+                ?>
+
+                <div class="navigation">
+                    <div class="prev"><?php previous_posts_link(); ?></div>
+                    <div class="next"><?php next_posts_link(); ?></div>
+                </div>
+            </div><!-- /posts -->
+            <?php get_sidebar(); ?>
+        </div><!-- /main -->
+<?php get_footer(); ?>
+
+// ===== functions.php =====
+<?php
+
+add_theme_support('menus');
+
+register_sidebar(
+    array(
+        'before_widget' => '<div class="widget">',
+        'after_widget' => '</div>',
+        'before_title' => '<h3>',
+        'after_title' => '</h3>',
+    )
+);
+
+add_theme_support('post-thumbnails');
+
+// ===== header.php =====
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title><?php wp_title('|', true, 'right'); bloginfo('name'); ?></title>
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.9.1/build/cssreset/cssreset-min.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_uri(); ?>">
+        <?php wp_head(); ?>
+    </head>
+    <body>
+        <div id="header" class="container">
+            <h1><a href="<?php echo home_url('/'); ?>"><?php bloginfo('name'); ?></a></h1>
+            <?php wp_nav_menu(); ?>
+        </div><!-- /header -->
+
+// ===== sidebar.php =====
+            <div id="sidebar">
+                <?php dynamic_sidebar(); ?>
+            </div><!-- /sidebar -->
+
+// ===== style.css =====
+/*
+Theme Name: Dotinstall
+Theme URI: http://dotinstall.com/
+Description: Dotinstall
+Author: Gen Taguchi
+Author URI: http://dotinstall.com/
+Version: 1.0
+
+*/
+
+body {
+    font-size: 14px;
+    font-family: Arial, Verdana;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    padding-bottom: 14px;
+    margin: 0;
+    line-height: 1.8;
+}
+
+.container {
+    width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* header */
+
+#header {
+
+}
+
+    h1 {
+        font-weight: bold;
+        font-size: 18px;
+        padding: 15px 0;
+    }
+
+    .menu {
+        background: #f39800;
+        margin-bottom: 30px;
+        font-size: 12px;
+        list-style: none;
+        overflow: hidden;
+        padding: 0;
+    }
+
+        .menu > li {
+            float: left;
+            width: 150px;
+            text-align: center;
+        }
+
+        .menu a {
+            padding: 10px 0;
+            color: #fff;
+            display: block;
+        }
+
+        .menu a:hover {
+            background: #ffc35c;
+        }
+
+/* posts */
+
+#posts {
+    float: left;
+    width: 435px;
+}
+
+    .post {
+        margin-bottom: 30px;
+    }
+
+        .post-header {
+            margin-bottom: 15px;
+        }
+
+            .post-header h2 {
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .post-meta {
+                font-size: 12px;
+                padding: 7px 0;
+                color: #555;
+            }
+
+        .post-content {
+            overflow: hidden;
+        }
+
+            .post-image {
+                float: left;
+                width: 115px;
+            }
+
+            .post-body {
+                margin-left: 115px;
+            }
+
+/* navigation */
+
+.navigation {
+    overflow: hidden;
+    padding: 10px 0;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+    .prev {
+        float: left;
+        width: 200px;
+    }
+
+    .next {
+        float: right;
+        width: 200px;
+        text-align: right;
+    }
+
+/* sidebar */
+
+#sidebar {
+    float: right;
+    width: 150px;
+}
+
+    .widget {
+        margin-bottom: 25px;
+    }
+
+        .widget h3 {
+            font-weight: bold;
+            padding-bottom: 7px;
+        }
+
+        .widget li {
+            line-height: 1.8;
+        }
+/* footer */
+
+#footer {
+    padding: 15px 0;
+    font-size: 12px;
+    color: #aaa;
+    border-top: 1px solid #ccc;
+
+}
+
+
+
+// ===== video_summary =====
+index.phpをもとに、個別記事を表示するためのsingle.phpを作りこんでいきます。またテンプレート階層についても簡単に解説していきます。
+
+
+    single.php
+    テンプレート階層
+
+// ===== header.php =====
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title><?php wp_title('|', true, 'right'); bloginfo('name'); ?></title>
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.9.1/build/cssreset/cssreset-min.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_uri(); ?>">
+        <?php wp_head(); ?>
+    </head>
+    <body>
+        <div id="header" class="container">
+            <h1><a href="<?php echo home_url('/'); ?>"><?php bloginfo('name'); ?></a></h1>
+            <?php wp_nav_menu(); ?>
+        </div><!-- /header -->
+
+// ===== single.php =====
+<?php get_header(); ?>
+        <div id="main" class="container">
+            <div id="posts">
+
+                <?php
+                if (have_posts()) :
+                    while (have_posts()) :
+                        the_post();
+                ?>
+
+                <div class="post">
+                    <div class="post-header">
+                        <h2>
+                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                        </h2>
+                        <div class="post-meta">
+                            <?php echo get_the_date(); ?> 【<?php the_category(', '); ?>】
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <?php the_content(); ?>
+                    </div>
+                </div><!-- /post -->
+
+                <div class="navigation">
+                    <div class="prev"><?php previous_post_link(); ?></div>
+                    <div class="next"><?php next_post_link(); ?></div>
+                </div>
+
+                <?php
+                    endwhile;
+                else:
+                ?>
+
+                <p>記事はありません！</p>
+
+                <?php
+                endif;
+                ?>
+
+            </div><!-- /posts -->
+            <?php get_sidebar(); ?>
+        </div><!-- /main -->
+<?php get_footer(); ?>
+
+// ===== footer.php =====
+        <div id="footer" class="container">
+            Copyright 2012<?php if (date("Y")!=2012) echo date("-Y"); ?> All rights reserved, dotinstall.com
+        </div><!-- /footer -->
+    <?php wp_footer(); ?>
+    </body>
+</html>
+
+// ===== functions.php =====
+<?php
+
+add_theme_support('menus');
+
+register_sidebar(
+    array(
+        'before_widget' => '<div class="widget">',
+        'after_widget' => '</div>',
+        'before_title' => '<h3>',
+        'after_title' => '</h3>',
+    )
+);
+
+add_theme_support('post-thumbnails');
+
+// ===== index.php =====
+<?php get_header(); ?>
+        <div id="main" class="container">
+            <div id="posts">
+
+                <?php
+                if (have_posts()) :
+                    while (have_posts()) :
+                        the_post();
+                ?>
+
+                <div class="post">
+                    <div class="post-header">
+                        <h2>
+                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                        </h2>
+                        <div class="post-meta">
+                            <?php echo get_the_date(); ?> 【<?php the_category(', '); ?>】
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-image">
+
+                        <?php if (has_post_thumbnail()) : ?>
+                        <?php the_post_thumbnail(array(100, 100)); ?>
+                        <?php else: ?>
+                        <img src="<?php echo get_template_directory_uri(); ?>/img/noimage.png" width="100" height="100">
+                        <?php endif; ?>
+
+                        </div>
+                        <div class="post-body">
+                            <?php the_excerpt(); ?>
+                        </div>
+                    </div>
+                </div><!-- /post -->
+
+                <?php
+                    endwhile;
+                else:
+                ?>
+
+                <p>記事はありません！</p>
+
+                <?php
+                endif;
+                ?>
+
+                <div class="navigation">
+                    <div class="prev"><?php previous_posts_link(); ?></div>
+                    <div class="next"><?php next_posts_link(); ?></div>
+                </div>
+            </div><!-- /posts -->
+            <?php get_sidebar(); ?>
+        </div><!-- /main -->
+<?php get_footer(); ?>
+
+// ===== sidebar.php =====
+            <div id="sidebar">
+                <?php dynamic_sidebar(); ?>
+            </div><!-- /sidebar -->
+
+// ===== style.css =====
+/*
+Theme Name: Dotinstall
+Theme URI: http://dotinstall.com/
+Description: Dotinstall
+Author: Gen Taguchi
+Author URI: http://dotinstall.com/
+Version: 1.0
+
+*/
+
+body {
+    font-size: 14px;
+    font-family: Arial, Verdana;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    padding-bottom: 14px;
+    margin: 0;
+    line-height: 1.8;
+}
+
+.container {
+    width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* header */
+
+#header {
+
+}
+
+    h1 {
+        font-weight: bold;
+        font-size: 18px;
+        padding: 15px 0;
+    }
+
+    .menu {
+        background: #f39800;
+        margin-bottom: 30px;
+        font-size: 12px;
+        list-style: none;
+        overflow: hidden;
+        padding: 0;
+    }
+
+        .menu > li {
+            float: left;
+            width: 150px;
+            text-align: center;
+        }
+
+        .menu a {
+            padding: 10px 0;
+            color: #fff;
+            display: block;
+        }
+
+        .menu a:hover {
+            background: #ffc35c;
+        }
+
+/* posts */
+
+#posts {
+    float: left;
+    width: 435px;
+}
+
+    .post {
+        margin-bottom: 30px;
+    }
+
+        .post-header {
+            margin-bottom: 15px;
+        }
+
+            .post-header h2 {
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .post-meta {
+                font-size: 12px;
+                padding: 7px 0;
+                color: #555;
+            }
+
+        .post-content {
+            overflow: hidden;
+        }
+
+            .post-image {
+                float: left;
+                width: 115px;
+            }
+
+            .post-body {
+                margin-left: 115px;
+            }
+
+/* navigation */
+
+.navigation {
+    overflow: hidden;
+    padding: 10px 0;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+    .prev {
+        float: left;
+        width: 200px;
+    }
+
+    .next {
+        float: right;
+        width: 200px;
+        text-align: right;
+    }
+
+/* sidebar */
+
+#sidebar {
+    float: right;
+    width: 150px;
+}
+
+    .widget {
+        margin-bottom: 25px;
+    }
+
+        .widget h3 {
+            font-weight: bold;
+            padding-bottom: 7px;
+        }
+
+        .widget li {
+            line-height: 1.8;
+        }
+/* footer */
+
+#footer {
+    padding: 15px 0;
+    font-size: 12px;
+    color: #aaa;
+    border-top: 1px solid #ccc;
+
+}
+
+
+
+// ===== video_summary =====
+single.phpをもとに、固定ページを表示するためのpage.phpを作りこんでいきます。
+
+
+    page.php
+
+// ===== page.php =====
+<?php get_header(); ?>
+        <div id="main" class="container">
+            <div id="posts">
+
+                <?php
+                if (have_posts()) :
+                    while (have_posts()) :
+                        the_post();
+                ?>
+
+                <div class="post">
+                    <div class="post-header">
+                        <h2>
+                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                        </h2>
+                    </div>
+                    <div class="post-content">
+                        <?php the_content(); ?>
+                    </div>
+                </div><!-- /post -->
+
+                <?php
+                    endwhile;
+                else:
+                ?>
+
+                <p>ページはありません！</p>
+
+                <?php
+                endif;
+                ?>
+
+            </div><!-- /posts -->
+            <?php get_sidebar(); ?>
+        </div><!-- /main -->
+<?php get_footer(); ?>
+
+// ===== footer.php =====
+        <div id="footer" class="container">
+            Copyright 2012<?php if (date("Y")!=2012) echo date("-Y"); ?> All rights reserved, dotinstall.com
+        </div><!-- /footer -->
+    <?php wp_footer(); ?>
+    </body>
+</html>
+
+// ===== functions.php =====
+<?php
+
+add_theme_support('menus');
+
+register_sidebar(
+    array(
+        'before_widget' => '<div class="widget">',
+        'after_widget' => '</div>',
+        'before_title' => '<h3>',
+        'after_title' => '</h3>',
+    )
+);
+
+add_theme_support('post-thumbnails');
+
+// ===== header.php =====
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title><?php wp_title('|', true, 'right'); bloginfo('name'); ?></title>
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.9.1/build/cssreset/cssreset-min.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_uri(); ?>">
+        <?php wp_head(); ?>
+    </head>
+    <body>
+        <div id="header" class="container">
+            <h1><a href="<?php echo home_url('/'); ?>"><?php bloginfo('name'); ?></a></h1>
+            <?php wp_nav_menu(); ?>
+        </div><!-- /header -->
+
+// ===== index.php =====
+<?php get_header(); ?>
+        <div id="main" class="container">
+            <div id="posts">
+
+                <?php
+                if (have_posts()) :
+                    while (have_posts()) :
+                        the_post();
+                ?>
+
+                <div class="post">
+                    <div class="post-header">
+                        <h2>
+                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                        </h2>
+                        <div class="post-meta">
+                            <?php echo get_the_date(); ?> 【<?php the_category(', '); ?>】
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-image">
+
+                        <?php if (has_post_thumbnail()) : ?>
+                        <?php the_post_thumbnail(array(100, 100)); ?>
+                        <?php else: ?>
+                        <img src="<?php echo get_template_directory_uri(); ?>/img/noimage.png" width="100" height="100">
+                        <?php endif; ?>
+
+                        </div>
+                        <div class="post-body">
+                            <?php the_excerpt(); ?>
+                        </div>
+                    </div>
+                </div><!-- /post -->
+
+                <?php
+                    endwhile;
+                else:
+                ?>
+
+                <p>記事はありません！</p>
+
+                <?php
+                endif;
+                ?>
+
+                <div class="navigation">
+                    <div class="prev"><?php previous_posts_link(); ?></div>
+                    <div class="next"><?php next_posts_link(); ?></div>
+                </div>
+            </div><!-- /posts -->
+            <?php get_sidebar(); ?>
+        </div><!-- /main -->
+<?php get_footer(); ?>
+
+// ===== sidebar.php =====
+            <div id="sidebar">
+                <?php dynamic_sidebar(); ?>
+            </div><!-- /sidebar -->
+
+// ===== single.php =====
+<?php get_header(); ?>
+        <div id="main" class="container">
+            <div id="posts">
+
+                <?php
+                if (have_posts()) :
+                    while (have_posts()) :
+                        the_post();
+                ?>
+
+                <div class="post">
+                    <div class="post-header">
+                        <h2>
+                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                        </h2>
+                        <div class="post-meta">
+                            <?php echo get_the_date(); ?> 【<?php the_category(', '); ?>】
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <?php the_content(); ?>
+                    </div>
+                </div><!-- /post -->
+
+                <div class="navigation">
+                    <div class="prev"><?php previous_post_link(); ?></div>
+                    <div class="next"><?php next_post_link(); ?></div>
+                </div>
+
+                <?php
+                    endwhile;
+                else:
+                ?>
+
+                <p>記事はありません！</p>
+
+                <?php
+                endif;
+                ?>
+
+            </div><!-- /posts -->
+            <?php get_sidebar(); ?>
+        </div><!-- /main -->
+<?php get_footer(); ?>
+
+// ===== style.css =====
+/*
+Theme Name: Dotinstall
+Theme URI: http://dotinstall.com/
+Description: Dotinstall
+Author: Gen Taguchi
+Author URI: http://dotinstall.com/
+Version: 1.0
+
+*/
+
+body {
+    font-size: 14px;
+    font-family: Arial, Verdana;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    padding-bottom: 14px;
+    margin: 0;
+    line-height: 1.8;
+}
+
+.container {
+    width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* header */
+
+#header {
+
+}
+
+    h1 {
+        font-weight: bold;
+        font-size: 18px;
+        padding: 15px 0;
+    }
+
+    .menu {
+        background: #f39800;
+        margin-bottom: 30px;
+        font-size: 12px;
+        list-style: none;
+        overflow: hidden;
+        padding: 0;
+    }
+
+        .menu > li {
+            float: left;
+            width: 150px;
+            text-align: center;
+        }
+
+        .menu a {
+            padding: 10px 0;
+            color: #fff;
+            display: block;
+        }
+
+        .menu a:hover {
+            background: #ffc35c;
+        }
+
+/* posts */
+
+#posts {
+    float: left;
+    width: 435px;
+}
+
+    .post {
+        margin-bottom: 30px;
+    }
+
+        .post-header {
+            margin-bottom: 15px;
+        }
+
+            .post-header h2 {
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .post-meta {
+                font-size: 12px;
+                padding: 7px 0;
+                color: #555;
+            }
+
+        .post-content {
+            overflow: hidden;
+        }
+
+            .post-image {
+                float: left;
+                width: 115px;
+            }
+
+            .post-body {
+                margin-left: 115px;
+            }
+
+/* navigation */
+
+.navigation {
+    overflow: hidden;
+    padding: 10px 0;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+    .prev {
+        float: left;
+        width: 200px;
+    }
+
+    .next {
+        float: right;
+        width: 200px;
+        text-align: right;
+    }
+
+/* sidebar */
+
+#sidebar {
+    float: right;
+    width: 150px;
+}
+
+    .widget {
+        margin-bottom: 25px;
+    }
+
+        .widget h3 {
+            font-weight: bold;
+            padding-bottom: 7px;
+        }
+
+        .widget li {
+            line-height: 1.8;
+        }
+/* footer */
+
+#footer {
+    padding: 15px 0;
+    font-size: 12px;
+    color: #aaa;
+    border-top: 1px solid #ccc;
+
+}
+
+
+
+// ===== video_summary =====
+投稿やテーマで使える便利なショートコードについて学んでいきます。
+
+
+    ショートコードの作成
+    動作確認
+
+// ===== commentBox 1 =====
+補足情報
+ショートコードをテーマ内で使う方法
+
+
+
+
+2013年4月17日
+
+
+
+
+
+ショートコードを記事内ではなくて、テーマ内で使う場合、表示させたい箇所に次のように記述します。
+<?php echo do_shortcode('[tw]'); ?>
+
+// ===== commentBox 2 =====
+補足情報
+便利なショートコード集について
+
+
+
+
+2013年4月9日
+
+
+
+
+
+WordPressの便利なショートコードについては以下のサイトも参考にしてみてください。
+http://kachibito.net/wordpress/useful-shortcode.html
+
+// ===== functions.php =====
+<?php
+
+add_theme_support('menus');
+
+register_sidebar(
+    array(
+        'before_widget' => '<div class="widget">',
+        'after_widget' => '</div>',
+        'before_title' => '<h3>',
+        'after_title' => '</h3>',
+    )
+);
+
+add_theme_support('post-thumbnails');
+
+function shortcode_tw() {
+    return '<a href="http://twitter.com/taguchi">@taguchi</a>をフォローしてね！';
+}
+add_shortcode('tw', 'shortcode_tw');
+
+// ===== footer.php =====
+        <div id="footer" class="container">
+            Copyright 2012<?php if (date("Y")!=2012) echo date("-Y"); ?> All rights reserved, dotinstall.com
+        </div><!-- /footer -->
+    <?php wp_footer(); ?>
+    </body>
+</html>
+
+// ===== header.php =====
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title><?php wp_title('|', true, 'right'); bloginfo('name'); ?></title>
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.9.1/build/cssreset/cssreset-min.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_uri(); ?>">
+        <?php wp_head(); ?>
+    </head>
+    <body>
+        <div id="header" class="container">
+            <h1><a href="<?php echo home_url('/'); ?>"><?php bloginfo('name'); ?></a></h1>
+            <?php wp_nav_menu(); ?>
+        </div><!-- /header -->
+
+// ===== index.php =====
+<?php get_header(); ?>
+        <div id="main" class="container">
+            <div id="posts">
+
+                <?php
+                if (have_posts()) :
+                    while (have_posts()) :
+                        the_post();
+                ?>
+
+                <div class="post">
+                    <div class="post-header">
+                        <h2>
+                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                        </h2>
+                        <div class="post-meta">
+                            <?php echo get_the_date(); ?> 【<?php the_category(', '); ?>】
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-image">
+
+                        <?php if (has_post_thumbnail()) : ?>
+                        <?php the_post_thumbnail(array(100, 100)); ?>
+                        <?php else: ?>
+                        <img src="<?php echo get_template_directory_uri(); ?>/img/noimage.png" width="100" height="100">
+                        <?php endif; ?>
+
+                        </div>
+                        <div class="post-body">
+                            <?php the_excerpt(); ?>
+                        </div>
+                    </div>
+                </div><!-- /post -->
+
+                <?php
+                    endwhile;
+                else:
+                ?>
+
+                <p>記事はありません！</p>
+
+                <?php
+                endif;
+                ?>
+
+                <div class="navigation">
+                    <div class="prev"><?php previous_posts_link(); ?></div>
+                    <div class="next"><?php next_posts_link(); ?></div>
+                </div>
+            </div><!-- /posts -->
+            <?php get_sidebar(); ?>
+        </div><!-- /main -->
+<?php get_footer(); ?>
+
+// ===== page.php =====
+<?php get_header(); ?>
+        <div id="main" class="container">
+            <div id="posts">
+
+                <?php
+                if (have_posts()) :
+                    while (have_posts()) :
+                        the_post();
+                ?>
+
+                <div class="post">
+                    <div class="post-header">
+                        <h2>
+                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                        </h2>
+                    </div>
+                    <div class="post-content">
+                        <?php the_content(); ?>
+                    </div>
+                </div><!-- /post -->
+
+                <?php
+                    endwhile;
+                else:
+                ?>
+
+                <p>ページはありません！</p>
+
+                <?php
+                endif;
+                ?>
+
+            </div><!-- /posts -->
+            <?php get_sidebar(); ?>
+        </div><!-- /main -->
+<?php get_footer(); ?>
+
+// ===== sidebar.php =====
+            <div id="sidebar">
+                <?php dynamic_sidebar(); ?>
+            </div><!-- /sidebar -->
+
+// ===== single.php =====
+<?php get_header(); ?>
+        <div id="main" class="container">
+            <div id="posts">
+
+                <?php
+                if (have_posts()) :
+                    while (have_posts()) :
+                        the_post();
+                ?>
+
+                <div class="post">
+                    <div class="post-header">
+                        <h2>
+                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                        </h2>
+                        <div class="post-meta">
+                            <?php echo get_the_date(); ?> 【<?php the_category(', '); ?>】
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <?php the_content(); ?>
+                    </div>
+                </div><!-- /post -->
+
+                <div class="navigation">
+                    <div class="prev"><?php previous_post_link(); ?></div>
+                    <div class="next"><?php next_post_link(); ?></div>
+                </div>
+
+                <?php
+                    endwhile;
+                else:
+                ?>
+
+                <p>記事はありません！</p>
+
+                <?php
+                endif;
+                ?>
+
+            </div><!-- /posts -->
+            <?php get_sidebar(); ?>
+        </div><!-- /main -->
+<?php get_footer(); ?>
+
+// ===== style.css =====
+/*
+Theme Name: Dotinstall
+Theme URI: http://dotinstall.com/
+Description: Dotinstall
+Author: Gen Taguchi
+Author URI: http://dotinstall.com/
+Version: 1.0
+
+*/
+
+body {
+    font-size: 14px;
+    font-family: Arial, Verdana;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    padding-bottom: 14px;
+    margin: 0;
+    line-height: 1.8;
+}
+
+.container {
+    width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* header */
+
+#header {
+
+}
+
+    h1 {
+        font-weight: bold;
+        font-size: 18px;
+        padding: 15px 0;
+    }
+
+    .menu {
+        background: #f39800;
+        margin-bottom: 30px;
+        font-size: 12px;
+        list-style: none;
+        overflow: hidden;
+        padding: 0;
+    }
+
+        .menu > li {
+            float: left;
+            width: 150px;
+            text-align: center;
+        }
+
+        .menu a {
+            padding: 10px 0;
+            color: #fff;
+            display: block;
+        }
+
+        .menu a:hover {
+            background: #ffc35c;
+        }
+
+/* posts */
+
+#posts {
+    float: left;
+    width: 435px;
+}
+
+    .post {
+        margin-bottom: 30px;
+    }
+
+        .post-header {
+            margin-bottom: 15px;
+        }
+
+            .post-header h2 {
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .post-meta {
+                font-size: 12px;
+                padding: 7px 0;
+                color: #555;
+            }
+
+        .post-content {
+            overflow: hidden;
+        }
+
+            .post-image {
+                float: left;
+                width: 115px;
+            }
+
+            .post-body {
+                margin-left: 115px;
+            }
+
+/* navigation */
+
+.navigation {
+    overflow: hidden;
+    padding: 10px 0;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+    .prev {
+        float: left;
+        width: 200px;
+    }
+
+    .next {
+        float: right;
+        width: 200px;
+        text-align: right;
+    }
+
+/* sidebar */
+
+#sidebar {
+    float: right;
+    width: 150px;
+}
+
+    .widget {
+        margin-bottom: 25px;
+    }
+
+        .widget h3 {
+            font-weight: bold;
+            padding-bottom: 7px;
+        }
+
+        .widget li {
+            line-height: 1.8;
+        }
+/* footer */
+
+#footer {
+    padding: 15px 0;
+    font-size: 12px;
+    color: #aaa;
+    border-top: 1px solid #ccc;
+
+}
+
+
+

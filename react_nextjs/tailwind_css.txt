@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+    <code>
+Tailwind CSSがどういったシーンで便利か、概要を説明していきます。
+
+概要
+必要となる知識
+補足情報 Tailwind CSSの公式サイト
+2023年11月25日
+このレッスンで紹介していくTailwind CSSの公式サイトは以下のとおりです。最後の動画でも紹介していますが、ドキュメントなどはこちらを参照するといいでしょう。
+
+・Tailwind CSS - Rapidly build modern websites without ever leaving your HTML.
+https://tailwindcss.com/
+
+
+Tailwind CSSが使えるように学習環境を整えていきます。
+
+プロジェクトフォルダの設定
+index.htmlの作成
+Tailwind CSSの読み込み
+デフォルトスタイルに関する注意点
+補足情報 VS Codeでファイルのドラッグ＆ドロップができない場合
+2024年2月16日
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+macOS VS Code ドラッグ&ドロップ イメージ
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、WindowsならCtrlキー、macOSならcommandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+補足情報 headタグ内に貼り付けるコードについて
+2023年11月25日
+動画中、headタグ内で貼り付けているコードは以下をコピー＆ペーストしてみてください。
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+
+/MyTailwindCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tailwind CSS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <h1 class="text-right">Hello</h1>
+</body>
+</html>
+
+
+
+
+
+VS Codeでコードの補完が効くように、公式が提供している拡張機能を導入していきます。
+
+拡張機能の導入
+補完機能の確認
+補足情報 作成するファイルの名前について
+2023年11月25日
+動画中で作成しているファイルの名前は以下をコピー＆ペーストしてご利用ください。
+
+tailwind.config.js
+
+/MyTailwindCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tailwind CSS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <h1 class="text-center">Hello</h1>
+</body>
+</html>
+
+
+
+
+
+テキスト周りで使える、いくつかのスタイルについて紹介していきます。
+
+text-right
+text-left
+text-center
+text-4xl
+font-bold
+
+/MyTailwindCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tailwind CSS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <h1 class="text-center text-4xl font-bold">Hello</h1>
+</body>
+</html>
+
+
+
+
+
+
+Tailwind CSSで指定することができる色について説明していきます。
+
+色見本の確認
+text-red-500
+opactiy-50
+補足情報 Tailwind CSSで使える色について
+2023年11月25日
+動画中で紹介しているTailwind CSSの色見本は以下のサイトで確認することができます。
+
+・Customizing Colors - Tailwind CSS
+https://tailwindcss.com/docs/customizing-colors
+
+/MyTailwindCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tailwind CSS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <h1 class="text-center text-4xl font-bold text-red-500 opacity-50">Hello</h1>
+</body>
+</html>
+
+
+
+
+
+
+divをいくつか配置したあとに、背景色、幅、高さといったスタイルを設定する方法を見ていきます。
+
+bg-red-400
+bg-sky-400
+bg-orange-400
+bg-green-400
+w-40
+w-[160px]
+w-3/4
+w-[75%]
+h-40
+
+/MyTailwindCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tailwind CSS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <div class="bg-red-400 w-40 h-40">Box 1</div>
+  <div class="bg-sky-400 w-[160px]">Box 2</div>
+  <div class="bg-orange-400 w-3/4">Box 3</div>
+  <div class="bg-green-400 w-[75%]">Box 4</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+marginやpaddingをどのように設定していくかについて説明していきます。
+
+marginとpaddingの指定方法
+m-4
+mb-4
+mx-auto
+pl-4
+box-sizingに関する注意点
+
+
+/MyTailwindCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tailwind CSS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <div class="bg-red-400 w-40 h-40 m-4">Box 1</div>
+  <div class="bg-sky-400 w-[160px] mb-4">Box 2</div>
+  <div class="bg-orange-400 w-3/4 mx-auto">Box 3</div>
+  <div class="bg-green-400 w-[75%] pl-4">Box 4</div>
+</body>
+</html>
+
+
+
+
+境界線の設定方法について見ていきます。
+
+border-solid
+border-gray-200
+border-8
+border-b-8
+border-dashed
+
+/MyTailwindCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tailwind CSS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <div class="bg-red-400 w-20 h-20 border-solid border-gray-200 border-8">Box 1</div>
+  <div class="bg-sky-400 w-20 h-20 border-dashed border-gray-200 border-b-8">Box 2</div>
+</body>
+</html>
+
+
+
+
+
+
+
+これまでの知識を活かしてボタンをスタイリングしていきます。
+
+デフォルトスタイルに関する注意点
+bg-orange-400
+text-white
+py-2
+px-4
+rounded-full
+shadow-black
+shadow-md
+shadow-black/30
+
+/MyTailwindCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tailwind CSS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <button class="bg-orange-400 text-white m-4 py-2 px-4 rounded-full shadow-black/30 shadow-md">
+    Buy now!
+  </button>
+</body>
+</html>
+
+
+
+
+
+ボタンにマウスホバーしたり、ボタンをクリックしたときのスタイルを設定していきます。
+
+hover:opacity-80
+transition
+duration-500
+active:translate-y-1
+
+/MyTailwindCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tailwind CSS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <button class="bg-orange-400 text-white m-4 py-2 px-4 rounded-full shadow-black/30 shadow-md hover:opacity-80 transition duration-500 active:translate-y-1">
+    Buy now!
+  </button>
+</body>
+</html>
+
+
+
+
+よく見かけるレイアウトをフレックスボックスを使って設定する方法について見ていきます。
+
+要素の配置
+flex
+gap-4
+w-40
+flex-1
+補足情報 フレックスボックスの復習について
+2023年11月25日
+今回のレイアウトでなぜflex:1使うべきか、などについて復習したい方は以下のレッスンを参照してみてください。
+
+・#12 flexでアイテムの挙動を制御しよう | CSS入門 フレックスボックス編
+https://dotinstall.com/lessons/basic_flexbox_v3/62212
+・#14 2カラムレイアウトを作ってみよう | CSS入門 フレックスボックス編
+https://dotinstall.com/lessons/basic_flexbox_v3/62214
+
+/MyTailwindCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tailwind CSS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <header class="bg-gray-200">
+    Header
+  </header>
+  <div class="flex gap-4">
+    <main class="bg-gray-300 flex-1">
+      Main
+    </main>
+    <aside class="bg-gray-400 w-40">
+      Aside
+    </aside>
+  </div>
+  <footer class="bg-gray-500">
+    Footer
+  </footer>
+</body>
+</html>
+
+
+
+
+ビューポートの幅に応じてbodyの背景色を変化させていく方法について見ていきます。
+
+sm:bg-red-300
+lg:bg-red-400
+動作確認
+
+
+/MyTailwindCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tailwind CSS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-red-200 sm:bg-red-300 lg:bg-red-400">
+  <header class="bg-gray-200">
+    Header
+  </header>
+  <div class="flex gap-4">
+    <main class="bg-gray-300 flex-1">
+      Main
+    </main>
+    <aside class="bg-gray-400 w-40">
+      Aside
+    </aside>
+  </div>
+  <footer class="bg-gray-500">
+    Footer
+  </footer>
+</body>
+</html>
+
+/MyTailwindCSS/tailwind.config.js
+/MyTailwindCSS/index.html
+ビューポートの幅に応じてレイアウトの変更をしていく方法について見ていきます。
+
+sm:
+hidden
+block
+
+/MyTailwindCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tailwind CSS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-red-200 sm:bg-red-300 lg:bg-red-400">
+  <header class="bg-gray-200">
+    Header
+    <nav class="sm:hidden">SP Menu</nav>
+    <nav class="hidden sm:block">PC Menu</nav>
+  </header>
+  <div class="sm:flex sm:gap-4">
+    <main class="bg-gray-300 sm:flex-1">
+      Main
+    </main>
+    <aside class="bg-gray-400 sm:w-40">
+      Aside
+    </aside>
+  </div>
+  <footer class="bg-gray-500">
+    Footer
+  </footer>
+</body>
+</html>
+
+
+
+
+
+Tailwind CSSの特徴について振り返ったあとに、公式サイトの紹介をしていきます。
+
+これまでの振り返り
+公式サイトの紹介
+補足情報 Tailwind CSSの公式サイト
+2023年11月25日
+Tailwind CSSの公式サイトは以下のとおりです。ドキュメントはこちらを参照するといいでしょう。
+
+・Tailwind CSS - Rapidly build modern websites without ever leaving your HTML.
+https://tailwindcss.com/
+
+/MyTailwindCSS/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tailwind CSS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-red-200 sm:bg-red-300 lg:bg-red-400">
+  <header class="bg-gray-200">
+    Header
+    <nav class="sm:hidden">SP Menu</nav>
+    <nav class="hidden sm:block">PC Menu</nav>
+  </header>
+  <div class="sm:flex sm:gap-4">
+    <main class="bg-gray-300 sm:flex-1">
+      Main
+    </main>
+    <aside class="bg-gray-400 sm:w-40">
+      Aside
+    </aside>
+  </div>
+  <footer class="bg-gray-500">
+    Footer
+  </footer>
+</body>
+</html>
+
+
+</code>
+    
+  </pre>
+  
+</body>
+</html>

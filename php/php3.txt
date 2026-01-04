@@ -1,0 +1,421 @@
+// ===== video_summary =====
+関数の構造を説明したのちに、引数や返り値といった用語を紹介していきます。
+
+
+    関数の構造
+    引数
+    返り値/戻り値
+
+// ===== main.php =====
+
+
+
+
+
+
+// ===== video_summary =====
+渡した整数値を3倍にして返してくれる関数を実装していきます。
+
+
+    triple()
+    関数の定義
+    仮引数/実引数
+
+// ===== commentBox 1 =====
+補足情報
+関数名のルールについて
+
+
+
+
+2024年5月19日
+
+
+
+
+
+動画中で紹介している変数の命名ルールについては以下のレッスンを復習してみましょう。関数名のルールもこちらと同じです。
+・#09 変数や定数の命名ルールを知っておこう | PHP入門 基礎文法編
+https://dotinstall.com/lessons/basic_php_grammar_v2/66909
+
+// ===== main.php =====
+<?php
+function triple($num) // 仮引数
+{
+    return $num * 3;
+}
+
+echo triple(10) . PHP_EOL; // 実引数
+echo triple(4) * 3 . PHP_EOL; // 実引数
+
+
+
+
+
+
+// ===== video_summary =====
+前回の実装がどのような順序で実行されていくか、図を使って説明していきます。
+
+
+    処理の順序
+    関数の呼び出し
+    返り値が戻る箇所
+
+// ===== main.php =====
+<?php
+function triple($num) // 仮引数
+{
+    return $num * 3;
+}
+
+echo triple(10) . PHP_EOL; // 実引数
+echo triple(4) * 3 . PHP_EOL; // 実引数
+
+
+
+
+
+
+// ===== video_summary =====
+引数の合計を返して表示する処理を実装したあとに、別の書き方を見ていきます。
+
+
+    sum()
+    別の書き方
+
+// ===== main.php =====
+<?php
+function sum($a, $b)
+{
+    return $a + $b;
+}
+
+function printSum($a, $b)
+{
+    echo $a + $b . PHP_EOL;
+}
+
+echo sum(3, 7) . PHP_EOL;
+printSum(3, 7);
+
+
+
+
+
+// ===== video_summary =====
+関数内でreturnを書かなかったときに何が起こっているかを説明していきます。
+
+
+    returnを書かなかった場合の挙動
+    NULL
+    関数の返り値で演算をする場合の注意点
+
+// ===== main.php =====
+<?php
+function sum($a, $b)
+{
+    return $a + $b;
+}
+
+function printSum($a, $b)
+{
+    echo $a + $b . PHP_EOL;
+    // return NULL;
+}
+
+// echo sum(3, 7) . PHP_EOL;
+// var_dump(printSum(3, 7));
+echo sum(3, 7) * 3 . PHP_EOL; // 30
+printSum(3, 7) * 3; // NULL * 3
+
+
+
+
+
+// ===== video_summary =====
+引数を省略した場合のデフォルト値を指定する方法について見ていきます。
+
+
+    getTotal()
+    引数のデフォルト値
+    引数のデフォルト値に関する注意点
+
+// ===== main.php =====
+<?php
+// function getTotal($price, $amount, $rate = 1.1)
+function getTotal($price, $rate = 1.1, $amount)
+{
+    return $price * $amount * $rate;
+}
+
+echo getTotal(100, 10) . PHP_EOL;
+echo getTotal(150, 20) . PHP_EOL;
+echo getTotal(200, 30) . PHP_EOL;
+echo getTotal(120, 40, 1.08) . PHP_EOL;
+
+
+
+
+
+
+
+// ===== video_summary =====
+関数定義内で複数のreturnを使う例について見ていきます。
+
+
+    条件分岐
+    複数のreturn
+
+// ===== main.php =====
+<?php
+function getTotal($price, $amount, $rate = 1.1)
+{
+    if ($amount >= 100) {
+        return $price * $amount;
+    } else {
+        return $price * $amount * $rate;
+    }
+}
+
+echo getTotal(100, 100) . PHP_EOL;
+echo getTotal(1000, 10) . PHP_EOL;
+
+
+
+
+
+
+// ===== video_summary =====
+条件にあわないものを最初に振り落としてから処理を書いていくテクニックを学びます。
+
+
+    コードの組み換え
+    早期リターン
+
+// ===== main.php =====
+<?php
+function getTotal($price, $amount, $rate = 1.1)
+{
+    // if ($amount >= 100) {
+    //     return $price * $amount;
+    // } else {
+    //     return $price * $amount * $rate;
+    // }
+
+    if ($amount >= 100) {
+        // 早期リターン
+        return $price * $amount;
+    }
+    return $price * $amount * $rate;
+}
+
+echo getTotal(100, 100) . PHP_EOL;
+echo getTotal(1000, 10) . PHP_EOL;
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+コードをわかりやすくするために実引数に名前をつける方法について見ていきます。
+
+
+    printMessage()
+    実引数の名前
+    名前をつけるメリット
+
+// ===== main.php =====
+<?php
+function printMessage($from, $to)
+{
+    echo "Hi {$to}! from {$from}" . PHP_EOL;
+}
+
+printMessage(from: "Taro", to: "Jiro");
+printMessage(to: "Shiro", from: "Saburo");
+
+
+
+
+
+
+// ===== video_summary =====
+コードを見通しをよくするために関数を活用する方法について見ていきます。
+
+
+    構成の把握
+    showAd()
+    showContent()
+
+// ===== main.php =====
+<?php
+function showAd()
+{
+    echo "---------" . PHP_EOL;
+    echo "SALE! 50% OFF!" . PHP_EOL;
+    echo "---------" . PHP_EOL;
+}
+
+function showContent()
+{
+    echo "BREAKING NEWS!" . PHP_EOL;
+    echo "Two baby pandas born at our Zoo!" . PHP_EOL;
+}
+
+showAd();
+showContent();
+showAd();
+
+
+
+
+
+
+// ===== video_summary =====
+関数定義の別の書き方について見ていきます。
+
+
+    triple()
+    無名関数/クロージャ
+    アロー関数
+
+// ===== main.php =====
+<?php
+// function triple($num)
+// {
+//     return $num * 3;
+// }
+
+// $triple = function($num)
+// {
+//     return $num * 3;
+// };
+
+$triple = fn($num) => $num * 3;
+
+echo $triple(10) . PHP_EOL;
+
+
+
+
+
+
+// ===== video_summary =====
+関数定義内の仮引数、新しく定義された変数の有効範囲について見ていきます。
+
+
+    triple()
+    double()
+    変数のスコープ
+    ローカルスコープ
+    グローバルスコープ
+
+// ===== main.php =====
+<?php
+function triple($num) 
+{
+    return $num * 3;
+}
+
+function double($num)
+{
+    return $num * 2;
+}
+
+echo triple(10) . PHP_EOL;
+echo double(5) . PHP_EOL;
+
+$num = 20;
+echo $num . PHP_EOL;
+
+
+
+
+
+
+// ===== video_summary =====
+関数定義の引数や返り値に型をつける方法について見ていきます。
+
+
+    printInfo()
+    データ型の指定
+    型付け
+    型付けのメリット
+    厳密な型付け
+
+// ===== main.php =====
+<?php
+declare(strict_types=1);
+
+function printInfo(string $name, int $score): void
+{
+    echo "{$name}: {$score}" . PHP_EOL;
+}
+
+// printInfo("Taro", 40);
+// printInfo("Taro", "Jiro");
+printInfo("Taro", "40");
+
+
+
+
+
+// ===== video_summary =====
+「特定の型もしくは別の型」を表現するためのunion型について見ていきます。
+
+
+    getProductCode()
+    union型
+
+// ===== main.php =====
+<?php
+declare(strict_types=1);
+
+function getProductCode(int|string $id): string
+{
+    return "P-{$id}";
+}
+
+echo getProductCode(80) . PHP_EOL;
+echo getProductCode("banana") . PHP_EOL;
+
+
+
+
+
+
+// ===== video_summary =====
+「特定の型もしくはnull型」を表現する方法について見ていきます。
+
+
+    条件分岐
+    null|string
+    ?string
+
+// ===== main.php =====
+<?php
+declare(strict_types=1);
+
+// function getProductCode(int $id): null|string
+function getProductCode(int $id): ?string
+{
+    if ($id >= 100) {
+        return NULL;
+    }
+    return "P-{$id}";
+}
+
+echo getProductCode(80) . PHP_EOL;
+echo getProductCode(120) . PHP_EOL;
+
+
+
+
+
+
+
+
+

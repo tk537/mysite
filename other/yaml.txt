@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre><code>
+    まずは概要を説明したのちに、公式サイト、必要となる知識、レッスンにおける環境について説明していきます。
+
+概要
+公式サイト
+必要となる知識
+レッスンにおける環境
+補足情報 必要となる知識について
+2016年11月21日
+今回のレッスンについては以下も参考にしてみてください。
+
+・ローカル開発環境の構築 [macOS編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_mac_v2
+・ローカル開発環境の構築 [Windows編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_win_v2
+・Cloud9入門 (全8回) - ※ ブラウザ上で学習をされたい方はご利用ください。
+http://dotinstall.com/lessons/basic_c9
+・UNIXコマンド入門 (一般ユーザー編) (全16回)
+http://dotinstall.com/lessons/basic_unix
+・Ruby入門 (全26回)
+http://dotinstall.com/lessons/basic_ruby_v3
+
+YAML
+
+* 概要
+- 構造化されたデータの表現記法
+
+* 公式サイト
+
+* 知識
+
+* 環境
+- ローカル開発環境
+- Ruby
+
+
+
+
+
+
+YAML記法で書いたデータをRubyで解釈していく手順について見ていきます。
+
+parse.rb
+mydata.yml
+動作確認
+
+parse.rb
+# emails = [
+#   'taguchi@gmail.com',
+#   'taguchi@dotinstall.com'
+# ]
+
+require 'yaml'
+
+emails = YAML.load_file('mydata.yml')
+
+p emails
+
+mydata.yml
+- taguchi@gmail.com
+- taguchi@dotinstall.com
+- taguchi+dotinstall@gmail.com
+
+
+
+
+YAMLで扱えるデータ型について説明したのちに、スカラーの扱いについて解説していきます。
+
+扱えるデータ型
+スカラーデータ
+コメントの書き方
+動作確認
+
+read.me
+- スカラー 値
+  - 文字列
+  - 数値
+  - 真偽値
+  - Null
+  - 日付け
+
+- シーケンス 配列
+
+- マッピング ハッシュ(key/value)
+
+mydata.yml
+- taguchi
+- 52
+- 33.5
+- true # true/false, yes/no, on/off
+- null # ~
+- 2015-07-18
+- "true"
+- '555'
+
+parse.rb
+# emails = [
+#   'taguchi@gmail.com',
+#   'taguchi@dotinstall.com'
+# ]
+
+require 'yaml'
+
+emails = YAML.load_file('mydata.yml')
+
+p emails
+
+
+
+
+複数のデータをまとめて扱うことができるシーケンス（配列）について見ていきます。
+
+シーケンスの記法
+ブロックスタイル、フロースタイル
+入れ子構造
+
+mydata.yml
+# シーケンス, 配列
+
+# - a
+# - b
+# - c
+
+# ブロックスタイル
+# - a
+# -b
+# - c
+
+# フロースタイル
+# [a, b, 10]
+
+# - a
+# - b
+#   - b-1
+#   - b-2
+# - c
+
+- a
+- 
+  - b-1
+  - b-2
+- c
+
+parse.rb
+require 'yaml'
+
+emails = YAML.load_file('mydata.yml')
+
+p emails
+
+
+キーと値でデータを管理していくマッピング（ハッシュ、連想配列）について解説していきます。
+
+マッピングの記法
+フロースタイル
+入れ子構造
+
+mydata.yml
+# マッピング、ハッシュ
+
+# name: taguchi
+# score: 90
+
+# name:taguchi
+# score: 90
+
+# name : taguchi
+# score: 90
+
+# {name: taguchi, score: 90}
+
+name: taguchi
+score:
+  game-1: 30
+  game-2: 40
+
+parse.rb
+require 'yaml'
+
+emails = YAML.load_file('mydata.yml')
+
+p emails
+
+
+
+
+
+シーケンスのマッピングや、マッピングのシーケンスについて見ていきます。
+
+シーケンスのマッピング
+マッピングのシーケンス
+
+mydata.yml
+# 配列、ハッシュ
+
+# names:
+#   - taguchi
+#   - fkoji
+# scores:
+#   - 90
+#   - 100
+
+# names: [taguchi, fkoji]
+# scores: [90, 100]
+
+# - name: taguchi
+#   score: 90
+# - name: fkoji
+#   score: 100
+
+- {name: taguchi, score: 90}
+- {name: fkoji, score: 100}
+
+parse.rb
+require 'yaml'
+
+emails = YAML.load_file('mydata.yml')
+
+p emails
+
+
+改行を含むデータを扱う際の記法について見ていきます。
+
+改行データの記法
+
+mydata.yml
+# 改行
+
+# this
+# is
+# a
+# pen.
+#
+
+# - |
+#   this
+#   is
+#   a
+#   pen.
+#
+# - |+
+#   this
+#   is
+#   a
+#   pen.
+#
+# - |-
+#   this
+#   is
+#   a
+#   pen.
+#
+
+- >
+  this
+  is
+  a
+  pen.
+
+- >+
+  this
+  is
+  a
+  pen.
+
+- >-
+  this
+  is
+  a
+  pen.
+
+parse.rb
+require 'yaml'
+
+emails = YAML.load_file('mydata.yml')
+
+p emails
+
+
+
+
+アンカーとエイリアスを使ったデータを記述していくための方法について見ていきます。
+
+アンカー
+エイリアス
+
+
+mydata.yml
+# - &leader tanaka # アンカー
+# - *leader # エイリアス
+# - &staff tashiro
+# - *staff
+# - *staff
+# - *staff
+# - *staff
+
+- &taguchi
+  name: taguchi
+  score: 80
+- &fkoji
+  name: fkoji
+  score: 90
+  friends:
+    - *taguchi
+- name: dotinstall
+  score: 100
+  friends:
+    - *taguchi
+    - *fkoji
+
+parse.rb
+require 'yaml'
+
+emails = YAML.load_file('mydata.yml')
+
+p emails
+
+
+
+
+
+
+
+
+ハッシュデータを別のデータにマージする方法について見ていきます。
+
+ハッシュのマージ
+
+mydata.yml
+# <<
+
+common: &common
+  user: dbuser
+  password: dbpassword
+
+development:
+  database: myapp_dev
+  <<: *common
+
+production:
+  database: myapp_prod
+  <<: *common
+
+test:
+  database: myapp_test
+  <<: *common
+
+parse.rb
+require 'yaml'
+
+emails = YAML.load_file('mydata.yml')
+
+p emails
+
+
+
+
+
+一つのYAMLファイルに複数のデータセットを記述する方法について見ていきます。
+
+データの区切り記号
+
+mydata.yml
+# ---
+# ...
+
+# ---
+# - a
+# - b
+# - c
+# ...
+# ---
+# - 1
+# - 2
+# - 3
+# ...
+
+---
+- x
+- y
+
+parse.rb
+# emails = [
+#   'taguchi@gmail.com',
+#   'taguchi@dotinstall.com'
+# ]
+
+require 'yaml'
+
+# emails = YAML.load_file('mydata.yml')
+#
+# p emails
+
+File.open('mydata.yml') do |io|
+  YAML.load_documents(io) do |d|
+    p d
+  end
+end
+
+
+
+
+
+
+
+
+YAML記法を確かめるために使えるRubyのto_yamlメソッドについて見ていきます。
+
+to_yaml
+動作確認
+
+parse.rb
+require 'yaml'
+
+# .to_yaml
+
+users = [
+  {'name' => 'taguchi', 'score' => 90},
+  {'name' => 'fkoji', 'score' => 100},
+]
+
+puts users.to_yaml
+
+mydata.yml
+parse.rb
+mydata.yml
+parse.rb
+mydata.yml
+parse.rb
+mydata.yml
+parse.rb
+mydata.yml
+parse.rb
+mydata.yml
+parse.rb
+mydata.yml
+parse.rb
+mydata.yml
+parse.rb
+mydata.yml
+parse.rb
+mydata.yml
+parse.rb
+mydata.yml
+parse.rb
+mydata.yml
+parse.rb
+mydata.yml
+parse.rb
+mydata.yml
+parse.rb

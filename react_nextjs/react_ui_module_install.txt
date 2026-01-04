@@ -1,0 +1,198 @@
+1️⃣ UIライブラリのアコーディオンを使う（一番一般的）
+
+Reactでは UIコンポーネントライブラリを使うのが主流 です。
+
+🔹 Material UI (MUI)
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+<Accordion>
+  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+    タイトル
+  </AccordionSummary>
+  <AccordionDetails>
+    内容
+  </AccordionDetails>
+</Accordion>
+
+
+✔ 企業利用が多い
+✔ アクセシビリティ対応済み
+
+🔹 React Bootstrap
+import Accordion from 'react-bootstrap/Accordion';
+
+<Accordion>
+  <Accordion.Item eventKey="0">
+    <Accordion.Header>タイトル</Accordion.Header>
+    <Accordion.Body>
+      内容
+    </Accordion.Body>
+  </Accordion.Item>
+</Accordion>
+
+
+✔ Bootstrap経験者向け
+
+🔹 Chakra UI
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+} from '@chakra-ui/react';
+
+<Accordion allowToggle>
+  <AccordionItem>
+    <AccordionButton>タイトル</AccordionButton>
+    <AccordionPanel>内容</AccordionPanel>
+  </AccordionItem>
+</Accordion>
+
+
+✔ シンプル
+✔ アクセシビリティ重視
+
+🔹 shadcn/ui（最近よく使われる）
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
+
+
+✔ Tailwind前提
+✔ モダンな構成
+✔ カスタマイズしやすい
+
+2️⃣ 自作する（状態管理だけ）
+
+小規模なら useState だけで簡単に作れます
+
+import { useState } from "react";
+
+function Accordion() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div>
+      <button onClick={() => setOpen(!open)}>
+        タイトル
+      </button>
+      {open && <div>内容</div>}
+    </div>
+  );
+}
+
+
+✔ 依存なし
+✔ 最小構成
+❌ アクセシビリティは自分で対応が必要
+
+3️⃣ HTML標準要素を使う（意外とおすすめ）
+<details>
+  <summary>タイトル</summary>
+  内容
+</details>
+
+
+✔ React不要
+✔ アクセシビリティ対応済み
+✔ 軽量
+❌ 見た目のカスタマイズはCSS次第
+
+結論（実務向けおすすめ）
+ケース	おすすめ
+業務システム	MUI / Chakra
+Tailwind利用	shadcn/ui
+小規模・簡易	自作 or <details>
+学習・検証	自作
+
+もし
+
+既に使っているUIライブラリ
+
+Tailwind / Bootstrap の有無
+
+アクセシビリティ要件
+
+があれば、それ前提で 最適な実装例を出しますよ。
+
+Material UIはnpmでインストールする必要がありますか
+
+はい、Material UI（MUI）は npm（または yarn / pnpm）でインストールする必要があります。
+React本体には含まれていません。
+
+✅ 基本インストール（必須）
+npm の場合
+npm install @mui/material @emotion/react @emotion/styled
+
+yarn の場合
+yarn add @mui/material @emotion/react @emotion/styled
+
+pnpm の場合
+pnpm add @mui/material @emotion/react @emotion/styled
+
+
+💡 MUI v5 以降は Emotion がスタイルエンジンとして必須 です。
+
+✅ アイコンを使う場合（任意）
+
+アコーディオンの ExpandMoreIcon などを使う場合：
+
+npm install @mui/icons-material
+
+✅ インストール後の最小サンプル
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+export default function Sample() {
+  return (
+    <Accordion>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        タイトル
+      </AccordionSummary>
+      <AccordionDetails>
+        内容
+      </AccordionDetails>
+    </Accordion>
+  );
+}
+
+❓ CDNでは使えないの？
+
+公式には推奨されていません
+
+MUIは npm前提設計 です
+
+CDN利用は学習用途以外では非推奨
+
+🧠 実務視点の補足
+項目	内容
+React本体	含まれない
+npm必須	✅
+Tree Shaking	対応
+アクセシビリティ	対応済み
+商用利用	可能（MIT）
+
+
+
+① MUI が本当に入っているか
+npm list @mui/material
+npm list @mui/icons-material
+
+
+なければ：
+
+npm install @mui/material @mui/icons-material @emotion/react @emotion/styled
+
+② Vite 再起動（超重要）
+npm run dev
+
+③ App.css / index.css を一旦空にする
+/* 全部コメントアウト */

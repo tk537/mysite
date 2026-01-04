@@ -1,0 +1,563 @@
+// ===== video_summary =====
+textlintの概要を確認したのちに、Node.jsをインストールしていきます。
+
+公式サイトの確認
+textlintの使い方
+Node.jsのインストール
+バージョンの確認
+
+// ===== commentBox 1 =====
+補足情報 今回実行したコマンドについて
+2019年3月25日
+
+動画中で実行したコマンドは以下のとおりです。
+
+# Node.js の確認
+node -v
+
+# Node Package Manager の確認
+npm -v
+
+// ===== commentBox 2 =====
+補足情報 レッスンに関連するURLについて
+2019年3月25日
+
+今回のレッスンに関連する URL は以下のとおりです。
+
+・textlint公式サイト
+https://textlint.github.io
+
+・Node.js
+https://nodejs.org/ja/
+
+
+
+
+
+
+// ===== video_summary =====
+作業用フォルダを用意したのちに、textlint本体をインストールしていきます。
+
+
+    MyTextlintProjectの作成
+    textlin本体のインストール
+    package.jsonの作成
+
+// ===== commentBox 1 =====
+補足情報
+今回実行したコマンドについて
+
+
+
+
+2019年3月25日
+
+
+
+
+
+動画中で実行したコマンドは以下のとおりです。
+
+# Desktop に作成した MyTextlintProject に移動
+cd Desktop/MyTextlintProject
+
+# プロジェクト管理用ファイルの作成
+npm init -y
+
+# textlint のインストール
+npm install --save-dev textlint
+
+# textlint のバージョン確認
+./node_modules/.bin/textlint -v
+
+// ===== /MyTextlintProject/package.json =====
+{
+  "name": "MyTextlintProject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "textlint": "^10.2.1"
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+校正ルールのひとつであるtextlint-rule-max-tenをインストールする方法について見ていきます。
+
+
+    textlint-rule-max-tenのインストール
+    .textlintrcの作成
+
+// ===== commentBox 1 =====
+補足情報
+今回実行したコマンドについて
+
+
+
+
+2019年3月25日
+
+
+
+
+
+動画中で実行したコマンドは以下のとおりです。
+
+# max-ten（校正ルール）のインストール
+npm install --save-dev textlint-rule-max-ten
+
+// ===== /MyTextlintProject/package.json =====
+{
+  "name": "MyTextlintProject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "textlint": "^10.2.1",
+    "textlint-rule-max-ten": "^2.0.3"
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+前回設定したルールでマークダウン文書を校正してみます。
+
+
+    sample.mdの作成
+    校正の流れ
+
+// ===== commentBox 1 =====
+補足情報
+今回実行したコマンドについて
+
+
+
+
+2019年3月25日
+
+
+
+
+
+動画中で実行したコマンドは以下のとおりです。
+
+# sample.md（任意のファイル）の校正
+./node_modules/.bin/textlint docs/sample.md
+
+// ===== /MyTextlintProject/docs/sample.md =====
+これは、どうか、なぁ。でも、なぁ。
+
+// ===== /MyTextlintProject/package.json =====
+{
+  "name": "MyTextlintProject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "textlint": "^10.2.1",
+    "textlint-rule-max-ten": "^2.0.3"
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+ルールのオプションを変更したのちに、textlintの公式サイトからルール一覧を確認してみます。
+
+
+    ルールのオプション変更
+    ルールの一覧確認
+
+// ===== commentBox 1 =====
+補足情報
+今回実行したコマンドについて
+
+
+
+
+2019年3月25日
+
+
+
+
+
+動画中で実行したコマンドは以下のとおりです。
+
+# sample.md（任意のファイル）の校正
+./node_modules/.bin/textlint docs/sample.md
+
+// ===== /MyTextlintProject/docs/sample.md =====
+これは、どうか、なぁ。でも、なぁ。
+
+// ===== /MyTextlintProject/package.json =====
+{
+  "name": "MyTextlintProject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "textlint": "^10.2.1",
+    "textlint-rule-max-ten": "^2.0.3"
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+プリセットのひとつであるtextlint-rule-preset-japaneseの使い方について見ていきます。
+
+
+    textlint-rule-preset-japaneseのインストール
+    ルールの除外方法
+
+// ===== commentBox 1 =====
+補足情報
+今回実行したコマンドについて
+
+
+
+
+2019年3月25日
+
+
+
+
+
+動画中で実行したコマンドは以下のとおりです。
+
+# textlint-rule-preset-japanese のインストール
+npm i -D textlint-rule-preset-japanese
+
+# sample.md（任意のファイル）の校正
+./node_modules/.bin/textlint docs/sample.md
+
+// ===== /MyTextlintProject/docs/sample.md =====
+ここでそういうルールで実行するのは考えれない。
+
+// ===== /MyTextlintProject/package.json =====
+{
+  "name": "MyTextlintProject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "textlint": "^10.2.1",
+    "textlint-rule-max-ten": "^2.0.3",
+    "textlint-rule-preset-japanese": "^4.0.0"
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+extlint-rule-prhをインストールしたのちに、.textlintrcを設定していきます。
+
+
+    textlint-rule-prhのインストール
+    .textlintrcの設定
+
+// ===== commentBox 1 =====
+補足情報
+今回実行したコマンドについて
+
+
+
+
+2019年3月25日
+
+
+
+
+
+動画中で実行したコマンドは以下のとおりです。
+
+# textlint-rule-prh のインストール
+npm i -D textlint-rule-prh
+
+// ===== /MyTextlintProject/package.json =====
+{
+  "name": "MyTextlintProject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "textlint": "^10.2.1",
+    "textlint-rule-max-ten": "^2.0.3",
+    "textlint-rule-preset-japanese": "^4.0.0",
+    "textlint-rule-prh": "^5.0.1"
+  }
+}
+
+// ===== /MyTextlintProject/docs/sample.md =====
+ここでそういうルールで実行するのは考えれない。
+
+
+
+
+
+// ===== video_summary =====
+YAMLファイルを作成したのちに、表記ゆれのルールを設定していきます。
+
+
+    dotinstall.ymlの作成
+    表記ゆれのルール作成
+
+// ===== /MyTextlintProject/docs/sample.md =====
+javascript、楽しいな
+
+// ===== /MyTextlintProject/rules/dotinstall.yml =====
+version: 1
+
+rules:
+  - pattern: javascript
+    expected: JavaScript
+
+// ===== /MyTextlintProject/package.json =====
+{
+  "name": "MyTextlintProject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "textlint": "^10.2.1",
+    "textlint-rule-max-ten": "^2.0.3",
+    "textlint-rule-preset-japanese": "^4.0.0",
+    "textlint-rule-prh": "^5.0.1"
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+表記ゆれの設定を変更しつつ、文書を自動修正するためのオプションについても見ていきます。
+
+
+    表記ゆれの複数設定方法
+    正規表現によるパターン設定
+    --fixオプション
+
+// ===== commentBox 1 =====
+補足情報
+今回実行したコマンドについて
+
+
+
+
+2019年3月25日
+
+
+
+
+
+動画中で実行したコマンドは以下のとおりです。
+
+# 校正箇所の自動修正
+./node_modules/.bin/textlint --fix docs/sample.md
+
+// ===== /MyTextlintProject/docs/sample.md =====
+JavaScriptってJavaScriptだっけ？JavaScriptだっけ？それともJavaScript？
+
+// ===== /MyTextlintProject/rules/dotinstall.yml =====
+version: 1
+
+rules:
+  # - pattern:
+  #     - javascript
+  #     - java script
+  - pattern: /java\s*script/i
+    expected: JavaScript
+
+// ===== /MyTextlintProject/package.json =====
+{
+  "name": "MyTextlintProject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "textlint": "^10.2.1",
+    "textlint-rule-max-ten": "^2.0.3",
+    "textlint-rule-preset-japanese": "^4.0.0",
+    "textlint-rule-prh": "^5.0.1"
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+校正ルールを複数のファイルに適用させる方法について見ていきます。
+
+
+    sample2.mdの作成
+    複数ファイルに対する校正
+
+// ===== commentBox 1 =====
+補足情報
+今回実行したコマンドについて
+
+
+
+
+2019年3月25日
+
+
+
+
+
+動画中で実行したコマンドは以下のとおりです。
+
+# 複数ファイルの校正（.md の拡張子のファイルのみ）
+./node_modules/.bin/textlint --fix docs/*.md
+
+// ===== /MyTextlintProject/docs/sample.md =====
+JavaScriptってJavascriptだっけ？JAVAScriptだっけ？それともJavaScript？
+
+// ===== /MyTextlintProject/docs/sample2.md =====
+Java ScriptってJavaScriptだっけ？JavaScriptだっけ？それともJavaScript？
+
+// ===== /MyTextlintProject/package.json =====
+{
+  "name": "MyTextlintProject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "textlint": "^10.2.1",
+    "textlint-rule-max-ten": "^2.0.3",
+    "textlint-rule-preset-japanese": "^4.0.0",
+    "textlint-rule-prh": "^5.0.1"
+  }
+}
+
+// ===== /MyTextlintProject/rules/dotinstall.yml =====
+version: 1
+
+rules:
+  # - pattern:
+  #     - javascript
+  #     - java script
+  - pattern: /java\s*script/i
+    expected: JavaScript
+
+
+
+
+
+    // ===== video_summary =====
+Atomパッケージのlinter-textlintを導入したのちに、使用方法について見ていきます。
+
+
+    linter-textlintパッケージ
+    エラーの修正
+
+// ===== /MyTextlintProject/docs/sample.md =====
+JavaScriptってJavaScriptだっけ？JavaScriptだっけ？それともJavaScript？
+
+// ===== /MyTextlintProject/docs/sample2.md =====
+JavaScriptってJavaScriptだっけ？JavaScriptだっけ？それともJavaScript？
+
+// ===== /MyTextlintProject/package.json =====
+{
+  "name": "MyTextlintProject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "textlint": "^10.2.1",
+    "textlint-rule-max-ten": "^2.0.3",
+    "textlint-rule-preset-japanese": "^4.0.0",
+    "textlint-rule-prh": "^5.0.1"
+  }
+}
+
+// ===== /MyTextlintProject/rules/dotinstall.yml =====
+version: 1
+
+rules:
+  # - pattern:
+  #     - javascript
+  #     - java script
+  - pattern: /java\s*script/i
+    expected: JavaScript
+
+
+
+
+    

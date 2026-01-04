@@ -1,0 +1,288 @@
+// ===== video_summary =====
+公式サイトを確認したあとに、マテリアルアイコンの使い方について見ていきます。
+
+公式サイト
+アイコンの使い方
+
+// ===== commentBox 1 =====
+補足情報 必要となる知識について
+2020年5月28日
+
+このレッスンでは、以下のレッスンで紹介した内容をベースにしています。わからない点があった場合は、こちらも参考にしてみてください。
+
+HTML基礎文法入門 (全22回)
+https://dotinstall.com/lessons/basic_html_tags_v2
+CSS基礎文法入門 (全33回)
+https://dotinstall.com/lessons/basic_css_styles_v2
+
+
+
+
+
+// ===== video_summary =====
+必要となるファイルを作成して、学習を進める準備を整えていきます。
+
+
+    プロジェクトフォルダの設定
+    index.htmlの作成
+
+// ===== /MyIcons/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Icons</title>
+</head>
+<body>
+  
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+マテリアルアイコンを導入したあとに、推奨されているスタイルを読み込んでいきます。
+
+
+    linkタグの設定
+    styles.cssの作成
+
+// ===== /MyIcons/css/styles.css =====
+/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+// ===== /MyIcons/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Icons</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+アイコンを配置したあとに、スタイルを変更していく方法を見ていきます。
+
+
+    アイコンの配置
+    アイコンのスタイリング
+
+// ===== commentBox 1 =====
+補足情報
+Material Iconsを使う方法
+
+
+
+
+2025年1月24日
+
+
+
+
+
+Material IconsはGoogle Fontsに移管されたようです（2025年1月現在）。
+導入方法としては、
+https://developers.google.com/fonts/docs/material_symbols#static_font_with_google_fonts
+にあるとおり、
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+を読み込んだあとに、
+https://fonts.google.com/icons
+からアイコンを検索し、そこに出てくるコードを以下のように貼り付ければOKです。
+<span class="material-symbols-outlined">search</span>
+<span class="material-symbols-outlined">home</span>
+<span class="material-symbols-outlined">settings</span>
+<span class="material-symbols-outlined">favorite</span>
+
+// ===== /MyIcons/css/styles.css =====
+/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+.my-icon {
+  background: orange;
+  font-weight: bold;
+  color: #fff;
+  padding: 8px;
+  border-radius: 50%;
+}
+
+// ===== /MyIcons/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Icons</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <span class="material-icons my-icon">menu</span>
+  <span class="material-icons md-36">menu</span>
+  <span class="material-icons md-48">menu</span>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+背景色に応じたスタイルを付ける準備をしたあとに、チェックボックスのアイコンを配置していきます。
+
+
+    チェックボックスの配置
+    動作確認
+
+// ===== /MyIcons/css/styles.css =====
+/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+body {
+  background: #ccc;
+}
+
+.light-bg {
+  background: #fff;
+  padding: 32px;
+}
+
+.dark-bg {
+  background: #121212;
+  padding: 32px;
+}
+
+// ===== /MyIcons/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Icons</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="light-bg">
+    <span class="material-icons">check_box</span>
+    <span class="material-icons">check_box</span>
+  </div>
+  <div class="dark-bg">
+    <span class="material-icons">check_box</span>
+    <span class="material-icons">check_box</span>
+  </div>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+明るい背景や暗い背景に適したスタイルをつけていきます。
+
+
+    md-dark
+    md-light
+    md-inactive
+
+// ===== /MyIcons/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Icons</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="light-bg">
+    <span class="material-icons md-dark">check_box</span>
+    <span class="material-icons md-dark md-inactive">check_box</span>
+  </div>
+  <div class="dark-bg">
+    <span class="material-icons md-light">check_box</span>
+    <span class="material-icons md-light md-inactive">check_box</span>
+  </div>
+</body>
+</html>
+
+// ===== /MyIcons/css/styles.css =====
+/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+body {
+  background: #ccc;
+}
+
+.light-bg {
+  background: #fff;
+  padding: 32px;
+}
+
+.dark-bg {
+  background: #121212;
+  padding: 32px;
+}
+
+
+
+
+
+
+
+

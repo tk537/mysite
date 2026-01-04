@@ -1,0 +1,67 @@
+最新の Tailwind CSS v4 を React (Vite) + TypeScript 環境に導入する手順を、改めて分かりやすく整理しました。
+
+npm create vite@latest my-app -- --template react-ts
+cd my-app
+npm install
+
+Tailwind CSS v4 導入手順まとめ (Vite + React)
+1. パッケージのインストール
+まずは必要なパッケージをインストールします。v4からは Vite 専用のプラグインが用意されています。
+
+Bash
+
+npm install tailwindcss @tailwindcss/vite
+2. Vite の設定変更
+vite.config.ts に Tailwind のプラグインを登録します。これにより、CSS のビルドが高速化され、設定も簡略化されます。
+
+TypeScript
+
+// vite.config.ts
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite' // 1. インポート
+
+export default defineConfig({
+  plugins: [
+    react(),
+    tailwindcss(), // 2. プラグインを追加
+  ],
+})
+3. CSS の読み込み設定
+src/index.css（またはメインのCSSファイル）の内容を書き換えます。v4では @import を使用するだけで、全てのベース・コンポーネント・ユーティリティが読み込まれます。
+
+CSS
+
+/* src/index.css */
+@import "tailwindcss";
+※ tailwind.config.js や postcss.config.js は作成不要です。
+
+4. コンポーネントでの使用
+src/App.tsx などで、className を使ってスタイルを適用します。
+
+TypeScript
+
+function App() {
+  return (
+    <div className="flex h-screen items-center justify-center bg-slate-100">
+      <h1 className="text-4xl font-bold text-sky-500 shadow-sm">
+        Tailwind CSS v4 Works!
+      </h1>
+    </div>
+  )
+}
+🔍 v4 での「カスタマイズ」方法（補足）
+これまでは tailwind.config.js に書いていましたが、v4では CSSファイル（index.css）の中に直接変数を書くスタイルに変更されました。
+
+CSS
+
+@import "tailwindcss";
+
+@theme {
+  /* 独自のメインカラーを定義する例 */
+  --color-brand: #3b82f6;
+  --font-sans: "Inter", sans-serif;
+}
+このように書くと、クラス名で text-brand や bg-brand が使えるようになります。
+
+次は、ボタンやカードなどの UI パーツを効率よく作るための「コンポーネント化」のコツについて解説しましょうか？

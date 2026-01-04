@@ -1,0 +1,80 @@
+白画面 = React がクラッシュ
+
+MUI は 依存関係 or main.tsx ミスで即死する
+
+「Accordion の問題」ではなく アプリ初期化の問題
+
+次の一手
+
+Console に出ている 赤いエラーメッセージをそのまま貼ってください。
+それを見れば 100% 特定して一発で直します。
+
+chunk-TMWYYKPM.js?v=527abb74:912 Uncaught TypeError: Cannot read properties of null (reading 'useContext')
+    at exports.useContext (chunk-TMWYYKPM.js?v=527abb74:912:27)
+    at useDefaultProps (chunk-TMWYYKPM.js?v=527abb74:7487:23)
+    at useDefaultProps2 (chunk-TMWYYKPM.js?v=527abb74:11080:10)
+    at CssBaseline (@mui_material.js?v=527abb74:13753:17)
+    at Object.react_stack_bottom_frame (react-dom_client.js?v=527abb74:18509:20)
+    at renderWithHooks (react-dom_client.js?v=527abb74:5654:24)
+    at updateFunctionComponent (react-dom_client.js?v=527abb74:7475:21)
+    at beginWork (react-dom_client.js?v=527abb74:8525:20)
+    at runWithFiberInDEV (react-dom_client.js?v=527abb74:997:72)
+    at performUnitOfWork (react-dom_client.js?v=527abb74:12561:98)
+
+エラー内容ありがとうございます。
+これで 原因は100%特定できます。
+
+❌ エラーの正体（結論）
+Uncaught TypeError: Cannot read properties of null (reading 'useContext')
+    at CssBaseline (@mui_material.js:...)
+
+
+👉 React が2重に読み込まれている / React と MUI のバージョン不整合 が原因です。
+
+これは Vite + React + MUI で最も有名な地雷です。
+
+なぜ起きるのか（重要）
+
+MUI v5 は内部で
+
+React.useContext(...)
+
+
+を使いますが、
+
+React 本体が 複数インスタンス
+
+react と react-dom の バージョン不一致
+
+node_modules が壊れている
+
+いずれかがあると
+👉 Context が null になり即クラッシュします
+（＝白画面）
+
+✅ 解決手順（順番どおりにやってください）
+① React / React-DOM のバージョン確認
+npm list react react-dom
+
+
+👉 必ず同じバージョンである必要があります。
+
+正常例
+react@18.3.1
+react-dom@18.3.1
+
+② 強制的に依存関係をクリーンにする（最重要）
+
+Windows なので PowerShell で👇
+
+rm -r -force node_modules
+rm package-lock.json
+npm cache clean --force
+npm install
+
+③ 正しい依存関係を入れ直す（明示）
+npm install react@18 react-dom@18
+npm install @mui/material @mui/icons-material @emotion/react @emotion/styled
+
+④ Vite 再起動
+npm run dev

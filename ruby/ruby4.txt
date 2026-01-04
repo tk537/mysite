@@ -1,0 +1,312 @@
+// ===== video_summary =====
+データ構造の概要について説明したのち、配列の記法について確認していきます。
+
+
+    複数の値をまとめる仕組み
+    配列、ハッシュ
+    配列の記法
+
+// ===== main.rb =====
+
+
+
+
+
+
+
+// ===== video_summary =====
+配列を作って表示する方法について見ていきます。
+
+
+    配列の作成
+    puts、pによる表示
+    要素へのアクセス
+    length、size
+
+// ===== main.rb =====
+scores = [70, 90, 80]
+scores[1] = 95
+
+# puts scores
+p scores
+p scores.length
+p scores.size
+
+
+
+
+
+
+// ===== video_summary =====
+配列の要素を操作するための、さまざまな方法について見ていきます。
+
+
+    <<
+    +
+    insert
+    delete_at
+
+// ===== main.rb =====
+scores = [70, 90, 80]
+scores << 85 # [70, 90, 80, 85]
+more_scores = [40, 50]
+# scores = scores + more_scores
+scores += more_scores # [70, 90, 80, 85, 40, 50]
+scores.insert(1, 75) # [70, 75, 90, 80, 85, 40, 50]
+scores.delete_at(0) # [75, 90, 80, 85, 40, 50]
+p scores
+
+
+
+
+
+// ===== video_summary =====
+配列について調べるための命令について見ていきます。
+
+
+    empty?
+    include?
+    index
+
+// ===== main.rb =====
+scores = [70, 90, 80]
+
+p scores.empty? # false
+p scores.include?(90) # true
+p scores.index(80) # 2
+p scores.index(40) # nil
+
+
+
+
+
+// ===== video_summary =====
+要素を並び替えたり、シャッフルしたりする方法について見ていきます。
+
+
+    sort
+    sort!
+    破壊的な変更
+    reverse!
+    shuffle!
+
+// ===== main.rb =====
+scores = [70, 90, 80]
+
+# sorted_scores = scores.sort
+# p sorted_scores
+# p scores
+
+# scores.sort!
+# p scores
+
+# scores.reverse!
+# p scores
+
+scores.shuffle!
+p scores
+
+
+
+
+
+
+// ===== video_summary =====
+文字列の配列を扱う方法について見ていきます。
+
+
+    %W()
+    join
+
+// ===== main.rb =====
+# names = ["Taro", "Jiro", "Saburo"]
+names = %W(Taro Jiro Saburo)
+p names
+
+# connected_names = names.join
+connected_names = names.join(", ")
+p connected_names
+
+
+
+
+
+
+// ===== video_summary =====
+配列と反復処理を組み合わせるための方法について見ていきます。
+
+
+    each
+    each_with_index
+    {}による記法
+
+// ===== main.rb =====
+scores = [70, 90, 80]
+
+# scores.each do |score|
+#   puts "Score: #{score}"
+# end
+
+# scores.each_with_index do |score, index|
+#   puts "Score #{index}: #{score}"
+# end
+
+scores.each_with_index { |score, index| puts "Score #{index}: #{score}" }
+
+
+
+
+
+
+// ===== video_summary =====
+配列の要素を処理して新しい配列をつくる方法について見ていきます。
+
+
+    eachによる方法
+    mapによる方法
+    map!
+
+// ===== main.rb =====
+scores = [70, 90, 80]
+
+# updated_scores = []
+# scores.each do |score|
+#   updated_scores << score + 5
+# end
+# p updated_scores
+
+# updated_scores = scores.map do |score|
+#   score + 5
+# end
+# p updated_scores
+
+scores.map! do |score|
+  score + 5
+end
+p scores
+
+
+
+
+
+
+// ===== video_summary =====
+配列から条件に合致した要素だけを抽出する方法について見ていきます。
+
+
+    filter
+    filter!
+    mapとfilterの違い
+
+// ===== main.rb =====
+scores = [70, 90, 80, 65, 85, 77]
+
+# filtered_scores = scores.filter do |score|
+#   score >= 80
+# end
+# p filtered_scores
+
+scores.filter! do |score|
+  score >= 80
+end
+p scores
+
+
+
+
+
+
+// ===== video_summary =====
+名前付きの値をまとめることができるハッシュの記法について見ていきます。
+
+
+    ハッシュの記法
+    シンボル
+    記法の違い
+
+// ===== main.rb =====
+scores = [70, 90, 80, 65, 85, 77]
+
+# filtered_scores = scores.filter do |score|
+#   score >= 80
+# end
+# p filtered_scores
+
+scores.filter! do |score|
+  score >= 80
+end
+p scores
+
+
+
+
+
+
+
+// ===== video_summary =====
+ハッシュを作って値にアクセスしたり、要素を追加・削除するための方法について見ていきます。
+
+
+    ハッシュの作成
+    要素へのアクセス
+    要素の追加
+    delete
+
+// ===== main.rb =====
+scores = {english: 80, math: 70}
+# p scores
+
+# scores[:english] = 90
+# p scores[:english]
+
+scores[:physics] = 50
+scores.delete(:math)
+p scores
+
+
+
+
+
+// ===== video_summary =====
+ハッシュについて調べるための命令についてみていきます。
+
+
+    length、size
+    has_key?
+    has_value?
+    keys
+    values
+
+// ===== main.rb =====
+scores = {english: 80, math: 70}
+
+p scores.length # 2
+p scores.size # 2
+p scores.has_key?(:physics) # false
+p scores.has_value?(70) # true
+p scores.keys # [:english, :math]
+p scores.values # [80, 70]
+
+
+
+
+
+
+// ===== video_summary =====
+ハッシュと反復処理を組み合わせるための方法について見ていきます。
+
+
+    each
+
+// ===== main.rb =====
+scores = {english: 80, math: 70}
+
+scores.each do |subject, score|
+  puts "Subject: #{subject}, Score: #{score}"
+end
+
+
+
+
+
+

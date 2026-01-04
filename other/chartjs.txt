@@ -1,0 +1,642 @@
+// ===== video_summary =====
+Chart.jsの公式サイトを確認したのちに、雛形となるファイルを作成していきます。
+
+
+    Chart.jsの概要
+    公式サイトの確認
+    index.htmlの作成
+
+// ===== commentBox 1 =====
+補足情報
+必要となる知識について
+
+
+
+
+2018年2月8日
+
+
+
+
+
+今回のレッスンについては以下も参考にしてみてください。
+
+・JavaScript入門 (全24回)
+https://dotinstall.com/lessons/basic_javascript_v2
+
+// ===== /MyCharts/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>My Chart</title>
+</head>
+<body>
+  <canvas id="my_chart">
+    Canvas not supported...
+  </canvas>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+Chart.jsを読み込んだのちに、描画処理の準備をしていきます。
+
+
+    Chart.jsの読み込み
+    描画処理の準備
+
+// ===== /MyCharts/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>My Chart</title>
+</head>
+<body>
+  <canvas id="my_chart">
+    Canvas not supported...
+  </canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      var type;
+      var data;
+      var options;
+      var ctx = document.getElementById('my_chart').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: type,
+        data: data,
+        options: options
+      });
+    })();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+描画の流れを理解するために、折れ線グラフを描画していきます。
+
+
+    折れ線グラフの描画
+    データの追加
+    動作確認
+
+// ===== /MyCharts/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>My Chart</title>
+</head>
+<body>
+  <canvas id="my_chart">
+    Canvas not supported...
+  </canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      var type = 'line';
+
+      var data = {
+        labels: [2010, 2011, 2012, 2013],
+        datasets: [{
+          label: '@taguchi',
+          data: [120, 300, 200, 210]
+        }, {
+          label: '@fkoji',
+          data: [180, 250, 320, 180]
+        }]
+      };
+
+      var options;
+      var ctx = document.getElementById('my_chart').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: type,
+        data: data,
+        options: options
+      });
+    })();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+縦軸の設定を変えながら、オプションの操作方法について学んでいきます。
+
+
+    軸の範囲設定
+    刻み値の設定
+    callbackの設定
+
+// ===== /MyCharts/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>My Chart</title>
+</head>
+<body>
+  <canvas id="my_chart">
+    Canvas not supported...
+  </canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      var type = 'line';
+
+      var data = {
+        labels: [2010, 2011, 2012, 2013],
+        datasets: [{
+          label: '@taguchi',
+          data: [120, 300, 200, 210]
+        }, {
+          label: '@fkoji',
+          // data: [180, 250, 320, 180]
+          data: [180, 250, 320, 500]
+        }]
+      };
+
+      var options = {
+        scales: {
+          yAxes: [{
+            ticks: {
+              // min: 0,
+              // max: 400
+              suggestedMin: 0,
+              suggestedMax: 400,
+              stepSize: 100,
+              callback: function(value, index, values) {
+                return 'JPY' + value;
+              }
+            }
+          }]
+        }
+      };
+
+      var ctx = document.getElementById('my_chart').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: type,
+        data: data,
+        options: options
+      });
+    })();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+グラフ全体に関する設定の変更方法について見ていきます。
+
+
+    タイトルの設定
+    アニメーション設定
+    凡例の設定
+
+// ===== /MyCharts/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>My Chart</title>
+</head>
+<body>
+  <canvas id="my_chart">
+    Canvas not supported...
+  </canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      var type = 'line';
+
+      var data = {
+        labels: [2010, 2011, 2012, 2013],
+        datasets: [{
+          label: '@taguchi',
+          data: [120, 300, 200, 210]
+        }, {
+          label: '@fkoji',
+          data: [180, 250, 320, 500]
+        }]
+      };
+
+      var options = {
+        scales: {
+          yAxes: [{
+            ticks: {
+              suggestedMin: 0,
+              suggestedMax: 400
+            }
+          }]
+        },
+        title: {
+          display: true,
+          text: 'Annual Sales',
+          fontSize: 18,
+          position: 'left'
+        },
+        animation: {
+          duration: 0
+        },
+        legend: {
+          // position: 'right'
+          display: false
+        }
+      };
+
+      var ctx = document.getElementById('my_chart').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: type,
+        data: data,
+        options: options
+      });
+    })();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+折れ線の色や塗りを変える方法について見ていきます
+
+
+    borderColor
+    borderWidth
+    fill
+    lineTension
+    pointStyle
+
+// ===== /MyCharts/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>My Chart</title>
+</head>
+<body>
+  <canvas id="my_chart">
+    Canvas not supported...
+  </canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      var type = 'line';
+
+      var data = {
+        labels: [2010, 2011, 2012, 2013],
+        datasets: [{
+          label: '@taguchi',
+          data: [120, 300, 200, 210],
+          borderColor: 'red',
+          borderWidth: 5,
+          fill: false,
+          pointStyle: 'rect'
+        }, {
+          label: '@fkoji',
+          data: [180, 250, 320, 500],
+          borderColor: 'blue',
+          borderWidth: 5,
+          backgroundColor: 'rgba(0, 0, 255, 0.3)',
+          lineTension: 0,
+          pointStyle: 'triangle'
+        }]
+      };
+
+      var options = {
+        scales: {
+          yAxes: [{
+            ticks: {
+              suggestedMin: 0,
+              suggestedMax: 400
+            }
+          }]
+        }
+      };
+
+      var ctx = document.getElementById('my_chart').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: type,
+        data: data,
+        options: options
+      });
+    })();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+棒グラフの描画方法について見ていきます。
+
+
+    棒グラフの描画
+    スタイルの変更
+
+// ===== /MyCharts/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>My Chart</title>
+</head>
+<body>
+  <canvas id="my_chart">
+    Canvas not supported...
+  </canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      // var type = 'bar';
+      var type = 'horizontalBar';
+
+      var data = {
+        labels: [2010, 2011, 2012, 2013],
+        datasets: [{
+          label: '@taguchi',
+          data: [120, 300, 200, 210],
+          backgroundColor: 'skyblue',
+          borderWidth: 0
+        }, {
+          label: '@fkoji',
+          data: [180, 250, 320, 500],
+          backgroundColor: [
+            'hsla(90, 60%, 60%, 0.3)',
+            'hsla(180, 60%, 60%, 0.3)',
+            'hsla(270, 60%, 60%, 0.3)',
+            'hsla(360, 60%, 60%, 0.3)'
+          ],
+          borderWidth: 0
+        }]
+      };
+
+      var options = {
+        // scales: {
+        //   yAxes: [{
+        //     ticks: {
+        //       suggestedMin: 0,
+        //       suggestedMax: 400
+        //     }
+        //   }]
+        // }
+        scales: {
+          xAxes: [{
+            stacked: true
+          }],
+          yAxes: [{
+            stacked: true
+          }]
+        }
+      };
+
+      var ctx = document.getElementById('my_chart').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: type,
+        data: data,
+        options: options
+      });
+    })();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+棒グラフと折れ線グラフを一緒に描画する方法について解説していきます。
+
+
+    折れ線グラフの描画
+    縦軸の設定変更
+
+// ===== /MyCharts/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>My Chart</title>
+</head>
+<body>
+  <canvas id="my_chart">
+    Canvas not supported...
+  </canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      var type = 'bar';
+
+      var data = {
+        labels: [2010, 2011, 2012, 2013],
+        datasets: [{
+          label: 'Sales',
+          data: [120, 300, 200, 210],
+          yAxisID: 'sales-axes'
+        }, {
+          label: 'Subscribers',
+          data: [802, 1324, 1433, 1889],
+          type: 'line',
+          fill: false,
+          yAxisID: 'subscribers-axes'
+        }]
+      };
+
+      var options = {
+        scales: {
+          yAxes: [{
+            ticks: {
+              suggestedMin: 0,
+              suggestedMax: 400
+            },
+            id: 'sales-axes',
+            type: 'linear',
+            position: 'left'
+          }, {
+            ticks: {
+              suggestedMin: 0,
+              suggestedMax: 2000
+            },
+            id: 'subscribers-axes',
+            type: 'linear',
+            position: 'right',
+            gridLines: {
+              display: false
+            }
+          }]
+        }
+      };
+
+      var ctx = document.getElementById('my_chart').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: type,
+        data: data,
+        options: options
+      });
+    })();
+  </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+レーダーチャートを描画する方法について見ていきます。
+
+
+    レーダーチャートの描画
+    軸の設定変更
+
+// ===== /MyCharts/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>My Chart</title>
+</head>
+<body>
+  <canvas id="my_chart">
+    Canvas not supported...
+  </canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      var type = 'radar';
+
+      var data = {
+        labels: ['PHP', 'Ruby', 'Python', 'JavaScript', 'HTML'],
+        datasets: [{
+          label: '@taguchi',
+          data: [40, 50, 70, 30, 80],
+          backgroundColor: 'rgba(255, 0, 0, 0.3)'
+        }, {
+          label: '@fkoji',
+          data: [90, 62, 34, 80, 48],
+          backgroundColor: 'rgba(0, 0, 255, 0.3)'
+        }]
+      };
+
+      var options = {
+        scale: {
+          ticks: {
+            // suggestedMin: 0,
+            beginAtZero: true,
+            suggestedMax: 100
+          }
+        }
+      };
+
+      var ctx = document.getElementById('my_chart').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: type,
+        data: data,
+        options: options
+      });
+    })();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+円グラフを描画する方法について見ていきます。
+
+
+    円グラフの描画
+    ドーナツグラフの描画
+
+// ===== /MyCharts/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>My Chart</title>
+</head>
+<body>
+  <canvas id="my_chart">
+    Canvas not supported...
+  </canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      // var type = 'pie';
+      var type = 'doughnut';
+
+      var data = {
+        labels: ['YES', 'NO', 'Maybe'],
+        datasets: [{
+          data: [122, 53, 33],
+          backgroundColor: ['tomato', 'skyblue', 'gray']
+        }]
+      };
+
+      var options = {
+        cutoutPercentage: 40
+      };
+
+      var ctx = document.getElementById('my_chart').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: type,
+        data: data,
+        options: options
+      });
+    })();
+  </script>
+</body>
+</html>
+
+
+
+
+
+

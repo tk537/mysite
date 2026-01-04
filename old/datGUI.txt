@@ -1,0 +1,577 @@
+// ===== video_summary =====
+公式サイトを確認したのちに、雛形となるHTMLファイルを作っていきます。
+
+
+    公式サイトの確認
+    index.htmlの作成
+    main.jsの作成
+
+// ===== commentBox 1 =====
+補足情報
+必要となる知識について
+
+
+
+
+2018年1月16日
+
+
+
+
+
+今回のレッスンについては以下も参考にしてみてください。
+
+・JavaScript入門 (全24回)
+https://dotinstall.com/lessons/basic_javascript_v2
+・p5.js入門 (全14回)
+https://dotinstall.com/lessons/basic_p5js
+
+// ===== /datGUI/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>dat.GUI demo</title>
+</head>
+<body>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /datGUI/js/main.js =====
+
+
+
+
+
+
+// ===== video_summary =====
+dat.GUIとp5.jsを読み込んだのちに、アニメーションを描画する準備を進めます。
+
+
+    dat.GUIの読み込み
+    p5.jsの読み込み
+
+// ===== /datGUI/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>dat.GUI demo</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.5/dat.gui.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== /datGUI/js/main.js =====
+'use strict';
+
+function setup() {
+  createCanvas(400, 300, WEBGL);
+}
+
+function draw() {
+
+}
+
+
+
+
+
+
+// ===== video_summary =====
+p5.jsで直方体が回転するようなアニメーションを作っていきます。
+
+
+    直方体の描画
+    回転角の設定
+
+// ===== /datGUI/js/main.js =====
+'use strict';
+
+var myBox;
+
+function MyBox() {
+  this.w = 100;
+  this.h = 100;
+  this.d = 100;
+}
+
+function setup() {
+  createCanvas(400, 300, WEBGL);
+  myBox = new MyBox();
+}
+
+function draw() {
+  background(180);
+  rotateX(frameCount * 0.01);
+  rotateY(frameCount * 0.01);
+  noFill();
+  stroke(255);
+  box(myBox.w, myBox.h, myBox.d);
+}
+
+// ===== /datGUI/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>dat.GUI demo</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.5/dat.gui.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+dat.GUIのパネルを表示させたのちに、基本的な使い方を確認していきます。
+
+
+    dat.GUIパネルの表示
+    パネルの操作方法の確認
+
+// ===== /datGUI/js/main.js =====
+'use strict';
+
+var myBox;
+
+function MyBox() {
+  this.w = 100;
+  this.h = 100;
+  this.d = 100;
+}
+
+function setup() {
+  var gui;
+
+  createCanvas(400, 300, WEBGL);
+  myBox = new MyBox();
+  gui = new dat.GUI();
+  gui.add(myBox, 'w');
+  gui.add(myBox, 'h');
+  gui.add(myBox, 'd');
+}
+
+function draw() {
+  background(180);
+  rotateX(frameCount * 0.01);
+  rotateY(frameCount * 0.01);
+  noFill();
+  stroke(255);
+  box(myBox.w, myBox.h, myBox.d);
+}
+
+// ===== /datGUI/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>dat.GUI demo</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.5/dat.gui.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+パネルで変更できる数値に刻み値、最小値、最大値を設定する方法について見ていきます。
+
+
+    刻み値、最大値、最小値の設定
+    動作確認
+
+// ===== /datGUI/js/main.js =====
+'use strict';
+
+var myBox;
+
+function MyBox() {
+  this.w = 100;
+  this.h = 100;
+  this.d = 100;
+}
+
+function setup() {
+  var gui;
+
+  createCanvas(400, 300, WEBGL);
+  myBox = new MyBox();
+  gui = new dat.GUI();
+  // gui.add(myBox, 'w').step(10);
+  // gui.add(myBox, 'w').step(10).max(200);
+  // gui.add(myBox, 'w').step(10).max(200).min(50);
+  gui.add(myBox, 'w', 50, 200, 10);
+  gui.add(myBox, 'h', 50, 200);
+  gui.add(myBox, 'd', 10, 300);
+}
+
+function draw() {
+  background(180);
+  rotateX(frameCount * 0.01);
+  rotateY(frameCount * 0.01);
+  noFill();
+  stroke(255);
+  box(myBox.w, myBox.h, myBox.d);
+}
+
+// ===== /datGUI/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>dat.GUI demo</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.5/dat.gui.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+パネルにセレクトボックスを表示させる方法について見ていきます。
+
+
+    セレクトボックスの表示
+    ラベルの設定
+
+// ===== /datGUI/js/main.js =====
+'use strict';
+
+var myBox;
+
+function MyBox() {
+  this.w = 100;
+  this.h = 100;
+  this.d = 100;
+}
+
+function setup() {
+  var gui;
+
+  createCanvas(400, 300, WEBGL);
+  myBox = new MyBox();
+  gui = new dat.GUI();
+  // gui.add(myBox, 'w', [100, 200, 300]);
+  gui.add(myBox, 'w', {small: 100, medium: 200, large: 300});
+  gui.add(myBox, 'h', 50, 200);
+  gui.add(myBox, 'd', 50, 200);
+}
+
+function draw() {
+  background(180);
+  rotateX(frameCount * 0.01);
+  rotateY(frameCount * 0.01);
+  stroke(255);
+  noFill();
+  box(myBox.w, myBox.h, myBox.d);
+}
+
+// ===== /datGUI/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>dat.GUI demo</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.5/dat.gui.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+色を選ぶためのパネルを表示させる方法を確認していきます。
+
+
+    塗りパネルの表示
+    線パネルの表示
+
+// ===== /datGUI/js/main.js =====
+'use strict';
+
+var myBox;
+
+function MyBox() {
+  this.w = 100;
+  this.h = 100;
+  this.d = 100;
+  this.strokeColor = '#ffffff';
+  this.fillColor = [0, 0, 0];
+}
+
+function setup() {
+  var gui;
+
+  createCanvas(400, 300, WEBGL);
+  myBox = new MyBox();
+  gui = new dat.GUI();
+  gui.add(myBox, 'w', 50, 200);
+  gui.add(myBox, 'h', 50, 200);
+  gui.add(myBox, 'd', 50, 200);
+  gui.addColor(myBox, 'strokeColor');
+  gui.addColor(myBox, 'fillColor');
+}
+
+function draw() {
+  background(180);
+  rotateX(frameCount * 0.01);
+  rotateY(frameCount * 0.01);
+  stroke(myBox.strokeColor);
+  fill(myBox.fillColor);
+  box(myBox.w, myBox.h, myBox.d);
+}
+
+// ===== /datGUI/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>dat.GUI demo</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.5/dat.gui.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+パネルにチェックボックスを表示させる方法について見ていきます。
+
+
+    チェックボックスの表示
+    動作確認
+
+// ===== /datGUI/js/main.js =====
+'use strict';
+
+var myBox;
+
+function MyBox() {
+  this.w = 100;
+  this.h = 100;
+  this.d = 100;
+  this.strokeColor = '#ffffff';
+  this.fillColor = [0, 0, 0];
+  this.hasBorder = true;
+}
+
+function setup() {
+  var gui;
+
+  createCanvas(400, 300, WEBGL);
+  myBox = new MyBox();
+  gui = new dat.GUI();
+  gui.add(myBox, 'w', 50, 200);
+  gui.add(myBox, 'h', 50, 200);
+  gui.add(myBox, 'd', 50, 200);
+  gui.addColor(myBox, 'strokeColor');
+  gui.addColor(myBox, 'fillColor');
+  gui.add(myBox, 'hasBorder');
+}
+
+function draw() {
+  background(180);
+  rotateX(frameCount * 0.01);
+  rotateY(frameCount * 0.01);
+  if (myBox.hasBorder) {
+    stroke(myBox.strokeColor);
+  } else {
+    noStroke();
+  }
+  fill(myBox.fillColor);
+  box(myBox.w, myBox.h, myBox.d);
+}
+
+// ===== /datGUI/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>dat.GUI demo</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.5/dat.gui.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+パラメータをクリックしたり、数値を変更したら、何らかの処理が実行されるようにしてみます。
+
+
+    メソッドの設定
+    onChange()
+    onFinishChange()
+
+// ===== /datGUI/js/main.js =====
+'use strict';
+
+var myBox;
+
+function MyBox() {
+  this.w = 100;
+  this.h = 100;
+  this.d = 100;
+  this.strokeColor = '#ffffff';
+  this.fillColor = [0, 0, 0];
+  this.hasBorder = true;
+  this.getInfo = function() {
+    alert(JSON.stringify(this));
+  }
+}
+
+function setup() {
+  var gui;
+
+  createCanvas(400, 300, WEBGL);
+  myBox = new MyBox();
+  gui = new dat.GUI();
+  gui.add(myBox, 'w', 50, 200).onChange(function() {
+    console.log(myBox.w);
+  });
+  gui.add(myBox, 'h', 50, 200).onFinishChange(function() {
+    console.log(myBox.h);
+  });
+  gui.add(myBox, 'd', 50, 200);
+  gui.addColor(myBox, 'strokeColor');
+  gui.addColor(myBox, 'fillColor');
+  gui.add(myBox, 'hasBorder');
+  gui.add(myBox, 'getInfo');
+}
+
+function draw() {
+  background(180);
+  rotateX(frameCount * 0.01);
+  rotateY(frameCount * 0.01);
+  if (myBox.hasBorder) {
+    stroke(myBox.strokeColor);
+  } else {
+    noStroke();
+  }
+  fill(myBox.fillColor);
+  box(myBox.w, myBox.h, myBox.d);
+}
+
+// ===== /datGUI/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>dat.GUI demo</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.5/dat.gui.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+パラメータをフォルダに分類してパネルを見やすくする方法について見ていきます
+
+
+    パネルのフォルダ分け
+    open()
+
+// ===== /datGUI/js/main.js =====
+'use strict';
+
+var myBox;
+
+function MyBox() {
+  this.w = 100;
+  this.h = 100;
+  this.d = 100;
+  this.strokeColor = '#ffffff';
+  this.fillColor = [0, 0, 0];
+  this.hasBorder = true;
+}
+
+function setup() {
+  var gui;
+  var sizeFolder;
+
+  createCanvas(400, 300, WEBGL);
+  myBox = new MyBox();
+  gui = new dat.GUI();
+  sizeFolder = gui.addFolder('Size');
+  sizeFolder.add(myBox, 'w', 50, 200);
+  sizeFolder.add(myBox, 'h', 50, 200);
+  sizeFolder.add(myBox, 'd', 50, 200);
+  gui.addColor(myBox, 'strokeColor');
+  gui.addColor(myBox, 'fillColor');
+  gui.add(myBox, 'hasBorder');
+  sizeFolder.open();
+}
+
+function draw() {
+  background(180);
+  rotateX(frameCount * 0.01);
+  rotateY(frameCount * 0.01);
+  if (myBox.hasBorder) {
+    stroke(myBox.strokeColor);
+  } else {
+    noStroke();
+  }
+  fill(myBox.fillColor);
+  box(myBox.w, myBox.h, myBox.d);
+}
+
+// ===== /datGUI/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>dat.GUI demo</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.5/dat.gui.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+

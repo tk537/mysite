@@ -1,0 +1,558 @@
+// ===== video_summary =====
+まずは概要について説明し、必要となる知識やレッスンにおける環境、用語について確認していきます。
+
+
+    概要
+    必要となる知識
+    レッスンにおける環境
+    用語
+
+// ===== read.me =====
+Excel VBA
+
+* 概要
+- Excelを自動化するためのプログラミング言語
+
+* 知識
+- Excel
+
+* 環境
+
+* 用語
+ワークブック
+- ワークーシート
+-- セル
+
+オブジェクト
+- プロパティ（属性）
+- メソッド（処理）
+
+
+
+
+
+// ===== video_summary =====
+VBAの開発環境であるVisual Basic Editorの基本的な構成を説明していきます。
+
+Visual Basic Editorの起動
+プロジェクト
+ツールバーの表示
+プロパティウィンドウ
+
+
+
+
+
+// ===== video_summary =====
+Excelから「Hello World」を表示させるためのプロシージャを作りこんでいきます。
+
+
+    プロシージャの書き方
+    実行方法
+    コメントの記述方法
+    命令の行変え方法
+    複数のプロシージャを記述する
+
+// ===== helloworld.bas =====
+Sub HelloWorld()
+    ' コメント
+    MsgBox _
+    ("hello world")
+End Sub
+Sub HelloWorld2()
+    MsgBox _
+    ("hello world 2")
+End Sub
+
+
+
+
+
+// ===== video_summary =====
+Rangeオブジェクトを指定する複数の方法について解説し、セルに値を表示してみます。
+
+
+    Worksheets
+    Range
+    Valueプロパティ
+    Cells
+    Offset
+
+// ===== CellChange.bas =====
+Sub CellChange()
+    Worksheets("Sheet1").Range("A1").Value = "hello"
+    Range("A2").Value = "hello2"
+    Cells(3, 1).Value = "hello3"
+    Cells(3, 1).Offset(1, 0).Value = "hello4"
+End Sub
+
+
+
+
+
+
+// ===== video_summary =====
+複数のセルを含むRangeオブジェクトを指定する方法について学びます。
+
+
+    Range("A1", "B3")
+    Range("A1:B3")
+    Range("A:A")
+    Range("3:3")
+    Cells.Clear
+
+// ===== CellsChange.bas =====
+Sub CellsChange()
+    Range("A1", "B3").Value = "hello"
+    Range("A5:C7").Value = "hello2"
+    Range("4:4").Value = "row 4"
+    Range("C:C").Value = "Column C"
+    Cells.Clear
+End Sub
+
+
+
+
+
+
+
+// ===== video_summary =====
+処理の対象が同じ複数の命令をWithでまとめる方法について解説していきます。
+
+
+    Withステートメント
+
+// ===== WithTest.bas =====
+Sub WithTest()
+    Range("A1").Value = "hello"
+    Range("A1").Font.Bold = True
+    Range("A1").Font.Size = 16
+    Range("A1").Interior.Color = vbRed
+End Sub
+Sub WithTest2()
+    With Range("A2")
+        .Value = "hello"
+        With .Font
+            .Bold = True
+            .Size = 16
+        End With
+        .Interior.Color = vbRed
+    End With
+End Sub
+
+
+
+
+
+
+// ===== video_summary =====
+Rangeオブジェクトのプロパティを使い、値を取得する方法について学びます。
+
+
+    プロパティ値の取得
+
+// ===== GetTest.bas =====
+Sub GetTest()
+    MsgBox (Range("A1").Value)
+    MsgBox (Range("A1").Font.Size)
+End Sub
+
+
+
+
+
+
+// ===== video_summary =====
+オブジェクトの処理を行うメソッドの使い方を学びます。また、メソッドのオプション指定方法についても説明していきます。
+
+
+    メソッドの実行
+    メソッドのオプション指定（単一、複数）
+
+// ===== MethodTest.bas =====
+Sub MethodTest()
+    ' Range("B2").Clear
+    ' Range("B5").Delete shift:=xlShiftUp
+    Worksheets.Add after:=Worksheets("Sheet2"), Count:=2
+End Sub
+
+
+
+
+
+
+// ===== video_summary =====
+Excel VBAとマクロの関係について解説していきます。
+
+
+    Excel VBAとマクロの関係について
+
+// ===== Macro.bas =====
+Sub Test()
+    MsgBox (1)
+End Sub
+Sub Macro4()
+'
+' Macro4 Macro
+'
+
+'
+    Range("A1").Select
+    ActiveCell.FormulaR1C1 = "100"
+    Range("A2").Select
+End Sub
+
+
+
+
+
+// ===== video_summary =====
+データにつけるラベルである変数について、その宣言の仕方、使い方を学んでいきます。
+
+
+    変数の宣言
+    変数の使用方法
+    Integerの演算（+ - / * \ mod ^）
+
+// ===== VariableTest.bas =====
+Sub VariableTest()
+
+    Dim x As Integer
+    
+    x = 10 + 5
+    x = x + 1
+    
+    ' + - / *
+    ' \ mod ^
+    
+    x = 2 ^ 3
+    
+    ' Range("A1").Value = x
+    Debug.Print x
+
+
+End Sub
+
+
+
+
+
+
+
+// ===== video_summary =====
+続いてDouble、String、Date、Variant、Boolean、Rangeといったデータ型の変数を扱う方法について学びます。
+
+
+    Double
+    String
+    Date
+    Variant
+    Boolean
+    Range
+    文字列の連結
+    Rangeオブジェクトへの値設定（Set）
+
+// ===== VariantTest.bas =====
+Attribute VB_Name = "Module1"
+Sub VariableTest()
+
+    Dim y As Double
+    Dim s As String
+    Dim d As Date
+    Dim z As Variant
+    Dim f As Boolean
+    Dim r As Range
+    
+    y = 10.5
+    s = "hello"
+    d = "2012/04/23"
+    f = True
+    Set r = Range("A1")
+    
+    Debug.Print y / 3
+    Debug.Print s & "world"
+    r.Value = d + 7
+    
+
+
+End Sub
+
+
+
+
+
+
+// ===== video_summary =====
+同じ種類のデータを単一の変数名で扱うことができる配列について、その宣言や使用の方法を学びます。
+
+
+    配列の宣言
+    配列の設定
+    配列へのアクセス
+
+// ===== VariantTest.bas =====
+Sub VariableTest()
+
+    ' sales_0 = 200
+    ' sales_1 = 150
+    ' sales_2 = 300
+
+    Dim sales(2) As Integer
+    sales(0) = 200
+    sales(1) = 150
+    sales(2) = 300
+    
+    Debug.Print sales(1)
+
+End Sub
+Sub VariableTest2()
+    Dim sales As Variant
+    sales = Array(200, 150, 300)
+    Debug.Print sales(2)
+
+End Sub
+
+
+
+
+
+
+// ===== video_summary =====
+If、Else、Elseifなどで条件分岐をしていく方法について学びます。
+
+
+    If
+    Elseif
+    Else
+    End If
+
+// ===== iftest.bas =====
+Sub IfTest()
+
+    ' = < > <= >= <> and not or
+    If Range("a1").Value > 80 Then
+        Range("a2").Value = "OK!"
+    ElseIf Range("a1").Value > 60 Then
+        Range("a2").Value = "soso..."
+    Else
+        Range("a2").Value = "NG!"
+    End If
+
+
+End Sub
+
+
+
+
+
+
+// ===== video_summary =====
+複数の条件を見やすく記述することができるSelectについてその使い方を学びます。
+
+
+    Select Case
+    Case
+    Case Else
+    End Select
+
+// ===== selecttest.bas =====
+Sub SelectTest()
+
+    Dim signal As String
+    signal = Range("a1").Value
+    
+    Dim result As Range
+    Set result = Range("a2")
+    
+    Select Case signal
+    
+    Case "red"
+        result.Value = "STOP!"
+        
+    Case "green"
+        result.Value = "GO!"
+    
+    Case "yellow"
+        result.Value = "CAUTION!"
+        
+    Case Else
+        result.Value = "n.a."
+        
+    End Select
+    
+    
+    
+    
+    
+
+End Sub
+
+
+
+
+
+
+// ===== video_summary =====
+While、Forを使って繰り返し処理をする方法について学びます。
+
+
+    While ... Loop
+    For To Step ... Next
+
+// ===== WhileTest.bas =====
+Sub WhileTest()
+    Dim i As Integer
+    i = 1
+    
+    Do While i < 10
+        Cells(i, 1).Value = i
+        i = i + 1
+    Loop
+
+End Sub
+Sub ForTest()
+    Dim i As Integer
+    
+    For i = 1 To 9 Step 2
+        Cells(i, 1).Value = i
+    Next i
+
+End Sub
+
+
+
+
+
+
+// ===== video_summary =====
+Eachを使って配列の要素分だけループ処理を行なってみます。
+
+
+    For Each ... Next
+
+// ===== commentBox 1 =====
+補足情報
+Nameの宣言について
+
+
+
+
+2017年4月27日
+
+
+
+
+
+動画中では動作していますがNameについても宣言をしておいた方が良いでしょう。具体的には以下のようにしてみてください。
+
+Sub EachTest()
+    Dim names As Variant
+    Dim Name As Variant
+
+    names = Array("taguchi", "fkoji", "dotinstall")
+
+    For Each Name In names
+        Debug.Print Name
+    Next Name
+
+End Sub
+
+// ===== EachTest.bas =====
+Sub EachTest()
+    Dim names As Variant
+    names = Array("taguchi", "fkoji", "dotinstall")
+    
+    For Each Name In names
+        Debug.Print Name
+    Next Name
+
+End Sub
+
+
+
+
+
+
+// ===== video_summary =====
+Callで外部のプロシージャを呼び出す方法について学びます。
+
+
+    Call
+
+// ===== CallTest.bas =====
+Sub CallTest()
+
+    Dim names As Variant
+    names = Array("taguchi", "fkoji", "dotinstall")
+    
+    For Each name In names
+        Call SayHi(name)
+    Next name
+
+End Sub
+Sub SayHi(ByVal name As String)
+    Debug.Print "hi!, " & name
+End Sub
+
+
+
+
+
+// ===== video_summary =====
+SubプロシージャとFunctionプロシージャについてその違いを学んでいきます。
+
+
+    Functionプロシージャ
+
+// ===== FunctionTest.bas =====
+Sub CallTest()
+
+    Dim names As Variant
+    names = Array("taguchi", "fkoji", "dotinstall")
+    
+    For Each name In names
+        Debug.Print SayHi(name)
+    Next name
+
+End Sub
+Function SayHi(ByVal name As String)
+     SayHi = "hi!, " & name
+End Function
+
+
+
+
+
+// ===== video_summary =====
+今までの知識を応用して成績表を処理するVBAを組み上げてみます。
+
+
+    成績に応じたセルの色分け
+    成績に応じた該当件数の算出
+
+// ===== FindLowScores.bas =====
+Sub FindLowScores()
+
+    Dim i As Long
+    Dim n As Long
+    i = 2
+    n = 0
+    
+    Do While Cells(i, 1).Value <> ""
+        If Cells(i, 2).Value < 60 Then
+            Cells(i, 2).Interior.Color = vbRed
+            n = n + 1
+        End If
+        i = i + 1
+    Loop
+    
+    MsgBox (n & "件該当しました！")
+
+
+End Sub
+
+
+
+
+
+

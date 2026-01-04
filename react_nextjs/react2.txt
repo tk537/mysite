@@ -1,0 +1,3610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+    完成版を確認したのちに、macOSで学習環境を整える手順について説明していきます。
+
+完成版の確認
+素材ファイルのダウンロード
+作業用フォルダの設定
+index.htmlの表示
+補足情報 動画内で紹介しているURLについて
+2023年8月7日
+動画内で紹介しているURLは以下のとおりです。完成版の確認、素材ファイルのダウンロードは以下よりアクセスしてみてください。
+
+・ドットインストールでプログラミングを始めよう: ReactでTodo管理アプリを作ろう
+https://dotinstall.github.io/setup/todo_reactjs_v2.html
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Todos
+      <button id="purge">Purge</button>
+    </h1>
+    <ul id="todos">
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>Del</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>Del</button>
+      </li>
+    </ul>
+    <form id="add-form">
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+
+  <script type="text/babel">
+    'use strict';
+
+    {
+
+    }
+  </script>
+</body>
+</html>
+
+style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+Windowsで学習環境を整える手順について説明していきます。
+
+完成版の確認
+素材ファイルのダウンロード
+作業用フォルダの設定
+index.htmlの表示
+補足情報 動画内で紹介しているURLについて
+2023年8月7日
+動画内で紹介しているURLは以下のとおりです。完成版の確認、素材ファイルのダウンロードは以下よりアクセスしてみてください。
+
+・ドットインストールでプログラミングを始めよう: ReactでTodo管理アプリを作ろう
+https://dotinstall.github.io/setup/todo_reactjs_v2.html
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Todos
+      <button id="purge">Purge</button>
+    </h1>
+    <ul id="todos">
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>Del</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>Del</button>
+      </li>
+    </ul>
+    <form id="add-form">
+      <input type="text">
+      <button>Add</button>
+    </form>
+  </div>
+
+  <script type="text/babel">
+    'use strict';
+
+    {
+
+    }
+  </script>
+</body>
+</html>
+
+style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+ダウンロードしたファイルの内容を確認したのちに、Reactでp要素を描画してみます。
+
+index.htmlの確認
+style.cssの確認
+ReactDOM.createRoot()
+render()
+補足情報 VS Codeでファイルのドラッグ＆ドロップができない場合
+2024年2月16日
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+macOS VS Code ドラッグ&ドロップ イメージ
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、WindowsならCtrlキー、macOSならcommandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+補足情報 素材ファイルのHTML/CSSについて
+2023年8月7日
+素材ファイルに記載されているHTML、CSSについてわからないことがあれば以下のレッスンを復習してみましょう。
+
+・JavaScriptでTodo管理アプリを作ろう (全22回)
+https://dotinstall.com/lessons/todo_js
+
+補足情報 React関連の命令について
+2023年8月7日
+今回使ったcreateRoot()やrender()については以下も復習してみてください。
+
+・#04 Reactでh1要素を描画してみよう | React入門
+https://dotinstall.com/lessons/basic_reactjs_v2/64404
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" id="root">
+    <!-- <h1>
+      Todos
+      <button id="purge">Purge</button>
+    </h1>
+    <ul id="todos">
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>Del</button>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox">
+          <span>
+            aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+          </span>
+        </label>
+        <button>Del</button>
+      </li>
+    </ul>
+    <form id="add-form">
+      <input type="text">
+      <button>Add</button>
+    </form> -->
+  </div>
+
+  <script type="text/babel">
+    'use strict';
+
+    {
+      const root = ReactDOM.createRoot(document.querySelector('#root'));
+      root.render(
+        <p>Hello</p>
+      );
+    }
+  </script>
+</body>
+</html>
+
+style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+アプリ全体を描画するためのAppコンポーネントを作っていきます。
+
+Appコンポーネント
+フラグメント
+閉じタグの修正
+補足情報 コンポーネントの命名規則、フラグメントについて
+2023年8月7日
+動画中で紹介しているコンポーネントの命名規則、フラグメントについては以下の動画を復習してみてください。
+
+・命名規則について → #08 Appコンポーネントを作ってみよう | React入門
+https://dotinstall.com/lessons/basic_reactjs_v2/64408
+・フラグメントについて → #05 JSX記法を使ってみよう | React入門
+https://dotinstall.com/lessons/basic_reactjs_v2/64405
+
+補足情報 コメントのショートカットについて
+2023年8月7日
+動画中で紹介している、コードをコメントにするためのショートカットキーは以下のとおりです。
+
+Windows → Ctrl + /
+macOS → command + /
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" id="root">
+  </div>
+
+  <script type="text/babel">
+    'use strict';
+
+    {
+      const App = () => {
+        return (
+          <>
+            <h1>
+              Todos
+              <button id="purge">Purge</button>
+            </h1>
+            <ul id="todos">
+              <li>
+                <label>
+                  <input type="checkbox" />
+                  <span>
+                    aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+                  </span>
+                </label>
+                <button>Del</button>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" />
+                  <span>
+                    aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+                  </span>
+                </label>
+                <button>Del</button>
+              </li>
+            </ul>
+            <form id="add-form">
+              <input type="text" />
+              <button>Add</button>
+            </form>
+          </>
+        );
+      };
+
+      const root = ReactDOM.createRoot(document.querySelector('#root'));
+      root.render(
+        <App />
+      );
+    }
+  </script>
+</body>
+</html>
+
+style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+Todoリストの項目をコンポーネントとして切り出していきます。
+
+Todoコンポーネント
+todosの宣言
+補足情報 todosのデータ構造について
+2023年8月7日
+todosのデータ構造については以下のレッスンを復習してみるといいでしょう。
+
+・#18 ユニークなIDを設定していこう | JavaScriptでTodo管理アプリを作ろう
+https://dotinstall.com/lessons/todo_js/64618
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" id="root">
+  </div>
+
+  <script type="text/babel">
+    'use strict';
+
+    {
+      const Todo = () => {
+        return (
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span>aaa</span>
+            </label>
+            <button>Del</button>
+          </li>
+        );
+      };
+
+      const App = () => {
+        const todos = [
+          {id: 0, title: 'aaa', isCompleted: false},
+          {id: 1, title: 'bbb', isCompleted: true},
+          {id: 2, title: 'ccc', isCompleted: false},
+        ];
+
+        return (
+          <>
+            <h1>
+              Todos
+              <button id="purge">Purge</button>
+            </h1>
+            <ul id="todos">
+              <Todo />
+              <Todo />
+              <Todo />
+            </ul>
+            <form id="add-form">
+              <input type="text" />
+              <button>Add</button>
+            </form>
+          </>
+        );
+      };
+
+      const root = ReactDOM.createRoot(document.querySelector('#root'));
+      root.render(
+        <App />
+      );
+    }
+  </script>
+</body>
+</html>
+
+style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+
+todosの配列をもとにTodoコンポーネントを生成し、リストを描画していきます。
+
+map()
+todo属性
+props
+リストの描画
+補足情報 map()について
+2023年8月7日
+動画内で使っているmap()については以下の動画を復習してみましょう。
+
+・#18 map()で新しい配列を作ってみよう | JavaScript入門 データ構造編
+https://dotinstall.com/lessons/basic_javascript_data_structure/63618
+
+補足情報 keyキーワードについて
+2023年8月7日
+動画中で説明しているkeyキーワードについては以下の動画を復習してみてください。
+
+・#12 リスト項目にkey属性を設定しよう | React入門 - プログラミングならドットインストール
+https://dotinstall.com/lessons/basic_reactjs_v2/64412
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" id="root">
+  </div>
+
+  <script type="text/babel">
+    'use strict';
+
+    {
+      const Todo = (props) => {
+        return (
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span>{props.todo.title}</span>
+            </label>
+            <button>Del</button>
+          </li>
+        );
+      };
+
+      const App = () => {
+        const todos = [
+          {id: 0, title: 'aaa', isCompleted: false},
+          {id: 1, title: 'bbb', isCompleted: true},
+          {id: 2, title: 'ccc', isCompleted: false},
+        ];
+
+        const todoItems = todos.map((todo) => {
+          return (
+            <Todo 
+              key={todo.id}
+              todo={todo}
+            />
+          );
+        });
+
+        return (
+          <>
+            <h1>
+              Todos
+              <button id="purge">Purge</button>
+            </h1>
+            <ul id="todos">
+              {todoItems}
+            </ul>
+            <form id="add-form">
+              <input type="text" />
+              <button>Add</button>
+            </form>
+          </>
+        );
+      };
+
+      const root = ReactDOM.createRoot(document.querySelector('#root'));
+      root.render(
+        <App />
+      );
+    }
+  </script>
+</body>
+</html>
+
+style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+useState()でtodosを管理したのちに、Appコンポーネントにて項目を削除するための関数を定義していきます。
+
+React.useState()
+handleTodoDeleteClick関数の定義
+補足情報 useState()について
+2023年8月7日
+動画中で使っているuseState()については以下の動画を復習すると良いでしょう。
+
+・#13 useState()で値を管理しよう | React入門
+https://dotinstall.com/lessons/basic_reactjs_v2/64413
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" id="root">
+  </div>
+
+  <script type="text/babel">
+    'use strict';
+
+    {
+      const Todo = (props) => {
+        return (
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span>{props.todo.title}</span>
+            </label>
+            <button>Del</button>
+          </li>
+        );
+      };
+
+      const App = () => {
+        const [todos, setTodos] = React.useState([
+          {id: 0, title: 'aaa', isCompleted: false},
+          {id: 1, title: 'bbb', isCompleted: true},
+          {id: 2, title: 'ccc', isCompleted: false},
+        ]);
+
+        const handleTodoDeleteClick = (id) => {
+
+        };
+
+        const todoItems = todos.map((todo) => {
+          return (
+            <Todo 
+              key={todo.id}
+              todo={todo}
+            />
+          );
+        });
+
+        return (
+          <>
+            <h1>
+              Todos
+              <button id="purge">Purge</button>
+            </h1>
+            <ul id="todos">
+              {todoItems}
+            </ul>
+            <form id="add-form">
+              <input type="text" />
+              <button>Add</button>
+            </form>
+          </>
+        );
+      };
+
+      const root = ReactDOM.createRoot(document.querySelector('#root'));
+      root.render(
+        <App />
+      );
+    }
+  </script>
+</body>
+</html>
+
+style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+filter()を用いて配列から要素を抽出することによって、特定の項目を削除していきます。
+
+filter()
+setTodos()
+confirm()による確認
+補足情報 filter()について
+2023年8月7日
+動画中で使っているfilter()については以下の動画を復習してみましょう。
+
+・#19 filter()で新しい配列を作ってみよう | JavaScript入門 データ構造編
+https://dotinstall.com/lessons/basic_javascript_data_structure/63619
+
+補足情報 confirm()のロジックについて
+2023年8月7日
+動画中で紹介しているconfirm()のロジックについては以下の動画を復習してみてください。
+
+・#14 項目を削除できるようにしよう | JavaScriptでTodo管理アプリを作ろう
+https://dotinstall.com/lessons/todo_js/64614
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" id="root">
+  </div>
+
+  <script type="text/babel">
+    'use strict';
+
+    {
+      const Todo = (props) => {
+        return (
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span>{props.todo.title}</span>
+            </label>
+            <button>Del</button>
+          </li>
+        );
+      };
+
+      const App = () => {
+        const [todos, setTodos] = React.useState([
+          {id: 0, title: 'aaa', isCompleted: false},
+          {id: 1, title: 'bbb', isCompleted: true},
+          {id: 2, title: 'ccc', isCompleted: false},
+        ]);
+
+        const handleTodoDeleteClick = (id) => {
+          if (!confirm('Sure?')) {
+            return;
+          }
+          const newTodos = todos.filter((todo) => {
+            return todo.id !== id;
+          });
+          setTodos(newTodos);
+        };
+
+        const todoItems = todos.map((todo) => {
+          return (
+            <Todo 
+              key={todo.id}
+              todo={todo}
+            />
+          );
+        });
+
+        return (
+          <>
+            <h1>
+              Todos
+              <button id="purge">Purge</button>
+            </h1>
+            <ul id="todos">
+              {todoItems}
+            </ul>
+            <form id="add-form">
+              <input type="text" />
+              <button>Add</button>
+            </form>
+          </>
+        );
+      };
+
+      const root = ReactDOM.createRoot(document.querySelector('#root'));
+      root.render(
+        <App />
+      );
+    }
+  </script>
+</body>
+</html>
+
+style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+Appコンポーネントで定義した関数をTodoコンポーネントで実行する方法について見ていきます。
+
+onDeleteClick属性
+props.onDeleteClick()
+実引数の設定
+補足情報 属性を介して関数を渡す方法について
+2023年8月7日
+属性を介して親コンポーネントに関数を渡す方法については以下の動画も復習してみてください。
+
+・#18 実装方法について確認していこう | React入門
+https://dotinstall.com/lessons/basic_reactjs_v2/64418
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" id="root">
+  </div>
+
+  <script type="text/babel">
+    'use strict';
+
+    {
+      const Todo = (props) => {
+        const handleDeleteClick = () => {
+          props.onDeleteClick(props.todo.id);
+        };
+
+        return (
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span>{props.todo.title}</span>
+            </label>
+            <button onClick={handleDeleteClick}>Del</button>
+          </li>
+        );
+      };
+
+      const App = () => {
+        const [todos, setTodos] = React.useState([
+          {id: 0, title: 'aaa', isCompleted: false},
+          {id: 1, title: 'bbb', isCompleted: true},
+          {id: 2, title: 'ccc', isCompleted: false},
+        ]);
+
+        const handleTodoDeleteClick = (id) => {
+          if (!confirm('Sure?')) {
+            return;
+          }
+          const newTodos = todos.filter((todo) => {
+            return todo.id !== id;
+          });
+          setTodos(newTodos);
+        };
+
+        const todoItems = todos.map((todo) => {
+          return (
+            <Todo 
+              key={todo.id}
+              todo={todo}
+              onDeleteClick={handleTodoDeleteClick}
+            />
+          );
+        });
+
+        return (
+          <>
+            <h1>
+              Todos
+              <button id="purge">Purge</button>
+            </h1>
+            <ul id="todos">
+              {todoItems}
+            </ul>
+            <form id="add-form">
+              <input type="text" />
+              <button>Add</button>
+            </form>
+          </>
+        );
+      };
+
+      const root = ReactDOM.createRoot(document.querySelector('#root'));
+      root.render(
+        <App />
+      );
+    }
+  </script>
+</body>
+</html>
+
+style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+isCompletedプロパティの値をもとにチェック状態を画面に反映させていきます。
+
+checked属性
+コンソールの表示
+警告の確認
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" id="root">
+  </div>
+
+  <script type="text/babel">
+    'use strict';
+
+    {
+      const Todo = (props) => {
+        const handleDeleteClick = () => {
+          props.onDeleteClick(props.todo.id);
+        };
+
+        return (
+          <li>
+            <label>
+              <input type="checkbox" checked={props.todo.isCompleted} />
+              <span>{props.todo.title}</span>
+            </label>
+            <button onClick={handleDeleteClick}>Del</button>
+          </li>
+        );
+      };
+
+      const App = () => {
+        const [todos, setTodos] = React.useState([
+          {id: 0, title: 'aaa', isCompleted: false},
+          {id: 1, title: 'bbb', isCompleted: true},
+          {id: 2, title: 'ccc', isCompleted: false},
+        ]);
+
+        const handleTodoDeleteClick = (id) => {
+          if (!confirm('Sure?')) {
+            return;
+          }
+          const newTodos = todos.filter((todo) => {
+            return todo.id !== id;
+          });
+          setTodos(newTodos);
+        };
+
+        const todoItems = todos.map((todo) => {
+          return (
+            <Todo 
+              key={todo.id}
+              todo={todo}
+              onDeleteClick={handleTodoDeleteClick}
+            />
+          );
+        });
+
+        return (
+          <>
+            <h1>
+              Todos
+              <button id="purge">Purge</button>
+            </h1>
+            <ul id="todos">
+              {todoItems}
+            </ul>
+            <form id="add-form">
+              <input type="text" />
+              <button>Add</button>
+            </form>
+          </>
+        );
+      };
+
+      const root = ReactDOM.createRoot(document.querySelector('#root'));
+      root.render(
+        <App />
+      );
+    }
+  </script>
+</body>
+</html>
+
+
+style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+
+AppコンポーネントにてisCompletedプロパティの値を反転させるための関数を定義していきます。
+
+handleTodoCheckboxChange関数の定義
+map()
+真偽値の反転
+setTodos()
+補足情報 条件演算子（三項演算子）について
+2023年8月7日
+動画中で紹介している条件演算子（三項演算子）については以下の動画を復習してみてください。
+
+・#24 条件演算子を使ってみよう | JavaScript入門 基礎文法編
+https://dotinstall.com/lessons/basic_javascript_grammar_v3/63424
+
+補足情報 否定の演算子（!）について
+2023年8月7日
+動画中で使っている否定の演算子（!）については以下の動画を復習してみましょう。
+
+・#25 論理演算子を使ってみよう | JavaScript入門 基礎文法編
+https://dotinstall.com/lessons/basic_javascript_grammar_v3/63425
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" id="root">
+  </div>
+
+  <script type="text/babel">
+    'use strict';
+
+    {
+      const Todo = (props) => {
+        const handleDeleteClick = () => {
+          props.onDeleteClick(props.todo.id);
+        };
+
+        return (
+          <li>
+            <label>
+              <input type="checkbox" checked={props.todo.isCompleted} />
+              <span>{props.todo.title}</span>
+            </label>
+            <button onClick={handleDeleteClick}>Del</button>
+          </li>
+        );
+      };
+
+      const App = () => {
+        const [todos, setTodos] = React.useState([
+          {id: 0, title: 'aaa', isCompleted: false},
+          {id: 1, title: 'bbb', isCompleted: true},
+          {id: 2, title: 'ccc', isCompleted: false},
+        ]);
+
+        const handleTodoCheckboxChange = (id) => {
+          const newTodos = todos.map((todo) => {
+            return {
+              id: todo.id,
+              title: todo.title,
+              isCompleted: todo.id === id ? !todo.isCompleted : todo.isCompleted,
+            };
+          });
+          setTodos(newTodos);
+        };
+
+        const handleTodoDeleteClick = (id) => {
+          if (!confirm('Sure?')) {
+            return;
+          }
+          const newTodos = todos.filter((todo) => {
+            return todo.id !== id;
+          });
+          setTodos(newTodos);
+        };
+
+        const todoItems = todos.map((todo) => {
+          return (
+            <Todo 
+              key={todo.id}
+              todo={todo}
+              onDeleteClick={handleTodoDeleteClick}
+            />
+          );
+        });
+
+        return (
+          <>
+            <h1>
+              Todos
+              <button id="purge">Purge</button>
+            </h1>
+            <ul id="todos">
+              {todoItems}
+            </ul>
+             <form id="add-form">
+              <input type="text" />
+              <button>Add</button>
+            </form>
+          </>
+        );
+      };
+
+      const root = ReactDOM.createRoot(document.querySelector('#root'));
+      root.render(
+        <App />
+      );
+    }
+  </script>
+</body>
+</html>
+
+style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+Appコンポーネントで定義した関数をTodoコンポーネントで実行する方法について見ていきます。
+
+onCheckboxChange属性
+props.onCheckboxChange()
+実引数の設定
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" id="root">
+  </div>
+
+  <script type="text/babel">
+    'use strict';
+
+    {
+      const Todo = (props) => {
+        const handleDeleteClick = () => {
+          props.onDeleteClick(props.todo.id);
+        };
+
+        const handleCheckboxChange = () => {
+          props.onCheckboxChange(props.todo.id);
+        };
+
+        return (
+          <li>
+            <label>
+              <input 
+                type="checkbox" 
+                checked={props.todo.isCompleted} 
+                onChange={handleCheckboxChange}
+              />
+              <span>{props.todo.title}</span>
+            </label>
+            <button onClick={handleDeleteClick}>Del</button>
+          </li>
+        );
+      };
+
+      const App = () => {
+        const [todos, setTodos] = React.useState([
+          {id: 0, title: 'aaa', isCompleted: false},
+          {id: 1, title: 'bbb', isCompleted: true},
+          {id: 2, title: 'ccc', isCompleted: false},
+        ]);
+
+        const handleTodoCheckboxChange = (id) => {
+          const newTodos = todos.map((todo) => {
+            return {
+              id: todo.id,
+              title: todo.title,
+              isCompleted: todo.id === id ? !todo.isCompleted : todo.isCompleted,
+            };
+          });
+          setTodos(newTodos);
+        };
+
+        const handleTodoDeleteClick = (id) => {
+          if (!confirm('Sure?')) {
+            return;
+          }
+          const newTodos = todos.filter((todo) => {
+            return todo.id !== id;
+          });
+          setTodos(newTodos);
+        };
+
+        const todoItems = todos.map((todo) => {
+          return (
+            <Todo 
+              key={todo.id}
+              todo={todo}
+              onDeleteClick={handleTodoDeleteClick}
+              onCheckboxChange={handleTodoCheckboxChange}
+            />
+          );
+        });
+
+        return (
+          <>
+            <h1>
+              Todos
+              <button id="purge">Purge</button>
+            </h1>
+            <ul id="todos">
+              {todoItems}
+            </ul>
+            <form id="add-form">
+              <input type="text" />
+              <button>Add</button>
+            </form>
+          </>
+        );
+      };
+
+      const root = ReactDOM.createRoot(document.querySelector('#root'));
+      root.render(
+        <App />
+      );
+    }
+  </script>
+</body>
+</html>
+
+style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+フォームから項目を追加するためにAddFormコンポーネントを作っていきます。
+
+AddFormコンポーネント
+React.useState()
+警告の確認
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" id="root">
+  </div>
+
+  <script type="text/babel">
+    'use strict';
+
+    {
+      const Todo = (props) => {
+        const handleDeleteClick = () => {
+          props.onDeleteClick(props.todo.id);
+        };
+
+        const handleCheckboxChange = () => {
+          props.onCheckboxChange(props.todo.id);
+        };
+
+        return (
+          <li>
+            <label>
+              <input 
+                type="checkbox" 
+                checked={props.todo.isCompleted} 
+                onChange={handleCheckboxChange}
+              />
+              <span>{props.todo.title}</span>
+            </label>
+            <button onClick={handleDeleteClick}>Del</button>
+          </li>
+        );
+      };
+
+      const AddForm = () => {
+        const [title, setTitle] = React.useState('');
+
+        return (
+          <form>
+            <input 
+              type="text" 
+              value={title}
+            />
+            <button>Add</button>
+          </form>
+        );
+      };
+
+      const App = () => {
+        const [todos, setTodos] = React.useState([
+          {id: 0, title: 'aaa', isCompleted: false},
+          {id: 1, title: 'bbb', isCompleted: true},
+          {id: 2, title: 'ccc', isCompleted: false},
+        ]);
+                const handleTodoCheckboxChange = (id) => {
+          const newTodos = todos.map((todo) => {
+            return {
+              id: todo.id,
+              title: todo.title,
+              isCompleted: todo.id === id ? !todo.isCompleted : todo.isCompleted,
+            };
+          });
+          setTodos(newTodos);
+        };
+
+        const handleTodoDeleteClick = (id) => {
+          if (!confirm('Sure?')) {
+            return;
+          }
+          const newTodos = todos.filter((todo) => {
+            return todo.id !== id;
+          });
+          setTodos(newTodos);
+        };
+
+        const todoItems = todos.map((todo) => {
+          return (
+            <Todo 
+              key={todo.id}
+              todo={todo}
+              onDeleteClick={handleTodoDeleteClick}
+              onCheckboxChange={handleTodoCheckboxChange}
+            />
+          );
+        });
+
+        return (
+          <>
+            <h1>
+              Todos
+              <button id="purge">Purge</button>
+            </h1>
+            <ul id="todos">
+              {todoItems}
+            </ul>
+            <AddForm />
+          </>
+        );
+      };
+
+      const root = ReactDOM.createRoot(document.querySelector('#root'));
+      root.render(
+        <App />
+      );
+    }
+  </script>
+</body>
+</html>
+
+style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+フォーム部品にonChange属性を追加して、値を入力できるようにしていきます。
+
+onChange属性
+handleTextChange関数の定義
+e.currentTarget.value
+補足情報 イベントオブジェクトについて
+2023年8月7日
+動画中で紹介しているイベントオブジェクトについては以下の動画も復習してみましょう。
+
+・#17 keydownイベントを使ってみよう | JavaScript入門 DOM編
+https://dotinstall.com/lessons/basic_javascript_dom_v3/63817
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" id="root">
+  </div>
+
+  <script type="text/babel">
+    'use strict';
+
+    {
+      const Todo = (props) => {
+        const handleDeleteClick = () => {
+          props.onDeleteClick(props.todo.id);
+        };
+
+        const handleCheckboxChange = () => {
+          props.onCheckboxChange(props.todo.id);
+        };
+
+        return (
+          <li>
+            <label>
+              <input 
+                type="checkbox" 
+                checked={props.todo.isCompleted} 
+                onChange={handleCheckboxChange}
+              />
+              <span>{props.todo.title}</span>
+            </label>
+            <button onClick={handleDeleteClick}>Del</button>
+          </li>
+        );
+      };
+
+      const AddForm = () => {
+        const [title, setTitle] = React.useState('');
+
+        const handleTextChange = (e) => {
+          setTitle(e.currentTarget.value);
+        };
+
+        return (
+          <form>
+            <input 
+              type="text" 
+              value={title}
+              onChange={handleTextChange}
+            />
+            <button>Add</button>
+          </form>
+        );
+      };
+            const App = () => {
+        const [todos, setTodos] = React.useState([
+          {id: 0, title: 'aaa', isCompleted: false},
+          {id: 1, title: 'bbb', isCompleted: true},
+          {id: 2, title: 'ccc', isCompleted: false},
+        ]);
+
+        const handleTodoCheckboxChange = (id) => {
+          const newTodos = todos.map((todo) => {
+            return {
+              id: todo.id,
+              title: todo.title,
+              isCompleted: todo.id === id ? !todo.isCompleted : todo.isCompleted,
+            };
+          });
+          setTodos(newTodos);
+        };
+
+        const handleTodoDeleteClick = (id) => {
+          if (!confirm('Sure?')) {
+            return;
+          }
+          const newTodos = todos.filter((todo) => {
+            return todo.id !== id;
+          });
+          setTodos(newTodos);
+        };
+
+        const todoItems = todos.map((todo) => {
+          return (
+            <Todo 
+              key={todo.id}
+              todo={todo}
+              onDeleteClick={handleTodoDeleteClick}
+              onCheckboxChange={handleTodoCheckboxChange}
+            />
+          );
+        });
+
+        return (
+          <>
+            <h1>
+              Todos
+              <button id="purge">Purge</button>
+            </h1>
+            <ul id="todos">
+              {todoItems}
+            </ul>
+            <AddForm />
+          </>
+        );
+      };
+
+      const root = ReactDOM.createRoot(document.querySelector('#root'));
+      root.render(
+        <App />
+      );
+    }
+  </script>
+</body>
+</html>
+
+style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+
+Appコンポーネントでリストに項目を追加する関数を定義していきます。
+
+handleAddFormSubmit関数の定義
+todosのコピー
+todos.push()
+setTodos()
+補足情報 スプレッド構文を使った配列のコピーについて
+2023年8月7日
+配列の値をコピーする際にスプレッド構文を使う理由については以下を復習してみてください。
+
+・#27 スプレッド構文で値のコピーを作ろう | JavaScript入門 データ構造編
+https://dotinstall.com/lessons/basic_javascript_data_structure/63627
+
+補足情報 idにUNIXタイムスタンプを使っている理由について
+2023年8月7日
+idプロパティの値にUNIXタイムスタンプを使っている理由については以下の動画を復習してみてください。
+
+・#18 ユニークなIDを設定していこう | JavaScriptでTodo管理アプリを作ろう - プログラミングならドットインストール
+https://dotinstall.com/lessons/todo_js/64618
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" id="root">
+  </div>
+
+  <script type="text/babel">
+    'use strict';
+
+    {
+      const Todo = (props) => {
+        const handleDeleteClick = () => {
+          props.onDeleteClick(props.todo.id);
+        };
+
+        const handleCheckboxChange = () => {
+          props.onCheckboxChange(props.todo.id);
+        };
+
+        return (
+          <li>
+            <label>
+              <input 
+                type="checkbox" 
+                checked={props.todo.isCompleted} 
+                onChange={handleCheckboxChange}
+              />
+              <span>{props.todo.title}</span>
+            </label>
+            <button onClick={handleDeleteClick}>Del</button>
+          </li>
+        );
+      };
+
+      const AddForm = () => {
+        const [title, setTitle] = React.useState('');
+
+        const handleTextChange = (e) => {
+          setTitle(e.currentTarget.value);
+        };
+
+        return (
+          <form>
+            <input 
+              type="text" 
+              value={title}
+              onChange={handleTextChange}
+            />
+            <button>Add</button>
+          </form>
+        );
+      };
+
+      const App = () => {
+        const [todos, setTodos] = React.useState([
+          {id: 0, title: 'aaa', isCompleted: false},
+          {id: 1, title: 'bbb', isCompleted: true},
+          {id: 2, title: 'ccc', isCompleted: false},
+        ]);
+
+        const handleAddFormSubmit = (title) => {
+          const newTodos = [...todos];
+          newTodos.push({
+            id: Date.now(),
+            title: title,
+            isCompleted: false,
+          });
+          setTodos(newTodos);
+        };
+
+        const handleTodoCheckboxChange = (id) => {
+          const newTodos = todos.map((todo) => {
+            return {
+              id: todo.id,
+              title: todo.title,
+              isCompleted: todo.id === id ? !todo.isCompleted : todo.isCompleted,
+            };
+          });
+          setTodos(newTodos);
+        };
+
+        const handleTodoDeleteClick = (id) => {
+          if (!confirm('Sure?')) {
+            return;
+          }
+          const newTodos = todos.filter((todo) => {
+            return todo.id !== id;
+          });
+          setTodos(newTodos);
+        };
+
+        const todoItems = todos.map((todo) => {
+          return (
+            <Todo 
+              key={todo.id}
+              todo={todo}
+              onDeleteClick={handleTodoDeleteClick}
+              onCheckboxChange={handleTodoCheckboxChange}
+            />
+          );
+        });
+
+        return (
+          <>
+            <h1>
+              Todos
+              <button id="purge">Purge</button>
+            </h1>
+            <ul id="todos">
+              {todoItems}
+            </ul>
+            <AddForm />
+          </>
+        );
+      };
+
+      const root = ReactDOM.createRoot(document.querySelector('#root'));
+      root.render(
+        <App />
+      );
+    }
+  </script>
+</body>
+</html>
+
+style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+
+Appコンポーネントで定義した関数をTodoコンポーネントで実行する方法について見ていきます。
+
+onSubmit属性
+props.onSubmit()
+実引数の設定
+e.preventDefault()
+補足情報 e.preventDefault()について
+2023年8月7日
+動画中で使っているe.preventDefault()については以下の動画を復習してみましょう。
+
+・#19 submitイベントを使ってみよう | JavaScript入門 DOM編
+https://dotinstall.com/lessons/basic_javascript_dom_v3/63819
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" id="root">
+  </div>
+
+  <script type="text/babel">
+    'use strict';
+
+    {
+      const Todo = (props) => {
+        const handleDeleteClick = () => {
+          props.onDeleteClick(props.todo.id);
+        };
+
+        const handleCheckboxChange = () => {
+          props.onCheckboxChange(props.todo.id);
+        };
+
+        return (
+          <li>
+            <label>
+              <input 
+                type="checkbox" 
+                checked={props.todo.isCompleted} 
+                onChange={handleCheckboxChange}
+              />
+              <span>{props.todo.title}</span>
+            </label>
+            <button onClick={handleDeleteClick}>Del</button>
+          </li>
+        );
+      };
+
+      const AddForm = (props) => {
+        const [title, setTitle] = React.useState('');
+
+        const handleTextChange = (e) => {
+          setTitle(e.currentTarget.value);
+        };
+
+        const handleSubmit = (e) => {
+          e.preventDefault();
+          props.onSubmit(title);
+        };
+
+        return (
+          <form onSubmit={handleSubmit}>
+            <input 
+              type="text" 
+              value={title}
+              onChange={handleTextChange}
+            />
+            <button>Add</button>
+          </form>
+        );
+      };
+
+      const App = () => {
+        const [todos, setTodos] = React.useState([
+          {id: 0, title: 'aaa', isCompleted: false},
+          {id: 1, title: 'bbb', isCompleted: true},
+          {id: 2, title: 'ccc', isCompleted: false},
+        ]);
+        const handleAddFormSubmit = (title) => {
+          const newTodos = [...todos];
+          newTodos.push({
+            id: Date.now(),
+            title: title,
+            isCompleted: false,
+          });
+          setTodos(newTodos);
+        };
+
+        const handleTodoCheckboxChange = (id) => {
+          const newTodos = todos.map((todo) => {
+            return {
+              id: todo.id,
+              title: todo.title,
+              isCompleted: todo.id === id ? !todo.isCompleted : todo.isCompleted,
+            };
+          });
+          setTodos(newTodos);
+        };
+
+        const handleTodoDeleteClick = (id) => {
+          if (!confirm('Sure?')) {
+            return;
+          }
+          const newTodos = todos.filter((todo) => {
+            return todo.id !== id;
+          });
+          setTodos(newTodos);
+        };
+
+        const todoItems = todos.map((todo) => {
+          return (
+            <Todo 
+              key={todo.id}
+              todo={todo}
+              onDeleteClick={handleTodoDeleteClick}
+              onCheckboxChange={handleTodoCheckboxChange}
+            />
+          );
+        });
+
+        return (
+          <>
+            <h1>
+              Todos
+              <button id="purge">Purge</button>
+            </h1>
+            <ul id="todos">
+              {todoItems}
+            </ul>
+            <AddForm 
+              onSubmit={handleAddFormSubmit}
+            />
+          </>
+        );
+      };
+
+      const root = ReactDOM.createRoot(document.querySelector('#root'));
+      root.render(
+        <App />
+      );
+    }
+  </script>
+</body>
+</html>
+
+style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+入力後にフォームを空にしつつ、フォーカスを当てる方法について見ていきます。
+
+フォームのクリア
+React.useRef()
+ref属性
+inputRef.current.focus()
+補足情報 focus()について
+2023年8月7日
+動画中で使っているfocus()については以下の動画も復習してみましょう。
+
+・#16 focus､blurイベントを使ってみよう | JavaScript入門 DOM編
+https://dotinstall.com/lessons/basic_javascript_dom_v3/63816
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" id="root">
+  </div>
+
+  <script type="text/babel">
+    'use strict';
+
+    {
+      const Todo = (props) => {
+        const handleDeleteClick = () => {
+          props.onDeleteClick(props.todo.id);
+        };
+
+        const handleCheckboxChange = () => {
+          props.onCheckboxChange(props.todo.id);
+        };
+
+        return (
+          <li>
+            <label>
+              <input 
+                type="checkbox" 
+                checked={props.todo.isCompleted} 
+                onChange={handleCheckboxChange}
+              />
+              <span>{props.todo.title}</span>
+            </label>
+            <button onClick={handleDeleteClick}>Del</button>
+          </li>
+        );
+      };
+
+      const AddForm = (props) => {
+        const [title, setTitle] = React.useState('');
+        const inputRef = React.useRef(null);
+
+        const handleTextChange = (e) => {
+          setTitle(e.currentTarget.value);
+        };
+
+        const handleSubmit = (e) => {
+          e.preventDefault();
+          props.onSubmit(title);
+          setTitle('');
+          inputRef.current.focus();
+        };
+
+        return (
+          <form onSubmit={handleSubmit}>
+            <input 
+              type="text" 
+              value={title}
+              onChange={handleTextChange}
+              ref={inputRef}
+            />
+            <button>Add</button>
+          </form>
+        );
+      };
+
+      const App = () => {
+        const [todos, setTodos] = React.useState([
+          {id: 0, title: 'aaa', isCompleted: false},
+          {id: 1, title: 'bbb', isCompleted: true},
+          {id: 2, title: 'ccc', isCompleted: false},
+        ]);
+                const handleAddFormSubmit = (title) => {
+          const newTodos = [...todos];
+          newTodos.push({
+            id: Date.now(),
+            title: title,
+            isCompleted: false,
+          });
+          setTodos(newTodos);
+        };
+
+        const handleTodoCheckboxChange = (id) => {
+          const newTodos = todos.map((todo) => {
+            return {
+              id: todo.id,
+              title: todo.title,
+              isCompleted: todo.id === id ? !todo.isCompleted : todo.isCompleted,
+            };
+          });
+          setTodos(newTodos);
+        };
+
+        const handleTodoDeleteClick = (id) => {
+          if (!confirm('Sure?')) {
+            return;
+          }
+          const newTodos = todos.filter((todo) => {
+            return todo.id !== id;
+          });
+          setTodos(newTodos);
+        };
+
+        const todoItems = todos.map((todo) => {
+          return (
+            <Todo 
+              key={todo.id}
+              todo={todo}
+              onDeleteClick={handleTodoDeleteClick}
+              onCheckboxChange={handleTodoCheckboxChange}
+            />
+          );
+        });
+
+        return (
+          <>
+            <h1>
+              Todos
+              <button id="purge">Purge</button>
+            </h1>
+            <ul id="todos">
+              {todoItems}
+            </ul>
+            <AddForm 
+              onSubmit={handleAddFormSubmit}
+            />
+          </>
+        );
+      };
+
+      const root = ReactDOM.createRoot(document.querySelector('#root'));
+      root.render(
+        <App />
+      );
+    }
+  </script>
+</body>
+</html>
+
+style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+
+チェックされた項目をまとめて削除するための関数を定義していきます。
+
+handlePurgeClick関数の定義
+filter()
+setTodos()
+confirm()による確認
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" id="root">
+  </div>
+
+  <script type="text/babel">
+    'use strict';
+
+    {
+      const Todo = (props) => {
+        const handleDeleteClick = () => {
+          props.onDeleteClick(props.todo.id);
+        };
+
+        const handleCheckboxChange = () => {
+          props.onCheckboxChange(props.todo.id);
+        };
+
+        return (
+          <li>
+            <label>
+              <input 
+                type="checkbox" 
+                checked={props.todo.isCompleted} 
+                onChange={handleCheckboxChange}
+              />
+              <span>{props.todo.title}</span>
+            </label>
+            <button onClick={handleDeleteClick}>Del</button>
+          </li>
+        );
+      };
+
+      const AddForm = (props) => {
+        const [title, setTitle] = React.useState('');
+        const inputRef = React.useRef(null);
+
+        const handleTextChange = (e) => {
+          setTitle(e.currentTarget.value);
+        };
+
+        const handleSubmit = (e) => {
+          e.preventDefault();
+          props.onSubmit(title);
+          setTitle('');
+          inputRef.current.focus();
+        };
+
+        return (
+          <form onSubmit={handleSubmit}>
+            <input 
+              type="text" 
+              value={title}
+              onChange={handleTextChange}
+              ref={inputRef}
+            />
+            <button>Add</button>
+          </form>
+        );
+      };
+      const App = () => {
+        const [todos, setTodos] = React.useState([
+          {id: 0, title: 'aaa', isCompleted: false},
+          {id: 1, title: 'bbb', isCompleted: true},
+          {id: 2, title: 'ccc', isCompleted: false},
+        ]);
+
+        const handlePurgeClick = () => {
+          if (!confirm('Sure?')) {
+            return;
+          }
+          const newTodos = todos.filter((todo) => {
+            return todo.isCompleted === false;
+          });
+          setTodos(newTodos);
+        };
+
+        const handleAddFormSubmit = (title) => {
+          const newTodos = [...todos];
+          newTodos.push({
+            id: Date.now(),
+            title: title,
+            isCompleted: false,
+          });
+          setTodos(newTodos);
+        };
+
+        const handleTodoCheckboxChange = (id) => {
+          const newTodos = todos.map((todo) => {
+            return {
+              id: todo.id,
+              title: todo.title,
+              isCompleted: todo.id === id ? !todo.isCompleted : todo.isCompleted,
+            };
+          });
+          setTodos(newTodos);
+        };
+
+        const handleTodoDeleteClick = (id) => {
+          if (!confirm('Sure?')) {
+            return;
+          }
+          const newTodos = todos.filter((todo) => {
+            return todo.id !== id;
+          });
+          setTodos(newTodos);
+        };
+
+        const todoItems = todos.map((todo) => {
+          return (
+            <Todo 
+              key={todo.id}
+              todo={todo}
+              onDeleteClick={handleTodoDeleteClick}
+              onCheckboxChange={handleTodoCheckboxChange}
+            />
+          );
+        });
+
+        return (
+          <>
+            <h1>
+              Todos
+              <button onClick={handlePurgeClick}>Purge</button>
+            </h1>
+            <ul id="todos">
+              {todoItems}
+            </ul>
+            <AddForm 
+              onSubmit={handleAddFormSubmit}
+            />
+          </>
+        );
+      };
+
+      const root = ReactDOM.createRoot(document.querySelector('#root'));
+      root.render(
+        <App />
+      );
+    }
+  </script>
+</body>
+</html>
+
+style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+
+localStorageを使ってtodosの値を保存していきます。
+
+updateTodos関数の定義
+localStorage.setItem()
+JSON.stringify()
+補足情報 localStorageの使い方について
+2023年8月7日
+動画中で紹介しているlocalStorageの使い方については以下も復習してみてください。
+
+・#15 localStorageを使ってみよう | JavaScriptでTodo管理アプリを作ろう
+https://dotinstall.com/lessons/todo_js/64615
+・#16 localStorageで複雑なデータを管理しよう | JavaScriptでTodo管理アプリを作ろう
+https://dotinstall.com/lessons/todo_js/64616
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" id="root">
+  </div>
+
+  <script type="text/babel">
+    'use strict';
+
+    {
+      const Todo = (props) => {
+        const handleDeleteClick = () => {
+          props.onDeleteClick(props.todo.id);
+        };
+
+        const handleCheckboxChange = () => {
+          props.onCheckboxChange(props.todo.id);
+        };
+
+        return (
+          <li>
+            <label>
+              <input 
+                type="checkbox" 
+                checked={props.todo.isCompleted} 
+                onChange={handleCheckboxChange}
+              />
+              <span>{props.todo.title}</span>
+            </label>
+            <button onClick={handleDeleteClick}>Del</button>
+          </li>
+        );
+      };
+
+      const AddForm = (props) => {
+        const [title, setTitle] = React.useState('');
+        const inputRef = React.useRef(null);
+
+        const handleTextChange = (e) => {
+          setTitle(e.currentTarget.value);
+        };
+
+        const handleSubmit = (e) => {
+          e.preventDefault();
+          props.onSubmit(title);
+          setTitle('');
+          inputRef.current.focus();
+        };
+
+        return (
+          <form onSubmit={handleSubmit}>
+            <input 
+              type="text" 
+              value={title}
+              onChange={handleTextChange}
+              ref={inputRef}
+            />
+            <button>Add</button>
+          </form>
+        );
+      };
+
+      const App = () => {
+        const [todos, setTodos] = React.useState([]);
+
+        const updateTodos = (newTodos) => {
+          setTodos(newTodos);
+          localStorage.setItem('todos', JSON.stringify(newTodos));
+        };
+
+        const handlePurgeClick = () => {
+          if (!confirm('Sure?')) {
+            return;
+          }
+          const newTodos = todos.filter((todo) => {
+            return todo.isCompleted === false;
+          });
+          updateTodos(newTodos);
+        };
+
+        const handleAddFormSubmit = (title) => {
+          const newTodos = [...todos];
+          newTodos.push({
+            id: Date.now(),
+            title: title,
+            isCompleted: false,
+          });
+          updateTodos(newTodos);
+        };
+
+        const handleTodoCheckboxChange = (id) => {
+          const newTodos = todos.map((todo) => {
+            return {
+              id: todo.id,
+              title: todo.title,
+              isCompleted: todo.id === id ? !todo.isCompleted : todo.isCompleted,
+            };
+          });
+          updateTodos(newTodos);
+        };
+
+        const handleTodoDeleteClick = (id) => {
+          if (!confirm('Sure?')) {
+            return;
+          }
+          const newTodos = todos.filter((todo) => {
+            return todo.id !== id;
+          });
+          updateTodos(newTodos);
+        };
+
+        const todoItems = todos.map((todo) => {
+          return (
+            <Todo 
+              key={todo.id}
+              todo={todo}
+              onDeleteClick={handleTodoDeleteClick}
+              onCheckboxChange={handleTodoCheckboxChange}
+            />
+          );
+        });
+
+        return (
+          <>
+            <h1>
+              Todos
+              <button onClick={handlePurgeClick}>Purge</button>
+            </h1>
+            <ul id="todos">
+              {todoItems}
+            </ul>
+            <AddForm 
+              onSubmit={handleAddFormSubmit}
+            />
+          </>
+        );
+      };
+
+      const root = ReactDOM.createRoot(document.querySelector('#root'));
+      root.render(
+        <App />
+      );
+    }
+  </script>
+</body>
+</html>
+
+
+style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+
+useEffect()を使って、Appコンポーネントが最初に構築されるタイミングでlocalStorageから値を読み込みます。
+
+React.useEffect()
+savedTodos
+JSON.parse()
+setTodos()
+補足情報 localStorageの使い方について
+2023年8月7日
+動画中で紹介しているlocalStorageの使い方については以下も復習してみてください。
+
+・#15 localStorageを使ってみよう | JavaScriptでTodo管理アプリを作ろう
+https://dotinstall.com/lessons/todo_js/64615
+・#16 localStorageで複雑なデータを管理しよう | JavaScriptでTodo管理アプリを作ろう
+https://dotinstall.com/lessons/todo_js/64616
+
+index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Todos</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" id="root">
+  </div>
+
+  <script type="text/babel">
+    'use strict';
+
+    {
+      const Todo = (props) => {
+        const handleDeleteClick = () => {
+          props.onDeleteClick(props.todo.id);
+        };
+
+        const handleCheckboxChange = () => {
+          props.onCheckboxChange(props.todo.id);
+        };
+
+        return (
+          <li>
+            <label>
+              <input 
+                type="checkbox" 
+                checked={props.todo.isCompleted} 
+                onChange={handleCheckboxChange}
+              />
+              <span>{props.todo.title}</span>
+            </label>
+            <button onClick={handleDeleteClick}>Del</button>
+          </li>
+        );
+      };
+
+      const AddForm = (props) => {
+        const [title, setTitle] = React.useState('');
+        const inputRef = React.useRef(null);
+
+        const handleTextChange = (e) => {
+          setTitle(e.currentTarget.value);
+        };
+
+        const handleSubmit = (e) => {
+          e.preventDefault();
+          props.onSubmit(title);
+          setTitle('');
+          inputRef.current.focus();
+        };
+
+        return (
+          <form onSubmit={handleSubmit}>
+            <input 
+              type="text" 
+              value={title}
+              onChange={handleTextChange}
+              ref={inputRef}
+            />
+            <button>Add</button>
+          </form>
+        );
+      };
+      const App = () => {
+        const [todos, setTodos] = React.useState([]);
+
+        React.useEffect(() => {
+          let savedTodos;
+          if (localStorage.getItem('todos') === null) {
+            savedTodos = [];
+          } else {
+            savedTodos = JSON.parse(localStorage.getItem('todos'));
+          }
+          setTodos(savedTodos);
+        }, []);
+
+        const updateTodos = (newTodos) => {
+          setTodos(newTodos);
+          localStorage.setItem('todos', JSON.stringify(newTodos));
+        };
+
+        const handlePurgeClick = () => {
+          if (!confirm('Sure?')) {
+            return;
+          }
+          const newTodos = todos.filter((todo) => {
+            return todo.isCompleted === false;
+          });
+          updateTodos(newTodos);
+        };
+
+        const handleAddFormSubmit = (title) => {
+          const newTodos = [...todos];
+          newTodos.push({
+            id: Date.now(),
+            title: title,
+            isCompleted: false,
+          });
+          updateTodos(newTodos);
+        };
+
+        const handleTodoCheckboxChange = (id) => {
+          const newTodos = todos.map((todo) => {
+            return {
+              id: todo.id,
+              title: todo.title,
+              isCompleted: todo.id === id ? !todo.isCompleted : todo.isCompleted,
+            };
+          });
+          updateTodos(newTodos);
+        };
+
+        const handleTodoDeleteClick = (id) => {
+          if (!confirm('Sure?')) {
+            return;
+          }
+          const newTodos = todos.filter((todo) => {
+            return todo.id !== id;
+          });
+          updateTodos(newTodos);
+        };
+
+        const todoItems = todos.map((todo) => {
+          return (
+            <Todo 
+              key={todo.id}
+              todo={todo}
+              onDeleteClick={handleTodoDeleteClick}
+              onCheckboxChange={handleTodoCheckboxChange}
+            />
+          );
+        });
+                return (
+          <>
+            <h1>
+              Todos
+              <button onClick={handlePurgeClick}>Purge</button>
+            </h1>
+            <ul id="todos">
+              {todoItems}
+            </ul>
+            <AddForm 
+              onSubmit={handleAddFormSubmit}
+            />
+          </>
+        );
+      };
+
+      const root = ReactDOM.createRoot(document.querySelector('#root'));
+      root.render(
+        <App />
+      );
+    }
+  </script>
+</body>
+</html>
+
+style.css
+@charset "utf-8";
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+li input:checked + span {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+li input {
+  margin-right: 8px;
+}
+
+li label {
+  margin-right: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+form input {
+  flex: 1;
+  padding: 4px;
+}
+
+
+
+</pre>
+</body>
+</html>

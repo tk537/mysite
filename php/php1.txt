@@ -1,0 +1,332 @@
+// ===== video_summary =====
+PHPの概要に触れたのち、レッスンの構成、学習のコツについて見ていきます。
+
+
+    概要
+    レッスンの構成
+    学習のコツ
+
+// ===== main.php =====
+
+
+
+
+
+
+
+// ===== video_summary =====
+PHPで数値を表示するコードを試しながら、ブラウザ実行環境の使い方について学んでいきます。
+
+
+    PHPの開始タグ、終了タグ
+    echo
+    PHP_EOL
+    ブラウザ実行環境の使い方
+
+// ===== main.php =====
+<?php
+echo 10 . PHP_EOL;
+
+
+
+
+
+
+// ===== video_summary =====
+数値のさまざまな表現方法について、例を出しながら学んでいきます。
+
+
+    マイナスの数値
+    小数点を含む数値
+    プログラムの実行順
+    _による区切り
+    eを使った表現
+
+// ===== main.php =====
+<?php
+echo 10 . PHP_EOL;
+echo -8 . PHP_EOL;
+echo 2.5 . PHP_EOL;
+echo 1_000_000 . PHP_EOL;
+echo 1.2e3 . PHP_EOL;
+echo 1.2e-3 . PHP_EOL;
+
+
+
+
+
+
+// ===== video_summary =====
+コード内にメモ書きとしてコメントを入れる方法、コメントを使って命令を無効化する方法について学びます。
+
+
+    コメントの記法
+    空行の扱い
+    命令の無効化
+    コメントのショートカットキー
+
+// ===== main.php =====
+<?php
+# コメント
+// コメント
+/*
+コメント
+コメント
+*/
+// echo 10 . PHP_EOL;
+// echo -8 . PHP_EOL;
+// echo 2.5 . PHP_EOL;
+// echo 1_000_000 . PHP_EOL;
+
+// eを使った表現
+echo 1.2e3 . PHP_EOL; // 1.2かける10の3乗
+echo 1.2e-3 . PHP_EOL; // 1.2かける10の-3乗
+
+
+
+
+
+
+// ===== video_summary =====
+数値に対して使える、さまざまな演算子について見ていきます。
+
+
+    + - * ** / %
+    演算子の優先度、()
+
+// ===== main.php =====
+<?php
+echo 10 + 3 . PHP_EOL;
+echo 10 - 3 . PHP_EOL;
+echo 10 * 3 . PHP_EOL;
+echo 10 ** 3 . PHP_EOL;
+echo 10 / 3 . PHP_EOL;
+echo 10 % 3 . PHP_EOL;
+echo 10 + 2 * 3 . PHP_EOL;
+echo (10 + 2) * 3 . PHP_EOL;
+
+
+
+
+
+
+// ===== video_summary =====
+変数を使って値にわかりやすい名前をつける方法について見ていきます。
+
+
+    変数の利用
+    代入演算子
+    変数を使うメリット
+
+// ===== main.php =====
+<?php
+// echo 150 * 120 . PHP_EOL;
+// echo 150 * 130 . PHP_EOL;
+// echo 150 * 140 . PHP_EOL;
+
+$price = 150;
+echo $price * 120 . PHP_EOL;
+echo $price * 130 . PHP_EOL;
+echo $price * 140 . PHP_EOL;
+
+
+
+
+
+
+// ===== video_summary =====
+値を更新して再代入する際の表現について学びます。
+
+
+    値の再代入
+    += -=
+    ++ --
+
+// ===== main.php =====
+<?php
+$price = 150;
+echo $price * 120 . PHP_EOL;
+echo $price * 130 . PHP_EOL;
+echo $price * 140 . PHP_EOL;
+
+// $price = 151;
+// $price = $price + 1;
+// $price += 1;
+$price++;
+// $price -= 1;
+// $price--;
+echo $price * 120 . PHP_EOL;
+echo $price * 130 . PHP_EOL;
+echo $price * 140 . PHP_EOL;
+
+
+
+
+
+
+
+// ===== video_summary =====
+値を再代入してほしくない場合に使える、定数の表現について見ていきます。
+
+
+    定数の表現
+    動作確認
+
+// ===== main.php =====
+<?php
+$price = 150;
+// $rate = 1.1;
+const RATE = 1.1;
+echo $price * 120 * RATE . PHP_EOL;
+echo $price * 130 * RATE . PHP_EOL;
+echo $price * 140 * RATE . PHP_EOL;
+
+$price++;
+RATE = 1.08;
+echo $price * 120 * RATE . PHP_EOL;
+echo $price * 130 * RATE . PHP_EOL;
+echo $price * 140 * RATE . PHP_EOL;
+
+
+
+
+
+
+
+// ===== video_summary =====
+変数や定数に名前をつける際に気をつけるべきルールについて見ていきます。
+
+
+    リテラル表現
+    使える文字
+    小文字大文字の区別
+    予約語
+
+// ===== main.php =====
+<?php
+$price = 150;
+// $rate = 1.1;
+const RATE = 1.1;
+echo $price * 120 * RATE . PHP_EOL;
+echo $price * 130 * RATE . PHP_EOL;
+echo $price * 140 * RATE . PHP_EOL;
+
+$price++;
+RATE = 1.08;
+echo $price * 120 * RATE . PHP_EOL;
+echo $price * 130 * RATE . PHP_EOL;
+echo $price * 140 * RATE . PHP_EOL;
+
+
+
+
+
+
+
+// ===== video_summary =====
+文字列を表現するためのいくつかの方法について見ていきます。
+
+
+    文字列の表現
+    ""と''の違い
+    値の埋め込み
+
+// ===== main.php =====
+<?php
+// echo 'Hello Taro' . PHP_EOL;
+// echo "Hello Jiro" . PHP_EOL;
+
+$name = "Saburo";
+echo "Hello {$name}" . PHP_EOL;
+echo 'Hello {$name}' . PHP_EOL;
+
+
+
+
+
+
+
+// ===== video_summary =====
+ユーザーに文字列を入力してもらう方法について見ていきます。
+
+
+    fgets(STDIN)
+    メッセージの表示
+
+// ===== main.php =====
+<?php
+echo "Your name? ";
+$name = fgets(STDIN);
+echo $name . PHP_EOL;
+
+
+
+
+
+
+// ===== video_summary =====
+空行について調査したのち、プログラムを修正していきます。
+
+
+    var_dump()
+    trim()
+    動作確認
+
+// ===== main.php =====
+<?php
+echo "Your name? ";
+$name = trim(fgets(STDIN));
+// var_dump($name);
+echo $name . PHP_EOL;
+
+
+
+
+
+
+
+// ===== video_summary =====
+特定の位置にある文字にアクセスする方法について見ていきます。
+
+
+    文字列の連結
+    文字へのアクセス
+
+// ===== main.php =====
+<?php
+echo "Your name? ";
+$name = trim(fgets(STDIN));
+// echo "Hello {$name}" . PHP_EOL;
+// echo "Hello " . $name . PHP_EOL;
+echo $name[0] . PHP_EOL;
+echo $name[1] . PHP_EOL;
+echo $name[2] . PHP_EOL;
+$name[0] = "*";
+$name[1] = "*";
+$name[2] = "*";
+echo $name . PHP_EOL;
+
+
+
+
+
+
+// ===== video_summary =====
+文字列を整数値に変換するための命令について見ていきます。
+
+
+    数値の入力
+    キャスト
+
+// ===== main.php =====
+<?php
+echo "Price? ";
+$price = (int) fgets(STDIN);
+// var_dump($price);
+echo $price * 1.1 . PHP_EOL;
+
+
+
+
+
+

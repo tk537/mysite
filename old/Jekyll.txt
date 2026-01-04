@@ -1,0 +1,692 @@
+// ===== video_summary =====
+まずは概要を説明したのちに、公式サイト、必要となる知識、レッスンにおける環境について解説していきます。
+
+
+    概要
+    公式サイト
+    必要となる知識
+    レッスンにおける環境
+    gem install jekyll
+
+// ===== commentBox 1 =====
+補足情報
+Jekyllのインストールに関して
+
+
+
+
+2017年2月6日
+
+
+
+
+
+Jekyllを動作させるにはBundlerというgemも必要です。インストール時の
+
+gem install jekyll
+
+
+は
+
+gem install jekyll bundler
+
+
+としてください。
+
+// ===== read.me =====
+Jekyll
+
+* 概要
+- 静的サイトを作るためのジェネレータ
+- マークダウン記法
+
+* 公式サイト
+
+* 知識
+- HTML/CSS
+- Ruby
+- マークダウン記法
+- ローカル開発環境（Vagrant）
+
+* 環境
+- ローカル開発環境（Vagrant）
+
+
+
+
+
+// ===== video_summary =====
+サイトのひな形を一発生成してくれるjekyll newコマンドを使ってみます。
+
+jekyll new sample
+cd sample
+jekyll serve
+動作確認
+サーバーの停止方法
+
+// ===== commentBox 1 =====
+補足情報 bundlerに関するエラーが出る場合
+2017年2月26日
+
+Jekyllのインストールにはbundlerというgemが必要です。bundlerに関するエラーが出た場合は
+
+gem install bundler
+
+
+を実行してください。
+
+// ===== commentBox 2 =====
+補足情報 jekyll serveコマンドについて
+2017年2月6日
+
+Jekyll 4.3.0ではjekyll serveコマンドにはhostオプションをつける必要があります（ユーザーの方よりご指摘いただきました。ありがとうございます）。
+
+ローカル開発環境のIPアドレスが192.168.33.10の場合は、
+
+jekyll serve --host 192.168.33.10
+
+
+としたのちに
+
+http://192.168.33.10:4000/
+
+
+にアクセスするようにしてみてください。
+
+
+
+
+
+// ===== video_summary =====
+index.mdを作り、jekyllを使って静的サイトを生成してみます。
+
+
+    プロジェクトフォルダの作成
+    index.mdの作成
+    YAML Front Matter
+    jekyll build
+    jekyll serve
+    jekyll serve --watch
+
+// ===== index.md =====
+---
+# YAML Front Matter
+
+---
+# hello
+world!!!
+
+
+
+
+
+// ===== video_summary =====
+ページのレイアウトを別ファイルで管理していく方法について学びます。
+
+
+    _layouts
+    {{content}}
+    動作確認
+
+// ===== /_layouts/default.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Jekyll Site</title>
+</head>
+<body>
+    {{content}}
+</body>
+</html>
+
+// ===== index.md =====
+---
+# YAML Front Matter
+layout: default
+---
+# hello
+world!!!
+
+
+AWSTemplateFormatVersion: "2010-09-09"
+
+// ===== video_summary =====
+jekyllで変換しないファイルの扱いについて学びます。
+
+
+    CSSの利用
+    画像の表示
+
+// ===== /_layouts/default.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Jekyll Site</title>
+    <link rel="stylesheet" href="/css/default.css">
+</head>
+<body>
+    {{content}}
+</body>
+</html>
+
+// ===== /css/default.css =====
+h1 {
+    color: red;
+}
+
+// ===== index.md =====
+---
+# YAML Front Matter
+layout: default
+---
+# hello
+world!!!
+
+![food](/food.jpg)
+
+
+
+
+
+
+// ===== video_summary =====
+ページごとの情報を管理するpage変数の使い方を学びます。
+
+
+    about.md
+    {{page.title}}
+    動作確認
+
+// ===== /_layouts/default.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>{{page.title}}</title>
+    <link rel="stylesheet" href="/css/default.css">
+</head>
+<body>
+    {{content}}
+</body>
+</html>
+
+// ===== about.md =====
+---
+layout: default
+title: about this site
+---
+# about
+this page is about my project.
+
+// ===== index.md =====
+---
+# YAML Front Matter
+layout: default
+title: my first jekyll site
+---
+# hello
+world!!!
+
+![food](/food.jpg)
+
+// ===== /css/default.css =====
+h1 {
+    color: red;
+}
+
+
+
+
+
+// ===== video_summary =====
+サイト全体の情報を管理する_config.ymlとsite変数、日本語の扱いについて学びます。
+
+
+    _config.yml
+    site変数
+    日本語の扱い
+
+// ===== /_layouts/default.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>{{page.title}} - {{site.name}}</title>
+    <link rel="stylesheet" href="/css/default.css">
+</head>
+<body>
+    {{content}}
+</body>
+</html>
+
+// ===== _config.yml =====
+name: myJSite
+encoding: utf-8
+
+// ===== index.md =====
+---
+# YAML Front Matter
+layout: default
+title: my first jekyll site
+---
+# hello
+world!!!
+
+こんにちは。
+
+![food](/food.jpg)
+
+// ===== /css/default.css =====
+h1 {
+    color: red;
+}
+
+// ===== about.md =====
+---
+layout: default
+title: about this site
+---
+# about
+this page is about my project.
+
+
+
+
+
+// ===== video_summary =====
+_includesを使ってページの一部を部品化する方法について学びます。
+
+
+    _includes
+    {% include FILE %}
+    動作確認
+
+// ===== /_includes/footer_menu.html =====
+    <hr>
+    <p><a href="/">Home</a> | <a href="/about.html">About</a> </p>
+
+// ===== /_layouts/default.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>{{page.title}} - {{site.name}}</title>
+    <link rel="stylesheet" href="/css/default.css">
+</head>
+<body>
+    {{content}}
+    {% include footer_menu.html %}
+</body>
+</html>
+
+// ===== /css/default.css =====
+h1 {
+    color: red;
+}
+
+// ===== _config.yml =====
+name: myJSite
+encoding: utf-8
+
+// ===== about.md =====
+---
+layout: default
+title: about this site
+---
+# about
+this page is about my project.
+
+// ===== index.md =====
+---
+# YAML Front Matter
+layout: default
+title: my first jekyll site
+---
+# hello
+world!!!
+
+こんにちは。
+
+![food](/food.jpg)
+
+
+
+
+
+// ===== video_summary =====
+ブログ記事を作る際に必要となるレイアウト、個別の記事を作っていきます。
+
+
+    postのレイアウト
+    _posts
+    記事の作成
+    動作確認
+
+// ===== /_layouts/post.html =====
+---
+layout: default
+---
+<h1>{{page.title}}</h1>
+{{content}}
+<p>written by {{page.author}}</p>
+
+// ===== /_posts/2014-03-22-post1.md =====
+---
+layout: post
+title: my first post!
+author: taguchi
+---
+最初の記事だよ！
+
+- 1
+- 2
+- 3
+
+// ===== /_includes/footer_menu.html =====
+    <hr>
+    <p><a href="/">Home</a> | <a href="/about.html">About</a> </p>
+
+// ===== /_layouts/default.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>{{page.title}} - {{site.name}}</title>
+    <link rel="stylesheet" href="/css/default.css">
+</head>
+<body>
+    {{content}}
+    {% include footer_menu.html %}
+</body>
+</html>
+
+// ===== /css/default.css =====
+h1 {
+    color: red;
+}
+
+// ===== _config.yml =====
+name: myJSite
+encoding: utf-8
+
+// ===== about.md =====
+---
+layout: default
+title: about this site
+---
+# about
+this page is about my project.
+
+// ===== index.md =====
+---
+# YAML Front Matter
+layout: default
+title: my first jekyll site
+---
+# hello
+world!!!
+
+こんにちは。
+
+![food](/food.jpg)
+
+
+
+
+
+// ===== video_summary =====
+ループを使って記事の一覧を表示していきます。
+
+
+    別記事の作成
+    一覧の表示
+
+// ===== /_posts/2014-03-23-post2.md =====
+---
+layout: post
+title: my second post!
+author: taguchi
+---
+2番目の記事だよ！
+
+// ===== index.md =====
+---
+# YAML Front Matter
+layout: default
+title: my first jekyll site
+---
+# hello
+world!!!
+
+{% for post in site.posts %}
+- [{{post.title}}]({{post.url}})
+{% endfor %}
+
+こんにちは。
+
+![food](/food.jpg)
+
+// ===== /_includes/footer_menu.html =====
+    <hr>
+    <p><a href="/">Home</a> | <a href="/about.html">About</a> </p>
+
+// ===== /_layouts/default.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>{{page.title}} - {{site.name}}</title>
+    <link rel="stylesheet" href="/css/default.css">
+</head>
+<body>
+    {{content}}
+    {% include footer_menu.html %}
+</body>
+</html>
+
+// ===== /_layouts/post.html =====
+---
+layout: default
+---
+<h1>{{page.title}}</h1>
+{{content}}
+<p>written by {{page.author}}</p>
+
+// ===== /_posts/2014-03-22-post1.md =====
+---
+layout: post
+title: my first post!
+author: taguchi
+---
+最初の記事だよ！
+
+- 1
+- 2
+- 3
+
+// ===== /css/default.css =====
+h1 {
+    color: red;
+}
+
+// ===== _config.yml =====
+name: myJSite
+encoding: utf-8
+
+// ===== about.md =====
+---
+layout: default
+title: about this site
+---
+# about
+this page is about my project.
+
+
+
+
+
+// ===== video_summary =====
+コードのシンタックスハイライトを実現する方法について学びます。
+
+
+    コードの入力
+    {% highlight %}
+    syntax.css
+    動作確認
+
+// ===== /_layouts/default.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>{{page.title}} - {{site.name}}</title>
+    <link rel="stylesheet" href="/css/default.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+<body>
+    {{content}}
+    {% include footer_menu.html %}
+</body>
+</html>
+
+// ===== /_posts/2014-03-23-post2.md =====
+---
+layout: post
+title: my second post!
+author: taguchi
+---
+2番目の記事だよ！
+
+{% highlight ruby linenos %}
+def hello
+  puts "hello"
+end
+{% endhighlight %}
+
+// ===== /css/syntax.css =====
+.highlight  { background: #ffffff; }
+.highlight .c { color: #999988; font-style: italic } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+
+// ===== /_includes/footer_menu.html =====
+    <hr>
+    <p><a href="/">Home</a> | <a href="/about.html">About</a> </p>
+
+// ===== /_layouts/post.html =====
+---
+layout: default
+---
+<h1>{{page.title}}</h1>
+{{content}}
+<p>written by {{page.author}}</p>
+
+// ===== /_posts/2014-03-22-post1.md =====
+---
+layout: post
+title: my first post!
+author: taguchi
+---
+最初の記事だよ！
+
+- 1
+- 2
+- 3
+
+// ===== /css/default.css =====
+h1 {
+    color: red;
+}
+
+// ===== _config.yml =====
+name: myJSite
+encoding: utf-8
+
+// ===== about.md =====
+---
+layout: default
+title: about this site
+---
+# about
+this page is about my project.
+
+// ===== index.md =====
+---
+# YAML Front Matter
+layout: default
+title: my first jekyll site
+---
+# hello
+world!!!
+
+{% for post in site.posts %}
+- [{{post.title}}]({{post.url}})
+{% endfor %}
+
+こんにちは。
+
+![food](/food.jpg)
+
+
+
+
+
+

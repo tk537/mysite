@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre><code>
+    Node.jsの概要を説明したのちに、公式サイト、必要となる知識、レッスンにおける環境について見ていきます。
+
+概要
+公式サイト
+必要となる知識
+レッスンにおける環境
+データベース用語について
+
+Node.js
+
+* 概要
+- 大量のリクエストを高速にさばく
+
+* 公式サイト
+
+* 知識
+- HTML/JavaScript
+- MongoDB
+- Unixコマンド
+
+* 環境
+- ローカル開発環境
+
+
+
+
+
+
+
+Node.jsの特徴であるイベントループについて、スレッドモデルとの対比をしながら説明していきます。
+
+スレッドモデル
+イベントループ
+
+
+大量のリクエスト
+
+スレッドモデル（Apache）
+
+↓
+
+イベントループ（Node.js）
+
+
+
+
+
+実行方法について説明したのちに、Node.jsのコードを実際に書いていきます。
+
+コマンドラインからの実行
+ファイルからの実行
+
+hello.js
+console.log("hello world");
+
+
+
+
+ノンブロッキングな処理とそうではない処理を、例をあげながら説明していきます。
+
+ノンブロッキングな処理の例
+ブロッキングな処理の例
+
+hello.js
+// console.log("hello world");
+
+// non blocking
+/*
+setTimeout(function() {
+    console.log("hello");
+}, 1000);
+console.log("world");
+*/
+
+// blocking
+var start = new Date().getTime();
+while (new Date().getTime() < start + 1000);
+console.log("world");
+
+
+
+
+Node.jsを使って簡単なWebサーバーを実装してみます。
+
+Webサーバーの実装
+動作確認
+再起動の方法
+
+
+server.js
+var http = require('http');
+var server = http.createServer();
+server.on('request', function(req, res) {
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.write('hello world !!!');
+    res.end();
+});
+server.listen(1337, '192.168.33.72');
+console.log("server listening ...");
+
+
+
+
+
+設定を外部ファイルに記述し、それらを読み込む方法について説明していきます。
+
+設定の外部ファイル化
+外部ファイルの読み込み方法
+
+
+server.js
+var http = require('http');
+var settings = require('./settings');
+console.log(settings);
+var server = http.createServer();
+server.on('request', function(req, res) {
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.write('hello world !!!');
+    res.end();
+});
+server.listen(settings.port, settings.host);
+console.log("server listening ...");
+
+settings.js
+exports.port = 1337;
+exports.host = '192.168.33.72';
+
+
+
+
+
+
+
+アクセスされたURLによって処理を変えていく方法について学びます。
+
+req.url
+URLによる分岐処理
+
+server.js
+var http = require('http');
+var settings = require('./settings');
+var server = http.createServer();
+var msg;
+server.on('request', function(req, res) {
+    switch (req.url) {
+        case '/about':
+            msg = "about this page";
+            break;
+        case '/profile':
+            msg = "about me";
+            break;
+        default:
+            msg = 'wrong page';
+            break;
+    }
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.write(msg);
+    res.end();
+});
+server.listen(settings.port, settings.host);
+console.log("server listening ...");
+
+settings.js
+exports.port = 1337;
+exports.host = '192.168.33.72';
+
+
+
+
+
+
+
+HTMLファイルを読み込んで表示させてみます。エラー表示も作りこんでいきます。
+
+fs.readFile
+エラー処理
+動作確認
+
+
+server.js
+var http = require('http'),
+    fs = require('fs');
+var settings = require('./settings');
+var server = http.createServer();
+var msg;
+server.on('request', function(req, res) {
+    fs.readFile(__dirname + '/public_html/hello.html', 'utf-8', function(err, data) {
+        if (err) {
+            res.writeHead(404, {'Content-Type': 'text/plain'});
+            res.write("not found!");
+            return res.end();            
+        }
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.write(data);
+        res.end();
+    });
+});
+server.listen(settings.port, settings.host);
+console.log("server listening ...");
+
+settings.js
+exports.port = 1337;
+exports.host = '192.168.33.72';
+
+/public_html/hello.html 
+<html>
+<h1>Hello!</h1>
+</html>
+
+
+
+
+npmを使ってテンプレートエンジンをインストールしてみます。
+
+npmの説明
+ejsのインストール
+テンプレートファイルの作成
+
+/public_html/hello.ejs
+<html>
+<h1><%= title %></h1>
+<p><%- content %></p>
+<p><%= n %> views</p>
+</html>
+
+/public_html/hello.html
+<html>
+<h1>Hello!</h1>
+</html>
+
+server.js
+var http = require('http'),
+    fs = require('fs');
+var settings = require('./settings');
+var server = http.createServer();
+var msg;
+server.on('request', function(req, res) {
+    fs.readFile(__dirname + '/public_html/hello.html', 'utf-8', function(err, data) {
+        if (err) {
+            res.writeHead(404, {'Content-Type': 'text/plain'});
+            res.write("not found!");
+            return res.end();            
+        }
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.write(data);
+        res.end();
+    });
+});
+server.listen(settings.port, settings.host);
+console.log("server listening ...");
+
+settings.js
+exports.port = 1337;
+exports.host = '192.168.33.72';
+
+
+
+
+
+ejsのテンプレートを使ってページを表示させてみます。
+
+fs.readFileSync
+ejs.render
+動作確認
+補足情報 nが2ずつ増えてしまう場合
+2017年4月7日
+Chromeで今回のプログラムを実行するとnが2ずつ増えてしまう場合があります。これはChromeがリクエストのたびに/favicon.icoをダウンロードしようとするためです（仕様、もしくはバグかと思われます）。
+
+実際にどんなリクエストが送られているかは、
+
+server.on('request',function(req,res){
+  console.log(req.url);
+  n++;
+  ...
+
+としてあげれば、その様子がわかります。
+
+また動画のように1ずつ増やしたい場合は、
+
+server.on('request',function(req,res){
+  console.log(req.url);
+  if (req.url === '/favicon.ico') {
+     return;
+  }
+  n++;
+  ...
+
+としてあげれば良いでしょう。
+
+/public_html/hello.ejs
+<html>
+<h1>Hello!</h1>
+</html>
+
+/public_html/hello.html
+<html>
+<h1><%= title %></h1>
+<p><%- content %></p>
+<p><%= n %> views</p>
+</html>
+
+server.js
+exports.port = 1337;
+exports.host = '192.168.33.72';
+
+var http = require('http'),
+    fs = require('fs'),
+    ejs = require('ejs');
+var settings = require('./settings');
+var server = http.createServer();
+var template = fs.readFileSync(__dirname + '/public_html/hello.ejs', 'utf-8');
+var n = 0;
+server.on('request', function(req, res) {
+    n++;
+    var data = ejs.render(template, {
+        title: "hello",
+        content: "<strong>World!</strong>",
+        n: n
+    });
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write(data);
+    res.end();
+});
+server.listen(settings.port, settings.host);
+console.log("server listening ...");
+
+
+
+
+簡単な掲示板を作ることでフォームの処理方法を学びます。
+
+テンプレートファイルの作成
+
+/public_html/bbs.ejs
+<!doctype html>
+<html lang="ja">
+<head>
+    <title>BBS</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <form method="post">
+    <input type="text" name="name">
+    <input type="submit" value="Post!">
+    <ul>
+        <% for (var i = 0; i < posts.length; i++ ) { %>
+        <li><%= post[i] %></li>
+        <% } %>
+    </ul>
+</body>
+</html>
+
+/public_html/hello.ejs
+<html>
+<h1><%= title %></h1>
+<p><%- content %></p>
+<p><%= n %> views</p>
+</html>
+
+/public_html/hello.html
+<html>
+<h1>hello!</h1>
+</html>
+
+settings.js
+exports.port = 1337;
+exports.host = '192.168.33.72';
+
+server.js
+var http = require('http'),
+    fs = require('fs'),
+    ejs = require('ejs');
+var settings = require('./settings');
+var server = http.createServer();
+var template = fs.readFileSync(__dirname + '/public_html/hello.ejs', 'utf-8');
+var n = 0;
+server.on('request', function(req, res) {
+    n++;
+    var data = ejs.render(template, {
+        title: "hello",
+        content: "<strong>World!</strong>",
+        n: n
+    });
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write(data);
+    res.end();
+});
+server.listen(settings.port, settings.host);
+console.log("server listening ...");
+
+
+
+POSTリクエストかどうかを判別し、フォームを表示させていきます。
+
+req.method
+フォームの表示
+
+/public_html/bbs.ejs
+<!doctype html>
+<html lang="ja">
+<head>
+    <title>BBS</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <form method="post">
+    <input type="text" name="name">
+    <input type="submit" value="Post!">
+    <ul>
+        <% for (var i = 0; i < posts.length; i++ ) { %>
+        <li><%= post[i] %></li>
+        <% } %>
+    </ul>
+</body>
+</html>
+
+/public_html/hello.ejs
+<html>
+<h1><%= title %></h1>
+<p><%- content %></p>
+<p><%= n %> views</p>
+</html>
+
+/public_html/hello.html
+<html>
+<h1>hello!</h1>
+</html>
+
+settings.js
+exports.port = 1337;
+exports.host = '192.168.33.72';
+
+
+
+
+
+
+
+
+
+
+フォームから投稿されたデータを表示させて掲示板を完成させていきます。
+
+投稿データの取得
+動作確認
+補足情報 POST したデータの最後に「null」がついてしまう場合
+2017年6月18日
+現在のバージョンの Node.js では、レッスンの通りにコードを記述すると POST データの最後に「null」という文字列がついてしまいます。
+
+これは、レッスン収録時以降のいずれかのバージョンから readable イベントの終了時に null が返されるようになり、それを文字列として結合してしまっているために発生しています。
+
+回避策として server,js の 20 行目にある、
+
+        req.on("readable", function() {
+            req.data += req.read();
+        });
+
+のコードを以下のように書き直してください。
+
+        // readable でなく data
+        req.on("data", function(chunk) {
+            // コールバック関数の引数を結合していく
+            req.data += chunk;
+        });
+
+
+
+server.js
+var http = require('http'),
+    fs = require('fs'),
+    ejs = require('ejs'),
+    qs = require('querystring');
+var settings = require('./settings');
+var server = http.createServer();
+var template = fs.readFileSync(__dirname + '/public_html/bbs.ejs', 'utf-8');
+var posts = [];
+function renderForm(posts, res) {
+    var data = ejs.render(template, {
+        posts: posts
+    });
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write(data);
+    res.end();
+}
+server.on('request', function(req, res) {
+    if (req.method === 'POST') {
+        req.data = "";
+        req.on("readable", function() {
+            req.data += read.read();
+        });
+        req.on("end", function() {
+
+        });
+    } else {
+        renderForm(posts, res);
+    }
+});
+server.listen(settings.port, settings.host);
+console.log("server listening ...");
+
+/public_html/bbs.ejs
+<!doctype html>
+<html lang="ja">
+<head>
+    <title>BBS</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <form method="post">
+    <input type="text" name="name">
+    <input type="submit" value="Post!">
+    <ul>
+        <% for (var i = 0; i < posts.length; i++ ) { %>
+        <li><%= posts[i] %></li>
+        <% } %>
+    </ul>
+</body>
+</html>
+
+/public_html/hello.ejs
+<html>
+<h1><%= title %></h1>
+<p><%- content %></p>
+<p><%= n %> views</p>
+</html>
+
+/public_html/hello.html
+<html>
+<h1>hello!</h1>
+</html>
+
+settings.js
+exports.port = 1337;
+exports.host = '192.168.33.72';
+
+server.js
+var http = require('http'),
+    fs = require('fs'),
+    ejs = require('ejs'),
+    qs = require('querystring');
+var settings = require('./settings');
+var server = http.createServer();
+var template = fs.readFileSync(__dirname + '/public_html/bbs.ejs', 'utf-8');
+var posts = [];
+function renderForm(posts, res) {
+    var data = ejs.render(template, {
+        posts: posts
+    });
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write(data);
+    res.end();
+}
+server.on('request', function(req, res) {
+    if (req.method === 'POST') {
+        req.data = "";
+        req.on("readable", function() {
+            req.data += req.read();
+        });
+        req.on("end", function() {
+            var query = qs.parse(req.data);
+            posts.push(query.name);
+            renderForm(posts, res);
+        });
+    } else {
+        renderForm(posts, res);
+    }
+});
+server.listen(settings.port, settings.host);
+console.log("server listening ...");
+
+
+
+
+
+mongodbモジュールを使ってMongoDBに接続している方法について学びます。
+
+mongodbモジュールのインストール
+mongo
+設定の追加
+MongoDBへの接続
+補足情報 ローカル開発環境にMongoDBをインストールするには？
+2018年4月24日
+動画中で説明している、
+
+npm install mongodb
+
+でインストールされるのは MongoDB を Node.js から操作するためのライブラリで、別途 MongoDB 本体のインストールが必要です。
+
+以下の動画に沿って MongoDB 本体をインストールしてください。
+
+#02 MongoDBをインストールしよう | MongoDB入門
+https://dotinstall.com/lessons/basic_mongodb_v3/35002
+
+補足情報 「MongoError: connect ECONNREFUSED」と出て接続できない場合
+2016年2月14日
+現在の MongoDB の初期設定では「{ [MongoError: connect ECONNREFUSED] name: 'MongoError', message: 'connect ECONNREFUSED' }」というエラーが出て接続に失敗してしまいます。このエラーが出た場合は、
+"mongodb://"+settings.host+"/"+settings.db
+
+の部分を、
+"mongodb://localhost/"+settings.db
+
+に変更して試してみてください。
+
+もしくは /etc/mongod.conf 内にある bindIp: 127.0.0.1 の行をコメントアウトして MongoDB を再起動するという方法もあります。
+
+mongo.js
+var MongoClient = require('mongodb').MongoClient,
+    settings = require('./settings');
+MongoClient.connect("mongodb://"+settings.host+"/"+settings.db, function(err, db) {
+    if (err) { return console.dir(err); }
+    console.log("connected to db");
+});
+
+settings.js
+exports.port = 1337;
+exports.host = '192.168.33.72';
+exports.db = 'nodedb';
+
+
+
+
+
+MongoDBにドキュメントを挿入して、結果を確認していきます。
+
+動作確認
+ドキュメントの挿入
+結果の確認
+
+mongo.js
+var MongoClient = require('mongodb').MongoClient,
+    settings = require('./settings');
+MongoClient.connect("mongodb://"+settings.host+"/"+settings.db, function(err, db) {
+    if (err) { return console.dir(err); }
+    console.log("connected to db");
+    db.collection("users", function(err, collection) {
+        var docs = [
+            {name: "taguchi", score: 40},
+            {name: "fkoji", score: 80},
+            {name: "dotinstall", score: 60}
+        ];
+        collection.insert(docs, function(err, result) {
+            console.dir(result);
+        });
+    });
+});
+
+settings.js
+exports.port = 1337;
+exports.host = '192.168.33.72';
+exports.db = 'nodedb';
+
+
+
+
+
+MongoDBからドキュメントを抽出する2つの方法について説明していきます。
+
+toArray
+stream
+
+
+mongo.js
+var MongoClient = require('mongodb').MongoClient,
+    settings = require('./settings');
+MongoClient.connect("mongodb://"+settings.host+"/"+settings.db, function(err, db) {
+    if (err) { return console.dir(err); }
+    console.log("connected to db");
+    db.collection("users", function(err, collection) {
+        var docs = [
+            {name: "taguchi", score: 40},
+            {name: "fkoji", score: 80},
+            {name: "dotinstall", score: 60}
+        ];
+        /*
+        collection.find({name: "taguchi"}).toArray(function(err, items) {
+            console.log(items);
+        });
+        */
+        var stream = collection.find().stream();
+        stream.on("data", function(item) {
+            console.log(item);
+        });
+        stream.on("end", function() {
+            console.log("finished.")
+        });
+    });
+});
+
+settings.js
+exports.port = 1337;
+exports.host = '192.168.33.72';
+exports.db = 'nodedb';
+
+
+  </code></pre>
+</body>
+</html>

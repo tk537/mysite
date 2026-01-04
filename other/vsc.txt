@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+Visual Studio Codeの公式サイトと導入の仕方について説明していきます。
+
+公式サイト
+インストールの方法
+動作確認
+ウェルカム画面
+補足情報 Windows で Visual Studio Code をインストールするには
+2019年8月27日
+公式サイトから「Download for Windows」をクリックすると、セットアップウィザードが開くので、手順に従ってインストールしていけばOKです。インストールの途中で細かい設定をする箇所がありますが、そのままの設定で「次へ」をクリックしていってください。インストールが完了すると、Visual Studio Codeが自動的に起動するので、レッスンどおりに進めていきましょう。
+
+
+
+
+Visual Studio Codeの画面構成について説明していきます。
+
+Activity Bar
+サイドバー
+ステータスバー
+エディタエリア
+上部メニュー
+
+
+
+
+
+HTMLファイルを作って編集していく流れについて見ていきます。
+
+作業用フォルダの追加
+ファイルの作成
+ステータスバーの確認
+コードの補完
+ファイルの保存
+補足情報 Windowsでのフォルダの作成方法について
+2019年7月12日
+動画内ではmacOSを使っているので、Windowsをお使いの方はフォルダの作成方法が異なります。Windowsマシンでレッスンと同じように進めたい場合は、次のようにしてフォルダを作成してください。
+
+VS Codeで「Open Folder」とする
+エクスプローラーが開くので「デスクトップ」を選択する
+フォルダやファイルではないところで、右クリックする
+「新規作成」をクリック
+「フォルダー」をクリック
+補足情報 学習しておくと良いレッスンについて
+2019年7月12日
+Visual Studio Codeの動作確認を行いながら、Web系の開発を進めていく手順についてもみていきます。
+HTMLの基本については、以下のレッスンを参照してみてください。
+
+詳解HTML 基礎文法編
+https://dotinstall.com/lessons/basic_html_tags
+
+/MyVSCodeProject/index.html
+<h1>Hello</h1>
+
+
+
+
+
+
+Visual Studio Codeに標準搭載されているEmmet記法について紹介していきます。
+
+Emmet記法
+!
+ul>li*3
+補足情報 !でHTMLの雛形がでない場合
+2022年7月13日
+VS CodeのVersion: 1.69.0以降にて「!」によるHTMLの雛形が入力できなくなったようです。かわりに「html:5」と打ってからタブキーで入力するようにしてください。
+
+補足情報 Emmetについて
+2019年7月25日
+Emmet記法については以下のレッスンで詳しく解説しています。
+興味がある方は参照してみてください。
+
+Emmet入門
+https://dotinstall.com/lessons/basic_emmet_v3
+
+/MyVSCodeProject/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>My Site</title>
+</head>
+<body>
+  <h1>Hello</h1>
+  <ul>
+    <li>item 1</li>
+    <li>item 2</li>
+    <li>item 3</li>
+  </ul>
+</body>
+</html>
+
+
+
+
+
+CSSやJavaScriptファイルを読み込むタグを設定してから、それらのファイルを作成していく流れについて見ていきます。
+
+link:css
+script:src
+ファイルの自動作成
+ファイル構成の確認
+補足情報 Windowsでのショートカットキーについて
+2019年7月12日
+動画内で紹介されている操作ですが、Windowsでは次のショートカットキーをご利用ください。
+
+リンク先に飛ぶ → Ctrl + Click
+サイドバーを閉じる → Ctrl + B
+補足情報 学習しておくと良いレッスンについて
+2019年7月12日
+CSS, JavaScriptの基本については、以下のレッスンを参照してみてください。
+
+詳解CSS 基礎文法編
+https://dotinstall.com/lessons/basic_css_styles
+
+詳解JavaScript 基礎文法編
+https://dotinstall.com/lessons/basic_javascript_grammer
+
+詳解JavaScript DOM編
+https://dotinstall.com/lessons/basic_javascript_dom
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>My Site</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <h1>Hello</h1>
+  <ul>
+    <li>item 1</li>
+    <li>item 2</li>
+    <li>item 3</li>
+  </ul>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+CSSを編集する際の便利な機能について見ていきます。
+
+色見本、カラーピッカー
+セレクタの例示
+コメント切り替えのショートカットキー
+補足情報 Windowsでのショートカットキーについて
+2019年7月12日
+動画内で紹介されている操作ですが、Windowsでは次のショートカットキーをご利用ください。
+
+コメントにする → Ctrl + /
+
+/MyVSCodeProject/css/styles.css
+h1 {
+  color: rgb(216, 72, 72);
+}
+
+/* h1.title {
+  color: rgb(216, 72, 72);
+}
+
+h1 .title {
+  color: rgb(216, 72, 72);
+} */
+
+/MyVSCodeProject/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>My Site</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <h1>Hello</h1>
+  <ul>
+    <li>item 1</li>
+    <li>item 2</li>
+    <li>item 3</li>
+  </ul>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+JavaScriptを編集する際の便利な機能について説明していきます。
+
+コードの補完機能
+コメント切り替えのショートカットキー
+動作確認
+補足情報 VS Codeでファイルのドラッグ＆ドロップができない場合
+2024年2月16日
+VS Codeのバージョンアップにより、index.htmlのタブをブラウザへドラッグ＆ドロップできなくなったようです。代替手段として、下図のようにサイドバーにてファイル一覧を開き、そこからドラッグ＆ドロップするようにしてください。
+
+macOS VS Code ドラッグ&ドロップ イメージ
+
+それでもうまくいかない場合は、Chromeブラウザを選択した状態で、WindowsならCtrlキー、macOSならcommandキーを押しながら、英語のoキーを押すと、ファイルを選択できるようになります。そこからファイルを開いても OK です。
+
+/MyVSCodeProject/css/styles.css
+h1 {
+    color: rgb(216, 72, 72);
+}
+
+/* h1.title {
+    color: rgb(216, 72, 72);
+}
+
+h1 .title {
+    color: rgb(216, 72, 72);
+} */
+
+/MyVSCodeProject/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>My Site</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h1>Hello</h1>
+    <ul>
+        <li>item 1</li>
+        <li>item 2</li>
+        <li>item 3</li>
+    </ul>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+/MyVSCodeProject/js/main.js
+// h1要素を取得
+const h1 = document.querySelector('h1');
+
+h1.addEventListener('click', () => {
+    h1.textContent = 'Changed!';
+});
+
+
+
+
+Visual Studio Codeの設定を変える方法について見ていきます。
+
+設定画面
+自動保存
+フォント設定
+タブサイズ設定
+半角空白の表示
+行の折り返し設定
+補足情報 Windowsにおいての注意事項
+2019年7月12日
+動画内で紹介している内容がWindowsだと少々異なるので、以下にまとめました。
+
+設定画面を開く → SettingsはFileメニューの中にあります
+Font Size → デフォルトでFont Sizeが14なので変更が不要です
+
+/MyVSCodeProject/css/styles.css
+h1 {
+    color: rgb(216, 72, 72);
+}
+
+/* h1.title {
+    color: rgb(216, 72, 72);
+}
+
+h1 .title {
+    color: rgb(216, 72, 72);
+} */
+
+/MyVSCodeProject/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>My Site</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h1>Hello</h1>
+    <ul>
+        <li>item 1</li>
+        <li>item 2</li>
+        <li>item 3</li>
+    </ul>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+/MyVSCodeProject/js/main.js
+// h1要素を取得   
+const h1 = document.querySelector('h1');
+
+h1.addEventListener('click', () => {
+    h1.textContent = 'Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! ';
+});
+
+
+
+
+
+
+さまざまな機能や設定にアクセスすることができるコマンドパレットについて説明していきます。
+
+コマンドパレットの起動
+テーマの変更
+ショートカットキーの調査
+補足情報 Windowsでのショートカットキーについて
+2019年7月12日
+動画内で紹介されている操作ですが、Windowsでは次のショートカットキーをご利用ください。
+
+コマンドパレットを開く → Ctrl + Shift + P
+
+/MyVSCodeProject/css/styles.css
+h1 {
+    color: rgb(216, 72, 72);
+}
+
+/* h1.title {
+    color: rgb(216, 72, 72);
+}
+
+h1 .title {
+    color: rgb(216, 72, 72);
+} */
+
+/MyVSCodeProject/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>My Site</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h1>Hello</h1>
+    <ul>
+        <li>item 1</li>
+        <li>item 2</li>
+        <li>item 3</li>
+    </ul>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+/MyVSCodeProject/js/main.js
+// h1要素を取得   
+const h1 = document.querySelector('h1');
+
+h1.addEventListener('click', () => {
+    h1.textContent = 'Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! ';
+});
+
+
+
+
+
+
+
+
+
+
+
+編集時によく使う、実践的なショートカットキーについて見ていきます。
+
+行の移動
+行の複製
+行の挿入
+補足情報 Windowsでのショートカットキーについて
+2019年7月12日
+動画内で紹介されている操作ですが、Windowsでは次のショートカットキーをご利用ください。
+
+行の移動 → Alt + 上下矢印
+行の複製 → Shift + Alt + 上下矢印
+次の行を挿入 → Ctrl + Enter
+前の行を挿入 → Shift + Ctrl + Enter
+
+/MyVSCodeProject/css/styles.css
+h1 {
+    color: rgb(216, 72, 72);
+}
+
+/* h1.title {
+    color: rgb(216, 72, 72);
+}
+
+h1 .title {
+    color: rgb(216, 72, 72);
+} */
+
+/MyVSCodeProject/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>My Site</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h1>Hello</h1>
+    <h2>Hello</h2>
+    <h3>Hello</h3>
+    <h4>Hello</h4>
+    <ul>
+        <li>item 1</li>
+        <li>item 1</li>
+        <li>item 2</li>
+        <li>item 3</li>
+    </ul>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+/MyVSCodeProject/js/main.js
+// h1要素を取得   
+const h1 = document.querySelector('h1');
+
+h1.addEventListener('click', () => {
+    h1.textContent = 'Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! ';
+});
+
+
+
+
+
+
+
+
+
+
+
+
+複数の箇所を同時に編集することができるマルチカーソルについて見ていきます。
+
+マルチカーソルの設定
+同じ単語の選択
+真上/真下にカーソルを追加
+補足情報 Windowsでのショートカットキーについて
+2019年7月12日
+動画内で紹介されている操作ですが、Windowsでは次のショートカットキーをご利用ください。
+
+クリックした箇所にカーソルを増やす → Alt + Click
+同じ単語を選択する → Ctrl + D
+同じ単語をいっきに選択する → Ctrl + Shift + L
+カーソルを垂直方向に増やす → Ctrl + Alt + 上下矢印
+
+/MyVSCodeProject/css/styles.css
+h1 {
+    color: rgb(216, 72, 72);
+}
+
+/* h1.title {
+    color: rgb(216, 72, 72);
+}
+
+h1 .title {
+    color: rgb(216, 72, 72);
+} */
+
+/MyVSCodeProject/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>My Site</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h1>Hello</h1>
+    <h2>Hello</h2>
+    <h3>Hello</h3>
+    <h4>Hello</h4>
+    <ul>
+        <li class="idea">idea one</li>
+        <li class="idea">idea one</li>
+        <li class="idea">idea 2</li>
+        <li class="idea">idea 3</li>
+    </ul>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+/MyVSCodeProject/js/main.js
+// h1要素を取得   
+const h1 = document.querySelector('h1');
+
+h1.addEventListener('click', () => {
+    h1.textContent = 'Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! ';
+});
+
+
+
+
+
+
+
+
+
+
+
+現在のファイル、もしくは作業用フォルダ内のすべてのファイルに対して検索や置換をする方法について見ていきます。
+
+ファイル内検索、置換
+フォルダ内検索、置換
+補足情報 Windowsでのショートカットキーについて
+2019年7月12日
+動画内で紹介されている操作ですが、Windowsでは次のショートカットキーをご利用ください。
+
+ファイル内での検索 → Ctrl + F
+次の検索結果に移動 → F3
+前の検索結果に移動 → Shift + F3
+ファイル内での置換 → Ctrl + H
+
+/MyVSCodeProject/css/styles.css
+h2 {
+    color: rgb(216, 72, 72);
+}
+
+/* h2.title {
+    color: rgb(216, 72, 72);
+}
+
+h2 .title {
+    color: rgb(216, 72, 72);
+} */
+
+/MyVSCodeProject/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>My Site</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h2>Hello</h2>
+    <h2>Hello</h2>
+    <h3>Hello</h3>
+    <h4>Hello</h4>
+    <ul>
+        <li class="item">item one</li>
+        <li class="item">item one</li>
+        <li class="item">item 2</li>
+        <li class="item">item 3</li>
+    </ul>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+/MyVSCodeProject/js/main.js
+// h2要素を取得   
+const h2 = document.querySelector('h2');
+
+h2.addEventListener('click', () => {
+    h2.textContent = 'Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! ';
+});
+
+
+
+
+
+
+
+
+
+
+
+Visual Studio Codeで使える拡張機能の導入方法について見ていきます。
+
+拡張機能の検索
+Visual Studio Codeの日本語化
+拡張機能のインストール、アンインストール
+
+
+/MyVSCodeProject/css/styles.css
+h2 {
+    color: rgb(216, 72, 72);
+}
+
+/* h2.title {
+    color: rgb(216, 72, 72);
+}
+
+h2 .title {
+    color: rgb(216, 72, 72);
+} */
+
+/MyVSCodeProject/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>My Site</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h2>Hello</h2>
+    <h2>Hello</h2>
+    <h3>Hello</h3>
+    <h4>Hello</h4>
+    <ul>
+        <li class="item">item one</li>
+        <li class="item">item one</li>
+        <li class="item">item 2</li>
+        <li class="item">item 3</li>
+    </ul>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+/MyVSCodeProject/js/main.js
+// h2要素を取得   
+const h2 = document.querySelector('h2');
+
+h2.addEventListener('click', () => {
+    h2.textContent = 'Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! Changed! ';
+});
+
+
+    
+  </pre>
+  
+</body>
+</html>

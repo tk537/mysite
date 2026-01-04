@@ -1,0 +1,305 @@
+// ===== video_summary =====
+プログラマに人気のエディタであるSublime Text 2について、その概要、公式サイトを説明したのちに、レッスンにおける注意点についてふれていきます。
+
+
+    概要
+    公式サイト
+    注意点
+
+// ===== commentBox 1 =====
+補足情報
+あわせて見ておきたいサイトについて
+
+
+
+
+2012年12月7日
+
+
+
+
+
+Sublime Textの公式サイトはこちらです。
+http://www.sublimetext.com/
+使い方については英語になりますがtuts+のスクリーンキャストも参考になります。
+https://tutsplus.com/course/improve-workflow-in-sublime-text-2/
+
+// ===== read.me =====
+Sublime Text 2
+
+* 概要
+- プログラマに人気のエディタ
+- カスタマイズが柔軟に出来る
+- 高機能＆高速
+- Mac/Win/Linux
+- 豊富なプラグイン
+- $59
+
+* 公式サイト
+
+* 注意点
+- Macを中心に説明
+
+
+
+
+
+
+// ===== video_summary =====
+Sublime Text 2の画面構成、ミニマップ、ショートカットキーなどについて説明していきます。
+
+画面構成
+ミニマップ
+サイドバー
+ショートカットキー
+
+
+
+
+
+// ===== video_summary =====
+テーマを試したのちに、設定ファイルを変更していく方法について学びます。
+
+テーマの変更
+設定ファイルの変更
+
+
+
+
+
+// ===== video_summary =====
+キーバインディングを変更する方法、vim互換モードを立ち上げる方法について学びます。
+
+キーバインディングの変更
+vim互換モード
+
+
+
+
+
+// ===== video_summary =====
+まずはHTMLファイルを作り、いくつかの便利な機能について説明していきます。
+
+
+    カラーリング
+    タグ補完
+    コメントへの変更
+    ブラウザで開く方法
+
+// ===== index.html =====
+<html>
+hello world.
+<!-- <p>hello!</p> -->
+Cmd + /
+<script type="text/javascript">
+// alert(1);
+</script>
+
+</html>
+
+
+
+
+
+// ===== video_summary =====
+複数箇所を同時に編集できるマルチカーソルの使い方を学びます。
+
+
+    Command + マウスドラッグ
+    Command + d / Command + u
+    Command + Control + g
+
+// ===== index.html =====
+<!--
+
+Multi-Cursor
+
+1. Cmd + マウスドラッグ
+
+2. Cmd + d / Cmd + U
+
+3. Cmd + Ctrl + G
+
+-->
+<html>
+<body>
+    <ul>
+        <li id="Item1">Hello</li>
+        <li id="Item2">Hello</li>
+        <li id="Item3">Hello</li>
+    </ul>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+コマンドをさっと呼び出すことができるコマンドパレットについて、その使い方を学んでいきます。
+
+
+    Command + Shift + p
+
+// ===== index.html =====
+<!--
+
+Command Palette: Cmd + Shift + P
+
+-->
+<html>
+<body>
+    <ul>
+        <li id="Item1">Hello</li>
+        <li id="Item2">Hello</li>
+        <li id="Item3">Hello</li>
+    </ul>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+複雑なファイル構成であっても目的のファイルに素早くたどり着けるGoto Anythingを使ってみます。
+
+Command + p
+:行番号
+@シンボル
+
+// ===== commentBox 1 =====
+補足情報 文字列を検索する方法
+2012年12月7日
+Goto Anythingでは、「:（行番号を指定）」、「@（シンボルを検索）」以外にも「#（文字列を検索）」が使えます。例えば「index.phpの中のresultsという文字列にジャンプしたい」というときは「index#results」とすればOKです。
+
+
+
+
+
+// ===== video_summary =====
+自分に関係のあるファイルだけ管理できるプロジェクトについて学んでいきます。
+
+プロジェクトの作成方法
+プロジェクトの設定方法
+
+
+
+
+
+// ===== video_summary =====
+便利なコード部品であるスニペットについてその作成方法、使い方を学びます。
+
+
+    スニペットの例
+    スニペットの作成方法
+    スニペットの使い方
+
+// ===== hello.sublime-snippet =====
+<snippet>
+    <content><![CDATA[
+echo "Hi, ${1:Tom}";
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>hello</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <!-- <scope>source.python</scope> -->
+</snippet>
+
+// ===== index.php =====
+<?php
+
+
+
+
+
+
+
+// ===== video_summary =====
+PHPなどのファイルをその場で実行させることができるBuild機能について、その使い方を学びます。
+
+
+    Buildの設定
+    Buildの使い方
+
+// ===== commentBox 1 =====
+補足情報
+build機能の動作について
+
+
+
+
+2013年10月7日
+
+
+
+
+
+こちらの機能を利用するにはお手元のPCにてPHPが動作している必要があります。MacOS Xは最初からPHPが入っていますが、Windowsの場合はインストールが必要となります。その場合は「Windows PHP インストール」などで検索してみてください。
+
+// ===== PHP.sublime-build =====
+{
+    "cmd": ["php", "$file"]
+}
+
+// ===== index.php =====
+<?php
+
+// build
+
+echo "hello world";
+
+
+
+
+
+// ===== video_summary =====
+便利な拡張機能であるパッケージの導入方法について学びます。
+
+Package Controlの導入
+Packageのインストール
+
+// ===== commentBox 1 =====
+補足情報 Package Controlの導入スクリプトについて
+2012年12月7日
+動画中で説明しているPackage Control導入のためのスクリプトは以下からコピーできます。
+http://wbond.net/sublime_packages/package_control/installation
+
+
+
+
+
+// ===== video_summary =====
+ウィンドウを複数の領域に分割して作業するためのショートカットを学びます。
+
+
+    Command + Option + #
+    Command + Option + Shift + #
+    Ctrl + Shift + #
+    Ctrl + #
+
+// ===== read.me =====
+Window分割
+
+1. Command + Option + # 
+
+2. Command + Option + Shift + #
+
+3. Ctrl + Shift + #
+
+4. Ctrl + #
+
+
+
+
+
+// ===== video_summary =====
+Sublime Text 2はフリーウェアではなくて有料のシェアウェアなので、長く使う場合はライセンスを購入するようにしましょう。
+
+ライセンスの購入方法
+ライセンの適用方法
+
+
+
+
+

@@ -1,0 +1,463 @@
+// ===== video_summary =====
+まずは公式サイトを確認したのち、プログラミング用フォントのインストール、Finderの設定をしていきます。
+
+Atom公式サイト
+Ricty Diminishedのインストール
+Finderの設定
+
+// ===== commentBox 1 =====
+補足情報 Windowsでのファイルの拡張子表示設定について
+2017年3月21日
+
+動画 1分17秒 あたりからの内容について、動画では Mac のため Finder でおこなっていますが、Windows ではエクスプローラーで設定をおこないます。
+
+エクスプローラーを開き、「ファイル」メニューから「フォルダーと検索のオプションの変更」をクリックします。
+「表示」タブをクリックし、「詳細設定」の中の下から4番目くらいにある「登録されている拡張子は表示しない」のチェックを外します。
+「OK」をクリックします。
+
+
+
+
+
+
+// ===== video_summary =====
+Atomをインストールし、起動の仕方について説明していきます。
+
+Atomのインストール
+Atomの起動
+
+
+
+
+
+// ===== video_summary =====
+プログラミング用フォントを導入したのちに便利な設定について見ていきます。
+
+設定画面の表示
+エディタの設定
+
+
+
+
+
+// ===== video_summary =====
+Atomのテーマ変更をしたのち、ガイド線の消し方を見ていきます。
+
+テーマのインストール
+wrap guide
+
+
+
+
+
+// ===== video_summary =====
+新規ファイルの作成方法や、プロジェクトフォルダの見方について説明していきます。
+
+
+    新規フォルダ、ファイルの作成
+    ツリービュー
+    プロジェクトフォルダ
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Hello</title>
+</head>
+<body>
+  <h1>Hello</h1>
+  <p>Hello</p>
+  <ul>
+    <li>Red</li>
+    <li>Blue</Li>
+    <li>Pink</li>
+  </ul>
+  <script>
+  var i = 0;
+  while (i < 10) {
+    console.log(i);
+    i += 1;
+  }
+  </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+Atomの拡張機能であるパッケージの導入方法を解説したのち、パッケージの有効/無効化について見ていきます。
+
+
+    パッケージの操作
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Hello</title>
+</head>
+<body>
+  <h1>Hello</h1>
+  <p>Hello</p>
+  <ul>
+    <li>Red</li>
+    <li>Blue</Li>
+    <li>Pink</li>
+    <li
+  </ul>
+  <script>
+  var i = 0;
+  while (i < 10) {
+    console.log(i);
+    i += 1;
+  }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+言語ごとの設定やコーディングする際に便利なスニペットについて見ていきます。
+
+
+    言語ごとの設定
+    スニペットの説明
+
+// ===== commentBox 1 =====
+補足情報
+Snippetsのセクションについて
+
+
+
+
+2017年4月30日
+
+
+
+
+
+2017年4月現在、Snippetsのセクションが表示されなくなっているようです。どのようなSnippetsがあるかは（少し見づらいですが）以下のサイトで確認することができます。
+
+https://github.com/atom/language-html/blob/master/snippets/language-html.cson
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Hello</title>
+</head>
+<body>
+  <h1>Hello</h1>
+  <p>Hello <a href="world.html">world!</a></p>
+  <ul>
+    <li>Red</li>
+    <li>Blue</Li>
+    <li>Pink</li>
+  </ul>
+  <script>
+  var i = 0;
+  while (i < 10) {
+    console.log(i);
+    i += 1;
+  }
+  </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+Atomメニューにアクセスするためのコマンドパレットの使い方について解説していきます。
+
+
+    コマンドパレットの操作
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Hello</title>
+</head>
+<body>
+  <h1>Hello</h1>
+  <p>Hello <a href="world.html">world!</a></p>
+  <ul>
+    <li>Red</li>
+    <li>Blue</Li>
+    <li>Pink</li>
+  </ul>
+  <script>
+  var i = 0;
+  while (i < 10) {
+    console.log(i);
+    i += 1;
+  }
+  </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+同時編集や複数ファイルの編集に便利なペインを使った画面分割の方法について見ていきます。
+
+
+    ペインの操作
+    画面分割
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Hello</title>
+</head>
+<body>
+  <h1>Hello</h1>
+  <p>Hello <a href="world.html">world!</a></p>
+  <ul>
+    <li>Red</li>
+    <li>Blue</Li>
+    <li>Pink</li>
+  </ul>
+  <script>
+  var i = 0;
+  while (i < 10) {
+    console.log(i);
+    i += 1;
+  }
+  </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+同時に複数のカーソルを扱って、ファイルを編集をしていく方法について見ていきます。
+
+
+    マルチカーソル
+    同じ単語の選択・スキップ・選択解除
+    すべての単語選択
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Hello</title>
+</head>
+<body>
+  <h2>Hello</h2>
+  <p>Hello <a href="world.html">world!</a></p>
+  <ul>
+    <li class="menu">Red</li>
+    <li class="menu">Blue</li>
+    <li class="menu">Pink</li>
+  </ul>
+  <script>
+  var i = 0;
+  while (i < 10) {
+    console.log(i);
+    i += 1;
+  }
+  </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+長いコードを扱う際に便利なファイルの検索・移動・置換をする方法について見ていきます。
+
+
+    カーソルの移動
+    対応する括弧やタグへの移動
+    ブロックのハイライト
+    文字列の検索・置換
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Hello</title>
+</head>
+<body>
+  <h2>Hello</h2>
+  <p>Hello <a href="world.html">world!</a></p>
+  <ul>
+    <li class="menu">Red</li>
+    <li class="menu">Blue</li>
+    <li class="menu">Pink</li>
+  </ul>
+  <script>
+  var i = 0;
+  while (i < 10) {
+    console.log(i);
+    i += 1;
+  }
+  </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+プログラミング中によく行う、行単位での編集をするためのコマンドを見ていきます。
+
+
+    コメント・コメント解除
+    行の挿入
+    行の複製
+    行の削除
+    行の折りたたみ
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Hello</title>
+</head>
+<body>
+  <h2>Hello</h2>
+  <p>Hello <a href="world.html">world!</a></p>
+  <ul>
+    <li class="menu">Red</li>
+    <li class="menu">Blue</li>
+    <li class="menu">Pink</li>
+  </ul>
+  <script>
+  var i = 0;
+  while (i < 10) {
+    console.log(i);
+    i += 1;
+  }
+  </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+プロジェクトフォルダ単位での検索や置換の方法について見ていきます。
+
+
+    プロジェクトフォルダ内でのファイル検索
+    プロジェクトフォルダ内での文字列検索・置換
+    プロジェクトフォルダの追加
+
+// ===== /MyApp/main.js =====
+document.getElementsByClassName('h1').innerHTML = 'h1';
+
+// ===== /MyApp/styles.css =====
+h1 {
+  font-size:18px;
+}
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Hello</title>
+</head>
+<body>
+  <h2>Hello</h2>
+  <p>Hello <a href="world.html">world!</a></p>
+  <ul>
+    <li class="menu">Red</li>
+    <li class="menu">Blue</li>
+    <li class="menu">Pink</li>
+  </ul>
+  <script>
+  var i = 0;
+  while (i < 10) {
+    console.log(i);
+    i += 1;
+  }
+  </script>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+自分でショートカットキーを設定する方法について解説していきます。
+
+
+    ショートカットキーの設定
+    Key Binding Resolverの使い方
+
+// ===== /MyApp/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Hello</title>
+</head>
+<body>
+  <h2>Hello</h2>
+  <p>Hello <a href="world.html">world!</a></p>
+  <ul>
+    <li class="menu">Red</li>
+    <li class="menu">Blue</li>
+    <li class="menu">Pink</li>
+  </ul>
+  <script>
+  var i = 0;
+  while (i < 10) {
+    console.log(i);
+    i += 1;
+  }
+  </script>
+</body>
+</html>
+
+// ===== /MyApp/main.js =====
+document.getElementsByClassName('h1').innerHTML = 'h1';
+
+// ===== /MyApp/styles.css =====
+h1 {
+  font-size:18px;
+}
+
+
+
+
+
+// ===== video_summary =====
+ドットインストールの学習支援ツールであるDotinstall Paneの導入方法について見ていきます。
+
+パッケージのインストール
+Dotinstall Paneの使い方
+
+
+
+
+

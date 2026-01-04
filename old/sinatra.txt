@@ -1,0 +1,1377 @@
+// ===== video_summary =====
+Sinatraの概要について説明したのちに、今回レッスンで使う環境を確認していきます。
+
+Sinatra
+開発環境
+必要なGemのインストール
+
+// ===== commentBox 1 =====
+補足情報 Sinatraの実行環境について
+2020年12月2日
+
+現在ローカル開発環境のレッスンどおりに環境を構築することができません（レッスン内で利用しているCentOS6が終了したため）。実行環境の代替手段についてはローカル開発環境を構築できないのですが……をご覧ください。
+
+// ===== commentBox 2 =====
+補足情報 gem installについて
+2019年10月14日
+
+動画中、
+
+gem install sinatra sinatra-contrib activerecord sqlite3 --no-document
+
+のコマンドで Sinatra 関連の gem をインストールしていますが、レッスン収録時と現在でインストールされる gem のバージョンが異なるため、そのままではエラーが出てしまいます。
+
+レッスンと同じバージョンの gem をインストールするには以下の手順を実行してください。
+
+まずは
+
+gem uninstall -I -a -x --user-install --force
+
+としてインストールされている gem を削除し、
+
+gem install sinatra -v 2.0.0 --no-doc
+gem install sinatra-contrib -v 2.0.0 --no-doc
+gem install activerecord -v 5.1.3 --no-doc
+gem install sqlite3 -v 1.3.13 --no-doc
+
+というコマンドを実行して gem をインストールし直してください。
+
+// ===== commentBox 3 =====
+補足情報 レッスンにおける環境について
+2017年8月19日
+
+今回のレッスンではローカル開発環境を使っています。ローカル開発環境の構築方法は以下をご覧ください。
+
+・ローカル開発環境の構築 [macOS編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_mac_v2
+・ローカル開発環境の構築 [Windows編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_win_v2
+
+またあわせてローカル開発環境での操作にはLinuxの知識が必要です。以下のレッスンも参考にしてみてください。
+
+・UNIXコマンド入門 (一般ユーザー編) (全16回)
+http://dotinstall.com/lessons/basic_unix_v2
+
+// ===== commentBox 4 =====
+補足情報 Rubyのバージョンアップをする方法
+2017年8月19日
+
+ドットインストールのレッスンで構築したローカル開発環境ではRubyのバージョン管理にrbenvを使っています。
+もしバージョンアップをしたいなら、以下の手順をお試しください（Rubyのバージョンを2.4.1.にしたい場合）。
+
+$ cd ~/.rbenv
+$ git pull origin master
+$ cd ~/.rbenv/plugins/ruby-build 
+$ git pull origin master
+$ rbenv install 2.4.1
+$ rbenv global 2.4.1
+$ rbenv rehash
+$ ruby -v
+
+
+上記のように作業をしてみてきちんとバージョンが上がっていれば作業完了です。
+
+
+
+
+
+// ===== video_summary =====
+まずはシンプルなアプリケーションを作って動作確認をしてみます。
+
+
+    ルートの設定
+    Webサーバーの起動・終了
+
+// ===== app.rb =====
+require 'sinatra'
+
+get '/' do
+  "hello world"
+end
+
+
+
+
+
+// ===== video_summary =====
+複数のルートを設定して動作確認をしていきます。
+
+
+    複数のルート
+    sinatra/reloaderの導入
+
+// ===== app.rb =====
+require 'sinatra'
+require 'sinatra/reloader'
+
+get '/' do
+  "hello world again"
+end
+
+get '/hello' do
+  "hello 1000!"
+end
+
+get '/hello' do
+  "hello 2"
+end
+
+
+
+
+// ===== video_summary =====
+URLにて指定された値を処理の中で使う方法について見ていきます。
+
+
+    値の取得
+    値の利用
+
+// ===== app.rb =====
+require 'sinatra'
+require 'sinatra/reloader'
+
+get '/' do
+  "hello world again"
+end
+
+# get '/hello/:name' do
+#   "hello #{params[:name]}"
+# end
+
+# get '/hello/:name' do |name|
+#   "hello #{name}"
+# end
+
+# get '/hello/:fname/:lname' do |f, l|
+#   "hello #{f} #{l}"
+# end
+
+get '/hello/:fname/?:lname?' do |f, l|
+  "hello #{f} #{l}"
+end
+
+
+
+
+
+// ===== video_summary =====
+ルートにワイルドカードや正規表現を用いる方法について見ていきます。
+
+
+    ワイルドカードの利用
+    正規表現の利用
+
+// ===== app.rb =====
+require 'sinatra'
+require 'sinatra/reloader'
+
+get '/' do
+  "hello world again"
+end
+
+# get '/hello/*/*' do |f, l|
+#   "hello #{f} #{l}"
+# end
+
+# get '/hello/*/*' do
+#   "hello #{params[:splat][0]} #{params[:splat][1]}"
+# end
+
+get %r{/users/([0-9]*)} do
+  "user id = #{params[:captures][0]}"
+end
+
+
+
+
+
+// ===== video_summary =====
+ERBテンプレートを利用してページを表示していきます。
+
+
+    ERBの利用
+    動作確認
+
+// ===== /views/about.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>About this Site</title>
+</head>
+<body>
+  <h1>About</h1>
+</body>
+</html>
+
+// ===== /views/index.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Site</title>
+</head>
+<body>
+  <h1>Hello</h1>
+</body>
+</html>
+
+// ===== app.rb =====
+require 'sinatra'
+require 'sinatra/reloader'
+
+get '/' do
+  erb :index
+end
+
+get '/about' do
+  erb :about
+end
+
+
+
+
+
+// ===== video_summary =====
+共通テンプレートとなるlayout.erbの使い方について見ていきます。
+
+
+    layout.erb
+
+// ===== /views/about.erb =====
+<h1>About</h1>
+
+// ===== /views/index.erb =====
+<h1>Hello</h1>
+
+// ===== /views/layout.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title><%= @title %></title>
+</head>
+<body>
+  <%= yield %>
+</body>
+</html>
+
+// ===== app.rb =====
+require 'sinatra'
+require 'sinatra/reloader'
+
+get '/' do
+  @title = "My Site"
+  erb :index
+end
+
+get '/about' do
+  @title = "About This Site"
+  erb :about
+end
+
+
+
+
+
+// ===== video_summary =====
+CSSファイルを設置してページのスタイルを整えていきます。
+
+
+    publicディレクトリ
+    CSSの設定
+
+// ===== /public/css/styles.css =====
+body {
+  font-size: 16px;
+  font-family: Verdana, sans-serif;
+}
+
+.container {
+  width: 400px;
+  margin: 20px auto;
+}
+
+h1 {
+  font-size: 18px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+// ===== /views/layout.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title><%= @title %></title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <%= yield %>
+  </div>
+</body>
+</html>
+
+// ===== /views/about.erb =====
+<h1>About</h1>
+
+// ===== /views/index.erb =====
+<h1>Hello</h1>
+
+// ===== app.rb =====
+require 'sinatra'
+require 'sinatra/reloader'
+
+get '/' do
+  @title = "My Site"
+  erb :index
+end
+
+get '/about' do
+  @title = "About This Site"
+  erb :about
+end
+
+
+
+
+
+// ===== video_summary =====
+今まで習ったことをもとに掲示板アプリを作ってみます。
+
+
+    掲示板アプリの作成
+
+// ===== /public/css/styles.css =====
+body {
+  font-size: 16px;
+  font-family: Verdana, sans-serif;
+}
+
+.container {
+  width: 400px;
+  margin: 20px auto;
+}
+
+h1 {
+  font-size: 18px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+ul > li {
+  margin-bottom: 5px;
+}
+
+input[type="text"] {
+  padding: 3px;
+}
+
+// ===== /views/index.erb =====
+<h1>My BBS</h1>
+<ul>
+  <li>comment</li>
+  <li>comment</li>
+  <li>comment</li>
+</ul>
+<form action="" method="post">
+  <input type="text" name="body">
+  <input type="submit" value="Add comment">
+</form>
+
+// ===== app.rb =====
+require 'sinatra'
+require 'sinatra/reloader'
+
+get '/' do
+  @title = "My BBS"
+  erb :index
+end
+
+// ===== /views/layout.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title><%= @title %></title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <%= yield %>
+  </div>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+SQLiteにてテーブルを設定したのち、初期データを挿入していきます。
+
+
+    テーブルの設定
+    データの挿入
+
+// ===== seeds.sql =====
+drop table if exists comments;
+create table comments (
+  id integer primary key,
+  body text
+);
+
+insert into comments (body) values ('comment 1');
+insert into comments (body) values ('comment 2');
+insert into comments (body) values ('comment 3');
+
+// ===== /public/css/styles.css =====
+body {
+  font-size: 16px;
+  font-family: Verdana, sans-serif;
+}
+
+.container {
+  width: 400px;
+  margin: 20px auto;
+}
+
+h1 {
+  font-size: 18px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+ul > li {
+  margin-bottom: 5px;
+}
+
+input[type="text"] {
+  padding: 3px;
+}
+
+// ===== /views/index.erb =====
+<h1>My BBS</h1>
+<ul>
+  <li>comment</li>
+  <li>comment</li>
+  <li>comment</li>
+</ul>
+<form action="" method="post">
+  <input type="text" name="body">
+  <input type="submit" value="Add comment">
+</form>
+
+// ===== /views/layout.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title><%= @title %></title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <%= yield %>
+  </div>
+</body>
+</html>
+
+// ===== app.rb =====
+require 'sinatra'
+require 'sinatra/reloader'
+
+get '/' do
+  @title = "My BBS"
+  erb :index
+end
+
+
+
+
+
+// ===== video_summary =====
+ActiveRecordを設定してデータをページに表示してみます。
+
+
+    ActiveRecordの設定
+    コメント一覧の表示
+
+// ===== commentBox 1 =====
+補足情報
+Active Record のエラーが出る場合
+
+
+
+
+2019年3月10日
+
+
+
+
+
+2019年3月現在、gem の sqlite3 のバージョンによってはエラーが発生する場合が確認されています。
+
+解決方法
+
+まずは、
+
+gem uninstall sqlite3
+
+
+と実行して sqlite3 をアンインストールしてください。次に、
+
+gem install sqlite3 -v 1.3.13
+
+
+と実行してバージョン 1.3.13 をインストールします。
+
+インストールができたらサーバーを起動し直してから、ブラウザでアクセスしてみてください。
+
+// ===== /views/index.erb =====
+<h1>My BBS</h1>
+<ul>
+  <% @comments.each do |comment| %>
+  <li><%= comment.body %></li>
+  <% end %>
+</ul>
+<form action="" method="post">
+  <input type="text" name="body">
+  <input type="submit" value="Add comment">
+</form>
+
+// ===== app.rb =====
+require 'sinatra'
+require 'sinatra/reloader'
+require 'active_record'
+
+ActiveRecord::Base.establish_connection(
+  adapter: 'sqlite3',
+  database: './bbs.db'
+)
+
+class Comment < ActiveRecord::Base
+end
+
+get '/' do
+  @title = "My BBS"
+  @comments = Comment.all
+  erb :index
+end
+
+// ===== /public/css/styles.css =====
+body {
+  font-size: 16px;
+  font-family: Verdana, sans-serif;
+}
+
+.container {
+  width: 400px;
+  margin: 20px auto;
+}
+
+h1 {
+  font-size: 18px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+ul > li {
+  margin-bottom: 5px;
+}
+
+input[type="text"] {
+  padding: 3px;
+}
+
+// ===== /views/layout.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title><%= @title %></title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <%= yield %>
+  </div>
+</body>
+</html>
+
+// ===== seeds.sql =====
+drop table if exists comments;
+create table comments (
+  id integer primary key,
+  body text
+);
+
+insert into comments (body) values ('comment 1');
+insert into comments (body) values ('comment 2');
+insert into comments (body) values ('comment 3');
+
+
+
+
+
+// ===== video_summary =====
+コメントを追加するためのフォームが動作するように実装していきます。
+
+
+    コメント追加機能の実装
+
+// ===== /views/index.erb =====
+<h1>My BBS</h1>
+<ul>
+  <% @comments.each do |comment| %>
+  <li><%= Rack::Utils.escape_html(comment.body) %></li>
+  <% end %>
+</ul>
+<form action="/create" method="post">
+  <input type="text" name="body">
+  <input type="submit" value="Add comment">
+</form>
+
+// ===== app.rb =====
+require 'sinatra'
+require 'sinatra/reloader'
+require 'active_record'
+
+ActiveRecord::Base.establish_connection(
+  adapter: 'sqlite3',
+  database: './bbs.db'
+)
+
+class Comment < ActiveRecord::Base
+  validates :body, presence: true
+end
+
+get '/' do
+  @title = "My BBS"
+  @comments = Comment.all
+  erb :index
+end
+
+post '/create' do
+  Comment.create(body: params[:body])
+  redirect to('/')
+end
+
+// ===== /public/css/styles.css =====
+body {
+  font-size: 16px;
+  font-family: Verdana, sans-serif;
+}
+
+.container {
+  width: 400px;
+  margin: 20px auto;
+}
+
+h1 {
+  font-size: 18px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+ul > li {
+  margin-bottom: 5px;
+}
+
+input[type="text"] {
+  padding: 3px;
+}
+
+// ===== /views/layout.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title><%= @title %></title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <%= yield %>
+  </div>
+</body>
+</html>
+
+// ===== seeds.sql =====
+drop table if exists comments;
+create table comments (
+  id integer primary key,
+  body text
+);
+
+insert into comments (body) values ('comment 1');
+insert into comments (body) values ('comment 2');
+insert into comments (body) values ('comment 3');
+
+
+
+
+
+// ===== video_summary =====
+コメント削除機能を実装していきます。
+
+
+    削除機能の実装
+    jQueryの読み込み
+
+// ===== /public/css/styles.css =====
+body {
+  font-size: 16px;
+  font-family: Verdana, sans-serif;
+}
+
+.container {
+  width: 400px;
+  margin: 20px auto;
+}
+
+h1 {
+  font-size: 18px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+ul > li {
+  margin-bottom: 5px;
+}
+
+input[type="text"] {
+  padding: 3px;
+}
+
+.delete {
+  font-size: 12px;
+  cursor: pointer;
+  color: #08c;
+}
+
+// ===== /public/js/main.js =====
+$(function() {
+  $('.delete').on('click', function() {
+
+  });
+});
+
+// ===== /views/index.erb =====
+<h1>My BBS</h1>
+<ul>
+  <% @comments.each do |comment| %>
+  <li>
+    <%= Rack::Utils.escape_html(comment.body) %>
+    <span class="delete">[x]</span>
+  </li>
+  <% end %>
+</ul>
+<form action="/create" method="post">
+  <input type="text" name="body">
+  <input type="submit" value="Add comment">
+</form>
+
+// ===== /views/layout.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title><%= @title %></title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <%= yield %>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== app.rb =====
+require 'sinatra'
+require 'sinatra/reloader'
+require 'active_record'
+
+ActiveRecord::Base.establish_connection(
+  adapter: 'sqlite3',
+  database: './bbs.db'
+)
+
+class Comment < ActiveRecord::Base
+  validates :body, presence: true
+end
+
+get '/' do
+  @title = "My BBS"
+  @comments = Comment.all
+  erb :index
+end
+
+post '/create' do
+  Comment.create(body: params[:body])
+  redirect to('/')
+end
+
+// ===== seeds.sql =====
+drop table if exists comments;
+create table comments (
+  id integer primary key,
+  body text
+);
+
+insert into comments (body) values ('comment 1');
+insert into comments (body) values ('comment 2');
+insert into comments (body) values ('comment 3');
+
+
+
+
+
+
+// ===== video_summary =====
+コメントを削除するための処理をAjaxで実装していきます。
+
+
+    Ajax処理の実装
+
+// ===== /public/js/main.js =====
+$(function() {
+  $('.delete').on('click', function() {
+    var li = $(this).parent();
+    if (!confirm('sure?')) {
+      return;
+    }
+    $.post('/destroy', {
+      id: li.data('id')
+    }, function() {
+      li.fadeOut(800);
+    });
+  });
+});
+
+// ===== /views/index.erb =====
+<h1>My BBS</h1>
+<ul>
+  <% @comments.each do |comment| %>
+  <li data-id="<%= comment.id %>">
+    <%= Rack::Utils.escape_html(comment.body) %>
+    <span class="delete">[x]</span>
+  </li>
+  <% end %>
+</ul>
+<form action="/create" method="post">
+  <input type="text" name="body">
+  <input type="submit" value="Add comment">
+</form>
+
+// ===== app.rb =====
+require 'sinatra'
+require 'sinatra/reloader'
+require 'active_record'
+
+ActiveRecord::Base.establish_connection(
+  adapter: 'sqlite3',
+  database: './bbs.db'
+)
+
+class Comment < ActiveRecord::Base
+  validates :body, presence: true
+end
+
+get '/' do
+  @title = "My BBS"
+  @comments = Comment.all
+  erb :index
+end
+
+post '/create' do
+  Comment.create(body: params[:body])
+  redirect to('/')
+end
+
+post '/destroy' do
+  Comment.find(params[:id]).destroy
+end
+
+// ===== /public/css/styles.css =====
+body {
+  font-size: 16px;
+  font-family: Verdana, sans-serif;
+}
+
+.container {
+  width: 400px;
+  margin: 20px auto;
+}
+
+h1 {
+  font-size: 18px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+ul > li {
+  margin-bottom: 5px;
+}
+
+input[type="text"] {
+  padding: 3px;
+}
+
+.delete {
+  font-size: 12px;
+  cursor: pointer;
+  color: #08c;
+}
+
+// ===== /views/layout.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title><%= @title %></title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <%= yield %>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== seeds.sql =====
+drop table if exists comments;
+create table comments (
+  id integer primary key,
+  body text
+);
+
+insert into comments (body) values ('comment 1');
+insert into comments (body) values ('comment 2');
+insert into comments (body) values ('comment 3');
+
+
+
+
+
+// ===== video_summary =====
+悪意のあるフォームからデータが送信されないようにCSRF対策を施していきます。
+
+
+    gemの導入
+    トークンの設定
+
+// ===== /views/index.erb =====
+<h1>My BBS</h1>
+<ul>
+  <% @comments.each do |comment| %>
+  <li data-id="<%= comment.id %>" data-token="<%= Rack::Csrf.csrf_token(env) %>">
+    <%= Rack::Utils.escape_html(comment.body) %>
+    <span class="delete">[x]</span>
+  </li>
+  <% end %>
+</ul>
+<form action="/create" method="post">
+  <%= Rack::Csrf.csrf_tag(env) %>
+  <input type="text" name="body">
+  <input type="submit" value="Add comment">
+</form>
+
+// ===== app.rb =====
+require 'sinatra'
+require 'sinatra/reloader'
+require 'active_record'
+require 'rack/csrf'
+
+use Rack::Session::Cookie, secret: "thisissomethingsecret"
+use Rack::Csrf, raise: true
+
+ActiveRecord::Base.establish_connection(
+  adapter: 'sqlite3',
+  database: './bbs.db'
+)
+
+class Comment < ActiveRecord::Base
+  validates :body, presence: true
+end
+
+get '/' do
+  @title = "My BBS"
+  @comments = Comment.all
+  erb :index
+end
+
+post '/create' do
+  Comment.create(body: params[:body])
+  redirect to('/')
+end
+
+post '/destroy' do
+  Comment.find(params[:id]).destroy
+end
+
+// ===== /public/css/styles.css =====
+body {
+  font-size: 16px;
+  font-family: Verdana, sans-serif;
+}
+
+.container {
+  width: 400px;
+  margin: 20px auto;
+}
+
+h1 {
+  font-size: 18px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+ul > li {
+  margin-bottom: 5px;
+}
+
+input[type="text"] {
+  padding: 3px;
+}
+
+.delete {
+  font-size: 12px;
+  cursor: pointer;
+  color: #08c;
+}
+
+// ===== /public/js/main.js =====
+$(function() {
+  $('.delete').on('click', function() {
+    var li = $(this).parent();
+    if (!confirm('sure?')) {
+      return;
+    }
+    $.post('/destroy', {
+      id: li.data('id')
+    }, function() {
+      li.fadeOut(800);
+    });
+  });
+});
+
+// ===== /views/layout.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title><%= @title %></title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <%= yield %>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== seeds.sql =====
+drop table if exists comments;
+create table comments (
+  id integer primary key,
+  body text
+);
+
+insert into comments (body) values ('comment 1');
+insert into comments (body) values ('comment 2');
+insert into comments (body) values ('comment 3');
+
+
+
+
+
+// ===== video_summary =====
+トークンを送信してから動作確認をしていきます。
+
+
+    トークンの送信
+    動作確認
+
+// ===== /public/js/main.js =====
+$(function() {
+  $('.delete').on('click', function() {
+    var li = $(this).parent();
+    if (!confirm('sure?')) {
+      return;
+    }
+    $.post('/destroy', {
+      id: li.data('id'),
+      _csrf: li.data('token')
+    }, function() {
+      li.fadeOut(800);
+    });
+  });
+});
+
+// ===== /views/index.erb =====
+<h1>My BBS</h1>
+<ul>
+  <% @comments.each do |comment| %>
+  <li data-id="<%= comment.id %>" data-token="<%= Rack::Csrf.csrf_token(env) %>">
+    <%= Rack::Utils.escape_html(comment.body) %>
+    <span class="delete">[x]</span>
+  </li>
+  <% end %>
+</ul>
+<form action="/create" method="post">
+  <%#= Rack::Csrf.csrf_tag(env) %>
+  <input type="text" name="body">
+  <input type="submit" value="Add comment">
+</form>
+
+// ===== /public/css/styles.css =====
+body {
+  font-size: 16px;
+  font-family: Verdana, sans-serif;
+}
+
+.container {
+  width: 400px;
+  margin: 20px auto;
+}
+
+h1 {
+  font-size: 18px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+ul > li {
+  margin-bottom: 5px;
+}
+
+input[type="text"] {
+  padding: 3px;
+}
+
+.delete {
+  font-size: 12px;
+  cursor: pointer;
+  color: #08c;
+}
+
+// ===== /views/layout.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title><%= @title %></title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <%= yield %>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== app.rb =====
+require 'sinatra'
+require 'sinatra/reloader'
+require 'active_record'
+require 'rack/csrf'
+
+use Rack::Session::Cookie, secret: "thisissomethingsecret"
+use Rack::Csrf, raise: true
+
+ActiveRecord::Base.establish_connection(
+  adapter: 'sqlite3',
+  database: './bbs.db'
+)
+
+class Comment < ActiveRecord::Base
+  validates :body, presence: true
+end
+
+get '/' do
+  @title = "My BBS"
+  @comments = Comment.all
+  erb :index
+end
+
+post '/create' do
+  Comment.create(body: params[:body])
+  redirect to('/')
+end
+
+post '/destroy' do
+  Comment.find(params[:id]).destroy
+end
+
+// ===== seeds.sql =====
+drop table if exists comments;
+create table comments (
+  id integer primary key,
+  body text
+);
+
+insert into comments (body) values ('comment 1');
+insert into comments (body) values ('comment 2');
+insert into comments (body) values ('comment 3');
+
+
+
+
+
+// ===== video_summary =====
+任意の処理を短い名前で登録することができるヘルパーの使い方について見ていきます。
+
+
+    ヘルパーの設定
+    動作確認
+
+// ===== /views/index.erb =====
+<h1>My BBS</h1>
+<ul>
+  <% @comments.each do |comment| %>
+  <li data-id="<%= comment.id %>" data-token="<%= csrf_token %>">
+    <%= h(comment.body) %>
+    <span class="delete">[x]</span>
+  </li>
+  <% end %>
+</ul>
+<form action="/create" method="post">
+  <%= csrf_tag %>
+  <input type="text" name="body">
+  <input type="submit" value="Add comment">
+</form>
+
+// ===== app.rb =====
+require 'sinatra'
+require 'sinatra/reloader'
+require 'active_record'
+require 'rack/csrf'
+
+use Rack::Session::Cookie, secret: "thisissomethingsecret"
+use Rack::Csrf, raise: true
+
+helpers do
+  def csrf_tag
+    Rack::Csrf.csrf_tag(env)
+  end
+  def csrf_token
+    Rack::Csrf.csrf_token(env)
+  end
+  def h(str)
+    Rack::Utils.escape_html(str)
+  end
+end
+
+ActiveRecord::Base.establish_connection(
+  adapter: 'sqlite3',
+  database: './bbs.db'
+)
+
+class Comment < ActiveRecord::Base
+  validates :body, presence: true
+end
+
+get '/' do
+  @title = "My BBS"
+  @comments = Comment.all
+  erb :index
+end
+
+post '/create' do
+  Comment.create(body: params[:body])
+  redirect to('/')
+end
+
+post '/destroy' do
+  Comment.find(params[:id]).destroy
+end
+
+// ===== /public/css/styles.css =====
+body {
+  font-size: 16px;
+  font-family: Verdana, sans-serif;
+}
+
+.container {
+  width: 400px;
+  margin: 20px auto;
+}
+
+h1 {
+  font-size: 18px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+ul > li {
+  margin-bottom: 5px;
+}
+
+input[type="text"] {
+  padding: 3px;
+}
+
+.delete {
+  font-size: 12px;
+  cursor: pointer;
+  color: #08c;
+}
+
+// ===== /public/js/main.js =====
+$(function() {
+  $('.delete').on('click', function() {
+    var li = $(this).parent();
+    if (!confirm('sure?')) {
+      return;
+    }
+    $.post('/destroy', {
+      id: li.data('id'),
+      _csrf: li.data('token')
+    }, function() {
+      li.fadeOut(800);
+    });
+  });
+});
+
+// ===== /views/layout.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title><%= @title %></title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <%= yield %>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+// ===== seeds.sql =====
+drop table if exists comments;
+create table comments (
+  id integer primary key,
+  body text
+);
+
+insert into comments (body) values ('comment 1');
+insert into comments (body) values ('comment 2');
+insert into comments (body) values ('comment 3');
+
+
+
+
+

@@ -1,0 +1,360 @@
+// ===== video_summary =====
+概要を説明したのちに、必要となる知識やツール、注意点や環境について説明していきます。
+
+
+    概要
+    必要となる知識
+    必要となるツール
+    注意点
+    環境
+    Webサーバーの立ち上げ
+
+// ===== commentBox 1 =====
+補足情報
+Python 3系では http.server を使用してください
+
+
+
+
+2018年3月4日
+
+
+
+
+
+Python 3系では SimpleHTTPServer はエラーとなりますので、
+
+python -m http.server
+
+
+としてください。
+
+// ===== read.me =====
+Web Storage
+
+* 概要
+- ブラウザにデータを保存しておくための仕組み
+- Cookie 
+
+* 知識
+- HTML
+- JavaScript
+- ローカル開発環境（Vagrant）
+
+* ツール
+- Google Chrome
+
+* 注意点
+- caniuse.com
+
+* 環境
+- ローカル開発環境（Vagrant）
+
+// ===== index.html =====
+hello
+
+
+
+
+// ===== video_summary =====
+index.htmlを作成したのちに、Web Storageを使う準備をしていきます。
+
+
+    index.htmlの作成
+    Web Storageの準備
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Web Storage</title>
+</head>
+<body>
+    <script>
+    (function() {
+
+        if (typeof(Storage) === "undefined") {
+            alert("Web Storage Not Supported");
+        } else {
+            console.log("Supported!");
+        }
+
+    })();
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+Web Storageに関するルールと種類について説明していきます。
+
+
+    同一オリジン
+    sessionStorage
+    localStorage
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Web Storage</title>
+</head>
+<body>
+    <script>
+    (function() {
+
+        if (typeof(Storage) === "undefined") {
+            alert("Web Storage Not Supported");
+        } else {
+            // console.log("Supported!");
+
+            // ルール
+            // 同一オリジンでデータを保存
+            // http://192.168.38.10:8000/index.html
+            // http://192.168.38.10:8000/cart.html
+            // http://192.168.38.10:8000/app/index.html
+
+            // 種類
+            // sessionStorage: タブが閉じられるまで有効
+            // localStorage: ブラウザ自体にずっと保存
+
+        }
+
+    })();
+    </script>
+</body>
+</html>
+
+
+
+
+// ===== video_summary =====
+データの保存、取得方法を学んだ後に、sessionStorageとlocalStorageの違いをみていきます。
+
+
+    setItem
+    getItem
+    sessionStorageとlocalStorageの違い
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Web Storage</title>
+</head>
+<body>
+    <script>
+    (function() {
+
+        if (typeof(Storage) === "undefined") {
+            alert("Web Storage Not Supported");
+        } else {
+
+            // var s = sessionStorage;
+            var s = localStorage;
+
+            // key, value
+            // s.setItem(key, value)
+            // s.getItem(key)
+
+            // s.setItem('name', 'fkoji');
+            // console.log('name saved!');
+            console.log(s.getItem('name'));
+
+        }
+
+    })();
+    </script>
+</body>
+</html>
+
+
+
+
+// ===== video_summary =====
+ブラウザからデータを確認する方法および、データの削除方法について見ていきます。
+
+
+    ブラウザからの確認
+    removeItem
+    clear
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Web Storage</title>
+</head>
+<body>
+    <script>
+    (function() {
+
+        if (typeof(Storage) === "undefined") {
+            alert("Web Storage Not Supported");
+        } else {
+
+            var ls = localStorage;
+            var ss = sessionStorage;
+                       
+            ls.setItem('taguchi', 70);
+            ls.setItem('fkoji', 80);
+
+            ss.setItem('color', 'pink');
+            ss.setItem('shape', 'cube');
+
+            // removeItem(key)
+            // clear()
+
+            ls.removeItem('taguchi');
+            ss.clear();
+
+        }
+
+    })();
+    </script>
+</body>
+</html>
+
+
+
+
+// ===== video_summary =====
+データの一覧を取得するためのlength、key(n)の使い方を見ていきます。
+
+
+    length
+    key(n)
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Web Storage</title>
+</head>
+<body>
+    <script>
+    (function() {
+
+        if (typeof(Storage) === "undefined") {
+            alert("Web Storage Not Supported");
+        } else {
+
+            var s = localStorage;
+
+            s.setItem('taguchi', 80);
+            s.setItem('fkoji', 90);
+            s.setItem('dotinstall', 70);
+
+            // length
+            // key(n)
+
+            for (var i = 0; i < s.length; i++) {
+                console.log(s.key(i) + ':' + s.getItem(s.key(i)));
+            }
+
+        }
+
+    })();
+    </script>
+</body>
+</html>
+
+
+
+
+// ===== video_summary =====
+複雑なオブジェクトと文字列を相互変換するための命令について見ていきます。
+
+
+    JSON.stringify
+    JSON.parse
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Web Storage</title>
+</head>
+<body>
+    <script>
+    (function() {
+
+        if (typeof(Storage) === "undefined") {
+            alert("Web Storage Not Supported");
+        } else {
+
+            var s = localStorage;
+
+            // s.setItem('taguchi', 80);
+
+            var user = {
+                name: 'taguchi', 
+                score: 80
+            };
+
+            // JSON <-> 文字列
+            // JSON.stringify
+            // JSON.parse
+
+            s.setItem('user', JSON.stringify(user));
+            console.dir(JSON.parse(s.getItem('user')));
+
+        }
+
+    })();
+    </script>
+</body>
+</html>
+
+
+
+
+// ===== video_summary =====
+localStorageで使えるイベントの仕組みについて学びます。
+
+
+    イベントの検出
+    動作確認
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Web Storage</title>
+</head>
+<body>
+    <script>
+    (function() {
+
+        if (typeof(Storage) === "undefined") {
+            alert("Web Storage Not Supported");
+        } else {
+
+            var s = localStorage;
+            s.setItem('name', 'taguchi');
+
+            window.addEventListener('storage', function(e) {
+                // e.key
+                // e.oldValue, e.newValue
+                // e.storageArea
+                // e.url
+                console.log(e.key + ':' + e.oldValue + '->' + e.newValue);
+            });
+
+        }
+
+    })();
+    </script>
+</body>
+</html>

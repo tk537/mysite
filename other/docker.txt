@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+  Docker
+
+* 概要
+- 軽量な仮想化環境
+- Build once, run anywhere 
+
+* 公式サイト
+
+* 知識
+- Unix
+- Vim
+- Vagrant
+
+* 環境
+- Ubuntu (Vagrant) <- Docker
+
+ Dockerをインストールする仮想マシンとして、Vagrantを使ってUbuntuを用意していきます。
+Ubuntu Boxの追加
+Ubuntuの起動
+Ubuntuへの接続
+補足情報 Mac ユーザーの方は Docker for Mac を使用しましょう
+2019年7月17日
+動画の内容が古くなっており、また現在 Ubuntu への Docker のインストールは少々難易度が高くなっております。
+Mac ユーザーの方であれば Docker for Mac をインストールして学習を進めることをおすすめいたします。
+https://docs.docker.com/docker-for-mac/install/
+インストールできましたら https://dotinstall.com/lessons/basic_docker/27704 のレッスンへ進んでください。
+
+
+pwd
+vagrant box add trusty64 http://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box
+mkdir Docker
+cd Docker
+vagrant init trusty64
+vi Vagrantfile
+vagrant up
+vagrant ssh
+
+
+
+公式サイトの手順にしたがってDockerをインストールしていきます。
+システムの更新
+Dockerのインストール
+バージョンの確認
+補足情報 Mac ユーザーの方は Docker for Mac を使用しましょう
+2019年7月17日
+動画の内容が古くなっており、また現在 Ubuntu への Docker のインストールは少々難易度が高くなっております。
+Mac ユーザーの方であれば Docker for Mac をインストールして学習を進めることをおすすめいたします。
+https://docs.docker.com/docker-for-mac/install/
+補足情報 Docker のインストール手順について
+2017年8月30日
+最新の Docker ではドキュメントのページやインストール手順が変わっています。以下のページの手順に従って Docker CE をインストールしてみてください。
+Get Docker CE for Ubuntu | Docker Documentation
+https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/
+
+なお、途中 keyserver がタイムアウトしてしまう場合は、代わりに以下のコマンドを利用してみてください。
+curl https://apt.dockerproject.org/gpg > docker.gpg.key && echo "c836dc13577c6f7c133ad1db1a2ee5f41ad742d11e4ac860d8e658b2b39e6ac1 docker.gpg.key" | sha256sum -c && sudo apt-key add docker.gpg.key && rm docker.gpg.key
+
+参考: http://qiita.com/togana/items/cf3bf9bb7cf28923b221
+
+sudo apt-get update
+sudo apt-get install docker.io
+sudo ln -sf /usr/bin/docker.io /usr/local/bin/docker
+sudo docker --version
+
+
+
+まずはCentOSを導入し、Imageの操作方法を見ていきます。
+Imageの検索
+Imageの取得
+Imageの一覧
+Imageの詳細表示
+Imageの削除
+補足情報 Docker Index は Docker Hub に変わっています
+2017年8月30日
+動画内で紹介している Docker Index は以下のサイトに変わっています。（ https://index.docker.io から自動的にリダイレクトされます。）
+Docker Hub
+https://hub.docker.com/
+
+sudo docker search centos | more
+sudo docker pull centos
+sudo docker images
+sudo docker inspect 0b44
+sudo docker images
+sudo docker rmi 539c
+sudo docker images
+
+
+
+ImageからContainerを立ち上げてみます。
+Containerの起動
+Containerの一覧
+Containerの削除
+sudo docker run centos echo "hello world"
+sudo docker ps 
+sudo docker ps -a
+sudo docker ps -a -n=5
+sudo docker rm 031
+sudo docker ps -a
+
+
+実行中のContainerを操作する方法について見ていきます。
+バックグラウンドでの起動
+ログの確認
+attach / detach
+stop / kill
+start
+sudo docker run -d centos free -s 3
+sudo docker ps
+sudo docker logs 765
+sudo docker attach --sig-proxy=false 765
+sudo docker ps
+sudo docker kill 765
+sudo docker ps
+sudo docker ps -a
+sudo docker start 765
+sudo docker ps
+
+Containerに変更を加えたのちに、そのContainerからImageを作ってみます。
+Container内での作業
+Commit
+Imageからの起動
+sudo docker run -i -t centos /bin/bash
+touch hello.txt
+ls
+exit
+sudo docker ps -a
+sudo docker commit 639 taguchi/hello
+sudo docker images
+sudo docker run -i -t taguchi/hello /bin/bash
+
+
+
+Dockerfileを使ってImageを作る方法について見ていきます。
+Dockerfileの作成
+動作確認
+vi Dockerfile
+sudo docker build -t taguchi/echo .
+sudo docker images
+sudo docker run taguchi/echo
+
+DockerFile
+FROM centos
+MAINTAINER tk
+# RUN: buildするときに実行される
+RUN echo "now building..."
+# CMD: runするときに実行される
+# CMD echo "now running..."
+CMD ["echo", "now running..."]
+
+
+Dockerfileを使ってWebサーバーをインストールし、そのImageから起動してブラウザで確認してみます。
+Dockerfileの修正
+index.htmlの作成
+build
+動作確認
+vi Dockerfile
+vi index.html
+sudo docker build -t taguchi/httpd .
+sudo docker run -p 8080:80 -d taguchi/httpd
+
+Dockerfile
+FROM centos
+MAINTAINER tk
+# RUN: buildするときに実行される
+# RUN echo "now building..."
+# CMD: runするときに実行される
+# CMD echo "now running..."
+# CMD ["echo", "now running..."]
+RUN yum install -y httpd
+ADD ./index.html /var/www/html/
+EXPOSE 80
+CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
+
+
+作ったImageをDocker Indexにpushする方法について学びます。
+ログイン
+push
+確認
+sudo docker login
+sudo docker push taguchi/httpd
+</pre>
+</body>
+</html>

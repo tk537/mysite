@@ -1,0 +1,574 @@
+// ===== video_summary =====
+Socket.IOの概要について説明したあとに、公式サイト、必要となる知識やレッスンにおける環境について見ていきます。
+
+
+    概要
+    公式サイト
+    必要となる知識
+    レッスンにおける環境
+
+// ===== read.me =====
+Socket.IO
+
+* 概要
+- WebSocket
+- リアルタイム双方向通信
+
+* 公式サイト
+
+* 知識
+- html
+- Node.js/JavaScript
+- Unixコマンド
+
+* 環境
+
+// ===== video_summary =====
+まずはNode.jsからSocket.IOを読み込んでWebサーバーを立てていきます。
+
+
+    app.jsの作成
+
+// ===== app.js =====
+var app = require('http').createServer(handler),
+    io = require('socket.io').listen(app),
+    fs = require('fs');
+app.listen(1337);
+function handler(req, res) {
+    fs.readFile(__dirname + '/index.html', function(err, data) {
+        if (err) {
+            res.writeHead(500);
+            return res.end('Error');
+        }
+        res.writeHead(200);
+        res.write(data);
+        res.end();
+    })
+}
+
+// ===== video_summary =====
+Webサーバーにアクセスしたときに表示されるindex.htmlを作りこんでいきます。
+
+
+    index.htmlの作成
+    jQueryの読み込み
+    動作確認
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Socket.IOの練習</title>
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+    </script>
+</body>
+</html>
+
+// ===== app.js =====
+var app = require('http').createServer(handler),
+    io = require('socket.io').listen(app),
+    fs = require('fs');
+app.listen(1337);
+function handler(req, res) {
+    fs.readFile(__dirname + '/index.html', function(err, data) {
+        if (err) {
+            res.writeHead(500);
+            return res.end('Error');
+        }
+        res.writeHead(200);
+        res.write(data);
+        res.end();
+    })
+}
+
+// ===== video_summary =====
+クライアントからイベントを発信していく方法について学びます。
+
+
+    フォームの作成
+    socket.emit
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Socket.IOの練習</title>
+</head>
+<body>
+    <form id="myForm">
+        <input type="text" id="msg"> <input type="submit" value="Send!">
+    </form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        $(function() {
+            var socket = io.connect();
+            // emit: イベントを発信している
+            // on: イベントを待ち受けている
+            $('#myForm').submit(function() {
+                socket.emit('emit_from_client', $('#msg').val());
+            });
+        });
+    </script>
+</body>
+</html>
+
+// ===== app.js =====
+var app = require('http').createServer(handler),
+    io = require('socket.io').listen(app),
+    fs = require('fs');
+app.listen(1337);
+function handler(req, res) {
+    fs.readFile(__dirname + '/index.html', function(err, data) {
+        if (err) {
+            res.writeHead(500);
+            return res.end('Error');
+        }
+        res.writeHead(200);
+        res.write(data);
+        res.end();
+    })
+}
+
+// ===== video_summary =====
+クライアントからイベントを待ち受けるための方法について学びます。またログレベルの設定についても解説していきます。
+
+
+    socket.on
+    動作確認
+    ログレベルの設定
+
+// ===== app.js =====
+var app = require('http').createServer(handler),
+    io = require('socket.io').listen(app),
+    fs = require('fs');
+app.listen(1337);
+io.set('log level', 1);
+function handler(req, res) {
+    fs.readFile(__dirname + '/index.html', function(err, data) {
+        if (err) {
+            res.writeHead(500);
+            return res.end('Error');
+        }
+        res.writeHead(200);
+        res.write(data);
+        res.end();
+    })
+}
+io.sockets.on('connection', function(socket) {
+    socket.on('emit_from_client', function(data) {
+        console.log(data);
+    });
+});
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Socket.IOの練習</title>
+</head>
+<body>
+    <form id="myForm">
+        <input type="text" id="msg"> <input type="submit" value="Send!">
+    </form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        $(function() {
+            var socket = io.connect();
+            // emit: イベントを発信している
+            // on: イベントを待ち受けている
+            $('#myForm').submit(function() {
+                socket.emit('emit_from_client', $('#msg').val());
+            });
+        });
+    </script>
+</body>
+</html>
+
+// ===== video_summary =====
+次はサーバーからイベントを発信し、クライアント側で待ち受けてみます。
+
+
+    イベントの発信（サーバー）
+    イベントの待受（クライアント）
+    動作確認
+    フォームの設定
+
+// ===== app.js =====
+var app = require('http').createServer(handler),
+    io = require('socket.io').listen(app),
+    fs = require('fs');
+app.listen(1337);
+io.set('log level', 1);
+function handler(req, res) {
+    fs.readFile(__dirname + '/index.html', function(err, data) {
+        if (err) {
+            res.writeHead(500);
+            return res.end('Error');
+        }
+        res.writeHead(200);
+        res.write(data);
+        res.end();
+    })
+}
+io.sockets.on('connection', function(socket) {
+    socket.on('emit_from_client', function(data) {
+        // console.log(data);
+        socket.emit('emit_from_server', 'hello from server: ' + data);
+    });
+});
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Socket.IOの練習</title>
+</head>
+<body>
+    <form id="myForm">
+        <input type="text" id="msg"> <input type="submit" value="Send!">
+    </form>
+    <ul id="logs"></ul>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        $(function() {
+            var socket = io.connect();
+            // emit: イベントを発信している
+            // on: イベントを待ち受けている
+            $('#myForm').submit(function(e) {
+                e.preventDefault();
+                socket.emit('emit_from_client', $('#msg').val());
+                $('#msg').val('').focus();
+            });
+            socket.on('emit_from_server', function(data) {
+                $('#logs').append($('<li>').text(data));
+            });
+        });
+    </script>
+</body>
+</html>
+
+// ===== video_summary =====
+サーバーに接続している複数のクライアントに対してイベントを発信する方法について学びます。
+
+
+    socket.emit
+    socket.broadcast.emit
+    io.sockets.emit
+
+// ===== app.js =====
+var app = require('http').createServer(handler),
+    io = require('socket.io').listen(app),
+    fs = require('fs');
+app.listen(1337);
+io.set('log level', 1);
+function handler(req, res) {
+    fs.readFile(__dirname + '/index.html', function(err, data) {
+        if (err) {
+            res.writeHead(500);
+            return res.end('Error');
+        }
+        res.writeHead(200);
+        res.write(data);
+        res.end();
+    })
+}
+io.sockets.on('connection', function(socket) {
+    socket.on('emit_from_client', function(data) {
+        // console.log(data);
+        // 接続しているソケットのみ        
+        // socket.emit('emit_from_server', 'hello from server: ' + data);
+        // 接続しているソケット以外全部        
+        // socket.broadcast.emit('emit_from_server', 'hello from server: ' + data);
+        // 接続しているソケット全部        
+        io.sockets.emit('emit_from_server', '[' + socket.id + '] : ' + data);
+    });
+});
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Socket.IOの練習</title>
+</head>
+<body>
+    <form id="myForm">
+        <input type="text" id="msg"> <input type="submit" value="Send!">
+    </form>
+    <ul id="logs"></ul>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        $(function() {
+            var socket = io.connect();
+            // emit: イベントを発信している
+            // on: イベントを待ち受けている
+            $('#myForm').submit(function(e) {
+                e.preventDefault();
+                socket.emit('emit_from_client', $('#msg').val());
+                $('#msg').val('').focus();
+            });
+            socket.on('emit_from_server', function(data) {
+                $('#logs').append($('<li>').text(data));
+            });
+        });
+    </script>
+</body>
+</html>
+
+// ===== video_summary =====
+ソケットごとにデータを保存したり、それを取得する方法について学びます。
+
+
+    socket.json.emit
+    socket.set
+    socket.get
+
+// ===== commentBox 1 =====
+補足情報
+このレッスンの内容は最新バージョンの Socket.IO では動作しません
+
+
+
+
+2015年6月16日
+
+
+
+
+
+Socket.IO の 1.0 から socket.set と socket.get メソッドが廃止されたため、そのまま動作させるとエラーが発生してしまいます。
+
+エラーを回避するためには app.js で socket.set と socket.get を使用している箇所を以下のように修正します。
+io.sockets.on('connection', function(socket) {
+    socket.on('emit_from_client', function(data) {
+        // ここから修正箇所
+        socket.client_name = data.name; 
+        io.sockets.emit('emit_from_server', '[' + socket.client_name + '] : ' + data.msg);
+        // 修正箇所ここまで
+    });
+});
+
+// ===== app.js =====
+var app = require('http').createServer(handler),
+    io = require('socket.io').listen(app),
+    fs = require('fs');
+app.listen(1337);
+io.set('log level', 1);
+function handler(req, res) {
+    fs.readFile(__dirname + '/index.html', function(err, data) {
+        if (err) {
+            res.writeHead(500);
+            return res.end('Error');
+        }
+        res.writeHead(200);
+        res.write(data);
+        res.end();
+    })
+}
+io.sockets.on('connection', function(socket) {
+    socket.on('emit_from_client', function(data) {
+        socket.set('client_name', data.name);
+        socket.get('client_name', function(err, name) {
+            io.sockets.emit('emit_from_server', '[' + name + '] : ' + data.msg);
+        });
+    });
+});
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Socket.IOの練習</title>
+</head>
+<body>
+    <form id="myForm">
+        <input type="text" id="name"> <input type="text" id="msg"> <input type="submit" value="Send!">
+    </form>
+    <ul id="logs"></ul>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        $(function() {
+            var socket = io.connect();
+            // emit: イベントを発信している
+            // on: イベントを待ち受けている
+            $('#myForm').submit(function(e) {
+                e.preventDefault();
+                socket.json.emit('emit_from_client', {
+                    msg: $('#msg').val(),
+                    name: $('#name').val()
+                });
+                $('#msg').val('').focus();
+            });
+            socket.on('emit_from_server', function(data) {
+                $('#logs').append($('<li>').text(data));
+            });
+        });
+    </script>
+</body>
+</html>
+
+// ===== video_summary =====
+メッセージが到達する範囲を制限することができるroom機能について基本的な使い方を学びます。
+
+
+    socket.join
+
+// ===== app.js =====
+var app = require('http').createServer(handler),
+    io = require('socket.io').listen(app),
+    fs = require('fs');
+app.listen(1337);
+io.set('log level', 1);
+function handler(req, res) {
+    fs.readFile(__dirname + '/index.html', function(err, data) {
+        if (err) {
+            res.writeHead(500);
+            return res.end('Error');
+        }
+        res.writeHead(200);
+        res.write(data);
+        res.end();
+    })
+}
+io.sockets.on('connection', function(socket) {
+    socket.on('emit_from_client', function(data) {
+        socket.join(data.room);
+        socket.emit('emit_from_server', 'you are in ' + data.room);
+        socket.broadcast.to(data.room).emit('emit_from_server', data.msg);
+    });
+});
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Socket.IOの練習</title>
+</head>
+<body>
+    <form id="myForm">
+        <select id="rooms">
+            <option value="room-1">Room 1</option>
+            <option value="room-2">Room 2</option>
+        </select>
+        <input type="text" id="msg"> <input type="submit" value="Send!">
+    </form>
+    <ul id="logs"></ul>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        $(function() {
+            var socket = io.connect();
+            // emit: イベントを発信している
+            // on: イベントを待ち受けている
+            $('#myForm').submit(function(e) {
+                e.preventDefault();
+                socket.json.emit('emit_from_client', {
+                    msg: $('#msg').val(),
+                    room: $('#rooms').val()
+                });
+                $('#msg').val('').focus();
+            });
+            socket.on('emit_from_server', function(data) {
+                $('#logs').append($('<li>').text(data));
+            });
+        });
+    </script>
+</body>
+</html>
+
+// ===== video_summary =====
+異なる機能を実装する際にすっきりと実装ができるnamespace機能を使ってみます。
+
+
+    namespaceの概要
+    io.of
+    動作確認
+
+// ===== app.js =====
+var app = require('http').createServer(handler),
+    io = require('socket.io').listen(app),
+    fs = require('fs');
+app.listen(1337);
+io.set('log level', 1);
+function handler(req, res) {
+    fs.readFile(__dirname + '/index.html', function(err, data) {
+        if (err) {
+            res.writeHead(500);
+            return res.end('Error');
+        }
+        res.writeHead(200);
+        res.write(data);
+        res.end();
+    })
+}
+var chat = io.of('/chat').on('connection', function(socket) {
+    socket.on('emit_from_client', function(data) {
+        socket.join(data.room);
+        socket.emit('emit_from_server', 'you are in ' + data.room);
+        socket.broadcast.to(data.room).emit('emit_from_server', data.msg);
+    });
+});
+var news = io.of('/news').on('connection', function(socket) {
+    socket.emit('emit_from_server', 'today: ' + new Date());
+});
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Socket.IOの練習</title>
+</head>
+<body>
+    <form id="myForm">
+        <select id="rooms">
+            <option value="room-1">Room 1</option>
+            <option value="room-2">Room 2</option>
+        </select>
+        <input type="text" id="msg"> <input type="submit" value="Send!">
+    </form>
+    <ul id="logs"></ul>
+    <div id="news"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        $(function() {
+            var chat = io.connect('http://192.168.33.72:1337/chat'),
+                news = io.connect('http://192.168.33.72:1337/news');
+            // emit: イベントを発信している
+            // on: イベントを待ち受けている
+            $('#myForm').submit(function(e) {
+                e.preventDefault();
+                chat.json.emit('emit_from_client', {
+                    msg: $('#msg').val(),
+                    room: $('#rooms').val()
+                });
+                $('#msg').val('').focus();
+            });
+            chat.on('emit_from_server', function(data) {
+                $('#logs').append($('<li>').text(data));
+            });
+            news.on('emit_from_server', function(data) {
+                $('#news').text(data);
+            });
+        });
+    </script>
+</body>
+</html>
+

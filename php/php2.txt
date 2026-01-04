@@ -1,0 +1,399 @@
+// ===== video_summary =====
+制御構造について確認したのちに、条件分岐で使えるifの構文について説明していきます。
+
+
+    制御構造
+    条件分岐のパターン
+    ifの構文
+    比較演算子
+
+// ===== main.php =====
+
+
+
+
+
+
+
+// ===== video_summary =====
+ifを使って条件分岐をする方法について見ていきます。
+
+
+    ユーザーからの入力受付
+    if
+    (int)
+    else
+
+// ===== commentBox 1 =====
+補足情報
+ユーザーから整数値を受け取る方法について
+
+
+
+
+2024年5月14日
+
+
+
+
+
+動画中にて説明している、ユーザーから整数値を受け取る方法については以下のレッスンも復習してみましょう。
+・#14 キャストでデータ型を変換してみよう | PHP入門 基礎文法編
+https://dotinstall.com/lessons/basic_php_grammar_v2/66914
+
+// ===== main.php =====
+<?php
+echo "Score? ";
+$score = (int) fgets(STDIN);
+
+if ($score >= 90) {
+    echo "A" . PHP_EOL;
+} else {
+    echo "Not A" . PHP_EOL;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+else if ... を使ってさらに条件を追加していく方法について見ていきます。
+
+
+    if ... else if ... else ...
+    処理順の確認
+
+// ===== main.php =====
+<?php
+echo "Score? ";
+$score = (int) fgets(STDIN);
+
+// if ($score >= 90) {
+//     echo "A" . PHP_EOL;
+// } else if ($score >= 70) {
+//     echo "B" . PHP_EOL;
+// } else {
+//     echo "C" . PHP_EOL;
+// }
+if ($score >= 90) {
+    echo "A" . PHP_EOL;
+} else if ($score >= 95) {
+    echo "Super!" . PHP_EOL;
+} else {
+    echo "C" . PHP_EOL;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+文字列を使った条件分岐について見ていきます。
+
+
+    ユーザーからの入力受付
+    文字列を使った条件分岐
+
+// ===== main.php =====
+<?php
+echo "Signal? ";
+$signal = trim(fgets(STDIN));
+
+if ($signal === "red") {
+    echo "Stop" . PHP_EOL;
+} else if ($signal === "blue") {
+    echo "Go" . PHP_EOL;
+} else if ($signal === "yellow") {
+    echo "Slow down" . PHP_EOL;
+} else {
+    echo "Wrong signal" . PHP_EOL;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+switchを使って条件分岐をする方法について見ていきます。
+
+
+    switch
+    case
+    default
+    複数の条件
+
+// ===== main.php =====
+<?php
+echo "Signal? ";
+$signal = trim(fgets(STDIN));
+
+switch ($signal) {
+    case "red":
+        echo "Stop" . PHP_EOL;
+        break;
+    case "blue":
+    case "green":
+        echo "Go" . PHP_EOL;
+        break;
+    case "yellow":
+        echo "Slow down" . PHP_EOL;
+        break;
+    default:
+        echo "Wrong signal" . PHP_EOL;
+        break;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+forを使った反復処理がどう行われるかについて図で説明していきます。
+
+
+    forの構文
+    forの挙動
+
+// ===== main.php =====
+<?php
+echo "Signal? ";
+$signal = trim(fgets(STDIN));
+
+switch ($signal) {
+    case "red":
+        echo "Stop" . PHP_EOL;
+        break;
+    case "blue":
+    case "green":
+        echo "Go" . PHP_EOL;
+        break;
+    case "yellow":
+        echo "Slow down" . PHP_EOL;
+        break;
+    default:
+        echo "Wrong signal" . PHP_EOL;
+        break;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+forを使った反復処理の挙動を確認していきます。
+
+
+    for
+    九九の実装
+
+// ===== main.php =====
+<?php
+for ($i = 0; $i < 3; $i++) {
+    echo "{$i} Hello" . PHP_EOL;
+}
+
+// echo 4 * 1 . PHP_EOL;
+// echo 4 * 2 . PHP_EOL;
+// echo 4 * 3 . PHP_EOL;
+// ...
+// echo 4 * 9 . PHP_EOL;
+
+for ($i = 1; $i <= 9; $i++) {
+    echo 4 * $i . PHP_EOL;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+反復する回数があらかじめ決まっていない場合に使えるwhileについて見ていきます。
+
+
+    whileの構文
+    whileの挙動
+    whileの特徴
+
+// ===== main.php =====
+<?php
+$money = 500;
+while ($money < 1000) {
+    $money *= 1.1;
+    echo $money . PHP_EOL;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+反復する回数がわからない、最初に必ず1度実行したい場合に使えるdo ... whileについて見ていきます。
+
+
+    do ... whileの構文
+    do ... whileの使いどころ
+
+// ===== main.php =====
+<?php
+do {
+    echo "Password? ";
+    $password = trim(fgets(STDIN));
+} while ($password !== "d0t1nsta11");
+echo "Password matched" . PHP_EOL;
+
+
+
+
+
+
+// ===== video_summary =====
+forの中の変数名を変えたほうがわかりやすい例を見ていきます。
+
+
+    for
+    $year
+    動作確認
+
+// ===== main.php =====
+<?php
+$money = 100;
+for ($year = 1; $year <= 30; $year++) {
+    $money *= 1.05;
+    echo "Year {$year}: {$money}" . PHP_EOL;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+ループを途中で終了させたり、以降の処理をスキップして次の反復処理に移るための命令について見ていきます。
+
+
+    break
+    continue
+    breakとcontinueの違い
+
+// ===== main.php =====
+<?php
+$money = 100;
+for ($year = 1; $year <= 30; $year++) {
+    $money *= 1.05;
+    if ($money > 300) {
+        break;
+    }
+    if ($money < 200) {
+        continue;
+    }
+    echo "Year {$year}: {$money}" . PHP_EOL;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+?と:を使った、条件演算子と呼ばれる構文について見ていきます。
+
+
+    条件演算子の構文
+    条件演算子の注意点
+    動作確認
+
+// ===== main.php =====
+<?php
+echo "Score? ";
+$score = (int) fgets(STDIN);
+$result = $score > 80 ? "A" : "B";
+echo $result . PHP_EOL;
+
+
+
+
+
+
+// ===== video_summary =====
+より複雑な条件を作ることができる論理演算子について見ていきます。
+
+
+    &&
+    ||
+    !
+
+// ===== main.php =====
+<?php
+echo "English? ";
+$english = (int) fgets(STDIN);
+echo "Math? ";
+$math = (int) fgets(STDIN);
+
+if ($english >= 80 && $math >= 90) {
+if ($english >= 80 || $math >= 90) {
+if (!($english >= 80 && $math >= 90)) {
+    echo "A" . PHP_EOL;
+} else {
+    echo "B" . PHP_EOL;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+二択の値を表現するために使われる真偽値について説明していきます。
+
+
+    真偽値
+    true false
+    trueになる値、falseになる値
+
+// ===== main.php =====
+<?php
+echo "English? ";
+$english = (int) fgets(STDIN);
+echo "Math? ";
+$math = (int) fgets(STDIN);
+
+if ($english >= 80 && $math >= 90) {
+if ($english >= 80 || $math >= 90) {
+if (!($english >= 80 && $math >= 90)) {
+    echo "A" . PHP_EOL;
+} else {
+    echo "B" . PHP_EOL;
+}
+
+
+
+
+
+// ===== video_summary =====
+真偽値の挙動をコードで確認していきます。
+
+
+    真偽値の利用
+    trueになる値、falseになる値
+
+// ===== main.php =====
+<?php
+$isLoggedIn = "0";
+if ($isLoggedIn) {
+    echo "User logged in" . PHP_EOL;
+} else {
+    echo "User not logged in" . PHP_EOL;
+}
+
+
+
+
+
+

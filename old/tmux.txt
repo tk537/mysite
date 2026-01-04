@@ -1,0 +1,319 @@
+// ===== video_summary =====
+まずは概要を確認したのち、公式サイト、必要となる知識、レッスンにおける環境について見ていきます。
+
+
+    概要
+    公式サイト
+    必要となる知識
+    レッスンにおける環境
+    tmuxのインストール
+
+// ===== commentBox 1 =====
+補足情報
+必要となる知識について
+
+
+
+
+2016年11月21日
+
+
+
+
+
+このレッスンを受講する際には以下も参考にしてみてください。
+
+・ローカル開発環境の構築 [macOS編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_mac_v2
+・ローカル開発環境の構築 [Windows編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_win_v2
+・UNIXコマンド入門 (一般ユーザー編) (全16回)
+http://dotinstall.com/lessons/basic_unix
+・vim入門 (全18回)
+http://dotinstall.com/lessons/basic_vim
+
+// ===== read.me =====
+tmux
+
+* 概要
+- ターミナルの多重化ツール
+
+* 公式サイト
+
+* 知識
+
+* 環境
+- ローカル開発環境
+
+
+
+
+
+// ===== video_summary =====
+まずは関係のある用語を図で整理しておきます。
+
+Session
+Window
+Pane
+detach / attach
+
+
+
+
+
+// ===== video_summary =====
+Sessionを作成してdetach/attach/renameをしてみます。
+
+
+    Sessionの作成
+    detach
+    attach
+    rename
+
+// ===== read.me =====
+# Sessionの作成
+tmux new -s ProjectA
+
+# Sessionのdetach
+Ctrl+b d
+
+# Sessionへのattach
+tmux a -t ProjectA
+
+# Sessionのrename
+Ctrl+b $
+
+
+
+
+
+// ===== video_summary =====
+Sessionの一覧を表示したり、Sessionを削除する方法を学びます。
+
+
+    Sessionの一覧
+    Sessionの削除
+
+// ===== read.me =====
+# Sessionの一覧表示
+tmux ls
+
+# Sessionを作成後、detach
+tmux new -s ProjectB -d
+tmux new -s ProjectC -d
+
+# Sessionの削除
+tmux kill-session -t ProjectB
+
+# Sessionの全削除
+tmux kill-server
+
+
+
+
+
+// ===== video_summary =====
+Prefixキーと:に続いてコマンドを実行する方法について見ていきます。
+
+
+    コマンド入力
+    時計モード
+
+// ===== read.me =====
+# Sessionの作成
+tmux new -s MyProject
+
+# コマンドの一覧
+Ctrl+b ?
+
+# detachコマンドの実行
+Ctrl+b : detach-client
+
+# Sessionへのattach
+tmux a -t MyProject
+
+# 時計モード
+Ctrl+b t
+ESC
+
+
+
+
+
+
+// ===== video_summary =====
+Windowを作成して切り替えたり、名前を変更したり、削除したりする方法について学びます。
+
+
+    Windowの作成
+    Windowの切り替え
+    Window名の変更
+    Windowの削除
+
+// ===== read.me =====
+# Windowの作成
+Ctrl+b c
+
+# Windowの切り替え
+Ctrl+b (番号)
+Ctrl+b n(ext)
+Ctrl+b p(revious)
+
+# Windowのrename
+Ctrl+b ,
+
+# Windowの一覧表示
+Crtl+b w
+
+# Windowの検索
+Ctrl+b f
+
+# Windowの終了（削除）
+Ctrl+b &
+
+
+
+
+
+// ===== video_summary =====
+Windowを分割してPaneを作成し、それらを切り替えたり、削除したりする方法について学びます。
+
+
+    Paneの作成
+    Paneの切り替え
+    Paneの削除
+    PaneをWindowに変換
+
+// ===== read.me =====
+# Pane作成（水平分割）
+Ctrl+b "
+
+# Pane作成（垂直分割）
+Ctrl+b %
+
+# Paneの切り替え
+Ctrl+b o
+Ctrl+b 矢印キー
+
+# Paneの番号表示・切り替え
+Ctrl+b q (番号)
+
+# Paneの入れ替え
+Ctrl+b {
+Ctrl+b }
+
+# Paneの解除
+Ctrl+b x
+
+# PaneのWindow化
+Ctrl+b !
+
+
+
+
+
+// ===== video_summary =====
+Paneの大きさを変更するためのショートカットキーを登録していきます。
+
+
+    Paneのサイズ変更
+    .tmux.confの編集
+    動作確認
+
+// ===== read.me =====
+# PaneのResize
+Ctrl+b : resize-pane -U 5
+
+# .tmux.confの作成
+vi ~/.tmux.conf
+--- 編集開始
+bind -r H resize-pane -L 5
+bind -r J resize-pane -D 5
+bind -r K resize-pane -U 5
+bind -r L resize-pane -R 5
+--- 編集終了
+
+# 設定ファイルの読み込み
+Ctrl+b : source-file ~/.tmux.conf
+
+# PaneのResize
+Ctrl+b K
+Ctrl+b K
+Ctrl+b K
+
+
+
+
+
+// ===== video_summary =====
+.tmux.confを編集してPrefixキーを変更してみましょう。
+
+
+    Prefixキーの変更
+    .tmux.confの読み込み
+
+// ===== read.me =====
+# prefixキーの変更
+vi ~/.tmux.conf
+---- 編集開始
+set -g prefix C-t
+unbind C-b
+bind C-t send-prefix
+
+bind r source-file ~/.tmux.conf \; display "Configuration Reloaded!"
+---- 編集終了
+
+# 設定の再読込
+Ctrl+b : source-file ~/.tmux.conf
+
+# 設定の再読込
+Ctrl+t r
+
+
+
+
+
+// ===== video_summary =====
+Bufferを使ってコピー＆ペーストをする方法について見ていきます。
+
+
+    .tmux.confの編集
+    コピーモードへの移行
+    テキストの選択、貼り付け
+    Bufferの管理方法
+
+// ===== read.me =====
+# 設定の変更
+vi ~/.tmux.conf
+---- 編集開始
+setw -g mode-keys vi
+---- 編集終了
+
+# 設定の読み込み
+Ctrl+t r
+
+# テキストの表示
+cat ~/.tmux.conf
+
+# コピーモード
+Ctrl+t [
+
+# 選択開始
+Space
+
+# 選択終了
+Enter
+
+# 貼り付け
+Ctrl+t ]
+
+# Buffer一覧の表示
+Ctrl+t : list-buffers
+
+# Bufferの選択
+Ctrl+t =
+
+
+
+
+

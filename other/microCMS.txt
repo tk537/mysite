@@ -1,0 +1,493 @@
+// ===== video_summary =====
+CMSの概要を説明したあとに、microCMSについて紹介していきます。
+
+CMSの概要
+microCMSの紹介
+レッスンの範囲
+
+// ===== commentBox 1 =====
+補足情報 microCMSの公式サイトについて
+2024年1月23日
+
+動画中で紹介しているmicroCMSの公式サイトには、以下のURLからアクセスしてみてください。
+
+・microCMS｜APIベースの日本製ヘッドレスCMS
+https://microcms.io/
+
+// ===== video_summary =====
+学習環境の説明をしたのちに、コンテンツを埋め込むためのサイトを制作していきます。
+
+
+    学習環境の説明
+    プロジェクトフォルダの設定
+    index.htmlの作成
+    ブラウザでの確認
+
+// ===== /MyCompanySite/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ドットインストール</title>
+</head>
+<body>
+  <h1>ドットインストール</h1>
+  <p>こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。</p>
+</body>
+</html>
+
+// ===== video_summary =====
+前回作ったサイトにダミーのデータを使ってお知らせ一覧を組み込んでみます。
+
+
+    お知らせ一覧の作成
+    ブラウザでの確認
+
+// ===== /MyCompanySite/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ドットインストール</title>
+</head>
+<body>
+  <h1>ドットインストール</h1>
+  <p>こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。</p>
+
+  <h2>お知らせ</h2>
+  <ul>
+    <li>
+      <h3>お知らせです</h3>
+      <p>お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。</p>
+    </li>
+    <li>
+      <h3>お知らせです</h3>
+      <p>お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。</p>
+    </li>
+  </ul>
+</body>
+</html>
+
+// ===== video_summary =====
+microCMSでログインしてからサービスの設定をしていきます。
+
+
+    microCMSでのログイン
+    サービスの設定
+
+// ===== commentBox 1 =====
+補足情報
+microCMSのサイトURLについて
+
+
+
+
+2024年1月23日
+
+
+
+
+
+動画中で紹介しているmicroCMSの公式サイトには、以下のURLからアクセスしてみてください。
+・microCMS｜APIベースの日本製ヘッドレスCMS
+https://microcms.io/
+
+// ===== /MyCompanySite/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ドットインストール</title>
+</head>
+<body>
+  <h1>ドットインストール</h1>
+  <p>こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。</p>
+
+  <h2>お知らせ</h2>
+  <ul>
+    <li>
+      <h3>お知らせです</h3>
+      <p>お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。</p>
+    </li>
+    <li>
+      <h3>お知らせです</h3>
+      <p>お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。</p>
+    </li>
+  </ul>
+</body>
+</html>
+
+// ===== video_summary =====
+microCMSにて、サイトに埋め込むコンテンツ（API）の設定をしていきます。
+
+
+    APIの設定
+    フィールドの追加、設定
+
+// ===== /MyCompanySite/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ドットインストール</title>
+</head>
+<body>
+  <h1>ドットインストール</h1>
+  <p>こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。</p>
+
+  <h2>お知らせ</h2>
+  <ul>
+    <li>
+      <h3>お知らせです</h3>
+      <p>お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。</p>
+    </li>
+    <li>
+      <h3>お知らせです</h3>
+      <p>お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。</p>
+    </li>
+  </ul>
+</body>
+</html>
+
+// ===== video_summary =====
+APIの設定ができたので、埋め込みたいコンテンツを作成して公開していきます。
+
+
+    コンテンツの追加
+    公開の設定
+
+// ===== /MyCompanySite/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ドットインストール</title>
+</head>
+<body>
+  <h1>ドットインストール</h1>
+  <p>こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。</p>
+
+  <h2>お知らせ</h2>
+  <ul>
+    <li>
+      <h3>お知らせです</h3>
+      <p>お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。</p>
+    </li>
+    <li>
+      <h3>お知らせです</h3>
+      <p>お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。</p>
+    </li>
+  </ul>
+</body>
+</html>
+
+// ===== video_summary =====
+APIのプレビューを用いて、どういったデータを取得することができるか確認していきます。
+
+
+    APIプレビュー
+    データ構造の確認
+
+// ===== /MyCompanySite/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ドットインストール</title>
+</head>
+<body>
+  <h1>ドットインストール</h1>
+  <p>こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。</p>
+
+  <h2>お知らせ</h2>
+  <ul>
+    <li>
+      <h3>お知らせです</h3>
+      <p>お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。</p>
+    </li>
+    <li>
+      <h3>お知らせです</h3>
+      <p>お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。</p>
+    </li>
+  </ul>
+  <script src="https://unpkg.com/microcms-js-sdk@latest/dist/umd/microcms-js-sdk.js"></script>
+  <script>
+    const { createClient } = microcms;
+    
+    // Initialize Client SDK.
+    const client = createClient({
+      serviceDomain: "**********", // YOUR_DOMAIN is the XXXX part of XXXX.microcms.io
+      apiKey: "***************************",
+      // retry: true // Retry attempts up to a maximum of two times.
+      // customFetcher: fetch.bind(globalThis), // Provide a custom `fetch` implementation as an option
+    });
+    client
+      .get({
+        endpoint: 'news',
+      })
+      .then((res) => console.log(res));
+  </script>
+</body>
+</html>
+
+// ===== video_summary =====
+microCMSが提供しているSDKを使って、コンテンツを埋め込みたいサイトにJavaScriptのコードを埋め込んでいきます。
+
+
+    scriptタグの読み込み
+    APIの設定
+    コンテンツ取得コードのコピー
+
+// ===== /MyCompanySite/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ドットインストール</title>
+</head>
+<body>
+  <h1>ドットインストール</h1>
+  <p>こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。</p>
+
+  <h2>お知らせ</h2>
+  <ul>
+    <li>
+      <h3>お知らせです</h3>
+      <p>お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。</p>
+    </li>
+    <li>
+      <h3>お知らせです</h3>
+      <p>お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。</p>
+    </li>
+  </ul>
+  <script src="https://unpkg.com/microcms-js-sdk@latest/dist/umd/microcms-js-sdk.js"></script>
+  <script>
+    const { createClient } = microcms;
+    
+    // Initialize Client SDK.
+    const client = createClient({
+      serviceDomain: "**********", // YOUR_DOMAIN is the XXXX part of XXXX.microcms.io
+      apiKey: "***************************",
+      // retry: true // Retry attempts up to a maximum of two times.
+      // customFetcher: fetch.bind(globalThis), // Provide a custom `fetch` implementation as an option
+    });
+    client
+      .get({
+        endpoint: 'news',
+      })
+      .then((res) => console.log(res));
+  </script>
+</body>
+</html>
+
+// ===== video_summary =====
+コンテンツがきちんと取得できているか、コンソールを使って確認していきます。
+
+
+    コンソールの表示
+    取得したデータの確認
+
+// ===== /MyCompanySite/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ドットインストール</title>
+</head>
+<body>
+  <h1>ドットインストール</h1>
+  <p>こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。</p>
+
+  <h2>お知らせ</h2>
+  <ul>
+    <li>
+      <h3>お知らせです</h3>
+      <p>お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。</p>
+    </li>
+    <li>
+      <h3>お知らせです</h3>
+      <p>お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。</p>
+    </li>
+  </ul>
+  <script src="https://unpkg.com/microcms-js-sdk@latest/dist/umd/microcms-js-sdk.js"></script>
+  <script>
+    const { createClient } = microcms;
+    
+    // Initialize Client SDK.
+    const client = createClient({
+      serviceDomain: "**********", // YOUR_DOMAIN is the XXXX part of XXXX.microcms.io
+      apiKey: "***************************",
+      // retry: true // Retry attempts up to a maximum of two times.
+      // customFetcher: fetch.bind(globalThis), // Provide a custom `fetch` implementation as an option
+    });
+    client
+      .get({
+        endpoint: 'news',
+      })
+      .then((res) => {
+        // console.log(res.contents);
+        res.contents.forEach((content) => {
+          console.log(content.title);
+          console.log(content.body);
+        });
+      });
+  </script>
+</body>
+</html>
+
+// ===== video_summary =====
+JavaScriptを使って取得したデータからお知らせの一覧を生成していきます。
+
+
+    id属性の付与
+    要素の生成
+    ブラウザでの確認
+
+// ===== /MyCompanySite/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ドットインストール</title>
+</head>
+<body>
+  <h1>ドットインストール</h1>
+  <p>こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。</p>
+
+  <h2>お知らせ</h2>
+  <ul id="news">
+    <!-- <li>
+      <h3>お知らせです</h3>
+      <p>お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。</p>
+    </li>
+    <li>
+      <h3>お知らせです</h3>
+      <p>お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。</p>
+    </li> -->
+  </ul>
+  <script src="https://unpkg.com/microcms-js-sdk@latest/dist/umd/microcms-js-sdk.js"></script>
+  <script>
+    const { createClient } = microcms;
+    
+    // Initialize Client SDK.
+    const client = createClient({
+      serviceDomain: "**********", // YOUR_DOMAIN is the XXXX part of XXXX.microcms.io
+      apiKey: "***************************",
+      // retry: true // Retry attempts up to a maximum of two times.
+      // customFetcher: fetch.bind(globalThis), // Provide a custom `fetch` implementation as an option
+    });
+    client
+      .get({
+        endpoint: 'news',
+      })
+      .then((res) => {
+        const news = document.querySelector('#news');
+        res.contents.forEach((content) => {
+          const li = document.createElement('li');
+          const h3 = document.createElement('h3');
+          h3.textContent = content.title;
+          const p = document.createElement('p');
+          p.textContent = content.body;
+          li.appendChild(h3);
+          li.appendChild(p);
+          news.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>
+
+// ===== video_summary =====
+microCMSのサイトでコンテンツを追加し、それが自動的にサイトに反映されるか確認していきます。
+
+
+    コンテンツの追加
+    ブラウザでの確認
+    今回の構成
+    Static Site Generation
+    microCMS公式サイトの紹介
+
+// ===== commentBox 1 =====
+補足情報
+microCMSの公式サイトについて
+
+
+
+
+2024年1月23日
+
+
+
+
+
+動画中で紹介しているmicroCMSの公式サイトには、以下のURLからアクセスしてみてください。
+・microCMS｜APIベースの日本製ヘッドレスCMS
+https://microcms.io/
+また各種フレームワークと組み合わせる方法については以下を参照してみてください。
+・microCMSドキュメント
+https://document.microcms.io/
+
+// ===== /MyCompanySite/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ドットインストール</title>
+</head>
+<body>
+  <h1>ドットインストール</h1>
+  <p>こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。</p>
+
+  <h2>お知らせ</h2>
+  <ul id="news">
+    <!-- <li>
+      <h3>お知らせです</h3>
+      <p>お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。</p>
+    </li>
+    <li>
+      <h3>お知らせです</h3>
+      <p>お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。お知らせです。</p>
+    </li> -->
+  </ul>
+  <script src="https://unpkg.com/microcms-js-sdk@latest/dist/umd/microcms-js-sdk.js"></script>
+  <script>
+    const { createClient } = microcms;
+    
+    // Initialize Client SDK.
+    const client = createClient({
+      serviceDomain: "**********", // YOUR_DOMAIN is the XXXX part of XXXX.microcms.io
+      apiKey: "***************************",
+      // retry: true // Retry attempts up to a maximum of two times.
+      // customFetcher: fetch.bind(globalThis), // Provide a custom `fetch` implementation as an option
+    });
+    client
+      .get({
+        endpoint: 'news',
+      })
+      .then((res) => {
+        const news = document.querySelector('#news');
+        res.contents.forEach((content) => {
+          const li = document.createElement('li');
+          const h3 = document.createElement('h3');
+          h3.textContent = content.title;
+          const p = document.createElement('p');
+          p.textContent = content.body;
+          li.appendChild(h3);
+          li.appendChild(p);
+          news.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>
+

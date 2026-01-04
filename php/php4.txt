@@ -1,0 +1,361 @@
+// ===== video_summary =====
+データ構造の概要について説明したのち、配列の記法について確認していきます。
+
+
+    複数の値をまとめる仕組み
+    配列
+    整数値をキーにした配列の記法
+
+// ===== main.php =====
+
+
+
+
+
+// ===== video_summary =====
+配列を作って表示する方法について見ていきます。
+
+
+    配列の作成
+    要素へのアクセス
+    var_dump()
+    print_r()
+
+// ===== main.php =====
+<?php
+$scores = [70, 90, 80];
+// echo $scores[0] . PHP_EOL;
+// $scores[1] = 95;
+// echo $scores[1] . PHP_EOL;
+var_dump($scores);
+print_r($scores);
+
+
+
+
+
+
+// ===== video_summary =====
+配列について調べるための、いくつかの便利な関数について見ていきます。
+
+
+    count()
+    max()
+    min()
+    array_sum()
+
+// ===== main.php =====
+<?php
+$scores = [70, 90, 80];
+echo count($scores) . PHP_EOL;
+echo max($scores) . PHP_EOL;
+echo min($scores) . PHP_EOL;
+echo array_sum($scores) . PHP_EOL;
+
+
+
+
+
+
+// ===== video_summary =====
+配列の特定の要素があるか、ある場合に対応するキーを調べるための関数について見ていきます。
+
+
+    in_array()
+    array_search()
+
+// ===== main.php =====
+<?php
+$names = ["Taro", "Jiro", "Saburo"];
+// var_dump(in_array("Taro", $names));
+// var_dump(in_array("Shiro", $names));
+echo array_search("Jiro", $names) . PHP_EOL;
+
+
+
+
+
+
+// ===== video_summary =====
+配列の末尾に要素を追加したり、別の配列を展開して要素として追加する方法について見ていきます。
+
+
+    末尾に要素を追加する方法
+    配列を展開して要素を追加する方法
+
+// ===== main.php =====
+<?php
+$scores = [70, 90, 80];
+$scores[] = 60;
+$moreScores = [10, 20, 30, ...$scores];
+print_r($moreScores);
+
+
+
+
+
+
+// ===== video_summary =====
+任意の位置で要素の削除、追加、置換をするときに便利なarray_splice()について見ていきます。
+
+
+    array_splice()の構文
+    要素の削除
+    要素の追加
+    要素の置換
+
+// ===== main.php =====
+<?php
+$scores = [70, 90, 80];
+$scores[] = 60;
+$moreScores = [10, 20, 30, ...$scores];
+print_r($moreScores);
+
+
+
+
+
+
+// ===== video_summary =====
+array_splice()を使って配列の要素を操作する例を見ていきます。
+
+
+    array_splice()の例
+    削除した要素の取得
+
+// ===== main.php =====
+<?php
+$scores = [70, 90, 80];
+array_splice($scores, 1, 0, [30, 20]); // [70, 30, 20, 90, 80]
+array_splice($scores, 2, 1); // [70, 30, 90, 80]
+$removedItems = array_splice($scores, 1, 1, [10, 15]); // [70, 10, 15, 90, 80]
+print_r($scores);
+print_r($removedItems);
+
+
+
+
+
+
+// ===== video_summary =====
+配列の要素を並び替えるために使える、さまざまな関数について見ていきます。
+
+
+    sort(), rsort()
+    asort(), arsort()
+    shuffle()
+    array_reverse()
+
+// ===== main.php =====
+<?php
+$scores = [70, 90, 80];
+// sort($scores);
+// print_r($scores);
+// rsort($scores);
+// print_r($scores);
+// asort($scores);
+// print_r($scores);
+// arsort($scores);
+// print_r($scores);
+// shuffle($scores);
+// print_r($scores);
+$reversed = array_reverse($scores);
+print_r($reversed);
+
+
+
+
+
+
+// ===== video_summary =====
+配列の要素を別々の変数に代入するための方法について見ていきます。
+
+
+    list()
+    []を使った方法
+    要素の入れ替え
+
+// ===== main.php =====
+<?php
+// $scores = [70, 90, 80];
+// $firstScore = $scores[0];
+// $secondScore = $scores[1];
+// $thirdScore = $scores[2];
+// list($firstScore, $secondScore, $thirdScore) = $scores;
+// [$firstScore, $secondScore, $thirdScore] = $scores;
+// echo $firstScore . PHP_EOL;
+// echo $secondScore . PHP_EOL;
+// echo $thirdScore . PHP_EOL;
+
+$x = 10;
+$y = 20;
+[$y, $x] = [$x, $y];
+echo $x . PHP_EOL;
+echo $y . PHP_EOL;
+
+
+
+
+
+
+
+// ===== video_summary =====
+配列と反復処理を組み合わせるためのforeach()の使い方について見ていきます。
+
+
+    foreach()
+    値の取得
+    キーの取得
+
+// ===== main.php =====
+<?php
+$scores = [70, 90, 80];
+
+foreach ($scores as $key => $value) {
+    echo "Score({$key}): {$value}" . PHP_EOL;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+配列の各要素を処理して別の配列を作る方法について見ていきます。
+
+
+    空の配列
+    foreach()による処理
+
+// ===== main.php =====
+<?php
+$scores = [70, 90, 80];
+$updatedScores = [];
+foreach ($scores as $score) {
+    $updatedScores[] = $score + 5;
+}
+print_r($updatedScores);
+
+
+
+
+
+
+// ===== video_summary =====
+前回の処理をarray_map()を使って書き換える方法について見ていきます。
+
+
+    array_map()の構文
+    関数の書き換え
+    アロー関数の活用
+
+// ===== commentBox 1 =====
+補足情報
+関数の書き換えについて
+
+
+
+
+2024年5月27日
+
+
+
+
+
+関数を無名関数（クロージャ）やアロー関数に書き換える方法については以下のレッスンを復習してみましょう。
+・#11 無名関数､アロー関数を使ってみよう | PHP入門 関数編
+https://dotinstall.com/lessons/basic_php_functions_v2/67211
+
+// ===== main.php =====
+<?php
+// $addFive = function($n)
+// {
+//     return $n + 5;
+// };
+// $addFive = fn($n) => $n + 5;
+
+$scores = [70, 90, 80];
+// $updatedScores = array_map($addFive, $scores);
+$updatedScores = array_map(fn($n) => $n + 5, $scores);
+print_r($updatedScores);
+
+
+
+
+
+
+// ===== video_summary =====
+配列から条件にあった要素だけを抽出することができるarray_filter()について見ていきます。
+
+
+    array_filter()の構文
+    関数の書き換え
+    アロー関数の活用
+
+// ===== main.php =====
+<?php
+// $getOver50 = function($n)
+// {
+//     // if ($n >= 50) {
+//     //     return true;
+//     // } else {
+//     //     return false;
+//     // }
+//     return $n >= 50;
+// };
+// $getOver50 = fn($n) => $n >= 50;
+
+$scores = [70, 90, 80, 40, 60, 10];
+$filteredScores = array_filter($scores, fn($n) => $n >= 50);
+print_r($filteredScores);
+
+
+
+
+
+
+// ===== video_summary =====
+キーが文字列である配列を扱う方法について見ていきます。
+
+
+    キーが文字列の配列
+    要素の追加
+
+// ===== main.php =====
+<?php
+$scores = ["english" => 70, "math" => 80];
+$scores["math"] = 90;
+echo $scores["math"] . PHP_EOL;
+$scores["history"] = 50;
+print_r($scores);
+
+
+
+
+
+// ===== video_summary =====
+配列のキーを扱うためのさまざまな関数について見ていきます。
+
+
+    array_keys()
+    array_values()
+    array_key_exists()
+    ksort()
+    krsort()
+
+// ===== main.php =====
+<?php
+$scores = ["english" => 70, "math" => 80, "history" => 50];
+// print_r(array_keys($scores));
+// print_r(array_values($scores));
+// var_dump(array_key_exists("english", $scores));
+ksort($scores);
+print_r($scores);
+krsort($scores);
+print_r($scores);
+
+
+
+
+
+

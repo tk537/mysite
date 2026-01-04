@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre><code>
+    // ===== video_summary =====
+まずは概要を説明したのちに公式サイト、必要となる知識、レッスンにおける環境について見ていきます。
+
+
+    概要
+    公式サイト
+    必要となる知識
+    レッスンにおける環境
+
+// ===== read.me =====
+Ansible
+
+* 概要
+- サーバーの構成管理ツール
+
+* 公式サイト
+
+* 知識
+- Unixコマンド
+- Vim
+- Vagrant
+- YAML
+
+* 環境
+- MacOS X
+- Vagrant
+
+// ===== video_summary =====
+今回学んでいくことの全体像を図解して説明していきます。
+
+全体像の説明
+
+// ===== video_summary =====
+Vagrantを使ってhost、web、dbという3台のサーバーを立ち上げていきます。
+
+
+    vagrant init
+    Vagrantfileの編集
+    vagrant up
+    vagrant suspend
+
+// ===== commentBox 1 =====
+補足情報
+「chef/centos-6.5」は利用できなくなりました
+
+
+
+
+2017年5月22日
+
+
+
+
+
+vagrant initコマンド、Vagrantfile中の「chef/centos-6.5」は既に利用できなくなっておりますので「bento/centos-6.8」に置き換えてご利用ください。
+
+// ===== read.me =====
+# 変更箇所
+  # config.vm.box = "bento/centos-6.8"
+
+# 追加箇所
+  config.vm.define "host" do |node|
+    node.vm.box = "bento/centos-6.8"
+    node.vm.hostname = "host"
+    node.vm.network :private_network, ip: "192.168.43.51"
+  end
+
+  config.vm.define "web" do |node|
+  node.vm.box = "bento/centos-6.8"
+    node.vm.hostname = "web"
+    node.vm.network :private_network, ip: "192.168.43.52"
+  end
+
+  config.vm.define "db" do |node|
+  node.vm.box = "bento/centos-6.8"
+    node.vm.hostname = "db"
+    node.vm.network :private_network, ip: "192.168.43.53"
+  end
+
+  // ===== video_summary =====
+host側にansibleをインストールしていきます。
+
+
+    epelリポジトリの導入
+    ansibleのインストール
+
+// ===== read.me =====
+vagrant ssh host
+wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+sudo rpm -Uvh epel-release-6-8.noarch.rpm
+sudo yum -y install ansible
+ansible --version
+
+// ===== video_summary =====
+host側からweb、dbにSSH接続できるように設定していきます。
+
+
+    .ssh/configの設定
+    鍵認証の設定
+    動作確認
+
+// ===== read.me =====
+vi .ssh/config
+----- 編集開始
+Host web
+ HostName 192.168.43.52
+Host db
+ HostName 192.168.43.53
+----- 編集終了
+chmod 600 .ssh/config
+ssh-keygen -t rsa
+ssh-copy-id web
+ssh web
+ssh-copy-id db
+ssh db
+
+// ===== video_summary =====
+Inventoryファイルを作った後にansibleコマンドで動作を確認していきます。
+
+
+    Inventoryファイルの作成
+    ansibleコマンド
+    ansible.cfg
+
+// ===== read.me =====
+vi hosts
+----- 編集開始
+[web]
+192.168.43.52
+
+[db]
+192.168.43.53
+----- 編集終了
+ansible all -i hosts -m ping
+vi ansible.cfg
+----- 編集開始
+[defaults]
+hostfile = ./hosts
+----- 編集終了
+ansible all -m ping
+
+// ===== video_summary =====
+各種処理を記述したplaybookを作成し、ansible-playbookで実行していきます。
+
+
+    playbookの作成
+    冪等性について
+    動作確認
+
+// ===== playbook.yml =====
+---
+- hosts: all
+  sudo: yes
+  tasks:
+    - name: add a new user
+      user: name=taguchi
+
+      // ===== video_summary =====
+公式ドキュメントでモジュールの詳細について見ていきます。
+
+
+    公式ドキュメントの見方
+    ansible-playbookのオプション
+
+// ===== read.me =====
+ansible-playbook playbook.yml --syntax-check
+ansible-playbook playbook.yml --list-task
+ansible-playbook playbook.yml --check
+
+// ===== playbook.yml =====
+---
+- hosts: all
+  sudo: yes
+  tasks:
+    - name: add a new user
+      user: name=taguchi state=absent
+
+// ===== video_summary =====
+playbookで変数を使う方法について見ていきましょう。
+
+
+    変数の使い方
+    vars
+    vars_prompt
+
+// ===== commentBox 1 =====
+補足情報
+Ansible 2.4 以降では vars_prompt の書き方が変わっています
+
+
+
+
+2018年9月7日
+
+
+
+
+
+Ansible 2.4 以降では、レッスンで紹介している vars_prompt の書き方ではエラーとなります。
+
+vars_prompt のところを以下のように書き換えてみてください。
+
+  vars_prompt:
+    - name: "username"
+      prompt: "Enter user name"
+
+
+詳しくは最新ドキュメントもご参照ください。
+http://docs.ansible.com/ansible/latest/playbooks_prompts.html
+
+// ===== playbook.yml =====
+---
+- hosts: all
+  sudo: yes
+#  vars:
+#    username: taguchi
+  vars_prompt:
+    username: "Enter username"
+  tasks:
+    - name: add a new user
+      user: name={{username}}
+
+      // ===== video_summary =====
+playbookを使ってweb側にapacheをインストールしていきます。
+
+
+    playbookの編集
+    apacheのインストール、起動
+    動作確認
+
+// ===== playbook.yml =====
+---
+- hosts: all
+  sudo: yes
+  tasks:
+    - name: add a new user
+      user: name=taguchi state=absent
+
+- hosts: web
+  sudo: yes
+  tasks:
+    - name: install apache
+      yum: name=httpd state=latest
+    - name: start apache and enabled
+      service: name=httpd state=started enabled=yes
+
+  // ===== video_summary =====
+playbookを使ってweb側にindex.htmlを転送してブラウザから確認してみます。
+
+
+    ディレクトリの所有者変更
+    ファイルの転送
+    index.htmlの作成
+    動作確認
+
+// ===== index.html =====
+<html>
+hello from ansible!
+</html>
+
+// ===== playbook.yml =====
+---
+- hosts: all
+  sudo: yes
+  tasks:
+    - name: add a new user
+      user: name=taguchi
+    - name: install libselinux-python
+      yum: name=libselinux-python state=latest
+
+- hosts: web
+  sudo: yes
+  tasks:
+    - name: install apache
+      yum: name=httpd state=latest
+    - name: start apache and enabled
+      service: name=httpd state=started enabled=yes
+    - name: change owner
+      file: dest=/var/www/html owner=vagrant recurse=yes
+    - name: copy index.html
+      copy: src=./index.html dest=/var/www/html/index.html owner=vagrant
+
+      // ===== video_summary =====
+ループを回すためのwith_items、notify/handlersの使い方を見ていきます。
+
+
+    with_items
+    notify/handlers
+
+// ===== playbook.yml =====
+---
+- hosts: all
+  sudo: yes
+  tasks:
+    - name: add a new user
+      user: name=taguchi
+    - name: install libselinux-python
+      yum: name=libselinux-python state=latest
+
+- hosts: web
+  sudo: yes
+  tasks:
+    - name: install apache
+      yum: name=httpd state=latest
+    - name: start apache and enabled
+      service: name=httpd state=started enabled=yes
+    - name: change owner
+      file: dest=/var/www/html owner=vagrant recurse=yes
+    - name: copy index.html
+      copy: src=./index.html dest=/var/www/html/index.html owner=vagrant
+    - name: install php packages
+      yum: name={{item}} state=latest
+      with_items:
+        - php 
+        - php-devel
+        - php-mbstring
+        - php-mysql
+      notify:
+        - restart apache
+  handlers: 
+    - restart apache
+      service: name=httpd state=restarted
+
+      // ===== video_summary =====
+PHPの各種パッケージをインストールしたあとにApacheを再起動し、動作確認をしていきます。
+
+
+    hello.phpの作成
+    動作確認
+
+// ===== hello.php =====
+<?php
+
+echo "hello from PHP!";
+
+// ===== playbook.yml =====
+---
+- hosts: all
+  sudo: yes
+  tasks:
+    - name: add a new user
+      user: name=taguchi
+    - name: install libselinux-python
+      yum: name=libselinux-python state=latest
+
+- hosts: web
+  sudo: yes
+  tasks:
+    - name: install apache
+      yum: name=httpd state=latest
+    - name: start apache and enabled
+      service: name=httpd state=started enabled=yes
+    - name: change owner
+      file: dest=/var/www/html owner=vagrant recurse=yes
+    - name: copy index.html
+      copy: src=./index.html dest=/var/www/html/index.html owner=vagrant
+    - name: install php packages
+      yum: name={{item}} state=latest
+      with_items:
+        - php 
+        - php-devel
+        - php-mbstring
+        - php-mysql
+      notify:
+        - restart apache
+    - name: copy hello.php
+      copy: src=./hello.php dest=/var/www/html/hello.php owner=vagrant
+  handlers: 
+    - name: restart apache
+      service: name=httpd state=restarted
+
+      // ===== video_summary =====
+db側にMySQLを導入していく方法について見ていきます。
+
+
+    MySQLの導入
+
+// ===== playbook.yml =====
+---
+- hosts: all
+  sudo: yes
+  tasks:
+    - name: add a new user
+      user: name=taguchi
+    - name: install libselinux-python
+      yum: name=libselinux-python state=latest
+
+- hosts: web
+  sudo: yes
+  tasks:
+    - name: install apache
+      yum: name=httpd state=latest
+    - name: start apache and enabled
+      service: name=httpd state=started enabled=yes
+    - name: change owner
+      file: dest=/var/www/html owner=vagrant recurse=yes
+    - name: copy index.html
+      copy: src=./index.html dest=/var/www/html/index.html owner=vagrant
+    - name: install php packages
+      yum: name={{item}} state=latest
+      with_items:
+        - php 
+        - php-devel
+        - php-mbstring
+        - php-mysql
+      notify:
+        - restart apache
+    - name: copy hello.php
+      copy: src=./hello.php dest=/var/www/html/hello.php owner=vagrant
+  handlers: 
+    - name: restart apache
+      service: name=httpd state=restarted
+
+- hosts: db
+  sudo: yes
+  tasks: 
+    - name: install mysql
+      yum: name=mysql-server state=latest
+    - name: start mysql and enabled
+      service: name=mysqld state=started enabled=yes
+
+      // ===== video_summary =====
+playbookを使ってデータベースを作成、アクセスするためのユーザーも設定していきます。
+
+
+    mysql_db
+    mysql_user
+    MySQL-python
+    動作確認
+
+// ===== playbook.yml =====
+---
+- hosts: all
+  sudo: yes
+  tasks:
+    - name: add a new user
+      user: name=taguchi
+    - name: install libselinux-python
+      yum: name=libselinux-python state=latest
+
+- hosts: web
+  sudo: yes
+  tasks:
+    - name: install apache
+      yum: name=httpd state=latest
+    - name: start apache and enabled
+      service: name=httpd state=started enabled=yes
+    - name: change owner
+      file: dest=/var/www/html owner=vagrant recurse=yes
+    - name: copy index.html
+      copy: src=./index.html dest=/var/www/html/index.html owner=vagrant
+    - name: install php packages
+      yum: name={{item}} state=latest
+      with_items:
+        - php 
+        - php-devel
+        - php-mbstring
+        - php-mysql
+      notify:
+        - restart apache
+    - name: copy hello.php
+      copy: src=./hello.php dest=/var/www/html/hello.php owner=vagrant
+  handlers: 
+    - name: restart apache
+      service: name=httpd state=restarted
+
+- hosts: db
+  sudo: yes
+  tasks: 
+    - name: install mysql
+      yum: name={{item}} state=latest
+      with_items:
+        - mysql-server
+        - MySQL-python
+    - name: start mysql and enabled
+      service: name=mysqld state=started enabled=yes
+    - name: create a database
+      mysql_db: name=mydb state=present
+    - name: create a user for mydb
+      mysql_user: name=dbuser password=dbpassword priv=mydb.*:ALL state=present
+
+      
+  </code></pre>
+</body>
+</html>

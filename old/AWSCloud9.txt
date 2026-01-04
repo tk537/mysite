@@ -1,0 +1,473 @@
+// ===== video_summary =====
+クラウドベースの統合開発環境であるCloud9の概要を説明していきます。
+
+概要
+開発の流れ
+アカウント登録の案内
+
+
+
+
+
+// ===== video_summary =====
+AWSマネジメントコンソールから利用料金の確認方法を見ていきます。
+
+利用料金の確認
+アラームの設定方法
+
+
+
+
+
+// ===== video_summary =====
+IAMサービスを使って作業用ユーザーを設定していきます。
+
+IAMサービス
+グループの設定
+ユーザーの設定
+パスワードポリシーの設定
+
+
+
+
+
+// ===== video_summary =====
+必要な設定を行ったのちに開発環境を立ち上げていきます。
+
+IAMユーザーでのログイン
+開発環境の構築
+
+// ===== commentBox 1 =====
+補足情報 Platformが選べるようになりました
+2021年2月16日
+
+環境を作る際のStep2にてPlatformが選べるようになりましたが、デフォルトの「Amazon Linux 2」のままでOKです。ただ、これ以降の動画で設定方法が変わってくるので補足情報を参照するようにしてください。
+
+// ===== commentBox 2 =====
+補足情報 リージョンは「東京」でもかまいません
+2021年2月16日
+
+リージョンでシンガポールを選んでいますが、「東京」の方が良かったですね...。日本在住の場合は「東京」を選びましょう。
+
+// ===== commentBox 3 =====
+補足情報 エラーで環境を作成できない場合
+2019年7月16日
+
+AWSアカウントを作成したばかりの状態ですと、アカウントの確認が完了するまで Cloud9 の環境を作成することができません。AWSアカウントの確認が完了するまでしばらくお待ちください。
+
+なお、アカウント確認の遅れが原因でエラーとなった Environment が正常に稼働することはありませんので、その環境は削除して新規に作り直すようにしましょう。
+
+
+
+
+
+// ===== video_summary =====
+どのような環境が立ち上がったか、Unixコマンドを使って調査していきます。
+
+ダッシュボード
+環境の調査
+
+// ===== commentBox 1 =====
+補足情報 2021年1月現在の状況について
+2021年2月16日
+
+2021年現在で、環境をたちあげたあとのアプリケーションのバージョンは以下のとおりです。
+
+Cloud9User:~/environment $ cat /proc/version Linux version 4.14.209-160.339.amzn2.x86_64 (mockbuild@ip-10-0-1-32) (gcc version 7.3.1 20180712 (Red Hat 7.3.1-12) (GCC)) #1 SMP Wed Dec 16 22:44:04 UTC 2020
+Cloud9User:~/environment $ mysql --version
+mysql  Ver 15.1 Distrib 10.2.10-MariaDB, for Linux (x86_64) using  EditLine wrapper
+Cloud9User:~/environment $ php -v
+PHP 7.2.24 (cli) (built: Oct 31 2019 18:27:08) ( NTS )
+Copyright (c) 1997-2018 The PHP Group
+Zend Engine v3.2.0, Copyrigp
+Cloud9User:~/environment $ python -V
+Python 3.7.9
+Cloud9User:~/environment $ node -v
+v10.23.1
+Cloud9User:~/environment $ ruby -v
+ruby 2.6.3p62 (2019-04-16 revision 67580) [x86_64-linux]
+Cloud9User:~/environment $ rails -v
+Rails 5.0.0
+
+デフォルトでも十分あたらしいバージョンになっているようなので、この動画以降の作業では補足情報を参照するようにしてください。
+
+
+
+
+
+// ===== video_summary =====
+OSの更新を済ませたあとにタイムゾーンをJSTに合わせていきます。
+
+OSの更新
+タイムゾーンの設定
+
+// ===== commentBox 1 =====
+補足情報 今回使ったコマンドについて
+2018年12月13日
+
+今回使ったコマンドは以下のとおりです。
+
+OSの更新
+sudo yum -y update
+
+タイムゾーンの設定
+date
+sudo vi /etc/sysconfig/clock
+
+  ZONE="Asia/Tokyo"
+  UTC=true
+
+sudo ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+sudo reboot
+date
+
+
+
+
+
+// ===== video_summary =====
+MySQLのバージョンをあげる方法について見ていきます。
+
+MySQL 5.7の設定
+
+// ===== commentBox 1 =====
+補足情報 2021年1月現在の状況について
+2021年3月14日
+
+最初にAmazon Linux 2を選んだ場合、そのままではmysqlが起動しません。まずはMySQL互換であるMariaDBのサーバー版を導入します。
+
+sudo yum -y install mariadb-server
+
+としてください。
+
+そのあとは0:49秒からの説明にあるとおり、viにて/etc/my.cnfを編集していきます。
+
+sudo vi /etc/my.cnf
+
+編集が終わったあとにcat /etc/my.cnfとすると以下のようになるはずです。
+
+#
+# This group is read both both by the client and the server
+# use it for options that affect everything
+#
+[client-server]
+
+#
+# This group is read by the server
+#
+[mysqld]
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+
+
+character-set-server=utf8mb4
+
+[client]
+default-character-set=utf8mb4
+
+
+#
+# include all files from the config directory
+#
+!includedir /etc/my.cnf.d
+
+
+その後、MariaDBを次のコマンドで再起動します。
+
+sudo systemctl restart mariadb.service
+
+あとは
+
+mysql -u root
+
+にてMySQL（MariaDB）にログインできるはずです。
+
+// ===== commentBox 2 =====
+補足情報 今回使ったコマンドについて
+2018年12月13日
+
+今回使ったコマンドは以下のとおりです。
+
+MySQL 5.7の設定
+mysql --version
+sudo yum -y remove mysql-config mysql55-server mysql55-libs mysql55
+sudo yum -y install mysql57-server mysql57
+sudo vi /etc/my.cnf
+
+  [mysqld]
+  character-set-server=utf8mb4
+
+  [client]
+  default-character-set=utf8mb4
+
+sudo service mysqld start
+sudo mysql_upgrade -u root --force
+sudo service mysqld restart
+sudo chkconfig mysqld on
+mysql --version
+mysql -u root
+quit
+
+
+
+
+
+// ===== video_summary =====
+PHPのバージョンをあげたあとに、学習の流れについて見ていきます。
+
+
+    PHPのバージョンアップ
+    学習の流れ
+
+// ===== commentBox 1 =====
+補足情報
+2021年1月の状況について
+
+
+
+
+2021年2月16日
+
+
+
+
+
+環境を作る際に「Amazon Linux 2」を選んだ場合、PHPのバージョンはすでに7.2になっているので、こちらの動画の作業は不要となります。
+
+// ===== commentBox 2 =====
+補足情報
+プレビューを開くと「Oops」「VFS connection does not exist」と表示される場合
+
+
+
+
+2020年1月23日
+
+
+
+
+
+ブラウザがサードパーティ Cookie を受け入れてなかったり、ブラウザに一部の Cookie をブロックするような拡張機能がインストールされていたりすると、Preview Running Application を実行した際にエラーとなるようです。
+ブラウザの設定を確認してみてください。
+
+// ===== commentBox 3 =====
+補足情報
+今回使ったコマンドについて
+
+
+
+
+2018年12月13日
+
+
+
+
+
+今回使ったコマンドは以下のとおりです。
+
+PHP 7.2の設定
+
+php -v
+sudo yum -y install php72 php72-devel php72-mysqlnd php72-gd php72-intl php72-mbstring
+sudo update-alternatives --config php
+php -v
+
+// ===== index.php =====
+<?php
+
+echo "Hello from PHP!";
+
+
+
+
+
+// ===== video_summary =====
+Pythonのバージョンをあげたのちに、学習の流れについても確認していきます。
+
+
+    Pythonのバージョンアップ
+    学習の流れ
+
+// ===== commentBox 1 =====
+補足情報
+2021年1月の状況について
+
+
+
+
+2021年2月16日
+
+
+
+
+
+環境を作る際に「Amazon Linux 2」を選んだ場合、Pythonのバージョンはすでに3.7.9になっているので、こちらの動画の作業は不要となります。
+
+// ===== commentBox 2 =====
+補足情報
+Pythonのバージョンアップは不要です
+
+
+
+
+2019年9月30日
+
+
+
+
+
+2019年9月現在、Cloud9で作られる環境でのPythonは3.6系になったようです。したがって今回の動画にて紹介されているバージョンアップ作業は不要となります（ユーザーの方よりご指摘いただきました。ありがとうございました！）
+
+// ===== commentBox 3 =====
+補足情報
+今回使ったコマンドについて
+
+
+
+
+2018年12月13日
+
+
+
+
+
+今回使ったコマンドは以下のとおりです。
+
+Python 3.6の設定
+
+python -V
+設定からPython SupportをPython3に。
+vi ~/.bashrc
+
+  alias python=python36
+
+source ~/.bashrc
+sudo update-alternatives --config python
+python -V
+
+// ===== main.py =====
+print("Hello from Python!")
+
+
+
+
+
+// ===== video_summary =====
+Node.jsをnvmを使って更新する方法について見ていきます。
+
+
+    Node.jsの更新
+    学習の流れ
+
+// ===== commentBox 1 =====
+補足情報
+2021年1月の状況について
+
+
+
+
+2021年2月16日
+
+
+
+
+
+環境を作る際に「Amazon Linux 2」を選んだ場合、node.jsのバージョンはすでに10.23.1になっているので、こちらの動画の作業は不要となります。
+
+// ===== commentBox 2 =====
+補足情報
+Node.jsの更新は必要なくなりました
+
+
+
+
+2019年10月21日
+
+
+
+
+
+Node.jsですが、2019年10月現在、デフォルトでv10.16.3が入ったようです（長期サポートがされている安定版）。したがいましてこの動画で行われている更新は行う必要がありません（ユーザーの方よりご指摘いただきました。ありがとうございました！）。
+
+// ===== commentBox 3 =====
+補足情報
+今回使ったコマンドについて
+
+
+
+
+2018年12月13日
+
+
+
+
+
+今回使ったコマンドは以下のとおりです。
+
+Node.js v10.14.1の設定
+
+node -v
+nvm ls-remote
+nvm install v10.14.1
+node -v
+
+// ===== main.js =====
+console.log("Hello from Node.js");
+
+
+
+
+
+// ===== video_summary =====
+Ruby on Railsを使って簡単なアプリを構築する方法について見ていきます。
+
+Ruby on Railsによるアプリ構築
+
+// ===== commentBox 1 =====
+補足情報 1:45からの手順について
+2021年2月16日
+
+2021年1月の時点で、RailsアプリケーションのURLの末尾にクエリ文字列がつくようになりました...amazon.com/のあとの?から始まる文字列は削除したあとに、/memosをつけるようにしてください。
+
+// ===== commentBox 2 =====
+補足情報 初回アクセス時にActiveRecordのエラーが発生する場合
+2019年7月3日
+
+2019年2月21日現在、レッスン通りに rails s コマンドを実行してアクセスすると Active Record のエラーが出ることが確認されています。
+
+解決するにはまず myapp ディレクトリにある Gemfile というファイルを開き、
+
+gem 'sqlite3'
+
+
+の行を、
+
+gem 'sqlite3', '~> 1.3.6'
+
+
+に変更して保存してください。
+
+次に動画の 0:59 から説明している方法で起動中のサーバーを停止します。
+
+そうするとターミナルにコマンドを入力できるようになるので bundle install というコマンドを実行し、完了したらもう一度 rails s でサーバーを立ち上げて、 Preview Running Application よりアクセスしてみてください。
+
+// ===== commentBox 3 =====
+補足情報 今回使ったコマンドについて
+2018年12月13日
+
+今回使ったコマンドは以下のとおりです。
+
+Ruby、Ruby on Railsの設定
+ruby -v
+rails -v
+rails new myapp
+cd myapp
+rails s
+rails g scaffold Memo title:string body:text
+rails db:migrate
+rails s
+
+
+
+
+

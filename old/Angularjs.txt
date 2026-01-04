@@ -1,0 +1,712 @@
+// ===== video_summary =====
+AngularJSの概要、公式サイトについて解説したのち、学習に必要な知識やツールについて解説していきます。
+
+
+    AngularJSの概要
+    公式サイト
+    必要な知識
+    必要なツール
+
+// ===== commentBox 1 =====
+補足情報
+公式サイトについて
+
+
+
+
+2012年8月14日
+
+
+
+
+
+AngularJSの公式サイトはこちらです。
+http://angularjs.org/
+
+// ===== read.me =====
+AngularJS
+
+* 概要
+- JavaScriptのMVCフレームワーク
+- Model View Controller
+
+* 公式サイト
+
+* 知識
+HTML/CSS/JavaScript
+
+* ツール
+- Browser (Google Chrome)
+- Text Editor
+
+
+
+
+
+// ===== video_summary =====
+AngularJSで入力した値をダイナミックに表示させていく方法について学びます。
+
+
+    ng-modelの設定
+    Viewへの反映
+    式の評価
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <title>Angularの練習</title>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+</head>
+<body>
+    <h1>AngularJSの練習</h1>
+    <input type="text" ng-model="name">
+    <p>こんにちは！{{name}}</p>
+    <p>こんにちは！{{5 * 3}}</p>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+もう少し複雑な処理をするためにコントローラーを設定していく方法について学びます。
+
+
+    ng-controllerの設定
+    $scopeの設定
+    ng-repeat
+
+// ===== commentBox 1 =====
+補足情報
+AngularJS 1.5.6 で動作させるには？
+
+
+
+
+2016年6月14日
+
+
+
+
+
+2016年6月現在、AngularJS 1.5.6 では以下のようなコードを書く必要があります。
+
+■ index.html
+<!DOCTYPE html>
+<html lang="ja" ng-app="myapp">
+<head>
+    <meta charset="UTF-8">
+    <title>Angularの練習</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="myscript.js"></script>
+</head>
+<body>
+    <h1>AngularJSの練習</h1>
+    <div ng-controller="MainController">
+        <p>{{users.length}} users.</p>
+        <ul>
+            <li ng-repeat="user in users">
+                {{user.name}} {{user.score}}
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
+
+
+■ myscript.js
+angular.module('myapp', [])
+    .controller('MainController', ['$scope', function($scope) {
+        $scope.users = [
+            {"name":"taguchi", "score":52.22},
+            {"name":"tanaka", "score":38.22},
+            {"name":"yamada", "score":11.11}
+        ];
+    }]);
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <title>Angularの練習</title>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+    <script src="myscript.js"></script>
+</head>
+<body>
+    <h1>AngularJSの練習</h1>
+    <div ng-controller="mainCtrl">
+    <p>{{users.length}} users.</p>
+    <ul>
+    <li ng-repeat="user in users">
+    {{user.name}} {{user.score}}
+    </li>
+    </ul>    
+    </div>
+</body>
+</html>
+
+// ===== myscript.js =====
+var mainCtrl = function($scope) {
+    $scope.users = [
+        {"name":"taguchi", "score":52.22},
+        {"name":"tanaka", "score":38.22},
+        {"name":"yamada", "score":11.11},
+    ];
+
+}
+
+
+
+
+
+// ===== video_summary =====
+データを表示する際に使えるフィルターについてその種類と使い方を学んでいきます。
+
+
+    uppercase/lowercase
+    number:2
+    currency
+    date:'yyyy-MM-dd'
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <title>Angularの練習</title>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+    <script src="myscript.js"></script>
+</head>
+<body>
+    <h1>AngularJSの練習</h1>
+    <div ng-controller="mainCtrl">
+    <p>{{25 * 500|number}}</p>
+    <p>{{25 * 500|currency:"¥"}}</p>
+    <p>{{today|date:'yyyy-MM-dd'}}</p>
+    <ul>
+    <li ng-repeat="user in users">
+    {{user.name|uppercase}} {{user.score|number:4}}
+    </li>
+    </ul>    
+    </div>
+</body>
+</html>
+
+// ===== myscript.js =====
+var mainCtrl = function($scope) {
+    $scope.users = [
+        {"name":"taguchi", "score":52.22},
+        {"name":"tanaka", "score":38.22},
+        {"name":"yamada", "score":11.11},
+    ];
+    $scope.today = new Date();
+
+}
+
+
+
+
+
+// ===== video_summary =====
+ng-repeat内で使える便利なフィルターについて学んでいきます。
+
+
+    orderBy
+    limitTo
+    filter
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <title>Angularの練習</title>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+    <script src="myscript.js"></script>
+</head>
+<body>
+    <h1>AngularJSの練習</h1>
+    <div ng-controller="mainCtrl">
+    <p><input type="text" ng-model="query.name"></p>
+    <ul>
+    <li ng-repeat="user in users|filter:query|limitTo:3|orderBy:'-score'">
+    {{user.name}} {{user.score}}
+    </li>
+    </ul>    
+    </div>
+</body>
+</html>
+
+// ===== myscript.js =====
+var mainCtrl = function($scope) {
+    $scope.users = [
+        {"name":"taguchi", "score":52.22},
+        {"name":"tanaka", "score":38.22},
+        {"name":"yamada", "score":11.11},
+        {"name":"hayashi", "score":5.25},
+        {"name":"tanahashi", "score":82.4},
+        {"name":"yasuda", "score":55.21},
+        {"name":"minami", "score":32.8},
+        {"name":"yanagi", "score":72.2}
+    ];
+}
+
+
+
+
+
+// ===== video_summary =====
+ng-repeat内で使うことができる便利な命令について学んでいきます。
+
+
+    $index
+    $first/$last/$middle
+    ng-class-odd/ng-class-even
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <title>Angularの練習</title>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+    <script src="myscript.js"></script>
+    <style>
+        .even {
+            background:#ccc;
+        }
+        .odd {
+            background:red;
+        }    
+    </style>
+</head>
+<body>
+    <h1>AngularJSの練習</h1>
+    <div ng-controller="mainCtrl">
+    <ul>
+    <li ng-repeat="user in users" ng-class-even="'even'" ng-class-odd="'odd'">
+    {{$index+1}} {{$first}} {{$middle}} {{$last}} {{user.name}} {{user.score}}
+    </li>
+    </ul>    
+    </div>
+</body>
+</html>
+
+// ===== myscript.js =====
+var mainCtrl = function($scope) {
+    $scope.users = [
+        {"name":"taguchi", "score":52.22},
+        {"name":"tanaka", "score":38.22},
+        {"name":"yamada", "score":11.11},
+        {"name":"hayashi", "score":5.25},
+        {"name":"tanahashi", "score":82.4},
+        {"name":"yasuda", "score":55.21},
+        {"name":"minami", "score":32.8},
+        {"name":"yanagi", "score":72.2}
+    ];
+}
+
+
+
+
+
+// ===== video_summary =====
+ループを入れ子にしたときの挙動とクリックイベントについて学んでいきます。
+
+
+    コントローラーのネスト
+    クリックイベントの設定
+
+// ===== commentBox 1 =====
+補足情報
+AngularJS 1.5.6 で動作させるには？
+
+
+
+
+2016年6月14日
+
+
+
+
+
+2016年6月現在、AngularJS 1.5.6 では以下のようなコードを書く必要があります。
+
+■ index.html
+<!DOCTYPE html>
+<html lang="ja" ng-app="myapp">
+<head>
+    <meta charset="UTF-8">
+    <title>Angularの練習</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="myscript.js"></script>
+</head>
+<body>
+    <h1>AngularJSの練習</h1>
+    <div ng-controller="MainController">
+        <ul>
+            <li ng-repeat="user in users" ng-controller="UserItemController">
+                {{user.name}} {{user.score}}
+                <button ng-click="increment()">+1</button>
+            </li>
+        </ul>    
+    </div>
+</body>
+</html>
+
+
+■ myscript.js
+angular.module('myapp', [])
+    .controller('MainController', ['$scope', function($scope) {
+        $scope.users = [
+            {"name":"taguchi", "score":52.22},
+            {"name":"tanaka", "score":38.22},
+            {"name":"yamada", "score":11.11},
+            {"name":"hayashi", "score":5.25},
+            {"name":"tanahashi", "score":82.4},
+            {"name":"yasuda", "score":55.21},
+            {"name":"minami", "score":32.8},
+            {"name":"yanagi", "score":72.2}
+        ];
+    }])
+    .controller('UserItemController', ['$scope', function($scope) {
+        $scope.increment = function() {
+            $scope.user.score++;
+        };
+    }]);
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <title>Angularの練習</title>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+    <script src="myscript.js"></script>
+</head>
+<body>
+    <h1>AngularJSの練習</h1>
+    <div ng-controller="mainCtrl">
+    <ul>
+    <li ng-repeat="user in users" ng-controller="userItemCtrl">
+    {{user.name}} {{user.score}}
+    <button ng-click="increment()">+1</button>
+    </li>
+    </ul>    
+    </div>
+</body>
+</html>
+
+// ===== myscript.js =====
+var mainCtrl = function($scope) {
+    $scope.users = [
+        {"name":"taguchi", "score":52.22},
+        {"name":"tanaka", "score":38.22},
+        {"name":"yamada", "score":11.11},
+        {"name":"hayashi", "score":5.25},
+        {"name":"tanahashi", "score":82.4},
+        {"name":"yasuda", "score":55.21},
+        {"name":"minami", "score":32.8},
+        {"name":"yanagi", "score":72.2}
+    ];
+}
+
+var userItemCtrl = function($scope) {
+    $scope.increment = function() {
+        $scope.user.score++;
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+AngularJSでのフォームの作り方を学んでいきます。
+
+
+    テキストフィールドの設置
+    submitボタンの設置
+    ng-submitの設定
+    デバッグ情報の表示
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <title>Angularの練習</title>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+    <script src="myscript.js"></script>
+</head>
+<body>
+    <h1>AngularJSの練習</h1>
+    <div ng-controller="mainCtrl">
+    <form name="myName" ng-submit="addUser()">
+    <p>Name:<input type="text" name="name" ng-model="user.name"></p>
+    <p><input type="submit" value="add"></p>
+    </form>
+    <pre>{{user|json}}</pre>
+    </div>
+</body>
+</html>
+
+// ===== myscript.js =====
+var mainCtrl = function($scope) {
+    $scope.addUser = function() {
+    }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+フォームのバリデーションチェックを使ってエラーメッセージを表示させましょう。
+
+
+    required/ng-minlength/ng-maxlength
+    novalidate
+    エラーメッセージの表示
+
+// ===== commentBox 1 =====
+補足情報
+formタグのname属性を確認しましょう
+
+
+
+
+2016年6月14日
+
+
+
+
+
+前回のレッスンでは name="myName" としていましたが、今回のレッスンでは name="myForm" に変更しています。
+
+// ===== commentBox 2 =====
+補足情報
+Validation結果に関するclassについて
+
+
+
+
+2012年8月14日
+
+
+
+
+
+Formにrequiredなどのバリデーションルールを設置すると、ユーザー入力があるたびにフォーム部品に次のclassが動的に追加されます。
+- ng-valid（Validation OK）
+- ng-invalid（Validation NG）
+これらのクラスにスタイルを当てておくと（見た目的に）わかりやすいフォームを作ることができます。またAngularJSでは次のclassも動的に追加します。
+- ng-pristine（ユーザーがまだ入力していない）
+- ng-dirty（ユーザーがなんらかの値を入力した）
+これらを組み合わせることで「ng-invalidだけどng-pristineだからエラーっぽく表示しない」といった細かい制御ができるようになります。
+Form関連はDeveloper Guideのこちらも参考にしてみましょう。サンプルもあってわかりやすいですよ。
+http://docs.angularjs.org/guide/forms
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <title>Angularの練習</title>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+    <script src="myscript.js"></script>
+</head>
+<body>
+    <h1>AngularJSの練習</h1>
+    <div ng-controller="mainCtrl">
+    <form novalidate name="myForm" ng-submit="addUser()">
+    <p>Name:
+    <input type="text" name="name" ng-model="user.name" required ng-minlength="5" ng-maxlength="8">
+    <span ng-show="myForm.name.$error.required">Required!</span>
+    <span ng-show="myForm.name.$error.minlength">Too short!</span>
+    <span ng-show="myForm.name.$error.maxlength">Too long!</span>
+    </p>
+    <p><input type="submit" value="add"></p>
+    </form>
+    <pre>{{user|json}}</pre>
+    </div>
+</body>
+</html>
+
+// ===== myscript.js =====
+var mainCtrl = function($scope) {
+    $scope.addUser = function() {
+    }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+number、email、urlといったフォーム部品を設定していく方法について学びます。
+
+
+    input type="number"
+    input type="email"
+    input type="url"
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <title>Angularの練習</title>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+    <script src="myscript.js"></script>
+</head>
+<body>
+    <h1>AngularJSの練習</h1>
+    <div ng-controller="mainCtrl">
+    <form novalidate name="myForm" ng-submit="addUser()">
+    <p>Name:
+    <input type="text" name="name" ng-model="user.name" required ng-minlength="5" ng-maxlength="8">
+    <span ng-show="myForm.name.$error.required">Required!</span>
+    <span ng-show="myForm.name.$error.minlength">Too short!</span>
+    <span ng-show="myForm.name.$error.maxlength">Too long!</span>
+    </p>
+    <p>Score:
+    <input type="number" name="score" ng-model="user.score">
+    </p>
+    <p>Email:
+    <input type="email" name="email" ng-model="user.email">
+    <span ng-show="myForm.email.$error.email">Not valid email!</span>
+    </p>
+    <p>Web:
+    <input type="url" name="url" ng-model="user.url">
+    <span ng-show="myForm.url.$error.url">Not valid web url!</span>
+    </p>
+    <p><input type="submit" value="add"></p>
+    </form>
+    <pre>{{user|json}}</pre>
+    </div>
+</body>
+</html>
+
+// ===== myscript.js =====
+var mainCtrl = function($scope) {
+    $scope.addUser = function() {
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+checkbox、radio、textareaの設定方法について学んでいきます。
+
+
+    input type="checkbox"
+    input type="radio"
+    textarea
+
+// ===== commentBox 1 =====
+補足情報
+AngularJS 1.5.6 で動作させるには？
+
+
+
+
+2016年6月14日
+
+
+
+
+
+チェックボックスにつけている ng-true-value や ng-false-value に文字列を設定する場合には、シングルクォーテーションで括る必要があります。
+<input type="checkbox" ng-model="user.adult" ng-true-value="'adult'" ng-false-value="'child'">
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <title>Angularの練習</title>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+    <script src="myscript.js"></script>
+</head>
+<body>
+    <h1>AngularJSの練習</h1>
+    <div ng-controller="mainCtrl">
+    <form novalidate name="myForm" ng-submit="addUser()">
+    <p>18+:<input type="checkbox" ng-model="user.adult" ng-true-value="adult" ng-false-value="child"></p>    
+    <p>Phone:
+    <input type="radio" ng-model="user.phone" value="iPhone"> iPhone
+    <input type="radio" ng-model="user.phone" value="Android"> Android
+    </p>
+    <p>Memo:
+    <textarea ng-model="user.memo" ng-maxlength="140"></textarea>{{140-user.memo.length}}
+    </p>
+    <p><input type="submit" value="add"></p>
+    </form>
+    <pre>{{user|json}}</pre>
+    </div>
+</body>
+</html>
+
+// ===== myscript.js =====
+var mainCtrl = function($scope) {
+    $scope.addUser = function() {
+    }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+リストボックスの設置方法とAPIリファレンスの見方について学んでいきます。
+
+
+    select/option
+    APIリファレンスの見方
+
+// ===== index.html =====
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <title>Angularの練習</title>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+    <script src="myscript.js"></script>
+</head>
+<body>
+    <h1>AngularJSの練習</h1>
+    <div ng-controller="mainCtrl">
+    <form novalidate name="myForm" ng-submit="addUser()">
+
+    <p>Color:
+    <select ng-model="user.color" ng-options="'label:'+color for color in ['red','blue','pink']" ng-init="user.color='red'"></select>
+    </p>
+    
+    <input type="submit" value="add"></p>
+    </form>
+    <pre>{{user|json}}</pre>
+     </div>
+</body>
+</html>
+
+// ===== myscript.js =====
+var mainCtrl = function($scope) {
+    $scope.addUser = function() {
+    }
+}
+
+
+
+
+
+

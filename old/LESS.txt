@@ -1,0 +1,394 @@
+// ===== video_summary =====
+まずは概要を説明したのちに、公式サイト、必要となる知識、レッスンにおける環境について解説していきます。
+
+
+    概要
+    公式サイト
+    必要となる知識
+    レッスンにおける環境
+    sudo npm install -g less
+
+// ===== read.me =====
+LESS
+
+* 概要
+- CSSを効率的に書くためのツール
+
+* 公式サイト
+
+* 知識
+- CSS/HTML
+- Node.js/JavaScript
+- ローカル開発環境（Vagrant）
+
+* 環境
+- ローカル開発環境（Vagrant）
+
+
+
+
+
+// ===== video_summary =====
+LESSの仕組みを簡単に説明したあとに、はじめての変換を行ってみます。
+
+
+    LESSの仕組み（コンパイル）
+    styles.lessの作成
+    lessc styles.less styles.css
+    lessc -x styles.less styles.css
+
+// ===== read.me =====
+
+
+.less -> lessc -> .css
+
+styles.less -> lessc -> styles.css
+
+// ===== styles.css =====
+h1{font-size:24px;color:#00f}h2{font-size:20px;color:#00f}
+
+// ===== styles.less =====
+@mycolor: blue;
+
+h1 {
+    font-size: 24px;
+    color: @mycolor;
+}
+
+h2 {
+    font-size: 20px;
+    color: @mycolor;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+変数による演算、LESSが用意している便利な関数について使い方を見ていきます。
+
+
+    変数の演算
+    関数
+    動作確認
+
+// ===== styles.css =====
+/*
+コメント
+コメント
+コメント
+コメント
+*/
+h1 {
+  font-size: 24px;
+  color: #ff0000;
+}
+h2 {
+  font-size: 20px;
+  color: #cc0000;
+}
+
+// ===== styles.less =====
+/*
+コメント
+コメント
+コメント
+コメント
+*/
+// コメント
+
+@h1-color: red;
+@h2-color: darken(@h1-color, 10%);
+@h1-size: 24px;
+@h2-size: @h1-size - 4px;
+
+h1 {
+    font-size: @h1-size;
+    color: @h1-color;
+}
+
+h2 {
+    font-size: @h2-size;
+    color: @h2-color;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+プロパティの値以外にもセレクタやプロパティ名、文字列に変数を使う方法について見ていきます。
+
+
+    変数の宣言
+    値の代入
+    利用方法
+
+// ===== styles.css =====
+.myheader1 {
+  font-size: 24px;
+  color: #ff0000;
+}
+.myheader2 {
+  font-size: 20px;
+  color: #cc0000;
+  background: url("/img/bg.png");
+}
+
+// ===== styles.less =====
+@h1-color: red;
+@h2-color: darken(@h1-color, 10%);
+@h1-size: 24px;
+@h2-size: @h1-size - 4px;
+
+@header: .myheader;
+@color: color;
+@dir: "/img";
+
+@{header}1 {
+    font-size: @h1-size;
+    @{color}: @h1-color;
+}
+
+@{header}2 {
+    font-size: @h2-size;
+    @{color}: @h2-color;
+    background: url("@{dir}/bg.png");
+}
+
+
+
+
+
+// ===== video_summary =====
+階層的な構造のスタイルをLESSで設定していく方法について見ていきます。
+
+
+    階層的な表現
+    &
+
+// ===== styles.css =====
+/*
+header {
+    font-size: 18px;
+}
+
+header a {
+    color: red;
+}
+*/
+header {
+  font-size: 18px;
+}
+header a {
+  color: red;
+}
+header a:hover {
+  color: green;
+}
+.button-ok {
+  color: green;
+}
+.button-ng {
+  color: red;
+}
+
+// ===== styles.less =====
+/*
+header {
+    font-size: 18px;
+}
+
+header a {
+    color: red;
+}
+*/
+
+header {
+    font-size: 18px;
+    a {
+        color: red;
+        &:hover {
+            color: green;
+        }
+    }
+}
+
+.button {
+    &-ok {
+        color: green;
+    }
+    &-ng {
+        color: red;
+    }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+設定を部品化して組み込んでいくためのミックスインについて見ていきます。
+
+
+    ミックスインの書き方
+    動作確認
+
+// ===== styles.css =====
+h1 {
+  font-size: 24px;
+  border: 5px solid red;
+  padding: 7px;
+  margin: 7px;
+}
+h2 {
+  font-size: 20px;
+  border: 5px solid red;
+  padding: 7px;
+  margin: 7px;
+}
+
+// ===== styles.less =====
+// mixin
+
+.my-mixin() {
+    border: 5px solid red;
+    padding: 7px;
+    margin: 7px;
+}
+
+h1 {
+    font-size: 24px;
+    .my-mixin;
+}
+h2 {
+    font-size: 20px;
+    .my-mixin();
+}
+
+
+
+
+
+
+// ===== video_summary =====
+ミックスインの設定を呼び出すときに変更できるパラメータについて見ていきます。
+
+
+    パラメータの利用
+    パラメータの初期値
+    名前付きパラメータ
+
+// ===== styles.css =====
+h1 {
+  font-size: 24px;
+  border: 5px solid #ff0000;
+  padding: 7px;
+  margin: 7px;
+}
+h2 {
+  font-size: 20px;
+  border: 20px solid #ff0000;
+  padding: 10px;
+  margin: 7px;
+}
+
+// ===== styles.less =====
+// mixin
+
+.my-mixin(@width:5px; @padding:7px) {
+    border: @width solid red;
+    padding: @padding;
+    margin: 7px;
+}
+
+h1 {
+    font-size: 24px;
+    .my-mixin;
+}
+h2 {
+    font-size: 20px;
+    .my-mixin(@padding:10px; @width:20px);
+}
+
+
+
+
+
+// ===== video_summary =====
+ある設定から違うバリエーションの設定を作るときに使えるextendについて見ていきます。
+
+
+    extendの使い方
+    ミックスインとの違い
+
+// ===== styles.css =====
+/*
+.button {
+    font-size: 14px;
+    border: 1px solid black;
+}
+.button-ok {
+    &:extend(.button);
+    color: green;
+}
+.button-ng {
+    &:extend(.button);
+    color: red;
+}
+*/
+.button {
+  font-size: 14px;
+  border: 1px solid black;
+}
+.button-ok {
+  font-size: 14px;
+  border: 1px solid black;
+  color: green;
+}
+.button-ng {
+  font-size: 14px;
+  border: 1px solid black;
+  color: red;
+}
+
+// ===== styles.less =====
+// extend
+// <div class="button button-ok">OK</div>
+// <div class="button-ok">OK</div>
+
+/*
+.button {
+    font-size: 14px;
+    border: 1px solid black;
+}
+.button-ok {
+    &:extend(.button);
+    color: green;
+}
+.button-ng {
+    &:extend(.button);
+    color: red;
+}
+*/
+
+.button {
+    font-size: 14px;
+    border: 1px solid black;
+}
+.button-ok {
+    .button;
+    color: green;
+}
+.button-ng {
+    .button;
+    color: red;
+}
+
+
+
+
+

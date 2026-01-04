@@ -1,0 +1,1132 @@
+aa// ===== video_summary =====
+まずは概要を説明したのちに、公式サイト、必要となる知識、レッスンにおける環境について説明していきます。
+
+
+    概要
+    公式サイト
+    必要となる知識
+    レッスンにおける環境
+
+// ===== commentBox 1 =====
+補足情報
+必要となる知識について
+
+
+
+
+2016年11月21日
+
+
+
+
+
+今回のレッスンについては以下も参考にしてみてください。
+
+・ローカル開発環境の構築 [macOS編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_mac_v2
+・ローカル開発環境の構築 [Windows編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_win_v2
+・Cloud9入門 (全8回)  - ※ ブラウザ上で学習をされたい方はご利用ください。
+http://dotinstall.com/lessons/basic_c9
+・UNIXコマンド入門 (一般ユーザー編) (全16回)
+http://dotinstall.com/lessons/basic_unix
+
+// ===== read.me =====
+SQLite
+
+* 概要
+- 軽量
+- データベース
+
+* 公式サイト
+
+* 知識
+
+* 環境
+- ローカル開発環境
+
+
+
+
+
+// ===== video_summary =====
+データベースを扱う際に必要となる用語について図で整理していきます。
+
+データベース
+テーブル
+レコード/行
+フィールド/列(カラム)
+
+
+
+
+
+// ===== video_summary =====
+データベースを指定してSQLiteを起動し、コマンドラインから操作する方法について見ていきます。
+
+
+    sqlite3
+    .help
+    .exit
+    テーブルの作成
+    データベースの削除
+
+// ===== read.me =====
+pwd
+ls
+
+sqlite3 myapp.db
+.help
+.exit
+# CTRL+dで強制終了
+ls
+
+sqlite3 myapp.db
+create table posts (title, body);
+.exit
+ls
+
+rm myapp.db
+
+
+
+
+
+
+// ===== video_summary =====
+外部ファイルに書いたコマンドを実行する方法について見ていきます。
+
+
+    commands.sql
+    コメントの書き方
+    .read
+    sqlファイルの読み込み
+
+// ===== read.me =====
+sqlite3 myapp.db
+.read commands.sql
+
+sqlite3 myapp.db < commands.sql
+
+// ===== commands.sql =====
+-- memo
+/* memo */
+
+.help
+
+
+
+
+
+
+// ===== video_summary =====
+テーブルを作ったあとに、その構造や一覧を見る方法について説明していきます。
+
+
+    create table
+    .tables
+    .schema
+
+// ===== commands.sql =====
+-- table
+
+CREATE table if not exists posts (
+  id,
+  title,
+  body
+);
+
+-- list tables
+.tables
+
+-- table structure
+-- .schema posts
+.schema
+
+
+
+
+
+
+// ===== video_summary =====
+フィールドに設定するデータ型について説明していきます。
+
+
+    データ型
+    integer primary key
+
+// ===== commands.sql =====
+-- table
+
+/*
+integer int tinyint
+real double
+text varchar(255)
+blob
+null
+*/
+
+CREATE table if not exists posts (
+  id integer primary key,
+  title text,
+  body text
+);
+
+-- list tables
+.tables
+
+-- table structure
+-- .schema posts
+.schema
+
+
+
+
+
+
+// ===== video_summary =====
+テーブルの削除および名称変更、およびフィールドの追加について見ていきます。
+
+
+    drop table
+    alter table
+    フィールドの追加
+
+// ===== commands.sql =====
+-- table
+
+-- delete table
+drop table if exists posts;
+
+CREATE table posts (
+  id integer primary key,
+  title text,
+  body text
+);
+
+-- rename table
+alter table posts rename to articles;
+
+-- list tables
+.tables
+
+-- add column
+alter table articles add column email text;
+
+-- table structure
+.schema
+
+
+
+
+
+
+// ===== video_summary =====
+レコードにデータを挿入する方法と文字列の扱いについて見ていきます。
+
+
+    insert文
+    文字列の扱い
+
+// ===== commands.sql =====
+drop table if exists posts;
+create table posts (
+  id integer primary key,
+  title text,
+  body text
+);
+
+-- insert records
+insert into posts (title, body) values ('title1', 'body1');
+insert into posts (id, title, body) values (null, 'title2', 'body2');
+insert into posts (title, body) values ('title3', 'body3');
+insert into posts (title, body) values ('title4', 'it''s body4');
+insert into posts (title, body) values ('title5', 'it''s
+bod
+y5');
+
+-- show all records
+select * from posts;
+
+
+
+
+
+
+// ===== video_summary =====
+テーブル作成時にカラムにつけられる制約について見ていきます。
+
+
+    unique
+    not null
+    default
+    check
+
+// ===== commands.sql =====
+/*
+- unique
+- not null
+- default
+- check
+*/
+
+drop table if exists users;
+CREATE table users (
+  id integer primary key,
+  name text not null,
+  score integer default 10 check (score >= 0),
+  email text unique
+);
+
+-- insert into users (email) values ('taguchi@gmail.com');
+-- insert into users (email) values ('taguchi@gmail.com');
+
+-- insert into users (email) values ('taguchi@gmail.com');
+
+-- insert into users (name) values ('taguchi');
+
+insert into users (name, score) values ('taguchi', -30);
+
+select * from users;
+
+
+
+
+
+
+// ===== video_summary =====
+テーブルからレコードを抽出するための方法について見ていきます。
+
+
+    select
+    .headers
+    .mode
+
+// ===== commands.sql =====
+drop table if exists users;
+CREATE table users (
+  id integer primary key,
+  name text,
+  score integer
+);
+insert into users (name, score) values ('taguchi', 43);
+insert into users (name, score) values ('fkoji',   80);
+insert into users (name, score) values ('tashiro', 65);
+insert into users (name, score) values ('hayashi', 54);
+insert into users (name, score) values ('sato',    74);
+insert into users (name, score) values ('ohashi',  null);
+
+-- select * from users;
+
+-- .headers on
+-- -- select id, name from users;
+-- select id, name as user_name from users;
+
+-- .mode line
+-- select * from users;
+
+.mode csv
+select * from users;
+
+.mode html
+select * from users;
+
+.mode column
+select * from users;
+
+
+
+
+
+
+// ===== video_summary =====
+whereを使ってより細かく抽出条件を指定していきます。
+
+
+    where
+    between
+    in
+    nullの判定
+
+// ===== commands.sql =====
+drop table if exists users;
+CREATE table users (
+  id integer primary key,
+  name text,
+  score integer
+);
+insert into users (name, score) values ('taguchi', 43);
+insert into users (name, score) values ('fkoji',   80);
+insert into users (name, score) values ('tashiro', 65);
+insert into users (name, score) values ('hayashi', 54);
+insert into users (name, score) values ('sato',    74);
+insert into users (name, score) values ('ohashi',  null);
+
+-- select * from users where score > 60;
+
+-- > < >= <= =(==) <>(!=)
+-- and or not
+
+-- select * from users where score >= 50 and score <= 80;
+
+-- between in
+
+-- select * from users where score between 50 and 80;
+-- select * from users where name in ('taguchi', 'fkoji');
+
+-- select * from users where score = null;
+select * from users where score is not null;
+
+
+
+
+
+
+// ===== video_summary =====
+likeを使って文字列の抽出条件を設定していきます。
+
+
+    完全一致
+    ワイルドカード
+
+// ===== commands.sql =====
+drop table if exists users;
+CREATE table users (
+  id integer primary key,
+  name text,
+  score integer
+);
+insert into users (name, score) values ('taguchi', 43);
+insert into users (name, score) values ('fkoji',   80);
+insert into users (name, score) values ('tashiro', 65);
+insert into users (name, score) values ('hayashi', 54);
+insert into users (name, score) values ('sato',    74);
+insert into users (name, score) values ('ohashi%',  null);
+
+-- like
+-- _
+-- %
+-- select * from users where name = 'Taguchi';
+-- select * from users where name like 's___';
+-- select * from users where name like 'S___';
+-- select * from users where name like '%i%';
+select * from users where name like '%@%' escape '@';
+
+
+
+
+
+
+// ===== video_summary =====
+globを使った文字列の抽出方法について見ていきます。
+
+
+    glob
+    ワイルドカード
+    パターンマッチング
+
+// ===== commands.sql =====
+drop table if exists users;
+CREATE table users (
+  id integer primary key,
+  name text,
+  score integer
+);
+insert into users (name, score) values ('taguchi', 43);
+insert into users (name, score) values ('fkoji',   80);
+insert into users (name, score) values ('tashiro', 65);
+insert into users (name, score) values ('hayashi', 54);
+insert into users (name, score) values ('sato',    74);
+insert into users (name, score) values ('ohashi*',  null);
+
+-- glob
+-- 大文字小文字を区別する
+-- ?
+-- *
+-- [abc]
+-- [a-z]
+-- select * from users where name glob '*i*';
+-- select * from users where name glob '*I*';
+-- select * from users where name glob '[ts]*';
+-- select * from users where name glob '[a-m]*';
+select * from users where name glob '*[*]';
+
+
+
+
+
+
+// ===== video_summary =====
+抽出する際の並び替え、件数の制限について説明していきます。
+
+
+    order by
+    desc
+    limit, offset
+
+// ===== commands.sql =====
+drop table if exists users;
+CREATE table users (
+  id integer primary key,
+  name text,
+  score integer
+);
+insert into users (name, score) values ('taguchi', 43);
+insert into users (name, score) values ('fkoji',   80);
+insert into users (name, score) values ('tashiro', 65);
+insert into users (name, score) values ('hayashi', 54);
+insert into users (name, score) values ('sato',    74);
+insert into users (name, score) values ('ohashi',  null);
+
+-- order by
+-- select * from users where score is not null order by score;
+-- select * from users where score is not null order by score desc;
+
+-- limit
+-- select * from users where score is not null order by score desc limit 3;
+-- select * from users where score is not null order by score desc limit 3 offset 2;
+select * from users where score is not null order by score desc limit 2, 3;
+
+
+
+
+
+
+// ===== video_summary =====
+抽出条件を登録することができるviewについて見ていきます。
+
+
+    viewの作成方法
+    viewの一覧
+    viewの確認
+    viewの削除
+
+// ===== commands.sql =====
+drop table if exists users;
+CREATE table users (
+  id integer primary key,
+  name text,
+  score integer
+);
+insert into users (name, score) values ('taguchi', 43);
+insert into users (name, score) values ('fkoji',   80);
+insert into users (name, score) values ('tashiro', 65);
+insert into users (name, score) values ('hayashi', 54);
+insert into users (name, score) values ('sato',    74);
+insert into users (name, score) values ('ohashi',  null);
+
+-- view
+-- create view hiscore as select * from users order by score desc limit 5;
+--
+-- .tables
+-- .schema
+
+-- select * from hiscore;
+drop view if exists hiscore;
+
+
+
+
+
+
+// ===== video_summary =====
+SQLで四則演算や文字列の連結をしてみます。
+
+
+    四則演算
+    文字列の連結
+
+// ===== commands.sql =====
+drop table if exists users;
+CREATE table users (
+  id integer primary key,
+  name text,
+  score integer
+);
+insert into users (name, score) values ('taguchi', 43);
+insert into users (name, score) values ('fkoji',   80);
+insert into users (name, score) values ('tashiro', 65);
+insert into users (name, score) values ('hayashi', 54);
+insert into users (name, score) values ('sato',    74);
+insert into users (name, score) values ('ohashi',  null);
+
+.headers on
+.mode column
+-- select id, name, score + 10 as new_score from users;
+-- + - * / %
+-- ||
+select id, 'Name: ' || name as name, score + 10 as new_score from users;
+
+
+
+
+
+// ===== video_summary =====
+SQLiteが用意している便利な組み込み関数について見ていきます。
+
+
+    count(), max(), min(), avg()
+    length(), upper(), substr()
+    last_insert_rowid()
+    random()
+
+// ===== commands.sql =====
+drop table if exists users;
+CREATE table users (
+  id integer primary key,
+  name text,
+  score integer
+);
+insert into users (name, score) values ('taguchi', 43);
+insert into users (name, score) values ('fkoji',   80);
+insert into users (name, score) values ('tashiro', 65);
+insert into users (name, score) values ('hayashi', 54);
+insert into users (name, score) values ('sato',    74);
+insert into users (name, score) values ('ohashi',  null);
+
+.headers on
+.mode column
+
+-- select count(id), max(score), min(score), avg(score) from users;
+-- select name, length(name), upper(name), substr(name, 2, 3) from users;
+
+-- select last_insert_rowid();
+
+-- select random();
+
+select * from users order by random() limit 1;
+
+
+
+
+
+// ===== video_summary =====
+特定のカラムでデータの集計をする方法について見ていきます。
+
+
+    group by
+    having
+    whereとの違い
+
+// ===== commands.sql =====
+drop table if exists users;
+CREATE table users (
+  id integer primary key,
+  name text,
+  score integer,
+  team text
+);
+insert into users (name, score, team) values ('taguchi', 43, 'team-A');
+insert into users (name, score, team) values ('fkoji',   80, 'team-B');
+insert into users (name, score, team) values ('tashiro', 65, 'team-B');
+insert into users (name, score, team) values ('hayashi', 54, 'team-A');
+insert into users (name, score, team) values ('sato',    74, 'team-C');
+
+.headers on
+.mode column
+
+-- select team, avg(score) from users group by team;
+-- select team, avg(score) from users group by team having avg(score) > 50;
+-- select team, avg(score) from users where score > 50 group by team;
+
+-- distinct
+select distinct team from users;
+
+
+
+
+
+
+// ===== video_summary =====
+caseを使って条件や式に応じて値を設定する方法について見ていきます。
+
+
+    case
+
+// ===== commands.sql =====
+drop table if exists users;
+CREATE table users (
+  id integer primary key,
+  name text,
+  score integer,
+  team text
+);
+insert into users (name, score, team) values ('taguchi', 43, 'team-A');
+insert into users (name, score, team) values ('fkoji',   80, 'team-B');
+insert into users (name, score, team) values ('tashiro', 65, 'team-B');
+insert into users (name, score, team) values ('hayashi', 54, 'team-A');
+insert into users (name, score, team) values ('sato',    74, 'team-C');
+
+.headers on
+.mode column
+
+-- case
+-- select
+--   id, name, score,
+--   case
+--     when score > 70 then 'A'
+--     when score > 50 then 'B'
+--     else 'C'
+--   end as rank
+-- from users;
+
+select
+  id, name, team,
+  case team
+    when 'team-A' then 'Bears'
+    when 'team-B' then 'Panda'
+    when 'team-C' then 'Python'
+    else 'nobody'
+  end as mascot
+from users;
+
+
+
+
+
+
+// ===== video_summary =====
+レコードの更新、削除の方法について説明していきます。
+
+
+    update
+    delete
+
+// ===== commands.sql =====
+drop table if exists users;
+CREATE table users (
+  id integer primary key,
+  name text,
+  score integer,
+  team text
+);
+insert into users (name, score, team) values ('taguchi', 43, 'team-A');
+insert into users (name, score, team) values ('fkoji',   80, 'team-B');
+insert into users (name, score, team) values ('tashiro', 65, 'team-B');
+insert into users (name, score, team) values ('hayashi', 54, 'team-A');
+insert into users (name, score, team) values ('sato',    74, 'team-C');
+
+.headers on
+.mode column
+
+-- update
+update users set score = 0, name = '* ' || name where score < 60;
+select * from users;
+
+-- delete
+-- delete from users;
+delete from users where score = 0;
+select * from users;
+
+
+
+
+
+
+// ===== video_summary =====
+一連の処理をまとめて行うことを保証してくれるトランザクションについて見ていきます。
+
+
+    begin transaction;
+    commit;
+    rollback;
+
+// ===== commands.sql =====
+drop table if exists users;
+CREATE table users (
+  id integer primary key,
+  name text,
+  score integer,
+  team text
+);
+insert into users (name, score, team) values ('taguchi', 43, 'team-A');
+insert into users (name, score, team) values ('fkoji',   80, 'team-B');
+insert into users (name, score, team) values ('tashiro', 65, 'team-B');
+insert into users (name, score, team) values ('hayashi', 54, 'team-A');
+insert into users (name, score, team) values ('sato',    74, 'team-C');
+
+.headers on
+.mode column
+
+-- transaction
+
+begin transaction;
+update users set score = score - 10 where name = 'fkoji';
+update users set score = score + 10 where name = 'taguchi';
+-- commit;
+rollback;
+
+select * from users;
+
+
+
+
+
+// ===== video_summary =====
+あるテーブルで変更があったときに他のテーブルも更新してくれるトリガーの使い方について見ていきます。
+
+
+    create trigger
+    .schema
+    drop trigger
+
+// ===== commands.sql =====
+drop table if exists users;
+CREATE table users (
+  id integer primary key,
+  name text,
+  score integer,
+  team text
+);
+insert into users (name, score, team) values ('taguchi', 43, 'team-A');
+insert into users (name, score, team) values ('fkoji',   80, 'team-B');
+insert into users (name, score, team) values ('tashiro', 65, 'team-B');
+insert into users (name, score, team) values ('hayashi', 54, 'team-A');
+insert into users (name, score, team) values ('sato',    74, 'team-C');
+
+.headers on
+.mode column
+
+-- trigger
+
+create table messages (message);
+
+create trigger new_winner update of score on users when new.score > 100
+begin
+  insert into messages (message) values (
+    'name: ' || new.name ||
+    ' ' || old.score ||
+    ' -> ' || new.score
+  );
+end;
+
+update users set score = score + 30;
+select * from messages;
+
+-- .schema
+-- drop trigger new_winner;
+
+
+
+
+
+
+// ===== video_summary =====
+データに索引を設定するためのインデックスの作り方について見ていきます。
+
+
+    create index
+    create unique index
+    indices
+    drop index
+
+// ===== commands.sql =====
+drop table if exists users;
+CREATE table users (
+  id integer primary key,
+  name text,
+  score integer,
+  team text
+);
+insert into users (name, score, team) values ('taguchi', 43, 'team-A');
+insert into users (name, score, team) values ('fkoji',   80, 'team-B');
+insert into users (name, score, team) values ('tashiro', 65, 'team-B');
+insert into users (name, score, team) values ('hayashi', 54, 'team-A');
+insert into users (name, score, team) values ('sato',    74, 'team-C');
+
+.headers on
+.mode column
+
+-- index
+-- create index score_index on users(score);
+-- create unique index name_index on users(name);
+--
+-- .indices users
+-- .schema users
+
+drop index if exists score_index;
+drop index if exists name_index;
+.indices users
+
+
+
+
+
+
+// ===== video_summary =====
+SQLiteで日時を扱う方法について見ていきます。
+
+
+    日時に関する組み込み関数
+
+// ===== commands.sql =====
+drop table if exists users;
+CREATE table users (
+  id integer primary key,
+  name text,
+  score integer,
+  team text,
+  created datetime default (datetime('now', '+09:00:00'))
+);
+insert into users (name, score, team) values ('taguchi', 43, 'team-A');
+insert into users (name, score, team) values ('fkoji',   80, 'team-B');
+insert into users (name, score, team) values ('tashiro', 65, 'team-B');
+insert into users (name, score, team) values ('hayashi', 54, 'team-A');
+insert into users (name, score, team) values ('sato',    74, 'team-C');
+
+.headers on
+.mode column
+
+-- date time
+-- date()
+-- time()
+-- strftime()
+-- select datetime('now', '+09:00:00');
+-- select date('2015-07-17', '+3 months', 'start of month', '-1 day');
+
+select * from users;
+
+
+
+
+
+
+// ===== video_summary =====
+複数テーブルを扱うために、postsテーブルとcommentsテーブルを作っていきます。
+
+
+    postsテーブル
+    commentsテーブル
+
+// ===== commands.sql =====
+drop table if exists posts;
+CREATE table posts (
+  id integer primary key,
+  title text,
+  body text
+);
+insert into posts (id, title, body) values (1, 't1', 'b1');
+insert into posts (id, title, body) values (2, 't2', 'b2');
+
+drop table if exists comments;
+CREATE table comments (
+  id integer primary key,
+  post_id integer,
+  comment text
+);
+insert into comments (id, post_id, comment) values (1, 1, 'c1');
+insert into comments (id, post_id, comment) values (2, 1, 'c2');
+
+.headers on
+.mode column
+
+-- posts, comments
+select * from posts;
+select * from comments;
+
+
+
+
+
+
+// ===== video_summary =====
+内部結合を使って複数テーブルからデータを抽出してみます。
+
+
+    inner join / join
+
+// ===== commands.sql =====
+drop table if exists posts;
+CREATE table posts (
+  id integer primary key,
+  title text,
+  body text
+);
+insert into posts (id, title, body) values (1, 't1', 'b1');
+insert into posts (id, title, body) values (2, 't2', 'b2');
+
+drop table if exists comments;
+CREATE table comments (
+  id integer primary key,
+  post_id integer,
+  comment text
+);
+insert into comments (id, post_id, comment) values (1, 1, 'c1');
+insert into comments (id, post_id, comment) values (2, 1, 'c2');
+
+.headers on
+.mode column
+
+-- posts, comments
+-- select * from posts;
+-- select * from comments;
+
+-- 内部結合
+-- select * from posts inner join comments on posts.id = comments.post_id;
+-- select * from posts join comments on posts.id = comments.post_id;
+-- select posts.id, posts.title, comments.comment from posts join comments on posts.id = comments.post_id;
+select posts.id, title, comment from posts join comments on posts.id = comments.post_id;
+
+
+
+
+
+// ===== video_summary =====
+外部結合、交差結合を使って複数テーブルからデータを抽出してみます。
+
+
+    left outer join / left join
+    cross join
+
+// ===== commands.sql =====
+drop table if exists posts;
+CREATE table posts (
+  id integer primary key,
+  title text,
+  body text
+);
+insert into posts (id, title, body) values (1, 't1', 'b1');
+insert into posts (id, title, body) values (2, 't2', 'b2');
+
+drop table if exists comments;
+CREATE table comments (
+  id integer primary key,
+  post_id integer,
+  comment text
+);
+insert into comments (id, post_id, comment) values (1, 1, 'c1');
+insert into comments (id, post_id, comment) values (2, 1, 'c2');
+
+.headers on
+.mode column
+
+-- posts, comments
+-- select * from posts;
+-- select * from comments;
+
+-- 内部結合
+-- select * from posts inner join comments on posts.id = comments.post_id;
+-- select * from posts join comments on posts.id = comments.post_id;
+-- select posts.id, posts.title, comments.comment from posts join comments on posts.id = comments.post_id;
+-- select posts.id, title, comment from posts join comments on posts.id = comments.post_id;
+
+-- 外部結合
+-- left outer join *
+-- right outer join
+-- full outer join
+-- select posts.id, title, comment from posts left outer join comments on posts.id = comments.post_id;
+-- select posts.id, title, comment from posts left join comments on posts.id = comments.post_id;
+
+-- 交差結合
+select posts.id, title, comment from posts cross join comments;
+
+
+
+
+
+
+// ===== video_summary =====
+テーブルに自動で設定されるrowidとautoincrementについて説明してきます。
+
+
+    rowid
+    autoincrement
+
+// ===== commands.sql =====
+-- rowid
+
+drop table if exists users;
+create table users (
+  -- id integer primary key, -- => rowid
+  id integer primary key autoincrement,
+  name
+);
+insert into users (name) values ('a');
+insert into users (name) values ('b');
+insert into users (name) values ('c'); -- 3
+select rowid, * from users;
+delete from users where id = 3;
+insert into users (name) values ('d'); -- 3
+select rowid, * from users;
+
+
+
+
+
+
+// ===== video_summary =====
+.dumpコマンドを使ってデータをSQLで書き出す方法について見ていきます。
+
+
+    .dump
+    .output
+
+// ===== commands.sql =====
+drop table if exists users;
+create table users (
+  id integer primary key,
+  name
+);
+insert into users (name) values ('a');
+insert into users (name) values ('b');
+insert into users (name) values ('c');
+
+.output users.dump.sql
+.dump users
+
+// ===== users.dump.sql =====
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE users (
+  id integer primary key,
+  name
+);
+INSERT INTO "users" VALUES(1,'a');
+INSERT INTO "users" VALUES(2,'b');
+INSERT INTO "users" VALUES(3,'taguchi');
+COMMIT;
+
+
+
+
+
+// ===== video_summary =====
+csvファイルからデータを読みこんだり、csvファイルにデータを書き出す方法について解説していきます。
+
+
+    .mode csv
+    .import
+    inser into ... select ...
+    .output
+
+// ===== commands.sql =====
+drop table if exists users;
+create table users (
+  id integer primary key,
+  name,
+  score
+);
+insert into users (name, score) values ('a', 10);
+insert into users (name, score) values ('b', 20);
+insert into users (name, score) values ('c', 30);
+
+create table temp (name, score);
+
+.mode csv
+-- .import users.csv users
+.import users.csv temp
+
+insert into users (name, score) select name, score from temp;
+select * from users;
+
+drop table temp;
+
+.mode csv
+.output users_out.csv
+select * from users;
+
+
+
+
+
+

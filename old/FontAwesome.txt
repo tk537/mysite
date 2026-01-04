@@ -1,0 +1,513 @@
+// ===== video_summary =====
+公式サイトを確認したのちに、雛形となるファイルを作っていきます。
+
+
+    公式サイトの確認
+    index.htmlの作成
+
+// ===== commentBox 1 =====
+補足情報
+導入用スクリプトの入手方法
+
+
+
+
+2020年5月11日
+
+
+
+
+
+レッスン制作時より導入用スクリプトの入手方法が変わっております。以下も参考にしてみてください。
+・【2019年6月】 Font Awesome導入用スクリプトの入手方法
+https://note.com/dotinstall/n/n92c4015946df
+
+// ===== commentBox 2 =====
+補足情報
+必要となる知識について
+
+
+
+
+2018年12月27日
+
+
+
+
+
+今回のレッスンについては以下も参考にしてみてください。
+
+・はじめてのHTML (全15回)
+https://dotinstall.com/lessons/basic_html_v4
+・はじめてのCSS (全17回)
+https://dotinstall.com/lessons/basic_css_v4
+・JavaScript入門 (全24回)
+https://dotinstall.com/lessons/basic_javascript_v2
+
+// ===== /MyFontAwesome/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Page</title>
+</head>
+<body>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+SVG版のFont Awesomeを導入し、アイコンを表示させる方法について見ていきます。
+
+
+    Font Awesomeの導入
+    SVG版を利用する際の注意点
+
+// ===== /MyFontAwesome/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Page</title>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+  <style>
+    /* .my-icon { */
+    i {
+      font-size: 32px;
+      color: orange;
+    }
+  </style>
+</head>
+<body>
+  <i class="fas fa-flag my-icon"></i>
+</body>
+</html>
+
+
+
+
+
+// ===== video_summary =====
+アイコン表示に必要なクラスについて確認したのちに、アイコンの検索方法について見ていきます。
+
+
+    fas、far、fal、fab
+    アイコンの検索
+
+// ===== /MyFontAwesome/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Page</title>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+</head>
+<body>
+  <!--
+  fas (solid)
+  far (regular)
+  fal (light)
+  fab (brand)
+  -->
+  <i class="fas fa-flag"></i>
+  <i class="far fa-flag"></i>
+  <i class="fab fa-twitter"></i>
+  <i class="fas fa-camera-retro"></i>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+アイコンのサイズを変更する方法について見ていきます。
+
+
+    fa-xs
+    fa-sm
+    fa-lg
+    fa-5x、fa-10x
+
+// ===== /MyFontAwesome/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Page</title>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+</head>
+<body>
+  <!--
+  Size:
+  - fa-xs
+  - fa-sm
+  - fa-lg
+  - fa-2x ... fa-10x
+  -->
+  <i class="fas fa-flag"></i>
+  <i class="fas fa-flag fa-xs"></i>
+  <i class="fas fa-flag fa-sm"></i>
+  <i class="fas fa-flag fa-lg"></i>
+  <i class="fas fa-flag fa-5x"></i>
+  <i class="fas fa-flag fa-10x"></i>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+アイコンを利用したリストの表現方法について見ていきます。
+
+
+    fa-fw
+    fa-ul、fa-li
+
+// ===== /MyFontAwesome/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Page</title>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+</head>
+<body>
+  <!-- <div><i class="fas fa-fw fa-home"></i> Home</div>
+  <div><i class="fas fa-fw fa-info"></i> About</div>
+  <div><i class="fas fa-fw fa-question"></i> Help</div> -->
+  <ul class="fa-ul">
+    <li><span class="fa-li"><i class="fas fa-home"></i></span> Home</li>
+    <li><span class="fa-li"><i class="fas fa-info"></i></span> About</li>
+    <li><span class="fa-li"><i class="fas fa-question"></i></span> Help</li>
+  </ul>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+アイコンを回転させる方法について確認したのちに、回転に適したアイコンの検索方法について見ていきます。
+
+
+    fa-spin
+    fa-pulse
+    回転に適したアイコンの検索
+
+// ===== /MyFontAwesome/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Page</title>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+</head>
+<body>
+  <i class="fas fa-spinner fa-spin fa-3x"></i>
+  <i class="fas fa-spinner fa-pulse fa-3x"></i>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+data-fa-transform属性を使って、アイコンを拡大したり縮小したりする方法を見ていきます。
+
+
+    grow、shrink
+    拡大、縮小倍率の指定方法
+    拡大縮小とサイズ変更の違いについて
+
+// ===== /MyFontAwesome/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Page</title>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+  <style>
+    .bg-pink {
+      background: pink;
+    }
+  </style>
+</head>
+<body>
+  <!--
+  Transform:
+  - Scaling
+  - Positioning
+  - Rotating
+  -->
+  <!-- <i class="fas fa-arrow-up"></i>
+  <i class="fas fa-arrow-up" data-fa-transform="grow-16"></i>
+  <i class="fas fa-arrow-up" data-fa-transform="shrink-8"></i> -->
+  <i class="fas fa-arrow-up bg-pink"></i>
+  <i class="fas fa-arrow-up bg-pink" data-fa-transform="grow-16"></i>
+  <hr>
+  <i class="fas fa-arrow-up bg-pink"></i>
+  <i class="fas fa-arrow-up bg-pink fa-2x"></i>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+アイコンの移動や回転、反転について見ていきます。
+
+
+    up、down、left、right
+    rotate
+    flip-h、flip-v
+
+// ===== /MyFontAwesome/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Page</title>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+  <style>
+    .bg-pink {
+      background: pink;
+    }
+  </style>
+</head>
+<body>
+  <!--
+  Transform:
+  - Scaling
+  - Positioning ... up, down, left, right
+  - Rotating
+  -->
+  <!-- <i class="fas fa-arrow-up"></i>
+  <i class="fas fa-arrow-up bg-pink" data-fa-transform="up-8"></i>
+  <i class="fas fa-arrow-up bg-pink" data-fa-transform="right-8"></i> -->
+  <!-- <i class="fas fa-arrow-up"></i>
+  <i class="fas fa-arrow-up bg-pink" data-fa-transform="rotate-30"></i>
+  <i class="fas fa-arrow-up bg-pink" data-fa-transform="rotate-60"></i>
+  <i class="fas fa-arrow-up bg-pink" data-fa-transform="rotate--30"></i> -->
+  <i class="fas fa-flag"></i>
+  <i class="fas fa-flag bg-pink" data-fa-transform="flip-h"></i>
+  <i class="fas fa-flag bg-pink" data-fa-transform="flip-v"></i>
+  <i class="fas fa-flag bg-pink" data-fa-transform="flip-h flip-v"></i>
+</body>
+</html>
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+マスク機能を使って、アイコンを切り抜く方法について見ていきます。
+
+
+    マスク機能
+    アイコンの微調整
+
+// ===== /MyFontAwesome/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Page</title>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+  <style>
+    .bg-pink {
+      background: pink;
+    }
+  </style>
+</head>
+<body>
+  <i class="fas fa-lock"></i>
+  <i class="fas fa-file"></i>
+  <hr>
+  <span class="fa-5x">
+    <i class="fas fa-lock bg-pink" data-fa-mask="fas fa-file" data-fa-transform="shrink-10 down-1.2"></i>
+  </span>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+アイコンを重ねる方法について確認していきます。
+
+
+    fa-layers
+    重ねたアイコンの色変更
+
+// ===== /MyFontAwesome/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Page</title>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+  <style>
+    .bg-pink {
+      background: pink;
+    }
+  </style>
+</head>
+<body>
+  <i class="fas fa-lock"></i>
+  <i class="fas fa-file"></i>
+  <hr>
+  <span class="fa-5x">
+    <i class="fas fa-lock bg-pink" data-fa-mask="fas fa-file" data-fa-transform="shrink-10 down-1.2"></i>
+  </span>
+  <hr>
+  <span class="fa-5x">
+    <span class="fa-layers fa-fw bg-pink">
+      <i class="fas fa-file"></i>
+      <!-- <i class="fas fa-lock fa-inverse" data-fa-transform="shrink-10 down-1.2"></i> -->
+      <i class="fas fa-lock" data-fa-transform="shrink-10 down-1.2" style="color:aqua;"></i>
+    </span>
+  </span>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+アイコンの中にテキストを配置する方法について見ていきます
+
+
+    fa-layers-text
+    テキストの微調整
+
+// ===== /MyFontAwesome/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Page</title>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+  <style>
+    .bg-pink {
+      background: pink;
+    }
+  </style>
+</head>
+<body>
+  <i class="fas fa-lock"></i>
+  <i class="fas fa-file"></i>
+  <hr>
+  <span class="fa-5x">
+    <i class="fas fa-lock bg-pink" data-fa-mask="fas fa-file" data-fa-transform="shrink-10 down-1.2"></i>
+  </span>
+  <hr>
+  <span class="fa-5x">
+    <span class="fa-layers fa-fw bg-pink">
+      <i class="fas fa-file"></i>
+      <i class="fas fa-lock" data-fa-transform="shrink-10 down-1.2" style="color:aqua;"></i>
+    </span>
+  </span>
+  <hr>
+  <span class="fa-5x">
+    <span class="fa-layers bg-pink">
+      <i class="fas fa-file"></i>
+      <span class="fa-layers-text" data-fa-transform="shrink-12 down-1.2" style="color:orange; font-weight:bold;">PDF</span>
+    </span>
+  </span>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+Font Awesomeを擬似要素として使う方法を確認していきます。
+
+
+    疑似要素としての使い方
+    Unicodeの指定方法
+
+// ===== /MyFontAwesome/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Page</title>
+  <script>
+    FontAwesomeConfig = { searchPseudoElements: true };
+  </script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+  <style>
+    a.home::before {
+      display: none;
+      font-family: 'Font Awesome 5 Solid';
+      content: '\f015';
+    }
+  </style>
+</head>
+<body>
+  <a href="#" class="home">Home</a>
+</body>
+</html>
+
+
+
+
+
+
+// ===== video_summary =====
+CSS版のFont Awesomeを利用する手順について見ていきます。
+
+
+    CSS版のFont Awesomeの導入
+    適用できるクラスの確認
+
+// ===== /MyFontAwesome/index.html =====
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>My Page</title>
+  <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+  <style>
+    i {
+      font-size: 32px;
+    }
+  </style>
+</head>
+<body>
+  <i class="fas fa-flag"></i>
+  <i class="fas fa-flag fa-3x"></i>
+  <i class="fas fa-flag fa-spin"></i>
+  <i class="fas fa-flag fa-rotate-90"></i>
+  <i class="fas fa-flag fa-flip-vertical"></i>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,386 @@
+// ===== video_summary =====
+Redisについてその概要、公式サイト、必要となる知識やレッスンにおける環境について説明していきます。
+
+
+    概要
+    公式サイト
+    必要となる知識
+    レッスンにおける環境
+
+// ===== commentBox 1 =====
+補足情報
+「The Little Redis Book」について
+
+
+
+
+2013年1月4日
+
+
+
+
+
+Redisの概要を知るには次の「薄い本」も参考になります。
+
+・The Little Redis Book
+http://openmymind.net/2012/1/23/The-Little-Redis-Book/
+
+・The Little Redis Book（有志による和訳版）
+https://github.com/craftgear/the-little-redis-book
+
+// ===== commentBox 2 =====
+補足情報
+あわせて見ておきたいサイトについて
+
+
+
+
+2013年1月3日
+
+
+
+
+
+Redisの公式サイトはこちらです。
+http://redis.io/
+
+全コマンドのリファレンスはこちらから。
+http://redis.io/commands
+
+なお、こちらからRedisを活用しているサイトを見ることができます。GithubやFlickrでも使われていますね。
+http://redis.io/topics/whos-using-redis
+
+// ===== read.me =====
+Redis
+
+* 特徴
+- インメモリデータベース（すごく速い！）
+- 永続化（定期的にディスクに書き出す）
+- データ構造サーバー
+
+* 公式サイト
+
+* 知識
+- Unix
+
+* 環境
+
+
+// ===== video_summary =====
+Redisで扱っているデータ構造であるKVSについて説明していきます。
+
+
+    KVSの概要
+    KVSの例
+    Redisで扱えるデータ型
+
+// ===== read.me =====
+* KVS (Key Value Store)
+
+* Database
+key value
+name "taguchi"
+email "taguchi@gmail.com"
+score 120
+
+* Data Type
+- String
+- List
+- Set
+- Sorted Set
+- Hash
+
+
+
+// ===== video_summary =====
+Redisのサーバーを起動し、クライアントからアクセスする方法について学びます。
+
+
+    サーバーの起動と終了
+    クライアントからのアクセス
+
+// ===== read.me =====
+* サーバーの起動と終了
+
+$ redis-server
+(CTRL+C)
+
+* クライアントの起動と終了
+
+$ redis-cli
+> exit
+> shutdown
+
+* データベースの選択
+
+
+* データの保存
+
+
+// ===== video_summary =====
+データベースの選択方法、データの保存方法について学びます。
+
+
+    select
+    bgsave
+
+// ===== read.me =====
+* サーバーの起動と終了
+
+$ redis-server
+(CTRL+C)
+
+* クライアントの起動と終了
+
+$ redis-cli
+> exit
+> shutdown
+
+* データベースの選択
+
+> select 
+
+* データの保存
+
+> bgsave
+
+
+// ===== video_summary =====
+もっとも基本的なデータ型であるStringについて、その使い方を学びます。
+
+
+    set/mset
+    get/mget
+    incr/incrby
+    decr/decrby
+
+// ===== read.me =====
+String
+
+set key value
+mset key value key value
+
+get key
+mget key key key
+
+incr / incrby
+
+decr / decrby
+
+
+
+// ===== video_summary =====
+KEYに関する操作について解説していきます。
+
+
+    keys
+    exists
+    rename
+    del
+    expire
+
+// ===== commentBox 1 =====
+補足情報
+flushdb の使い方について
+
+
+
+
+2013年1月8日
+
+
+
+
+
+現在選択しているデータベースのKeyをすべて削除したい場合には、flushdbを使います。
+http://redis.io/commands/flushdb
+さらに、現在選択しているデータベースに限らず、すべてのデータベースのKeyをすべて削除したい場合にはflushallを使います。
+http://redis.io/commands/flushall
+
+// ===== read.me =====
+* KEY
+
+KEYS *
+KEYS *m*
+exists score
+exists age
+
+set age 14
+rename age nenrei
+del nenrei
+
+set age 14
+expire age 5
+get age
+
+randomkey
+
+
+// ===== video_summary =====
+List型データの基本的な使い方について説明していきます。
+
+
+    rpush/lpush
+    rpop/lpop
+    lrange
+
+// ===== commentBox 1 =====
+補足情報
+【修正】 String型のデータの操作について
+
+
+
+
+2014年9月9日
+
+
+
+
+
+動画中、1:06あたりで「ちなみに String 型で要素の追加をする時には set、削除する時には get を使いました。」と発言していますが、「削除する時」ではなくて「取り出す時」の間違いでした…。お詫びして修正いたします。
+
+// ===== read.me =====
+List
+
+[key] [value]
+
+mycolor red blue yello pink green
+
+追加: (l/r)push
+削除: (l/r)pop
+
+
+
+// ===== video_summary =====
+List型データに使える命令をもう少し見ていきます。
+
+
+    lindex
+    llen
+    ltrim
+
+// ===== read.me =====
+List
+
+[key] [value]
+
+mycolor red blue yello pink green
+
+追加: (l/r)push
+削除: (l/r)pop
+
+lrange
+lindex
+llen
+ltrim
+
+
+
+// ===== video_summary =====
+Set型のデータについてその扱い方を解説していきます。
+
+
+    sadd/srem
+    smembers
+    sunion
+    sinter
+    sdiff
+    sunionstore
+
+// ===== read.me =====
+Set
+
+追加: sadd
+削除: srem
+
+一覧: smembers
+
+和集合: sunion
+積集合: sinter
+差集合: sdiff
+
+
+
+// ===== video_summary =====
+Sorted Set型に使える命令について説明していきます。
+
+
+    zadd/zrem
+    zrange/zrevrange
+    zrank/zrevrank
+
+// ===== read.me =====
+Sorted Set
+
+追加: zadd
+削除: zrem
+
+一覧: zrange
+
+ランク: zrank
+
+
+
+// ===== video_summary =====
+Hash型に使える命令について説明していきます。
+
+
+    hset/hmset
+    hget/hmget
+    hlen
+    hkeys
+    hvals
+    hgetall
+
+// ===== read.me =====
+Hash
+
+key value
+
+set: hset, hmset
+get: hget, hmget
+
+hlen
+
+hkeys
+hvals
+
+hgetall
+
+
+
+// ===== video_summary =====
+List型、Set型、Sorted Set型に使えるsort命令についてその使い方を説明していきます。
+
+
+    sort
+    sort desc
+    sort limit
+    sort alpha
+
+// ===== read.me =====
+Sort
+
+- List
+- Set
+- Sorted Set
+
+
+
+// ===== video_summary =====
+Redisで複数の命令を一気に実行できるmulti/execについて説明していきます。
+
+
+    multi
+    exec/discard
+
+// ===== read.me =====
+Transactionっぽいもの
+
+multi
+処理
+処理
+処理
+exec/discard
+
+

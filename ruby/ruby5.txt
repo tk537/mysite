@@ -1,0 +1,759 @@
+// ===== video_summary =====
+クラスの概要やインスタンスといった用語について解説していきます。
+
+
+    クラスの概要
+    インスタンス
+
+// ===== main.rb =====
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+Userクラスを定義したのちにインスタンスを作成し、メソッドを実行してみます。
+
+
+    Userクラス
+    new
+    メソッドの実行
+
+// ===== main.rb =====
+class User
+  def get_info
+    "user name and score here"
+  end
+end
+
+user1 = User.new
+user2 = User.new
+puts user1.get_info
+puts user2.get_info
+
+
+
+
+
+
+
+
+// ===== video_summary =====
+イニシャライザを使って、インスタンスごとに異なる値を持たせる方法について見ていきます。
+
+
+    initialize
+    インスタンス変数
+
+// ===== main.rb =====
+class User
+  def initialize(name, score)
+    @name = name
+    @score = score
+  end
+
+  def get_info
+    "Name: #{@name}, Score: #{@score}"
+  end
+end
+
+user1 = User.new("Taro", 70)
+user2 = User.new("Jiro", 90)
+puts user1.get_info
+puts user2.get_info
+
+
+
+
+
+
+
+// ===== video_summary =====
+クラスの外からインスタンス変数にアクセスするための方法について見ていきます。
+
+
+    nameメソッド
+    name=メソッド
+
+// ===== main.rb =====
+class User
+  def initialize(name, score)
+    @name = name
+    @score = score
+  end
+
+  def name
+    @name
+  end
+
+  def name=(new_name)
+    @name = new_name
+  end
+
+  def get_info
+    "Name: #{@name}, Score: #{@score}"
+  end
+end
+
+user1 = User.new("Taro", 70)
+user2 = User.new("Jiro", 90)
+user1.name = "TARO"
+puts user1.name
+
+
+
+
+
+
+
+// ===== video_summary =====
+ゲッターとセッターをまとめて定義することができる仕組みについて見ていきます。
+
+
+    attr_accessor
+    attr_writer
+    attr_reader
+
+// ===== main.rb =====
+class User
+  # attr_accessor :name
+  # attr_writer :name
+  attr_reader :name
+
+  def initialize(name, score)
+    @name = name
+    @score = score
+  end
+
+  # # getter
+  # def name
+  #   @name
+  # end
+
+  # # setter
+  # def name=(new_name)
+  #   @name = new_name
+  # end
+
+  def get_info
+    "Name: #{@name}, Score: #{@score}"
+  end
+end
+
+user1 = User.new("Taro", 70)
+user2 = User.new("Jiro", 90)
+user1.name = "TARO"
+puts user1.name
+
+
+
+
+
+
+// ===== video_summary =====
+インスタンスではなくて、クラス自体に紐づく変数、メソッドについて見ていきます。
+
+
+    クラス変数
+    self
+    クラスメソッド
+
+// ===== main.rb =====
+class User
+  @@count = 0
+
+  def initialize(name, score)
+    @name = name
+    @score = score
+    @@count += 1
+  end
+
+  def get_info
+    "Name: #{@name}, Score: #{@score}"
+  end
+
+  def self.get_info
+    "Count: #{@@count}"
+  end
+end
+
+# count = 0
+user1 = User.new("Taro", 70)
+# count += 1
+user2 = User.new("Jiro", 90)
+# count += 1
+# puts count
+puts User.get_info
+
+
+
+
+
+
+// ===== video_summary =====
+同じクラス内でのみ使ってほしいメソッドを定義する方法について見ていきます。
+
+
+    get_resultメソッド
+    private
+
+// ===== commentBox 1 =====
+補足情報
+条件演算子について
+
+
+
+
+2024年2月19日
+
+
+
+
+
+動画内で紹介している条件演算子については以下を復習してみましょう。
+・#11 条件演算子を使ってみよう | Ruby入門 制御構造編
+https://dotinstall.com/lessons/basic_ruby_controls/66011
+
+// ===== main.rb =====
+class User
+  def initialize(name, score)
+    @name = name
+    @score = score
+  end
+
+  def get_info
+    "Name: #{@name}, Score: #{@score} -> #{get_result}"
+  end
+
+  private
+
+  def get_result
+    @score >= 80 ? "Pass" : "Fail"
+  end
+end
+
+user1 = User.new("Taro", 70)
+user2 = User.new("Jiro", 90)
+puts user1.get_info
+puts user2.get_info
+puts user1.get_result
+
+
+
+
+
+
+// ===== video_summary =====
+点数とあわせて科目の情報も管理するため、Scoreクラスを実装していきます。
+
+
+    Scoreクラス
+    イニシャライザの設定
+
+// ===== commentBox 1 =====
+補足情報
+イニシャライザのコードについて
+
+
+
+
+2024年2月19日
+
+
+
+
+
+動画中で説明しているイニシャライザのコードについて復習したい方は以下のレッスンをご覧ください。
+・#03 イニシャライザを設定してみよう | Ruby入門 クラス編
+https://dotinstall.com/lessons/basic_ruby_classes/66203
+
+// ===== main.rb =====
+class Score
+  def initialize(subject, score)
+    @subject = subject
+    @score = score
+  end
+end
+
+class User
+  def initialize(name, score)
+    @name = name
+    @score = score
+  end
+end
+
+user1 = User.new("Taro", Score.new("Math", 70))
+user2 = User.new("Jiro", Score.new("English", 90))
+
+
+
+
+
+
+// ===== video_summary =====
+ユーザーや点数の情報を表示するためのメソッドを実装していきます。
+
+
+    get_infoメソッド
+    クラスを使う利点
+
+// ===== main.rb =====
+class Score
+  def initialize(subject, score)
+    @subject = subject
+    @score = score
+  end
+
+  def get_info
+    "#{@subject}/#{@score}"
+  end
+end
+
+class User
+  def initialize(name, score)
+    @name = name
+    @score = score
+  end
+
+  def get_info
+    "Name: #{@name}, Score: #{@score.get_info}"
+  end
+end
+
+user1 = User.new("Taro", Score.new("Math", 70))
+user2 = User.new("Jiro", Score.new("English", 90))
+puts user1.get_info
+puts user2.get_info
+
+
+
+
+
+
+// ===== video_summary =====
+点数に応じて結果を判定する、get_resultメソッドを実装していきます。
+
+
+    get_resultメソッド
+    get_infoメソッドの変更
+
+// ===== main.rb =====
+class Score
+  def initialize(subject, score)
+    @subject = subject
+    @score = score
+  end
+
+  def get_info
+    "#{@subject}/#{@score} -> #{get_result}"
+  end
+
+  private
+
+  def get_result
+    @score >=80 ? "Pass" : "Fail"
+  end
+end
+
+class User
+  def initialize(name, score)
+    @name = name
+    @score = score
+  end
+
+  def get_info
+    "Name: #{@name}, Score: #{@score.get_info}"
+  end
+end
+
+user1 = User.new("Taro", Score.new("Math", 70))
+user2 = User.new("Jiro", Score.new("English", 90))
+puts user1.get_info
+puts user2.get_info
+
+
+
+
+
+
+// ===== video_summary =====
+クラスの継承について説明していきます。
+
+
+    継承
+    親クラス/スーパークラス
+    子クラス/サブクラス
+
+// ===== main.rb =====
+class Score
+  def initialize(subject, score)
+    @subject = subject
+    @score = score
+  end
+
+  def get_info
+    "#{@subject}/#{@score} -> #{get_result}"
+  end
+
+  private
+
+  def get_result
+    @score >=80 ? "Pass" : "Fail"
+  end
+end
+
+class User
+  def initialize(name, score)
+    @name = name
+    @score = score
+  end
+
+  def get_info
+    "Name: #{@name}, Score: #{@score.get_info}"
+  end
+end
+
+user1 = User.new("Taro", Score.new("Math", 70))
+user2 = User.new("Jiro", Score.new("English", 90))
+puts user1.get_info
+puts user2.get_info
+
+
+
+
+
+
+// ===== video_summary =====
+Scoreクラスを継承して、MathScoreクラス、EnglishScoreクラスを作っていきます。
+
+
+    MathScoreクラス
+    EnglishScoreクラス
+    インスタンスの変更
+    イニシャライザの設定
+
+// ===== main.rb =====
+class Score
+  def initialize(subject, score)
+    @subject = subject
+    @score = score
+  end
+
+  def get_info
+    "#{@subject}/#{@score} -> #{get_result}"
+  end
+
+  private
+
+  def get_result
+    @score >= 80 ? "Pass" : "Fail"
+  end
+end
+
+class MathScore < Score
+  def initialize(score)
+    super("Math", score)
+  end
+end
+
+class EnglishScore < Score
+  def initialize(score)
+    super("English", score)
+  end
+end
+
+class User
+  def initialize(name, score)
+    @name = name
+    @score = score
+  end
+
+  def get_info
+    "Name: #{@name}, Score: #{@score.get_info}"
+  end
+end
+
+user1 = User.new("Taro", MathScore.new(70))
+user2 = User.new("Jiro", EnglishScore.new(90))
+puts user1.get_info
+puts user2.get_info
+
+
+
+
+
+
+// ===== video_summary =====
+MathScoreクラスで独自の結果判定ロジックを実装していきます。
+
+
+    get_resultメソッド
+    メソッドのオーバーライド
+    クラスを使う利点
+
+// ===== main.rb =====
+class Score
+  def initialize(subject, score)
+    @subject = subject
+    @score = score
+  end
+
+  def get_info
+    "#{@subject}/#{@score} -> #{get_result}"
+  end
+
+  private
+
+  def get_result
+    @score >= 80 ? "Pass" : "Fail"
+  end
+end
+
+class MathScore < Score
+  def initialize(score)
+    super("Math", score)
+  end
+
+  private
+
+  # override
+  def get_result
+    @score >= 50 ? "Pass" : "Fail"
+  end
+end
+
+class EnglishScore < Score
+  def initialize(score)
+    super("English", score)
+  end
+end
+
+class User
+  def initialize(name, score)
+    @name = name
+    @score = score
+  end
+
+  def get_info
+    "Name: #{@name}, Score: #{@score.get_info}"
+  end
+end
+
+user1 = User.new("Taro", MathScore.new(70))
+user2 = User.new("Jiro", EnglishScore.new(90))
+puts user1.get_info
+puts user2.get_info
+
+
+
+
+
+
+// ===== video_summary =====
+継承関係にない複数のクラスに同じ機能を持たせるための方法について見ていきます。
+
+
+    show_logメソッド
+    動作確認
+
+// ===== main.rb =====
+class Score
+  def initialize(subject, score)
+    @subject = subject
+    @score = score
+    show_log
+  end
+
+  def show_log
+    puts "Instance created: #{self.class}"
+  end
+
+  def get_info
+    "#{@subject}/#{@score} -> #{get_result}"
+  end
+
+  private
+
+  def get_result
+    @score >= 80 ? "Pass" : "Fail"
+  end
+end
+
+class MathScore < Score
+  def initialize(score)
+    super("Math", score)
+  end
+
+  private
+
+  # override
+  def get_result
+    @score >= 50 ? "Pass" : "Fail"
+  end
+end
+
+class EnglishScore < Score
+  def initialize(score)
+    super("English", score)
+  end
+end
+
+class User
+  def initialize(name, score)
+    @name = name
+    @score = score
+    show_log
+  end
+
+  def show_log
+    puts "Instance created: #{self.class}"
+  end
+
+  def get_info
+    "Name: #{@name}, Score: #{@score.get_info}"
+  end
+end
+
+user1 = User.new("Taro", MathScore.new(70))
+user2 = User.new("Jiro", EnglishScore.new(90))
+
+
+
+
+
+
+// ===== video_summary =====
+モジュールを使って、show_logメソッドを共通の機能として切り出していきます。
+
+
+    Loggableモジュール
+    include / extend
+    ミックスイン
+
+// ===== main.rb =====
+module Loggable
+  def show_log
+    puts "Instance created: #{self.class}"
+  end
+end
+
+class Score
+  include Loggable
+  # extend Loggable
+
+  def initialize(subject, score)
+    @subject = subject
+    @score = score
+    show_log
+  end
+
+  def get_info
+    "#{@subject}/#{@score} -> #{get_result}"
+  end
+
+  private
+
+  def get_result
+    @score >= 80 ? "Pass" : "Fail"
+  end
+end
+
+class MathScore < Score
+  def initialize(score)
+    super("Math", score)
+  end
+
+  private
+
+  # override
+  def get_result
+    @score >= 50 ? "Pass" : "Fail"
+  end
+end
+
+class EnglishScore < Score
+  def initialize(score)
+    super("English", score)
+  end
+end
+
+class User
+  include Loggable
+
+  def initialize(name, score)
+    @name = name
+    @score = score
+    show_log
+  end
+
+  def get_info
+    "Name: #{@name}, Score: #{@score.get_info}"
+  end
+end
+
+user1 = User.new("Taro", MathScore.new(70))
+user2 = User.new("Jiro", EnglishScore.new(90))
+
+
+
+
+
+
+// ===== video_summary =====
+通貨換算をするためのメソッドを定義していきます。
+
+
+    jpy_to_usdメソッド
+    usd_to_jpyメソッド
+
+// ===== main.rb =====
+def jpy_to_usd(jpy)
+  jpy * 0.0068
+end
+
+def usd_to_jpy(usd)
+  usd * 146.78
+end
+
+puts jpy_to_usd(100000)
+puts usd_to_jpy(1000)
+
+
+
+
+
+// ===== video_summary =====
+モジュールを使って関連するメソッドをまとめる方法について見ていきます。
+
+
+    CurrencyHelpersメソッド
+    定数の定義
+    ::
+
+// ===== main.rb =====
+module CurrencyHelpers
+  JPY_TO_USD = 0.0068
+  USD_TO_JPY = 146.78
+
+  def self.jpy_to_usd(jpy)
+    jpy * JPY_TO_USD
+  end
+
+  def self.usd_to_jpy(usd)
+    usd * USD_TO_JPY
+  end
+end
+
+puts CurrencyHelpers.jpy_to_usd(100000)
+puts CurrencyHelpers.usd_to_jpy(1000)
+puts CurrencyHelpers::JPY_TO_USD
+puts CurrencyHelpers::USD_TO_JPY
+
+
+
+
+
+

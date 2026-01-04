@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+
+TypeScriptの概要について触れたのちに、それを利用するメリットについて説明していきます。
+
+概要
+利用するメリット
+前提となる知識
+
+
+
+
+このレッスンで利用していくブラウザ実行環境の使い方について説明していきます。
+
+ブラウザ実行環境の紹介
+コードの実行方法
+お手本との比較
+コードのリセット
+
+'use strict';
+
+{
+  let x = 5;
+  console.log(x);
+}
+
+
+
+数値以外の値をはじくように、変数を型付けしていく方法を学びます。
+
+: number
+エラーの確認
+
+'use strict';
+
+{
+  let x: number = 5;
+  x = 'five';
+  console.log(x);
+}
+
+
+
+文字列以外の値をはじくように、変数を型付けしていく方法を学びます。
+
+: string
+エラーの確認
+型の確認方法
+
+'use strict';
+
+{
+  let message: string;
+  message = 'Hello';
+  message = 50;
+  console.log(message.length);
+  console.log(message.toFixed(2));
+}
+
+
+
+真偽値、undefined、nullの型付け方法と、型推論について見ていきます。
+
+: boolean
+: undefined
+: null
+型推論
+
+'use strict';
+
+{
+  // let isLoggedIn: boolean = true;
+  let isLoggedIn = true;
+  isLoggedIn = 50;
+  
+  let x: undefined = undefined;
+  let y: null = null;
+}
+
+
+
+文字列もしくは数値、といった型を表現するためのユニオン型について学びます。
+
+|
+ユニオン型
+
+'use strict';
+
+{
+  let keyword: string | number | boolean;
+  keyword = 'milk';
+  keyword = 50;
+  keyword = true;
+}
+
+
+
+
+
+値そのもので型をつけることができるリテラル型について学びます。
+
+リテラル型
+ユニオン型との組み合わせ
+
+'use strict';
+
+{
+  let taxRate: 0.1;
+  let myEmail: 'taro@example.com';
+  let isPaid: true;
+  myEmail = 'jiro@example.com';
+
+  let result: 'Pass' | 'Fail';
+  result = 'Good';
+  result = 50;
+}
+
+
+
+typeキーワードを使って型に別名をつける方法について学びます。
+
+type
+別名に関する注意点
+
+'use strict';
+
+{
+  type ResultStatus = 'Pass' | 'Fail';
+
+  let englishResult: ResultStatus;
+  let mathResult: ResultStatus;
+}
+
+
+
+
+配列に型をつける方法と、readonlyキーワードについて見ていきます。
+
+配列の型付け
+エラーの確認
+ユニオン型との組み合わせ
+readonly
+
+'use strict';
+
+{
+  const scores: readonly number[] = [70, 90, 80];
+  scores[1] = 100;
+  scores.push(60);
+  scores[2] = 'Hello';
+  scores.push('OK');
+
+  const values: (string | number)[] = ['Taro', 70, 'Jiro'];
+  values[2] = 80;
+  values.push('Saburo');
+  values.push(true);
+}
+
+
+
+要素の順序によって型をつけることができるタプルについて見ていきます。
+
+タプル
+readonly
+
+'use strict';
+
+{
+  const values: readonly [string, number] = ['Taro', 70];
+  values[0] = 'Jiro';
+  values[1] = 90;
+  values[0] = 70;
+  values[1] = 'Saburo';
+}
+
+
+
+
+オブジェクトに型をつけるための表現について見ていきます。
+
+オブジェクトの型付け
+typeとの組み合わせ
+interface
+
+'use strict';
+
+{
+  // type User = {
+  //   userName: string;
+  //   score: number;
+  // };
+
+  interface User {
+    userName: string;
+    score: number;
+  }
+
+  // const user: {userName: string; score: number} = {
+  const user: User = {
+    userName: 'Taro',
+    score: 80,
+  };
+
+  user.userName = 'Jiro';
+  user.score = 90;
+  user.userName = true;
+  user.email = 'taro@example.com';
+}
+
+
+
+
+オブジェクトの型付けでreadonly、?を使う方法について見ていきます。
+
+readonly
+?
+
+'use strict';
+
+{
+  interface User {
+    readonly userName: string;
+    score: number;
+    email?: string;
+  }
+
+  const user: User = {
+    userName: 'Taro',
+    score: 80,
+  };
+
+  console.log(user.userName);
+  user.userName = 'Jiro';
+}
+
+
+
+関数の引数と返り値に型をつける方法について見ていきます。
+
+引数の型付け
+返り値の型付け
+エラーの確認
+
+'use strict';
+
+{
+  function double(num: number): number {
+    // return num * 2;
+    return 'OK';
+  }
+
+  console.log(double(10));
+  console.log(double('Hello'));
+}
+
+
+
+関数の返り値がない場合に使えるvoidキーワードについて見ていきます。
+
+void
+エラーの確認
+
+'use strict';
+
+{
+  function printUserName(userName: string): void {
+    console.log(userName);
+    return 'OK';
+  }
+}
+
+
+
+
+関数式を使った場合の型付け方法について見ていきます。
+
+関数式の型付け
+関数の型
+
+'use strict';
+
+{
+  // const double = (num: number): number => {
+  //   // return num * 2;
+  //   return 'OK';
+  // };
+
+  let double: (num: number) => number;
+  double = (num: number): number => {
+    // return num * 2;
+    return 'OK';
+  };
+
+  console.log(double(10));
+  console.log(double('OK'));
+}
+
+
+
+データ型をパラメータ化することができるジェネリクスについて見ていきます。
+
+<>
+ジェネリクス
+
+'use strict';
+
+{
+  function printNumberTwice(num: number): void {
+    console.log(num);
+    console.log(num);
+  }
+
+  function printStringTwice(str: string): void {
+    console.log(str);
+    console.log(str);
+  }
+
+  function printTwice<T>(value: T): void {
+    console.log(value);
+    console.log(value);
+  }
+
+  printTwice<number>(10);
+  printTwice<string>('OK');
+}
+  </pre>
+</body>
+</html>

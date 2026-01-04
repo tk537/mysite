@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+
+
+    /app/Http/Controllers/CommentController.php
+/resources/views/posts/show.blade.php
+/app/Http/Controllers/PostController.php
+/app/Http/Requests/PostRequest.php
+/app/Models/Comment.php
+/app/Models/Post.php
+/database/migrations/2024_ ... 246_create_posts_table.php
+/database/migrations/2024_ ... _create_comments_table.php
+/public/style.css
+/resources/views/components/layout.blade.php
+/resources/views/index.blade.php
+/resources/views/posts/create.blade.php
+/resources/views/posts/edit.blade.php
+/routes/web.php
+
+
+
+
+Laravelの概要について説明したのち、レッスンの構成、学習環境について見ていきます。
+
+概要
+Webアプリケーションフレームワーク
+レッスンの構成
+学習環境
+GitHub Codespaces
+補足情報 GitHubアカウントをお持ちでない方
+2024年6月24日
+まだGitHubのアカウントをお持ちでない方は以下のURLから取得しておきましょう。
+
+・Join GitHub
+https://github.com/signup
+
+
+
+
+
+
+
+
+Codespaceのテンプレートから開発環境を起動していきます。
+
+Codespaceの起動
+起動の確認
+補足情報 GitHub Codespacesについて
+2024年6月24日
+動画の最初で紹介しているURLは以下のとおりです。
+
+https://github.com/dotinstall/codespaces-laravel
+
+またCodespacesの使い方については以下の記事にまとめておきました。ご利用の前にご確認ください。
+
+・GitHub Codespacesの使い方
+https://note.com/dotinstall/n/n631bcc993a61
+
+
+
+
+
+
+
+
+
+
+
+
+起動したCodespaceにVS Codeから接続していく方法について見ていきます。
+
+VS Codeからの接続
+ブラウザでの表示
+
+
+
+    
+
+
+
+
+
+起動したCodespaceにVS Codeから接続していく方法について見ていきます。
+
+VS Codeからの接続
+ブラウザでの表示
+
+
+
+
+
+
+
+ターミナルからコマンドを打ち込んでLaravelのアプリケーションを起動していきます。
+
+ターミナルの起動
+アプリケーションの起動
+ブラウザでの確認
+補足情報 簡易的なブラウザでURLがコピーできない場合
+2024年6月24日
+VS Code内で開かれる簡易的なブラウザでURLがコピーできない場合もあるようです。その場合は直接以下のURLをブラウザに打ち込んでアクセスしてみてください。
+
+http://127.0.0.1:8677/
+
+補足情報 動画内で実行したコマンドについて
+2024年6月24日
+動画内で実行しているコマンドは以下のとおりです。
+
+php artisan serve --port=8677
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Laravelでページが表示されるまでの流れを説明していきます。
+
+ルートURL
+ルーティング
+web.php
+ビュー
+
+welcome.blade.php
+<h1>Hello from Dotinstall</h1>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
+
+
+
+
+
+
+ルートURLにアクセスしたら投稿の一覧が表示されるように設定していきます。
+
+ルーティングの設定
+index.blade.phpの編集
+表示の確認
+
+
+index.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Laravel App</title>
+</head>
+<body>
+    <h1>Posts</h1>
+    <ul>
+        <li>Post</li>
+        <li>Post</li>
+        <li>Post</li>
+    </ul>
+</body>
+</html>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () {
+    return view('index');
+});
+
+
+
+
+
+
+
+
+publicフォルダにCSSファイルを配置して、投稿一覧のスタイリングを進めていきます。
+
+style.cssの作成
+Bladeで値を埋め込む方法
+linkタグの生成
+CSSによるスタイリング
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+index.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Laravel App</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Posts</h1>
+        <ul>
+            <li>Post</li>
+            <li>Post</li>
+            <li>Post</li>
+        </ul>
+    </div>
+</body>
+</html>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () {
+    return view('index');
+});
+
+
+
+
+
+
+
+
+
+
+PHPで配列を用意してから、ビューに渡す方法について見ていきます。
+
+配列の定義
+with()
+値の埋込
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+index.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Laravel App</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Posts</h1>
+        <ul>
+            <li>{{ $posts[0] }}</li>
+            <li>{{ $posts[1] }}</li>
+            <li>{{ $posts[2] }}</li>
+        </ul>
+    </div>
+</body>
+</html>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () {
+    $posts = [
+        // 'Title 0',
+        // 'Title 1',
+        // 'Title 2',
+    ];
+
+    return view('index')->with(['posts' => $posts]);
+});
+
+
+
+
+
+
+
+Bladeで反復処理を使う方法について見ていきます。
+
+@foreach、@endforeach
+@forelse、@endforelse
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+index.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Laravel App</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Posts</h1>
+        <ul>
+        {{-- @foreach ($posts as $post)
+            <li>{{ $post }}</li>
+        @endforeach --}}
+
+        @forelse ($posts as $post)
+            <li>{{ $post }}</li>
+        @empty
+            <li>No post!</li>
+        @endforelse
+        </ul>
+    </div>
+</body>
+</html>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () {
+    $posts = [
+        // 'Title 0',
+        // 'Title 1',
+        // 'Title 2',
+    ];
+
+    return view('index')->with(['posts' => $posts]);
+});
+
+
+
+
+
+
+
+
+ターミナルから投稿に関するコントローラーを生成していきます。
+
+ターミナルの起動
+PostControllerの生成
+補足情報 動画内で実行したコマンドについて
+2024年6月24日
+動画内で実行しているコマンドは以下のとおりです。
+
+php artisan make:controller  PostController
+
+style.css
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class PostController extends Controller
+{
+    //
+}
+
+index.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Laravel App</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Posts</h1>
+        <ul>
+        @forelse ($posts as $post)
+            <li>{{ $post }}</li>
+        @empty
+            <li>No post!</li>
+        @endforelse
+        </ul>
+    </div>
+</body>
+</html>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () {
+    $posts = [
+        'Title 0',
+        'Title 1',
+        'Title 2',
+    ];
+
+    return view('index')->with(['posts' => $posts]);
+});
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+
+
+
+
+
+
+
+
+コントローラーにメソッドを定義したあとに、ルーティングから呼び出す方法について見ていきます。
+
+indexメソッドの定義
+web.phpの変更
+補足情報 動画内で紹介している命令について
+2024年6月24日
+動画内で紹介している命令については以下のレッスンを復習してみましょう。
+
+・publicをつけたメソッドの定義
+https://dotinstall.com/lessons/basic_php_classes/67404
+・名前空間やuseの使い方
+https://dotinstall.com/lessons/basic_php_classes/67422
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = [
+            'Title 0',
+            'Title 1',
+            'Title 2',
+        ];
+
+        return view('index')->with(['posts' => $posts]);
+    }
+}
+
+index.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Laravel App</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Posts</h1>
+        <ul>
+        @forelse ($posts as $post)
+            <li>{{ $post }}</li>
+        @empty
+            <li>No post!</li>
+        @endforelse
+        </ul>
+    </div>
+</body>
+</html>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+// Route::get('/', ['App\Http\Controllers\PostController', 'index']);
+// Route::get('/', [App\Http\Controllers\PostController::class, 'index']);
+Route::get('/', [PostController::class, 'index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+投稿の詳細ページに飛ぶためのリンクを設定していきます。
+
+aタグの配置
+インデックスの取得方法
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts = [
+            'Title 0',
+            'Title 1',
+            'Title 2',
+        ];
+
+        return view('index')->with(['posts' => $posts]);
+    }
+}
+
+index.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Laravel App</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Posts</h1>
+        <ul>
+        @forelse ($posts as $index => $post)
+            <li>
+                <a href="/posts/{{ $index }}">{{ $post }}</a>
+            </li>
+        @empty
+            <li>No post!</li>
+        @endforelse
+        </ul>
+    </div>
+</body>
+</html>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+投稿の詳細ページを表示する方法について見ていきます。
+
+ルーティングの設定
+showメソッド
+privateプロパティの宣言
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class PostController extends Controller
+{
+    private $posts = [
+        'Title 0',
+        'Title 1',
+        'Title 2',
+    ];
+
+    public function index()
+    {
+        return view('index')->with(['posts' => $this->posts]);
+    }
+
+    public function show($id)
+    {
+        return view('show')->with(['post' => $this->posts[$id]]);
+    }
+}
+
+index.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Laravel App</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Posts</h1>
+        <ul>
+        @forelse ($posts as $index => $post)
+            <li>
+                <a href="/posts/{{ $index }}">{{ $post }}</a>
+            </li>
+        @empty
+            <li>No post!</li>
+        @endforelse
+        </ul>
+    </div>
+</body>
+</html>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index']);
+Route::get('/posts/{id}', [PostController::class, 'show']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+投稿の詳細ページを表示するためのビューを作成していきます。
+
+posts/show.blade.php
+値の埋め込み
+ルーティングの修正
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class PostController extends Controller
+{
+    private $posts = [
+        'Title 0',
+        'Title 1',
+        'Title 2',
+    ];
+
+    public function index()
+    {
+        return view('index')->with(['posts' => $this->posts]);
+    }
+
+    public function show($id)
+    {
+        return view('posts.show')->with(['post' => $this->posts[$id]]);
+    }
+}
+
+show.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Laravel App</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ $post }}</h1>
+    </div>
+</body>
+</html>
+
+index.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Laravel App</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Posts</h1>
+        <ul>
+        @forelse ($posts as $index => $post)
+            <li>
+                <a href="/posts/{{ $index }}">{{ $post }}</a>
+            </li>
+        @empty
+            <li>No post!</li>
+        @endforelse
+        </ul>
+    </div>
+</body>
+</html>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index']);
+Route::get('/posts/{id}', [PostController::class, 'show']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+投稿の一覧に戻るためのリンクを設定していきます。
+
+リンクの設定
+スタイリング
+ファイル検索のショートカットキー
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class PostController extends Controller
+{
+    private $posts = [
+        'Title 0',
+        'Title 1',
+        'Title 2',
+    ];
+
+    public function index()
+    {
+        return view('index')->with(['posts' => $this->posts]);
+    }
+
+    public function show($id)
+    {
+        return view('posts.show')->with(['post' => $this->posts[$id]]);
+    }
+}
+
+show.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Laravel App</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ $post }}</h1>
+        <p class="back-link"><a href="/">Back</a></p>
+    </div>
+</body>
+</html>
+
+index.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Laravel App</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Posts</h1>
+        <ul>
+        @forelse ($posts as $index => $post)
+            <li>
+                <a href="/posts/{{ $index }}">{{ $post }}</a>
+            </li>
+        @empty
+            <li>No post!</li>
+        @endforelse
+        </ul>
+    </div>
+</body>
+</html>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index']);
+Route::get('/posts/{id}', [PostController::class, 'show']);
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+.back-link {
+  text-align: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ルーティングに名前をつけて変更に強いコードにしていきます。
+
+name()
+route()
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class PostController extends Controller
+{
+    private $posts = [
+        'Title 0',
+        'Title 1',
+        'Title 2',
+    ];
+
+    public function index()
+    {
+        return view('index')->with(['posts' => $this->posts]);
+    }
+
+    public function show($id)
+    {
+        return view('posts.show')->with(['post' => $this->posts[$id]]);
+    }
+}
+
+show.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Laravel App</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ $post }}</h1>
+        <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+    </div>
+</body>
+</html>
+
+index.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Laravel App</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Posts</h1>
+        <ul>
+        @forelse ($posts as $index => $post)
+            <li>
+                <a href="{{ route('posts.show', $index) }}">{{ $post }}</a>
+            </li>
+        @empty
+            <li>No post!</li>
+        @endforelse
+        </ul>
+    </div>
+</body>
+</html>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+.back-link {
+  text-align: right;
+}
+
+
+
+
+
+
+
+
+
+重複しているコードを部品化して切り出す方法について見ていきます。
+
+コンポーネントの利用
+layout.blade.php
+$slot
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Laravel App</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class PostController extends Controller
+{
+    private $posts = [
+        'Title 0',
+        'Title 1',
+        'Title 2',
+    ];
+
+    public function index()
+    {
+        return view('index')->with(['posts' => $this->posts]);
+    }
+
+    public function show($id)
+    {
+        return view('posts.show')->with(['post' => $this->posts[$id]]);
+    }
+}
+
+show.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Laravel App</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ $post }}</h1>
+        <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+    </div>
+</body>
+</html>
+
+index.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Laravel App</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Posts</h1>
+        <ul>
+        @forelse ($posts as $index => $post)
+            <li>
+                <a href="{{ route('posts.show', $index) }}">{{ $post }}</a>
+            </li>
+        @empty
+            <li>No post!</li>
+        @endforelse
+        </ul>
+    </div>
+</body>
+</html>
+
+web.php
+p
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+.back-link {
+  text-align: right;
+}
+
+
+
+
+
+
+
+
+
+コンポーネントを利用しつつ、ページごとに内容を変える方法について見ていきます。
+
+<x-layout></x-layout>
+show.blade.phpの修正
+index.blade.phpの修正
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Laravel App</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class PostController extends Controller
+{
+    private $posts = [
+        'Title 0',
+        'Title 1',
+        'Title 2',
+    ];
+
+    public function index()
+    {
+        return view('index')->with(['posts' => $this->posts]);
+    }
+
+    public function show($id)
+    {
+        return view('posts.show')->with(['post' => $this->posts[$id]]);
+    }
+}
+
+show.blade.php
+<x-layout>
+    <h1>{{ $post }}</h1>
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <h1>Posts</h1>
+    <ul>
+    @forelse ($posts as $index => $post)
+        <li>
+            <a href="{{ route('posts.show', $index) }}">{{ $post }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+.back-link {
+  text-align: right;
+}
+
+
+
+
+
+
+
+
+$title
+<x-slot:title></x-slot>
+これまでのまとめ
+
+layout.blade.php
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ url('style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {{ $slot }}
+    </div>
+</body>
+</html>
+
+PostController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class PostController extends Controller
+{
+    private $posts = [
+        'Title 0',
+        'Title 1',
+        'Title 2',
+    ];
+
+    public function index()
+    {
+        return view('index')->with(['posts' => $this->posts]);
+    }
+
+    public function show($id)
+    {
+        return view('posts.show')->with(['post' => $this->posts[$id]]);
+    }
+}
+
+show.blade.php
+<x-layout>
+    <x-slot:title>
+        {{ $post }} | My Laravel App
+    </x-slot>
+
+    <h1>{{ $post }}</h1>
+    <p class="back-link"><a href="{{ route('posts.index') }}">Back</a></p>
+</x-layout>
+
+index.blade.php
+<x-layout>
+    <x-slot:title>
+        My Laravel App
+    </x-slot>
+
+    <h1>Posts</h1>
+    <ul>
+    @forelse ($posts as $index => $post)
+        <li>
+            <a href="{{ route('posts.show', $index) }}">{{ $post }}</a>
+        </li>
+    @empty
+        <li>No post!</li>
+    @endforelse
+    </ul>
+</x-layout>
+
+web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
+
+style.css
+.container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+.back-link {
+  text-align: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </pre>
+
+</body>
+</html>

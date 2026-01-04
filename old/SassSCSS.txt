@@ -1,0 +1,516 @@
+// ===== video_summary =====
+CSSを効率的に書くための記法であるSassについてその概要、公式サイト、事前に必要となる知識などを見ていきます。
+
+
+    Sassの概要
+    公式サイト
+    事前に必要となる知識
+    レッスンでの環境とSassのインストール
+
+// ===== commentBox 1 =====
+補足情報
+sudoは不要になりました
+
+
+
+
+2018年8月23日
+
+
+
+
+
+ローカル開発環境構築のレッスンで構築できる環境と、収録時の環境が異なるため、
+
+sudo gem update --system
+sudo gem install sass
+
+
+ではsudoが不要となります。sudoを抜かして、
+
+gem update --system
+gem install sass
+
+
+としてあげてください。
+
+// ===== commentBox 2 =====
+補足情報
+あわせて見ておきたいサイトについて
+
+
+
+
+2013年9月9日
+
+
+
+
+
+Sassの公式サイトはこちらです。
+http://sass-lang.com/
+また詳細なリファレンスはこちらから。
+http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html
+
+// ===== commentBox 3 =====
+補足情報
+LESSのレッスンについて
+
+
+
+
+2012年11月21日
+
+
+
+
+
+Sassとよく比較されるLESSのレッスンはこちらです。どちらも同じようにCSSを効率的に書くことができます。
+http://dotinstall.com/lessons/basic_less
+
+// ===== read.me =====
+Sassの基礎
+
+* 概要
+- CSSを効率的に書くための記法
+- 2つの記法
+-- .sass (Ruby/Haml)
+-- .scss (CSS3)
+
+* 公式サイト
+
+* 知識
+- HTML/CSS/CSS3
+- unix
+
+* 環境
+
+
+
+
+
+// ===== video_summary =====
+実際に.scssファイルを作り、sassを使ってCSSに変換していきます。
+
+
+    動作の基本
+    .scssファイルの作成
+    sassによる変換
+    結果の確認
+    変換オプション --style expanded
+
+// ===== main.scss =====
+#main {
+    width: 90%;
+    p {
+        font-size: 14px;
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+.scssに変更があったら自動でCSSに変換されるように設定してみましょう。
+
+
+    --watchオプション
+    動作確認
+
+// ===== main.scss =====
+#main {
+    width: 90%;
+    p {
+        font-size: 16px;
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+Sassの基本である入れ子構造（ネスト）を使ってみましょう。あわせてコメントの書き方、&記号の使い方についても学びます。
+
+
+    入れ子構造
+    コメント記法（/* ... */, //）
+    &記号
+
+// ===== main.scss =====
+/* comment */
+/*
+comment
+comment
+*/
+
+// comment
+
+#main {
+    width: 90%;
+    p {
+        font-size: 16px;
+        a {
+            text-decoration: none;
+            &:hover {
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+Sassで扱える変数とデータ型について学びます。まずは変数の宣言及び初期化、そして使い方を見ていきます。
+
+
+    変数の宣言と初期化
+    変数の使い方
+    演算子
+    動作確認
+
+// ===== main.scss =====
+// 変数：データにつけるラベル
+// データ型（数値、文字列、真偽、色、リスト）
+// + - * /
+
+$baseFontSize: 14px;
+
+#main {
+    width: 90%;
+    p {
+        font-size: $baseFontSize;
+        .sub {
+            font-size: $baseFontSize - 2px;
+        }
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+変数を使って文字列を扱う方法について学びます。
+
+
+    変数の宣言と初期化
+    変数の利用
+    文字列の連結 +
+    #{}記法
+
+// ===== main.scss =====
+// 変数：データにつけるラベル
+// データ型（数値、文字列、真偽、色、リスト）
+
+$imgDir: "../img/";
+
+#main {
+    width: 90%;
+    background: url("#{$imgDir}bg.png");
+    p {
+        font-size: #{12 + 12}px;
+    }
+}
+
+
+
+
+
+// ===== video_summary =====
+変数を使って色を扱う方法を学びます。あわせて色に関して使える標準関数についてもふれていきます。
+
+
+    変数の宣言と初期化
+    変数の利用
+    lighten / darken
+    built-in functions
+
+// ===== commentBox 1 =====
+補足情報
+組み込み関数の一覧について
+
+
+
+
+2012年11月21日
+
+
+
+
+
+Sassに組み込まれている関数の一覧は以下から見ることができます。一度ざっと見ておくと良いでしょう。
+http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html
+
+// ===== main.scss =====
+// 変数：データにつけるラベル
+// データ型（数値、文字列、真偽、色、リスト）
+
+$brandColor: rgba(255,0,0,0.9);
+
+// lighten darken
+
+#main {
+    width: 90%;
+    p {
+        color: lighten($brandColor, 30%);
+        font-size: 14px;
+    }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+@ifを使った条件分岐の方法について学びます。あわせて真偽型の変数、比較演算子についてもふれていきます。
+
+
+    真偽型の変数
+    @if ... @else
+    比較演算子
+
+// ===== main.scss =====
+// データ型（数値、文字列、真偽、色、リスト）
+// 条件分岐 @if @else
+// == != < > <= >=
+
+$debugMode: true;
+$x: 10;
+
+#main {
+    @if $debugMode == true {
+        color: red;
+    } @else {
+        color: green;
+    }
+    p {
+        @if $x > 20 { color: yellow; }
+    }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+繰り返し処理を行う@for文、@while文について学んでいきます。
+
+
+    @for文
+    @while文
+
+// ===== commentBox 1 =====
+補足情報
+ループ範囲の指定方法について
+
+
+
+
+2013年9月9日
+
+
+
+
+
+@forによるループの範囲は、「from m through n」の他に「from m to n」で書くこともできます。ただし、前者の場合は「mからnまで」、後者の場合は「mから(n-1)まで」という違いがあります。
+「@for $i from 1 through 3」だったら$iは「1, 2, 3」になり、「@for $i from 1 to 3」だったら$iは「1, 2」になります。
+
+// ===== main.scss =====
+// ループ
+// @for
+// @while
+
+// .fs10 { font-size: 10px; }
+
+@for $i from 10 through 14 {
+    .fs#{$i} { font-size: #{$i}px; }
+}
+
+$i: 10;
+@while $i <= 14 {
+    .fs#{$i} { font-size: #{$i}px; }
+    $i: $i + 1;
+}
+
+
+
+
+
+
+// ===== video_summary =====
+同じ種類のデータを扱うことができるリストについて、その使い方を学びます。
+
+
+    リストの宣言
+    @each文
+
+// ===== main.scss =====
+// リスト（似たようなデータをまとめて管理）
+
+// $animals: cat, dog, tiger;
+
+@each $animal in cat, dog, tiger {
+    .#{$animal}-icon { background: url("#{$animal}.png"); }
+}
+
+
+
+
+
+// ===== video_summary =====
+複数の処理をまとめることができる関数について学びます。
+
+
+    @function文
+    @return
+
+// ===== main.scss =====
+// 関数
+
+$totalWidth: 940px;
+$columnCount: 10;
+
+@function getColumnWidth($width, $count) {
+    // $columnWidthを計算
+    @return $columnWidth;
+}
+
+.grid {
+    float: left;
+    width: getColumnWidth($totalWidth, $columnCount);
+}
+
+
+
+
+
+// ===== video_summary =====
+前回作った関数を完成させていきます。
+
+
+    ローカル変数
+    @debug
+
+// ===== main.scss =====
+// 関数
+
+$totalWidth: 940px;
+$columnCount: 10;
+
+@function getColumnWidth($width, $count) {
+    // $columnWidthを計算
+    $padding: 10px;
+    $columnWidth: floor(($width - ($padding * ($count - 1))) / $count);
+    @debug $columnWidth;
+    @return $columnWidth;
+}
+
+.grid {
+    float: left;
+    width: getColumnWidth($totalWidth, $columnCount);
+}
+
+
+
+
+
+// ===== video_summary =====
+ファイルを分割して管理していく方法について学びます。
+
+
+    partials
+    @import
+
+// ===== _functions.scss =====
+@function getColumnWidth($width, $count) {
+    // $columnWidthを計算
+    $padding: 10px;
+    $columnWidth: floor(($width - ($padding * ($count - 1))) / $count);
+    @debug $columnWidth;
+    @return $columnWidth;
+}
+
+// ===== _settings.scss =====
+$totalWidth: 940px;
+$columnCount: 10;
+
+// ===== main.scss =====
+// 関数
+
+@import "settings";
+@import "functions";
+
+.grid {
+    float: left;
+    width: getColumnWidth($totalWidth, $columnCount);
+}
+
+
+
+
+
+// ===== video_summary =====
+設定をまとめて管理できるmixinの使い方を学んでいきます。
+
+
+    @mixin
+    @include
+    引数
+    引数の初期値
+
+// ===== main.scss =====
+// mixin
+
+@mixin round($radius:4px) {
+    border-radius: $radius;
+}
+
+.label {
+    font-size: 12px;
+    @include round(10px);
+}
+
+
+
+
+// ===== video_summary =====
+スタイルを継承していくことができる@extendについて、その使い方を学んでいきます。
+
+
+    @extend
+    @extendと@includeの違い
+
+// ===== main.scss =====
+// @extend (継承)
+
+// .errorMsg
+// .warningMsg
+
+.msg {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 4px;
+    color: white;
+}
+
+.errorMsg {
+    @extend .msg;
+    background: red;
+}
+
+.warningMsg {
+    @extend .msg;
+    background: orange;
+}
+
+
+
+
+

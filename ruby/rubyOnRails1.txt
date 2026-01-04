@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre><code>
+    // ===== video_summary =====
+Ruby on Railsの概要、レッスン構成、学習環境について説明していきます。
+
+Webアプリケーションフレームワークの概要
+レッスン構成
+必要となる知識
+GitHub Codespaces
+
+// ===== commentBox 1 =====
+補足情報 GitHubアカウントをお持ちでない方
+2024年3月4日
+
+まだGitHubのアカウントをお持ちでない方は以下のURLから取得しておきましょう。
+
+・Join GitHub
+https://github.com/signup
+
+// ===== video_summary =====
+Codespaceのテンプレートを自分のリポジトリとしてコピーし、開発環境を起動していきます。
+
+GitHub Codespaces
+リポジトリの作成
+Codespaceの起動
+
+// ===== commentBox 1 =====
+補足情報 GitHub Codespacesについて
+2024年3月4日
+
+動画の最初で紹介しているURLは以下のとおりです。
+
+https://github.com/dotinstall/codespaces-rails
+
+またCodespacesの使い方については以下の記事にまとめておきました。ご利用の前にご確認ください。
+
+・GitHub Codespacesの使い方
+https://note.com/dotinstall/n/n631bcc993a61
+
+// ===== video_summary =====
+起動したCodespaceにVS Codeから接続していく方法について見ていきます。
+
+
+    VS Codeからの接続
+    ブラウザでの表示
+
+// ===== commentBox 1 =====
+補足情報
+簡易的なブラウザでURLがコピーできない場合
+
+
+
+
+2024年3月4日
+
+
+
+
+
+VS Code内で開かれる簡易的なブラウザでURLがコピーできない場合もあるようです。その場合は直接以下のURLをブラウザに打ち込んでアクセスしてみてください。
+http://127.0.0.1:3000/
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>Ruby on Rails tutorial by dotinstall</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "hello#index"
+end
+
+// ===== video_summary =====
+Railsのファイル構成を確認し、これから編集していくファイルについて紹介していきます。
+
+
+    ファイル構成
+    編集していくファイル
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>Ruby on Rails tutorial by dotinstall</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "hello#index"
+end
+
+// ===== video_summary =====
+Railsでページが表示されるまでの流れを説明していきます。
+
+
+    ルートURL
+    ラウティング/ルーティング
+    コントローラー
+    アクション
+    ビュー
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>Ruby on Rails tutorial by dotinstall</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "hello#index"
+end
+
+// ===== video_summary =====
+前回の流れを図で確認したのちに、投稿一覧を表示するために必要な作業について確認していきます。
+
+前回の流れ
+投稿一覧を表示する方法
+CoC (Convention over Configuration)
+
+// ===== video_summary =====
+ラウティングを設定したのちに、コントローラー、ビューのファイルを生成していきます。
+
+
+    ラウティングの設定
+    コントローラー、ビューの生成
+
+// ===== commentBox 1 =====
+補足情報
+動画内で実行したコマンドについて
+
+
+
+
+2024年3月4日
+
+
+
+
+
+動画内で実行しているコマンドは以下のとおりです。打ち間違えが不安な方はコピー＆ペーストでご利用ください。
+bin/rails generate controller Posts index --skip-routes
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>Posts#index</h1>
+<p>Find me in app/views/posts/index.html.erb</p>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "hello#index"
+  get "/posts", to: "posts#index"
+end
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>Ruby on Rails tutorial by dotinstall</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
+// ===== video_summary =====
+/postsにアクセスしたときに投稿の一覧が表示されるように設定していきます。
+
+
+    index.html.erbの編集
+    /postsでの動作確認
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>Posts</h1>
+<ul>
+  <li>Post</li>
+  <li>Post</li>
+  <li>Post</li>
+</ul>
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>Ruby on Rails tutorial by dotinstall</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "hello#index"
+  get "/posts", to: "posts#index"
+end
+
+
+// ===== video_summary =====
+アプリケーション全体に適用されるビューについて確認したのちに、CSSでスタイリングしていきます。
+
+
+    application.html.erbの確認
+    CSSの設定
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>Posts</h1>
+<ul>
+  <li>Post</li>
+  <li>Post</li>
+  <li>Post</li>
+</ul>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "hello#index"
+  get "/posts", to: "posts#index"
+end
+
+
+// ===== video_summary =====
+投稿の詳細ページにリンクを設定していきます。
+
+
+    index.html.erbの編集
+    ファイル検索のショートカットキー
+    リンクの設定、確認
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>Posts</h1>
+<ul>
+  <li><a href="/posts/1">Post 1</a></li>
+  <li><a href="/posts/2">Post 2</a></li>
+  <li><a href="/posts/3">Post 3</a></li>
+</ul>
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "hello#index"
+  get "/posts", to: "posts#index"
+end
+
+// ===== video_summary =====
+URLの一部をパラメータ化して、コントローラーで受け取る方法について見ていきます。
+
+
+    ラウティングの設定
+    URLのパラメータ化
+    showメソッドの定義
+    params[:id]
+    show.html.erbの作成
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+  end
+
+  def show
+    @id = params[:id]
+  end
+end
+
+// ===== /app/views/posts/show.html.erb =====
+
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "hello#index"
+  get "/posts", to: "posts#index"
+  get "/posts/:id", to: "posts#show"
+end
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>Posts</h1>
+<ul>
+  <li><a href="/posts/1">Post 1</a></li>
+  <li><a href="/posts/2">Post 2</a></li>
+  <li><a href="/posts/3">Post 3</a></li>
+</ul>
+
+// ===== video_summary =====
+前回作成したshow.html.erbを編集し、投稿の詳細ページを表示してみます。
+
+
+    <%= %>
+    リンクの設定
+    スタイリング
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+.back-link {
+  text-align: right;
+}
+
+// ===== /app/views/posts/show.html.erb =====
+<h1>Post <%= @id %></h1>
+
+<p class="back-link"><a href="/posts">Back</a></p>
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+  end
+
+  def show
+    @id = params[:id]
+  end
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>Posts</h1>
+<ul>
+  <li><a href="/posts/1">Post 1</a></li>
+  <li><a href="/posts/2">Post 2</a></li>
+  <li><a href="/posts/3">Post 3</a></li>
+</ul>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "hello#index"
+  get "/posts", to: "posts#index"
+  get "/posts/:id", to: "posts#show"
+end
+
+// ===== video_summary =====
+ラウティングで指定したURLに別名をつける方法について見ていきます。
+
+
+    as:
+    別名の使い方
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>Posts</h1>
+<ul>
+  <li><a href="/techblog/posts/1">Post 1</a></li>
+  <li><a href="/posts/2">Post 2</a></li>
+  <li><a href="/posts/3">Post 3</a></li>
+</ul>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "hello#index"
+  get "/posts", to: "posts#index", as: "posts" # posts_path
+  get "/posts/:id", to: "posts#show", as: "post" # post_path()
+end
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+.back-link {
+  text-align: right;
+}
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+  end
+
+  def show
+    @id = params[:id]
+  end
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /app/views/posts/show.html.erb =====
+<h1>Post <%= @id %></h1>
+
+<p class="back-link"><a href="/posts">Back</a></p>
+
+// ===== video_summary =====
+link_toを使ってリンクを設定する方法について見ていきます。
+
+
+    link_to
+    動作確認
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>Posts</h1>
+<ul>
+  <li><%= link_to "Post 1", post_path(1) %></li>
+  <li><%= link_to "Post 2", post_path(2) %></li>
+  <li><%= link_to "Post 3", post_path(3) %></li>
+</ul>
+
+// ===== /app/views/posts/show.html.erb =====
+<h1>Post <%= @id %></h1>
+
+<p class="back-link"><%= link_to "Back", posts_path %></p>
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+.back-link {
+  text-align: right;
+}
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+  end
+
+  def show
+    @id = params[:id]
+  end
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root "hello#index"
+  get "/posts", to: "posts#index", as: "posts" # posts_path
+  get "/posts/:id", to: "posts#show", as: "post" # post_path()
+end
+
+// ===== video_summary =====
+ルートURLにて投稿の一覧が表示されるように変更していきます。
+
+
+    ラウティングの設定
+    動作確認
+
+// ===== /config/routes.rb =====
+Rails.application.routes.draw do
+  root to: "posts#index", as: "posts" # posts_path
+  get "/posts/:id", to: "posts#show", as: "post" # post_path()
+end
+
+// ===== /app/assets/stylesheets/application.css =====
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .container {
+  width: 400px;
+  margin: 16px auto;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+.back-link {
+  text-align: right;
+}
+
+// ===== /app/controllers/hello_controller.rb =====
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+// ===== /app/controllers/posts_controller.rb =====
+class PostsController < ApplicationController
+  def index
+  end
+
+  def show
+    @id = params[:id]
+  end
+end
+
+// ===== /app/views/hello/index.html.erb =====
+<h1>Railsへようこそ！！！！！</h1>
+<p>ドットインストールのレッスンをはじめてみましょう。</p>
+<p>ブラウザが表示されたら準備完了です（少し時間がかかります）。</p>
+
+// ===== /app/views/layouts/application.html.erb =====
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>My Rails App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= hotwire_livereload_tags if Rails.env.development? %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+// ===== /app/views/posts/index.html.erb =====
+<h1>Posts</h1>
+<ul>
+  <li><%= link_to "Post 1", post_path(1) %></li>
+  <li><%= link_to "Post 2", post_path(2) %></li>
+  <li><%= link_to "Post 3", post_path(3) %></li>
+</ul>
+
+// ===== /app/views/posts/show.html.erb =====
+<h1>Post <%= @id %></h1>
+
+<p class="back-link"><%= link_to "Back", posts_path %></p>
+
+
+
+  </code></pre>
+</body>
+</html>

@@ -1,0 +1,369 @@
+// ===== video_summary =====
+まずは概要を説明したのちに、公式サイト、それから起動と終了の仕方についてみていきます。
+
+
+    概要
+    公式サイト
+    起動と終了の方法
+    作業ディレクトリについて
+
+// ===== read.me =====
+R言語
+
+* 概要
+- 統計解析
+
+* 公式サイト
+
+* 起動と終了
+
+
+// ===== video_summary =====
+Rコンソールの基本的な使い方について説明していきます。
+
+
+    help()
+    help(matrix)
+    ?matrix
+    コマンドの補完
+    コンソールのクリア
+
+// ===== commands.R =====
+help()
+help(matrix)
+?matrix
+help()
+
+
+// ===== video_summary =====
+変数とR言語で扱えるデータ型について説明していきます。
+
+
+    変数の使い方
+    ls()
+    rm()
+    データ型
+
+// ===== read.me =====
+変数とデータ型
+
+数値
+文字列
+
+ベクトル
+行列
+リスト
+データフレーム
+
+NULL
+TRUE/FALSE
+NA(欠損値)
+NaN(非数)
+Inf(無限大)
+
+// ===== commands.R =====
+x <- 5
+x
+x + 3
+ls()
+rm()
+
+
+// ===== video_summary =====
+数値と文字列を扱う方法について説明していきます。
+
+
+    数値の演算
+    文字列の連結
+    文字列と数値の相互変換
+
+// ===== read.me =====
+変数とデータ型
+
+数値 + - * / %/% %% ^
+文字列
+
+ベクトル
+行列
+リスト
+データフレーム
+
+NULL
+TRUE/FALSE
+NA(欠損値)
+NaN(非数)
+Inf(無限大)
+
+// ===== commands.R =====
+5 + 3
+10 / 3
+10 %% 3
+10 %% 3
+2 ^ 4
+cos(1)
+sqrt(2)
+round(2.555)
+"abbccccc"
+paste("a", "b", "c")
+paste("a", "b", "c", sep="")
+paste("a", "b", "c", sep="/")
+x <- 5
+x
+as.character(x)
+s <- "5"
+as.numeric(s)
+
+
+// ===== video_summary =====
+複数のデータをまとめて扱うことができるベクトルについて説明していきます。
+
+
+    c()
+    1:10
+    seq()
+    req()
+
+// ===== commands.R =====
+v <- c(1, 3, 5)
+v
+v[2]
+v[2] <- 10
+v
+v <- c("abc", "bdee")
+v
+v <- c(TRUE, FALSE)
+v
+length(v)
+v <- 1:10
+v
+v <- 1:-10
+v
+v <- seq(1, 10)
+v
+v <- seq(1, 10, by=2)
+v
+v <- seq(1, 10, length=5)
+v
+v <- rep(1:5, times=3)
+v
+v <- rep(1:5, length=10)
+v
+
+
+
+// ===== video_summary =====
+ベクトルをつかった演算について見ていきます。
+
+
+    ベクトルの演算
+    集合の演算
+
+// ===== read.me =====
+変数とデータ型
+
+数値 + - * / %/% %% ^
+文字列
+
+ベクトル > < <= >= == != 
+行列
+リスト
+データフレーム
+
+NULL
+TRUE/FALSE
+NA(欠損値)
+NaN(非数)
+Inf(無限大)
+
+// ===== commands.R =====
+x <- c(1, 3, 5)
+y <- c(2, 3, 4)
+x * 2
+x - 1
+x + y
+x > y
+x %in% y
+union(x, y)
+intersect(x, y)
+setdiff(x, y)
+setequal(x, y)
+
+
+// ===== video_summary =====
+カテゴリ付きのベクトルである因子ベクトルについて見ていきます。
+
+
+    factor
+    levels
+    ordered
+
+// ===== read.me =====
+変数とデータ型
+
+数値 + - * / %/% %% ^
+文字列
+
+ベクトル > < <= >= == != 因子ベクトル
+行列
+リスト
+データフレーム
+
+NULL
+TRUE/FALSE
+NA(欠損値)
+NaN(非数)
+Inf(無限大)
+
+// ===== commands.R =====
+x <- c("S", "M", "L", "M", "L")
+x
+x.fc <- factor(x)
+x.fc
+levels(x.fc)
+x.fc  <- factor(x, levels=c("S","M","L"))
+x.fc
+x.or <- ordered(x, levels=c("S","M","L"))
+x.or
+
+
+// ===== video_summary =====
+行列を作る方法、行列を扱う関数について見ていきます。
+
+
+    行列の作り方
+    行列を扱う関数
+
+// ===== commands.R =====
+x <- matrix(1:6, nrow=3, ncol=2)
+x
+x <- matrix(1:6, nrow=3, ncol=2, byrow=TRUE)
+x
+x <- rbind(c(1,2), 3:4, 5:6)
+x
+x <- cbind(c(1,2), 3:4, 5:6)
+x
+x + 1
+1 / x
+dim(x)
+nrow(x)
+ncol(x)
+
+
+// ===== video_summary =====
+行列の要素にアクセスしたり、編集する方法について見ていきます。
+
+
+    要素へのアクセス方法
+    行列の編集方法
+
+// ===== commands.R =====
+x[, 1]
+x[2, ]
+x[1, 2]
+x[1, 1:2]
+x[1, c(1,2)]
+x[1, c(1,3)]
+x[1, 2] <- 10
+x
+edit(x)
+x
+x2 <- edit(x)
+x2
+fix(x)
+x
+
+
+// ===== video_summary =====
+異なるデータ型をまとめて扱うことができるリストについて説明していきます。
+
+
+    リストの作り方
+    要素へのアクセス方法
+
+// ===== commands.R =====
+x <- list(5:10, "abc", matrix(1:6, nrow=2, ncol=3))
+x
+x[1]
+x[[1]]
+x[[3]][1, 2]
+
+
+
+// ===== video_summary =====
+異なるデータ型の列をまとめて扱うことができるデータフレームについて説明していきます。
+
+
+    データフレームの作成方法
+    ファイルの読み込み
+
+// ===== commands.R =====
+x <- data.frame(SIZE=c("M","L","S","L","M"), SALES=c(1,2,1,3,1))
+x
+x[1,2]
+x$SIZE
+x$SALES
+x <- read.table("sales.txt", header=TRUE, sep=",", na.strings="*")
+x
+
+
+// ===== video_summary =====
+データフレームを使ってデータの集計をしていきます。
+
+
+    sum()
+    max()
+    min()
+    mean()
+    median()
+    summary()
+    str()
+
+// ===== commentBox 1 =====
+補足情報
+中央値の説明について
+
+
+
+
+2015年4月23日
+
+
+
+
+
+動画中、中央値の説明で「一番多かった値」としていますが、正しくは「データを小さい順に並べたとき中央に位置する値」でした。訂正してお詫び申し上げます。またユーザーの方にご指摘いただきました。ありがとうございます！
+
+// ===== commands.R =====
+sum(x$SALES)
+max(x$SALES)
+min(x$SALES)
+mean(x$SALES)
+median(x$SALES)
+sd(x$SALES)
+mean(x$DISTANCE)
+mean(x$DISTANCE, na.rm=TRUE)
+summary(x$SALES)
+summary(x)
+str(x)
+
+
+
+// ===== video_summary =====
+Rに内蔵されているデータフレームを使っていくつかのグラフを描画してみます。
+
+
+    data()
+    グラフの描画方法
+
+// ===== commands.R =====
+data()
+data(cars)
+cars
+str(cars)
+summary(cars)
+hist(cars$speed)
+barplot(cars$speed)
+plot(cars$speed, cars$dist)
+cor(cars$speed, cars$dist)
+
+

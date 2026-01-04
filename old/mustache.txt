@@ -1,0 +1,169 @@
+// ===== video_summary =====
+まずは概要を説明したのちに、公式サイト、必要となる知識、レッスンにおける環境について説明していきます。
+
+
+    概要
+    公式サイト
+    必要となる知識
+    レッスンにおける環境
+    gem install mustache
+
+// ===== commentBox 1 =====
+補足情報
+mustacheの語源は？
+
+
+
+
+2015年1月28日
+
+
+
+
+
+mustacheは「口ひげ」という意味ですが、mustacheの区切り記号で使われている「{」を横にすると「口ひげ」に見えることからそのように命名されたようです。
+
+// ===== commentBox 2 =====
+補足情報
+必要となる知識について
+
+
+
+
+2016年11月21日
+
+
+
+
+
+このレッスンに必要となる知識は以下のとおりです。
+
+・ローカル開発環境の構築 [macOS編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_mac_v2
+・ローカル開発環境の構築 [Windows編] (全14回)
+http://dotinstall.com/lessons/basic_localdev_win_v2
+・Unixコマンド入門
+http://dotinstall.com/lessons/basic_unix
+・YAML入門
+http://dotinstall.com/lessons/basic_yaml
+
+// ===== read.me =====
+Mustache
+
+* 概要
+- シンプルなテンプレートエンジン
+- 多く言語に対応
+
+* 公式サイト
+
+* 知識
+
+* 環境
+- Vagrantでローカル開発環境
+
+
+
+
+
+// ===== video_summary =====
+テンプレートにデータを埋め込んでいく流れについて説明していきます。
+
+
+    データファイルの作成
+    テンプレートファイルの作成
+    データの埋め込み方法
+    mustache data.yml template.mustache
+
+// ===== data.yml =====
+title: my data
+score: 32
+
+
+
+
+
+// ===== video_summary =====
+HTMLタグを埋め込む際に気をつける点について見ていきます。
+
+
+    HTMLタグの埋め込み
+    {{{html}}}
+    {{&html}}
+
+// ===== data.yml =====
+title: my data
+score: 32
+html: <p>
+
+
+
+
+
+// ===== video_summary =====
+区切り記号を変更する方法について見ていきます。
+
+
+    {{=<% %>=}}
+    <%={{ }}=%>
+
+// ===== data.yml =====
+title: my data
+score: 32
+html: <p>
+
+
+
+
+
+// ===== video_summary =====
+真偽値に応じて表示を切り替える方法について見ていきます。
+
+
+    {{#showScore}}
+    {{/showScore}}
+
+// ===== data.yml =====
+score: 32
+showScore: true
+# showScore: false
+
+
+
+
+
+// ===== video_summary =====
+より複雑なデータを扱っていく方法について見ていきます。
+
+
+    複雑なデータの表示
+
+// ===== data.yml =====
+users:
+  # - name: taguchi
+  #   email: taguchi@dotinstall.com
+  # - name: fkoji
+  #   email: fkoji@dotinstall.com
+
+
+
+
+
+  // ===== video_summary =====
+テンプレートの一部を外部ファイルにするための方法について見ていきます。
+
+
+    user.mustacheの作成
+    {{> user}}
+
+// ===== data.yml =====
+users:
+  - name: taguchi
+    email: taguchi@dotinstall.com
+  - name: fkoji
+    email: fkoji@dotinstall.com
+
+
+
+
+
+    

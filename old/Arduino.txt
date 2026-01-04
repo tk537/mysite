@@ -1,0 +1,349 @@
+// ===== video_summary =====
+Arduinoの概要、公式サイト、必要となる知識およびツールについて解説していきます。
+
+
+    概要
+    公式サイト
+    必要となる知識
+    必要となるツール
+
+// ===== commentBox 1 =====
+補足情報
+Arduinoの公式サイトについて
+
+
+
+
+2013年3月25日
+
+
+
+
+
+Arduino開発環境のダウンロード、導入方法はこちらをご覧ください。
+http://arduino.cc/en/Guide/HomePage
+
+// ===== read.me =====
+Arduino
+
+* 概要
+- インタラクティブなデバイス
+- ハードウェア × ソフトウェア
+
+* 公式サイト
+
+* 知識
+- C言語
+
+* ツール
+- ハードウェア（本体＋部品）
+- ソフトウェア
+
+
+
+
+
+// ===== video_summary =====
+Arduinoの基板について説明を加えていきます。
+
+USBコネクタ
+外部電源コネクタ
+電源関係コネクタ
+アナログ入力
+デジタル入出力
+LED
+
+
+
+
+
+
+// ===== video_summary =====
+ブレッドボードなどの基本的な部品について解説していきます。
+
+ブレッドボード
+ジャンプワイヤ
+LED
+抵抗
+タクトスイッチ
+半固定抵抗
+CdSセル
+圧電スピーカー
+
+// ===== commentBox 1 =====
+補足情報 圧電スピーカーで出来ることについて
+2013年3月25日
+圧電スピーカーは音を出す以外にもアナログ入力につないで振動（音）を検出するセンサーとして使うこともできます。
+
+// ===== commentBox 2 =====
+補足情報 CdSとは？
+2013年3月25日
+CdSは「硫化カドミウム」の化学記号です。光センサーの材料として使われています。
+http://ja.wikipedia.org/wiki/%E7%A1%AB%E5%8C%96%E3%82%AB%E3%83%89%E3%83%9F%E3%82%A6%E3%83%A0
+
+// ===== commentBox 3 =====
+補足情報 抵抗のカラーコードについて
+2013年3月25日
+抵抗のカラーコードについては以下のサイトがわかりやすいです。覚え方についても言及されています。
+http://www.jarl.or.jp/Japanese/7_Technical/lib1/teikou.htm
+
+// ===== commentBox 4 =====
+補足情報 シールドとは？
+2013年3月25日
+Arduinoの基盤本体にくっつけて機能を拡張する部品は「シールド」と呼ばれます。ネットワークにつなぐためのシールド、無線通信をするためのシールドなど、さまざまなものが販売されています。
+
+
+
+
+
+// ===== video_summary =====
+Arduinoを電源にして、ブレッドボード上で簡単な回路を組んでみます。
+
+回路の組立
+
+
+
+
+
+// ===== video_summary =====
+PC上でプログラムを組み、Arduinoの13番LEDを点滅させてみます。
+
+
+    開発環境の説明
+    点滅プログラム
+    プログラムの転送
+    動作確認
+
+// ===== commentBox 1 =====
+補足情報
+いろいろなスケッチを試してみよう
+
+
+
+
+2013年3月25日
+
+
+
+
+
+Arduinoのプログラムは「スケッチ」と呼ばれます。また開発環境には豊富なスケッチ例が添付されています。「ファイル→スケッチの例」から気になるものを探して試してみましょう。またスケッチの例で使われている配線は以下のページにて紹介されています。
+http://arduino.cc/en/Tutorial/HomePage
+
+// ===== led_blink.ino =====
+#define LED_PIN 13
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(LED_PIN, HIGH);
+  delay(500);
+  digitalWrite(LED_PIN, LOW);
+  delay(1000);
+}
+
+
+
+
+
+
+// ===== video_summary =====
+9番ピンを使ってLEDを段階的に光らせるプログラムを書いてみます。
+
+
+    forループ
+    analogWrite
+
+// ===== led_analogwrite.ino =====
+#define LED_PIN 9
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+}
+
+void loop() {
+  int i;
+  for (i=0; i<256; i++) {
+    analogWrite(LED_PIN, i);
+    delay(10);
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+ブレッドボード上に回路を組み、前回作ったプログラムを転送して動作を確認していきます。
+
+
+    回路の組立
+    プログラムの転送
+    動作確認
+
+// ===== led_analogwrite.ino =====
+#define LED_PIN 9
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+}
+
+void loop() {
+  int i;
+  for (i=0; i<256; i++) {
+    analogWrite(LED_PIN, i);
+    delay(10);
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+圧電スピーカーを使い、音が鳴るプログラムを作ってみます。
+
+
+    プログラムの作成
+    回路の組立
+    プログラムの転送
+    動作確認
+
+// ===== speaker.ino =====
+#define SPK_PIN 9
+
+void setup() {
+  pinMode(SPK_PIN, OUTPUT);
+}
+
+void loop() {
+  int i;
+  for (i=0; i<256; i++) {
+    tone(SPK_PIN, i*10, 20);
+    delay(10);
+  }
+}
+
+
+
+
+
+// ===== video_summary =====
+タクトスイッチを使い、スイッチを押しているときだけLEDを光らせるプログラムを書いてみます。
+
+
+    プログラムの作成（if）
+
+// ===== switch.ino =====
+#define LED_PIN 13
+#define BUTTON 2
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(BUTTON, INPUT);
+}
+
+void loop() {
+  if (digitalRead(BUTTON) == HIGH) {
+    digitalWrite(LED_PIN, HIGH); 
+  } else {
+    digitalWrite(LED_PIN, LOW);
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+スイッチとLEDを使って回路を組み、プログラムの動作確認をしていきます。
+
+
+    回路の組立
+    プログラムの転送
+    動作確認
+
+// ===== switch.ino =====
+#define LED_PIN 13
+#define BUTTON 2
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(BUTTON, INPUT);
+}
+
+void loop() {
+  if (digitalRead(BUTTON) == HIGH) {
+    digitalWrite(LED_PIN, HIGH); 
+  } else {
+    digitalWrite(LED_PIN, LOW);
+  }
+}
+
+
+
+
+
+
+// ===== video_summary =====
+CdSを使って光量を検出、シリアルモニタに出力するためのプログラムを組んでみます。
+
+
+    プログラムの作成（Serial）
+
+// ===== cds.ino =====
+#define SENSOR 0
+
+void setup() {
+  pinMode(SENSOR, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int i;
+  i = analogRead(SENSOR);
+  Serial.print(i, DEC);
+  Serial.print("\n");
+  
+  delay(1000);
+}
+
+
+
+
+
+
+// ===== video_summary =====
+回路を組み立てたあとにCdSセルから光量を検出してみます。
+
+
+    回路の組立
+    プログラムの転送
+    動作確認
+
+// ===== cds.ino =====
+#define SENSOR 0
+
+void setup() {
+  pinMode(SENSOR, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int i;
+  i = analogRead(SENSOR);
+  Serial.print(i, DEC);
+  Serial.print("\n");
+  
+  delay(1000);
+}
+
+
+
+
+
+
