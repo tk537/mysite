@@ -1,0 +1,119 @@
+minkube start
+minkube dashboard
+minkube tunnel
+
+kubectl apply -f final-setup.yaml
+kubectl get pods
+kubectl get pods -n ingress-nginx
+kubectl get ingress --watch
+
+
+
+  # Kubernetes学習ログ：minikube Ingress構築と中級編（Secret/ConfigMap）の成果
+
+これまでのチャットで到達した、minikube環境でのIngress構築および、設定（ConfigMap）と機密情報（Secret）を分離して管理する「成功パターン」の手順書です。
+
+## 1. 環境準備
+Windows環境でminikubeを使用する場合、以下の2点が必要です。
+- アドオン有効化: minikube addons enable ingress
+- 通信トンネル: 別ウィンドウで minikube tunnel を実行し続ける
+
+## 2. 最終構成YAML (final-setup.yaml)
+以下のファイルを適用することで、アプリ・サービス・玄関（Ingress）・設定・機密情報が一括で構築されます。
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-config
+data:
+  HELLO_TITLE: "Success! ConfigMap is working."
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: web-secret
+type: Opaque
+data:
+  api-key: U0VDUkVULTtFWS0xMjM0NQ== # "SECRET-KEY-12345" をBase64化したもの
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-app
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      containers:
+      - name: nginx-hello
+        image: nginxdemos/hello:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: HELLO_TITLE
+          valueFrom:
+            configMapKeyRef: { name: web-config, key: HELLO_TITLE }
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef: { name: web-secret, key: api-key }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service
+spec:
+  selector:
+    app: web-app
+  ports:
+    - port: 80
+      targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: web-service
+            port:
+              number: 80
+---
+
+## 3. 反映と動作確認
+以下のコマンドを順番に実行して動作を検証します。
+
+① 設定の適用:
+kubectl apply -f final-setup.yaml
+
+② 状態確認（PodがRunningになり、IngressのADDRESSに127.0.0.1が出るまで）:
+kubectl get pods
+kubectl get ingress --watch
+
+③ ブラウザでアクセス:
+URL: http://127.0.0.1 (503エラー時は1分待機)
+
+④ 【検証】SecretがPod内に届いているかの内部確認:
+※Pod名は上記②で確認した「web-app-xxx」に置き換え
+kubectl exec -it Pod名 -- env | Select-String "API_KEY"
+
+## 4. 次回以降の課題
+- HTTPS化: SecretにSSL証明書を入れてセキュアな通信を実現する
+- PVC（永続ボリューム）: Podを消してもデータが残るストレージの接続
+
+https://gemini.google.com/share/51279d77b135 中級

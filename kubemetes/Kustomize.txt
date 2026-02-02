@@ -1,0 +1,173 @@
+Kustomize
+
+# 1. ルートフォルダの作成と移動
+$baseDir = "kustomize-professional-pack"
+if (Test-Path $baseDir) { Remove-Item -Recurse -Force $baseDir }
+mkdir $baseDir
+cd $baseDir
+
+# 2. フォルダ階層の作成
+mkdir base
+mkdir overlays/dev
+mkdir overlays/prod
+
+# 3. 究極のマニュアル (README.md) の作成
+@'
+# Kustomize 中級プロフェッショナル学習パッケージ
+
+## 1. フォルダ構成
+本パッケージは以下の構成で生成されています：
+.
+├── base/                   # 共通リソース
+│   ├── deployment.yaml
+│   ├── service.yaml
+│   ├── nginx.conf
+│   └── kustomization.yaml
+└── overlays/               # 環境別設定
+    ├── dev/
+    │   └── kustomization.yaml # 開発：レプリカ1
+    └── prod/
+        └── kustomization.yaml # 本番：レプリカ5、イメージ固定、リソース制限
+
+## 2. なぜ Kustomize が必要なのか？
+- **コピペ地獄の解消**: 環境ごとにYAMLを量産せず、差分だけを管理。
+- **設定反映の確実性**: 設定ファイル変更時にPodを自動再起動（ハッシュ化）。
+- **YAMLの純粋性**: 独自タグを使わず、プレーンなYAMLで管理可能。
+
+## 3. 仕組みの総まとめ
+| 機能 | 仕組みのポイント | 実務でのメリット |
+| :--- | :--- | :--- |
+| **ベース (Base)** | 共通の生のYAML | 誰が見ても分かりやすく、単体で動作可能 |
+| **オーバーレイ (Overlay)** | 差分（Patch）だけを定義 | 重複コードが減り、環境間の設定ミスが激減 |
+| **Generator** | ファイルからConfigMapを生成 | **設定更新と同時にPodが自動再起動** |
+| **Transformer** | ラベルやイメージを一括変換 | 全リソースに漏れなく設定を強制適用できる |
+
+## 4. 実行方法
+### プレビュー（生成されるYAMLを確認）
+kubectl kustomize overlays/dev
+kubectl kustomize overlays/prod
+
+### クラスターへ適用
+kubectl apply -k overlays/dev
+kubectl apply -k overlays/prod
+'@ | Out-File -FilePath "README.md" -Encoding utf8
+
+# 4. Base ファイルの作成
+@'
+server {
+    listen 80;
+    location / {
+        return 200 "Hello from Kustomize Base!\n";
+    }
+}
+'@ | Out-File -FilePath "base/nginx.conf" -Encoding utf8
+
+@'
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web-server
+  template:
+    metadata:
+      labels:
+        app: web-server
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/nginx/conf.d
+      volumes:
+      - name: config-volume
+        configMap:
+          name: app-config
+'@ | Out-File -FilePath "base/deployment.yaml" -Encoding utf8
+
+@'
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service
+spec:
+  selector:
+    app: web-server
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+'@ | Out-File -FilePath "base/service.yaml" -Encoding utf8
+
+@'
+resources:
+  - deployment.yaml
+  - service.yaml
+configMapGenerator:
+  - name: app-config
+    files:
+      - nginx.conf
+'@ | Out-File -FilePath "base/kustomization.yaml" -Encoding utf8
+
+# 5. Dev Overlay の作成
+@'
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+namePrefix: dev-
+labels:
+  - pairs:
+      env: development
+patches:
+  - target:
+      kind: Deployment
+      name: web-app
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 1
+'@ | Out-File -FilePath "overlays/dev/kustomization.yaml" -Encoding utf8
+
+# 6. Prod Overlay の作成
+@'
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+namePrefix: prod-
+labels:
+  - pairs:
+      env: production
+images:
+  - name: nginx
+    newName: nginx
+    newTag: 1.25.3
+patches:
+  - target:
+      kind: Deployment
+      name: web-app
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: web-app
+      spec:
+        replicas: 5
+        template:
+          spec:
+            containers:
+            - name: nginx
+              resources:
+                limits:
+                  cpu: 500m
+                  memory: 512Mi
+'@ | Out-File -FilePath "overlays/prod/kustomization.yaml" -Encoding utf8
+
+Write-Host "--- ✅ 全構成の自動生成が完了しました！ ---" -ForegroundColor Green
+Write-Host "1. 'dir' でフォルダ構成を確認してください。"
+Write-Host "2. 'kubectl apply -k overlays/dev' で開発環境をデプロイできます。"
