@@ -1,3 +1,79 @@
+# 1. フォルダ構成の作成
+$setupDir = "istio-windows-install"
+if (Test-Path $setupDir) { Remove-Item -Recurse -Force $setupDir }
+mkdir -p "$setupDir/scripts" "$setupDir/verify-app"
+cd $setupDir
+
+# 2. Windows専用マニュアル (README.md) の作成
+@'
+# Istio Windows インストールガイド
+
+## 1. 役割と仕組み
+- **istioctl.exe**: Windows上で動作するIstio管理ツール。クラスターの診断や設定を行います。
+- **Sidecar 注入**: Windowsからコマンドを打つだけで、Linuxノード上のPodにEnvoyプロキシが自動挿入されます。
+
+## 2. インストール手順 (Windows版)
+
+### ステップ1: インストーラーの実行
+以下のコマンドで、最新のIstioバイナリをダウンロードし、現在のフォルダに展開します。
+[PowerShell]
+curl -L https://istio.io/downloadIstio | sh -
+
+### ステップ2: 環境変数 (PATH) の設定
+展開されたフォルダの中にある `bin` フォルダを、Windowsの環境変数に追加します。
+(例: istio-1.2x.x\bin をシステム環境変数のPathに追加)
+
+### ステップ3: クラスターへのインストール
+istioctl install --set profile=demo -y
+
+### ステップ4: サイドカー注入の有効化
+kubectl label namespace default istio-injection=enabled
+
+## 3. 動作確認コマンド
+istioctl version
+kubectl get pods -n istio-system
+'@ | Out-File -FilePath "README.md" -Encoding utf8
+
+# 3. インストール後の検証用 Kustomize ファイル
+@'
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: istio-ready-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: istio-test }
+  template:
+    metadata:
+      labels: { app: istio-test }
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: istio-test-svc
+spec:
+  selector: { app: istio-test }
+  ports:
+  - port: 80
+    targetPort: 80
+'@ | Out-File -FilePath "verify-app/deployment.yaml" -Encoding utf8
+
+@'
+resources:
+  - deployment.yaml
+'@ | Out-File -FilePath "verify-app/kustomization.yaml" -Encoding utf8
+
+Write-Host "--- ✅ Windows用Istioインストールパックを生成しました ---" -ForegroundColor Green
+Write-Host "1. 'cd $setupDir' で移動してください。"
+Write-Host "2. README.md を開き、ステップ1から順に実行してください。"
+
+
+
 # 1. ルートフォルダの作成
 $istioDir = "istio-professional-master"
 if (Test-Path $istioDir) { Remove-Item -Recurse -Force $istioDir }
