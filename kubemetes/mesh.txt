@@ -1,0 +1,121 @@
+# 1. ルートフォルダの作成
+$istioDir = "istio-professional-master"
+if (Test-Path $istioDir) { Remove-Item -Recurse -Force $istioDir }
+mkdir -p "$istioDir/base" "$istioDir/overlays/canary"
+cd $istioDir
+
+# 2. 役割・仕組み・手順を網羅したREADMEの作成
+@'
+# Istio Service Mesh & Kustomize 完全解説
+
+## 1. Istio（Service Mesh）の4つの主要な役割
+Istioを導入すると、以下の機能をアプリのコード変更なしで実現できます。
+
+- **トラフィック制御（Traffic Management）**:
+  カナリアリリース、リトライ処理、タイムアウト設定、サーキットブレイカー（障害の連鎖防止）。
+- **セキュリティ（Security）**:
+  サービス間の通信を自動的に暗号化（mTLS）。「誰が誰にアクセスできるか」の認可制御。
+- **可視化（Observability）**:
+  「どのサービスが遅いか」「エラーがどこで出ているか」をグラフやダッシュボードで可視化。
+- **レジリエンス（Resilience）**:
+  わざとエラーを注入（カオスエンジニアリング）して、システムの耐久性をテスト。
+
+## 2. カナリアリリースの仕組み
+- **Sidecar Proxy (Envoy)**: Pod内に通信専用のコンテナを相乗りさせ、通信を横取りして制御します。
+- **VirtualService**: 「どの道をどれくらいの割合(%)で通すか」を決める交通標識。
+- **DestinationRule**: 「道の先にあるグループ（v1, v2など）」を定義する台帳。
+
+## 3. フォルダ構成
+.
+├── base/                   # Deployment v1 & v2 (アプリの本体)
+└── overlays/canary/        # Istio設定 (トラフィック分割のルール)
+
+## 4. 実行コマンド
+# 1. Istioの有効化（名前空間にラベルを貼る）
+kubectl label namespace default istio-injection=enabled
+
+# 2. 適用
+kubectl apply -k overlays/canary
+
+# 3. 確認
+kubectl get virtualservice
+'@ | Out-File -FilePath "README.md" -Encoding utf8
+
+# 3. Base ファイル（アプリの2バージョン）の作成
+@'
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: web-app, version: v1 }
+  template:
+    metadata:
+      labels: { app: web-app, version: v1 }
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.24
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app-v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: web-app, version: v2 }
+  template:
+    metadata:
+      labels: { app: web-app, version: v2 }
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.25
+'@ | Out-File -FilePath "base/deployments.yaml" -Encoding utf8
+
+# 4. Istio設定（カナリアリリース）の作成
+@'
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: web-app-dr
+spec:
+  host: web-app-service
+  subsets:
+  - name: v1
+    labels: { version: v1 }
+  - name: v2
+    labels: { version: v2 }
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: web-app-vs
+spec:
+  hosts:
+  - web-app-service
+  http:
+  - route:
+    - destination:
+        host: web-app-service
+        subset: v1
+      weight: 90
+    - destination:
+        host: web-app-service
+        subset: v2
+      weight: 10
+'@ | Out-File -FilePath "overlays/canary/istio-specs.yaml" -Encoding utf8
+
+# 5. Kustomization
+@'
+resources:
+  - ../../base/deployments.yaml
+  - istio-specs.yaml
+'@ | Out-File -FilePath "overlays/canary/kustomization.yaml" -Encoding utf8
+
+Write-Host "--- ✅ Istio役割・仕組み・YAMLの完全統合が完了しました！ ---" -ForegroundColor Green
+Write-Host "1. 'cd $istioDir' で移動"
+Write-Host "2. 'cat README.md' で役割の詳細を確認"
