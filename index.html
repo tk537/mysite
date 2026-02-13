@@ -623,7 +623,91 @@
   </div>
 
 </div>
+リクエスト、レスポンスの比較															
+testid	総合	リクエスト				レスポンス				マクロリクエスト	マクロレスポンス	対象テーブル	履歴CSV		
+	判定	想定	設定	結果	判定	想定	設定	結果	判定	判定					
+			項目有無												
+			notempty												
+			関係ない項目												
+															
+															
+															
+															
+															
+															
+															
+															
+履歴テーブルの検証はどうするか？															
+															
+															
+エクセルデータエラー	全般エラー														
+	項目エラー														
+															
+															
+														テスト項目	
+１つのテスト枝番項目が５つ以上の検証項目にわかれるが想定をどう定義するか？														リクエスト項目　すべてOK	
+テスト枝番項目														リクエスト項目　不足	
+	マクロリクエスト	マクロレスポンス	対象テーブル	履歴CSV										リクエスト項目　余計な項目あり	
+	リクエストデータ	OK	リクエストデータ	リクエストデータ										リクエスト項目　バリデーション	
+														ロック	有無
+テスト結果枝番			想定	結果	判定	←総合判定はテスト結果へ								帳票権限	有無
+		マクロリクエスト	リクエストデータ											データ最大数	境界値
+		マクロレスポンス	OK											項目数	有効、無効
+		対象テーブル	リクエストデータ											マスター	不正
+		履歴CSV	リクエストデータ											形式チェック	
+														妥当性	
+														AR-ID妥当性	
+														必須チェック	
+マクロファイルを切り替えるか？														pkeyチェック	
+														桁数チェック	
+														レスポンス	
+															
+															
+															
+															
+															
+JSON比較															
+"# 1. サンプルデータ
+$jsonA = '{""id"": 1, ""name"": ""田中""}' | ConvertFrom-Json
+$jsonB = '{""id"": 1, ""name"": ""田中"", ""extra"": ""未知の項目""}' | ConvertFrom-Json
 
+# 2. 除外リスト
+$excludeKeys = @(""updated_at"")
+
+# 3. 比較関数（双方向チェック対応）
+function Compare-JsonFull($ref, $diff, $path = """", $excludes = @()) {
+    $results = @()
+    
+    # --- Aを基準に「不一致」と「Bでの欠落」をチェック ---
+    foreach ($prop in $ref.PSObject.Properties) {
+        if ($excludes -contains $prop.Name) { continue }
+        $currentPath = if ($path -eq """") { $prop.Name } else { ""$path.$($prop.Name)"" }
+
+        if (-not ($diff.PSObject.Properties.Name -contains $prop.Name)) {
+            $results += [PSCustomObject]@{ Path = $currentPath; Status = ""欠落""; Detail = ""JSON Bに存在しません"" }
+        } elseif ($prop.Value -is [System.Management.Automation.PSCustomObject]) {
+            $results += Compare-JsonFull $prop.Value $diff.$($prop.Name) $currentPath $excludes
+        } elseif ($prop.Value -ne $diff.$($prop.Name)) {
+            $results += [PSCustomObject]@{ Path = $currentPath; Status = ""不一致""; Detail = ""A:$($prop.Value) != B:$($diff.$($prop.Name))"" }
+        }
+    }
+
+    # --- Bを基準に「Aに存在しない項目」をチェック ---
+    foreach ($propB in $diff.PSObject.Properties) {
+        if ($excludes -contains $propB.Name) { continue }
+        $currentPath = if ($path -eq """") { $propB.Name } else { ""$path.$($propB.Name)"" }
+
+        if (-not ($ref.PSObject.Properties.Name -contains $propB.Name)) {
+            $results += [PSCustomObject]@{ Path = $currentPath; Status = ""未定義""; Detail = ""JSON Aには存在しない項目です"" }
+        }
+    }
+
+    return $results
+}
+
+# 4. 実行
+$comparisonResults = Compare-JsonFull $jsonA $jsonB """" $excludeKeys
+$comparisonResults | Format-Table -AutoSize"															
 
 
 
