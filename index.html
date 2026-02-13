@@ -623,6 +623,7 @@
   </div>
 
 </div>
+<pre>
 リクエスト、レスポンスの比較															
 testid	総合	リクエスト				レスポンス				マクロリクエスト	マクロレスポンス	対象テーブル	履歴CSV		
 	判定	想定	設定	結果	判定	想定	設定	結果	判定	判定					
@@ -709,7 +710,7 @@ function Compare-JsonFull($ref, $diff, $path = """", $excludes = @()) {
 $comparisonResults = Compare-JsonFull $jsonA $jsonB """" $excludeKeys
 $comparisonResults | Format-Table -AutoSize"															
 
-
+</pre>
 
 </body>
 </html>
